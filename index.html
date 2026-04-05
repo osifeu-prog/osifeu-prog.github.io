@@ -33,7 +33,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#6c5ce7">
+    <meta name="theme-color" content="#0a0a0a">
     <meta name="msapplication-TileColor" content="#050510">
     <!-- Hreflang -->
     <link rel="alternate" hreflang="he" href="https://slh-nft.com/">
@@ -84,7 +84,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root{--bg:#050510;--bg2:#0c0c24;--accent:#6c5ce7;--accent2:#a29bfe;--gold:#ffd32a;--green:#00cec9;--cyan:#00b4d8;--pink:#fd79a8;--text:#eaeaf5;--text2:#7878a0;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06)}
         *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -394,6 +394,8 @@
             animation: ascii-glow 3s ease-in-out infinite alternate;
             white-space: pre;
             user-select: none;
+            direction: ltr !important;
+            unicode-bidi: bidi-override;
         }
 
         @keyframes ascii-glow {
@@ -487,6 +489,479 @@
 
         /* RTL/LTR */
         html[dir="ltr"] .nav-mid a::after{left:auto;right:0}
+
+        /* ============================================================
+           TERMINAL / HACKER AESTHETIC OVERRIDE - CRT RETRO STYLE
+           ============================================================ */
+
+        :root {
+            --bg: #0a0a0a !important;
+            --bg2: #0f0f0f !important;
+            --accent: #00ff41 !important;
+            --accent2: #39ff14 !important;
+            --gold: #ffd700 !important;
+            --green: #00ff41 !important;
+            --cyan: #00e5ff !important;
+            --pink: #ff0055 !important;
+            --text: #00ff41 !important;
+            --text2: #008f11 !important;
+            --card: rgba(0,255,65,0.03) !important;
+            --border: rgba(0,255,65,0.15) !important;
+            --font-mono: 'Space Mono', 'Courier New', monospace;
+        }
+
+        /* Body - Terminal base */
+        body {
+            font-family: var(--font-mono) !important;
+            background: #0a0a0a !important;
+            color: #00ff41 !important;
+            animation: crt-flicker 8s infinite;
+        }
+
+        /* Scanline overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.03) 0px,
+                rgba(0,0,0,0.03) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* CRT screen glow */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: -5px;
+            border: 2px solid rgba(0,255,65,0.1);
+            border-radius: 20px;
+            box-shadow: inset 0 0 100px rgba(0,255,65,0.05), 0 0 40px rgba(0,255,65,0.03);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* CRT Flicker */
+        @keyframes crt-flicker {
+            0% { opacity: 0.98; }
+            5% { opacity: 1; }
+            10% { opacity: 0.98; }
+            15% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        /* Navigation - Terminal style */
+        nav {
+            background: rgba(0,0,0,0.95) !important;
+            backdrop-filter: none !important;
+            border-bottom: 1px solid #00ff41 !important;
+            font-family: var(--font-mono) !important;
+        }
+        nav.scrolled { background: rgba(0,0,0,0.98) !important; }
+        .nav-cta {
+            background: transparent !important;
+            border: 1px solid #00ff41 !important;
+            color: #00ff41 !important;
+            box-shadow: 0 0 10px rgba(0,255,65,0.2) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            font-size: 11px !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .nav-cta:hover {
+            background: #00ff41 !important;
+            color: #000 !important;
+            transform: none !important;
+        }
+        .lang-btn {
+            border-color: rgba(0,255,65,0.15) !important;
+            color: #008f11 !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: #00ff41 !important;
+            color: #000 !important;
+            border-color: #00ff41 !important;
+        }
+
+        /* Logo - Terminal prompt style */
+        .logo-d {
+            background: transparent !important;
+            border: 1px solid #00ff41 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+        }
+        .logo-d span {
+            transform: none !important;
+            color: #00ff41 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .logo-t {
+            font-family: var(--font-mono) !important;
+            color: #00ff41 !important;
+        }
+        .logo-t span { color: #008f11 !important; }
+
+        /* Hero section */
+        .hero {
+            background: transparent !important;
+        }
+        .hero h1 {
+            font-family: var(--font-mono) !important;
+        }
+        .hero h1 .l1 {
+            background: none !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            text-shadow: 0 0 20px rgba(0,255,65,0.3);
+        }
+        .hero h1 .l2 {
+            background: none !important;
+            -webkit-text-fill-color: #00e5ff !important;
+            text-shadow: 0 0 20px rgba(0,229,255,0.3);
+            animation: none !important;
+        }
+        .hero-p { color: #008f11 !important; }
+        .hero-badge {
+            background: rgba(0,255,65,0.05) !important;
+            border-color: #00ff41 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+        }
+        .bdot { background: #00ff41 !important; }
+
+        /* Buttons - Terminal style */
+        .btn-p {
+            background: transparent !important;
+            border: 1px solid #00ff41 !important;
+            color: #00ff41 !important;
+            box-shadow: 0 0 15px rgba(0,255,65,0.15) !important;
+            animation: none !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            font-family: var(--font-mono) !important;
+            border-radius: 2px !important;
+        }
+        .btn-p:hover {
+            background: #00ff41 !important;
+            color: #000 !important;
+            box-shadow: 0 0 30px rgba(0,255,65,0.4) !important;
+            transform: none !important;
+        }
+        .btn-o {
+            border-color: #008f11 !important;
+            color: #008f11 !important;
+            backdrop-filter: none !important;
+            border-radius: 2px !important;
+        }
+        .btn-o:hover {
+            border-color: #00ff41 !important;
+            color: #00ff41 !important;
+            background: rgba(0,255,65,0.05) !important;
+            transform: none !important;
+        }
+
+        /* Bot cards - Terminal boxes */
+        .bc {
+            background: rgba(0,255,65,0.02) !important;
+            backdrop-filter: none !important;
+            border: 1px solid rgba(0,255,65,0.12) !important;
+            border-radius: 2px !important;
+            font-family: var(--font-mono) !important;
+        }
+        .bc:hover {
+            border-color: #00ff41 !important;
+            box-shadow: 0 0 20px rgba(0,255,65,0.1) !important;
+            border-image: none !important;
+            transform: none !important;
+        }
+        .bc::after { display: none !important; }
+        .bn { color: #00ff41 !important; }
+        .bd { color: #008f11 !important; }
+        .tg { border-radius: 0 !important; font-family: var(--font-mono) !important; }
+        .tg-l { background: rgba(0,255,65,0.08) !important; color: #00ff41 !important; }
+        .tg-s { background: rgba(255,0,85,0.08) !important; color: #ff0055 !important; }
+        .tg-b { background: rgba(0,255,65,0.08) !important; color: #39ff14 !important; }
+        .tg-g { background: rgba(255,215,0,0.08) !important; color: #ffd700 !important; }
+
+        /* Stats section - Green numbers */
+        .st {
+            background: rgba(0,255,65,0.02) !important;
+            border-color: rgba(0,255,65,0.12) !important;
+        }
+        .st:hover { background: rgba(0,255,65,0.05) !important; }
+        .st-n {
+            background: none !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            text-shadow: 0 0 15px rgba(0,255,65,0.4);
+            font-family: var(--font-mono) !important;
+        }
+        .st-l { color: #008f11 !important; }
+
+        /* Section headers */
+        .stitle {
+            font-family: var(--font-mono) !important;
+            background: none !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            background-clip: unset !important;
+        }
+        .stag {
+            background: rgba(0,255,65,0.05) !important;
+            border-color: rgba(0,255,65,0.2) !important;
+            color: #00ff41 !important;
+            font-family: var(--font-mono) !important;
+            border-radius: 0 !important;
+        }
+        .ssub { color: #008f11 !important; }
+
+        /* Section dividers */
+        section::before {
+            background: linear-gradient(90deg, #00ff41, #00e5ff) !important;
+            opacity: 0.3 !important;
+        }
+
+        /* Feature cards */
+        .fc {
+            background: rgba(0,255,65,0.02) !important;
+            border-color: rgba(0,255,65,0.12) !important;
+            border-radius: 2px !important;
+        }
+        .fc:hover { border-color: #00ff41 !important; transform: none !important; }
+        .fc h3 { color: #00ff41 !important; }
+        .fc p { color: #008f11 !important; }
+        .fi { border-radius: 0 !important; }
+        .fi-p { background: linear-gradient(135deg, rgba(0,255,65,0.15), rgba(0,255,65,0.03)) !important; }
+        .fi-g { background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.03)) !important; }
+        .fi-k { background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.03)) !important; }
+        .fi-r { background: linear-gradient(135deg, rgba(255,0,85,0.15), rgba(255,0,85,0.03)) !important; }
+
+        /* Tech pills */
+        .tp {
+            background: rgba(0,255,65,0.03) !important;
+            border-color: rgba(0,255,65,0.15) !important;
+            color: #008f11 !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .tp:hover {
+            border-color: #00ff41 !important;
+            color: #00ff41 !important;
+        }
+
+        /* Steps section */
+        .step-n {
+            background: transparent !important;
+            border: 2px solid #00ff41 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .step h4 { color: #00ff41 !important; }
+        .step p { color: #008f11 !important; }
+
+        /* Products & Staking - Terminal feel */
+        .prod, .stake-card {
+            background: rgba(0,255,65,0.02) !important;
+            border-color: rgba(0,255,65,0.12) !important;
+            border-radius: 2px !important;
+        }
+        .prod:hover, .stake-card:hover {
+            border-color: #00ff41 !important;
+            box-shadow: 0 0 20px rgba(0,255,65,0.1) !important;
+            transform: none !important;
+        }
+        .prod-price, .stake-apy {
+            color: #00ff41 !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            text-shadow: 0 0 10px rgba(0,255,65,0.3);
+            font-family: var(--font-mono) !important;
+        }
+        .prod-price.c1, .prod-price.c2, .prod-price.c3 {
+            color: #00ff41 !important;
+        }
+        .prod-t { color: #00ff41 !important; }
+        .prod-d { color: #008f11 !important; }
+        .stake-card::before {
+            background: linear-gradient(90deg, #00ff41, #39ff14) !important;
+        }
+
+        /* CTA section */
+        .cta {
+            background: rgba(0,255,65,0.03) !important;
+            border-color: rgba(0,255,65,0.15) !important;
+            border-radius: 2px !important;
+        }
+        .cta h2 {
+            font-family: var(--font-mono) !important;
+            color: #00ff41 !important;
+            -webkit-text-fill-color: #00ff41 !important;
+        }
+        .cta p { color: #008f11 !important; }
+
+        /* Footer */
+        footer {
+            border-top-color: rgba(0,255,65,0.15) !important;
+            color: #008f11 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .fl a { color: #008f11 !important; }
+        .fl a:hover { color: #00ff41 !important; }
+
+        /* Ticker */
+        .ticker-wrap {
+            border-color: rgba(0,255,65,0.12) !important;
+            background: rgba(0,0,0,0.8) !important;
+            backdrop-filter: none !important;
+        }
+        .ti { color: #008f11 !important; font-family: var(--font-mono) !important; }
+        .ti .v { color: #00ff41 !important; }
+
+        /* Contact */
+        .contact-item {
+            background: rgba(0,255,65,0.02) !important;
+            border-color: rgba(0,255,65,0.12) !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+            color: #008f11 !important;
+        }
+        .contact-item:hover {
+            border-color: #00ff41 !important;
+            color: #00ff41 !important;
+        }
+
+        /* Orbs - Green tint */
+        .orb-1 { background: rgba(0,255,65,0.08) !important; }
+        .orb-2 { background: rgba(0,229,255,0.05) !important; }
+        .orb-3 { background: rgba(255,0,85,0.04) !important; }
+
+        /* Background mesh - Green tint */
+        .bg-mesh {
+            background: radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,255,65,.06) 0%,transparent 60%),
+                        radial-gradient(ellipse 60% 80% at 80% 90%,rgba(0,229,255,.04) 0%,transparent 60%) !important;
+        }
+
+        /* Grid overlay - Green */
+        .grid-ov {
+            opacity: 0.02 !important;
+            background-image: linear-gradient(rgba(0,255,65,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.1) 1px,transparent 1px) !important;
+        }
+
+        /* Matrix columns - Green */
+        .matrix-col { color: rgba(0,255,65,0.08) !important; }
+
+        /* ASCII dividers - Green */
+        .ascii-divider { color: #00ff41 !important; opacity: 0.2 !important; }
+
+        /* ASCII hero - Green terminal style */
+        .ascii-hero {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            color: #00ff41 !important;
+            text-shadow: 0 0 10px rgba(0,255,65,0.3);
+        }
+
+        /* Terminal header - Green */
+        .terminal-header {
+            background: rgba(0,255,65,0.03) !important;
+            border-color: #00ff41 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+        }
+        .terminal-header::before { color: #39ff14 !important; }
+        .terminal-header::after { color: #00ff41 !important; }
+
+        /* Scroll progress bar - Green */
+        .scroll-progress {
+            background: linear-gradient(90deg, #00ff41, #39ff14, #00e5ff) !important;
+            box-shadow: 0 0 10px #00ff41 !important;
+        }
+
+        /* Referral section */
+        .ref-link-copy input {
+            background: rgba(0,255,65,0.03) !important;
+            border-color: rgba(0,255,65,0.2) !important;
+            color: #00ff41 !important;
+            font-family: var(--font-mono) !important;
+            border-radius: 0 !important;
+        }
+        .ref-link-copy button {
+            background: transparent !important;
+            border: 1px solid #00ff41 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+            font-family: var(--font-mono) !important;
+        }
+        .ref-link-copy button:hover {
+            background: #00ff41 !important;
+            color: #000 !important;
+            transform: none !important;
+            box-shadow: 0 0 20px rgba(0,255,65,0.3) !important;
+        }
+        .ref-link-box p { color: #008f11 !important; }
+        .ref-banner {
+            background: rgba(0,255,65,0.15) !important;
+            border: 1px solid #00ff41 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+        }
+
+        /* Coming soon cards */
+        .coming-card {
+            background: rgba(0,255,65,0.02) !important;
+            border-color: rgba(0,255,65,0.12) !important;
+            border-radius: 2px !important;
+        }
+        .coming-card:hover {
+            border-color: #00ff41 !important;
+            transform: none !important;
+        }
+        .coming-card h4 { color: #00ff41 !important; }
+        .coming-card p { color: #008f11 !important; }
+
+        /* Status badges - Terminal style */
+        .status-badge { border-radius: 0 !important; font-family: var(--font-mono) !important; }
+        .status-live {
+            background: rgba(0,255,65,0.1) !important;
+            color: #00ff41 !important;
+            border-color: rgba(0,255,65,0.3) !important;
+        }
+
+        /* Particles - Green tints */
+        .particle { background: #00ff41 !important; }
+        .particle:nth-child(2) { background: #00e5ff !important; }
+        .particle:nth-child(3) { background: #ffd700 !important; }
+        .particle:nth-child(5) { background: #ff0055 !important; }
+        .particle:nth-child(6) { background: #00ff41 !important; }
+
+        /* Misc link colors */
+        .nav-mid a { color: #008f11 !important; }
+        .nav-mid a:hover { color: #00ff41 !important; }
+        .nav-mid a::after { background: #00ff41 !important; }
+
+        /* Product features */
+        .prod-features li { color: #008f11 !important; }
+        .prod-features li .check { color: #00ff41 !important; }
+        .prod-label { color: #39ff14 !important; }
+        .prod-price-small { color: #008f11 !important; }
+
+        /* Earn steps */
+        .earn-steps { font-family: var(--font-mono) !important; }
+
+        /* Global border radius kill for terminal aesthetic */
+        .btn { border-radius: 2px !important; }
+        .st:first-child, .st:last-child { border-radius: 0 !important; }
+        .st:nth-child(2), .st:nth-child(3) { border-radius: 0 !important; }
+
+        /* ============================================================
+           END TERMINAL OVERRIDE
+           ============================================================ */
 
         /* RESPONSIVE */
         @media(max-width:768px){
