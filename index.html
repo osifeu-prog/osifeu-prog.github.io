@@ -323,6 +323,64 @@
         .earn-step a{color:var(--accent2);text-decoration:none;font-weight:600;font-size:12px;display:inline-block;margin-top:8px;transition:.3s}
         .earn-step a:hover{color:var(--cyan)}
 
+        /* REFERRAL SECTION */
+        .ref-rates{display:flex;flex-direction:column;gap:10px;max-width:700px;margin:0 auto 48px;padding:0 20px}
+        .ref-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:.3s}
+        .ref-bar:hover{border-color:rgba(108,92,231,.3);transform:translateX(-4px)}
+        html[dir="ltr"] .ref-bar:hover{transform:translateX(4px)}
+        .ref-bar-label{font-size:13px;font-weight:600;color:var(--text);min-width:80px;white-space:nowrap}
+        .ref-bar-track{flex:1;height:28px;border-radius:8px;position:relative;overflow:hidden;background:rgba(255,255,255,0.03)}
+        .ref-bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;font-size:12px;font-weight:700;color:#fff;transition:width 1s cubic-bezier(.16,1,.3,1)}
+        .ref-bar:nth-child(1) .ref-bar-fill{width:100%;background:linear-gradient(90deg,var(--accent),#8b5cf6)}
+        .ref-bar:nth-child(2) .ref-bar-fill{width:50%;background:linear-gradient(90deg,#8b5cf6,var(--accent2))}
+        .ref-bar:nth-child(3) .ref-bar-fill{width:30%;background:linear-gradient(90deg,var(--accent2),var(--cyan))}
+        .ref-bar:nth-child(4) .ref-bar-fill{width:20%;background:linear-gradient(90deg,var(--cyan),var(--green))}
+        .ref-bar:nth-child(5) .ref-bar-fill{width:10%;background:linear-gradient(90deg,var(--green),var(--gold))}
+        .ref-bar:nth-child(6) .ref-bar-fill{width:5%;background:linear-gradient(90deg,var(--gold),#ffaa00)}
+        .ref-bar:nth-child(7) .ref-bar-fill{width:4%;background:linear-gradient(90deg,#ffaa00,var(--pink))}
+        .ref-bar:nth-child(8) .ref-bar-fill{width:3%;background:linear-gradient(90deg,var(--pink),#ff5555)}
+        .ref-bar:nth-child(9) .ref-bar-fill{width:2.5%;background:linear-gradient(90deg,#ff5555,var(--text2))}
+        .ref-bar:nth-child(10) .ref-bar-fill{width:2%;background:linear-gradient(90deg,var(--text2),#555)}
+        .ref-bar-pct{font-size:13px;font-weight:700;color:var(--accent2);min-width:50px;text-align:left}
+        html[dir="rtl"] .ref-bar-pct{text-align:right}
+
+        .ref-demo{max-width:700px;margin:0 auto 48px;padding:0 20px;text-align:center}
+        .ref-input{width:100%;max-width:320px;padding:14px 20px;border-radius:12px;background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:.3s;text-align:center}
+        .ref-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(108,92,231,.2)}
+        .ref-input::placeholder{color:var(--text2)}
+        .ref-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:.3s;background:linear-gradient(135deg,var(--accent),#8b5cf6,var(--cyan));background-size:200% 200%;animation:gs 3s ease infinite;color:#fff;box-shadow:0 4px 30px rgba(108,92,231,.4);margin-top:12px}
+        .ref-btn:hover{transform:translateY(-3px);box-shadow:0 8px 50px rgba(108,92,231,.6)}
+
+        #ref-tree-display{margin-top:32px;text-align:center}
+        .ref-tree-node{display:inline-flex;flex-direction:column;align-items:center;margin:0 8px}
+        .ref-tree-card{padding:12px 18px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:13px;color:var(--text);position:relative;min-width:120px;transition:.3s}
+        .ref-tree-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+        .ref-tree-name{font-weight:600;margin-bottom:4px}
+        .ref-tree-gen{display:inline-block;padding:2px 8px;border-radius:4px;background:rgba(108,92,231,.15);color:var(--accent2);font-size:10px;font-weight:700;margin-bottom:4px}
+        .ref-tree-desc{font-size:11px;color:var(--text2)}
+        .ref-tree-children{display:flex;justify-content:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap}
+        .ref-tree-line{width:1px;height:12px;background:rgba(108,92,231,.3);margin:0 auto}
+
+        #ref-stats-display{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto}
+        .ref-stat-card{padding:24px 16px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:.3s}
+        .ref-stat-card:hover{border-color:rgba(108,92,231,.3);transform:translateY(-3px)}
+        .ref-stat-num{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .ref-stat-label{font-size:12px;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+
+        .ref-link-box{max-width:700px;margin:0 auto;padding:0 20px;text-align:center}
+        .ref-link-box p{color:var(--text2);font-size:14px;margin-bottom:12px}
+        .ref-link-copy{display:flex;gap:8px;max-width:500px;margin:0 auto}
+        .ref-link-copy input{flex:1;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none}
+        .ref-link-copy button{padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.3s;white-space:nowrap}
+        .ref-link-copy button:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(108,92,231,.4)}
+
+        .ref-banner{position:fixed;top:60px;left:50%;transform:translateX(-50%);padding:10px 24px;border-radius:12px;background:linear-gradient(135deg,rgba(108,92,231,.9),rgba(0,206,201,.8));color:#fff;font-size:13px;font-weight:600;z-index:99;backdrop-filter:blur(10px);box-shadow:0 4px 30px rgba(108,92,231,.4);animation:fadeInDown .5s ease}
+
+        @media(max-width:768px){
+            #ref-stats-display{grid-template-columns:1fr}
+            .ref-link-copy{flex-direction:column}
+        }
+
         /* RTL/LTR */
         html[dir="ltr"] .nav-mid a::after{left:auto;right:0}
 
@@ -351,6 +409,7 @@
         <a href="#features" data-i18n="nav_tech">Technology</a>
         <a href="#products" data-i18n="nav_prod">Products</a>
         <a href="#staking" data-i18n="nav_staking">Staking</a>
+        <a href="#referral" data-i18n="nav_ref">Referral</a>
         <a href="#contact" data-i18n="nav_contact">Contact</a>
     </div>
     <div class="nav-right">
@@ -549,6 +608,36 @@
     </div>
 </section>
 
+<!-- REFERRAL -->
+<section id="referral">
+    <div class="sc">
+        <span class="stag rv" data-i18n="ref_tag">Referral Network</span>
+        <h2 class="stitle rv" data-i18n="ref_title">Earn Up to 10 Generations Deep</h2>
+        <p class="ssub rv" data-i18n="ref_sub">Invite friends, earn commissions on their activity. Your network grows exponentially.</p>
+    </div>
+
+    <!-- Commission rates visual -->
+    <div class="ref-rates rv" id="ref-rates"></div>
+
+    <!-- Referral tree visualization -->
+    <div class="ref-demo rv">
+        <input type="number" id="ref-uid" data-i18n-placeholder="ref_input_placeholder" placeholder="Enter your Telegram ID" class="ref-input">
+        <br>
+        <button onclick="loadRefTree()" class="ref-btn" data-i18n="ref_btn">View My Network</button>
+        <div id="ref-tree-display"></div>
+        <div id="ref-stats-display"></div>
+    </div>
+
+    <!-- Copy referral link -->
+    <div class="ref-link-box rv">
+        <p data-i18n="ref_link_label">Your referral link:</p>
+        <div class="ref-link-copy">
+            <input type="text" id="ref-link-text" readonly value="https://t.me/SLH_AIR_bot?start=YOUR_ID">
+            <button onclick="copyRefLink()" data-i18n="ref_copy">Copy</button>
+        </div>
+    </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
     <div class="sc">
@@ -631,6 +720,12 @@ he: {
     earn_s1t:"חבר ארנק",earn_s1p:"פתח את בוט ההשקעות וחבר את ארנק ה-TON שלך.",earn_s1a:"פתח @SLH_AIR_bot",
     earn_s2t:"בחר תוכנית",earn_s2p:"בחר את משך ההפקדה והסכום. מ-30 ימים עד 365 ימים.",earn_s2a:"צפה בתוכניות",
     earn_s3t2:"הרווח תשואה",earn_s3p2:"תשואה חודשית אוטומטית ישירות ליתרת החשבון שלך.",earn_s3a:"התחל להרוויח",
+    nav_ref:"הפניות",
+    ref_tag:"רשת הפניות",ref_title:"הרווח עד 10 דורות עומק",ref_sub:"הזמן חברים, הרווח עמלות על הפעילות שלהם. הרשת שלך גדלה אקספוננציאלית.",
+    ref_input_placeholder:"הכנס את מזהה הטלגרם שלך",ref_btn:"צפה ברשת שלי",
+    ref_link_label:"קישור ההפניה שלך:",ref_copy:"העתק",
+    ref_gen:"דור",ref_direct:"הפניות ישירות",ref_network:"סה\"כ רשת",ref_earned:"סה\"כ הרווח",
+    ref_loading:"טוען...",ref_no_data:"לא נמצאו נתונים",ref_descendants:"צאצאים",ref_copied:"הועתק!",
 },
 en: {
     nav_eco:"Ecosystem",nav_tech:"Technology",nav_prod:"Products",nav_contact:"Contact",nav_cta:"Try Free",
@@ -664,6 +759,12 @@ en: {
     earn_s1t:"Connect Wallet",earn_s1p:"Open the investment bot and connect your TON wallet to get started.",earn_s1a:"Open @SLH_AIR_bot",
     earn_s2t:"Choose Plan",earn_s2p:"Select your deposit duration and amount. From 30 days to 365 days.",earn_s2a:"View Plans",
     earn_s3t2:"Earn Returns",earn_s3p2:"Automatic monthly yield deposited directly to your account balance.",earn_s3a:"Start Earning",
+    nav_ref:"Referral",
+    ref_tag:"Referral Network",ref_title:"Earn Up to 10 Generations Deep",ref_sub:"Invite friends, earn commissions on their activity. Your network grows exponentially.",
+    ref_input_placeholder:"Enter your Telegram ID",ref_btn:"View My Network",
+    ref_link_label:"Your referral link:",ref_copy:"Copy",
+    ref_gen:"Gen",ref_direct:"Direct Referrals",ref_network:"Total Network",ref_earned:"Total Earned",
+    ref_loading:"Loading...",ref_no_data:"No data found",ref_descendants:"descendants",ref_copied:"Copied!",
 },
 ru: {
     nav_eco:"\u042d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",nav_tech:"\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",nav_prod:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",nav_contact:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442",nav_cta:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
@@ -701,6 +802,12 @@ ru: {
     earn_s1t:"\u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 \u043a\u043e\u0448\u0435\u043b\u0435\u043a",earn_s1p:"\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0431\u043e\u0442 \u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 TON \u043a\u043e\u0448\u0435\u043b\u0435\u043a.",earn_s1a:"\u041e\u0442\u043a\u0440\u044b\u0442\u044c @SLH_AIR_bot",
     earn_s2t:"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u043b\u0430\u043d",earn_s2p:"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0440\u043e\u043a \u0438 \u0441\u0443\u043c\u043c\u0443 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u0430. \u041e\u0442 30 \u0434\u043e 365 \u0434\u043d\u0435\u0439.",earn_s2a:"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u043f\u043b\u0430\u043d\u044b",
     earn_s3t2:"\u041f\u043e\u043b\u0443\u0447\u0430\u0439\u0442\u0435 \u0434\u043e\u0445\u043e\u0434",earn_s3p2:"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0435\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u044b\u0439 \u0434\u043e\u0445\u043e\u0434 \u043d\u0430 \u0432\u0430\u0448 \u0441\u0447\u0435\u0442.",earn_s3a:"\u041d\u0430\u0447\u0430\u0442\u044c",
+    nav_ref:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044b",
+    ref_tag:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0435\u0442\u044c",ref_title:"\u0417\u0430\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0439\u0442\u0435 \u0434\u043e 10 \u043f\u043e\u043a\u043e\u043b\u0435\u043d\u0438\u0439 \u0432\u0433\u043b\u0443\u0431\u044c",ref_sub:"\u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0430\u0439\u0442\u0435 \u0434\u0440\u0443\u0437\u0435\u0439, \u043f\u043e\u043b\u0443\u0447\u0430\u0439\u0442\u0435 \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044e \u0441 \u0438\u0445 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438. \u0412\u0430\u0448\u0430 \u0441\u0435\u0442\u044c \u0440\u0430\u0441\u0442\u0435\u0442 \u044d\u043a\u0441\u043f\u043e\u043d\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e.",
+    ref_input_placeholder:"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0430\u0448 Telegram ID",ref_btn:"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0441\u0435\u0442\u044c",
+    ref_link_label:"\u0412\u0430\u0448\u0430 \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430:",ref_copy:"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
+    ref_gen:"\u041f\u043e\u043a.",ref_direct:"\u041f\u0440\u044f\u043c\u044b\u0435 \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u044b",ref_network:"\u0412\u0441\u044f \u0441\u0435\u0442\u044c",ref_earned:"\u0412\u0441\u0435\u0433\u043e \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043e",
+    ref_loading:"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430...",ref_no_data:"\u0414\u0430\u043d\u043d\u044b\u0435 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b",ref_descendants:"\u043f\u043e\u0442\u043e\u043c\u043a\u043e\u0432",ref_copied:"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
 },
 ar: {
     nav_eco:"\u0627\u0644\u0646\u0638\u0627\u0645",nav_tech:"\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",nav_prod:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",nav_contact:"\u0627\u062a\u0635\u0644 \u0628\u0646\u0627",nav_cta:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",
@@ -738,6 +845,12 @@ ar: {
     earn_s1t:"\u0627\u0631\u0628\u0637 \u0627\u0644\u0645\u062d\u0641\u0638\u0629",earn_s1p:"\u0627\u0641\u062a\u062d \u0628\u0648\u062a \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631 \u0648\u0627\u0631\u0628\u0637 \u0645\u062d\u0641\u0638\u0629 TON.",earn_s1a:"\u0627\u0641\u062a\u062d @SLH_AIR_bot",
     earn_s2t:"\u0627\u062e\u062a\u0631 \u062e\u0637\u0629",earn_s2p:"\u0627\u062e\u062a\u0631 \u0645\u062f\u0629 \u0648\u0645\u0628\u0644\u063a \u0627\u0644\u0625\u064a\u062f\u0627\u0639. \u0645\u0646 30 \u0625\u0644\u0649 365 \u064a\u0648\u0645.",earn_s2a:"\u0639\u0631\u0636 \u0627\u0644\u062e\u0637\u0637",
     earn_s3t2:"\u0627\u0631\u0628\u062d \u0639\u0648\u0627\u0626\u062f",earn_s3p2:"\u0639\u0627\u0626\u062f \u0634\u0647\u0631\u064a \u062a\u0644\u0642\u0627\u0626\u064a \u064a\u0636\u0627\u0641 \u0644\u062d\u0633\u0627\u0628\u0643 \u0645\u0628\u0627\u0634\u0631\u0629.",earn_s3a:"\u0627\u0628\u062f\u0623 \u0627\u0644\u0622\u0646",
+    nav_ref:"\u0627\u0644\u0625\u062d\u0627\u0644\u0627\u062a",
+    ref_tag:"\u0634\u0628\u0643\u0629 \u0627\u0644\u0625\u062d\u0627\u0644\u0627\u062a",ref_title:"\u0627\u0631\u0628\u062d \u062d\u062a\u0649 10 \u0623\u062c\u064a\u0627\u0644 \u0639\u0645\u0642\u0627",ref_sub:"\u0627\u062f\u0639\u064f \u0623\u0635\u062f\u0642\u0627\u0621\u0643\u060c \u0648\u0627\u0631\u0628\u062d \u0639\u0645\u0648\u0644\u0627\u062a \u0639\u0644\u0649 \u0646\u0634\u0627\u0637\u0647\u0645. \u0634\u0628\u0643\u062a\u0643 \u062a\u0646\u0645\u0648 \u0628\u0634\u0643\u0644 \u0623\u0633\u064a.",
+    ref_input_placeholder:"\u0623\u062f\u062e\u0644 \u0645\u0639\u0631\u0641 \u062a\u0644\u064a\u062c\u0631\u0627\u0645",ref_btn:"\u0639\u0631\u0636 \u0634\u0628\u0643\u062a\u064a",
+    ref_link_label:"\u0631\u0627\u0628\u0637 \u0627\u0644\u0625\u062d\u0627\u0644\u0629 \u0627\u0644\u062e\u0627\u0635 \u0628\u0643:",ref_copy:"\u0646\u0633\u062e",
+    ref_gen:"\u062c\u064a\u0644",ref_direct:"\u0625\u062d\u0627\u0644\u0627\u062a \u0645\u0628\u0627\u0634\u0631\u0629",ref_network:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0634\u0628\u0643\u0629",ref_earned:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0623\u0631\u0628\u0627\u062d",
+    ref_loading:"\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u0645\u064a\u0644...",ref_no_data:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a",ref_descendants:"\u0645\u062a\u0641\u0631\u0639\u064a\u0646",ref_copied:"\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!",
 }
 };
 
@@ -818,8 +931,15 @@ function setLang(lang) {
         b.classList.toggle('active', b.textContent === lang.toUpperCase());
     });
 
+    // Update placeholder translations
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (T[lang] && T[lang][key]) el.placeholder = T[lang][key];
+    });
+
     // Rebuild dynamic sections
     renderBots(); renderFeats(); renderProds(); renderComing();
+    if (typeof renderRefRates === 'function') renderRefRates();
 }
 
 function renderBots() {
@@ -951,6 +1071,132 @@ async function fetchStakingPlans() {
 // Fetch ecosystem data
 fetchStats();
 fetchStakingPlans();
+
+// === REFERRAL SECTION ===
+const REF_RATES = [10, 5, 3, 2, 1, 0.5, 0.3, 0.2, 0.1, 0.05];
+
+function renderRefRates() {
+    const container = document.getElementById('ref-rates');
+    if (!container) return;
+    const sl = T[currentLang] || T.en;
+    const genLabel = sl.ref_gen || 'Gen';
+    container.innerHTML = REF_RATES.map((rate, i) => `
+        <div class="ref-bar">
+            <div class="ref-bar-label">${genLabel} ${i + 1}</div>
+            <div class="ref-bar-track"><div class="ref-bar-fill"></div></div>
+            <div class="ref-bar-pct">${rate}%</div>
+        </div>
+    `).join('');
+}
+
+async function loadRefTree() {
+    const uid = document.getElementById('ref-uid').value;
+    if (!uid) return;
+    const sl = T[currentLang] || T.en;
+    const treeEl = document.getElementById('ref-tree-display');
+    const statsEl = document.getElementById('ref-stats-display');
+    treeEl.innerHTML = '<p style="color:var(--text2)">' + (sl.ref_loading || 'Loading...') + '</p>';
+    statsEl.innerHTML = '';
+
+    // Update referral link
+    document.getElementById('ref-link-text').value = 'https://t.me/SLH_AIR_bot?start=' + uid;
+
+    try {
+        const [treeRes, statsRes] = await Promise.all([
+            fetch(API + '/api/referral/tree/' + uid),
+            fetch(API + '/api/referral/stats/' + uid)
+        ]);
+        const treeData = await treeRes.json();
+        const statsData = await statsRes.json();
+
+        // Render tree
+        if (treeData && treeData.children && treeData.children.length > 0) {
+            treeEl.innerHTML = '';
+            renderTree(treeData.children, treeEl, 1);
+        } else {
+            treeEl.innerHTML = '<p style="color:var(--text2)">' + (sl.ref_no_data || 'No data found') + '</p>';
+        }
+
+        // Render stats
+        if (statsData) {
+            statsEl.innerHTML = `
+                <div class="ref-stat-card">
+                    <div class="ref-stat-num">${statsData.direct_referrals || 0}</div>
+                    <div class="ref-stat-label">${sl.ref_direct || 'Direct Referrals'}</div>
+                </div>
+                <div class="ref-stat-card">
+                    <div class="ref-stat-num">${statsData.total_network || 0}</div>
+                    <div class="ref-stat-label">${sl.ref_network || 'Total Network'}</div>
+                </div>
+                <div class="ref-stat-card">
+                    <div class="ref-stat-num">${statsData.total_earned_ton ? parseFloat(statsData.total_earned_ton).toFixed(2) : '0'} TON</div>
+                    <div class="ref-stat-label">${sl.ref_earned || 'Total Earned'}</div>
+                </div>
+            `;
+        }
+    } catch(e) {
+        treeEl.innerHTML = '<p style="color:var(--text2)">' + (sl.ref_no_data || 'No data found') + '</p>';
+        console.log('Referral fetch error:', e);
+    }
+}
+
+function renderTree(children, container, gen) {
+    if (!children || children.length === 0 || gen > 4) return;
+    const sl = T[currentLang] || T.en;
+    const genLabel = sl.ref_gen || 'Gen';
+    const descLabel = sl.ref_descendants || 'descendants';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ref-tree-children';
+    children.forEach(child => {
+        const node = document.createElement('div');
+        node.className = 'ref-tree-node';
+        const name = child.first_name || child.username || ('ID: ' + child.user_id);
+        const descCount = child.children ? child.children.length : 0;
+        node.innerHTML = `
+            <div class="ref-tree-line"></div>
+            <div class="ref-tree-card">
+                <div class="ref-tree-gen">${genLabel} ${gen}</div>
+                <div class="ref-tree-name">${name}</div>
+                <div class="ref-tree-desc">${descCount} ${descLabel}</div>
+            </div>
+        `;
+        wrapper.appendChild(node);
+        if (child.children && child.children.length > 0) {
+            renderTree(child.children, node, gen + 1);
+        }
+    });
+    container.appendChild(wrapper);
+}
+
+function copyRefLink() {
+    const sl = T[currentLang] || T.en;
+    const input = document.getElementById('ref-link-text');
+    input.select();
+    document.execCommand('copy');
+    const btn = input.nextElementSibling;
+    const orig = btn.textContent;
+    btn.textContent = sl.ref_copied || 'Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+}
+
+// Handle ?ref= URL parameter
+(function() {
+    const urlRef = new URLSearchParams(window.location.search).get('ref');
+    if (urlRef) {
+        const refInput = document.getElementById('ref-uid');
+        if (refInput) refInput.value = urlRef;
+        document.getElementById('ref-link-text').value = 'https://t.me/SLH_AIR_bot?start=' + urlRef;
+        // Show invited banner
+        const banner = document.createElement('div');
+        banner.className = 'ref-banner';
+        banner.textContent = 'You were invited by user #' + urlRef;
+        document.body.appendChild(banner);
+        setTimeout(() => { banner.remove(); }, 6000);
+    }
+})();
+
+// Render referral rates on init
+renderRefRates();
 
 // Init
 setLang(currentLang);
