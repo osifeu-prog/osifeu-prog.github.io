@@ -911,6 +911,47 @@ async function fetchPrices(){
 }
 fetchPrices(); setInterval(fetchPrices,60000);
 
+// === SLH API Integration ===
+const API = 'https://slh-api-production.up.railway.app';
+
+async function fetchStats() {
+    try {
+        const r = await fetch(API + '/api/stats');
+        const d = await r.json();
+        const el = (id) => document.querySelector(`.st-n:nth-child(1)`);
+        // Update stats section if elements exist
+        const stats = document.querySelectorAll('.st-n');
+        if (stats.length >= 4) {
+            stats[0].textContent = d.bots_live || '20';
+            stats[1].textContent = d.supported_coins || '12';
+        }
+        // Store for use in other components
+        window.slhStats = d;
+    } catch(e) { console.log('Stats fetch skipped'); }
+}
+
+async function fetchStakingPlans() {
+    try {
+        const r = await fetch(API + '/api/staking/plans');
+        const d = await r.json();
+        window.slhPlans = d.plans;
+        // Update staking cards with live data if they exist
+        const cards = document.querySelectorAll('.stake-card');
+        const planKeys = ['monthly', 'quarterly', 'semi_annual', 'annual'];
+        cards.forEach((card, i) => {
+            const plan = d.plans[planKeys[i]];
+            if (plan) {
+                const apy = card.querySelector('.stake-apy');
+                if (apy) apy.textContent = plan.apy_annual + '%';
+            }
+        });
+    } catch(e) { console.log('Plans fetch skipped'); }
+}
+
+// Fetch ecosystem data
+fetchStats();
+fetchStakingPlans();
+
 // Init
 setLang(currentLang);
 </script>
