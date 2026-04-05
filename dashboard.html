@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Dashboard | My Account</title>
+    <meta name="description" content="SLH Ecosystem personal dashboard - portfolio, staking, transfers, referral network.">
+    <link rel="icon" type="image/png" href="/favicon-32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0a;--accent:#00ff41;--accent2:#39ff14;--cyan:#00e5ff;--gold:#ffd700;--red:#ff0055;--text:#00ff41;--text2:#008f11;--card:rgba(0,255,65,.03);--border:rgba(0,255,65,.15);--font:'Space Mono','Courier New',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+        body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999}
+
+        /* NAV */
+        .dash-nav{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.9)}
+        .dash-nav a{color:var(--text);text-decoration:none;font-size:14px}
+        .dash-nav a:hover{color:var(--accent2)}
+        .user-info{display:flex;align-items:center;gap:10px;font-size:13px}
+        .user-info img{width:32px;height:32px;border-radius:50%;border:1px solid var(--accent)}
+        .logout-btn{background:transparent;border:1px solid var(--red);color:var(--red);padding:6px 14px;cursor:pointer;font-family:var(--font);font-size:11px;text-transform:uppercase}
+        .logout-btn:hover{background:var(--red);color:#000}
+
+        /* LOGIN */
+        .login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:20px}
+        .login-ascii{font-size:clamp(6px,2vw,12px);color:var(--accent);margin-bottom:32px;direction:ltr;unicode-bidi:bidi-override;white-space:pre}
+        .login-title{font-size:24px;margin-bottom:8px}
+        .login-sub{color:var(--text2);font-size:14px;margin-bottom:32px}
+        #tg-login{margin:20px 0}
+        .login-manual{margin-top:24px;font-size:13px;color:var(--text2)}
+        .login-manual input{background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;font-family:var(--font);font-size:14px;width:200px;text-align:center;margin:8px}
+        .login-manual button{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:10px 24px;cursor:pointer;font-family:var(--font);text-transform:uppercase;letter-spacing:2px}
+        .login-manual button:hover{background:var(--accent);color:#000}
+
+        /* DASHBOARD GRID */
+        .dash{display:none;max-width:1200px;margin:0 auto;padding:24px}
+        .dash.active{display:block}
+        .dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+
+        /* CARDS */
+        .card{background:var(--card);border:1px solid var(--border);padding:24px;position:relative}
+        .card-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:12px}
+        .card-value{font-size:32px;font-weight:700;color:var(--accent);text-shadow:0 0 15px rgba(0,255,65,.3)}
+        .card-sub{font-size:12px;color:var(--text2);margin-top:4px}
+        .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+
+        /* BALANCE CARDS */
+        .bal-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,255,65,.05)}
+        .bal-row:last-child{border:none}
+        .bal-token{font-size:14px;color:var(--text2)}
+        .bal-amount{font-size:16px;color:var(--accent);font-weight:700}
+
+        /* STAKING TABLE */
+        .stake-table{width:100%;border-collapse:collapse;margin-top:12px}
+        .stake-table th{text-align:left;padding:8px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);border-bottom:1px solid var(--border)}
+        .stake-table td{padding:8px;font-size:13px;border-bottom:1px solid rgba(0,255,65,.05)}
+        .status-active{color:var(--accent)}
+        .status-pending{color:var(--gold)}
+
+        /* REFERRAL TREE */
+        .ref-tree{margin-top:12px}
+        .ref-node{padding:8px 12px;border-left:2px solid var(--accent);margin-left:16px;margin-bottom:8px;font-size:13px}
+        .ref-node .gen{color:var(--text2);font-size:11px}
+
+        /* ACTIONS */
+        .action-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+        .action-btn{display:flex;align-items:center;gap:8px;padding:14px;background:var(--card);border:1px solid var(--border);color:var(--text);cursor:pointer;font-family:var(--font);font-size:13px;text-decoration:none;transition:.3s}
+        .action-btn:hover{border-color:var(--accent);box-shadow:0 0 15px rgba(0,255,65,.1)}
+        .action-btn .icon{font-size:20px}
+
+        /* TRANSFER FORM */
+        .form-group{margin-bottom:16px}
+        .form-group label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px}
+        .form-group input,.form-group select{width:100%;padding:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:14px}
+        .form-group select{cursor:pointer}
+        .submit-btn{width:100%;padding:12px;background:transparent;border:1px solid var(--accent);color:var(--accent);cursor:pointer;font-family:var(--font);font-size:14px;text-transform:uppercase;letter-spacing:2px;transition:.3s}
+        .submit-btn:hover{background:var(--accent);color:#000}
+
+        /* TABS */
+        .tabs{display:flex;gap:2px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:2px}
+        .tab{padding:10px 20px;cursor:pointer;color:var(--text2);font-size:13px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid transparent;transition:.3s}
+        .tab:hover{color:var(--text)}
+        .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+        .tab-content{display:none}.tab-content.active{display:block}
+
+        /* TOAST */
+        .toast{position:fixed;bottom:20px;right:20px;padding:14px 24px;background:rgba(0,255,65,.1);border:1px solid var(--accent);color:var(--accent);font-family:var(--font);font-size:13px;z-index:10000;animation:fadeIn .3s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .dash-grid{grid-template-columns:1fr}
+            .tabs{flex-wrap:wrap}.tab{font-size:11px;padding:8px 12px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-screen">
+    <pre class="login-ascii">
+╔═══════════════════════════════════════╗
+║  ███████╗██╗     ██╗  ██╗            ║
+║  ██╔════╝██║     ██║  ██║            ║
+║  ███████╗██║     ███████║            ║
+║  ╚════██║██║     ██╔══██║            ║
+║  ███████║███████╗██║  ██║            ║
+║  ╚══════╝╚══════╝╚═╝  ╚═╝            ║
+║         DASHBOARD LOGIN               ║
+╚═══════════════════════════════════════╝
+    </pre>
+    <div class="login-title">[ ACCESS PORTAL ]</div>
+    <div class="login-sub">Sign in with Telegram to access your dashboard</div>
+
+    <div id="tg-login">
+        <script async src="https://telegram.org/js/telegram-widget.js?22"
+            data-telegram-login="SLH_AIR_bot"
+            data-size="large"
+            data-onauth="onTelegramAuth(user)"
+            data-request-access="write">
+        </script>
+    </div>
+
+    <div class="login-manual">
+        <div style="margin-bottom:8px;color:var(--text2)">--- OR ENTER TELEGRAM ID ---</div>
+        <input type="number" id="manual-uid" placeholder="Telegram ID">
+        <br>
+        <button onclick="manualLogin()">[ LOGIN ]</button>
+    </div>
+
+    <a href="/" style="color:var(--text2);font-size:12px;margin-top:32px;text-decoration:none">&larr; Back to SLH Ecosystem</a>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="dash">
+    <nav class="dash-nav">
+        <a href="/">[ SLH ECOSYSTEM ]</a>
+        <div class="user-info">
+            <span id="dash-username">user</span>
+            <span style="color:var(--text2)">|</span>
+            <span id="dash-uid" style="color:var(--text2);font-size:11px"></span>
+            <button class="logout-btn" onclick="logout()">[ LOGOUT ]</button>
+        </div>
+    </nav>
+
+    <!-- OVERVIEW CARDS -->
+    <div style="padding-top:24px">
+        <div class="dash-grid">
+            <div class="card">
+                <div class="card-title">> TON Balance</div>
+                <div class="card-value" id="bal-ton">0.00</div>
+                <div class="card-sub">Available</div>
+            </div>
+            <div class="card" style="--accent:var(--gold)">
+                <div class="card-title">> SLH Tokens</div>
+                <div class="card-value" id="bal-slh" style="color:var(--gold);text-shadow:0 0 15px rgba(255,215,0,.3)">0</div>
+                <div class="card-sub">Internal Balance</div>
+            </div>
+            <div class="card">
+                <div class="card-title">> ZVK Tokens</div>
+                <div class="card-value" id="bal-zvk" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,.3)">0</div>
+                <div class="card-sub">Game Rewards</div>
+            </div>
+            <div class="card">
+                <div class="card-title">> Referral Earnings</div>
+                <div class="card-value" id="ref-earned">0.00</div>
+                <div class="card-sub" id="ref-network">Network: 0 members</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('portfolio')">Portfolio</div>
+        <div class="tab" onclick="switchTab('staking')">Staking</div>
+        <div class="tab" onclick="switchTab('transfer')">Transfer</div>
+        <div class="tab" onclick="switchTab('referral')">Referrals</div>
+        <div class="tab" onclick="switchTab('actions')">Quick Actions</div>
+    </div>
+
+    <!-- PORTFOLIO TAB -->
+    <div id="tab-portfolio" class="tab-content active">
+        <div class="card">
+            <div class="card-title">> Active Deposits</div>
+            <div id="deposits-list" style="margin-top:12px">
+                <div style="color:var(--text2);font-size:13px">No active deposits. Start staking to earn returns.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STAKING TAB -->
+    <div id="tab-staking" class="tab-content">
+        <div class="dash-grid">
+            <div class="card" id="stake-monthly">
+                <div class="card-title">> Monthly Plan</div>
+                <div class="card-value">48%</div>
+                <div class="card-sub">APY | 4% monthly | Min 1 TON | 30 days</div>
+                <button class="submit-btn" style="margin-top:16px" onclick="openStake('monthly')">[ STAKE ]</button>
+            </div>
+            <div class="card" id="stake-quarterly">
+                <div class="card-title">> Quarterly Plan</div>
+                <div class="card-value">55%</div>
+                <div class="card-sub">APY | 4.5% monthly | Min 5 TON | 90 days</div>
+                <button class="submit-btn" style="margin-top:16px" onclick="openStake('quarterly')">[ STAKE ]</button>
+            </div>
+            <div class="card" id="stake-semi">
+                <div class="card-title">> Semi-Annual Plan</div>
+                <div class="card-value">60%</div>
+                <div class="card-sub">APY | 5% monthly | Min 10 TON | 180 days</div>
+                <button class="submit-btn" style="margin-top:16px" onclick="openStake('semi_annual')">[ STAKE ]</button>
+            </div>
+            <div class="card" id="stake-annual">
+                <div class="card-title">> Annual Plan</div>
+                <div class="card-value" style="color:var(--gold);text-shadow:0 0 15px rgba(255,215,0,.3)">65%</div>
+                <div class="card-sub">APY | 5.4% monthly | Min 25 TON | 365 days</div>
+                <button class="submit-btn" style="margin-top:16px" onclick="openStake('annual')">[ STAKE ]</button>
+            </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+            <div class="card-title">> My Staking Positions</div>
+            <div id="staking-positions" style="margin-top:12px">
+                <div style="color:var(--text2);font-size:13px">No staking positions yet.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSFER TAB -->
+    <div id="tab-transfer" class="tab-content">
+        <div class="dash-grid" style="grid-template-columns:1fr 1fr">
+            <div class="card">
+                <div class="card-title">> Send Tokens</div>
+                <div class="form-group">
+                    <label>Recipient Telegram ID</label>
+                    <input type="number" id="tx-to" placeholder="e.g. 224223270">
+                </div>
+                <div class="form-group">
+                    <label>Token</label>
+                    <select id="tx-token">
+                        <option value="SLH">SLH</option>
+                        <option value="ZVK">ZVK</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="tx-amount" placeholder="0.00" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Memo (optional)</label>
+                    <input type="text" id="tx-memo" placeholder="Payment for...">
+                </div>
+                <button class="submit-btn" onclick="sendTransfer()">[ SEND ]</button>
+            </div>
+            <div class="card">
+                <div class="card-title">> My Referral Link</div>
+                <div style="margin-top:12px">
+                    <div style="font-size:12px;color:var(--text2);margin-bottom:8px">Share to earn 10% commission:</div>
+                    <div style="padding:10px;background:rgba(0,255,65,.03);border:1px solid var(--border);font-size:12px;word-break:break-all" id="my-ref-link">
+                        Loading...
+                    </div>
+                    <button class="submit-btn" style="margin-top:12px" onclick="copyDashRef()">[ COPY LINK ]</button>
+                </div>
+                <div style="margin-top:24px">
+                    <div class="card-title">> Referral Earnings by Generation</div>
+                    <div id="ref-by-gen" style="margin-top:8px">
+                        <div style="color:var(--text2);font-size:13px">No earnings yet.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REFERRAL TAB -->
+    <div id="tab-referral" class="tab-content">
+        <div class="card">
+            <div class="card-title">> My Referral Network</div>
+            <div class="dash-grid" style="margin-top:12px">
+                <div style="text-align:center;padding:16px;border:1px solid var(--border)">
+                    <div style="font-size:28px;font-weight:700;color:var(--accent)" id="ref-direct-count">0</div>
+                    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;margin-top:4px">Direct Referrals</div>
+                </div>
+                <div style="text-align:center;padding:16px;border:1px solid var(--border)">
+                    <div style="font-size:28px;font-weight:700;color:var(--cyan)" id="ref-total-network">0</div>
+                    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;margin-top:4px">Total Network</div>
+                </div>
+                <div style="text-align:center;padding:16px;border:1px solid var(--border)">
+                    <div style="font-size:28px;font-weight:700;color:var(--gold)" id="ref-total-earned2">0.00</div>
+                    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;margin-top:4px">TON Earned</div>
+                </div>
+            </div>
+            <div id="ref-tree-container" style="margin-top:24px">
+                <div style="color:var(--text2);font-size:13px">Loading referral tree...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTIONS TAB -->
+    <div id="tab-actions" class="tab-content">
+        <div class="action-grid">
+            <a href="https://t.me/SLH_AIR_bot" class="action-btn" target="_blank"><span class="icon">💎</span> Open Investment Bot</a>
+            <a href="https://t.me/OsifShop_bot" class="action-btn" target="_blank"><span class="icon">🛒</span> Open Shop Bot</a>
+            <a href="https://t.me/NIFTI_Publisher_Bot" class="action-btn" target="_blank"><span class="icon">🎨</span> Open NFT Market</a>
+            <a href="https://t.me/SLH_Wallet_bot" class="action-btn" target="_blank"><span class="icon">💰</span> Open Wallet Bot</a>
+            <a href="/whitepaper.html" class="action-btn"><span class="icon">📄</span> Read Whitepaper</a>
+            <a href="https://slh-api-production.up.railway.app/docs" class="action-btn" target="_blank"><span class="icon">🔧</span> API Documentation</a>
+        </div>
+    </div>
+</div>
+
+<script>
+const API = 'https://slh-api-production.up.railway.app';
+let currentUser = null;
+
+// Telegram Widget callback
+function onTelegramAuth(user) {
+    fetch(API + '/api/auth/telegram', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+    })
+    .then(r => r.json())
+    .then(d => {
+        currentUser = {...user, ...d.user, balances: d.balances};
+        localStorage.setItem('slh_user', JSON.stringify(currentUser));
+        showDashboard();
+    })
+    .catch(e => { console.error(e); manualLoginWith(user.id); });
+}
+
+function manualLogin() {
+    const uid = document.getElementById('manual-uid').value;
+    if (!uid) return;
+    manualLoginWith(parseInt(uid));
+}
+
+function manualLoginWith(uid) {
+    currentUser = {id: uid, first_name: 'User', username: ''};
+    localStorage.setItem('slh_user', JSON.stringify(currentUser));
+    showDashboard();
+}
+
+function logout() {
+    localStorage.removeItem('slh_user');
+    currentUser = null;
+    document.getElementById('dashboard').classList.remove('active');
+    document.getElementById('login-screen').style.display = 'flex';
+}
+
+function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').classList.add('active');
+    document.getElementById('dash-username').textContent = currentUser.first_name || 'User';
+    document.getElementById('dash-uid').textContent = '#' + currentUser.id;
+    document.getElementById('my-ref-link').textContent = 'https://t.me/SLH_AIR_bot?start=' + currentUser.id;
+    loadUserData();
+}
+
+async function loadUserData() {
+    try {
+        // Balances & Profile
+        const user = await fetch(API + '/api/user/' + currentUser.id).then(r => r.ok ? r.json() : null);
+        if (user && user.balances) {
+            document.getElementById('bal-ton').textContent = (user.balances.TON_available || 0).toFixed(4);
+            document.getElementById('bal-slh').textContent = Math.floor(user.balances.SLH || 0).toLocaleString();
+            document.getElementById('bal-zvk').textContent = Math.floor(user.balances.ZVK || 0).toLocaleString();
+        }
+
+        // Staking positions
+        const stakes = await fetch(API + '/api/staking/positions/' + currentUser.id).then(r => r.json());
+        if (stakes.positions && stakes.positions.length > 0) {
+            document.getElementById('staking-positions').innerHTML = stakes.positions.map(p =>
+                `<div class="bal-row"><span class="bal-token">${p.plan} | ${p.amount} TON</span><span class="bal-amount status-active">${p.status}</span></div>`
+            ).join('');
+        }
+
+        // Referral stats
+        const ref = await fetch(API + '/api/referral/stats/' + currentUser.id).then(r => r.json());
+        document.getElementById('ref-earned').textContent = (ref.total_earned_ton || 0).toFixed(4);
+        document.getElementById('ref-network').textContent = 'Network: ' + (ref.total_network || 0) + ' members';
+        document.getElementById('ref-direct-count').textContent = ref.direct_referrals || 0;
+        document.getElementById('ref-total-network').textContent = ref.total_network || 0;
+        document.getElementById('ref-total-earned2').textContent = (ref.total_earned_ton || 0).toFixed(4);
+        if (ref.by_generation && ref.by_generation.length > 0) {
+            document.getElementById('ref-by-gen').innerHTML = ref.by_generation.map(g =>
+                `<div class="bal-row"><span class="bal-token">Gen ${g.generation} (${g.people} people)</span><span class="bal-amount">${g.earned.toFixed(4)} TON</span></div>`
+            ).join('');
+        }
+
+        // Referral tree
+        const tree = await fetch(API + '/api/referral/tree/' + currentUser.id).then(r => r.json());
+        if (tree.tree && tree.tree.length > 0) {
+            const container = document.getElementById('ref-tree-container');
+            container.innerHTML = '<div class="card-title">> Network Tree</div>';
+            renderDashTree(tree.tree, container, 1);
+        } else {
+            document.getElementById('ref-tree-container').innerHTML = '<div style="color:var(--text2);font-size:13px">No referrals yet. Share your link to build your network!</div>';
+        }
+    } catch(e) { console.error('Load error:', e); }
+}
+
+function renderDashTree(children, container, gen) {
+    children.forEach(c => {
+        const node = document.createElement('div');
+        node.className = 'ref-node';
+        node.innerHTML = `<span class="gen">Gen ${gen}</span> | ${c.first_name || c.username || '#'+c.user_id} ${c.total_descendants > 0 ? '(+'+c.total_descendants+')' : ''}`;
+        container.appendChild(node);
+        if (c.children && c.children.length > 0) {
+            renderDashTree(c.children, node, gen + 1);
+        }
+    });
+}
+
+function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.tab-content#tab-${name}`).classList.add('active');
+    event.target.classList.add('active');
+}
+
+async function sendTransfer() {
+    const to = document.getElementById('tx-to').value;
+    const token = document.getElementById('tx-token').value;
+    const amount = document.getElementById('tx-amount').value;
+    const memo = document.getElementById('tx-memo').value;
+    if (!to || !amount) return showToast('Fill all required fields');
+
+    try {
+        const r = await fetch(API + '/api/transfer', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({from_user_id: currentUser.id, to_user_id: parseInt(to), token, amount: parseFloat(amount), memo})
+        });
+        const d = await r.json();
+        if (r.ok) {
+            showToast(`Sent ${amount} ${token} successfully!`);
+            loadUserData();
+        } else {
+            showToast('Error: ' + (d.detail || 'Transfer failed'));
+        }
+    } catch(e) { showToast('Network error'); }
+}
+
+function openStake(plan) {
+    const amount = prompt(`Enter TON amount to stake (${plan} plan):`);
+    if (!amount) return;
+    fetch(API + '/api/staking/stake', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({user_id: currentUser.id, plan, amount: parseFloat(amount)})
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.id) {
+            showToast(`Staked ${amount} TON on ${plan} plan!`);
+            loadUserData();
+        } else {
+            showToast('Error: ' + (d.detail || 'Staking failed'));
+        }
+    })
+    .catch(e => showToast('Network error'));
+}
+
+function copyDashRef() {
+    const text = document.getElementById('my-ref-link').textContent;
+    navigator.clipboard.writeText(text).then(() => showToast('Link copied!'));
+}
+
+function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = '> ' + msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+// Auto-login from localStorage
+const saved = localStorage.getItem('slh_user');
+if (saved) {
+    currentUser = JSON.parse(saved);
+    showDashboard();
+}
+</script>
+</body>
+</html>

@@ -494,7 +494,7 @@
            TERMINAL / HACKER AESTHETIC OVERRIDE - CRT RETRO STYLE
            ============================================================ */
 
-        :root {
+        html[data-theme="terminal"] {
             --bg: #0a0a0a !important;
             --bg2: #0f0f0f !important;
             --accent: #00ff41 !important;
@@ -511,7 +511,7 @@
         }
 
         /* Body - Terminal base */
-        body {
+        html[data-theme="terminal"] body {
             font-family: var(--font-mono) !important;
             background: #0a0a0a !important;
             color: #00ff41 !important;
@@ -519,7 +519,7 @@
         }
 
         /* Scanline overlay */
-        body::after {
+        html[data-theme="terminal"] body::after {
             content: '';
             position: fixed;
             inset: 0;
@@ -535,7 +535,7 @@
         }
 
         /* CRT screen glow */
-        body::before {
+        html[data-theme="terminal"] body::before {
             content: '';
             position: fixed;
             inset: -5px;
@@ -556,14 +556,14 @@
         }
 
         /* Navigation - Terminal style */
-        nav {
+        html[data-theme="terminal"] nav {
             background: rgba(0,0,0,0.95) !important;
             backdrop-filter: none !important;
             border-bottom: 1px solid #00ff41 !important;
             font-family: var(--font-mono) !important;
         }
-        nav.scrolled { background: rgba(0,0,0,0.98) !important; }
-        .nav-cta {
+        html[data-theme="terminal"] nav.scrolled { background: rgba(0,0,0,0.98) !important; }
+        html[data-theme="terminal"] .nav-cta {
             background: transparent !important;
             border: 1px solid #00ff41 !important;
             color: #00ff41 !important;
@@ -574,70 +574,70 @@
             border-radius: 0 !important;
             font-family: var(--font-mono) !important;
         }
-        .nav-cta:hover {
+        html[data-theme="terminal"] .nav-cta:hover {
             background: #00ff41 !important;
             color: #000 !important;
             transform: none !important;
         }
-        .lang-btn {
+        html[data-theme="terminal"] .lang-btn {
             border-color: rgba(0,255,65,0.15) !important;
             color: #008f11 !important;
             border-radius: 0 !important;
             font-family: var(--font-mono) !important;
         }
-        .lang-btn:hover, .lang-btn.active {
+        html[data-theme="terminal"] .lang-btn:hover, html[data-theme="terminal"] .lang-btn.active {
             background: #00ff41 !important;
             color: #000 !important;
             border-color: #00ff41 !important;
         }
 
         /* Logo - Terminal prompt style */
-        .logo-d {
+        html[data-theme="terminal"] .logo-d {
             background: transparent !important;
             border: 1px solid #00ff41 !important;
             border-radius: 0 !important;
             transform: none !important;
         }
-        .logo-d span {
+        html[data-theme="terminal"] .logo-d span {
             transform: none !important;
             color: #00ff41 !important;
             font-family: var(--font-mono) !important;
         }
-        .logo-t {
+        html[data-theme="terminal"] .logo-t {
             font-family: var(--font-mono) !important;
             color: #00ff41 !important;
         }
-        .logo-t span { color: #008f11 !important; }
+        html[data-theme="terminal"] .logo-t span { color: #008f11 !important; }
 
         /* Hero section */
-        .hero {
+        html[data-theme="terminal"] .hero {
             background: transparent !important;
         }
-        .hero h1 {
+        html[data-theme="terminal"] .hero h1 {
             font-family: var(--font-mono) !important;
         }
-        .hero h1 .l1 {
+        html[data-theme="terminal"] .hero h1 .l1 {
             background: none !important;
             -webkit-text-fill-color: #00ff41 !important;
             text-shadow: 0 0 20px rgba(0,255,65,0.3);
         }
-        .hero h1 .l2 {
+        html[data-theme="terminal"] .hero h1 .l2 {
             background: none !important;
             -webkit-text-fill-color: #00e5ff !important;
             text-shadow: 0 0 20px rgba(0,229,255,0.3);
             animation: none !important;
         }
-        .hero-p { color: #008f11 !important; }
-        .hero-badge {
+        html[data-theme="terminal"] .hero-p { color: #008f11 !important; }
+        html[data-theme="terminal"] .hero-badge {
             background: rgba(0,255,65,0.05) !important;
             border-color: #00ff41 !important;
             color: #00ff41 !important;
             border-radius: 0 !important;
         }
-        .bdot { background: #00ff41 !important; }
+        html[data-theme="terminal"] .bdot { background: #00ff41 !important; }
 
         /* Buttons - Terminal style */
-        .btn-p {
+        html[data-theme="terminal"] .btn-p {
             background: transparent !important;
             border: 1px solid #00ff41 !important;
             color: #00ff41 !important;
@@ -648,19 +648,19 @@
             font-family: var(--font-mono) !important;
             border-radius: 2px !important;
         }
-        .btn-p:hover {
+        html[data-theme="terminal"] .btn-p:hover {
             background: #00ff41 !important;
             color: #000 !important;
             box-shadow: 0 0 30px rgba(0,255,65,0.4) !important;
             transform: none !important;
         }
-        .btn-o {
+        html[data-theme="terminal"] .btn-o {
             border-color: #008f11 !important;
             color: #008f11 !important;
             backdrop-filter: none !important;
             border-radius: 2px !important;
         }
-        .btn-o:hover {
+        html[data-theme="terminal"] .btn-o:hover {
             border-color: #00ff41 !important;
             color: #00ff41 !important;
             background: rgba(0,255,65,0.05) !important;
@@ -668,78 +668,78 @@
         }
 
         /* Bot cards - Terminal boxes */
-        .bc {
+        html[data-theme="terminal"] .bc {
             background: rgba(0,255,65,0.02) !important;
             backdrop-filter: none !important;
             border: 1px solid rgba(0,255,65,0.12) !important;
             border-radius: 2px !important;
             font-family: var(--font-mono) !important;
         }
-        .bc:hover {
+        html[data-theme="terminal"] .bc:hover {
             border-color: #00ff41 !important;
             box-shadow: 0 0 20px rgba(0,255,65,0.1) !important;
             border-image: none !important;
             transform: none !important;
         }
-        .bc::after { display: none !important; }
-        .bn { color: #00ff41 !important; }
-        .bd { color: #008f11 !important; }
-        .tg { border-radius: 0 !important; font-family: var(--font-mono) !important; }
-        .tg-l { background: rgba(0,255,65,0.08) !important; color: #00ff41 !important; }
-        .tg-s { background: rgba(255,0,85,0.08) !important; color: #ff0055 !important; }
-        .tg-b { background: rgba(0,255,65,0.08) !important; color: #39ff14 !important; }
-        .tg-g { background: rgba(255,215,0,0.08) !important; color: #ffd700 !important; }
+        html[data-theme="terminal"] .bc::after { display: none !important; }
+        html[data-theme="terminal"] .bn { color: #00ff41 !important; }
+        html[data-theme="terminal"] .bd { color: #008f11 !important; }
+        html[data-theme="terminal"] .tg { border-radius: 0 !important; font-family: var(--font-mono) !important; }
+        html[data-theme="terminal"] .tg-l { background: rgba(0,255,65,0.08) !important; color: #00ff41 !important; }
+        html[data-theme="terminal"] .tg-s { background: rgba(255,0,85,0.08) !important; color: #ff0055 !important; }
+        html[data-theme="terminal"] .tg-b { background: rgba(0,255,65,0.08) !important; color: #39ff14 !important; }
+        html[data-theme="terminal"] .tg-g { background: rgba(255,215,0,0.08) !important; color: #ffd700 !important; }
 
         /* Stats section - Green numbers */
-        .st {
+        html[data-theme="terminal"] .st {
             background: rgba(0,255,65,0.02) !important;
             border-color: rgba(0,255,65,0.12) !important;
         }
-        .st:hover { background: rgba(0,255,65,0.05) !important; }
-        .st-n {
+        html[data-theme="terminal"] .st:hover { background: rgba(0,255,65,0.05) !important; }
+        html[data-theme="terminal"] .st-n {
             background: none !important;
             -webkit-text-fill-color: #00ff41 !important;
             text-shadow: 0 0 15px rgba(0,255,65,0.4);
             font-family: var(--font-mono) !important;
         }
-        .st-l { color: #008f11 !important; }
+        html[data-theme="terminal"] .st-l { color: #008f11 !important; }
 
         /* Section headers */
-        .stitle {
+        html[data-theme="terminal"] .stitle {
             font-family: var(--font-mono) !important;
             background: none !important;
             -webkit-text-fill-color: #00ff41 !important;
             background-clip: unset !important;
         }
-        .stag {
+        html[data-theme="terminal"] .stag {
             background: rgba(0,255,65,0.05) !important;
             border-color: rgba(0,255,65,0.2) !important;
             color: #00ff41 !important;
             font-family: var(--font-mono) !important;
             border-radius: 0 !important;
         }
-        .ssub { color: #008f11 !important; }
+        html[data-theme="terminal"] .ssub { color: #008f11 !important; }
 
         /* Section dividers */
-        section::before {
+        html[data-theme="terminal"] section::before {
             background: linear-gradient(90deg, #00ff41, #00e5ff) !important;
             opacity: 0.3 !important;
         }
 
         /* Feature cards */
-        .fc {
+        html[data-theme="terminal"] .fc {
             background: rgba(0,255,65,0.02) !important;
             border-color: rgba(0,255,65,0.12) !important;
             border-radius: 2px !important;
         }
-        .fc:hover { border-color: #00ff41 !important; transform: none !important; }
-        .fc h3 { color: #00ff41 !important; }
-        .fc p { color: #008f11 !important; }
-        .fi { border-radius: 0 !important; }
-        .fi-p { background: linear-gradient(135deg, rgba(0,255,65,0.15), rgba(0,255,65,0.03)) !important; }
-        .fi-g { background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.03)) !important; }
-        .fi-k { background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.03)) !important; }
-        .fi-r { background: linear-gradient(135deg, rgba(255,0,85,0.15), rgba(255,0,85,0.03)) !important; }
+        html[data-theme="terminal"] .fc:hover { border-color: #00ff41 !important; transform: none !important; }
+        html[data-theme="terminal"] .fc h3 { color: #00ff41 !important; }
+        html[data-theme="terminal"] .fc p { color: #008f11 !important; }
+        html[data-theme="terminal"] .fi { border-radius: 0 !important; }
+        html[data-theme="terminal"] .fi-p { background: linear-gradient(135deg, rgba(0,255,65,0.15), rgba(0,255,65,0.03)) !important; }
+        html[data-theme="terminal"] .fi-g { background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.03)) !important; }
+        html[data-theme="terminal"] .fi-k { background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.03)) !important; }
+        html[data-theme="terminal"] .fi-r { background: linear-gradient(135deg, rgba(255,0,85,0.15), rgba(255,0,85,0.03)) !important; }
 
         /* Tech pills */
         .tp {
