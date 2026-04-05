@@ -160,8 +160,7 @@
         /* BOT GRID */
         .bg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
         .bc{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px;position:relative;transition:.4s cubic-bezier(.16,1,.3,1);overflow:hidden;cursor:pointer}
-        .bc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(108,92,231,.08),transparent);opacity:0;transition:.4s}
-        .bc:hover::before{opacity:1}
+        /* bc::before is now handled by terminal corner styles below */
         .bc:hover{transform:translateY(-5px);border-image:linear-gradient(135deg,var(--accent),var(--cyan),var(--gold)) 1;box-shadow:0 16px 50px rgba(108,92,231,.1)}
         .bh{display:flex;align-items:center;gap:12px;margin-bottom:12px;position:relative}
         .be{font-size:36px}.bn{font-weight:700;font-size:16px}.bha{font-size:11px;color:var(--text2);margin-top:1px}
@@ -381,6 +380,111 @@
             .ref-link-copy{flex-direction:column}
         }
 
+        /* ASCII ART STYLING */
+        .ascii-hero {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(8px, 2.5vw, 18px);
+            line-height: 1.15;
+            color: transparent;
+            background: linear-gradient(135deg, var(--accent2), var(--cyan), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: ascii-glow 3s ease-in-out infinite alternate;
+            white-space: pre;
+            user-select: none;
+        }
+
+        @keyframes ascii-glow {
+            0% { filter: drop-shadow(0 0 5px rgba(108,92,231,0.3)); opacity: 0.8; }
+            100% { filter: drop-shadow(0 0 20px rgba(0,206,201,0.5)); opacity: 1; }
+        }
+
+        /* Terminal-style section headers */
+        .terminal-header {
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--green);
+            font-size: 13px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .terminal-header::before {
+            content: '> ';
+            color: var(--accent2);
+        }
+        .terminal-header::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+            color: var(--green);
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Matrix rain effect background */
+        .matrix-col {
+            position: fixed;
+            top: -100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(0,206,201,0.06);
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            animation: matrix-fall linear infinite;
+        }
+        @keyframes matrix-fall {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(200vh); }
+        }
+
+        /* ASCII dividers */
+        .ascii-divider {
+            text-align: center;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            opacity: 0.3;
+            margin: 40px 0;
+            letter-spacing: 4px;
+            user-select: none;
+        }
+
+        /* Stats with terminal feel */
+        .st-n {
+            font-family: 'Space Grotesk', 'Courier New', monospace !important;
+        }
+
+        /* Bot cards terminal corner */
+        .bc::before {
+            content: '[ ]';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: var(--green);
+            opacity: 0.5;
+        }
+        .bc:hover::before {
+            content: '[*]';
+            color: var(--accent2);
+            opacity: 1;
+        }
+
+        /* Typing effect for hero subtitle */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.7s step-end infinite;
+            color: var(--accent2);
+            font-weight: 300;
+        }
+
         /* RTL/LTR */
         html[dir="ltr"] .nav-mid a::after{left:auto;right:0}
 
@@ -392,6 +496,7 @@
             .nav-mid{display:none}nav{padding:10px 14px}.hero{padding:90px 14px 40px}
             .btn{padding:12px 24px;font-size:13px}.bg{grid-template-columns:1fr}
             .staking-grid{grid-template-columns:1fr}.earn-steps{grid-template-columns:1fr}
+            .ascii-hero{display:none}
         }
     </style>
 </head>
@@ -401,6 +506,13 @@
 <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
 <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
 <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+
+<div class="matrix-col" style="left:5%;animation-duration:25s">01001SLH10110SPARK01TON10BTC01</div>
+<div class="matrix-col" style="left:20%;animation-duration:18s;animation-delay:-5s">BLOCKCHAIN0xACb0A0941ETH10DEFI01</div>
+<div class="matrix-col" style="left:40%;animation-duration:22s;animation-delay:-10s">STAKE4%5.4%65%APYIELD01001</div>
+<div class="matrix-col" style="left:60%;animation-duration:20s;animation-delay:-3s">NFT01ZVKSLH10TOKEN0xACb01100</div>
+<div class="matrix-col" style="left:75%;animation-duration:28s;animation-delay:-8s">WALLET01TON10BNB01SEND1001</div>
+<div class="matrix-col" style="left:90%;animation-duration:15s;animation-delay:-12s">INVEST01EARN10GROW01SPARK10</div>
 
 <nav id="nb">
     <div class="logo"><div class="logo-d"><span>S</span></div><div class="logo-t">SLH <span>Ecosystem</span></div></div>
@@ -424,9 +536,17 @@
 
 <!-- HERO -->
 <div class="hero">
+    <pre class="ascii-hero" aria-hidden="true">
+███████╗██╗     ██╗  ██╗
+██╔════╝██║     ██║  ██║
+███████╗██║     ███████║
+╚════██║██║     ██╔══██║
+███████║███████╗██║  ██║
+╚══════╝╚══════╝╚═╝  ╚═╝
+    </pre>
     <div class="hero-badge"><div class="bdot"></div> <span data-i18n="badge">SPARK IND | Live Now</span></div>
     <h1><span class="l1" data-i18n="hero_l1">SLH Digital</span><span class="l2" data-i18n="hero_l2">Investment House</span></h1>
-    <p class="hero-p" data-i18n="hero_p">20+ Telegram bots. Real blockchain deposits. Barcode scanning SaaS. Full economic ecosystem built in Israel.</p>
+    <p class="hero-p typing-cursor" data-i18n="hero_p">20+ Telegram bots. Real blockchain deposits. Barcode scanning SaaS. Full economic ecosystem built in Israel.</p>
     <div class="hero-btns">
         <a href="https://t.me/SLH_AIR_bot" class="btn btn-p" data-i18n="hero_btn1">Investment Bot</a>
         <a href="https://t.me/OsifShop_bot" class="btn btn-o" data-i18n="hero_btn2">Shop SaaS</a>
@@ -462,10 +582,12 @@
     <div class="st rv rd3"><div class="st-n">24/7</div><div class="st-l" data-i18n="st4">Automated</div></div>
 </div>
 
+<div class="ascii-divider">==============================================</div>
+
 <!-- HOW IT WORKS -->
 <section>
     <div class="sc">
-        <span class="stag rv" data-i18n="how_tag">How It Works</span>
+        <span class="stag rv terminal-header" data-i18n="how_tag">How It Works</span>
         <h2 class="stitle rv" data-i18n="how_title">Start in 60 Seconds</h2>
     </div>
     <div class="steps">
@@ -476,10 +598,12 @@
     </div>
 </section>
 
+<div class="ascii-divider">==============================================</div>
+
 <!-- ECOSYSTEM -->
 <section id="ecosystem">
     <div class="sc">
-        <span class="stag rv" data-i18n="eco_tag">Ecosystem</span>
+        <span class="stag rv terminal-header" data-i18n="eco_tag">Ecosystem</span>
         <h2 class="stitle rv" data-i18n="eco_title">Every Bot is a Business</h2>
         <p class="ssub rv" data-i18n="eco_sub">Complete economic systems with payments, premium access, and blockchain.</p>
     </div>
@@ -496,10 +620,12 @@
     <div class="coming-grid" id="coming-grid"></div>
 </section>
 
+<div class="ascii-divider">==============================================</div>
+
 <!-- FEATURES -->
 <section id="features">
     <div class="sc">
-        <span class="stag rv" data-i18n="feat_tag">Technology</span>
+        <span class="stag rv terminal-header" data-i18n="feat_tag">Technology</span>
         <h2 class="stitle rv" data-i18n="feat_title">Built Different</h2>
         <p class="ssub rv" data-i18n="feat_sub">Enterprise infrastructure. Real blockchain. Real money.</p>
     </div>
@@ -512,6 +638,8 @@
     </div>
 </section>
 
+<div class="ascii-divider">==============================================</div>
+
 <!-- PRODUCTS -->
 <section id="products">
     <div class="sc">
@@ -522,10 +650,12 @@
     <div class="prods" id="prod-grid"></div>
 </section>
 
+<div class="ascii-divider">==============================================</div>
+
 <!-- STAKING -->
 <section id="staking">
     <div class="sc">
-        <span class="stag rv" data-i18n="staking_tag">Staking</span>
+        <span class="stag rv terminal-header" data-i18n="staking_tag">Staking</span>
         <h2 class="stitle rv" data-i18n="staking_title">Earn Passive Income</h2>
         <p class="ssub rv" data-i18n="staking_sub">Stake your SLH tokens and earn up to 65% annual returns. Choose your plan and start earning today.</p>
     </div>
