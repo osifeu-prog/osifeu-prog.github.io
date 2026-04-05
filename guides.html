@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Guides | Step-by-Step Tutorials</title>
+    <meta name="description" content="Complete guides for SLH Ecosystem - how to invest, stake, transfer tokens, use bots, manage inventory, and earn referral commissions.">
+    <meta property="og:title" content="SLH Ecosystem - User Guides">
+    <meta property="og:image" content="https://slh-nft.com/og.png">
+    <link rel="icon" type="image/png" href="/favicon-32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0a;--accent:#00ff41;--accent2:#39ff14;--cyan:#00e5ff;--gold:#ffd700;--red:#ff0055;--text:#00ff41;--text2:#008f11;--border:rgba(0,255,65,.15);--font:'Space Mono','Courier New',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.8}
+        body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999}
+        .g{max-width:860px;margin:0 auto;padding:40px 24px 80px}
+        .back{display:inline-flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;font-size:13px;margin-bottom:32px}.back:hover{color:var(--accent)}
+        h1{font-size:clamp(24px,4vw,40px);font-weight:700;margin-bottom:8px;color:var(--accent);text-shadow:0 0 20px rgba(0,255,65,.2)}
+        .subtitle{font-size:15px;color:var(--text2);margin-bottom:40px}
+        .toc{background:rgba(0,255,65,.02);border:1px solid var(--border);padding:24px;margin-bottom:40px}
+        .toc h3{font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+        .toc a{display:block;color:var(--text2);text-decoration:none;font-size:14px;padding:4px 0;transition:.3s}
+        .toc a:hover{color:var(--accent);padding-right:8px}
+        .toc a::before{content:'> ';color:var(--accent);opacity:.5}
+        h2{font-size:22px;color:var(--accent);margin:48px 0 16px;padding-top:20px;border-top:1px solid var(--border)}
+        h2 .num{color:var(--text2);margin-left:8px;font-size:14px}
+        h3{font-size:16px;color:var(--cyan);margin:24px 0 8px}
+        p{font-size:14px;color:var(--text);margin-bottom:12px}
+        .step{background:rgba(0,255,65,.02);border:1px solid var(--border);padding:20px;margin:16px 0;position:relative;padding-right:40px}
+        .step::before{content:attr(data-step);position:absolute;top:12px;right:12px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:700}
+        .step-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}
+        .step p{font-size:13px;color:var(--text2);margin:0}
+        code{background:rgba(0,255,65,.08);padding:2px 8px;color:var(--accent);font-size:13px}
+        .warn{background:rgba(255,0,85,.05);border:1px solid rgba(255,0,85,.2);padding:14px;margin:16px 0;font-size:13px;color:var(--red)}
+        .warn::before{content:'WARNING: ';font-weight:700}
+        .tip{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);padding:14px;margin:16px 0;font-size:13px;color:var(--cyan)}
+        .tip::before{content:'TIP: ';font-weight:700}
+        .guide-card{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:24px 0}
+        .guide-card a{background:rgba(0,255,65,.02);border:1px solid var(--border);padding:20px;text-decoration:none;color:var(--text);transition:.3s}
+        .guide-card a:hover{border-color:var(--accent);box-shadow:0 0 15px rgba(0,255,65,.1)}
+        .guide-card .icon{font-size:28px;margin-bottom:8px}
+        .guide-card .title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px}
+        .guide-card .desc{font-size:12px;color:var(--text2)}
+        .footer-links{display:flex;gap:20px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid var(--border)}
+        .footer-links a{color:var(--text2);text-decoration:none;font-size:12px}.footer-links a:hover{color:var(--accent)}
+        @media(max-width:768px){.step{padding-right:20px}.step::before{position:static;margin-bottom:8px}}
+    </style>
+</head>
+<body>
+<div class="g">
+    <a href="/" class="back">&larr; Back to SLH Ecosystem</a>
+
+    <h1>[ USER GUIDES ]</h1>
+    <div class="subtitle">Step-by-step tutorials for every feature in the SLH Ecosystem</div>
+
+    <!-- QUICK LINKS -->
+    <div class="guide-card">
+        <a href="#getting-started"><div class="icon">🚀</div><div class="title">Getting Started</div><div class="desc">First steps, creating account, understanding the ecosystem</div></a>
+        <a href="#investment"><div class="icon">💎</div><div class="title">Investment Guide</div><div class="desc">Deposits, staking plans, earning returns</div></a>
+        <a href="#wallet"><div class="icon">💰</div><div class="title">Wallet & Transfers</div><div class="desc">Managing tokens, sending, receiving</div></a>
+        <a href="#referral"><div class="icon">👥</div><div class="title">Referral Network</div><div class="desc">Building your network, earning commissions</div></a>
+        <a href="#shop"><div class="icon">🛒</div><div class="title">OsifShop Guide</div><div class="desc">Inventory management, barcode scanning</div></a>
+        <a href="#dashboard"><div class="icon">📊</div><div class="title">Dashboard Guide</div><div class="desc">Web dashboard, portfolio, staking UI</div></a>
+        <a href="#nft"><div class="icon">🎨</div><div class="title">NFT Marketplace</div><div class="desc">Buying, selling, virtual pets</div></a>
+        <a href="#security"><div class="icon">🛡️</div><div class="title">Security Guide</div><div class="desc">Protecting your account, KYC, PIN</div></a>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <a href="#getting-started">1. Getting Started</a>
+        <a href="#find-id">2. How to Find Your Telegram ID</a>
+        <a href="#investment">3. Investment Guide (SLH_AIR_bot)</a>
+        <a href="#staking">4. Staking Plans Explained</a>
+        <a href="#wallet">5. Wallet & Token Transfers</a>
+        <a href="#referral">6. Referral Network (10 Generations)</a>
+        <a href="#shop">7. OsifShop - Inventory SaaS</a>
+        <a href="#dashboard">8. Web Dashboard</a>
+        <a href="#nft">9. NFT Marketplace</a>
+        <a href="#games">10. Games & ZVK Tokens</a>
+        <a href="#security">11. Security Best Practices</a>
+        <a href="#faq">12. FAQ</a>
+    </div>
+
+    <!-- 1. GETTING STARTED -->
+    <h2 id="getting-started">Getting Started <span class="num">#01</span></h2>
+    <p>Welcome to the SLH Ecosystem. Here is how to start using the platform in 3 minutes.</p>
+
+    <div class="step" data-step="1">
+        <div class="step-title">Open Telegram</div>
+        <p>Download Telegram from <code>telegram.org</code> if you do not have it. Available on iOS, Android, Desktop, and Web.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Find our main bot</div>
+        <p>Search for <code>@SLH_AIR_bot</code> in Telegram, or click: <a href="https://t.me/SLH_AIR_bot" style="color:var(--accent)">t.me/SLH_AIR_bot</a></p>
+    </div>
+    <div class="step" data-step="3">
+        <div class="step-title">Send /start</div>
+        <p>The bot will greet you and show your dashboard with SLH and ZVK token balances. You can explore all free features immediately.</p>
+    </div>
+    <div class="step" data-step="4">
+        <div class="step-title">Explore the menu</div>
+        <p>You will see buttons for: Market Prices, Investments, Wallet, Risk Management, Games, and Referrals. Try each one to understand the system.</p>
+    </div>
+
+    <div class="tip">All basic features are free. You only pay when you want to make real deposits or access premium features.</div>
+
+    <!-- 2. FIND YOUR ID -->
+    <h2 id="find-id">How to Find Your Telegram ID <span class="num">#02</span></h2>
+    <p>Your Telegram ID is a unique number that identifies your account. You need it to log into the web dashboard.</p>
+
+    <h3>Method 1: Using @userinfobot (Easiest)</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Open @userinfobot</div>
+        <p>Search for <code>@userinfobot</code> in Telegram and open the chat.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Send /start</div>
+        <p>The bot will immediately reply with your ID, username, and name. Copy the number.</p>
+    </div>
+
+    <h3>Method 2: Using SLH_AIR_bot</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Open @SLH_AIR_bot</div>
+        <p>Send <code>/start</code> to the bot. Your dashboard will show your current balances.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Check the referral link</div>
+        <p>Click "Invite" in the menu. Your referral link contains your ID: <code>t.me/SLH_AIR_bot?start=YOUR_ID</code></p>
+    </div>
+
+    <h3>Method 3: Using Telegram Settings</h3>
+    <p>On some Telegram clients, go to Settings and your ID may be shown under your profile. On Telegram Desktop, it might be visible in the API section.</p>
+
+    <!-- 3. INVESTMENT GUIDE -->
+    <h2 id="investment">Investment Guide <span class="num">#03</span></h2>
+    <p>The SLH Investment House offers real cryptocurrency deposits with monthly returns.</p>
+
+    <h3>How Deposits Work</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Choose a plan</div>
+        <p>Send "Investments" in the bot menu. 4 plans available: Monthly (4%), Quarterly (4.5%), Semi-Annual (5%), Annual (5.4%).</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Send TON</div>
+        <p>Transfer TON cryptocurrency to the wallet address shown. Minimum depends on plan (1-25 TON).</p>
+    </div>
+    <div class="step" data-step="3">
+        <div class="step-title">Send screenshot proof</div>
+        <p>Take a screenshot of your transfer confirmation and send it to the bot as a photo.</p>
+    </div>
+    <div class="step" data-step="4">
+        <div class="step-title">Wait for approval</div>
+        <p>An admin will verify your payment and approve it. You will get a confirmation message.</p>
+    </div>
+    <div class="step" data-step="5">
+        <div class="step-title">Earn monthly returns</div>
+        <p>Returns are calculated monthly and added to your account. Check with <code>/mydeposits</code> command.</p>
+    </div>
+
+    <div class="warn">Never invest more than you can afford to lose. Cryptocurrency investments carry risk. Past returns do not guarantee future results.</div>
+
+    <h3>Useful Commands</h3>
+    <p><code>/deposit</code> - Start a new deposit</p>
+    <p><code>/mydeposits</code> - View your active deposits</p>
+    <p><code>/statement</code> - View your account statement</p>
+    <p><code>/portfolio</code> - View your full portfolio</p>
+    <p><code>/withdraw</code> - Request a withdrawal</p>
+
+    <!-- 4. STAKING -->
+    <h2 id="staking">Staking Plans Explained <span class="num">#04</span></h2>
+
+    <h3>Plan Comparison</h3>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;margin:16px 0">
+        <tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:8px;color:var(--text2);font-size:11px">PLAN</th>
+            <th style="text-align:left;padding:8px;color:var(--text2);font-size:11px">MONTHLY</th>
+            <th style="text-align:left;padding:8px;color:var(--text2);font-size:11px">ANNUAL</th>
+            <th style="text-align:left;padding:8px;color:var(--text2);font-size:11px">LOCK</th>
+            <th style="text-align:left;padding:8px;color:var(--text2);font-size:11px">MIN</th>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(0,255,65,.05)"><td style="padding:8px;font-size:13px">Monthly</td><td style="padding:8px;color:var(--accent)">4%</td><td style="padding:8px">48%</td><td style="padding:8px">30 days</td><td style="padding:8px">1 TON</td></tr>
+        <tr style="border-bottom:1px solid rgba(0,255,65,.05)"><td style="padding:8px;font-size:13px">Quarterly</td><td style="padding:8px;color:var(--accent)">4.5%</td><td style="padding:8px">55%</td><td style="padding:8px">90 days</td><td style="padding:8px">5 TON</td></tr>
+        <tr style="border-bottom:1px solid rgba(0,255,65,.05)"><td style="padding:8px;font-size:13px">Semi-Annual</td><td style="padding:8px;color:var(--accent)">5%</td><td style="padding:8px">60%</td><td style="padding:8px">180 days</td><td style="padding:8px">10 TON</td></tr>
+        <tr><td style="padding:8px;font-size:13px">Annual</td><td style="padding:8px;color:var(--gold)">5.4%</td><td style="padding:8px;color:var(--gold)">65%</td><td style="padding:8px">365 days</td><td style="padding:8px">25 TON</td></tr>
+    </table>
+    </div>
+
+    <div class="tip">The longer the lock period, the higher the return. Annual plan gives the best APY at 65% per year.</div>
+
+    <!-- 5. WALLET -->
+    <h2 id="wallet">Wallet & Token Transfers <span class="num">#05</span></h2>
+    <p>The SLH ecosystem uses 3 types of tokens:</p>
+
+    <h3>Token Types</h3>
+    <p><strong style="color:var(--accent)">TON</strong> - Real cryptocurrency. Used for deposits and withdrawals. Tradable on exchanges.</p>
+    <p><strong style="color:var(--gold)">SLH</strong> - Ecosystem utility token on BSC blockchain. Used for premium access and governance.</p>
+    <p><strong style="color:var(--cyan)">ZVK</strong> - Internal reward token. Earned through games and referrals. Convertible to TON.</p>
+
+    <h3>How to Transfer Tokens</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Internal transfer (SLH/ZVK)</div>
+        <p>Use <code>/pay [amount] [token] [user_id]</code> in the bot. Or use the web dashboard Transfer tab.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Blockchain transfer</div>
+        <p>Use <code>/send</code> in the bot for on-chain TON transfers.</p>
+    </div>
+
+    <h3>ZVK to TON Conversion</h3>
+    <p>10 ZVK = 1 TON | 50 ZVK = 4 TON | 100 ZVK = 7 TON</p>
+
+    <!-- 6. REFERRAL -->
+    <h2 id="referral">Referral Network (10 Generations) <span class="num">#06</span></h2>
+    <p>Earn commissions on your network's activity up to 10 generations deep.</p>
+
+    <h3>Commission Rates</h3>
+    <p><strong style="color:var(--accent)">Gen 1 (direct):</strong> 10% of their deposits</p>
+    <p><strong>Gen 2:</strong> 5%</p>
+    <p><strong>Gen 3:</strong> 3%</p>
+    <p><strong>Gen 4:</strong> 2%</p>
+    <p><strong>Gen 5:</strong> 1%</p>
+    <p><strong style="color:var(--text2)">Gen 6-10:</strong> 0.5% each</p>
+
+    <h3>How to Refer</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Get your referral link</div>
+        <p>In @SLH_AIR_bot, click "Invite" to get your unique link: <code>t.me/SLH_AIR_bot?start=YOUR_ID</code></p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Share with friends</div>
+        <p>Send the link to friends, post on social media, or share in groups.</p>
+    </div>
+    <div class="step" data-step="3">
+        <div class="step-title">Earn automatically</div>
+        <p>When anyone in your network makes a deposit, you earn commission automatically. Check on the web dashboard.</p>
+    </div>
+
+    <h3>Example: 100 TON Deposit in Your Network</h3>
+    <p>If someone 3 levels deep deposits 100 TON, you earn 3 TON (3%). If it was a direct referral, you earn 10 TON (10%).</p>
+
+    <div class="tip">Your network grows exponentially. If each person refers just 3 people, by generation 5 you have 243 people earning you commissions!</div>
+
+    <!-- 7. SHOP -->
+    <h2 id="shop">OsifShop - Inventory SaaS <span class="num">#07</span></h2>
+    <p>OsifShop is an inventory management system with camera barcode scanning.</p>
+
+    <div class="step" data-step="1">
+        <div class="step-title">Open @OsifShop_bot</div>
+        <p>Search for <code>@OsifShop_bot</code> in Telegram and send <code>/start</code>.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Add products</div>
+        <p>Use the "Add Product" button to add items. Enter name, price, and quantity.</p>
+    </div>
+    <div class="step" data-step="3">
+        <div class="step-title">Scan barcodes</div>
+        <p>Click "Scan" to open the camera scanner (Mini App). Point your camera at any barcode to scan products.</p>
+    </div>
+    <div class="step" data-step="4">
+        <div class="step-title">View reports</div>
+        <p>Get inventory reports, low-stock alerts, and export to CSV.</p>
+    </div>
+
+    <!-- 8. DASHBOARD -->
+    <h2 id="dashboard">Web Dashboard <span class="num">#08</span></h2>
+    <p>Access your personal dashboard at <a href="/dashboard.html" style="color:var(--accent)">slh-nft.com/dashboard.html</a></p>
+
+    <h3>Login Options</h3>
+    <div class="step" data-step="1">
+        <div class="step-title">Option A: Telegram Widget (Recommended)</div>
+        <p>Click the "Log in with Telegram" button. A popup will ask you to confirm. One click and you are in.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Option B: Manual ID</div>
+        <p>Enter your Telegram ID number. See <a href="#find-id" style="color:var(--accent)">How to Find Your Telegram ID</a> above.</p>
+    </div>
+
+    <h3>Dashboard Features</h3>
+    <p><strong>Portfolio</strong> - View all your active deposits and their status</p>
+    <p><strong>Staking</strong> - Create new staking positions directly from the web</p>
+    <p><strong>Transfer</strong> - Send SLH/ZVK tokens to other users</p>
+    <p><strong>Referrals</strong> - View your referral tree, earnings by generation, copy referral link</p>
+    <p><strong>Quick Actions</strong> - Direct links to all bots and documentation</p>
+
+    <!-- 9. NFT -->
+    <h2 id="nft">NFT Marketplace <span class="num">#09</span></h2>
+    <p>The NFTY Marketplace lets you buy and sell digital assets with a virtual pet companion.</p>
+
+    <div class="step" data-step="1">
+        <div class="step-title">Open @NIFTI_Publisher_Bot</div>
+        <p>Send <code>/start</code> to the bot. You will get a virtual pet (Sparky!) automatically.</p>
+    </div>
+    <div class="step" data-step="2">
+        <div class="step-title">Browse marketplace</div>
+        <p>Use <code>/browse</code> to see available digital assets for sale.</p>
+    </div>
+    <div class="step" data-step="3">
+        <div class="step-title">List your items</div>
+        <p>Use <code>/sell</code> to create a new listing. Set title, description, price, and category.</p>
+    </div>
+    <div class="step" data-step="4">
+        <div class="step-title">Care for your pet</div>
+        <p>Use <code>/feed</code>, <code>/play</code>, <code>/learn</code>, <code>/sleep</code> to keep your virtual pet happy and evolving!</p>
+    </div>
+
+    <!-- 10. GAMES -->
+    <h2 id="games">Games & ZVK Tokens <span class="num">#10</span></h2>
+    <p>Play games to earn ZVK tokens, which can be converted to TON.</p>
+
+    <h3>Available Games</h3>
+    <p><strong>Slots</strong> - Spin and win up to 25 ZVK per round</p>
+    <p><strong>Dice</strong> - Roll 6 = 5 ZVK, Roll 4-5 = 2 ZVK</p>
+    <p><strong>Basketball</strong> - Score 4+ = 3 ZVK</p>
+    <p><strong>Darts</strong> - Bullseye (6) = 5 ZVK, 4-5 = 2 ZVK</p>
+
+    <p>Each game costs 1 ZVK to play. Open the Games menu in @SLH_AIR_bot to start.</p>
+
+    <!-- 11. SECURITY -->
+    <h2 id="security">Security Best Practices <span class="num">#11</span></h2>
+
+    <div class="warn">Never share your private keys, PIN codes, or wallet seed phrases with anyone. SLH staff will NEVER ask for these.</div>
+
+    <p><strong>Enable 2FA</strong> in Telegram settings for extra account protection.</p>
+    <p><strong>Verify bot names</strong> - only use official @SLH_AIR_bot. Beware of fake bots with similar names.</p>
+    <p><strong>Keep records</strong> - use <code>/statement</code> to regularly check your account activity.</p>
+    <p><strong>Report suspicious activity</strong> - contact <code>/support</code> or call 058-420-3384.</p>
+
+    <!-- 12. FAQ -->
+    <h2 id="faq">Frequently Asked Questions <span class="num">#12</span></h2>
+
+    <h3>Q: Is this a real investment platform?</h3>
+    <p>SLH is a digital investment ecosystem built on real blockchain technology. All TON deposits are real cryptocurrency transactions. However, like all investments, returns are not guaranteed.</p>
+
+    <h3>Q: How do I withdraw my money?</h3>
+    <p>Use <code>/withdraw</code> in @SLH_AIR_bot. Withdrawals are processed within 24 hours after admin approval.</p>
+
+    <h3>Q: What happens if I lose my phone?</h3>
+    <p>Your account is tied to your Telegram account. Log into Telegram on a new device and all your data will be there.</p>
+
+    <h3>Q: Can I use this from outside Israel?</h3>
+    <p>Yes! The platform supports Hebrew, English, Russian, and Arabic. Anyone with Telegram can use it.</p>
+
+    <h3>Q: How do I contact support?</h3>
+    <p>Send <code>/support</code> in any SLH bot, or call 058-420-3384, or email osif@spark-ind.com.</p>
+
+    <h3>Q: What is the minimum investment?</h3>
+    <p>The monthly plan starts at just 1 TON (approximately 4 ILS at current prices).</p>
+
+    <!-- FOOTER -->
+    <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/whitepaper.html">Whitepaper</a>
+        <a href="https://t.me/SLH_AIR_bot">Investment Bot</a>
+        <a href="https://slh-api-production.up.railway.app/docs">API Docs</a>
+        <a href="tel:0584203384">Support: 058-420-3384</a>
+    </div>
+</div>
+</body>
+</html>

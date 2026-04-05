@@ -112,23 +112,39 @@
     <div class="login-title">[ ACCESS PORTAL ]</div>
     <div class="login-sub">Sign in with Telegram to access your dashboard</div>
 
-    <div id="tg-login">
+    <!-- PRIMARY: Telegram Login Button -->
+    <div id="tg-login" style="margin:24px 0">
         <script async src="https://telegram.org/js/telegram-widget.js?22"
             data-telegram-login="SLH_AIR_bot"
             data-size="large"
             data-onauth="onTelegramAuth(user)"
             data-request-access="write">
         </script>
+        <div style="margin-top:12px;font-size:12px;color:var(--text2)">Click the button above to login instantly with Telegram</div>
     </div>
 
+    <!-- SECONDARY: Manual ID -->
     <div class="login-manual">
         <div style="margin-bottom:8px;color:var(--text2)">--- OR ENTER TELEGRAM ID ---</div>
-        <input type="number" id="manual-uid" placeholder="Telegram ID">
+        <input type="number" id="manual-uid" placeholder="e.g. 224223270">
         <br>
         <button onclick="manualLogin()">[ LOGIN ]</button>
+        <div style="margin-top:16px;text-align:left;max-width:400px;padding:16px;background:rgba(0,255,65,.02);border:1px solid var(--border)">
+            <div style="font-size:12px;color:var(--accent);margin-bottom:8px;font-weight:700">How to find your Telegram ID?</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.8">
+                1. Open Telegram<br>
+                2. Search for <span style="color:var(--accent)">@userinfobot</span><br>
+                3. Send <span style="color:var(--accent)">/start</span><br>
+                4. The bot will reply with your ID number<br>
+                <span style="color:var(--text2);opacity:.6">Or ask @SLH_AIR_bot: send /start and check your profile</span>
+            </div>
+        </div>
     </div>
 
-    <a href="/" style="color:var(--text2);font-size:12px;margin-top:32px;text-decoration:none">&larr; Back to SLH Ecosystem</a>
+    <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+        <a href="/" style="color:var(--text2);font-size:12px;text-decoration:none">&larr; Back to Site</a>
+        <a href="/guides.html" style="color:var(--accent);font-size:12px;text-decoration:none">User Guides &rarr;</a>
+    </div>
 </div>
 
 <!-- DASHBOARD -->
