@@ -1059,6 +1059,15 @@
         html[data-theme="light"] body { animation: none !important; }
         html[data-theme="light"] .contact-item { background: #fff !important; border-color: var(--border) !important; }
 
+        /* SMOOTH THEME TRANSITIONS */
+        html { transition: all 0.5s ease; }
+        body, nav, .bc, .fc, .st, .prod, .stake-card, .cta, .contact-item, .btn, .stag, .tp {
+            transition: background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease !important;
+        }
+        .st-n, .stitle, .hero h1 .l1, .hero h1 .l2 {
+            transition: color 0.8s ease, -webkit-text-fill-color 0.8s ease, text-shadow 0.8s ease !important;
+        }
+
         /* RESPONSIVE */
         @media(max-width:768px){
             .stats{grid-template-columns:repeat(2,1fr)}.st:first-child{border-radius:14px 0 0 0}.st:nth-child(2){border-radius:0 14px 0 0}
@@ -1096,16 +1105,20 @@
         <a href="#contact" data-i18n="nav_contact">Contact</a>
     </div>
     <div class="nav-right">
-        <a href="/guides.html" class="lang-btn" style="font-size:10px;letter-spacing:1px" title="User Guides">?</a>
-        <a href="/dashboard.html" class="lang-btn" style="font-size:10px;letter-spacing:1px;border-color:var(--accent);color:var(--accent)" title="Dashboard">MY</a>
-        <div class="theme-switch" title="Switch Theme">
-            <button onclick="cycleTheme()" id="theme-btn">🖥️</button>
-        </div>
+        <a href="/guides.html" class="lang-btn" style="font-size:10px" title="User Guides">?</a>
+        <a href="/dashboard.html" class="lang-btn" style="font-size:10px;border-color:var(--accent);color:var(--accent)" title="Dashboard">MY</a>
+        <span style="color:var(--text2);font-size:10px;opacity:.4">|</span>
+        <button class="lang-btn theme-btn" onclick="setTheme('terminal')" title="Terminal">🖥️</button>
+        <button class="lang-btn theme-btn" onclick="setTheme('crypto')" title="Crypto">💎</button>
+        <button class="lang-btn theme-btn" onclick="setTheme('light')" title="Light">☀️</button>
+        <button class="lang-btn theme-btn" onclick="setTheme('unified')" title="Unified">🌈</button>
+        <span style="color:var(--text2);font-size:10px;opacity:.4">|</span>
         <button class="lang-btn" onclick="setLang('he')">HE</button>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('ru')">RU</button>
         <button class="lang-btn" onclick="setLang('ar')">AR</button>
-        <a href="/whitepaper.html" class="lang-btn" style="font-size:11px;letter-spacing:1px">WP</a>
+        <span style="color:var(--text2);font-size:10px;opacity:.4">|</span>
+        <a href="/whitepaper.html" class="lang-btn" style="font-size:10px">WP</a>
         <a href="https://t.me/SLH_AIR_bot" class="nav-cta" data-i18n="nav_cta">Try Free</a>
     </div>
 </nav>
@@ -1938,22 +1951,41 @@ function copyRefLink() {
 renderRefRates();
 
 // === THEME SWITCHER ===
-const THEMES = ['terminal', 'crypto', 'light'];
-const THEME_ICONS = {'terminal': '🖥️', 'crypto': '💎', 'light': '☀️'};
+const THEMES = ['terminal', 'crypto', 'light', 'unified'];
 let currentTheme = localStorage.getItem('slh_theme') || 'terminal';
+let unifiedInterval = null;
 
 function setTheme(theme) {
     currentTheme = theme;
-    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('slh_theme', theme);
-    const btn = document.getElementById('theme-btn');
-    if (btn) btn.textContent = THEME_ICONS[theme] || '🖥️';
-}
 
-function cycleTheme() {
-    const idx = THEMES.indexOf(currentTheme);
-    const next = THEMES[(idx + 1) % THEMES.length];
-    setTheme(next);
+    // Stop unified cycling if switching away
+    if (unifiedInterval && theme !== 'unified') {
+        clearInterval(unifiedInterval);
+        unifiedInterval = null;
+    }
+
+    if (theme === 'unified') {
+        // Unified: cycle through themes with smooth transitions
+        document.documentElement.style.transition = 'all 2s ease';
+        let uniIdx = 0;
+        const uniThemes = ['terminal', 'crypto', 'light'];
+        document.documentElement.setAttribute('data-theme', uniThemes[0]);
+        unifiedInterval = setInterval(() => {
+            uniIdx = (uniIdx + 1) % uniThemes.length;
+            document.documentElement.setAttribute('data-theme', uniThemes[uniIdx]);
+        }, 8000); // Switch every 8 seconds
+    } else {
+        document.documentElement.style.transition = 'all 0.5s ease';
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    // Update active button
+    document.querySelectorAll('.theme-btn').forEach(b => {
+        b.classList.toggle('active', false);
+    });
+    const activeBtn = document.querySelector(`.theme-btn[onclick*="${theme}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
 }
 
 setTheme(currentTheme);
