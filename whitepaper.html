@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Ecosystem - Whitepaper | SPARK IND</title>
+    <meta name="description" content="SLH Ecosystem Whitepaper - Technical architecture, tokenomics, and vision for the digital investment house built on Telegram and blockchain.">
+    <meta property="og:title" content="SLH Ecosystem Whitepaper">
+    <meta property="og:description" content="Technical whitepaper for the SLH Digital Investment House - 20+ bots, blockchain, tokenomics.">
+    <meta property="og:image" content="https://slh-nft.com/og.png">
+    <meta property="og:url" content="https://slh-nft.com/whitepaper.html">
+    <link rel="canonical" href="https://slh-nft.com/whitepaper.html">
+    <link rel="icon" type="image/png" href="/favicon-32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#050510;--bg2:#0a0a1e;--accent:#6c5ce7;--accent2:#a29bfe;--green:#00cec9;--cyan:#00b4d8;--gold:#ffd32a;--text:#eaeaf5;--text2:#7878a0;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+        .wp{max-width:860px;margin:0 auto;padding:40px 24px 80px}
+        .back{display:inline-flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;font-size:13px;margin-bottom:40px;transition:.3s}
+        .back:hover{color:var(--accent2)}
+        .badge{display:inline-block;padding:5px 14px;border-radius:6px;background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.2);color:var(--accent2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+        h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:800;margin-bottom:16px;line-height:1.15;background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{font-size:18px;color:var(--text2);margin-bottom:48px;max-width:600px;line-height:1.7}
+        .meta{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+        .meta-item{font-size:13px;color:var(--text2)}.meta-item strong{color:var(--text)}
+        .toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:48px}
+        .toc h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent2);margin-bottom:16px}
+        .toc ol{padding-left:24px}.toc li{margin-bottom:8px}
+        .toc a{color:var(--text);text-decoration:none;transition:.3s;font-size:15px}.toc a:hover{color:var(--accent2)}
+        h2{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;margin:56px 0 20px;padding-top:24px;border-top:1px solid var(--border);color:var(--text)}
+        h2 .num{color:var(--accent2);margin-right:8px}
+        h3{font-size:20px;font-weight:600;margin:32px 0 12px}
+        p{margin-bottom:16px;color:var(--text);font-size:15px;line-height:1.8}
+        ul,ol{margin-bottom:16px;padding-left:24px}
+        li{margin-bottom:8px;font-size:15px;color:var(--text)}
+        .highlight{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:24px 0}
+        .highlight h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent2)}
+        table{width:100%;border-collapse:collapse;margin:24px 0}
+        th{text-align:left;padding:12px 16px;background:var(--card);border:1px solid var(--border);font-size:13px;font-weight:700;color:var(--accent2);text-transform:uppercase}
+        td{padding:12px 16px;border:1px solid var(--border);font-size:14px;color:var(--text)}
+        .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:24px 0}
+        .stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+        .stat-box .val{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat-box .lbl{font-size:12px;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+        .cta-box{background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(0,206,201,.05));border:1px solid var(--border);border-radius:20px;padding:40px;text-align:center;margin:48px 0}
+        .cta-box h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:12px}
+        .cta-box p{color:var(--text2);margin-bottom:24px}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;transition:.3s;box-shadow:0 4px 20px rgba(108,92,231,.3)}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(108,92,231,.5)}
+        code{background:rgba(108,92,231,.1);padding:2px 8px;border-radius:4px;font-size:13px;color:var(--accent2)}
+        @media(max-width:768px){.wp{padding:24px 16px 60px}.stat-grid{grid-template-columns:1fr 1fr}.meta{flex-direction:column;gap:8px}}
+    </style>
+</head>
+<body>
+<div class="wp">
+    <a href="/" class="back">&larr; Back to SLH Ecosystem</a>
+
+    <div class="badge">Whitepaper v1.0</div>
+    <h1>SLH Ecosystem Whitepaper</h1>
+    <p class="subtitle">A comprehensive technical and business overview of the SLH Digital Investment House - a Telegram-native financial ecosystem powered by blockchain technology.</p>
+
+    <div class="meta">
+        <div class="meta-item"><strong>Version:</strong> 1.0</div>
+        <div class="meta-item"><strong>Date:</strong> April 2026</div>
+        <div class="meta-item"><strong>Author:</strong> SPARK IND</div>
+        <div class="meta-item"><strong>Status:</strong> Live</div>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#abstract">Executive Summary</a></li>
+            <li><a href="#problem">Problem Statement</a></li>
+            <li><a href="#solution">Solution Architecture</a></li>
+            <li><a href="#tokenomics">Tokenomics</a></li>
+            <li><a href="#products">Product Suite</a></li>
+            <li><a href="#tech">Technical Infrastructure</a></li>
+            <li><a href="#revenue">Revenue Model</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#investment">Investment Opportunity</a></li>
+            <li><a href="#team">Team & Contact</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <h2 id="abstract"><span class="num">01</span> Executive Summary</h2>
+    <p>SLH Ecosystem is a Telegram-native digital investment house that combines traditional financial services with blockchain technology. Built in Israel by SPARK IND, the ecosystem consists of 20+ specialized Telegram bots, each serving as an independent micro-business within a unified economic framework.</p>
+    <p>The platform enables users to deposit cryptocurrency (primarily TON), earn yields through managed investment plans, trade tokens, manage inventory via SaaS tools, and participate in a gamified reward economy using internal tokens (SLH and ZVK).</p>
+
+    <div class="stat-grid">
+        <div class="stat-box"><div class="val">20+</div><div class="lbl">Active Bots</div></div>
+        <div class="stat-box"><div class="val">12</div><div class="lbl">Supported Coins</div></div>
+        <div class="stat-box"><div class="val">65%</div><div class="lbl">Max Annual Yield</div></div>
+        <div class="stat-box"><div class="val">24/7</div><div class="lbl">Automated</div></div>
+    </div>
+
+    <!-- 2. PROBLEM -->
+    <h2 id="problem"><span class="num">02</span> Problem Statement</h2>
+    <p>Traditional financial services remain inaccessible to millions of users, particularly in emerging markets. Existing crypto platforms suffer from complex UIs, high fees, and fragmented user experiences. Meanwhile, Telegram has become the de facto communication platform for crypto-native communities, with 950M+ monthly active users.</p>
+    <p>Key problems we address:</p>
+    <ul>
+        <li><strong>Fragmentation</strong> - Users need separate apps for trading, wallets, gaming, and community management</li>
+        <li><strong>Complexity</strong> - DeFi protocols require technical expertise that excludes everyday users</li>
+        <li><strong>Trust</strong> - Centralized exchanges face regulatory risks; pure DeFi lacks customer support</li>
+        <li><strong>Accessibility</strong> - Many users in Israel and the Middle East lack access to global crypto platforms</li>
+    </ul>
+
+    <!-- 3. SOLUTION -->
+    <h2 id="solution"><span class="num">03</span> Solution Architecture</h2>
+    <p>SLH Ecosystem solves these problems by embedding financial services directly inside Telegram, where users already spend their time. Each bot serves a specific function but shares a common database, authentication, and token economy.</p>
+
+    <h3>Architecture Principles</h3>
+    <ul>
+        <li><strong>Telegram-Native</strong> - No separate app downloads; everything works inside Telegram</li>
+        <li><strong>Modular Microservices</strong> - Each bot is an independent Docker container with its own codebase</li>
+        <li><strong>Shared Economy</strong> - SLH and ZVK tokens flow between all bots</li>
+        <li><strong>Double-Entry Ledger</strong> - Bank-grade accounting for all financial transactions</li>
+        <li><strong>Multi-Language</strong> - Hebrew, English, Russian, Arabic support across all interfaces</li>
+    </ul>
+
+    <div class="highlight">
+        <h4>Technical Stack</h4>
+        <p>Python (aiogram 3) | PostgreSQL 15 | Redis 7 | Docker Compose | TON API | BSC/web3.py | CoinGecko | STON.fi DEX | Cloudflare | GitHub Pages</p>
+    </div>
+
+    <!-- 4. TOKENOMICS -->
+    <h2 id="tokenomics"><span class="num">04</span> Tokenomics</h2>
+    <p>The ecosystem operates with a dual-token model:</p>
+
+    <table>
+        <tr><th>Token</th><th>Type</th><th>Purpose</th><th>Supply</th></tr>
+        <tr><td><strong>SLH</strong></td><td>BEP-20 (BSC)</td><td>Ecosystem utility token, premium access, governance</td><td>1,000,000,000</td></tr>
+        <tr><td><strong>ZVK</strong></td><td>Internal (off-chain)</td><td>Gamification, rewards, micro-payments between bots</td><td>Inflationary (mint/burn)</td></tr>
+    </table>
+
+    <h3>SLH Token Details</h3>
+    <ul>
+        <li><strong>Contract:</strong> <code>0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code> (BSC Mainnet)</li>
+        <li><strong>Standard:</strong> BEP-20 (ERC-20 compatible)</li>
+        <li><strong>Use cases:</strong> Premium subscriptions, staking rewards, P2P transfers, cross-bot payments</li>
+    </ul>
+
+    <h3>ZVK Token Economy</h3>
+    <ul>
+        <li><strong>Earn:</strong> Games (slots, dice, basketball, darts), referrals (+5 ZVK per invite), task completion</li>
+        <li><strong>Spend:</strong> 1 ZVK per game play, premium features, in-bot purchases</li>
+        <li><strong>Convert:</strong> 10 ZVK = 1 TON | 50 ZVK = 4 TON | 100 ZVK = 7 TON</li>
+        <li><strong>Burn mechanism:</strong> Game plays burn ZVK, creating deflationary pressure</li>
+    </ul>
+
+    <!-- 5. PRODUCTS -->
+    <h2 id="products"><span class="num">05</span> Product Suite</h2>
+
+    <h3>Tier 1: Core Financial Products</h3>
+    <table>
+        <tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr>
+        <tr><td>Investment House</td><td>@SLH_AIR_bot</td><td>LIVE</td><td>4 deposit plans (4%-5.4% monthly), 12-coin live prices, swap, limit orders, portfolio management, double-entry ledger</td></tr>
+        <tr><td>Multi-Chain Wallet</td><td>@SLH_Wallet_bot</td><td>LIVE</td><td>TON + BNB wallet registration, community card, QR sharing</td></tr>
+        <tr><td>TON Tools</td><td>@TON_MNH_bot</td><td>LIVE</td><td>Balance checking, transaction tracking, product marketplace, VIP group</td></tr>
+        <tr><td>Staking Factory</td><td>@SLH_Factory_bot</td><td>BETA</td><td>Staking pools for SLH token, yield farming</td></tr>
+    </table>
+
+    <h3>Tier 2: SaaS & Commerce</h3>
+    <table>
+        <tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr>
+        <tr><td>Inventory SaaS</td><td>@OsifShop_bot</td><td>LIVE</td><td>Camera barcode scanning (Mini App), stock management, low-stock alerts, CSV export</td></tr>
+        <tr><td>NFT Marketplace</td><td>@NIFTI_Publisher_Bot</td><td>LIVE</td><td>Digital asset marketplace with virtual pet companion</td></tr>
+        <tr><td>Bot Shop</td><td>@BotShop_bot</td><td>LIVE</td><td>AI market analysis, trading simulation, wallet management</td></tr>
+        <tr><td>Campaign SaaS</td><td>@SLH_Campaign_bot</td><td>LIVE</td><td>CRM, surveys, broadcasts, activist management</td></tr>
+    </table>
+
+    <h3>Tier 3: Community & Engagement</h3>
+    <table>
+        <tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr>
+        <tr><td>Education</td><td>@SLH_Academia_bot</td><td>LIVE</td><td>Courses, airdrop system, leaderboard, referrals</td></tr>
+        <tr><td>Games</td><td>@SLH_Game_bot</td><td>BETA</td><td>Slots, dice, basketball, darts with ZVK rewards</td></tr>
+        <tr><td>Security</td><td>@SLH_Guardian_bot</td><td>LIVE</td><td>Group anti-spam, moderation, system health monitoring</td></tr>
+        <tr><td>Lottery</td><td>@Chance_Pais_bot</td><td>BETA</td><td>Gambling analytics and tracking (coming soon)</td></tr>
+    </table>
+
+    <!-- 6. TECHNICAL -->
+    <h2 id="tech"><span class="num">06</span> Technical Infrastructure</h2>
+    <p>The entire ecosystem runs on Docker Compose with shared PostgreSQL and Redis instances:</p>
+    <ul>
+        <li><strong>22 Docker containers</strong> orchestrated via single docker-compose.yml</li>
+        <li><strong>PostgreSQL 15</strong> with health checks, shared <code>slh_main</code> database</li>
+        <li><strong>Redis 7</strong> for caching, session state, and pub/sub messaging</li>
+        <li><strong>Auto-restart</strong> on crash with exponential backoff</li>
+        <li><strong>Double-entry ledger</strong> ensuring mathematical balance of all accounts</li>
+        <li><strong>PBKDF2+XOR encryption</strong> for sensitive data (private keys, KYC)</li>
+    </ul>
+
+    <div class="highlight">
+        <h4>Blockchain Integration</h4>
+        <p><strong>TON Network:</strong> Deposit verification, wallet management, payment processing via TonCenter API</p>
+        <p><strong>BSC (BNB Chain):</strong> SLH ERC-20 token transfers, balance queries via web3.py</p>
+        <p><strong>STON.fi:</strong> DEX swap quotes for TON pairs</p>
+        <p><strong>CoinGecko:</strong> Live pricing for 12 cryptocurrencies, updated every 60 seconds</p>
+    </div>
+
+    <!-- 7. REVENUE -->
+    <h2 id="revenue"><span class="num">07</span> Revenue Model</h2>
+    <p>SLH Ecosystem generates revenue through multiple streams:</p>
+
+    <table>
+        <tr><th>Revenue Stream</th><th>Description</th><th>Price Range</th></tr>
+        <tr><td>Premium Subscriptions</td><td>Monthly/annual access to bot premium features</td><td>19-149 ILS / 1-7.5 TON</td></tr>
+        <tr><td>Investment Spreads</td><td>Yield differential on managed deposits</td><td>0.5-1% monthly</td></tr>
+        <tr><td>Transaction Fees</td><td>Swap, transfer, and withdrawal fees</td><td>0.1-0.5%</td></tr>
+        <tr><td>SaaS Subscriptions</td><td>OsifShop, Campaign Bot monthly plans</td><td>49-59 ILS/month</td></tr>
+        <tr><td>NFT Marketplace</td><td>Listing and sales commission</td><td>2.5% per sale</td></tr>
+        <tr><td>ZVK Token Sales</td><td>Direct ZVK purchases for gaming/rewards</td><td>10 ZVK = 1 TON</td></tr>
+        <tr><td>Affiliate Program</td><td>Revenue share from referred premium users</td><td>10% lifetime</td></tr>
+    </table>
+
+    <!-- 8. ROADMAP -->
+    <h2 id="roadmap"><span class="num">08</span> Roadmap</h2>
+
+    <h3>Phase 1: Foundation (Q4 2025 - Q1 2026) &#10003;</h3>
+    <ul>
+        <li>Core bot infrastructure (Docker, PostgreSQL, Redis)</li>
+        <li>SLH_AIR investment bot with full banking system</li>
+        <li>OsifShop SaaS with camera barcode scanning</li>
+        <li>NFTY NFT marketplace</li>
+        <li>Guardian security bot</li>
+        <li>Internal token ledger (SLH/ZVK)</li>
+    </ul>
+
+    <h3>Phase 2: Expansion (Q2 2026) &#8592; We are here</h3>
+    <ul>
+        <li>Scale to 20+ bots with shared economy</li>
+        <li>Campaign SaaS for marketing automation</li>
+        <li>Multi-language support (HE/EN/RU/AR)</li>
+        <li>Website launch at slh-nft.com with live prices</li>
+        <li>Community growth programs (airdrops, referrals)</li>
+        <li>Investor whitepaper and fundraising</li>
+    </ul>
+
+    <h3>Phase 3: Integration (Q3-Q4 2026)</h3>
+    <ul>
+        <li>TON Connect web wallet integration</li>
+        <li>Web app with full bot functionality (login via Telegram)</li>
+        <li>Automated TON payment verification (blockchain-based)</li>
+        <li>ESP32 IoT integration for Ledger bot (hardware wallet display)</li>
+        <li>Chance Pais gambling analytics engine</li>
+        <li>Cross-bot P2P trading marketplace</li>
+        <li>Mobile-optimized Mini Apps for all major bots</li>
+    </ul>
+
+    <h3>Phase 4: Scale (2027)</h3>
+    <ul>
+        <li>Ambassador program - custom branded bots for partners</li>
+        <li>API marketplace for third-party bot developers</li>
+        <li>Institutional grade custody and compliance (MiCA ready)</li>
+        <li>Multi-region deployment (EU, MENA)</li>
+        <li>SLH token DEX listing (STON.fi, PancakeSwap)</li>
+        <li>Revenue target: $1M ARR</li>
+    </ul>
+
+    <!-- 9. INVESTMENT -->
+    <h2 id="investment"><span class="num">09</span> Investment Opportunity</h2>
+    <p>SPARK IND is raising capital to accelerate the growth of the SLH Ecosystem. We are offering equity participation to strategic investors who share our vision of democratizing financial services through Telegram and blockchain.</p>
+
+    <div class="highlight">
+        <h4>Investment Highlights</h4>
+        <ul>
+            <li><strong>Working product</strong> - 20+ bots live and operational, not a concept</li>
+            <li><strong>Revenue-generating</strong> - Multiple premium subscribers and active deposit plans</li>
+            <li><strong>Scalable infrastructure</strong> - Docker-based, one-click deployment per new bot</li>
+            <li><strong>Multi-revenue streams</strong> - Subscriptions, fees, token economy, SaaS</li>
+            <li><strong>Growing market</strong> - Telegram mini-apps ecosystem valued at $10B+ by 2027</li>
+            <li><strong>Israel tech ecosystem</strong> - Access to top-tier blockchain talent and innovation</li>
+        </ul>
+    </div>
+
+    <h3>What We're Raising</h3>
+    <table>
+        <tr><th>Detail</th><th>Terms</th></tr>
+        <tr><td>Round</td><td>Seed / Pre-Series A</td></tr>
+        <tr><td>Target Raise</td><td>$250,000 - $500,000</td></tr>
+        <tr><td>Instrument</td><td>SAFE (Simple Agreement for Future Equity) or Equity</td></tr>
+        <tr><td>Valuation Cap</td><td>$2,000,000 pre-money</td></tr>
+        <tr><td>Use of Funds</td><td>Engineering (40%), Marketing (30%), Operations (20%), Legal (10%)</td></tr>
+        <tr><td>Equity Available</td><td>Up to 20% in this round</td></tr>
+    </table>
+
+    <h3>Use of Funds Breakdown</h3>
+    <ul>
+        <li><strong>Engineering (40%):</strong> Full-time developers, automated blockchain verification, web app development, security audits</li>
+        <li><strong>Marketing (30%):</strong> Community growth, influencer partnerships, Telegram Ads, conference presence</li>
+        <li><strong>Operations (20%):</strong> Cloud infrastructure, compliance, customer support, legal entity formation</li>
+        <li><strong>Legal (10%):</strong> Regulatory compliance, token legal opinion, terms of service, privacy policy</li>
+    </ul>
+
+    <div class="cta-box">
+        <h3>Interested in Investing?</h3>
+        <p>Join the SLH Ecosystem as a strategic investor. Get access to our data room, financial projections, and team.</p>
+        <a href="mailto:osif@spark-ind.com" class="btn">Contact Us: osif@spark-ind.com</a>
+        <p style="margin-top:16px;font-size:13px;color:var(--text2)">Or reach out via Telegram: <a href="https://t.me/SLH_AIR_bot" style="color:var(--accent2)">@SLH_AIR_bot</a> | Phone: 058-420-3384</p>
+    </div>
+
+    <!-- 10. TEAM -->
+    <h2 id="team"><span class="num">10</span> Team & Contact</h2>
+    <p>SLH Ecosystem is built by SPARK IND, based in Israel.</p>
+    <ul>
+        <li><strong>Founder & Lead Developer:</strong> Osif Ungar (Kaufman) - Full-stack developer with expertise in blockchain, Telegram bots, and financial systems</li>
+        <li><strong>Technology:</strong> Python, aiogram, PostgreSQL, Docker, web3, TON API</li>
+        <li><strong>Website:</strong> <a href="https://slh-nft.com" style="color:var(--accent2)">slh-nft.com</a></li>
+        <li><strong>Email:</strong> <a href="mailto:osif@spark-ind.com" style="color:var(--accent2)">osif@spark-ind.com</a></li>
+        <li><strong>Phone:</strong> 058-420-3384</li>
+    </ul>
+
+    <div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);text-align:center;color:var(--text2);font-size:12px">
+        <p>SLH Ecosystem | SPARK IND | Built in Israel</p>
+        <p style="margin-top:8px;opacity:.5">2026 SPARK IND. All rights reserved. This document is for informational purposes only and does not constitute financial advice or an offer of securities.</p>
+    </div>
+</div>
+</body>
+</html>

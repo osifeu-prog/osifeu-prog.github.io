@@ -237,6 +237,31 @@
         .prod:hover{box-shadow:0 20px 60px rgba(108,92,231,.15)}
         .prod .btn-p{transition:.3s}.prod:hover .btn-p{transform:scale(1.03)}
 
+        /* STATUS BADGES */
+        .status-badge{position:absolute;top:12px;right:12px;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;z-index:2}
+        html[dir="ltr"] .status-badge{right:auto;left:12px}
+        .status-live{background:rgba(0,206,201,.15);color:var(--green);border:1px solid rgba(0,206,201,.3)}
+        .status-beta{background:rgba(255,211,42,.15);color:var(--gold);border:1px solid rgba(255,211,42,.3)}
+        .status-soon{background:rgba(120,120,160,.15);color:var(--text2);border:1px solid rgba(120,120,160,.3)}
+
+        /* COMING SOON SECTION */
+        .coming-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:40px}
+        .coming-card{padding:28px;border-radius:16px;background:var(--card);border:1px solid var(--border);transition:.3s;text-align:center}
+        .coming-card:hover{border-color:rgba(108,92,231,.3);transform:translateY(-4px)}
+        .coming-icon{font-size:36px;margin-bottom:12px}
+        .coming-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
+        .coming-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+        /* PRODUCT FREE VS PREMIUM */
+        .prod-features{text-align:right;margin-bottom:18px}
+        html[dir="ltr"] .prod-features{text-align:left}
+        .prod-features ul{list-style:none;padding:0;margin:0}
+        .prod-features li{font-size:12px;padding:4px 0;display:flex;align-items:center;gap:6px;color:var(--text2)}
+        .prod-features li .check{color:var(--green);font-weight:700}
+        .prod-features li .lock{color:var(--text2);opacity:.5}
+        .prod-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:10px 0 6px;color:var(--accent2)}
+        .prod-price-small{font-size:13px;color:var(--text2);margin-bottom:14px}
+
         /* ANIMATIONS */
         @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
@@ -273,7 +298,8 @@
         <button class="lang-btn" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('ru')">RU</button>
         <button class="lang-btn" onclick="setLang('ar')">AR</button>
-        <a href="https://t.me/SLH_AIR_bot" class="nav-cta" data-i18n="nav_cta">Start</a>
+        <a href="/whitepaper.html" class="lang-btn" style="font-size:11px;letter-spacing:1px">WP</a>
+        <a href="https://t.me/SLH_AIR_bot" class="nav-cta" data-i18n="nav_cta">Try Free</a>
     </div>
 </nav>
 
@@ -325,7 +351,7 @@
     </div>
     <div class="steps">
         <div class="step rv"><div class="step-n">1</div><h4 data-i18n="s1t">Open Bot</h4><p data-i18n="s1p">Open @SLH_AIR_bot in Telegram</p></div>
-        <div class="step rv rd1"><div class="step-n">2</div><h4 data-i18n="s2t">Activate</h4><p data-i18n="s2p">Pay 22.221 ILS via @wallet TON</p></div>
+        <div class="step rv rd1"><div class="step-n">2</div><h4 data-i18n="s2t">Explore</h4><p data-i18n="s2p">Try free features and explore the ecosystem</p></div>
         <div class="step rv rd2"><div class="step-n">3</div><h4 data-i18n="s3t">Deposit</h4><p data-i18n="s3p">Choose a plan and send TON</p></div>
         <div class="step rv rd3"><div class="step-n">4</div><h4 data-i18n="s4t">Earn</h4><p data-i18n="s4p">Monthly returns to your account</p></div>
     </div>
@@ -339,6 +365,16 @@
         <p class="ssub rv" data-i18n="eco_sub">Complete economic systems with payments, premium access, and blockchain.</p>
     </div>
     <div class="bg" id="bot-grid"></div>
+</section>
+
+<!-- COMING SOON -->
+<section id="coming-soon">
+    <div class="sc">
+        <span class="stag rv" data-i18n="coming_tag">Coming Soon</span>
+        <h2 class="stitle rv" data-i18n="coming_title">What We're Building</h2>
+        <p class="ssub rv" data-i18n="coming_sub">New integrations and features in active development.</p>
+    </div>
+    <div class="coming-grid" id="coming-grid"></div>
 </section>
 
 <!-- FEATURES -->
@@ -361,7 +397,8 @@
 <section id="products">
     <div class="sc">
         <span class="stag rv" data-i18n="prod_tag">Products</span>
-        <h2 class="stitle rv" data-i18n="prod_title">Start Today</h2>
+        <h2 class="stitle rv" data-i18n="prod_title">What You Get</h2>
+        <p class="ssub rv" data-i18n="prod_sub">Every bot includes free features. Upgrade when you're ready.</p>
     </div>
     <div class="prods" id="prod-grid"></div>
 </section>
@@ -379,11 +416,23 @@
     </div>
 </section>
 
+<!-- INVESTORS -->
+<section id="investors" style="text-align:center">
+    <span class="stag rv">Investors</span>
+    <h2 class="stitle rv" style="margin-bottom:16px">Join the SLH Ecosystem</h2>
+    <p class="ssub rv" style="margin-left:auto;margin-right:auto">Working product. 20+ bots live. Multiple revenue streams. Raising seed round for strategic partners.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px" class="rv">
+        <a href="/whitepaper.html" class="btn btn-o" style="border-color:var(--accent)">Whitepaper</a>
+        <a href="mailto:osif@spark-ind.com" class="btn btn-p">Invest in SLH</a>
+    </div>
+    <p class="rv" style="margin-top:20px;font-size:13px;color:var(--text2)">Seed Round | $2M Pre-money Valuation | Up to 20% Equity | SAFE or Equity</p>
+</section>
+
 <!-- CTA -->
 <div class="cta rv">
-    <h2 data-i18n="cta_title">The Future of Finance is on Telegram</h2>
-    <p data-i18n="cta_sub">Join the SLH ecosystem. Built in Israel. Powered by blockchain.</p>
-    <a href="https://t.me/SLH_AIR_bot" class="btn btn-p" data-i18n="cta_btn">Get Started Now</a>
+    <h2 data-i18n="cta_title">Explore the SLH Ecosystem</h2>
+    <p data-i18n="cta_sub">Try any bot for free. No credit card needed. Built in Israel.</p>
+    <a href="https://t.me/SLH_AIR_bot" class="btn btn-p" data-i18n="cta_btn">Try Free</a>
 </div>
 
 <footer>
@@ -405,97 +454,129 @@
 // === TRANSLATIONS ===
 const T = {
 he: {
-    nav_eco:"אקוסיסטם",nav_tech:"טכנולוגיה",nav_prod:"מוצרים",nav_contact:"צור קשר",nav_cta:"התחל עכשיו",
+    nav_eco:"אקוסיסטם",nav_tech:"טכנולוגיה",nav_prod:"מוצרים",nav_contact:"צור קשר",nav_cta:"נסה חינם",
     badge:"SPARK IND | פעיל עכשיו",hero_l1:"SLH בית השקעות",hero_l2:"דיגיטלי",
     hero_p:"20+ בוטים בטלגרם. הפקדות בלוקצ'יין אמיתיות. מערכת מלאי SaaS. אקוסיסטם כלכלי מלא. נבנה בישראל.",
     hero_btn1:"בוט השקעות",hero_btn2:"חנות SaaS",
     st1:"קונטיינרים",st2:"מטבעות",st3:"תשואה מקסימלית",st4:"אוטומטי",
     how_tag:"איך זה עובד",how_title:"התחל ב-60 שניות",
-    s1t:"פתח בוט",s1p:"פתח @SLH_AIR_bot בטלגרם",s2t:"הפעל",s2p:"שלם 22.221 שקלים דרך @wallet",
+    s1t:"פתח בוט",s1p:"פתח @SLH_AIR_bot בטלגרם",s2t:"גלה",s2p:"נסה פיצ'רים חינמיים וחקור את האקוסיסטם",
     s3t:"הפקד",s3p:"בחר תוכנית ושלח TON",s4t:"הרווח",s4p:"תשואה חודשית לחשבונך",
     eco_tag:"אקוסיסטם",eco_title:"כל בוט הוא עסק",eco_sub:"מערכות כלכליות מלאות עם תשלומים, גישת פרימיום ובלוקצ'יין.",
     feat_tag:"טכנולוגיה",feat_title:"בנוי אחרת",feat_sub:"תשתית ארגונית. בלוקצ'יין אמיתי. כסף אמיתי.",
-    prod_tag:"מוצרים",prod_title:"התחל היום",
+    prod_tag:"מוצרים",prod_title:"מה מקבלים",prod_sub:"כל בוט כולל פיצ'רים חינמיים. שדרג כשמתאים לך.",
     contact_tag:"צור קשר",contact_title:"דברו איתנו",
-    cta_title:"העתיד של הפיננסים בטלגרם",cta_sub:"הצטרף לאקוסיסטם SLH. נבנה בישראל. מונע בלוקצ'יין.",cta_btn:"התחל עכשיו",
+    cta_title:"גלה את האקוסיסטם של SLH",cta_sub:"נסה כל בוט בחינם. בלי כרטיס אשראי. נבנה בישראל.",cta_btn:"נסה חינם",
+    coming_tag:"בקרוב",coming_title:"מה אנחנו בונים",coming_sub:"אינטגרציות ופיצ'רים חדשים בפיתוח פעיל.",
+    coming_iot:"אינטגרציית IoT עם ESP32",coming_iot_d:"חיבור חומרה חכמה ללדג'ר. ניטור בזמן אמת.",
+    coming_gamble:"אנליטיקת הימורים",coming_gamble_d:"מעקב סטטיסטי, ניתוח דפוסים, התראות חכמות.",
+    coming_nft:"חוזים חכמים NFT",coming_nft_d:"שדרוג BotShop עם חוזים חכמים על הבלוקצ'יין.",
+    coming_wellness:"בריאות ומדיטציה",coming_wellness_d:"טיפים יומיים, מדיטציה מודרכת, מעקב רוטינה.",
+    prod_free:"חינם",prod_premium:"פרימיום",prod_try:"נסה חינם",prod_learn:"למד עוד",
+    prod_from:"החל מ-",
+    status_live:"פעיל",status_beta:"בטא",status_soon:"בקרוב",
 },
 en: {
-    nav_eco:"Ecosystem",nav_tech:"Technology",nav_prod:"Products",nav_contact:"Contact",nav_cta:"Start Now",
+    nav_eco:"Ecosystem",nav_tech:"Technology",nav_prod:"Products",nav_contact:"Contact",nav_cta:"Try Free",
     badge:"SPARK IND | Live Now",hero_l1:"SLH Digital",hero_l2:"Investment House",
     hero_p:"20+ Telegram bots. Real blockchain deposits. Barcode scanning SaaS. Full economic ecosystem built in Israel.",
     hero_btn1:"Investment Bot",hero_btn2:"Shop SaaS",
     st1:"Containers",st2:"Coins",st3:"Max APY",st4:"Automated",
     how_tag:"How It Works",how_title:"Start in 60 Seconds",
-    s1t:"Open Bot",s1p:"Open @SLH_AIR_bot in Telegram",s2t:"Activate",s2p:"Pay 22.221 ILS via @wallet TON",
+    s1t:"Open Bot",s1p:"Open @SLH_AIR_bot in Telegram",s2t:"Explore",s2p:"Try free features and explore the ecosystem",
     s3t:"Deposit",s3p:"Choose a plan and send TON",s4t:"Earn",s4p:"Monthly returns to your account",
     eco_tag:"Ecosystem",eco_title:"Every Bot is a Business",eco_sub:"Complete economic systems with payments, premium access, and blockchain.",
     feat_tag:"Technology",feat_title:"Built Different",feat_sub:"Enterprise infrastructure. Real blockchain. Real money.",
-    prod_tag:"Products",prod_title:"Start Today",
+    prod_tag:"Products",prod_title:"What You Get",prod_sub:"Every bot includes free features. Upgrade when you're ready.",
     contact_tag:"Contact",contact_title:"Get in Touch",
-    cta_title:"The Future of Finance is on Telegram",cta_sub:"Join the SLH ecosystem. Built in Israel. Powered by blockchain.",cta_btn:"Get Started Now",
+    cta_title:"Explore the SLH Ecosystem",cta_sub:"Try any bot for free. No credit card needed. Built in Israel.",cta_btn:"Try Free",
+    coming_tag:"Coming Soon",coming_title:"What We're Building",coming_sub:"New integrations and features in active development.",
+    coming_iot:"ESP32 IoT Integration",coming_iot_d:"Smart hardware connected to the ledger. Real-time monitoring.",
+    coming_gamble:"Gambling Analytics",coming_gamble_d:"Statistical tracking, pattern analysis, smart alerts.",
+    coming_nft:"NFT Smart Contracts",coming_nft_d:"BotShop upgrade with on-chain smart contracts.",
+    coming_wellness:"Wellness & Meditation",coming_wellness_d:"Daily tips, guided meditation, routine tracking.",
+    prod_free:"Free",prod_premium:"Premium",prod_try:"Try Free",prod_learn:"Learn More",
+    prod_from:"From ",
+    status_live:"LIVE",status_beta:"BETA",status_soon:"COMING SOON",
 },
 ru: {
-    nav_eco:"\u042d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",nav_tech:"\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",nav_prod:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",nav_contact:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442",nav_cta:"\u041d\u0430\u0447\u0430\u0442\u044c",
+    nav_eco:"\u042d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",nav_tech:"\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",nav_prod:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",nav_contact:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442",nav_cta:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
     badge:"SPARK IND | \u0410\u043a\u0442\u0438\u0432\u043d\u043e",hero_l1:"SLH \u0426\u0438\u0444\u0440\u043e\u0432\u043e\u0439",hero_l2:"\u0418\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u043e\u043d\u043d\u044b\u0439 \u0414\u043e\u043c",
     hero_p:"20+ \u0431\u043e\u0442\u043e\u0432 \u0432 Telegram. \u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b \u043d\u0430 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d\u0435. SaaS \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u0432 \u0418\u0437\u0440\u0430\u0438\u043b\u0435.",
     hero_btn1:"\u0411\u043e\u0442 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0439",hero_btn2:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d SaaS",
     st1:"\u041a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440\u044b",st2:"\u041c\u043e\u043d\u0435\u0442\u044b",st3:"\u041c\u0430\u043a\u0441. \u0434\u043e\u0445\u043e\u0434",st4:"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438",
     how_tag:"\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442",how_title:"\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434",
     s1t:"\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0431\u043e\u0442",s1p:"\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 @SLH_AIR_bot \u0432 Telegram",
-    s2t:"\u0410\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044f",s2p:"\u041e\u043f\u043b\u0430\u0442\u0438\u0442\u0435 22.221 ILS \u0447\u0435\u0440\u0435\u0437 @wallet",
+    s2t:"\u0418\u0437\u0443\u0447\u0438\u0442\u0435",s2p:"\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0435 \u0444\u0443\u043d\u043a\u0446\u0438\u0438 \u044d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u044b",
     s3t:"\u0414\u0435\u043f\u043e\u0437\u0438\u0442",s3p:"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u043b\u0430\u043d \u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u044c\u0442\u0435 TON",
     s4t:"\u0417\u0430\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0439\u0442\u0435",s4p:"\u0415\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u044b\u0439 \u0434\u043e\u0445\u043e\u0434 \u043d\u0430 \u0432\u0430\u0448 \u0441\u0447\u0435\u0442",
     eco_tag:"\u042d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",eco_title:"\u041a\u0430\u0436\u0434\u044b\u0439 \u0431\u043e\u0442 - \u044d\u0442\u043e \u0431\u0438\u0437\u043d\u0435\u0441",
     eco_sub:"\u041f\u043e\u043b\u043d\u044b\u0435 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0441 \u043f\u043b\u0430\u0442\u0435\u0436\u0430\u043c\u0438 \u0438 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d\u043e\u043c.",
     feat_tag:"\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",feat_title:"\u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u0438\u043d\u0430\u0447\u0435",
     feat_sub:"\u041a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u0430\u044f \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430. \u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0439 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d.",
-    prod_tag:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",prod_title:"\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u0441\u0435\u0433\u043e\u0434\u043d\u044f",
+    prod_tag:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",prod_title:"\u0427\u0442\u043e \u0432\u044b \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0442\u0435",prod_sub:"\u041a\u0430\u0436\u0434\u044b\u0439 \u0431\u043e\u0442 \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u0442 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0435 \u0444\u0443\u043d\u043a\u0446\u0438\u0438. \u041e\u0431\u043d\u043e\u0432\u0438\u0442\u0435\u0441\u044c \u043a\u043e\u0433\u0434\u0430 \u0433\u043e\u0442\u043e\u0432\u044b.",
     contact_tag:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442",contact_title:"\u0421\u0432\u044f\u0436\u0438\u0442\u0435\u0441\u044c \u0441 \u043d\u0430\u043c\u0438",
-    cta_title:"\u0411\u0443\u0434\u0443\u0449\u0435\u0435 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0432 Telegram",cta_sub:"\u041f\u0440\u0438\u0441\u043e\u0435\u0434\u0438\u043d\u044f\u0439\u0442\u0435\u0441\u044c \u043a SLH. \u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u0432 \u0418\u0437\u0440\u0430\u0438\u043b\u0435.",cta_btn:"\u041d\u0430\u0447\u0430\u0442\u044c \u0441\u0435\u0439\u0447\u0430\u0441",
+    cta_title:"\u0418\u0437\u0443\u0447\u0438\u0442\u0435 \u044d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0443 SLH",cta_sub:"\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043b\u044e\u0431\u043e\u0439 \u0431\u043e\u0442 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e. \u0411\u0435\u0437 \u043a\u0430\u0440\u0442\u044b. \u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u0432 \u0418\u0437\u0440\u0430\u0438\u043b\u0435.",cta_btn:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e",
+    coming_tag:"\u0421\u043a\u043e\u0440\u043e",coming_title:"\u0427\u0442\u043e \u043c\u044b \u0441\u0442\u0440\u043e\u0438\u043c",coming_sub:"\u041d\u043e\u0432\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438 \u0438 \u0444\u0443\u043d\u043a\u0446\u0438\u0438 \u0432 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0439 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0435.",
+    coming_iot:"\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f ESP32 IoT",coming_iot_d:"\u0421\u043c\u0430\u0440\u0442-\u043e\u0431\u043e\u0440\u0443\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u043a \u043b\u0435\u0434\u0436\u0435\u0440\u0443. \u041c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433 \u0432 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u043c \u0432\u0440\u0435\u043c\u0435\u043d\u0438.",
+    coming_gamble:"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 \u0430\u0437\u0430\u0440\u0442\u043d\u044b\u0445 \u0438\u0433\u0440",coming_gamble_d:"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0442\u0440\u0435\u043a\u0438\u043d\u0433, \u0430\u043d\u0430\u043b\u0438\u0437 \u043f\u0430\u0442\u0442\u0435\u0440\u043d\u043e\u0432, \u0443\u043c\u043d\u044b\u0435 \u043e\u043f\u043e\u0432\u0435\u0449\u0435\u043d\u0438\u044f.",
+    coming_nft:"\u0421\u043c\u0430\u0440\u0442-\u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u044b NFT",coming_nft_d:"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 BotShop \u0441\u043e \u0441\u043c\u0430\u0440\u0442-\u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u0430\u043c\u0438 \u043d\u0430 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d\u0435.",
+    coming_wellness:"\u0417\u0434\u043e\u0440\u043e\u0432\u044c\u0435 \u0438 \u043c\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044f",coming_wellness_d:"\u0415\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u044b\u0435 \u0441\u043e\u0432\u0435\u0442\u044b, \u043c\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044f, \u043e\u0442\u0441\u043b\u0435\u0436\u0438\u0432\u0430\u043d\u0438\u0435 \u0440\u0443\u0442\u0438\u043d\u044b.",
+    prod_free:"\u0411\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e",prod_premium:"\u041f\u0440\u0435\u043c\u0438\u0443\u043c",prod_try:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",prod_learn:"\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435",
+    prod_from:"\u041e\u0442 ",
+    status_live:"\u0410\u043a\u0442\u0438\u0432\u043d\u043e",status_beta:"\u0411\u0435\u0442\u0430",status_soon:"\u0421\u043a\u043e\u0440\u043e",
 },
 ar: {
-    nav_eco:"\u0627\u0644\u0646\u0638\u0627\u0645",nav_tech:"\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",nav_prod:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",nav_contact:"\u0627\u062a\u0635\u0644 \u0628\u0646\u0627",nav_cta:"\u0627\u0628\u062f\u0623 \u0627\u0644\u0622\u0646",
+    nav_eco:"\u0627\u0644\u0646\u0638\u0627\u0645",nav_tech:"\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",nav_prod:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",nav_contact:"\u0627\u062a\u0635\u0644 \u0628\u0646\u0627",nav_cta:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",
     badge:"SPARK IND | \u0645\u0628\u0627\u0634\u0631 \u0627\u0644\u0622\u0646",hero_l1:"SLH \u0627\u0644\u0631\u0642\u0645\u064a",hero_l2:"\u062f\u0627\u0631 \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631",
     hero_p:"20+ \u0628\u0648\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0625\u064a\u062f\u0627\u0639\u0627\u062a \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 \u062d\u0642\u064a\u0642\u064a\u0629. \u0646\u0638\u0627\u0645 SaaS \u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0628\u0646\u064a \u0641\u064a \u0625\u0633\u0631\u0627\u0626\u064a\u0644.",
     hero_btn1:"\u0628\u0648\u062a \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631",hero_btn2:"\u0645\u062a\u062c\u0631 SaaS",
     st1:"\u062d\u0627\u0648\u064a\u0627\u062a",st2:"\u0639\u0645\u0644\u0627\u062a",st3:"\u0623\u0642\u0635\u0649 \u0639\u0627\u0626\u062f",st4:"\u0622\u0644\u064a",
     how_tag:"\u0643\u064a\u0641 \u064a\u0639\u0645\u0644",how_title:"\u0627\u0628\u062f\u0623 \u062e\u0644\u0627\u0644 60 \u062b\u0627\u0646\u064a\u0629",
     s1t:"\u0627\u0641\u062a\u062d \u0627\u0644\u0628\u0648\u062a",s1p:"\u0627\u0641\u062a\u062d @SLH_AIR_bot \u0641\u064a \u062a\u0644\u064a\u062c\u0631\u0627\u0645",
-    s2t:"\u062a\u0641\u0639\u064a\u0644",s2p:"\u0627\u062f\u0641\u0639 22.221 \u0634\u064a\u0643\u0644 \u0639\u0628\u0631 @wallet",
+    s2t:"\u0627\u0633\u062a\u0643\u0634\u0641",s2p:"\u062c\u0631\u0628 \u0627\u0644\u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0645\u062c\u0627\u0646\u064a\u0629 \u0648\u0627\u0633\u062a\u0643\u0634\u0641 \u0627\u0644\u0646\u0638\u0627\u0645",
     s3t:"\u0625\u064a\u062f\u0627\u0639",s3p:"\u0627\u062e\u062a\u0631 \u062e\u0637\u0629 \u0648\u0623\u0631\u0633\u0644 TON",
     s4t:"\u0627\u0631\u0628\u062d",s4p:"\u0639\u0648\u0627\u0626\u062f \u0634\u0647\u0631\u064a\u0629 \u0644\u062d\u0633\u0627\u0628\u0643",
     eco_tag:"\u0627\u0644\u0646\u0638\u0627\u0645",eco_title:"\u0643\u0644 \u0628\u0648\u062a \u0647\u0648 \u0639\u0645\u0644 \u062a\u062c\u0627\u0631\u064a",
     eco_sub:"\u0623\u0646\u0638\u0645\u0629 \u0627\u0642\u062a\u0635\u0627\u062f\u064a\u0629 \u0643\u0627\u0645\u0644\u0629 \u0645\u0639 \u0645\u062f\u0641\u0648\u0639\u0627\u062a \u0648\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646.",
     feat_tag:"\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",feat_title:"\u0628\u0646\u064a \u0628\u0634\u0643\u0644 \u0645\u062e\u062a\u0644\u0641",
     feat_sub:"\u0628\u0646\u064a\u0629 \u0645\u0624\u0633\u0633\u064a\u0629. \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 \u062d\u0642\u064a\u0642\u064a.",
-    prod_tag:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",prod_title:"\u0627\u0628\u062f\u0623 \u0627\u0644\u064a\u0648\u0645",
+    prod_tag:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",prod_title:"\u0645\u0627\u0630\u0627 \u062a\u062d\u0635\u0644",prod_sub:"\u0643\u0644 \u0628\u0648\u062a \u064a\u062a\u0636\u0645\u0646 \u0645\u064a\u0632\u0627\u062a \u0645\u062c\u0627\u0646\u064a\u0629. \u0642\u0645 \u0628\u0627\u0644\u062a\u0631\u0642\u064a\u0629 \u0639\u0646\u062f\u0645\u0627 \u062a\u0643\u0648\u0646 \u062c\u0627\u0647\u0632\u0627.",
     contact_tag:"\u0627\u062a\u0635\u0644 \u0628\u0646\u0627",contact_title:"\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627",
-    cta_title:"\u0645\u0633\u062a\u0642\u0628\u0644 \u0627\u0644\u0645\u0627\u0644 \u0641\u064a \u062a\u0644\u064a\u062c\u0631\u0627\u0645",cta_sub:"\u0627\u0646\u0636\u0645 \u0625\u0644\u0649 SLH. \u0628\u0646\u064a \u0641\u064a \u0625\u0633\u0631\u0627\u0626\u064a\u0644.",cta_btn:"\u0627\u0628\u062f\u0623 \u0627\u0644\u0622\u0646",
+    cta_title:"\u0627\u0633\u062a\u0643\u0634\u0641 \u0646\u0638\u0627\u0645 SLH",cta_sub:"\u062c\u0631\u0628 \u0623\u064a \u0628\u0648\u062a \u0645\u062c\u0627\u0646\u0627. \u0628\u062f\u0648\u0646 \u0628\u0637\u0627\u0642\u0629 \u0627\u0626\u062a\u0645\u0627\u0646. \u0628\u0646\u064a \u0641\u064a \u0625\u0633\u0631\u0627\u0626\u064a\u0644.",cta_btn:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",
+    coming_tag:"\u0642\u0631\u064a\u0628\u0627",coming_title:"\u0645\u0627 \u0646\u0628\u0646\u064a\u0647",coming_sub:"\u062a\u0643\u0627\u0645\u0644\u0627\u062a \u0648\u0645\u064a\u0632\u0627\u062a \u062c\u062f\u064a\u062f\u0629 \u0642\u064a\u062f \u0627\u0644\u062a\u0637\u0648\u064a\u0631.",
+    coming_iot:"\u062a\u0643\u0627\u0645\u0644 ESP32 IoT",coming_iot_d:"\u0623\u062c\u0647\u0632\u0629 \u0630\u0643\u064a\u0629 \u0645\u062a\u0635\u0644\u0629 \u0628\u0627\u0644\u0633\u062c\u0644. \u0645\u0631\u0627\u0642\u0628\u0629 \u0641\u0648\u0631\u064a\u0629.",
+    coming_gamble:"\u062a\u062d\u0644\u064a\u0644\u0627\u062a \u0627\u0644\u0642\u0645\u0627\u0631",coming_gamble_d:"\u062a\u062a\u0628\u0639 \u0625\u062d\u0635\u0627\u0626\u064a\u060c \u062a\u062d\u0644\u064a\u0644 \u0623\u0646\u0645\u0627\u0637\u060c \u062a\u0646\u0628\u064a\u0647\u0627\u062a \u0630\u0643\u064a\u0629.",
+    coming_nft:"\u0639\u0642\u0648\u062f NFT \u0630\u0643\u064a\u0629",coming_nft_d:"\u062a\u0631\u0642\u064a\u0629 BotShop \u0628\u0639\u0642\u0648\u062f \u0630\u0643\u064a\u0629 \u0639\u0644\u0649 \u0627\u0644\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646.",
+    coming_wellness:"\u0635\u062d\u0629 \u0648\u062a\u0623\u0645\u0644",coming_wellness_d:"\u0646\u0635\u0627\u0626\u062d \u064a\u0648\u0645\u064a\u0629\u060c \u062a\u0623\u0645\u0644 \u0645\u0648\u062c\u0647\u060c \u0645\u062a\u0627\u0628\u0639\u0629 \u0631\u0648\u062a\u064a\u0646.",
+    prod_free:"\u0645\u062c\u0627\u0646\u064a",prod_premium:"\u0645\u0645\u064a\u0632",prod_try:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",prod_learn:"\u0627\u0639\u0631\u0641 \u0627\u0643\u062b\u0631",
+    prod_from:"\u0645\u0646 ",
+    status_live:"\u0645\u0628\u0627\u0634\u0631",status_beta:"\u0628\u064a\u062a\u0627",status_soon:"\u0642\u0631\u064a\u0628\u0627",
 }
 };
 
 // === BOT DATA ===
 const BOTS = [
-    {e:"💎",n:"SLH Investment House",h:"@SLH_AIR_bot",u:"https://t.me/SLH_AIR_bot",d:{he:"הפקדות TON אמיתיות, 4%-65% תשואה, חשבונאות כפולה, KYC, דפי חשבון, סוואפ, Limit, התראות ל-12 מטבעות.",en:"Real TON deposits, 4%-65% APY, double-entry ledger, KYC, statements, swap quotes, limit orders, 12-coin alerts.",ru:"\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b TON, 4%-65% \u0434\u043e\u0445\u043e\u0434, \u0434\u0432\u043e\u0439\u043d\u0430\u044f \u0431\u0443\u0445\u0433\u0430\u043b\u0442\u0435\u0440\u0438\u044f, KYC, \u0441\u0432\u043e\u043f\u044b, \u043b\u0438\u043c\u0438\u0442-\u043e\u0440\u0434\u0435\u0440\u0430.",ar:"\u0625\u064a\u062f\u0627\u0639\u0627\u062a TON \u062d\u0642\u064a\u0642\u064a\u0629\u060c 4%-65% \u0639\u0627\u0626\u062f\u060c \u0645\u062d\u0627\u0633\u0628\u0629 \u0645\u0632\u062f\u0648\u062c\u0629\u060c KYC\u060c \u0643\u0634\u0648\u0641\u0627\u062a."},t:["tg-l","tg-b"]},
-    {e:"🛒",n:"OsifShop",h:"@OsifShop_bot",u:"https://t.me/OsifShop_bot",d:{he:"SaaS \u05dc\u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05dc\u05d0\u05d9. \u05e1\u05e8\u05d9\u05e7\u05ea \u05d1\u05e8\u05e7\u05d5\u05d3 \u05de\u05d4\u05de\u05e6\u05dc\u05de\u05d4, \u05de\u05e2\u05e7\u05d1 \u05de\u05dc\u05d0\u05d9, \u05de\u05d7\u05d9\u05e8\u05d9\u05dd, \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea, \u05d3\u05d5\u05d7\u05d5\u05ea, \u05d9\u05d9\u05e6\u05d5\u05d0 CSV.",en:"Inventory SaaS. Camera barcode scanning, stock tracking, pricing, low-stock alerts, reports, CSV export.",ru:"SaaS \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u0421\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0448\u0442\u0440\u0438\u0445\u043a\u043e\u0434\u043e\u0432, \u043e\u0442\u0447\u0435\u0442\u044b, CSV.",ar:"SaaS \u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0645\u0633\u062d \u0628\u0627\u0631\u0643\u0648\u062f \u0628\u0627\u0644\u0643\u0627\u0645\u064a\u0631\u0627\u060c \u062a\u0642\u0627\u0631\u064a\u0631."},t:["tg-s","tg-l"]},
-    {e:"🎨",n:"NFTY Marketplace",h:"@NIFTI_Publisher_Bot",u:"https://t.me/NIFTI_Publisher_Bot",d:{he:"\u05e9\u05d5\u05e7 \u05e0\u05db\u05e1\u05d9\u05dd \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9\u05d9\u05dd \u05e2\u05dd \u05d7\u05d9\u05d9\u05ea \u05de\u05d7\u05de\u05d3 \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9. \u05e7\u05e0\u05d4, \u05de\u05db\u05d9\u05e8\u05d4, \u05d0\u05e1\u05e4\u05e0\u05d5\u05ea.",en:"Digital asset marketplace with virtual pet companion. Buy, sell, collect. Pet evolution system.",ru:"\u041c\u0430\u0440\u043a\u0435\u0442\u043f\u043b\u0435\u0439\u0441 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u043a\u0442\u0438\u0432\u043e\u0432 \u0441 \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u043c \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u043c.",ar:"\u0633\u0648\u0642 \u0623\u0635\u0648\u0644 \u0631\u0642\u0645\u064a\u0629 \u0645\u0639 \u062d\u064a\u0648\u0627\u0646 \u0623\u0644\u064a\u0641 \u0627\u0641\u062a\u0631\u0627\u0636\u064a."},t:["tg-l","tg-g"]},
-    {e:"🛡",n:"Guardian Security",h:"@SLH_Guardian_bot",u:"https://t.me/SLH_Guardian_bot",d:{he:"\u05d0\u05d1\u05d8\u05d7\u05ea \u05e7\u05d1\u05d5\u05e6\u05d5\u05ea \u05d8\u05dc\u05d2\u05e8\u05dd, \u05d0\u05e0\u05d8\u05d9-\u05e1\u05e4\u05d0\u05dd, \u05e0\u05d9\u05d8\u05d5\u05e8, \u05dc\u05d5\u05d2\u05d9\u05dd.",en:"Telegram group security. Anti-spam, moderation, audit logging, member verification.",ru:"\u0411\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c \u0433\u0440\u0443\u043f\u043f. \u0410\u043d\u0442\u0438-\u0441\u043f\u0430\u043c, \u043c\u043e\u0434\u0435\u0440\u0430\u0446\u0438\u044f, \u043b\u043e\u0433\u0438.",ar:"\u0623\u0645\u0627\u0646 \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0645\u0643\u0627\u0641\u062d\u0629 \u0627\u0644\u0633\u0628\u0627\u0645."},t:["tg-l"]},
-    {e:"🎓",n:"SLH Academia",h:"@SLH_Academia_bot",u:"https://t.me/SLH_Academia_bot",d:{he:"\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05ea \u05dc\u05d9\u05de\u05d5\u05d3. \u05e7\u05d5\u05e8\u05e1\u05d9\u05dd, \u05d4\u05e1\u05de\u05db\u05d5\u05ea, \u05de\u05e0\u05d8\u05d5\u05e8\u05d9\u05e0\u05d2.",en:"Educational platform. Courses, certifications, mentorship. Multi-language.",ru:"\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u0430\u044f \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430. \u041a\u0443\u0440\u0441\u044b, \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u044b.",ar:"\u0645\u0646\u0635\u0629 \u062a\u0639\u0644\u064a\u0645\u064a\u0629. \u062f\u0648\u0631\u0627\u062a\u060c \u0634\u0647\u0627\u062f\u0627\u062a."},t:["tg-l"]},
-    {e:"💰",n:"SLH Wallet",h:"@SLH_Wallet_bot",u:"https://t.me/SLH_Wallet_bot",d:{he:"\u05d0\u05e8\u05e0\u05e7 \u05e8\u05d1-\u05e9\u05e8\u05e9\u05e8\u05ea\u05d9. TON, BNB, SLH. \u05d4\u05e2\u05d1\u05e8\u05d5\u05ea \u05de\u05d5\u05e6\u05e4\u05e0\u05d5\u05ea \u05d1-PIN.",en:"Multi-chain wallet. TON, BNB, SLH transfers. PIN-encrypted private keys.",ru:"\u041c\u0443\u043b\u044c\u0442\u0438-\u0447\u0435\u0439\u043d \u043a\u043e\u0448\u0435\u043b\u0435\u043a. TON, BNB, SLH.",ar:"\u0645\u062d\u0641\u0638\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0633\u0644\u0627\u0633\u0644. TON, BNB, SLH."},t:["tg-b","tg-l"]},
-    {e:"🏭",n:"Factory",h:"@SLH_Factory_bot",u:"https://t.me/SLH_Factory_bot",d:{he:"\u05de\u05d0\u05d2\u05e8\u05d9 \u05e1\u05d8\u05d9\u05d9\u05e7\u05d9\u05e0\u05d2, \u05e0\u05d9\u05d4\u05d5\u05dc \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea, \u05d4\u05de\u05e8\u05ea \u05d4\u05e4\u05e7\u05d3\u05d5\u05ea \u05dc\u05d8\u05d5\u05e7\u05e0\u05d9\u05dd.",en:"Staking pools, investment management, deposit-to-token conversion.",ru:"\u0421\u0442\u0435\u0439\u043a\u0438\u043d\u0433, \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u044f\u043c\u0438.",ar:"\u062a\u062e\u0632\u064a\u0646\u060c \u0625\u062f\u0627\u0631\u0629 \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u0627\u062a."},t:["tg-b"]},
-    {e:"📢",n:"Campaign Bot",h:"@SLH_Campaign_bot",u:"https://t.me/SLH_Campaign_bot",d:{he:"\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d4 \u05e9\u05d9\u05d5\u05d5\u05e7\u05d9\u05ea. \u05e7\u05de\u05e4\u05d9\u05d9\u05e0\u05d9\u05dd, \u05e0\u05d9\u05d4\u05d5\u05dc \u05e4\u05e2\u05d9\u05dc\u05d9\u05dd.",en:"Marketing automation. Campaigns, activist management, lead tracking.",ru:"\u041c\u0430\u0440\u043a\u0435\u0442\u0438\u043d\u0433\u043e\u0432\u0430\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u044f.",ar:"\u0623\u062a\u0645\u062a\u0629 \u0627\u0644\u062a\u0633\u0648\u064a\u0642."},t:["tg-l"]},
-    {e:"🎮",n:"Game Bot",h:"@SLH_Game_bot",u:"https://t.me/SLH_Game_bot",d:{he:"\u05de\u05e9\u05d7\u05e7\u05d9\u05dd \u05d0\u05d9\u05e0\u05d8\u05e8\u05d0\u05e7\u05d8\u05d9\u05d1\u05d9\u05d9\u05dd \u05e2\u05dd \u05e4\u05e8\u05e1\u05d9 ZVK. \u05e1\u05dc\u05d5\u05d8\u05d9\u05dd, \u05e7\u05d5\u05d1\u05d9\u05d5\u05ea, \u05db\u05d3\u05d5\u05e8\u05e1\u05dc.",en:"Interactive games with ZVK token rewards. Slots, dice, basketball, darts.",ru:"\u0418\u0433\u0440\u044b \u0441 \u0442\u043e\u043a\u0435\u043d\u0430\u043c\u0438 ZVK.",ar:"\u0623\u0644\u0639\u0627\u0628 \u0645\u0639 \u0645\u0643\u0627\u0641\u0622\u062a ZVK."},t:["tg-l","tg-g"]},
-    {e:"📊",n:"SLH Ledger",h:"@SLH_Ledger_bot",u:"https://t.me/SLH_Ledger_bot",d:{he:"\u05e0\u05d9\u05d4\u05d5\u05dc \u05e4\u05d9\u05e0\u05e0\u05e1\u05d9 \u05d5\u05de\u05e2\u05e7\u05d1 \u05d4\u05d5\u05e6\u05d0\u05d5\u05ea.",en:"Financial management and expense tracking.",ru:"\u0424\u0438\u043d\u0430\u043d\u0441\u043e\u0432\u043e\u0435 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435.",ar:"\u0625\u062f\u0627\u0631\u0629 \u0645\u0627\u0644\u064a\u0629."},t:["tg-l"]},
-    {e:"🎲",n:"Chance Pais",h:"@Chance_Pais_bot",u:"https://t.me/Chance_Pais_bot",d:{he:"\u05d4\u05d2\u05e8\u05dc\u05d5\u05ea \u05d5\u05de\u05e9\u05d7\u05e7\u05d9 \u05de\u05d6\u05dc.",en:"Lotteries and luck games.",ru:"\u041b\u043e\u0442\u0435\u0440\u0435\u0438 \u0438 \u0438\u0433\u0440\u044b \u043d\u0430 \u0443\u0434\u0430\u0447\u0443.",ar:"\u064a\u0627\u0646\u0635\u064a\u0628 \u0648\u0623\u0644\u0639\u0627\u0628 \u062d\u0638."},t:["tg-l"]},
-    {e:"🔧",n:"Admin Bot",h:"@SLH_Admin_bot",u:"https://t.me/SLH_Admin_bot",d:{he:"\u05dc\u05d5\u05d7 \u05d1\u05e7\u05e8\u05d4 \u05de\u05e8\u05db\u05d6\u05d9. \u05e1\u05d8\u05d8\u05d9\u05e1\u05d8\u05d9\u05e7\u05d5\u05ea, \u05ea\u05e9\u05dc\u05d5\u05de\u05d9\u05dd, \u05d1\u05d5\u05d8\u05d9\u05dd.",en:"Central admin dashboard. Stats, payments, bot management.",ru:"\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u043f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f.",ar:"\u0644\u0648\u062d\u0629 \u0625\u062f\u0627\u0631\u0629 \u0645\u0631\u0643\u0632\u064a\u0629."},t:["tg-b"]},
-    {e:"\u{1fa99}",n:"SLH TON",h:"@SLH_ton_bot",u:"https://t.me/SLH_ton_bot",d:{he:"\u05d0\u05e8\u05e0\u05e7 TON \u05d5\u05d4\u05e2\u05d1\u05e8\u05d5\u05ea. \u05e9\u05dc\u05d9\u05d7\u05d4 \u05d5\u05e7\u05d1\u05dc\u05d4 \u05e9\u05dc TON.",en:"TON wallet and transfers. Send and receive TON directly.",ru:"\u041a\u043e\u0448\u0435\u043b\u0435\u043a TON \u0438 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u044b.",ar:"\u0645\u062d\u0641\u0638\u0629 TON \u0648\u062a\u062d\u0648\u064a\u0644\u0627\u062a."},t:["tg-b","tg-l"]},
-    {e:"\u26a1",n:"TON MNH",h:"@TON_MNH_bot",u:"https://t.me/TON_MNH_bot",d:{he:"\u05db\u05dc\u05d9 TON \u05de\u05ea\u05e7\u05d3\u05de\u05d9\u05dd. \u05d1\u05d3\u05d9\u05e7\u05ea \u05d9\u05ea\u05e8\u05d5\u05ea, \u05de\u05e2\u05e7\u05d1 \u05e2\u05e1\u05e7\u05d0\u05d5\u05ea, \u05e0\u05ea\u05d5\u05e0\u05d9 \u05e8\u05e9\u05ea.",en:"Advanced TON tools. Balance checker, transaction tracker, network data.",ru:"\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b TON. \u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0431\u0430\u043b\u0430\u043d\u0441\u0430, \u0442\u0440\u0430\u043d\u0437\u0430\u043a\u0446\u0438\u0438.",ar:"\u0623\u062f\u0648\u0627\u062a TON. \u0641\u062d\u0635 \u0627\u0644\u0631\u0635\u064a\u062f\u060c \u062a\u062a\u0628\u0639 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0627\u062a."},t:["tg-b"]},
-    {e:"\ud83c\udf89",n:"SLH Fun",h:"@SLH_Fun_bot",u:"https://t.me/SLH_Fun_bot",d:{he:"\u05d1\u05d9\u05d3\u05d5\u05e8 \u05d5\u05e7\u05d4\u05d9\u05dc\u05d4. \u05e4\u05e8\u05d5\u05de\u05d5, \u05e4\u05e8\u05d9\u05de\u05d9\u05d5\u05dd, \u05ea\u05d5\u05db\u05df \u05d7\u05d1\u05e8\u05ea\u05d9.",en:"Fun & community. Promos, premium content, community engagement.",ru:"\u0420\u0430\u0437\u0432\u043b\u0435\u0447\u0435\u043d\u0438\u044f \u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e. \u0410\u043a\u0446\u0438\u0438, \u043f\u0440\u0435\u043c\u0438\u0443\u043c.",ar:"\u062a\u0631\u0641\u064a\u0647 \u0648\u0645\u062c\u062a\u0645\u0639. \u0639\u0631\u0648\u0636\u060c \u0645\u062d\u062a\u0648\u0649 \u0645\u0645\u064a\u0632."},t:["tg-l","tg-g"]},
-    {e:"\ud83d\udcab",n:"SLH Nifti",h:"@SLH_Nifti_bot",u:"https://t.me/SLH_Nifti_bot",d:{he:"\u05d1\u05e8\u05d9\u05d0\u05d5\u05ea \u05d5\u05d5\u05dc\u05e0\u05e1. \u05d8\u05d9\u05e4\u05d9\u05dd \u05d9\u05d5\u05de\u05d9\u05d9\u05dd, \u05de\u05d3\u05d9\u05d8\u05e6\u05d9\u05d4, \u05e8\u05d5\u05d8\u05d9\u05e0\u05d5\u05ea.",en:"Wellness & health. Daily tips, meditation, routines.",ru:"\u0417\u0434\u043e\u0440\u043e\u0432\u044c\u0435 \u0438 \u0432\u0435\u043b\u043d\u0435\u0441. \u0421\u043e\u0432\u0435\u0442\u044b, \u043c\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044f.",ar:"\u0635\u062d\u0629 \u0648\u0639\u0627\u0641\u064a\u0629. \u0646\u0635\u0627\u0626\u062d \u064a\u0648\u0645\u064a\u0629."},t:["tg-l"]},
-    {e:"\ud83d\udecd\ufe0f",n:"BotShop",h:"@BotShop_bot",u:"https://t.me/BotShop_bot",d:{he:"\u05d7\u05e0\u05d5\u05ea \u05d1\u05d5\u05d8\u05d9\u05dd. \u05e7\u05e0\u05d9\u05d9\u05d4 \u05d5\u05d4\u05e4\u05e2\u05dc\u05d4 \u05e9\u05dc \u05d1\u05d5\u05d8\u05d9\u05dd \u05de\u05d5\u05ea\u05d0\u05de\u05d9\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea.",en:"Bot marketplace. Buy and activate custom bots for your needs.",ru:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d \u0431\u043e\u0442\u043e\u0432. \u041f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438 \u0430\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044f.",ar:"\u0645\u062a\u062c\u0631 \u0628\u0648\u062a\u0627\u062a. \u0634\u0631\u0627\u0621 \u0648\u062a\u0641\u0639\u064a\u0644."},t:["tg-s","tg-l"]},
-    {e:"\ud83c\udfad",n:"SLH Selha",h:"@SLH_Selha_bot",u:"https://t.me/SLH_Selha_bot",d:{he:"\u05e1\u05dc\u05d7\u05d0 - \u05d1\u05d5\u05d8 \u05e7\u05d4\u05d9\u05dc\u05d4 \u05d5\u05de\u05e1\u05d7\u05e8 \u05d7\u05d1\u05e8\u05ea\u05d9.",en:"Selha - community & trading bot with social features.",ru:"Selha - \u0441\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0439 \u0431\u043e\u0442 \u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u044f.",ar:"Selha - \u0628\u0648\u062a \u0627\u062c\u062a\u0645\u0627\u0639\u064a \u0648\u062a\u062f\u0627\u0648\u0644."},t:["tg-l"]},
-    {e:"\u2699\ufe0f",n:"TS Set",h:"@TS_Set_bot",u:"https://t.me/TS_Set_bot",d:{he:"\u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05de\u05ea\u05e7\u05d3\u05de\u05d5\u05ea. \u05db\u05dc\u05d9 \u05e7\u05d5\u05e0\u05e4\u05d9\u05d2\u05d5\u05e8\u05e6\u05d9\u05d4 \u05d5\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d4.",en:"Advanced configuration tools. Automation & settings management.",ru:"\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438.",ar:"\u0623\u062f\u0648\u0627\u062a \u062a\u0643\u0648\u064a\u0646 \u0645\u062a\u0642\u062f\u0645\u0629."},t:["tg-b"]},
-    {e:"\ud83d\ude80",n:"CrazyPanel",h:"@CrazyPanel_bot",u:"https://t.me/CrazyPanel_bot",d:{he:"\u05e4\u05d0\u05e0\u05dc \u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05ea\u05e7\u05d3\u05dd. \u05d3\u05e9\u05d1\u05d5\u05e8\u05d3 \u05e9\u05dc\u05d9\u05d8\u05d4 \u05d5\u05e0\u05d9\u05d8\u05d5\u05e8.",en:"Advanced admin panel. Control dashboard for monitoring & management.",ru:"\u041f\u0440\u043e\u0434\u0432\u0438\u043d\u0443\u0442\u0430\u044f \u043f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f.",ar:"\u0644\u0648\u062d\u0629 \u0625\u062f\u0627\u0631\u0629 \u0645\u062a\u0642\u062f\u0645\u0629."},t:["tg-b"]},
+    {e:"💎",n:"SLH Investment House",h:"@SLH_AIR_bot",u:"https://t.me/SLH_AIR_bot",s:"live",d:{he:"הפקדות TON אמיתיות, 4%-65% תשואה, חשבונאות כפולה, KYC, דפי חשבון, סוואפ, Limit, התראות ל-12 מטבעות.",en:"Real TON deposits, 4%-65% APY, double-entry ledger, KYC, statements, swap quotes, limit orders, 12-coin alerts.",ru:"\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b TON, 4%-65% \u0434\u043e\u0445\u043e\u0434, \u0434\u0432\u043e\u0439\u043d\u0430\u044f \u0431\u0443\u0445\u0433\u0430\u043b\u0442\u0435\u0440\u0438\u044f, KYC, \u0441\u0432\u043e\u043f\u044b, \u043b\u0438\u043c\u0438\u0442-\u043e\u0440\u0434\u0435\u0440\u0430.",ar:"\u0625\u064a\u062f\u0627\u0639\u0627\u062a TON \u062d\u0642\u064a\u0642\u064a\u0629\u060c 4%-65% \u0639\u0627\u0626\u062f\u060c \u0645\u062d\u0627\u0633\u0628\u0629 \u0645\u0632\u062f\u0648\u062c\u0629\u060c KYC\u060c \u0643\u0634\u0648\u0641\u0627\u062a."},t:["tg-l","tg-b"]},
+    {e:"🛒",n:"OsifShop",h:"@OsifShop_bot",u:"https://t.me/OsifShop_bot",s:"live",d:{he:"SaaS \u05dc\u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05dc\u05d0\u05d9. \u05e1\u05e8\u05d9\u05e7\u05ea \u05d1\u05e8\u05e7\u05d5\u05d3 \u05de\u05d4\u05de\u05e6\u05dc\u05de\u05d4, \u05de\u05e2\u05e7\u05d1 \u05de\u05dc\u05d0\u05d9, \u05de\u05d7\u05d9\u05e8\u05d9\u05dd, \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea, \u05d3\u05d5\u05d7\u05d5\u05ea, \u05d9\u05d9\u05e6\u05d5\u05d0 CSV.",en:"Inventory SaaS. Camera barcode scanning, stock tracking, pricing, low-stock alerts, reports, CSV export.",ru:"SaaS \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u0421\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0448\u0442\u0440\u0438\u0445\u043a\u043e\u0434\u043e\u0432, \u043e\u0442\u0447\u0435\u0442\u044b, CSV.",ar:"SaaS \u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0645\u0633\u062d \u0628\u0627\u0631\u0643\u0648\u062f \u0628\u0627\u0644\u0643\u0627\u0645\u064a\u0631\u0627\u060c \u062a\u0642\u0627\u0631\u064a\u0631."},t:["tg-s","tg-l"]},
+    {e:"🎨",n:"NFTY Marketplace",h:"@NIFTI_Publisher_Bot",u:"https://t.me/NIFTI_Publisher_Bot",s:"live",d:{he:"\u05e9\u05d5\u05e7 \u05e0\u05db\u05e1\u05d9\u05dd \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9\u05d9\u05dd \u05e2\u05dd \u05d7\u05d9\u05d9\u05ea \u05de\u05d7\u05de\u05d3 \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9. \u05e7\u05e0\u05d4, \u05de\u05db\u05d9\u05e8\u05d4, \u05d0\u05e1\u05e4\u05e0\u05d5\u05ea.",en:"Digital asset marketplace with virtual pet companion. Buy, sell, collect. Pet evolution system.",ru:"\u041c\u0430\u0440\u043a\u0435\u0442\u043f\u043b\u0435\u0439\u0441 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u043a\u0442\u0438\u0432\u043e\u0432 \u0441 \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u043c \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u043c.",ar:"\u0633\u0648\u0642 \u0623\u0635\u0648\u0644 \u0631\u0642\u0645\u064a\u0629 \u0645\u0639 \u062d\u064a\u0648\u0627\u0646 \u0623\u0644\u064a\u0641 \u0627\u0641\u062a\u0631\u0627\u0636\u064a."},t:["tg-l","tg-g"]},
+    {e:"🛡",n:"Guardian Security",h:"@SLH_Guardian_bot",u:"https://t.me/SLH_Guardian_bot",s:"live",d:{he:"\u05d0\u05d1\u05d8\u05d7\u05ea \u05e7\u05d1\u05d5\u05e6\u05d5\u05ea \u05d8\u05dc\u05d2\u05e8\u05dd, \u05d0\u05e0\u05d8\u05d9-\u05e1\u05e4\u05d0\u05dd, \u05e0\u05d9\u05d8\u05d5\u05e8, \u05dc\u05d5\u05d2\u05d9\u05dd.",en:"Telegram group security. Anti-spam, moderation, audit logging, member verification.",ru:"\u0411\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c \u0433\u0440\u0443\u043f\u043f. \u0410\u043d\u0442\u0438-\u0441\u043f\u0430\u043c, \u043c\u043e\u0434\u0435\u0440\u0430\u0446\u0438\u044f, \u043b\u043e\u0433\u0438.",ar:"\u0623\u0645\u0627\u0646 \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0645\u0643\u0627\u0641\u062d\u0629 \u0627\u0644\u0633\u0628\u0627\u0645."},t:["tg-l"]},
+    {e:"🎓",n:"SLH Academia",h:"@SLH_Academia_bot",u:"https://t.me/SLH_Academia_bot",s:"live",d:{he:"\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05ea \u05dc\u05d9\u05de\u05d5\u05d3. \u05e7\u05d5\u05e8\u05e1\u05d9\u05dd, \u05d4\u05e1\u05de\u05db\u05d5\u05ea, \u05de\u05e0\u05d8\u05d5\u05e8\u05d9\u05e0\u05d2.",en:"Educational platform. Courses, certifications, mentorship. Multi-language.",ru:"\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u0430\u044f \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430. \u041a\u0443\u0440\u0441\u044b, \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u044b.",ar:"\u0645\u0646\u0635\u0629 \u062a\u0639\u0644\u064a\u0645\u064a\u0629. \u062f\u0648\u0631\u0627\u062a\u060c \u0634\u0647\u0627\u062f\u0627\u062a."},t:["tg-l"]},
+    {e:"💰",n:"SLH Wallet",h:"@SLH_Wallet_bot",u:"https://t.me/SLH_Wallet_bot",s:"live",d:{he:"\u05d0\u05e8\u05e0\u05e7 \u05e8\u05d1-\u05e9\u05e8\u05e9\u05e8\u05ea\u05d9. TON, BNB, SLH. \u05d4\u05e2\u05d1\u05e8\u05d5\u05ea \u05de\u05d5\u05e6\u05e4\u05e0\u05d5\u05ea \u05d1-PIN.",en:"Multi-chain wallet. TON, BNB, SLH transfers. PIN-encrypted private keys.",ru:"\u041c\u0443\u043b\u044c\u0442\u0438-\u0447\u0435\u0439\u043d \u043a\u043e\u0448\u0435\u043b\u0435\u043a. TON, BNB, SLH.",ar:"\u0645\u062d\u0641\u0638\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0633\u0644\u0627\u0633\u0644. TON, BNB, SLH."},t:["tg-b","tg-l"]},
+    {e:"🏭",n:"Factory",h:"@SLH_Factory_bot",u:"https://t.me/SLH_Factory_bot",s:"beta",d:{he:"\u05de\u05d0\u05d2\u05e8\u05d9 \u05e1\u05d8\u05d9\u05d9\u05e7\u05d9\u05e0\u05d2, \u05e0\u05d9\u05d4\u05d5\u05dc \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea, \u05d4\u05de\u05e8\u05ea \u05d4\u05e4\u05e7\u05d3\u05d5\u05ea \u05dc\u05d8\u05d5\u05e7\u05e0\u05d9\u05dd.",en:"Staking pools, investment management, deposit-to-token conversion.",ru:"\u0421\u0442\u0435\u0439\u043a\u0438\u043d\u0433, \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u044f\u043c\u0438.",ar:"\u062a\u062e\u0632\u064a\u0646\u060c \u0625\u062f\u0627\u0631\u0629 \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u0627\u062a."},t:["tg-b"]},
+    {e:"📢",n:"Campaign Bot",h:"@SLH_Campaign_bot",u:"https://t.me/SLH_Campaign_bot",s:"live",d:{he:"\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d4 \u05e9\u05d9\u05d5\u05d5\u05e7\u05d9\u05ea. \u05e7\u05de\u05e4\u05d9\u05d9\u05e0\u05d9\u05dd, \u05e0\u05d9\u05d4\u05d5\u05dc \u05e4\u05e2\u05d9\u05dc\u05d9\u05dd.",en:"Marketing automation. Campaigns, activist management, lead tracking.",ru:"\u041c\u0430\u0440\u043a\u0435\u0442\u0438\u043d\u0433\u043e\u0432\u0430\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u044f.",ar:"\u0623\u062a\u0645\u062a\u0629 \u0627\u0644\u062a\u0633\u0648\u064a\u0642."},t:["tg-l"]},
+    {e:"🎮",n:"Game Bot",h:"@SLH_Game_bot",u:"https://t.me/SLH_Game_bot",s:"beta",d:{he:"\u05de\u05e9\u05d7\u05e7\u05d9\u05dd \u05d0\u05d9\u05e0\u05d8\u05e8\u05d0\u05e7\u05d8\u05d9\u05d1\u05d9\u05d9\u05dd \u05e2\u05dd \u05e4\u05e8\u05e1\u05d9 ZVK. \u05e1\u05dc\u05d5\u05d8\u05d9\u05dd, \u05e7\u05d5\u05d1\u05d9\u05d5\u05ea, \u05db\u05d3\u05d5\u05e8\u05e1\u05dc.",en:"Interactive games with ZVK token rewards. Slots, dice, basketball, darts.",ru:"\u0418\u0433\u0440\u044b \u0441 \u0442\u043e\u043a\u0435\u043d\u0430\u043c\u0438 ZVK.",ar:"\u0623\u0644\u0639\u0627\u0628 \u0645\u0639 \u0645\u0643\u0627\u0641\u0622\u062a ZVK."},t:["tg-l","tg-g"]},
+    {e:"📊",n:"SLH Ledger",h:"@SLH_Ledger_bot",u:"https://t.me/SLH_Ledger_bot",s:"beta",d:{he:"\u05e0\u05d9\u05d4\u05d5\u05dc \u05e4\u05d9\u05e0\u05e0\u05e1\u05d9 \u05d5\u05de\u05e2\u05e7\u05d1 \u05d4\u05d5\u05e6\u05d0\u05d5\u05ea.",en:"Financial management and expense tracking.",ru:"\u0424\u0438\u043d\u0430\u043d\u0441\u043e\u0432\u043e\u0435 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435.",ar:"\u0625\u062f\u0627\u0631\u0629 \u0645\u0627\u0644\u064a\u0629."},t:["tg-l"]},
+    {e:"🎲",n:"Chance Pais",h:"@Chance_Pais_bot",u:"https://t.me/Chance_Pais_bot",s:"beta",d:{he:"\u05d4\u05d2\u05e8\u05dc\u05d5\u05ea \u05d5\u05de\u05e9\u05d7\u05e7\u05d9 \u05de\u05d6\u05dc.",en:"Lotteries and luck games.",ru:"\u041b\u043e\u0442\u0435\u0440\u0435\u0438 \u0438 \u0438\u0433\u0440\u044b \u043d\u0430 \u0443\u0434\u0430\u0447\u0443.",ar:"\u064a\u0627\u0646\u0635\u064a\u0628 \u0648\u0623\u0644\u0639\u0627\u0628 \u062d\u0638."},t:["tg-l"]},
+    {e:"🔧",n:"Admin Bot",h:"@SLH_Admin_bot",u:"https://t.me/SLH_Admin_bot",s:"live",d:{he:"\u05dc\u05d5\u05d7 \u05d1\u05e7\u05e8\u05d4 \u05de\u05e8\u05db\u05d6\u05d9. \u05e1\u05d8\u05d8\u05d9\u05e1\u05d8\u05d9\u05e7\u05d5\u05ea, \u05ea\u05e9\u05dc\u05d5\u05de\u05d9\u05dd, \u05d1\u05d5\u05d8\u05d9\u05dd.",en:"Central admin dashboard. Stats, payments, bot management.",ru:"\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u043f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f.",ar:"\u0644\u0648\u062d\u0629 \u0625\u062f\u0627\u0631\u0629 \u0645\u0631\u0643\u0632\u064a\u0629."},t:["tg-b"]},
+    {e:"\u{1fa99}",n:"SLH TON",h:"@SLH_ton_bot",u:"https://t.me/SLH_ton_bot",s:"beta",d:{he:"\u05d0\u05e8\u05e0\u05e7 TON \u05d5\u05d4\u05e2\u05d1\u05e8\u05d5\u05ea. \u05e9\u05dc\u05d9\u05d7\u05d4 \u05d5\u05e7\u05d1\u05dc\u05d4 \u05e9\u05dc TON.",en:"TON wallet and transfers. Send and receive TON directly.",ru:"\u041a\u043e\u0448\u0435\u043b\u0435\u043a TON \u0438 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u044b.",ar:"\u0645\u062d\u0641\u0638\u0629 TON \u0648\u062a\u062d\u0648\u064a\u0644\u0627\u062a."},t:["tg-b","tg-l"]},
+    {e:"\u26a1",n:"TON MNH",h:"@TON_MNH_bot",u:"https://t.me/TON_MNH_bot",s:"live",d:{he:"\u05db\u05dc\u05d9 TON \u05de\u05ea\u05e7\u05d3\u05de\u05d9\u05dd. \u05d1\u05d3\u05d9\u05e7\u05ea \u05d9\u05ea\u05e8\u05d5\u05ea, \u05de\u05e2\u05e7\u05d1 \u05e2\u05e1\u05e7\u05d0\u05d5\u05ea, \u05e0\u05ea\u05d5\u05e0\u05d9 \u05e8\u05e9\u05ea.",en:"Advanced TON tools. Balance checker, transaction tracker, network data.",ru:"\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b TON. \u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0431\u0430\u043b\u0430\u043d\u0441\u0430, \u0442\u0440\u0430\u043d\u0437\u0430\u043a\u0446\u0438\u0438.",ar:"\u0623\u062f\u0648\u0627\u062a TON. \u0641\u062d\u0635 \u0627\u0644\u0631\u0635\u064a\u062f\u060c \u062a\u062a\u0628\u0639 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0627\u062a."},t:["tg-b"]},
+    {e:"\ud83c\udf89",n:"SLH Fun",h:"@SLH_Fun_bot",u:"https://t.me/SLH_Fun_bot",s:"beta",d:{he:"\u05d1\u05d9\u05d3\u05d5\u05e8 \u05d5\u05e7\u05d4\u05d9\u05dc\u05d4. \u05e4\u05e8\u05d5\u05de\u05d5, \u05e4\u05e8\u05d9\u05de\u05d9\u05d5\u05dd, \u05ea\u05d5\u05db\u05df \u05d7\u05d1\u05e8\u05ea\u05d9.",en:"Fun & community. Promos, premium content, community engagement.",ru:"\u0420\u0430\u0437\u0432\u043b\u0435\u0447\u0435\u043d\u0438\u044f \u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e. \u0410\u043a\u0446\u0438\u0438, \u043f\u0440\u0435\u043c\u0438\u0443\u043c.",ar:"\u062a\u0631\u0641\u064a\u0647 \u0648\u0645\u062c\u062a\u0645\u0639. \u0639\u0631\u0648\u0636\u060c \u0645\u062d\u062a\u0648\u0649 \u0645\u0645\u064a\u0632."},t:["tg-l","tg-g"]},
+    {e:"\ud83d\udcab",n:"SLH Nifti",h:"@SLH_Nifti_bot",u:"https://t.me/SLH_Nifti_bot",s:"soon",d:{he:"\u05d1\u05e8\u05d9\u05d0\u05d5\u05ea \u05d5\u05d5\u05dc\u05e0\u05e1. \u05d8\u05d9\u05e4\u05d9\u05dd \u05d9\u05d5\u05de\u05d9\u05d9\u05dd, \u05de\u05d3\u05d9\u05d8\u05e6\u05d9\u05d4, \u05e8\u05d5\u05d8\u05d9\u05e0\u05d5\u05ea.",en:"Wellness & health. Daily tips, meditation, routines.",ru:"\u0417\u0434\u043e\u0440\u043e\u0432\u044c\u0435 \u0438 \u0432\u0435\u043b\u043d\u0435\u0441. \u0421\u043e\u0432\u0435\u0442\u044b, \u043c\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044f.",ar:"\u0635\u062d\u0629 \u0648\u0639\u0627\u0641\u064a\u0629. \u0646\u0635\u0627\u0626\u062d \u064a\u0648\u0645\u064a\u0629."},t:["tg-l"]},
+    {e:"\ud83d\udecd\ufe0f",n:"BotShop",h:"@BotShop_bot",u:"https://t.me/BotShop_bot",s:"live",d:{he:"\u05d7\u05e0\u05d5\u05ea \u05d1\u05d5\u05d8\u05d9\u05dd. \u05e7\u05e0\u05d9\u05d9\u05d4 \u05d5\u05d4\u05e4\u05e2\u05dc\u05d4 \u05e9\u05dc \u05d1\u05d5\u05d8\u05d9\u05dd \u05de\u05d5\u05ea\u05d0\u05de\u05d9\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea.",en:"Bot marketplace. Buy and activate custom bots for your needs.",ru:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d \u0431\u043e\u0442\u043e\u0432. \u041f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438 \u0430\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044f.",ar:"\u0645\u062a\u062c\u0631 \u0628\u0648\u062a\u0627\u062a. \u0634\u0631\u0627\u0621 \u0648\u062a\u0641\u0639\u064a\u0644."},t:["tg-s","tg-l"]},
+    {e:"\ud83c\udfad",n:"SLH Selha",h:"@SLH_Selha_bot",u:"https://t.me/SLH_Selha_bot",s:"beta",d:{he:"\u05e1\u05dc\u05d7\u05d0 - \u05d1\u05d5\u05d8 \u05e7\u05d4\u05d9\u05dc\u05d4 \u05d5\u05de\u05e1\u05d7\u05e8 \u05d7\u05d1\u05e8\u05ea\u05d9.",en:"Selha - community & trading bot with social features.",ru:"Selha - \u0441\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0439 \u0431\u043e\u0442 \u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u044f.",ar:"Selha - \u0628\u0648\u062a \u0627\u062c\u062a\u0645\u0627\u0639\u064a \u0648\u062a\u062f\u0627\u0648\u0644."},t:["tg-l"]},
+    {e:"\u2699\ufe0f",n:"TS Set",h:"@TS_Set_bot",u:"https://t.me/TS_Set_bot",s:"beta",d:{he:"\u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05de\u05ea\u05e7\u05d3\u05de\u05d5\u05ea. \u05db\u05dc\u05d9 \u05e7\u05d5\u05e0\u05e4\u05d9\u05d2\u05d5\u05e8\u05e6\u05d9\u05d4 \u05d5\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d4.",en:"Advanced configuration tools. Automation & settings management.",ru:"\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438.",ar:"\u0623\u062f\u0648\u0627\u062a \u062a\u0643\u0648\u064a\u0646 \u0645\u062a\u0642\u062f\u0645\u0629."},t:["tg-b"]},
+    {e:"\ud83d\ude80",n:"CrazyPanel",h:"@CrazyPanel_bot",u:"https://t.me/CrazyPanel_bot",s:"beta",d:{he:"\u05e4\u05d0\u05e0\u05dc \u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05ea\u05e7\u05d3\u05dd. \u05d3\u05e9\u05d1\u05d5\u05e8\u05d3 \u05e9\u05dc\u05d9\u05d8\u05d4 \u05d5\u05e0\u05d9\u05d8\u05d5\u05e8.",en:"Advanced admin panel. Control dashboard for monitoring & management.",ru:"\u041f\u0440\u043e\u0434\u0432\u0438\u043d\u0443\u0442\u0430\u044f \u043f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f.",ar:"\u0644\u0648\u062d\u0629 \u0625\u062f\u0627\u0631\u0629 \u0645\u062a\u0642\u062f\u0645\u0629."},t:["tg-b"]},
 ];
 
 const FEATS = [
@@ -508,9 +589,26 @@ const FEATS = [
 ];
 
 const PRODS = [
-    {e:"💎",n:{he:"\u05d1\u05d9\u05ea \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea",en:"Investment House",ru:"\u0418\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438",ar:"\u062f\u0627\u0631 \u0627\u0633\u062a\u062b\u0645\u0627\u0631"},d:{he:"\u05d4\u05e4\u05e7\u05d3\u05d5\u05ea \u05d0\u05de\u05d9\u05ea\u05d9\u05d5\u05ea. 4%-65% \u05ea\u05e9\u05d5\u05d0\u05d4. 12 \u05de\u05d8\u05d1\u05e2\u05d5\u05ea.",en:"Real deposits. 4%-65% APY. 12 coins. Banking.",ru:"\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b. 4%-65%. 12 \u043c\u043e\u043d\u0435\u0442.",ar:"\u0625\u064a\u062f\u0627\u0639\u0627\u062a \u062d\u0642\u064a\u0642\u064a\u0629. 4%-65%."},p:"22.221 ILS",pc:"c1",u:"https://t.me/SLH_AIR_bot",bg:"linear-gradient(135deg,var(--accent),#8b5cf6)"},
-    {e:"🛒",n:{he:"\u05d7\u05e0\u05d5\u05ea SaaS",en:"Shop SaaS",ru:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d SaaS",ar:"\u0645\u062a\u062c\u0631 SaaS"},d:{he:"\u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05dc\u05d0\u05d9. \u05e1\u05e8\u05d9\u05e7\u05d4 \u05de\u05d4\u05de\u05e6\u05dc\u05de\u05d4. \u05d3\u05d5\u05d7\u05d5\u05ea.",en:"Inventory management. Camera scanning. Reports. CSV.",ru:"\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u0421\u043a\u0430\u043d\u0435\u0440. \u041e\u0442\u0447\u0435\u0442\u044b.",ar:"\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0645\u0627\u0633\u062d. \u062a\u0642\u0627\u0631\u064a\u0631."},p:"49 ILS",pc:"c2",u:"https://t.me/OsifShop_bot",bg:"linear-gradient(135deg,var(--green),var(--cyan))"},
-    {e:"🎨",n:{he:"NFT \u05de\u05e8\u05e7\u05d8\u05e4\u05dc\u05d9\u05d9\u05e1",en:"NFT Marketplace",ru:"NFT \u041c\u0430\u0440\u043a\u0435\u0442",ar:"\u0633\u0648\u0642 NFT"},d:{he:"\u05e0\u05db\u05e1\u05d9\u05dd \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9\u05d9\u05dd. \u05d7\u05d9\u05d9\u05ea \u05de\u05d7\u05de\u05d3 \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9\u05d9\u05dd.",en:"Digital collectibles. Virtual pets. Community.",ru:"\u0426\u0438\u0444\u0440\u043e\u0432\u044b\u0435 \u043a\u043e\u043b\u043b\u0435\u043a\u0446\u0438\u0438. \u041f\u0438\u0442\u043e\u043c\u0446\u044b.",ar:"\u0645\u0642\u062a\u0646\u064a\u0627\u062a \u0631\u0642\u0645\u064a\u0629."},p:"22.221 ILS",pc:"c3",u:"https://t.me/NIFTI_Publisher_Bot",bg:"linear-gradient(135deg,var(--pink),var(--accent))"},
+    {e:"💎",n:{he:"\u05d1\u05d9\u05ea \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea",en:"Investment House",ru:"\u0418\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438",ar:"\u062f\u0627\u0631 \u0627\u0633\u062a\u062b\u0645\u0627\u0631"},
+     free:{he:"\u05de\u05d7\u05d9\u05e8\u05d9 12 \u05de\u05d8\u05d1\u05e2\u05d5\u05ea, \u05ea\u05d9\u05e7 \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea, \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea \u05de\u05d7\u05d9\u05e8",en:"12 coin prices, portfolio tracker, price alerts",ru:"\u0426\u0435\u043d\u044b 12 \u043c\u043e\u043d\u0435\u0442, \u043f\u043e\u0440\u0442\u0444\u0435\u043b\u044c, \u043e\u043f\u043e\u0432\u0435\u0449\u0435\u043d\u0438\u044f",ar:"\u0623\u0633\u0639\u0627\u0631 12 \u0639\u0645\u0644\u0629\u060c \u0645\u062d\u0641\u0638\u0629\u060c \u062a\u0646\u0628\u064a\u0647\u0627\u062a"},
+     prem:{he:"\u05d4\u05e4\u05e7\u05d3\u05d5\u05ea \u05d0\u05de\u05d9\u05ea\u05d9\u05d5\u05ea, 4%-65% \u05ea\u05e9\u05d5\u05d0\u05d4, \u05e1\u05d5\u05d5\u05d0\u05e4, KYC, \u05d3\u05e4\u05d9 \u05d7\u05e9\u05d1\u05d5\u05df",en:"Real deposits, 4%-65% APY, swaps, KYC, statements",ru:"\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b, 4%-65%, \u0441\u0432\u043e\u043f\u044b, KYC",ar:"\u0625\u064a\u062f\u0627\u0639\u0627\u062a \u062d\u0642\u064a\u0642\u064a\u0629, 4%-65%, \u0645\u0628\u0627\u062f\u0644\u0627\u062a, KYC"},
+     p:"22.221 ILS",u:"https://t.me/SLH_AIR_bot",bg:"linear-gradient(135deg,var(--accent),#8b5cf6)"},
+    {e:"🛒",n:{he:"\u05d7\u05e0\u05d5\u05ea SaaS",en:"Shop SaaS",ru:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d SaaS",ar:"\u0645\u062a\u062c\u0631 SaaS"},
+     free:{he:"\u05d4\u05d5\u05e1\u05e4\u05ea \u05de\u05d5\u05e6\u05e8\u05d9\u05dd, \u05e6\u05e4\u05d9\u05d9\u05d4 \u05d1\u05de\u05dc\u05d0\u05d9, \u05d7\u05d9\u05e4\u05d5\u05e9",en:"Add products, browse inventory, search",ru:"\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0442\u043e\u0432\u0430\u0440\u043e\u0432, \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0441\u043a\u043b\u0430\u0434\u0430, \u043f\u043e\u0438\u0441\u043a",ar:"\u0625\u0636\u0627\u0641\u0629 \u0645\u0646\u062a\u062c\u0627\u062a\u060c \u062a\u0635\u0641\u062d \u0627\u0644\u0645\u062e\u0632\u0648\u0646\u060c \u0628\u062d\u062b"},
+     prem:{he:"\u05e1\u05e8\u05d9\u05e7\u05ea \u05d1\u05e8\u05e7\u05d5\u05d3, \u05d3\u05d5\u05d7\u05d5\u05ea, \u05d9\u05d9\u05e6\u05d5\u05d0 CSV, \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea \u05de\u05dc\u05d0\u05d9",en:"Barcode scanning, reports, CSV export, stock alerts",ru:"\u0421\u043a\u0430\u043d\u0435\u0440 \u0448\u0442\u0440\u0438\u0445\u043a\u043e\u0434\u043e\u0432, \u043e\u0442\u0447\u0435\u0442\u044b, CSV, \u043e\u043f\u043e\u0432\u0435\u0449\u0435\u043d\u0438\u044f",ar:"\u0645\u0627\u0633\u062d \u0628\u0627\u0631\u0643\u0648\u062f\u060c \u062a\u0642\u0627\u0631\u064a\u0631\u060c CSV\u060c \u062a\u0646\u0628\u064a\u0647\u0627\u062a"},
+     p:"49 ILS",u:"https://t.me/OsifShop_bot",bg:"linear-gradient(135deg,var(--green),var(--cyan))"},
+    {e:"🎨",n:{he:"NFT \u05de\u05e8\u05e7\u05d8\u05e4\u05dc\u05d9\u05d9\u05e1",en:"NFT Marketplace",ru:"NFT \u041c\u0430\u0440\u043a\u0435\u0442",ar:"\u0633\u0648\u0642 NFT"},
+     free:{he:"\u05e6\u05e4\u05d9\u05d9\u05d4 \u05d1\u05e0\u05db\u05e1\u05d9\u05dd, \u05d7\u05d9\u05d9\u05ea \u05de\u05d7\u05de\u05d3 \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9, \u05e7\u05d4\u05d9\u05dc\u05d4",en:"Browse collectibles, virtual pet, community",ru:"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u043a\u043e\u043b\u043b\u0435\u043a\u0446\u0438\u0439, \u043f\u0438\u0442\u043e\u043c\u0435\u0446, \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",ar:"\u062a\u0635\u0641\u062d \u0627\u0644\u0645\u0642\u062a\u0646\u064a\u0627\u062a\u060c \u062d\u064a\u0648\u0627\u0646 \u0623\u0644\u064a\u0641\u060c \u0645\u062c\u062a\u0645\u0639"},
+     prem:{he:"\u05e7\u05e0\u05d9\u05d9\u05d4 \u05d5\u05de\u05db\u05d9\u05e8\u05d4 \u05e9\u05dc \u05e0\u05db\u05e1\u05d9\u05dd, \u05d0\u05e1\u05e4\u05e0\u05d5\u05ea \u05de\u05ea\u05e7\u05d3\u05de\u05d5\u05ea",en:"Buy & sell NFTs, advanced collections",ru:"\u041f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438 \u043f\u0440\u043e\u0434\u0430\u0436\u0430 NFT, \u043f\u0440\u043e\u0434\u0432\u0438\u043d\u0443\u0442\u044b\u0435 \u043a\u043e\u043b\u043b\u0435\u043a\u0446\u0438\u0438",ar:"\u0634\u0631\u0627\u0621 \u0648\u0628\u064a\u0639 NFT\u060c \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u0645\u062a\u0642\u062f\u0645\u0629"},
+     p:"22.221 ILS",u:"https://t.me/NIFTI_Publisher_Bot",bg:"linear-gradient(135deg,var(--pink),var(--accent))"},
+];
+
+// === COMING SOON DATA ===
+const COMING = [
+    {icon:"🔌",title:"coming_iot",desc:"coming_iot_d"},
+    {icon:"🎲",title:"coming_gamble",desc:"coming_gamble_d"},
+    {icon:"📜",title:"coming_nft",desc:"coming_nft_d"},
+    {icon:"🧘",title:"coming_wellness",desc:"coming_wellness_d"},
 ];
 
 // === LANGUAGE ENGINE ===
@@ -535,17 +633,23 @@ function setLang(lang) {
     });
 
     // Rebuild dynamic sections
-    renderBots(); renderFeats(); renderProds();
+    renderBots(); renderFeats(); renderProds(); renderComing();
 }
 
 function renderBots() {
     const g = document.getElementById('bot-grid');
-    g.innerHTML = BOTS.map(b => `
+    const sl = T[currentLang] || T.en;
+    g.innerHTML = BOTS.map(b => {
+        const sc = b.s === 'live' ? 'status-live' : b.s === 'beta' ? 'status-beta' : 'status-soon';
+        const st = b.s === 'live' ? (sl.status_live||'LIVE') : b.s === 'beta' ? (sl.status_beta||'BETA') : (sl.status_soon||'COMING SOON');
+        return `
         <a href="${b.u}" class="bc rv" style="text-decoration:none;color:inherit" target="_blank">
+            <span class="status-badge ${sc}">${st}</span>
             <div class="bh"><span class="be">${b.e}</span><div><div class="bn">${b.n}</div><div class="bha">${b.h}</div></div></div>
             <div class="bd">${b.d[currentLang] || b.d.en}</div>
             <div class="bt">${b.t.map(t => `<span class="tg ${t}">${t==='tg-l'?'Live':t==='tg-s'?'SaaS':t==='tg-b'?'Blockchain':t==='tg-g'?'Gamified':''}</span>`).join('')}</div>
-        </a>`).join('');
+        </a>`;
+    }).join('');
     document.querySelectorAll('.bc.rv').forEach(el => obs.observe(el));
 }
 
@@ -559,14 +663,37 @@ function renderFeats() {
 
 function renderProds() {
     const g = document.getElementById('prod-grid');
-    g.innerHTML = PRODS.map(p => `
+    const sl = T[currentLang] || T.en;
+    g.innerHTML = PRODS.map(p => {
+        const freeItems = (p.free[currentLang]||p.free.en).split(', ');
+        const premItems = (p.prem[currentLang]||p.prem.en).split(', ');
+        return `
         <div class="prod rv"><div class="prod-e">${p.e}</div>
         <div class="prod-t">${p.n[currentLang]||p.n.en}</div>
-        <div class="prod-d">${p.d[currentLang]||p.d.en}</div>
-        <div class="prod-price ${p.pc}">${p.p}</div>
-        <a href="${p.u}" class="btn btn-p" style="width:100%;justify-content:center;background:${p.bg}" target="_blank">${T[currentLang]?.hero_btn1 || 'Open Bot'}</a>
-        </div>`).join('');
+        <div class="prod-features">
+            <div class="prod-label">${sl.prod_free||'Free'}</div>
+            <ul>${freeItems.map(f => `<li><span class="check">&#10003;</span> ${f}</li>`).join('')}</ul>
+            <div class="prod-label" style="color:var(--gold)">${sl.prod_premium||'Premium'}</div>
+            <ul>${premItems.map(f => `<li><span class="check" style="color:var(--gold)">&#9733;</span> ${f}</li>`).join('')}</ul>
+        </div>
+        <div class="prod-price-small">${sl.prod_from||'From '}${p.p}</div>
+        <a href="${p.u}" class="btn btn-o" style="width:100%;justify-content:center" target="_blank">${sl.prod_try||'Try Free'}</a>
+        </div>`;
+    }).join('');
     document.querySelectorAll('.prod.rv').forEach(el => obs.observe(el));
+}
+
+function renderComing() {
+    const g = document.getElementById('coming-grid');
+    if (!g) return;
+    const sl = T[currentLang] || T.en;
+    g.innerHTML = COMING.map(c => `
+        <div class="coming-card rv">
+            <div class="coming-icon">${c.icon}</div>
+            <h4>${sl[c.title]||c.title}</h4>
+            <p>${sl[c.desc]||c.desc}</p>
+        </div>`).join('');
+    document.querySelectorAll('.coming-card.rv').forEach(el => obs.observe(el));
 }
 
 // === OBSERVERS ===
