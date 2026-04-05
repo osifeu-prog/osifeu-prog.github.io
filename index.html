@@ -886,8 +886,12 @@ function renderComing() {
 const obs = new IntersectionObserver(e => { e.forEach(x => { if(x.isIntersecting) x.target.classList.add('vis'); }); }, {threshold:.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-// Nav scroll
-window.addEventListener('scroll', () => { document.getElementById('nb').classList.toggle('scrolled', window.scrollY > 50); });
+// Nav scroll + progress bar
+window.addEventListener('scroll', () => {
+    document.getElementById('nb').classList.toggle('scrolled', window.scrollY > 50);
+    const sp = document.getElementById('scroll-progress');
+    if(sp){const h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(window.scrollY/h*100)+'%';}
+});
 
 // Prices ticker
 async function fetchPrices(){
