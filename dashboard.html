@@ -246,6 +246,7 @@
 
 <!-- ============= LOGIN SCREEN ============= -->
 <div id="login-screen" class="login-screen">
+    <img src="/assets/img/phoenix-icon.png" alt="SLH" style="width:100px;height:100px;border-radius:50%;margin-bottom:12px;border:3px solid var(--accent);box-shadow:0 0 30px var(--accent-dim)">
     <div class="login-logo">SLH</div>
     <div class="login-sub">SPARK Digital Investment House<br><span data-i18n="sign_in_sub">Sign in to access your personal dashboard, portfolio, and network</span></div>
 
@@ -339,6 +340,17 @@
 
             <!-- ===== OVERVIEW PAGE ===== -->
             <div id="page-overview" class="page active">
+                <!-- Welcome Banner -->
+                <div style="border-radius:var(--radius);overflow:hidden;margin-bottom:20px;position:relative;height:120px;border:1px solid var(--border)">
+                    <img src="/assets/img/butterfly-banner.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.25">
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 28px;gap:16px">
+                        <img src="/assets/img/phoenix-icon.png" alt="SLH" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--accent)">
+                        <div>
+                            <div style="font-size:20px;font-weight:700;color:var(--text-bright)">Welcome to SLH Ecosystem</div>
+                            <div style="font-size:13px;color:var(--text2);margin-top:4px">Your decentralized investment dashboard</div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Profile Card -->
                 <div class="profile-card">
                     <div class="profile-avatar" id="profile-avatar">&#x1F464;</div>
@@ -565,16 +577,47 @@
 
             <!-- ===== BOTS PAGE ===== -->
             <div id="page-bots" class="page">
-                <div class="section-header"><div class="section-title">Ecosystem Bots</div></div>
-                <div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-                    <a href="https://t.me/SLH_AIR_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F48E;</div><div style="font-weight:600;color:var(--text-bright)">Investment Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Deposits, staking, portfolio</div></a>
-                    <a href="https://t.me/OsifShop_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F6D2;</div><div style="font-weight:600;color:var(--text-bright)">Shop Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Inventory, barcode, e-commerce</div></a>
-                    <a href="https://t.me/NIFTI_Publisher_Bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F3A8;</div><div style="font-weight:600;color:var(--text-bright)">NFT Market</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Mint, trade, collect</div></a>
-                    <a href="https://t.me/SLH_Wallet_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F4B0;</div><div style="font-weight:600;color:var(--text-bright)">Wallet Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Multi-chain wallet</div></a>
-                    <a href="https://t.me/SLH_Factory_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F3ED;</div><div style="font-weight:600;color:var(--text-bright)">Factory Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Staking pools</div></a>
-                    <a href="https://t.me/SLH_Game_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F3AE;</div><div style="font-weight:600;color:var(--text-bright)">Game Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Games & ZVK tokens</div></a>
-                    <a href="https://t.me/SLH_Academia_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F393;</div><div style="font-weight:600;color:var(--text-bright)">Academia Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Education & courses</div></a>
-                    <a href="https://t.me/SLH_Guardian_bot" target="_blank" class="stat-card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:8px">&#x1F6E1;</div><div style="font-weight:600;color:var(--text-bright)">Guardian Bot</div><div style="font-size:12px;color:var(--text2);margin-top:4px">Security & moderation</div></a>
+                <!-- Banner -->
+                <div style="border-radius:var(--radius);overflow:hidden;margin-bottom:24px;position:relative;height:160px">
+                    <img src="/assets/img/phoenix-banner.png" alt="SLH Ecosystem" style="width:100%;height:100%;object-fit:cover;opacity:.4">
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center">
+                        <h2 style="color:var(--text-bright);font-size:24px;text-shadow:0 2px 8px rgba(0,0,0,.6)" data-i18n="ecosystem_bots">Ecosystem Bots</h2>
+                        <p style="color:var(--text2);font-size:13px;margin-top:4px">19 bots powering the SLH economy</p>
+                    </div>
+                </div>
+                <div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
+                    <a href="https://t.me/SLH_AIR_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/bot-finance.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="investment_bot">Investment Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="deposits_staking">Deposits, staking, portfolio</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_AIR_bot</div></div>
+                    </a>
+                    <a href="https://t.me/OsifShop_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/bot-mascot.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="shop_bot">Shop Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="inventory_ecommerce">Inventory, barcode, e-commerce</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@OsifShop_bot</div></div>
+                    </a>
+                    <a href="https://t.me/NIFTI_Publisher_Bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/slh-network-nft.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="nft_market">NFT Market</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="mint_trade">Mint, trade, collect</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@NIFTI_Publisher_Bot</div></div>
+                    </a>
+                    <a href="https://t.me/SLH_Wallet_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/butterfly-icon.png" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="wallet_bot">Wallet Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="multi_chain">Multi-chain wallet</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_Wallet_bot</div></div>
+                    </a>
+                    <a href="https://t.me/SLH_Factory_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/slh-hardware.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="factory_bot">Factory Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="staking_pools">Staking pools</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_Factory_bot</div></div>
+                    </a>
+                    <a href="https://t.me/SLH_Game_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/butterfly-art.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="game_bot">Game Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="games_zvk">Games & ZVK tokens</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_Game_bot</div></div>
+                    </a>
+                    <a href="https://t.me/SLH_Academia_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/slh-academia.jpg" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="academia_bot">Academia Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="education_courses">Education & courses</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_Academia_bot</div></div>
+                    </a>
+                    <a href="https://t.me/SLH_Guardian_bot" target="_blank" class="stat-card" style="text-decoration:none;display:flex;align-items:center;gap:14px">
+                        <img src="/assets/img/phoenix-icon.png" alt="" style="width:52px;height:52px;border-radius:var(--radius);object-fit:cover;flex-shrink:0">
+                        <div><div style="font-weight:600;color:var(--text-bright)" data-i18n="guardian_bot">Guardian Bot</div><div style="font-size:12px;color:var(--text2);margin-top:2px" data-i18n="security_mod">Security & moderation</div><div style="font-size:10px;color:var(--accent);margin-top:4px">@SLH_Guardian_bot</div></div>
+                    </a>
                 </div>
             </div>
 
