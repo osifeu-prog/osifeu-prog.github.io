@@ -6,7 +6,7 @@
     <title>SLH Dashboard | My Account</title>
     <meta name="description" content="SLH Ecosystem personal dashboard - portfolio, staking, transfers, referral network.">
     <link rel="icon" type="image/png" href="/favicon-32.png">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* === THEME SYSTEM === */
@@ -1207,9 +1207,13 @@ async function loadTransactions() {
     try {
         const d = await fetch(API + '/api/transactions/' + currentUser.id + '?limit=20').then(r => r.json());
         if (d.transactions?.length > 0) {
-            document.getElementById('tx-history').innerHTML = d.transactions.map(t =>
-                `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span>${t.direction === 'in' ? '&#x1F4E5;' : '&#x1F4E4;'} ${t.direction === 'in' ? 'From' : 'To'} #${t.counterparty}</span><span style="color:${t.direction === 'in' ? 'var(--accent)' : 'var(--red)};font-weight:600">${t.direction === 'in' ? '+' : '-'}${t.amount} ${t.token}</span></div>`
-            ).join('');
+            document.getElementById('tx-history').innerHTML = d.transactions.map(function(tx) {
+                var icon = tx.direction === 'in' ? '\u{1F4E5}' : '\u{1F4E4}';
+                var label = tx.direction === 'in' ? 'From' : 'To';
+                var clr = tx.direction === 'in' ? 'var(--accent)' : 'var(--red)';
+                var sign = tx.direction === 'in' ? '+' : '-';
+                return '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span>' + icon + ' ' + label + ' #' + tx.counterparty + '</span><span style="color:' + clr + ';font-weight:600">' + sign + tx.amount + ' ' + tx.token + '</span></div>';
+            }).join('');
         } else {
             document.getElementById('tx-history').innerHTML = '<div style="color:var(--text2);font-size:13px;text-align:center;padding:24px">No transactions yet</div>';
         }
