@@ -6,6 +6,7 @@
     <title>SLH Dashboard | My Account</title>
     <meta name="description" content="SLH Ecosystem personal dashboard - portfolio, staking, transfers, referral network.">
     <link rel="icon" type="image/png" href="/favicon-32.png">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* === THEME SYSTEM === */
@@ -1049,9 +1050,44 @@ function showToast(msg, isError) {
 }
 
 // === INIT ===
+// 1. Try Telegram Mini App (TWA) auto-login
+const tg = window.Telegram?.WebApp;
+if (tg && tg.initDataUnsafe?.user) {
+    tg.ready();
+    tg.expand();
+    const tgUser = tg.initDataUnsafe.user;
+    currentUser = {
+        id: tgUser.id,
+        first_name: tgUser.first_name || 'User',
+        username: tgUser.username || '',
+        photo_url: tgUser.photo_url || ''
+    };
+    localStorage.setItem('slh_user', JSON.stringify(currentUser));
+    showApp();
+}
+// 2. Try URL params (?uid=224223270 from bot deep link)
+else if (!localStorage.getItem('slh_user')) {
+    const params = new URLSearchParams(window.location.search);
+    const urlUid = params.get('uid') || params.get('id') || params.get('ref');
+    if (urlUid) {
+        manualLoginWith(parseInt(urlUid));
+    }
+}
+// 3. Fallback to saved session
 const saved = localStorage.getItem('slh_user');
-if (saved) { currentUser = JSON.parse(saved); showApp(); }
+if (saved && !currentUser) { currentUser = JSON.parse(saved); showApp(); }
 calcStaking();
+
+// Theme banner - show once
+if (!localStorage.getItem('slh_theme_seen')) {
+    setTimeout(() => {
+        const banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--bg2);border:1px solid var(--accent);border-radius:var(--radius);padding:16px 24px;max-width:400px;text-align:center;box-shadow:var(--shadow)';
+        banner.innerHTML = `<div style="font-size:13px;color:var(--text-bright);margin-bottom:8px">You can change the theme anytime!</div><div style="font-size:12px;color:var(--text2);margin-bottom:12px">Go to Settings → Appearance to switch between Terminal, Crypto, and Light modes</div><button onclick="this.parentElement.remove();localStorage.setItem('slh_theme_seen','1')" style="padding:8px 20px;background:var(--accent);border:none;border-radius:var(--radius);color:var(--bg);font-size:12px;cursor:pointer;font-family:var(--font)">Got it</button>`;
+        document.body.appendChild(banner);
+        localStorage.setItem('slh_theme_seen', '1');
+    }, 2000);
+}
 
 // Close modal on overlay click
 document.getElementById('stake-modal').addEventListener('click', function(e) {
