@@ -1189,7 +1189,7 @@
         <a href="https://t.me/OsifShop_bot" class="btn btn-o tt-wrap" data-i18n="hero_btn2"><span class="tt">Open OsifShop - inventory management SaaS with camera barcode scanning</span>[ SHOP ]</a>
     </div>
     <div class="hero-visual" style="margin-top:48px;max-width:800px;width:100%;position:relative">
-        <img src="banner.png" alt="SLH Ecosystem Banner" loading="lazy" style="width:100%;border-radius:0 !important;border:1px solid var(--accent);box-shadow:0 0 30px rgba(0,255,65,.1)">
+        <img src="/assets/img/phoenix-banner.png" alt="SLH Ecosystem Banner" loading="lazy" style="width:100%;border-radius:16px;border:1px solid var(--accent);box-shadow:0 0 30px rgba(0,255,65,.1)">
     </div>
 </div>
 
@@ -1272,6 +1272,22 @@
         <span class="tp">Redis</span><span class="tp">Docker</span><span class="tp">web3.py</span>
         <span class="tp">TON API</span><span class="tp">CoinGecko</span><span class="tp">STON.fi</span>
         <span class="tp">Cloudflare</span><span class="tp">GitHub Pages</span><span class="tp">html5-qrcode</span>
+    </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase" style="padding:60px 20px">
+    <div class="sc">
+        <span class="stag rv terminal-header">Showcase</span>
+        <h2 class="stitle rv">Built in Israel. Deployed Globally.</h2>
+        <p class="ssub rv">Real hardware. Real community. Real results.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:1100px;margin:32px auto 0">
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:1"><img src="/assets/img/slh-hardware.jpg" alt="SLH IoT Hardware" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:1"><img src="/assets/img/slh-network-nft.jpg" alt="SLH Network NFT" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:1"><img src="/assets/img/slh-community.jpg" alt="SLH Community" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:1"><img src="/assets/img/trading-btc.jpg" alt="Trading Results" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:1"><img src="/assets/img/bot-mascot.jpg" alt="SLH Bot" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
     </div>
 </section>
 
@@ -1740,16 +1756,13 @@ function setLang(lang) {
 function renderBots() {
     const g = document.getElementById('bot-grid');
     const sl = T[currentLang] || T.en;
+    const BOT_IMGS = {'SLH Investment House':'/assets/img/bot-finance.jpg','OsifShop':'/assets/img/bot-mascot.jpg','NFTY Marketplace':'/assets/img/slh-network-nft.jpg','Guardian Security':'/assets/img/phoenix-icon.png','SLH Academia':'/assets/img/slh-academia.jpg','SLH Wallet':'/assets/img/butterfly-icon.png','Factory':'/assets/img/slh-hardware.jpg','Game Bot':'/assets/img/butterfly-art.jpg'};
     g.innerHTML = BOTS.map(b => {
         const sc = b.s === 'live' ? 'status-live' : b.s === 'beta' ? 'status-beta' : 'status-soon';
         const st = b.s === 'live' ? (sl.status_live||'LIVE') : b.s === 'beta' ? (sl.status_beta||'BETA') : (sl.status_soon||'COMING SOON');
-        return `
-        <a href="${b.u}" class="bc rv" style="text-decoration:none;color:inherit" target="_blank">
-            <span class="status-badge ${sc}">${st}</span>
-            <div class="bh"><span class="be">${b.e}</span><div><div class="bn">${b.n}</div><div class="bha">${b.h}</div></div></div>
-            <div class="bd">${b.d[currentLang] || b.d.en}</div>
-            <div class="bt">${b.t.map(t => `<span class="tg ${t}">${t==='tg-l'?'Live':t==='tg-s'?'SaaS':t==='tg-b'?'Blockchain':t==='tg-g'?'Gamified':''}</span>`).join('')}</div>
-        </a>`;
+        const img = BOT_IMGS[b.n];
+        const avatar = img ? '<img src="'+img+'" alt="" style="width:38px;height:38px;border-radius:10px;object-fit:cover;flex-shrink:0">' : '<span class="be">'+b.e+'</span>';
+        return '<a href="'+b.u+'" class="bc rv" style="text-decoration:none;color:inherit" target="_blank"><span class="status-badge '+sc+'">'+st+'</span><div class="bh">'+avatar+'<div><div class="bn">'+b.n+'</div><div class="bha">'+b.h+'</div></div></div><div class="bd">'+(b.d[currentLang]||b.d.en)+'</div><div class="bt">'+b.t.map(function(tg){return '<span class="tg '+tg+'">'+(tg==='tg-l'?'Live':tg==='tg-s'?'SaaS':tg==='tg-b'?'Blockchain':tg==='tg-g'?'Gamified':'')+'</span>';}).join('')+'</div></a>';
     }).join('');
     document.querySelectorAll('.bc.rv').forEach(el => obs.observe(el));
 }
