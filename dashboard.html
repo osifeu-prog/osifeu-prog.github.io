@@ -256,6 +256,7 @@
         <button class="lang-btn theme-btn" onclick="setLang('en')">EN</button>
         <button class="lang-btn theme-btn" onclick="setLang('ru')">RU</button>
         <button class="lang-btn theme-btn" onclick="setLang('ar')">AR</button>
+        <button class="lang-btn theme-btn" onclick="setLang('fr')">FR</button>
     </div>
 
     <div class="login-card">
@@ -649,6 +650,7 @@
                             <button class="lang-btn theme-btn" onclick="setLang('en')">EN &#x1F1EC;&#x1F1E7;</button>
                             <button class="lang-btn theme-btn" onclick="setLang('ru')">RU &#x1F1F7;&#x1F1FA;</button>
                             <button class="lang-btn theme-btn" onclick="setLang('ar')">AR &#x1F1F8;&#x1F1E6;</button>
+                            <button class="lang-btn theme-btn" onclick="setLang('fr')">FR &#x1F1EB;&#x1F1F7;</button>
                         </div>
                     </div>
                 </div>
@@ -697,6 +699,7 @@
                 <button class="form-btn" style="background:var(--bg3);color:var(--text-bright);border:1px solid var(--border)" onclick="setLang('en');showWelcomeStep(2)">&#x1F1EC;&#x1F1E7; English</button>
                 <button class="form-btn" style="background:var(--bg3);color:var(--text-bright);border:1px solid var(--border)" onclick="setLang('ru');showWelcomeStep(2)">&#x1F1F7;&#x1F1FA; Русский</button>
                 <button class="form-btn" style="background:var(--bg3);color:var(--text-bright);border:1px solid var(--border)" onclick="setLang('ar');showWelcomeStep(2)">&#x1F1F8;&#x1F1E6; العربية</button>
+                <button class="form-btn" style="background:var(--bg3);color:var(--text-bright);border:1px solid var(--border)" onclick="setLang('fr');showWelcomeStep(2)">&#x1F1EB;&#x1F1F7; Français</button>
             </div>
         </div>
         <!-- Step 2: Theme -->
@@ -988,6 +991,56 @@ const T = {
         welcome_title: '!مرحباً بك في SLH', welcome_sub: 'لنُعدّ حسابك',
         choose_language: 'اختر اللغة', choose_theme_w: 'اختر السمة', start_exploring: 'ابدأ الاستكشاف →',
         loading: 'جاري التحميل...', error: 'خطأ', success: 'نجاح',
+    },
+    fr: {
+        dashboard: 'Tableau de bord', exit: 'Quitter',
+        sign_in: 'Connexion', sign_in_sub: 'Connectez-vous pour accéder à votre tableau de bord, portefeuille et réseau',
+        or_enter_id: 'ou entrez votre ID Telegram', find_id: 'Comment trouver votre ID ?',
+        find_id_desc: 'Ouvrez Telegram et envoyez /start à @userinfobot',
+        back_to_site: '← Retour au site', user_guides: 'Guides →',
+        overview: 'Aperçu', portfolio: 'Portefeuille', staking: 'Staking', activity: 'Activité',
+        referrals: 'Parrainages', leaderboard: 'Classement', transfer: 'Transfert', bots: 'Bots', settings: 'Paramètres',
+        ton_available: 'TON disponible', ton_locked: 'TON verrouillé', slh_tokens: 'Jetons SLH',
+        zvk_tokens: 'Jetons ZVK', available_balance: 'Solde disponible', in_staking: 'En staking',
+        internal_balance: 'Solde interne', game_rewards: 'Récompenses de jeu',
+        referral_earnings: 'Gains de parrainage', direct_referrals: 'Parrainages directs',
+        total_network: 'Réseau total', active_stakes: 'Stakes actifs',
+        ton_total_earned: 'TON total gagné', first_generation: 'Première génération',
+        all_generations: 'Toutes les générations', positions: 'Positions',
+        recent_activity: 'Activité récente', view_all: 'Tout voir ←',
+        no_activity: 'Aucune activité', start_using: "Commencez à utiliser l'écosystème",
+        member: 'Membre',
+        staking_plans: 'Plans de staking', monthly_plan: 'Plan mensuel',
+        quarterly_plan: 'Plan trimestriel', semi_annual_plan: 'Plan semestriel',
+        annual_plan: 'Plan annuel', stake_now: 'Staker maintenant',
+        monthly_return: 'rendement mensuel', minimum: 'Minimum', lock: 'Verrouillage',
+        days: 'jours', staking_calc: 'Calculateur de staking', amount: 'Montant',
+        plan: 'Plan', monthly_earnings: 'Gains mensuels', yearly: 'Annuel',
+        stake_ton: 'Staker TON', confirm_stake: 'Confirmer le stake',
+        my_referral_network: 'Mon réseau de parrainage', your_referral_link: 'Votre lien de parrainage',
+        share_earn: 'Partagez pour gagner 10% de commission + jusqu\'à 10 générations',
+        copy: 'Copier', earnings_by_gen: 'Gains par génération', network_tree: 'Arbre du réseau',
+        no_referrals: 'Aucun parrainage. Partagez votre lien !', no_earnings: 'Aucun gain',
+        transfer_tokens: 'Transférer des jetons', send_tokens: 'Envoyer des jetons',
+        recipient_id: 'ID Telegram du destinataire', token: 'Jeton',
+        memo_optional: 'Note (optionnel)', send: 'Envoyer', tx_history: 'Historique des transferts',
+        no_transactions: 'Aucun transfert',
+        ecosystem_bots: "Bots de l'écosystème",
+        investment_bot: "Bot d'investissement", deposits_staking: 'Dépôts, staking, portefeuille',
+        shop_bot: 'Bot boutique', inventory_ecommerce: 'Inventaire, code-barres, e-commerce',
+        nft_market: 'Marché NFT', mint_trade: 'Créer, échanger, collectionner',
+        wallet_bot: 'Bot portefeuille', multi_chain: 'Portefeuille multi-chaîne',
+        factory_bot: 'Bot usine', staking_pools: 'Pools de staking',
+        game_bot: 'Bot jeux', games_zvk: 'Jeux et jetons ZVK',
+        academia_bot: 'Bot académie', education_courses: 'Éducation et cours',
+        guardian_bot: 'Bot gardien', security_mod: 'Sécurité et modération',
+        appearance: 'Apparence', theme: 'Thème', choose_theme: 'Choisissez le thème du tableau de bord',
+        language: 'Langue', interface_lang: "Langue de l'interface",
+        account: 'Compte', telegram_id: 'ID Telegram', api_status: 'Statut API',
+        checking: 'Vérification...', resources: 'Ressources',
+        welcome_title: 'Bienvenue sur SLH !', welcome_sub: 'Configurons votre compte',
+        choose_language: 'Choisir la langue', choose_theme_w: 'Choisir le thème', start_exploring: 'Explorer →',
+        loading: 'Chargement...', error: 'Erreur', success: 'Succès',
     }
 };
 
