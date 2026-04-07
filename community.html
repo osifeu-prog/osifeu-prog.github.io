@@ -17,7 +17,7 @@
         /* ── Hero ── */
         .community-hero {
             text-align: center;
-            padding: 60px 24px 32px;
+            padding: calc(var(--topnav-h) + 60px) 24px 32px;
             position: relative;
             overflow: hidden;
         }
@@ -503,7 +503,7 @@
             .hero-stat { font-size: 12px; padding: 6px 14px; }
         }
         @media (max-width: 480px) {
-            .community-hero { padding: 48px 16px 24px; }
+            .community-hero { padding: calc(var(--topnav-h) + 40px) 16px 24px; }
             .community-layout { padding: 0 12px 80px; }
             .new-post-card, .post-card, .sidebar-card { padding: 16px; }
             .post-actions { gap: 12px; }
