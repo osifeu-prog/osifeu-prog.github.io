@@ -66,8 +66,13 @@
     "description": "Digital Investment House — 20+ Telegram bots, blockchain deposits, crypto trading, 65% APY.",
     "foundingLocation": { "@type": "Country", "name": "Israel" },
     "sameAs": [
-      "https://t.me/SLH_Spark_Bot"
-    ]
+      "https://t.me/SLH_AIR_bot"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "url": "https://t.me/SLH_AIR_bot"
+    }
   }
   </script>
 
@@ -286,7 +291,7 @@
           <input type="text" id="join-username" data-i18n="landing_join_placeholder" placeholder="@username">
           <button class="btn btn-primary" id="join-btn" data-i18n="join_btn">Get Started</button>
         </div>
-        <a href="https://t.me/SLH_Spark_Bot" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:12px;width:100%">
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:12px;width:100%">
           <i class="fab fa-telegram"></i>
           <span data-i18n="join_telegram">Open Bot on Telegram</span>
         </a>
@@ -377,7 +382,7 @@
   <section class="cta-banner rv">
     <h2 data-i18n="landing_cta_title">Start your investment journey</h2>
     <p class="section-sub" style="max-width:480px;margin:0 auto 24px;color:var(--text2)" data-i18n="landing_cta_sub">Join thousands of users already earning with SLH Spark.</p>
-    <a href="https://t.me/SLH_Spark_Bot" target="_blank" rel="noopener" class="btn btn-primary" style="padding:14px 36px;font-size:16px">
+    <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-primary" style="padding:14px 36px;font-size:16px">
       <i class="fab fa-telegram"></i>
       <span data-i18n="landing_cta_open">Open SLH Bot</span>
     </a>
@@ -392,12 +397,12 @@
   <script>
     // Featured bots for ecosystem preview
     const FEATURED_BOTS = [
-      { name: 'SLH Spark', desc: 'Core trading & staking bot', icon: 'fa-bolt', link: 'https://t.me/SLH_Spark_Bot' },
-      { name: 'Guardian', desc: 'Group security & anti-spam', icon: 'fa-shield-alt', link: 'https://t.me/SLH_Guardian_Bot' },
-      { name: 'ExpertNet', desc: 'Premium arcade & ZVIKUSH tokens', icon: 'fa-gem', link: 'https://t.me/ExpertNet_Bot' },
-      { name: 'Academia', desc: 'Educational revenue engine', icon: 'fa-graduation-cap', link: 'https://t.me/Academia_Bot' },
-      { name: 'Ambassador', desc: 'SaaS ambassador network', icon: 'fa-users', link: 'https://t.me/Ambassador_Bot' },
-      { name: 'Inventory', desc: 'Business inventory management', icon: 'fa-boxes-stacked', link: 'https://t.me/Inventory_Bot' }
+      { name: 'SLH Investment House', desc: 'השקעות, סטייקינג, תשואות 65%', icon: 'fa-bolt', link: 'https://t.me/SLH_AIR_bot' },
+      { name: 'Guardian Security', desc: 'אבטחת קבוצות ואנטי-ספאם', icon: 'fa-shield-alt', link: 'https://t.me/Grdian_bot' },
+      { name: 'SLH Academy', desc: 'חינוך, קורסים ו-VIP', icon: 'fa-graduation-cap', link: 'https://t.me/SLH_Academia_bot' },
+      { name: 'BotShop', desc: 'שוק בוטים מוכנים למכירה', icon: 'fa-store', link: 'https://t.me/Buy_My_Shop_bot' },
+      { name: 'SLH Wallet', desc: 'ארנק TON + BSC מרובה מטבעות', icon: 'fa-wallet', link: 'https://t.me/SLH_Wallet_bot' },
+      { name: 'Game Bot', desc: 'משחקים, טורנירים ופרסים', icon: 'fa-gamepad', link: 'https://t.me/G4meb0t_bot_bot' }
     ];
 
     function renderEcoGrid() {
@@ -423,10 +428,10 @@
       btn.addEventListener('click', () => {
         let username = input.value.trim().replace(/^@/, '');
         if (!username) {
-          window.open('https://t.me/SLH_Spark_Bot', '_blank');
+          window.open('https://t.me/SLH_AIR_bot', '_blank');
           return;
         }
-        const refLink = `https://t.me/SLH_Spark_Bot?start=ref_${username}`;
+        const refLink = `https://t.me/SLH_AIR_bot?start=ref_${username}`;
         linkEl.textContent = refLink;
         result.classList.add('active');
       });
