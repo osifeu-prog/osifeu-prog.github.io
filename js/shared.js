@@ -22,6 +22,7 @@ const NAV_ITEMS = [
   { key: 'wallet', href: '/wallet.html', icon: 'fa-wallet', auth: true },
   { key: 'bots', href: '/bots.html', icon: 'fa-robot' },
   { key: 'referral', href: '/referral.html', icon: 'fa-users', auth: true },
+  { key: 'community', href: '/community.html', icon: 'fa-comments' },
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];

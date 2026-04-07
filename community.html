@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Community | קהילת SLH</title>
+    <meta name="description" content="קהילת המשקיעים של SLH - שתפו, למדו והתחברו עם משקיעים מכל הארץ">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#050510">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/shared.css">
+    <style>
+        /* ── Price Ticker ── */
+        .price-ticker {
+            background: linear-gradient(90deg, var(--surface), var(--surface2), var(--surface));
+            border-bottom: 1px solid var(--border);
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            font-size: 13px;
+            font-weight: 600;
+            overflow: hidden;
+        }
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .ticker-label { color: var(--text2); }
+        .ticker-value { color: var(--gold); }
+        .ticker-change { font-size: 12px; }
+        .ticker-change.up { color: var(--green); }
+        .ticker-change.down { color: var(--red); }
+
+        /* ── Hero ── */
+        .community-hero {
+            text-align: center;
+            padding: 60px 24px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .community-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(108, 92, 231, .08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .community-hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent2), var(--cyan), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .community-hero p {
+            font-size: 18px;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .hero-stat i { color: var(--accent); }
+        .hero-stat .stat-num { color: var(--gold); }
+
+        /* ── Layout ── */
+        .community-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+        }
+
+        /* ── Filter Tabs ── */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .filter-tab {
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text2);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .filter-tab:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* ── New Post Form ── */
+        .new-post-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .new-post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .new-post-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .new-post-card textarea {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            padding: 14px;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color var(--transition);
+            box-sizing: border-box;
+        }
+        .new-post-card textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .new-post-card textarea::placeholder { color: var(--text3); }
+        .new-post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+        .post-category-select {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 13px;
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+        .post-category-select:focus { outline: none; border-color: var(--accent); }
+        .btn-post {
+            padding: 10px 28px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-post:hover { background: var(--accent2); transform: translateY(-1px); }
+        .btn-post:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+        /* ── Login Gate ── */
+        .login-gate {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .login-gate h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .login-gate p {
+            font-size: 14px;
+            color: var(--text2);
+            margin-bottom: 20px;
+        }
+        .login-gate .login-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .login-gate input {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .login-gate input:focus { outline: none; border-color: var(--accent); }
+        .login-gate input::placeholder { color: var(--text3); }
+        .btn-login {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(108,92,231,.3); }
+
+        /* ── Post Cards ── */
+        .post-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all var(--transition);
+        }
+        .post-card:hover {
+            border-color: var(--border2);
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .post-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 17px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .post-meta { flex: 1; min-width: 0; }
+        .post-username {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .post-time {
+            font-size: 12px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        .post-category-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--bg3);
+            color: var(--accent2);
+            border: 1px solid var(--border);
+        }
+        .post-body {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+            margin-bottom: 16px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .post-actions {
+            display: flex;
+            gap: 24px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .post-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+        }
+        .post-action-btn:hover {
+            background: var(--bg3);
+            color: var(--text);
+        }
+        .post-action-btn.liked { color: var(--red); }
+        .post-action-btn.liked i { animation: likeAnim .3s ease; }
+
+        @keyframes likeAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* ── Comments ── */
+        .comments-section {
+            display: none;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .comments-section.open { display: block; }
+        .comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .comment-body {
+            background: var(--bg3);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            flex: 1;
+        }
+        .comment-user {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+        .comment-text {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.5;
+        }
+        .comment-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .comment-input-row input {
+            flex: 1;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        .comment-input-row input:focus { outline: none; border-color: var(--accent); }
+        .comment-input-row input::placeholder { color: var(--text3); }
+        .comment-input-row button {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .comment-input-row button:hover { background: var(--accent2); }
+
+        /* ── Sidebar ── */
+        .community-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .sidebar-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+        .sidebar-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-card h3 i { color: var(--accent); }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text2); }
+        .stat-value { color: var(--text); font-weight: 600; }
+        .online-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            margin-inline-end: 6px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+        .trending-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text2);
+            margin: 0 4px 8px 0;
+            transition: all var(--transition);
+        }
+        .trending-tag:hover { border-color: var(--accent); color: var(--text); cursor: pointer; }
+        .top-member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .top-member-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .top-member-name { font-size: 14px; font-weight: 600; color: var(--text); }
+        .top-member-posts { font-size: 12px; color: var(--text3); }
+
+        /* ── Empty State ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text3);
+        }
+        .empty-state i { font-size: 48px; margin-bottom: 16px; display: block; color: var(--border2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .community-layout {
+                grid-template-columns: 1fr;
+            }
+            .community-sidebar { order: -1; }
+            .hero-stats { gap: 12px; }
+            .hero-stat { font-size: 12px; padding: 6px 14px; }
+        }
+        @media (max-width: 480px) {
+            .community-hero { padding: 48px 16px 24px; }
+            .community-layout { padding: 0 12px 80px; }
+            .new-post-card, .post-card, .sidebar-card { padding: 16px; }
+            .post-actions { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Nav rendered by shared.js -->
+
+    <!-- Price Ticker -->
+    <div class="price-ticker" id="price-ticker">
+        <div class="ticker-item">
+            <span class="ticker-label">SLH/ILS</span>
+            <span class="ticker-value" id="ticker-price">444.00 ₪</span>
+            <span class="ticker-change up" id="ticker-change">+2.4%</span>
+        </div>
+        <div class="ticker-item">
+            <span class="ticker-label">SLH/USD</span>
+            <span class="ticker-value" id="ticker-usd">$121.50</span>
+        </div>
+        <div class="ticker-item">
+            <span class="ticker-label"><i class="fas fa-users"></i> Online</span>
+            <span class="ticker-value"><span class="online-dot"></span><span id="ticker-online">--</span></span>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="community-hero">
+        <h1 data-i18n="community_title">&#x1F3DB;&#xFE0F; קהילת SLH</h1>
+        <p data-i18n="community_subtitle">הצטרפו לקהילת המשקיעים הגדולה בישראל</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <i class="fas fa-users"></i>
+                <span data-i18n="community_members">חברים</span>
+                <span class="stat-num" id="total-members">2,847</span>
+            </div>
+            <div class="hero-stat">
+                <i class="fas fa-comment-dots"></i>
+                <span data-i18n="community_posts_count">פוסטים</span>
+                <span class="stat-num" id="total-posts">--</span>
+            </div>
+            <div class="hero-stat">
+                <i class="fas fa-fire"></i>
+                <span data-i18n="community_active_today">פעילים היום</span>
+                <span class="stat-num" id="active-today">184</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="community-layout">
+        <!-- Feed Column -->
+        <div class="community-feed">
+            <!-- Login Gate / New Post -->
+            <div id="auth-section"></div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs" id="filter-tabs">
+                <button class="filter-tab active" data-filter="all" data-i18n="community_filter_all">הכל</button>
+                <button class="filter-tab" data-filter="investments" data-i18n="community_filter_investments">השקעות</button>
+                <button class="filter-tab" data-filter="slh" data-i18n="community_filter_slh">SLH</button>
+                <button class="filter-tab" data-filter="general" data-i18n="community_filter_general">כללי</button>
+            </div>
+
+            <!-- Posts Feed -->
+            <div id="posts-feed"></div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="community-sidebar">
+            <!-- Community Stats -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-chart-bar"></i> <span data-i18n="community_stats">סטטיסטיקות</span></h3>
+                <div class="stat-row">
+                    <span class="stat-label" data-i18n="community_total_members">סה"כ חברים</span>
+                    <span class="stat-value">2,847</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label" data-i18n="community_online_now">מחוברים עכשיו</span>
+                    <span class="stat-value"><span class="online-dot"></span><span id="sidebar-online">47</span></span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label" data-i18n="community_posts_today">פוסטים היום</span>
+                    <span class="stat-value" id="posts-today">12</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label" data-i18n="community_new_members_week">חברים חדשים השבוע</span>
+                    <span class="stat-value">63</span>
+                </div>
+            </div>
+
+            <!-- Trending Topics -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-fire"></i> <span data-i18n="community_trending">טרנדינג</span></h3>
+                <div id="trending-tags">
+                    <span class="trending-tag">#SLH_Token</span>
+                    <span class="trending-tag">#Staking</span>
+                    <span class="trending-tag">#TON</span>
+                    <span class="trending-tag">#DeFi</span>
+                    <span class="trending-tag">#Bots</span>
+                    <span class="trending-tag">#Referral</span>
+                    <span class="trending-tag">#Blockchain</span>
+                </div>
+            </div>
+
+            <!-- Top Members -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-trophy"></i> <span data-i18n="community_top_members">חברים מובילים</span></h3>
+                <div id="top-members">
+                    <div class="top-member">
+                        <div class="top-member-avatar" style="background:linear-gradient(135deg,#ffd32a,#ffa502)">A</div>
+                        <div><div class="top-member-name">AvivCrypto</div><div class="top-member-posts">48 פוסטים</div></div>
+                    </div>
+                    <div class="top-member">
+                        <div class="top-member-avatar" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)">M</div>
+                        <div><div class="top-member-name">MosheTrader</div><div class="top-member-posts">35 פוסטים</div></div>
+                    </div>
+                    <div class="top-member">
+                        <div class="top-member-avatar" style="background:linear-gradient(135deg,#00cec9,#00b4d8)">N</div>
+                        <div><div class="top-member-name">NoaInvest</div><div class="top-member-posts">29 פוסטים</div></div>
+                    </div>
+                    <div class="top-member">
+                        <div class="top-member-avatar" style="background:linear-gradient(135deg,#ff4757,#ffa502)">D</div>
+                        <div><div class="top-member-name">DanielDeFi</div><div class="top-member-posts">22 פוסטים</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-link"></i> <span data-i18n="community_links">קישורים מהירים</span></h3>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <a href="/bots.html" style="color:var(--accent2);font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="fas fa-robot"></i> SLH Bots</a>
+                    <a href="/staking.html" style="color:var(--accent2);font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="fas fa-coins"></i> Staking</a>
+                    <a href="/trade.html" style="color:var(--accent2);font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="fas fa-chart-line"></i> Trade</a>
+                    <a href="/blockchain.html" style="color:var(--accent2);font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="fas fa-cubes"></i> Blockchain</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Bottom Nav rendered by shared.js -->
+
+    <script src="/js/translations.js"></script>
+    <script src="/js/shared.js"></script>
+    <script>
+    /* ============================================================
+       SLH Community — Client-Side Logic
+       ============================================================ */
+
+    const AVATAR_GRADIENTS = [
+        'linear-gradient(135deg,#6c5ce7,#a29bfe)',
+        'linear-gradient(135deg,#00cec9,#00b4d8)',
+        'linear-gradient(135deg,#ffd32a,#ffa502)',
+        'linear-gradient(135deg,#ff4757,#ffa502)',
+        'linear-gradient(135deg,#6c5ce7,#00b4d8)',
+        'linear-gradient(135deg,#00cec9,#ffd32a)',
+        'linear-gradient(135deg,#a29bfe,#00cec9)',
+    ];
+
+    const CATEGORIES = {
+        all: 'הכל',
+        investments: 'השקעות',
+        slh: 'SLH',
+        general: 'כללי'
+    };
+
+    const SEED_POSTS = [
+        {
+            id: 'pinned_manifesto',
+            username: 'SLH Official',
+            avatar: '⚡',
+            avatarGrad: 4,
+            text: '📌 מוצמד\n\nברור שפספסתם את הביטקויין,\nלא הבנתם מה זה אומר,\nביט, או קויין..\n\nהיום אתם משלמים בביט כמעט בכל רכישה,\nאבל עדיין לא מבינים שקויין — זה למעשה בחירה.\n\nמי שישן על האף לא ירוויח כסף,\nבעולם של כיסופים..\nמי שישן על האף לא יקום,\nבעולם של מתעוררים...\n\nSLH זו הבחירה החכמה — סוציוקרטיה.\nמנהל, לא משטר ולא ממשל.\nקהילה. 🏛️',
+            category: 'slh',
+            timestamp: Date.now() - 600000,
+            likes: 147,
+            likedBy: [],
+            pinned: true,
+            comments: [
+                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'טקסט חזק! SLH זה הדבר הבא 🔥', timestamp: Date.now() - 300000 },
+                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'סוציוקרטיה זה העתיד, לגמרי 💎', timestamp: Date.now() - 120000 }
+            ]
+        },
+        {
+            id: 'seed_1',
+            username: 'AvivCrypto',
+            avatar: 'A',
+            avatarGrad: 0,
+            text: 'מי עוד עשה staking של SLH השבוע? התשואות מטורפות! 🚀\nכבר 3 חודשים שאני ב-staking ורואה תוצאות מעולות.',
+            category: 'slh',
+            timestamp: Date.now() - 3600000 * 2,
+            likes: 24,
+            likedBy: [],
+            comments: [
+                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'גם אני! התשואה השנתית פשוט מדהימה 💰', timestamp: Date.now() - 3600000 },
+                { username: 'DanielDeFi', avatar: 'D', avatarGrad: 3, text: 'איזה pool אתה משתמש?', timestamp: Date.now() - 1800000 }
+            ]
+        },
+        {
+            id: 'seed_2',
+            username: 'MosheTrader',
+            avatar: 'M',
+            avatarGrad: 1,
+            text: 'ניתוח שוק יומי:\nSLH נסחר ב-444₪ עם נפח מסחר גבוה. המגמה חיובית מאוד ואני רואה פוטנציאל להמשך עלייה.\nשימו לב לרמת התמיכה ב-420₪.',
+            category: 'investments',
+            timestamp: Date.now() - 3600000 * 5,
+            likes: 31,
+            likedBy: [],
+            comments: [
+                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'ניתוח מעולה! תודה 📊', timestamp: Date.now() - 3600000 * 4 }
+            ]
+        },
+        {
+            id: 'seed_3',
+            username: 'NoaInvest',
+            avatar: 'N',
+            avatarGrad: 2,
+            text: 'שמעתם על הבוט החדש של SLH? Guardian Bot מגן על הקבוצות שלכם בטלגרם.\nממליצה בחום! 🛡️',
+            category: 'slh',
+            timestamp: Date.now() - 3600000 * 8,
+            likes: 18,
+            likedBy: [],
+            comments: []
+        },
+        {
+            id: 'seed_4',
+            username: 'DanielDeFi',
+            avatar: 'D',
+            avatarGrad: 3,
+            text: 'טיפ למשקיעים חדשים: תמיד תעשו DYOR לפני כל השקעה. אל תשקיעו יותר ממה שאתם יכולים להפסיד.\nגיוון תיק ההשקעות הוא המפתח להצלחה ארוכת טווח.',
+            category: 'investments',
+            timestamp: Date.now() - 3600000 * 12,
+            likes: 45,
+            likedBy: [],
+            comments: [
+                { username: 'MosheTrader', avatar: 'M', avatarGrad: 1, text: 'זהב טהור! 🙌', timestamp: Date.now() - 3600000 * 11 }
+            ]
+        },
+        {
+            id: 'seed_5',
+            username: 'YosiBlockchain',
+            avatar: 'Y',
+            avatarGrad: 4,
+            text: 'מישהו רוצה להצטרף למיטאפ של הקהילה בתל אביב בשבוע הבא?\nנדבר על DeFi, SLH ועתיד הבלוקצ\'יין בישראל 🇮🇱',
+            category: 'general',
+            timestamp: Date.now() - 3600000 * 20,
+            likes: 37,
+            likedBy: [],
+            comments: [
+                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'אני בפנים! 🤝', timestamp: Date.now() - 3600000 * 19 },
+                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'גם אני מגיעה, איפה בדיוק?', timestamp: Date.now() - 3600000 * 18 }
+            ]
+        },
+        {
+            id: 'seed_6',
+            username: 'SaraToken',
+            avatar: 'S',
+            avatarGrad: 5,
+            text: 'הרווחתי 12% תשואה מה-referral program של SLH החודש!\nהקישור שלי הביא 15 חברים חדשים. המערכת פשוט עובדת 💪',
+            category: 'slh',
+            timestamp: Date.now() - 3600000 * 24,
+            likes: 22,
+            likedBy: [],
+            comments: []
+        }
+    ];
+
+    /* ── State ── */
+    let currentFilter = 'all';
+    let posts = [];
+
+    /* ── Helpers ── */
+    function getUser() {
+        try { return JSON.parse(localStorage.getItem('slh_user')); } catch { return null; }
+    }
+
+    function savePosts() {
+        localStorage.setItem('slh_community_posts', JSON.stringify(posts));
+    }
+
+    function loadPosts() {
+        try {
+            const stored = JSON.parse(localStorage.getItem('slh_community_posts'));
+            if (stored && stored.length) return stored;
+        } catch {}
+        // Seed posts on first load
+        localStorage.setItem('slh_community_posts', JSON.stringify(SEED_POSTS));
+        return SEED_POSTS;
+    }
+
+    function timeAgo(ts) {
+        const diff = Date.now() - ts;
+        const mins = Math.floor(diff / 60000);
+        if (mins < 1) return 'עכשיו';
+        if (mins < 60) return `לפני ${mins} דקות`;
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return `לפני ${hrs} שעות`;
+        const days = Math.floor(hrs / 24);
+        if (days < 7) return `לפני ${days} ימים`;
+        return new Date(ts).toLocaleDateString('he-IL');
+    }
+
+    function genId() {
+        return 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    }
+
+    function gradFor(idx) {
+        return AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length];
+    }
+
+    /* ── Render Auth Section ── */
+    function renderAuthSection() {
+        const container = document.getElementById('auth-section');
+        const user = getUser();
+
+        if (!user) {
+            container.innerHTML = `
+                <div class="login-gate">
+                    <h3 data-i18n="community_login_title"><i class="fas fa-user-circle"></i> הצטרפו לקהילה</h3>
+                    <p data-i18n="community_login_subtitle">הירשמו כדי לפרסם, להגיב ולהתחבר עם משקיעים אחרים</p>
+                    <div class="login-fields">
+                        <input type="text" id="reg-username" placeholder="שם משתמש" maxlength="24">
+                        <input type="text" id="reg-telegram" placeholder="Telegram ID (אופציונלי)" maxlength="32">
+                        <button class="btn-login" onclick="handleRegister()" data-i18n="community_register_btn">
+                            <i class="fas fa-rocket"></i> הרשמה והצטרפות
+                        </button>
+                    </div>
+                </div>`;
+        } else {
+            const initial = user.username.charAt(0).toUpperCase();
+            container.innerHTML = `
+                <div class="new-post-card">
+                    <div class="new-post-header">
+                        <div class="new-post-avatar" style="background:${gradFor(user.avatarGrad || 0)}">${initial}</div>
+                        <span style="font-weight:600;color:var(--text)">${user.username}</span>
+                        <button onclick="handleLogout()" style="margin-inline-start:auto;background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--font);">
+                            <i class="fas fa-sign-out-alt"></i> יציאה
+                        </button>
+                    </div>
+                    <textarea id="new-post-text" placeholder="מה חדש? שתפו עם הקהילה..." data-i18n-placeholder="community_new_post"></textarea>
+                    <div class="new-post-actions">
+                        <select class="post-category-select" id="new-post-category">
+                            <option value="general" data-i18n="community_filter_general">כללי</option>
+                            <option value="investments" data-i18n="community_filter_investments">השקעות</option>
+                            <option value="slh" data-i18n="community_filter_slh">SLH</option>
+                        </select>
+                        <button class="btn-post" onclick="handleNewPost()" id="btn-publish" data-i18n="community_post_btn">
+                            <i class="fas fa-paper-plane"></i> פרסום
+                        </button>
+                    </div>
+                </div>`;
+        }
+    }
+
+    /* ── Register ── */
+    function handleRegister() {
+        const username = document.getElementById('reg-username').value.trim();
+        const telegram = document.getElementById('reg-telegram').value.trim();
+        if (!username || username.length < 2) {
+            document.getElementById('reg-username').style.borderColor = 'var(--red)';
+            return;
+        }
+        const user = {
+            username,
+            telegram: telegram || null,
+            avatarGrad: Math.floor(Math.random() * AVATAR_GRADIENTS.length),
+            joinedAt: Date.now()
+        };
+        localStorage.setItem('slh_user', JSON.stringify(user));
+        renderAuthSection();
+        renderFeed();
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('slh_user');
+        renderAuthSection();
+    }
+
+    /* ── New Post ── */
+    function handleNewPost() {
+        const user = getUser();
+        if (!user) return;
+        const textarea = document.getElementById('new-post-text');
+        const text = textarea.value.trim();
+        if (!text) { textarea.style.borderColor = 'var(--red)'; return; }
+
+        const category = document.getElementById('new-post-category').value;
+        const post = {
+            id: genId(),
+            username: user.username,
+            avatar: user.username.charAt(0).toUpperCase(),
+            avatarGrad: user.avatarGrad || 0,
+            text,
+            category,
+            timestamp: Date.now(),
+            likes: 0,
+            likedBy: [],
+            comments: []
+        };
+        posts.unshift(post);
+        savePosts();
+        textarea.value = '';
+        textarea.style.borderColor = '';
+        renderFeed();
+        updateCounts();
+    }
+
+    /* ── Like ── */
+    function toggleLike(postId) {
+        const user = getUser();
+        if (!user) return;
+        const post = posts.find(p => p.id === postId);
+        if (!post) return;
+        if (!post.likedBy) post.likedBy = [];
+        const idx = post.likedBy.indexOf(user.username);
+        if (idx >= 0) {
+            post.likedBy.splice(idx, 1);
+            post.likes = Math.max(0, post.likes - 1);
+        } else {
+            post.likedBy.push(user.username);
+            post.likes++;
+        }
+        savePosts();
+        renderFeed();
+    }
+
+    /* ── Toggle Comments ── */
+    function toggleComments(postId) {
+        const el = document.getElementById('comments-' + postId);
+        if (el) el.classList.toggle('open');
+    }
+
+    /* ── Add Comment ── */
+    function addComment(postId) {
+        const user = getUser();
+        if (!user) return;
+        const input = document.getElementById('comment-input-' + postId);
+        const text = input.value.trim();
+        if (!text) return;
+        const post = posts.find(p => p.id === postId);
+        if (!post) return;
+        if (!post.comments) post.comments = [];
+        post.comments.push({
+            username: user.username,
+            avatar: user.username.charAt(0).toUpperCase(),
+            avatarGrad: user.avatarGrad || 0,
+            text,
+            timestamp: Date.now()
+        });
+        savePosts();
+        renderFeed();
+        // Re-open comments after re-render
+        const el = document.getElementById('comments-' + postId);
+        if (el) el.classList.add('open');
+    }
+
+    /* ── Render Single Post ── */
+    function renderPost(post) {
+        const user = getUser();
+        const isLiked = user && post.likedBy && post.likedBy.includes(user.username);
+        const catLabel = CATEGORIES[post.category] || post.category;
+        const commentsHtml = (post.comments || []).map(c => `
+            <div class="comment">
+                <div class="comment-avatar" style="background:${gradFor(c.avatarGrad || 0)}">${c.avatar}</div>
+                <div class="comment-body">
+                    <div class="comment-user">${escHtml(c.username)}</div>
+                    <div class="comment-text">${escHtml(c.text)}</div>
+                </div>
+            </div>
+        `).join('');
+
+        const commentInputHtml = user ? `
+            <div class="comment-input-row">
+                <input type="text" id="comment-input-${post.id}" placeholder="כתבו תגובה..." onkeydown="if(event.key==='Enter')addComment('${post.id}')">
+                <button onclick="addComment('${post.id}')">שלח</button>
+            </div>` : '';
+
+        return `
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="post-avatar" style="background:${gradFor(post.avatarGrad || 0)}">${post.avatar}</div>
+                    <div class="post-meta">
+                        <div class="post-username">${escHtml(post.username)}</div>
+                        <div class="post-time">${timeAgo(post.timestamp)}</div>
+                    </div>
+                    <span class="post-category-badge">${catLabel}</span>
+                </div>
+                <div class="post-body">${escHtml(post.text)}</div>
+                <div class="post-actions">
+                    <button class="post-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
+                        <i class="fa${isLiked ? 's' : 'r'} fa-heart"></i>
+                        <span>${post.likes || 0}</span>
+                    </button>
+                    <button class="post-action-btn" onclick="toggleComments('${post.id}')">
+                        <i class="far fa-comment"></i>
+                        <span>${(post.comments || []).length}</span>
+                    </button>
+                    <button class="post-action-btn" onclick="sharePost('${post.id}')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+                <div class="comments-section" id="comments-${post.id}">
+                    ${commentsHtml}
+                    ${commentInputHtml}
+                </div>
+            </div>`;
+    }
+
+    function escHtml(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    function sharePost(postId) {
+        const post = posts.find(p => p.id === postId);
+        if (!post) return;
+        const text = `${post.username}: ${post.text.slice(0, 100)}...\n\nקהילת SLH - ${location.origin}/community.html`;
+        if (navigator.share) {
+            navigator.share({ title: 'SLH Community', text });
+        } else {
+            navigator.clipboard.writeText(text).then(() => {
+                // Brief visual feedback
+                const btn = event.currentTarget;
+                btn.style.color = 'var(--green)';
+                setTimeout(() => btn.style.color = '', 1500);
+            });
+        }
+    }
+
+    /* ── Render Feed ── */
+    function renderFeed() {
+        const feed = document.getElementById('posts-feed');
+        const filtered = currentFilter === 'all'
+            ? posts
+            : posts.filter(p => p.category === currentFilter);
+
+        if (filtered.length === 0) {
+            feed.innerHTML = `
+                <div class="empty-state">
+                    <i class="far fa-comment-dots"></i>
+                    <p>אין פוסטים עדיין בקטגוריה הזו. היו הראשונים!</p>
+                </div>`;
+        } else {
+            feed.innerHTML = filtered.map(renderPost).join('');
+        }
+
+        document.getElementById('total-posts').textContent = posts.length.toLocaleString('he-IL');
+    }
+
+    /* ── Filter Tabs ── */
+    document.getElementById('filter-tabs').addEventListener('click', (e) => {
+        const tab = e.target.closest('.filter-tab');
+        if (!tab) return;
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        renderFeed();
+    });
+
+    /* ── Update Counts ── */
+    function updateCounts() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayTs = today.getTime();
+        const todayPosts = posts.filter(p => p.timestamp >= todayTs).length;
+        const el = document.getElementById('posts-today');
+        if (el) el.textContent = todayPosts;
+    }
+
+    /* ── Price Ticker ── */
+    async function updateTicker() {
+        const priceEl = document.getElementById('ticker-price');
+        const usdEl = document.getElementById('ticker-usd');
+        const changeEl = document.getElementById('ticker-change');
+
+        // Fixed SLH rate with slight randomization for feel
+        const baseILS = 444;
+        const variation = (Math.random() - 0.5) * 8;
+        const price = baseILS + variation;
+        const usd = price / 3.65;
+        const changePct = ((variation / baseILS) * 100).toFixed(1);
+
+        priceEl.textContent = price.toFixed(2) + ' ₪';
+        usdEl.textContent = '$' + usd.toFixed(2);
+        changeEl.textContent = (changePct >= 0 ? '+' : '') + changePct + '%';
+        changeEl.className = 'ticker-change ' + (changePct >= 0 ? 'up' : 'down');
+    }
+
+    /* ── Online Count Simulation ── */
+    function updateOnlineCount() {
+        const base = 38 + Math.floor(Math.random() * 25);
+        document.getElementById('ticker-online').textContent = base;
+        document.getElementById('sidebar-online').textContent = base;
+    }
+
+    /* ── Init ── */
+    document.addEventListener('DOMContentLoaded', () => {
+        initShared({ activePage: 'community' });
+        posts = loadPosts();
+        renderAuthSection();
+        renderFeed();
+        updateCounts();
+        updateTicker();
+        updateOnlineCount();
+
+        // Refresh ticker every 30s
+        setInterval(updateTicker, 30000);
+        setInterval(updateOnlineCount, 60000);
+    });
+    </script>
+<script src="/js/analytics.js"></script>
+</body>
+</html>

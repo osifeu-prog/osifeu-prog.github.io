@@ -255,9 +255,9 @@
       <h1 data-i18n="landing_hero_title">SLH Digital Investment House</h1>
       <p class="hero-sub" data-i18n="landing_hero_sub">20+ Telegram bots. Real blockchain. 65% APY. Built in Israel.</p>
       <div class="hero-ctas">
-        <a href="/trade.html" class="btn btn-primary" data-i18n="landing_cta_trade">Start Trading</a>
-        <a href="/earn.html" class="btn btn-gold" data-i18n="landing_cta_earn">Earn 65% APY</a>
-        <a href="/bots.html" class="btn btn-outline" data-i18n="landing_cta_bots">View Bots</a>
+        <a href="/trade.html" class="btn btn-primary" data-i18n="landing_cta_trade" data-track="hero-start-trading">Start Trading</a>
+        <a href="/earn.html" class="btn btn-gold" data-i18n="landing_cta_earn" data-track="hero-earn-apy">Earn 65% APY</a>
+        <a href="/bots.html" class="btn btn-outline" data-i18n="landing_cta_bots" data-track="hero-view-bots">View Bots</a>
       </div>
       <div class="stats-bar">
         <div class="stat-item">
@@ -289,9 +289,9 @@
         <p class="section-sub" style="margin:0 auto 16px" data-i18n="landing_join_sub">Enter your Telegram username or open the bot directly.</p>
         <div class="join-input-row">
           <input type="text" id="join-username" data-i18n="landing_join_placeholder" placeholder="@username">
-          <button class="btn btn-primary" id="join-btn" data-i18n="join_btn">Get Started</button>
+          <button class="btn btn-primary" id="join-btn" data-i18n="join_btn" data-track="join-get-started">Get Started</button>
         </div>
-        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:12px;width:100%">
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" data-track="join-open-telegram" style="margin-top:12px;width:100%">
           <i class="fab fa-telegram"></i>
           <span data-i18n="join_telegram">Open Bot on Telegram</span>
         </a>
@@ -374,7 +374,31 @@
       <!-- Populated by JS -->
     </div>
     <div class="view-all rv">
-      <a href="/bots.html" class="btn btn-outline" data-i18n="landing_view_all">View All Bots &rarr;</a>
+      <a href="/bots.html" class="btn btn-outline" data-i18n="landing_view_all" data-track="eco-view-all-bots">View All Bots &rarr;</a>
+    </div>
+  </section>
+
+  <!-- MANIFESTO BANNER -->
+  <section class="landing-section rv" style="text-align:center;padding:48px 24px">
+    <div style="max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(245,158,11,.08));border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:40px 32px">
+      <h2 style="font-size:28px;font-weight:800;margin-bottom:20px;background:linear-gradient(135deg,var(--accent),#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">SLH זו הבחירה החכמה</h2>
+      <div style="font-size:16px;line-height:2;color:var(--text2);direction:rtl" data-i18n="landing_manifesto">
+        ברור שפספסתם את הביטקויין,<br>
+        לא הבנתם מה זה אומר,<br>
+        <b style="color:var(--text)">ביט,</b> או <b style="color:var(--text)">קויין..</b><br><br>
+        היום אתם משלמים ב<b style="color:var(--accent)">ביט</b> כמעט בכל רכישה,<br>
+        אבל עדיין לא מבינים ש<b style="color:#f59e0b">קויין</b> — זה למעשה <b style="color:var(--text)">בחירה.</b><br><br>
+        מי שישן על האף לא ירוויח כסף,<br>
+        בעולם של כיסופים..<br>
+        מי שישן על האף לא יקום,<br>
+        בעולם של מתעוררים...<br><br>
+        <span style="font-size:20px;font-weight:700;color:var(--accent)">סוציוקרטיה — מנהל, לא משטר ולא ממשל.</span><br>
+        <span style="font-size:22px;font-weight:800;color:var(--text)">קהילה. 🏛️</span>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="/community.html" class="btn btn-primary" data-track="manifesto-join-community" style="padding:12px 28px"><i class="fas fa-users"></i> הצטרף לקהילה</a>
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" data-track="manifesto-open-bot" style="padding:12px 28px"><i class="fab fa-telegram"></i> SLH Bot</a>
+      </div>
     </div>
   </section>
 
@@ -382,7 +406,7 @@
   <section class="cta-banner rv">
     <h2 data-i18n="landing_cta_title">Start your investment journey</h2>
     <p class="section-sub" style="max-width:480px;margin:0 auto 24px;color:var(--text2)" data-i18n="landing_cta_sub">Join thousands of users already earning with SLH Spark.</p>
-    <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-primary" style="padding:14px 36px;font-size:16px">
+    <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-primary" data-track="cta-open-slh-bot" style="padding:14px 36px;font-size:16px">
       <i class="fab fa-telegram"></i>
       <span data-i18n="landing_cta_open">Open SLH Bot</span>
     </a>
@@ -448,5 +472,6 @@
       handleQuickJoin();
     });
   </script>
+<script src="/js/analytics.js"></script>
 </body>
 </html>
