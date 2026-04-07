@@ -23,6 +23,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/shared.css">
     <meta name="theme-color" content="#0a0a0a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,45 +53,7 @@
         .particle:nth-child(5){top:80%;left:15%;animation:pfloat 16s ease-in-out infinite 4s;background:var(--pink);width:4px;height:4px}
         @keyframes pfloat{0%,100%{transform:translate(0,0) scale(1);opacity:0.3}25%{transform:translate(30px,-50px) scale(1.5);opacity:0.5}50%{transform:translate(-20px,-100px) scale(1);opacity:0.2}75%{transform:translate(40px,-50px) scale(1.3);opacity:0.4}}
 
-        /* === NAV === */
-        nav{position:fixed;top:0;width:100%;z-index:100;padding:12px 28px;background:rgba(5,5,16,.7);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;transition:.3s}
-        nav.scrolled{background:rgba(5,5,16,.95);padding:8px 28px}
-        .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
-        .logo-d{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;transform:rotate(45deg)}
-        .logo-d span{transform:rotate(-45deg);color:#fff;font-weight:800}
-        .logo-t span{color:var(--accent2)}
-        .nav-mid{display:flex;gap:24px;align-items:center}
-        .nav-mid a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;position:relative}
-        .nav-mid a:hover,.nav-mid a.active{color:var(--text)}
-        .nav-mid a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:.3s}
-        .nav-mid a:hover::after,.nav-mid a.active::after{width:100%}
-        .nav-right{display:flex;align-items:center;gap:12px}
-        .lang-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:.3s}
-        .lang-btn:hover,.lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-        .nav-cta{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;padding:9px 22px;border-radius:10px;font-weight:600;text-decoration:none;font-size:13px;transition:.3s;box-shadow:0 2px 20px rgba(108,92,231,.3)}
-        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 4px 30px rgba(108,92,231,.5)}
-
-        /* === HAMBURGER & SIDEBAR === */
-        .hamburger{display:none;background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;transition:.3s;flex-shrink:0}
-        .hamburger:hover{border-color:var(--accent);color:var(--accent)}
-        .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s}
-        .sidebar-overlay.open{opacity:1;pointer-events:all}
-        .side-menu{position:fixed;top:0;right:-320px;width:300px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:9999;overflow-y:auto;transition:right .3s ease;padding:0}
-        html[dir="ltr"] .side-menu{right:auto;left:-320px;border-left:none;border-right:1px solid var(--border)}
-        .side-menu.open{right:0}
-        html[dir="ltr"] .side-menu.open{left:0}
-        .side-link{display:flex;align-items:center;gap:12px;padding:12px 20px;color:var(--text);text-decoration:none;font-size:14px;transition:.2s;border-bottom:1px solid rgba(255,255,255,.03)}
-        .side-link:hover{background:rgba(108,92,231,.05);color:var(--accent)}
-        .side-themes{display:flex;gap:8px;padding:12px 20px}
-        .side-themes button{flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:11px;cursor:pointer;transition:.2s}
-        .side-themes button:hover{border-color:var(--accent);color:var(--accent)}
-        .side-langs{display:flex;flex-wrap:wrap;gap:6px;padding:8px 20px 16px}
-        .side-langs button{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;cursor:pointer;transition:.2s}
-        .side-langs button:hover{border-color:var(--accent);color:var(--accent)}
-        @media(max-width:900px){
-            .nav-mid,.nav-right{display:none !important}
-            .hamburger{display:flex}
-        }
+        /* === NAV handled by shared.css === */
 
         /* === SCROLL PROGRESS === */
         .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan),var(--gold));z-index:200;width:0%;transition:width .1s linear;box-shadow:0 0 10px var(--accent)}
@@ -162,10 +125,7 @@
             .contract-links{flex-direction:column;align-items:center}
         }
 
-        /* === RTL/LTR === */
-        html[dir="ltr"] .nav-mid a::after{left:auto;right:0}
-        html[dir="ltr"] .side-menu{right:auto;left:-320px;border-left:none;border-right:1px solid var(--border)}
-        html[dir="ltr"] .side-menu.open{left:0}
+        /* === RTL/LTR handled by shared.css === */
 
         /* ============================================================
            TERMINAL THEME
@@ -235,78 +195,8 @@
 <!-- Scroll progress -->
 <div class="scroll-progress" id="scroll-progress"></div>
 
-<!-- NAV -->
-<nav id="nb" role="navigation" aria-label="Main navigation">
-    <button class="hamburger" onclick="toggleSidebar()" aria-label="Open menu">&#9776;</button>
-    <a href="/" class="logo"><div class="logo-d"><span>S</span></div><div class="logo-t">SLH <span>Ecosystem</span></div></a>
-    <div class="nav-mid">
-        <a href="/" data-i18n="nav_home">Home</a>
-        <a href="/blockchain.html" class="active" data-i18n="nav_bsc">Blockchain</a>
-        <a href="/staking.html" data-i18n="nav_staking">Staking</a>
-        <a href="/dashboard.html" data-i18n="nav_dash">Dashboard</a>
-        <a href="/whitepaper.html" data-i18n="nav_wp">Whitepaper</a>
-    </div>
-    <div class="nav-right">
-        <button class="lang-btn" onclick="setTheme('terminal')">&#128421;&#65039;</button>
-        <button class="lang-btn" onclick="setTheme('crypto')">&#128142;</button>
-        <button class="lang-btn" onclick="setTheme('light')">&#9728;&#65039;</button>
-        <span style="color:var(--text2);font-size:10px;opacity:.4">|</span>
-        <button class="lang-btn" onclick="setLang('he')">HE</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('ru')">RU</button>
-        <button class="lang-btn" onclick="setLang('ar')">AR</button>
-        <button class="lang-btn" onclick="setLang('fr')">FR</button>
-        <span style="color:var(--text2);font-size:10px;opacity:.4">|</span>
-        <a href="https://t.me/SLH_AIR_bot" class="nav-cta" data-i18n="nav_cta">Try Free</a>
-    </div>
-</nav>
-
-<!-- SIDEBAR (mobile) -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-<div class="side-menu" id="sideMenu" role="dialog" aria-label="Navigation menu">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:10px">
-            <div class="logo-d" style="width:32px;height:32px;font-size:14px"><span>S</span></div>
-            <span style="font-weight:700;color:var(--text);font-size:14px">SLH Ecosystem</span>
-        </div>
-        <button onclick="toggleSidebar()" aria-label="Close menu" style="background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer;padding:4px">&#10005;</button>
-    </div>
-    <div style="padding:8px 0">
-        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_nav">Navigation</div>
-        <a href="/" class="side-link" onclick="toggleSidebar()" data-i18n="nav_home">Home</a>
-        <a href="/blockchain.html" class="side-link" onclick="toggleSidebar()" style="color:var(--accent)" data-i18n="nav_bsc">Blockchain</a>
-        <a href="/staking.html" class="side-link" onclick="toggleSidebar()" data-i18n="nav_staking">Staking</a>
-        <a href="/dashboard.html" class="side-link" onclick="toggleSidebar()" data-i18n="nav_dash">Dashboard</a>
-        <a href="/whitepaper.html" class="side-link" onclick="toggleSidebar()" data-i18n="nav_wp">Whitepaper</a>
-    </div>
-    <div style="padding:8px 0;border-top:1px solid var(--border)">
-        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_theme">Theme</div>
-        <div class="side-themes">
-            <button onclick="setTheme('terminal')">Terminal</button>
-            <button onclick="setTheme('crypto')">Crypto</button>
-            <button onclick="setTheme('light')">Light</button>
-        </div>
-    </div>
-    <div style="padding:8px 0;border-top:1px solid var(--border)">
-        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_lang">Language</div>
-        <div class="side-langs">
-            <button onclick="setLang('he')">HE</button>
-            <button onclick="setLang('en')">EN</button>
-            <button onclick="setLang('ru')">RU</button>
-            <button onclick="setLang('ar')">AR</button>
-            <button onclick="setLang('fr')">FR</button>
-        </div>
-    </div>
-    <div style="padding:8px 0;border-top:1px solid var(--border)">
-        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_bots">Bots</div>
-        <a href="https://t.me/SLH_AIR_bot" target="_blank" class="side-link">SLH AIR (ExpertNet)</a>
-        <a href="https://t.me/SLH_Academia_bot" target="_blank" class="side-link">SLH Academia</a>
-        <a href="https://t.me/BotShop_bot" target="_blank" class="side-link">GATE BotShop</a>
-        <a href="https://t.me/Grdian_bot" target="_blank" class="side-link">Guardian</a>
-        <a href="https://t.me/SLH_Wallet_bot" target="_blank" class="side-link">Wallet</a>
-        <a href="https://t.me/SLH_Factory_bot" target="_blank" class="side-link">Factory</a>
-    </div>
-</div>
+<!-- NAV (rendered by shared.js) -->
+<div id="topnav-root"></div>
 
 <!-- MAIN CONTENT -->
 <div class="main-content" style="position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px">
@@ -429,128 +319,22 @@
 
 <script>
 // ============================================================
-// TRANSLATIONS (5 languages)
-// ============================================================
-var T = {
-he: {
-    nav_home:"\u05d1\u05d9\u05ea",nav_bsc:"\u05d1\u05dc\u05d5\u05e7\u05e6'\u05d9\u05d9\u05df",nav_staking:"\u05e1\u05d8\u05d9\u05d9\u05e7\u05d9\u05e0\u05d2",nav_dash:"\u05d3\u05e9\u05d1\u05d5\u05e8\u05d3",nav_wp:"\u05de\u05e1\u05de\u05da \u05dc\u05d1\u05df",nav_cta:"\u05e0\u05e1\u05d4 \u05d7\u05d9\u05e0\u05dd",
-    side_nav:"\u05e0\u05d9\u05d5\u05d5\u05d8",side_theme:"\u05e2\u05e8\u05db\u05ea \u05e0\u05d5\u05e9\u05d0",side_lang:"\u05e9\u05e4\u05d4",side_bots:"\u05d1\u05d5\u05d8\u05d9\u05dd",
-    bsc_tag:"\u05d1\u05dc\u05d5\u05e7\u05e6'\u05d9\u05d9\u05df",
-    bsc_title:"SLH \u05e2\u05dc BSC \u2014 \u05d1\u05dc\u05d5\u05e7\u05e6'\u05d9\u05d9\u05df \u05d7\u05d9",
-    bsc_sub:"\u05e2\u05e7\u05d5\u05d1 \u05d0\u05d7\u05e8\u05d9 \u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05d8\u05d5\u05e7\u05df SLH \u05e2\u05dc Binance Smart Chain \u05d1\u05d6\u05de\u05df \u05d0\u05de\u05ea. \u05e9\u05e7\u05d5\u05e3 \u05dc\u05d7\u05dc\u05d5\u05d8\u05d9\u05df, \u05de\u05d0\u05d5\u05de\u05ea \u05e2\u05dc \u05d4\u05e8\u05e9\u05ea.",
-    bsc_price:"\u05de\u05d7\u05d9\u05e8 SLH",bsc_holders:"\u05de\u05d7\u05d6\u05d9\u05e7\u05d9 \u05d8\u05d5\u05e7\u05df",bsc_txns:"\u05e1\u05d4\"\u05db \u05d4\u05e2\u05d1\u05e8\u05d5\u05ea",bsc_mcap:"\u05e9\u05d5\u05d5\u05d9 \u05e9\u05d5\u05e7",
-    bsc_contract:"\u05d7\u05d5\u05d6\u05d4 \u05d7\u05db\u05dd",bsc_view_scan:"\u05e6\u05e4\u05d4 \u05d1-BSCScan",bsc_buy:"\u05e7\u05e0\u05d4 \u05d1-PancakeSwap",
-    bsc_recent_tx:"\u05e2\u05e1\u05e7\u05d0\u05d5\u05ea \u05d0\u05d7\u05e8\u05d5\u05e0\u05d5\u05ea",bsc_th_hash:"Tx Hash",bsc_th_from:"\u05de\u05d0\u05ea",bsc_th_to:"\u05d0\u05dc",bsc_th_amount:"\u05e1\u05db\u05d5\u05dd",bsc_th_time:"\u05d6\u05de\u05df",
-    bsc_loading:"\u05d8\u05d5\u05e2\u05df \u05e0\u05ea\u05d5\u05e0\u05d9 \u05d1\u05dc\u05d5\u05e7\u05e6'\u05d9\u05d9\u05df...",
-    bsc_chart_title:"\u05d4\u05d9\u05e1\u05d8\u05d5\u05e8\u05d9\u05d9\u05ea \u05de\u05d7\u05d9\u05e8 (7 \u05d9\u05de\u05d9\u05dd)",
-    bsc_network:"\u05e8\u05e9\u05ea",bsc_symbol:"\u05e1\u05d9\u05de\u05d1\u05d5\u05dc",bsc_decimals:"\u05e0\u05e7\u05d5\u05d3\u05d5\u05ea",bsc_supply:"\u05d0\u05e1\u05e4\u05e7\u05d4 \u05db\u05d5\u05dc\u05dc\u05ea"
-},
-en: {
-    nav_home:"Home",nav_bsc:"Blockchain",nav_staking:"Staking",nav_dash:"Dashboard",nav_wp:"Whitepaper",nav_cta:"Try Free",
-    side_nav:"Navigation",side_theme:"Theme",side_lang:"Language",side_bots:"Bots",
-    bsc_tag:"Blockchain",
-    bsc_title:"SLH on BSC \u2014 Live Blockchain",
-    bsc_sub:"Track SLH token activity on Binance Smart Chain in real time. Fully transparent, on-chain verified.",
-    bsc_price:"SLH Price",bsc_holders:"Token Holders",bsc_txns:"Total Transfers",bsc_mcap:"Market Cap",
-    bsc_contract:"Smart Contract",bsc_view_scan:"View on BSCScan",bsc_buy:"Buy on PancakeSwap",
-    bsc_recent_tx:"Recent Transactions",bsc_th_hash:"Tx Hash",bsc_th_from:"From",bsc_th_to:"To",bsc_th_amount:"Amount",bsc_th_time:"Time",
-    bsc_loading:"Loading blockchain data...",
-    bsc_chart_title:"Price History (7D)",
-    bsc_network:"Network",bsc_symbol:"Symbol",bsc_decimals:"Decimals",bsc_supply:"Total Supply"
-},
-ru: {
-    nav_home:"\u0413\u043b\u0430\u0432\u043d\u0430\u044f",nav_bsc:"\u0411\u043b\u043e\u043a\u0447\u0435\u0439\u043d",nav_staking:"\u0421\u0442\u0435\u0439\u043a\u0438\u043d\u0433",nav_dash:"\u041f\u0430\u043d\u0435\u043b\u044c",nav_wp:"Whitepaper",nav_cta:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
-    side_nav:"\u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f",side_theme:"\u0422\u0435\u043c\u0430",side_lang:"\u042f\u0437\u044b\u043a",side_bots:"\u0411\u043e\u0442\u044b",
-    bsc_tag:"\u0411\u043b\u043e\u043a\u0447\u0435\u0439\u043d",
-    bsc_title:"SLH \u043d\u0430 BSC \u2014 \u0416\u0438\u0432\u043e\u0439 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d",
-    bsc_sub:"\u041e\u0442\u0441\u043b\u0435\u0436\u0438\u0432\u0430\u0439\u0442\u0435 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u0442\u043e\u043a\u0435\u043d\u0430 SLH \u043d\u0430 BSC \u0432 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u043c \u0432\u0440\u0435\u043c\u0435\u043d\u0438. \u041f\u043e\u043b\u043d\u0430\u044f \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e\u0441\u0442\u044c.",
-    bsc_price:"\u0426\u0435\u043d\u0430 SLH",bsc_holders:"\u0414\u0435\u0440\u0436\u0430\u0442\u0435\u043b\u0438",bsc_txns:"\u0412\u0441\u0435\u0433\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u043e\u0432",bsc_mcap:"\u041a\u0430\u043f\u0438\u0442\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f",
-    bsc_contract:"\u0421\u043c\u0430\u0440\u0442-\u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442",bsc_view_scan:"\u041e\u0442\u043a\u0440\u044b\u0442\u044c BSCScan",bsc_buy:"\u041a\u0443\u043f\u0438\u0442\u044c \u043d\u0430 PancakeSwap",
-    bsc_recent_tx:"\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 \u0442\u0440\u0430\u043d\u0437\u0430\u043a\u0446\u0438\u0438",bsc_th_hash:"Tx Hash",bsc_th_from:"\u041e\u0442",bsc_th_to:"\u041a\u043e\u043c\u0443",bsc_th_amount:"\u0421\u0443\u043c\u043c\u0430",bsc_th_time:"\u0412\u0440\u0435\u043c\u044f",
-    bsc_loading:"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430 \u0434\u0430\u043d\u043d\u044b\u0445...",
-    bsc_chart_title:"\u0418\u0441\u0442\u043e\u0440\u0438\u044f \u0446\u0435\u043d (7 \u0434\u043d\u0435\u0439)",
-    bsc_network:"\u0421\u0435\u0442\u044c",bsc_symbol:"\u0421\u0438\u043c\u0432\u043e\u043b",bsc_decimals:"\u0414\u0435\u0441\u044f\u0442\u0438\u0447\u043d\u044b\u0435",bsc_supply:"\u041e\u0431\u0449\u0430\u044f \u044d\u043c\u0438\u0441\u0441\u0438\u044f"
-},
-ar: {
-    nav_home:"\u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629",nav_bsc:"\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646",nav_staking:"\u0633\u062a\u064a\u0643\u064a\u0646\u063a",nav_dash:"\u0644\u0648\u062d\u0629 \u0627\u0644\u062a\u062d\u0643\u0645",nav_wp:"Whitepaper",nav_cta:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",
-    side_nav:"\u0627\u0644\u062a\u0646\u0642\u0644",side_theme:"\u0627\u0644\u0633\u0645\u0629",side_lang:"\u0627\u0644\u0644\u063a\u0629",side_bots:"\u0627\u0644\u0628\u0648\u062a\u0627\u062a",
-    bsc_tag:"\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646",
-    bsc_title:"SLH \u0639\u0644\u0649 BSC \u2014 \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 \u0645\u0628\u0627\u0634\u0631",
-    bsc_sub:"\u062a\u062a\u0628\u0639 \u0646\u0634\u0627\u0637 \u062a\u0648\u0643\u0646 SLH \u0639\u0644\u0649 BSC \u0641\u064a \u0627\u0644\u0648\u0642\u062a \u0627\u0644\u0641\u0639\u0644\u064a. \u0634\u0641\u0627\u0641\u064a\u0629 \u0643\u0627\u0645\u0644\u0629.",
-    bsc_price:"\u0633\u0639\u0631 SLH",bsc_holders:"\u062d\u0627\u0645\u0644\u0648 \u0627\u0644\u062a\u0648\u0643\u0646",bsc_txns:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062a\u062d\u0648\u064a\u0644\u0627\u062a",bsc_mcap:"\u0627\u0644\u0642\u064a\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064a\u0629",
-    bsc_contract:"\u0627\u0644\u0639\u0642\u062f \u0627\u0644\u0630\u0643\u064a",bsc_view_scan:"\u0639\u0631\u0636 \u0639\u0644\u0649 BSCScan",bsc_buy:"\u0634\u0631\u0627\u0621 \u0639\u0644\u0649 PancakeSwap",
-    bsc_recent_tx:"\u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0627\u062a \u0627\u0644\u0623\u062e\u064a\u0631\u0629",bsc_th_hash:"Tx Hash",bsc_th_from:"\u0645\u0646",bsc_th_to:"\u0625\u0644\u0649",bsc_th_amount:"\u0627\u0644\u0645\u0628\u0644\u063a",bsc_th_time:"\u0627\u0644\u0648\u0642\u062a",
-    bsc_loading:"\u062c\u0627\u0631\u064a \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a...",
-    bsc_chart_title:"\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0623\u0633\u0639\u0627\u0631 (7 \u0623\u064a\u0627\u0645)",
-    bsc_network:"\u0627\u0644\u0634\u0628\u0643\u0629",bsc_symbol:"\u0627\u0644\u0631\u0645\u0632",bsc_decimals:"\u0627\u0644\u0643\u0633\u0648\u0631",bsc_supply:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0625\u0635\u062f\u0627\u0631"
-},
-fr: {
-    nav_home:"Accueil",nav_bsc:"Blockchain",nav_staking:"Staking",nav_dash:"Tableau de bord",nav_wp:"Whitepaper",nav_cta:"Essai gratuit",
-    side_nav:"Navigation",side_theme:"Th\u00e8me",side_lang:"Langue",side_bots:"Bots",
-    bsc_tag:"Blockchain",
-    bsc_title:"SLH sur BSC \u2014 Blockchain en direct",
-    bsc_sub:"Suivez l'activit\u00e9 du token SLH sur BSC en temps r\u00e9el. Totalement transparent.",
-    bsc_price:"Prix SLH",bsc_holders:"D\u00e9tenteurs",bsc_txns:"Transferts totaux",bsc_mcap:"Capitalisation",
-    bsc_contract:"Contrat intelligent",bsc_view_scan:"Voir sur BSCScan",bsc_buy:"Acheter sur PancakeSwap",
-    bsc_recent_tx:"Transactions r\u00e9centes",bsc_th_hash:"Tx Hash",bsc_th_from:"De",bsc_th_to:"\u00c0",bsc_th_amount:"Montant",bsc_th_time:"Heure",
-    bsc_loading:"Chargement des donn\u00e9es...",
-    bsc_chart_title:"Historique des prix (7J)",
-    bsc_network:"R\u00e9seau",bsc_symbol:"Symbole",bsc_decimals:"D\u00e9cimales",bsc_supply:"\u00c9mission totale"
-}
-};
-
-// ============================================================
-// LANGUAGE ENGINE
-// ============================================================
-var currentLang = localStorage.getItem('slh_lang') || 'he';
-
-function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('slh_lang', lang);
-    var rtl = lang === 'he' || lang === 'ar';
-    document.documentElement.dir = rtl ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-        var key = el.getAttribute('data-i18n');
-        if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
-    });
-
-    document.querySelectorAll('.lang-btn').forEach(function(b) {
-        if (b.textContent.trim().length === 2) {
-            b.classList.toggle('active', b.textContent.trim() === lang.toUpperCase());
-        }
-    });
-}
-
-// ============================================================
-// THEME ENGINE
-// ============================================================
-var currentTheme = localStorage.getItem('slh_theme') || 'terminal';
-
-function setTheme(theme) {
-    currentTheme = theme;
-    localStorage.setItem('slh_theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
-}
-
-// ============================================================
-// SIDEBAR TOGGLE
-// ============================================================
-function toggleSidebar() {
-    var menu = document.getElementById('sideMenu');
-    var overlay = document.getElementById('sidebarOverlay');
-    var isOpen = menu.classList.contains('open');
-    menu.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = isOpen ? '' : 'hidden';
-}
-
-// ============================================================
 // BSC BLOCKCHAIN DATA
 // ============================================================
 var SLH_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
 var BSCSCAN_API = 'https://api.bscscan.com/api';
+var BSCSCAN_API_KEY = ''; // Free tier - works without key but rate limited
+
+// SLH fixed price fallback (when CoinGecko has no listing)
+var SLH_PRICE_ILS = 444;
+var USD_ILS_RATE = 3.13;
+var SLH_PRICE_USD = SLH_PRICE_ILS / USD_ILS_RATE;
+
+function bscUrl(params) {
+    var url = BSCSCAN_API + '?' + params;
+    if (BSCSCAN_API_KEY) url += '&apikey=' + BSCSCAN_API_KEY;
+    return url;
+}
 
 function shortAddr(a) { return a ? a.slice(0,6)+'...'+a.slice(-4) : '--'; }
 function timeAgo(ts) {
@@ -567,23 +351,33 @@ async function fetchBSCData() {
         var cgUrl = 'https://api.coingecko.com/api/v3/coins/binance-smart-chain/contract/'+SLH_CONTRACT;
         var cgRes = await fetch(cgUrl).then(function(r){return r.ok ? r.json() : null}).catch(function(){return null});
 
-        if(cgRes){
+        var gotPrice = false;
+        if(cgRes && cgRes.market_data && cgRes.market_data.current_price && cgRes.market_data.current_price.usd){
             var el = document.getElementById('bsc-price');
-            if(el) el.textContent = '$'+(cgRes.market_data?.current_price?.usd||0).toFixed(6);
-            var mcap = cgRes.market_data?.market_cap?.usd||0;
+            if(el) el.textContent = '$'+(cgRes.market_data.current_price.usd).toFixed(6);
+            gotPrice = true;
+            var mcap = cgRes.market_data.market_cap?.usd||0;
             var mcapEl = document.getElementById('bsc-mcap');
             if(mcapEl) mcapEl.textContent = mcap > 1e6 ? '$'+((mcap/1e6).toFixed(1))+'M' : mcap > 1e3 ? '$'+((mcap/1e3).toFixed(0))+'K' : '$'+mcap.toFixed(0);
 
-            // Update total supply
+            // Update total supply from CoinGecko
             var supplyEl = document.getElementById('bsc-supply');
-            if(supplyEl && cgRes.market_data?.total_supply) {
+            if(supplyEl && cgRes.market_data.total_supply) {
                 var ts = cgRes.market_data.total_supply;
                 supplyEl.textContent = ts > 1e9 ? (ts/1e9).toFixed(2)+'B' : ts > 1e6 ? (ts/1e6).toFixed(2)+'M' : ts.toLocaleString();
             }
         }
 
+        // Fallback: show fixed price if CoinGecko returned nothing
+        if(!gotPrice){
+            var el = document.getElementById('bsc-price');
+            if(el) el.textContent = '$'+SLH_PRICE_USD.toFixed(2) + ' (fixed)';
+            var mcapEl = document.getElementById('bsc-mcap');
+            if(mcapEl && mcapEl.textContent === '--') mcapEl.textContent = 'N/A';
+        }
+
         // Fetch recent token transfers from BSCScan
-        var txUrl = BSCSCAN_API+'?module=account&action=tokentx&contractaddress='+SLH_CONTRACT+'&page=1&offset=10&sort=desc';
+        var txUrl = bscUrl('module=account&action=tokentx&contractaddress='+SLH_CONTRACT+'&page=1&offset=10&sort=desc');
         var txRes = await fetch(txUrl).then(function(r){return r.json()}).catch(function(){return null});
 
         if(txRes && txRes.result && Array.isArray(txRes.result)){
@@ -606,7 +400,7 @@ async function fetchBSCData() {
         }
 
         // Get total holder count
-        var holderUrl = BSCSCAN_API+'?module=token&action=tokenholdercount&contractaddress='+SLH_CONTRACT;
+        var holderUrl = bscUrl('module=token&action=tokenholdercount&contractaddress='+SLH_CONTRACT);
         var holderRes = await fetch(holderUrl).then(function(r){return r.json()}).catch(function(){return null});
         if(holderRes && holderRes.result){
             var hEl = document.getElementById('bsc-holders');
@@ -701,6 +495,29 @@ async function renderPriceChart() {
 }
 
 // ============================================================
+// TOTAL SUPPLY via direct BSC RPC
+// ============================================================
+async function fetchTotalSupply() {
+    try {
+        var resp = await fetch('https://bsc-dataseed.binance.org/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                jsonrpc: '2.0', id: 1, method: 'eth_call',
+                params: [{ to: SLH_CONTRACT, data: '0x18160ddd' }, 'latest']
+            })
+        });
+        var data = await resp.json();
+        if (data.result && data.result !== '0x') {
+            var raw = BigInt(data.result);
+            var supply = Number(raw) / 1e15; // 15 decimals
+            var el = document.getElementById('bsc-supply');
+            if (el) el.textContent = supply.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }
+    } catch(e) { console.log('totalSupply RPC error:', e); }
+}
+
+// ============================================================
 // OBSERVERS & SCROLL
 // ============================================================
 var obs = new IntersectionObserver(function(e) {
@@ -709,7 +526,6 @@ var obs = new IntersectionObserver(function(e) {
 document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
 
 window.addEventListener('scroll', function() {
-    document.getElementById('nb').classList.toggle('scrolled', window.scrollY > 50);
     var sp = document.getElementById('scroll-progress');
     if(sp){var h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(window.scrollY/h*100)+'%';}
 });
@@ -718,15 +534,11 @@ window.addEventListener('scroll', function() {
 // INIT
 // ============================================================
 (function init() {
-    // Apply saved theme
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-    }
-    // Apply saved language
-    setLang(currentLang);
     // Fetch blockchain data
     fetchBSCData();
+    fetchTotalSupply();
     setInterval(fetchBSCData, 120000);
+    setInterval(fetchTotalSupply, 120000);
     // Render price chart
     renderPriceChart();
     setInterval(renderPriceChart, 120000);
@@ -858,5 +670,10 @@ window.addEventListener('scroll', function() {
 })();
 </script>
 <script src="/js/analytics.js"></script>
+<script src="/js/translations.js"></script>
+<script src="/js/shared.js"></script>
+<script>
+    initShared({ activePage: 'blockchain' });
+</script>
 </body>
 </html>

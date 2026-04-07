@@ -676,8 +676,11 @@
     <script src="/js/shared.js"></script>
     <script>
     /* ============================================================
-       SLH Community — Client-Side Logic
+       SLH Community — Client-Side Logic (API-backed)
+       All posts stored in Railway PostgreSQL — shared between ALL users
        ============================================================ */
+
+    const API = 'https://slh-api-production.up.railway.app';
 
     const AVATAR_GRADIENTS = [
         'linear-gradient(135deg,#6c5ce7,#a29bfe)',
@@ -696,131 +699,18 @@
         general: 'כללי'
     };
 
-    const SEED_POSTS = [
-        {
-            id: 'pinned_manifesto',
-            username: 'SLH Official',
-            avatar: '⚡',
-            avatarGrad: 4,
-            text: '📌 מוצמד\n\nברור שפספסתם את הביטקויין,\nלא הבנתם מה זה אומר,\nביט, או קויין..\n\nהיום אתם משלמים בביט כמעט בכל רכישה,\nאבל עדיין לא מבינים שקויין — זה למעשה בחירה.\n\nמי שישן על האף לא ירוויח כסף,\nבעולם של כיסופים..\nמי שישן על האף לא יקום,\nבעולם של מתעוררים...\n\nSLH זו הבחירה החכמה — סוציוקרטיה.\nמנהל, לא משטר ולא ממשל.\nקהילה. 🏛️',
-            category: 'slh',
-            timestamp: Date.now() - 600000,
-            likes: 147,
-            likedBy: [],
-            pinned: true,
-            comments: [
-                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'טקסט חזק! SLH זה הדבר הבא 🔥', timestamp: Date.now() - 300000 },
-                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'סוציוקרטיה זה העתיד, לגמרי 💎', timestamp: Date.now() - 120000 }
-            ]
-        },
-        {
-            id: 'seed_1',
-            username: 'AvivCrypto',
-            avatar: 'A',
-            avatarGrad: 0,
-            text: 'מי עוד עשה staking של SLH השבוע? התשואות מטורפות! 🚀\nכבר 3 חודשים שאני ב-staking ורואה תוצאות מעולות.',
-            category: 'slh',
-            timestamp: Date.now() - 3600000 * 2,
-            likes: 24,
-            likedBy: [],
-            comments: [
-                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'גם אני! התשואה השנתית פשוט מדהימה 💰', timestamp: Date.now() - 3600000 },
-                { username: 'DanielDeFi', avatar: 'D', avatarGrad: 3, text: 'איזה pool אתה משתמש?', timestamp: Date.now() - 1800000 }
-            ]
-        },
-        {
-            id: 'seed_2',
-            username: 'MosheTrader',
-            avatar: 'M',
-            avatarGrad: 1,
-            text: 'ניתוח שוק יומי:\nSLH נסחר ב-444₪ עם נפח מסחר גבוה. המגמה חיובית מאוד ואני רואה פוטנציאל להמשך עלייה.\nשימו לב לרמת התמיכה ב-420₪.',
-            category: 'investments',
-            timestamp: Date.now() - 3600000 * 5,
-            likes: 31,
-            likedBy: [],
-            comments: [
-                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'ניתוח מעולה! תודה 📊', timestamp: Date.now() - 3600000 * 4 }
-            ]
-        },
-        {
-            id: 'seed_3',
-            username: 'NoaInvest',
-            avatar: 'N',
-            avatarGrad: 2,
-            text: 'שמעתם על הבוט החדש של SLH? Guardian Bot מגן על הקבוצות שלכם בטלגרם.\nממליצה בחום! 🛡️',
-            category: 'slh',
-            timestamp: Date.now() - 3600000 * 8,
-            likes: 18,
-            likedBy: [],
-            comments: []
-        },
-        {
-            id: 'seed_4',
-            username: 'DanielDeFi',
-            avatar: 'D',
-            avatarGrad: 3,
-            text: 'טיפ למשקיעים חדשים: תמיד תעשו DYOR לפני כל השקעה. אל תשקיעו יותר ממה שאתם יכולים להפסיד.\nגיוון תיק ההשקעות הוא המפתח להצלחה ארוכת טווח.',
-            category: 'investments',
-            timestamp: Date.now() - 3600000 * 12,
-            likes: 45,
-            likedBy: [],
-            comments: [
-                { username: 'MosheTrader', avatar: 'M', avatarGrad: 1, text: 'זהב טהור! 🙌', timestamp: Date.now() - 3600000 * 11 }
-            ]
-        },
-        {
-            id: 'seed_5',
-            username: 'YosiBlockchain',
-            avatar: 'Y',
-            avatarGrad: 4,
-            text: 'מישהו רוצה להצטרף למיטאפ של הקהילה בתל אביב בשבוע הבא?\nנדבר על DeFi, SLH ועתיד הבלוקצ\'יין בישראל 🇮🇱',
-            category: 'general',
-            timestamp: Date.now() - 3600000 * 20,
-            likes: 37,
-            likedBy: [],
-            comments: [
-                { username: 'AvivCrypto', avatar: 'A', avatarGrad: 0, text: 'אני בפנים! 🤝', timestamp: Date.now() - 3600000 * 19 },
-                { username: 'NoaInvest', avatar: 'N', avatarGrad: 2, text: 'גם אני מגיעה, איפה בדיוק?', timestamp: Date.now() - 3600000 * 18 }
-            ]
-        },
-        {
-            id: 'seed_6',
-            username: 'SaraToken',
-            avatar: 'S',
-            avatarGrad: 5,
-            text: 'הרווחתי 12% תשואה מה-referral program של SLH החודש!\nהקישור שלי הביא 15 חברים חדשים. המערכת פשוט עובדת 💪',
-            category: 'slh',
-            timestamp: Date.now() - 3600000 * 24,
-            likes: 22,
-            likedBy: [],
-            comments: []
-        }
-    ];
-
     /* ── State ── */
     let currentFilter = 'all';
     let posts = [];
+    let isLoading = false;
 
     /* ── Helpers ── */
     function getUser() {
         try { return JSON.parse(localStorage.getItem('slh_user')); } catch { return null; }
     }
 
-    function savePosts() {
-        localStorage.setItem('slh_community_posts', JSON.stringify(posts));
-    }
-
-    function loadPosts() {
-        try {
-            const stored = JSON.parse(localStorage.getItem('slh_community_posts'));
-            if (stored && stored.length) return stored;
-        } catch {}
-        // Seed posts on first load
-        localStorage.setItem('slh_community_posts', JSON.stringify(SEED_POSTS));
-        return SEED_POSTS;
-    }
-
     function timeAgo(ts) {
+        if (typeof ts === 'string') ts = new Date(ts).getTime();
         const diff = Date.now() - ts;
         const mins = Math.floor(diff / 60000);
         if (mins < 1) return 'עכשיו';
@@ -832,12 +722,83 @@
         return new Date(ts).toLocaleDateString('he-IL');
     }
 
-    function genId() {
-        return 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    function gradFor(idx) {
+        if (typeof idx === 'string') {
+            let hash = 0;
+            for (let i = 0; i < idx.length; i++) hash = idx.charCodeAt(i) + ((hash << 5) - hash);
+            idx = Math.abs(hash);
+        }
+        return AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length];
     }
 
-    function gradFor(idx) {
-        return AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length];
+    function escHtml(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    /* ── API Calls ── */
+    async function apiGet(path) {
+        try {
+            const r = await fetch(API + path);
+            if (!r.ok) throw new Error(r.status);
+            return await r.json();
+        } catch (e) {
+            console.warn('[community] API GET error:', path, e);
+            return null;
+        }
+    }
+
+    async function apiPost(path, body) {
+        try {
+            const r = await fetch(API + path, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            });
+            if (!r.ok) {
+                const err = await r.json().catch(() => ({}));
+                throw new Error(err.detail || r.status);
+            }
+            return await r.json();
+        } catch (e) {
+            console.warn('[community] API POST error:', path, e);
+            return null;
+        }
+    }
+
+    /* ── Load Posts from API ── */
+    async function loadPostsFromAPI() {
+        isLoading = true;
+        renderLoadingState();
+        const data = await apiGet(`/api/community/posts?category=${currentFilter}&limit=50`);
+        isLoading = false;
+        if (data && data.posts) {
+            posts = data.posts;
+        }
+        renderFeed();
+        loadStats();
+    }
+
+    async function loadStats() {
+        const data = await apiGet('/api/community/stats');
+        if (data) {
+            const el = document.getElementById('total-posts');
+            if (el) el.textContent = (data.total_posts || 0).toLocaleString('he-IL');
+            const pt = document.getElementById('posts-today');
+            if (pt) pt.textContent = data.posts_today || 0;
+            const at = document.getElementById('active-today');
+            if (at) at.textContent = data.active_today || 0;
+        }
+    }
+
+    function renderLoadingState() {
+        const feed = document.getElementById('posts-feed');
+        feed.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-spinner fa-spin" style="color:var(--accent)"></i>
+                <p>טוען פוסטים...</p>
+            </div>`;
     }
 
     /* ── Render Auth Section ── */
@@ -863,8 +824,8 @@
             container.innerHTML = `
                 <div class="new-post-card">
                     <div class="new-post-header">
-                        <div class="new-post-avatar" style="background:${gradFor(user.avatarGrad || 0)}">${initial}</div>
-                        <span style="font-weight:600;color:var(--text)">${user.username}</span>
+                        <div class="new-post-avatar" style="background:${gradFor(user.avatarGrad || user.username)}">${initial}</div>
+                        <span style="font-weight:600;color:var(--text)">${escHtml(user.username)}</span>
                         <button onclick="handleLogout()" style="margin-inline-start:auto;background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--font);">
                             <i class="fas fa-sign-out-alt"></i> יציאה
                         </button>
@@ -900,7 +861,7 @@
         };
         localStorage.setItem('slh_user', JSON.stringify(user));
         renderAuthSection();
-        renderFeed();
+        loadPostsFromAPI();
     }
 
     function handleLogout() {
@@ -908,8 +869,8 @@
         renderAuthSection();
     }
 
-    /* ── New Post ── */
-    function handleNewPost() {
+    /* ── New Post (API) ── */
+    async function handleNewPost() {
         const user = getUser();
         if (!user) return;
         const textarea = document.getElementById('new-post-text');
@@ -917,43 +878,50 @@
         if (!text) { textarea.style.borderColor = 'var(--red)'; return; }
 
         const category = document.getElementById('new-post-category').value;
-        const post = {
-            id: genId(),
+        const btn = document.getElementById('btn-publish');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> שולח...';
+
+        const result = await apiPost('/api/community/posts', {
             username: user.username,
-            avatar: user.username.charAt(0).toUpperCase(),
-            avatarGrad: user.avatarGrad || 0,
-            text,
-            category,
-            timestamp: Date.now(),
-            likes: 0,
-            likedBy: [],
-            comments: []
-        };
-        posts.unshift(post);
-        savePosts();
-        textarea.value = '';
-        textarea.style.borderColor = '';
-        renderFeed();
-        updateCounts();
+            text: text,
+            category: category,
+            telegram_id: user.telegram || null
+        });
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> פרסום';
+
+        if (result && result.id) {
+            textarea.value = '';
+            textarea.style.borderColor = '';
+            // Reload from API to get fresh data
+            await loadPostsFromAPI();
+        } else {
+            textarea.style.borderColor = 'var(--red)';
+            console.error('Failed to create post');
+        }
     }
 
-    /* ── Like ── */
-    function toggleLike(postId) {
+    /* ── Like (API) ── */
+    async function toggleLike(postId) {
         const user = getUser();
         if (!user) return;
-        const post = posts.find(p => p.id === postId);
-        if (!post) return;
-        if (!post.likedBy) post.likedBy = [];
-        const idx = post.likedBy.indexOf(user.username);
-        if (idx >= 0) {
-            post.likedBy.splice(idx, 1);
-            post.likes = Math.max(0, post.likes - 1);
-        } else {
-            post.likedBy.push(user.username);
-            post.likes++;
+        const result = await apiPost(`/api/community/posts/${postId}/like`, {
+            username: user.username
+        });
+        if (result) {
+            // Update local state for instant feedback
+            const post = posts.find(p => p.id == postId);
+            if (post) {
+                if (result.action === 'liked') {
+                    post.likes_count = (post.likes_count || 0) + 1;
+                } else {
+                    post.likes_count = Math.max(0, (post.likes_count || 1) - 1);
+                }
+                renderFeed();
+            }
         }
-        savePosts();
-        renderFeed();
     }
 
     /* ── Toggle Comments ── */
@@ -962,72 +930,80 @@
         if (el) el.classList.toggle('open');
     }
 
-    /* ── Add Comment ── */
-    function addComment(postId) {
+    /* ── Add Comment (API) ── */
+    async function addComment(postId) {
         const user = getUser();
         if (!user) return;
         const input = document.getElementById('comment-input-' + postId);
         const text = input.value.trim();
         if (!text) return;
-        const post = posts.find(p => p.id === postId);
-        if (!post) return;
-        if (!post.comments) post.comments = [];
-        post.comments.push({
+
+        input.disabled = true;
+        const result = await apiPost(`/api/community/posts/${postId}/comments`, {
             username: user.username,
-            avatar: user.username.charAt(0).toUpperCase(),
-            avatarGrad: user.avatarGrad || 0,
-            text,
-            timestamp: Date.now()
+            text: text
         });
-        savePosts();
-        renderFeed();
-        // Re-open comments after re-render
-        const el = document.getElementById('comments-' + postId);
-        if (el) el.classList.add('open');
+        input.disabled = false;
+
+        if (result && result.id) {
+            input.value = '';
+            // Add comment to local state for instant feedback
+            const post = posts.find(p => p.id == postId);
+            if (post) {
+                if (!post.comments) post.comments = [];
+                post.comments.push(result);
+                renderFeed();
+                // Re-open comments section
+                const el = document.getElementById('comments-' + postId);
+                if (el) el.classList.add('open');
+            }
+        }
     }
 
     /* ── Render Single Post ── */
     function renderPost(post) {
         const user = getUser();
-        const isLiked = user && post.likedBy && post.likedBy.includes(user.username);
         const catLabel = CATEGORIES[post.category] || post.category;
-        const commentsHtml = (post.comments || []).map(c => `
+        const initial = post.username ? post.username.charAt(0).toUpperCase() : '?';
+        const commentsHtml = (post.comments || []).map(c => {
+            const ci = c.username ? c.username.charAt(0).toUpperCase() : '?';
+            return `
             <div class="comment">
-                <div class="comment-avatar" style="background:${gradFor(c.avatarGrad || 0)}">${c.avatar}</div>
+                <div class="comment-avatar" style="background:${gradFor(c.username || '')}">${ci}</div>
                 <div class="comment-body">
                     <div class="comment-user">${escHtml(c.username)}</div>
                     <div class="comment-text">${escHtml(c.text)}</div>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
 
         const commentInputHtml = user ? `
             <div class="comment-input-row">
-                <input type="text" id="comment-input-${post.id}" placeholder="כתבו תגובה..." onkeydown="if(event.key==='Enter')addComment('${post.id}')">
-                <button onclick="addComment('${post.id}')">שלח</button>
+                <input type="text" id="comment-input-${post.id}" placeholder="כתבו תגובה..." onkeydown="if(event.key==='Enter')addComment(${post.id})">
+                <button onclick="addComment(${post.id})">שלח</button>
             </div>` : '';
 
         return `
             <div class="post-card">
                 <div class="post-header">
-                    <div class="post-avatar" style="background:${gradFor(post.avatarGrad || 0)}">${post.avatar}</div>
+                    <div class="post-avatar" style="background:${gradFor(post.username || '')}">${initial}</div>
                     <div class="post-meta">
                         <div class="post-username">${escHtml(post.username)}</div>
-                        <div class="post-time">${timeAgo(post.timestamp)}</div>
+                        <div class="post-time">${timeAgo(post.created_at)}</div>
                     </div>
                     <span class="post-category-badge">${catLabel}</span>
                 </div>
                 <div class="post-body">${escHtml(post.text)}</div>
                 <div class="post-actions">
-                    <button class="post-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
-                        <i class="fa${isLiked ? 's' : 'r'} fa-heart"></i>
-                        <span>${post.likes || 0}</span>
+                    <button class="post-action-btn" onclick="toggleLike(${post.id})">
+                        <i class="far fa-heart"></i>
+                        <span>${post.likes_count || 0}</span>
                     </button>
-                    <button class="post-action-btn" onclick="toggleComments('${post.id}')">
+                    <button class="post-action-btn" onclick="toggleComments(${post.id})">
                         <i class="far fa-comment"></i>
                         <span>${(post.comments || []).length}</span>
                     </button>
-                    <button class="post-action-btn" onclick="sharePost('${post.id}')">
+                    <button class="post-action-btn" onclick="sharePost(${post.id})">
                         <i class="fas fa-share-alt"></i>
                     </button>
                 </div>
@@ -1038,21 +1014,14 @@
             </div>`;
     }
 
-    function escHtml(str) {
-        const d = document.createElement('div');
-        d.textContent = str;
-        return d.innerHTML;
-    }
-
     function sharePost(postId) {
-        const post = posts.find(p => p.id === postId);
+        const post = posts.find(p => p.id == postId);
         if (!post) return;
         const text = `${post.username}: ${post.text.slice(0, 100)}...\n\nקהילת SLH - ${location.origin}/community.html`;
         if (navigator.share) {
             navigator.share({ title: 'SLH Community', text });
         } else {
             navigator.clipboard.writeText(text).then(() => {
-                // Brief visual feedback
                 const btn = event.currentTarget;
                 btn.style.color = 'var(--green)';
                 setTimeout(() => btn.style.color = '', 1500);
@@ -1063,21 +1032,19 @@
     /* ── Render Feed ── */
     function renderFeed() {
         const feed = document.getElementById('posts-feed');
-        const filtered = currentFilter === 'all'
-            ? posts
-            : posts.filter(p => p.category === currentFilter);
 
-        if (filtered.length === 0) {
+        if (posts.length === 0 && !isLoading) {
             feed.innerHTML = `
                 <div class="empty-state">
                     <i class="far fa-comment-dots"></i>
                     <p>אין פוסטים עדיין בקטגוריה הזו. היו הראשונים!</p>
                 </div>`;
-        } else {
-            feed.innerHTML = filtered.map(renderPost).join('');
+        } else if (posts.length > 0) {
+            feed.innerHTML = posts.map(renderPost).join('');
         }
 
-        document.getElementById('total-posts').textContent = posts.length.toLocaleString('he-IL');
+        const tp = document.getElementById('total-posts');
+        if (tp) tp.textContent = posts.length.toLocaleString('he-IL');
     }
 
     /* ── Filter Tabs ── */
@@ -1087,18 +1054,8 @@
         document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentFilter = tab.dataset.filter;
-        renderFeed();
+        loadPostsFromAPI();
     });
-
-    /* ── Update Counts ── */
-    function updateCounts() {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayTs = today.getTime();
-        const todayPosts = posts.filter(p => p.timestamp >= todayTs).length;
-        const el = document.getElementById('posts-today');
-        if (el) el.textContent = todayPosts;
-    }
 
     /* ── Price Ticker ── */
     async function updateTicker() {
@@ -1106,7 +1063,6 @@
         const usdEl = document.getElementById('ticker-usd');
         const changeEl = document.getElementById('ticker-change');
 
-        // Fixed SLH rate with slight randomization for feel
         const baseILS = 444;
         const variation = (Math.random() - 0.5) * 8;
         const price = baseILS + variation;
@@ -1129,16 +1085,15 @@
     /* ── Init ── */
     document.addEventListener('DOMContentLoaded', () => {
         initShared({ activePage: 'community' });
-        posts = loadPosts();
         renderAuthSection();
-        renderFeed();
-        updateCounts();
+        loadPostsFromAPI();
         updateTicker();
         updateOnlineCount();
 
-        // Refresh ticker every 30s
+        // Refresh data periodically
         setInterval(updateTicker, 30000);
         setInterval(updateOnlineCount, 60000);
+        setInterval(loadPostsFromAPI, 45000); // Auto-refresh posts every 45s
     });
     </script>
 <script src="/js/analytics.js"></script>
