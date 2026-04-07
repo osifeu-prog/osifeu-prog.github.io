@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -572,6 +572,7 @@
         const data = await walletFetch('/price');
         if (data && data.price_ils != null) {
             slhPriceILS = data.price_ils;
+            setApiStatus(true);
         } else {
             slhPriceILS = FALLBACK_SLH_PRICE;
         }
@@ -590,10 +591,11 @@
         if (data) {
             setApiStatus(true);
 
-            const slh  = parseFloat(data.SLH || data.slh || 0);
-            const ton  = parseFloat(data.TON || data.ton || 0);
-            const bnb  = parseFloat(data.BNB || data.bnb || 0);
-            const tonL = parseFloat(data.TON_LOCKED || data.ton_locked || 0);
+            const bag  = data.balances || data || {};
+            const slh  = parseFloat(bag.SLH || bag.slh || data.SLH || data.slh || 0);
+            const ton  = parseFloat(bag.TON || bag.ton || data.TON || data.ton || 0);
+            const bnb  = parseFloat(bag.BNB || bag.bnb || data.BNB || data.bnb || 0);
+            const tonL = parseFloat(bag.TON_LOCKED || bag.ton_locked || data.TON_LOCKED || data.ton_locked || 0);
 
             document.getElementById('bal-slh').textContent        = formatNumber(slh);
             document.getElementById('bal-ton').textContent         = formatNumber(ton);
@@ -720,3 +722,5 @@
     <script src="/js/analytics.js?v=20260407c"></script>
 </body>
 </html>
+
+
