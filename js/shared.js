@@ -13,7 +13,7 @@ const SLH_PRICE_ILS = 444;
 
 const RTL_LANGS = ['he', 'ar'];
 const SUPPORTED_LANGS = ['he', 'en', 'ru', 'ar', 'fr'];
-const THEMES = ['dark', 'blue', 'purple', 'green'];
+const THEMES = ['dark', 'terminal', 'crypto', 'light'];
 
 const NAV_ITEMS = [
   { key: 'home', href: '/', icon: 'fa-home' },
@@ -189,7 +189,7 @@ function renderTopNav(activePage) {
   const links = NAV_ITEMS
     .filter(item => !item.auth || logged)
     .map(item => {
-      const cls = item.key === activePage ? 'nav-link active' : 'nav-link';
+      const cls = item.key === activePage ? 'active' : '';
       return `<a href="${item.href}" class="${cls}" data-page="${item.key}">
         <i class="fas ${item.icon}"></i>
         <span data-i18n="nav_${item.key}">${t('nav_' + item.key)}</span>
@@ -202,27 +202,25 @@ function renderTopNav(activePage) {
 
   const authBtn = logged
     ? `<div class="nav-user">
-        <img src="${user.photo || '/img/avatar.svg'}" alt="" class="nav-avatar">
+        <img src="${user.photo || '/img/avatar.svg'}" alt="" class="user-avatar">
         <span class="nav-username">${user.username || ''}</span>
-        <button class="btn-sm btn-outline" onclick="logout()" data-i18n="nav_logout">${t('nav_logout')}</button>
+        <button class="login-btn" onclick="logout()" data-i18n="nav_logout">${t('nav_logout')}</button>
        </div>`
-    : `<a href="/dashboard.html" class="btn-sm btn-primary" data-i18n="nav_login">${t('nav_login')}</a>`;
+    : `<a href="/dashboard.html" class="login-btn" data-i18n="nav_login">${t('nav_login')}</a>`;
 
   root.innerHTML = `
     <nav class="topnav">
-      <div class="topnav-inner">
-        <a href="/" class="nav-logo">
-          <img src="/img/logo.svg" alt="SLH" class="logo-img">
-          <span class="logo-text">SLH Spark</span>
-        </a>
-        <div class="nav-links hide-mobile">${links}</div>
-        <div class="nav-actions">
-          <div class="lang-group">${langSelector}</div>
-          ${authBtn}
-          <button class="nav-hamburger show-mobile" onclick="toggleDrawer()" aria-label="Menu">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
+      <a href="/" class="topnav-logo">
+        <div class="logo-icon">⚡</div>
+        <span>SLH Spark</span>
+      </a>
+      <div class="topnav-links hide-mobile">${links}</div>
+      <div class="topnav-right">
+        ${langSelector}
+        ${authBtn}
+        <button class="hamburger show-mobile" onclick="toggleDrawer()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>`;
 }
@@ -440,7 +438,7 @@ function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('rv-visible');
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
@@ -515,7 +513,6 @@ function initShared(options = {}) {
   // Theme
   const theme = getTheme();
   setTheme(theme);
-  startThemeCycle();
 
   // Navigation
   renderTopNav(activePage);
