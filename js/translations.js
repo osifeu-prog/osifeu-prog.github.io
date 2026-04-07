@@ -1,0 +1,657 @@
+/**
+ * SLH Ecosystem — Translation System
+ * 5 languages: Hebrew (he), English (en), Russian (ru), Arabic (ar), French (fr)
+ */
+
+const T = {
+  he: {
+    // Navigation
+    nav_home: 'ראשי',
+    nav_trade: 'מסחר',
+    nav_earn: 'הרוויח',
+    nav_wallet: 'ארנק',
+    nav_bots: 'בוטים',
+    nav_referral: 'הפניות',
+    nav_blockchain: 'בלוקצ\'יין',
+    nav_dashboard: 'לוח בקרה',
+    nav_guides: 'מדריכים',
+    nav_whitepaper: 'נייר לבן',
+    nav_admin: 'ניהול',
+    nav_login: 'התחברות',
+    nav_logout: 'התנתקות',
+
+    // Landing — Hero
+    hero_title: 'המטבע הדיגיטלי של הקהילה',
+    hero_sub: 'SLH Spark — מערכת כלכלית חכמה מבוססת בוטים, בלוקצ\'יין וקהילה. הצטרפו למהפכה.',
+
+    // Landing — How It Works
+    how_tag: 'איך זה עובד',
+    how_title: 'ארבעה צעדים לתחילת הדרך',
+    s1t: 'הצטרפו לבוט',
+    s1p: 'פתחו את בוט הטלגרם שלנו והירשמו תוך שניות.',
+    s2t: 'קבלו טוקנים',
+    s2p: 'קבלו טוקני SLH כבונוס הצטרפות ובכל פעולה במערכת.',
+    s3t: 'סחרו והרוויחו',
+    s3p: 'סחרו בטוקנים, השקיעו בתוכניות רווח ובנו הכנסה פסיבית.',
+    s4t: 'הפנו חברים',
+    s4p: 'הזמינו חברים, הרוויחו עמלות ובנו רשת הכנסות.',
+
+    // Landing — Features
+    feat_title: 'תכונות המערכת',
+    feat_sub: 'טכנולוגיה מתקדמת לכלכלה קהילתית',
+
+    // Landing — Join
+    join_tag: 'הצטרפו עכשיו',
+    join_title: 'הפכו לחלק מהמהפכה',
+    join_sub: 'הצטרפו לאלפי משתמשים שכבר מרוויחים עם SLH Spark.',
+    join_btn: 'התחילו עכשיו',
+    join_label: 'הצטרפו דרך טלגרם',
+    join_telegram: 'פתחו את הבוט בטלגרם',
+    join_welcome: 'ברוכים הבאים למערכת SLH!',
+    join_your_link: 'הקישור שלכם',
+
+    // Trade
+    trade_title: 'מסחר',
+    trade_sub: 'קנו, מכרו והמירו טוקני SLH בקלות.',
+    trade_prices: 'מחירים בזמן אמת',
+    trade_swap: 'המרה',
+    trade_buy_slh: 'קנו SLH',
+    trade_24h: 'שינוי 24 שעות',
+    trade_market_cap: 'שווי שוק',
+    trade_volume: 'נפח מסחר',
+
+    // Earn
+    earn_title: 'הרוויחו',
+    earn_sub: 'הפקידו טוקנים והרוויחו תשואה יומית.',
+    earn_plans: 'תוכניות השקעה',
+    earn_calculator: 'מחשבון רווח',
+    earn_how: 'איך זה עובד?',
+    earn_faq: 'שאלות נפוצות',
+    earn_stake_now: 'הפקידו עכשיו',
+    earn_monthly: 'חודשי',
+    earn_quarterly: 'רבעוני',
+    earn_semi: 'חצי שנתי',
+    earn_annual: 'שנתי',
+    earn_apy: 'תשואה שנתית',
+    earn_min: 'מינימום הפקדה',
+    earn_lock: 'תקופת נעילה',
+    earn_projected: 'רווח צפוי',
+
+    // Wallet
+    wallet_title: 'ארנק',
+    wallet_balance: 'יתרה',
+    wallet_send: 'שלחו',
+    wallet_receive: 'קבלו',
+    wallet_history: 'היסטוריה',
+    wallet_available: 'זמין',
+    wallet_locked: 'נעול',
+    wallet_total: 'סה"כ',
+
+    // Bots
+    bots_title: 'בוטים',
+    bots_sub: 'מערכת הבוטים החכמה של SLH — כל בוט הוא מערכת כלכלית עצמאית.',
+    bots_all: 'הכל',
+    bots_financial: 'פיננסי',
+    bots_saas: 'SaaS',
+    bots_community: 'קהילה',
+    bots_gaming: 'משחקים',
+    bots_security: 'אבטחה',
+    bots_education: 'חינוך',
+    bots_open: 'פתחו את הבוט',
+    bots_coming: 'בקרוב',
+
+    // Referral
+    ref_title: 'תוכנית הפניות',
+    ref_sub: 'הזמינו חברים והרוויחו עמלות על כל רמה.',
+    ref_your_link: 'הקישור שלכם',
+    ref_stats: 'סטטיסטיקות',
+    ref_tree: 'עץ הפניות',
+    ref_share: 'שתפו',
+    ref_copy: 'העתיקו',
+    ref_commission: 'עמלה',
+    ref_direct: 'הפניות ישירות',
+    ref_network: 'רשת',
+    ref_earned: 'סה"כ הרוויחו',
+    ref_gen: 'דור',
+
+    // Common
+    common_login: 'התחברות',
+    common_logout: 'התנתקות',
+    common_copy: 'העתקה',
+    common_copied: 'הועתק!',
+    common_share: 'שיתוף',
+    common_download: 'הורדה',
+    common_close: 'סגירה',
+    common_back: 'חזרה',
+    common_loading: 'טוען...',
+    common_error: 'שגיאה',
+    common_success: 'הצלחה',
+    common_price: 'מחיר',
+    common_amount: 'כמות',
+    common_total: 'סה"כ',
+    footer_rights: 'כל הזכויות שמורות',
+    footer_powered: 'מופעל על ידי SLH Spark'
+  },
+
+  en: {
+    // Navigation
+    nav_home: 'Home',
+    nav_trade: 'Trade',
+    nav_earn: 'Earn',
+    nav_wallet: 'Wallet',
+    nav_bots: 'Bots',
+    nav_referral: 'Referral',
+    nav_blockchain: 'Blockchain',
+    nav_dashboard: 'Dashboard',
+    nav_guides: 'Guides',
+    nav_whitepaper: 'Whitepaper',
+    nav_admin: 'Admin',
+    nav_login: 'Login',
+    nav_logout: 'Logout',
+
+    // Landing — Hero
+    hero_title: 'The Community Digital Currency',
+    hero_sub: 'SLH Spark — A smart economic system powered by bots, blockchain, and community. Join the revolution.',
+
+    // Landing — How It Works
+    how_tag: 'How It Works',
+    how_title: 'Four Steps to Get Started',
+    s1t: 'Join the Bot',
+    s1p: 'Open our Telegram bot and sign up in seconds.',
+    s2t: 'Get Tokens',
+    s2p: 'Receive SLH tokens as a sign-up bonus and with every action.',
+    s3t: 'Trade & Earn',
+    s3p: 'Trade tokens, invest in earning plans, and build passive income.',
+    s4t: 'Refer Friends',
+    s4p: 'Invite friends, earn commissions, and build a revenue network.',
+
+    // Landing — Features
+    feat_title: 'Platform Features',
+    feat_sub: 'Advanced technology for a community-driven economy',
+
+    // Landing — Join
+    join_tag: 'Join Now',
+    join_title: 'Become Part of the Revolution',
+    join_sub: 'Join thousands of users already earning with SLH Spark.',
+    join_btn: 'Get Started',
+    join_label: 'Join via Telegram',
+    join_telegram: 'Open Bot on Telegram',
+    join_welcome: 'Welcome to the SLH ecosystem!',
+    join_your_link: 'Your Link',
+
+    // Trade
+    trade_title: 'Trade',
+    trade_sub: 'Buy, sell, and swap SLH tokens with ease.',
+    trade_prices: 'Live Prices',
+    trade_swap: 'Swap',
+    trade_buy_slh: 'Buy SLH',
+    trade_24h: '24h Change',
+    trade_market_cap: 'Market Cap',
+    trade_volume: 'Volume',
+
+    // Earn
+    earn_title: 'Earn',
+    earn_sub: 'Stake your tokens and earn daily returns.',
+    earn_plans: 'Staking Plans',
+    earn_calculator: 'Profit Calculator',
+    earn_how: 'How It Works',
+    earn_faq: 'FAQ',
+    earn_stake_now: 'Stake Now',
+    earn_monthly: 'Monthly',
+    earn_quarterly: 'Quarterly',
+    earn_semi: 'Semi-Annual',
+    earn_annual: 'Annual',
+    earn_apy: 'Annual Yield',
+    earn_min: 'Minimum Deposit',
+    earn_lock: 'Lock Period',
+    earn_projected: 'Projected Profit',
+
+    // Wallet
+    wallet_title: 'Wallet',
+    wallet_balance: 'Balance',
+    wallet_send: 'Send',
+    wallet_receive: 'Receive',
+    wallet_history: 'History',
+    wallet_available: 'Available',
+    wallet_locked: 'Locked',
+    wallet_total: 'Total',
+
+    // Bots
+    bots_title: 'Bots',
+    bots_sub: 'The SLH smart bot ecosystem — each bot is an independent economic system.',
+    bots_all: 'All',
+    bots_financial: 'Financial',
+    bots_saas: 'SaaS',
+    bots_community: 'Community',
+    bots_gaming: 'Gaming',
+    bots_security: 'Security',
+    bots_education: 'Education',
+    bots_open: 'Open Bot',
+    bots_coming: 'Coming Soon',
+
+    // Referral
+    ref_title: 'Referral Program',
+    ref_sub: 'Invite friends and earn commissions on every level.',
+    ref_your_link: 'Your Link',
+    ref_stats: 'Statistics',
+    ref_tree: 'Referral Tree',
+    ref_share: 'Share',
+    ref_copy: 'Copy',
+    ref_commission: 'Commission',
+    ref_direct: 'Direct Referrals',
+    ref_network: 'Network',
+    ref_earned: 'Total Earned',
+    ref_gen: 'Generation',
+
+    // Common
+    common_login: 'Login',
+    common_logout: 'Logout',
+    common_copy: 'Copy',
+    common_copied: 'Copied!',
+    common_share: 'Share',
+    common_download: 'Download',
+    common_close: 'Close',
+    common_back: 'Back',
+    common_loading: 'Loading...',
+    common_error: 'Error',
+    common_success: 'Success',
+    common_price: 'Price',
+    common_amount: 'Amount',
+    common_total: 'Total',
+    footer_rights: 'All rights reserved',
+    footer_powered: 'Powered by SLH Spark'
+  },
+
+  ru: {
+    // Navigation
+    nav_home: '\u0413\u043B\u0430\u0432\u043D\u0430\u044F',
+    nav_trade: '\u0422\u043E\u0440\u0433\u043E\u0432\u043B\u044F',
+    nav_earn: '\u0417\u0430\u0440\u0430\u0431\u043E\u0442\u043E\u043A',
+    nav_wallet: '\u041A\u043E\u0448\u0435\u043B\u0451\u043A',
+    nav_bots: '\u0411\u043E\u0442\u044B',
+    nav_referral: '\u0420\u0435\u0444\u0435\u0440\u0430\u043B\u044B',
+    nav_blockchain: '\u0411\u043B\u043E\u043A\u0447\u0435\u0439\u043D',
+    nav_dashboard: '\u041F\u0430\u043D\u0435\u043B\u044C \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F',
+    nav_guides: '\u0420\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u0430',
+    nav_whitepaper: '\u0411\u0435\u043B\u0430\u044F \u043A\u043D\u0438\u0433\u0430',
+    nav_admin: '\u0410\u0434\u043C\u0438\u043D',
+    nav_login: '\u0412\u043E\u0439\u0442\u0438',
+    nav_logout: '\u0412\u044B\u0439\u0442\u0438',
+
+    // Landing — Hero
+    hero_title: '\u0426\u0438\u0444\u0440\u043E\u0432\u0430\u044F \u0432\u0430\u043B\u044E\u0442\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430',
+    hero_sub: 'SLH Spark \u2014 \u0443\u043C\u043D\u0430\u044F \u044D\u043A\u043E\u043D\u043E\u043C\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435 \u0431\u043E\u0442\u043E\u0432, \u0431\u043B\u043E\u043A\u0447\u0435\u0439\u043D\u0430 \u0438 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430. \u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u0440\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u0438.',
+
+    // Landing — How It Works
+    how_tag: '\u041A\u0430\u043A \u044D\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442',
+    how_title: '\u0427\u0435\u0442\u044B\u0440\u0435 \u0448\u0430\u0433\u0430 \u0434\u043B\u044F \u043D\u0430\u0447\u0430\u043B\u0430',
+    s1t: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u0435\u0441\u044C \u043A \u0431\u043E\u0442\u0443',
+    s1p: '\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u043D\u0430\u0448\u0435\u0433\u043E \u0431\u043E\u0442\u0430 \u0432 Telegram \u0438 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435\u0441\u044C \u0437\u0430 \u0441\u0435\u043A\u0443\u043D\u0434\u044B.',
+    s2t: '\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u044B',
+    s2p: '\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u044B SLH \u043A\u0430\u043A \u0431\u043E\u043D\u0443\u0441 \u0437\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044E \u0438 \u0437\u0430 \u043A\u0430\u0436\u0434\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435.',
+    s3t: '\u0422\u043E\u0440\u0433\u0443\u0439\u0442\u0435 \u0438 \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0439\u0442\u0435',
+    s3p: '\u0422\u043E\u0440\u0433\u0443\u0439\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u0430\u043C\u0438, \u0438\u043D\u0432\u0435\u0441\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0432 \u043F\u043B\u0430\u043D\u044B \u0434\u043E\u0445\u043E\u0434\u043D\u043E\u0441\u0442\u0438 \u0438 \u0441\u043E\u0437\u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u043F\u0430\u0441\u0441\u0438\u0432\u043D\u044B\u0439 \u0434\u043E\u0445\u043E\u0434.',
+    s4t: '\u041F\u0440\u0438\u0433\u043B\u0430\u0441\u0438\u0442\u0435 \u0434\u0440\u0443\u0437\u0435\u0439',
+    s4p: '\u041F\u0440\u0438\u0433\u043B\u0430\u0448\u0430\u0439\u0442\u0435 \u0434\u0440\u0443\u0437\u0435\u0439, \u043F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u043A\u043E\u043C\u0438\u0441\u0441\u0438\u044E \u0438 \u0441\u0442\u0440\u043E\u0439\u0442\u0435 \u0441\u0435\u0442\u044C \u0434\u043E\u0445\u043E\u0434\u043E\u0432.',
+
+    // Landing — Features
+    feat_title: '\u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B',
+    feat_sub: '\u041F\u0435\u0440\u0435\u0434\u043E\u0432\u044B\u0435 \u0442\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u0438 \u0434\u043B\u044F \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0439 \u044D\u043A\u043E\u043D\u043E\u043C\u0438\u043A\u0438',
+
+    // Landing — Join
+    join_tag: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C',
+    join_title: '\u0421\u0442\u0430\u043D\u044C\u0442\u0435 \u0447\u0430\u0441\u0442\u044C\u044E \u0440\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u0438',
+    join_sub: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u0442\u044B\u0441\u044F\u0447\u0430\u043C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435\u0439, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0443\u0436\u0435 \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u044E\u0442 \u0441 SLH Spark.',
+    join_btn: '\u041D\u0430\u0447\u0430\u0442\u044C',
+    join_label: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F \u0447\u0435\u0440\u0435\u0437 Telegram',
+    join_telegram: '\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0431\u043E\u0442\u0430 \u0432 Telegram',
+    join_welcome: '\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C \u0432 \u044D\u043A\u043E\u0441\u0438\u0441\u0442\u0435\u043C\u0443 SLH!',
+    join_your_link: '\u0412\u0430\u0448\u0430 \u0441\u0441\u044B\u043B\u043A\u0430',
+
+    // Trade
+    trade_title: '\u0422\u043E\u0440\u0433\u043E\u0432\u043B\u044F',
+    trade_sub: '\u041F\u043E\u043A\u0443\u043F\u0430\u0439\u0442\u0435, \u043F\u0440\u043E\u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u0438 \u043E\u0431\u043C\u0435\u043D\u0438\u0432\u0430\u0439\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u044B SLH \u043B\u0435\u0433\u043A\u043E.',
+    trade_prices: '\u0426\u0435\u043D\u044B \u0432 \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C \u0432\u0440\u0435\u043C\u0435\u043D\u0438',
+    trade_swap: '\u041E\u0431\u043C\u0435\u043D',
+    trade_buy_slh: '\u041A\u0443\u043F\u0438\u0442\u044C SLH',
+    trade_24h: '\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0437\u0430 24\u0447',
+    trade_market_cap: '\u0420\u044B\u043D\u043E\u0447\u043D\u0430\u044F \u043A\u0430\u043F\u0438\u0442\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F',
+    trade_volume: '\u041E\u0431\u044A\u0451\u043C \u0442\u043E\u0440\u0433\u043E\u0432',
+
+    // Earn
+    earn_title: '\u0417\u0430\u0440\u0430\u0431\u043E\u0442\u043E\u043A',
+    earn_sub: '\u0412\u043D\u0435\u0441\u0438\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u044B \u0438 \u043F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u0435\u0436\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0439 \u0434\u043E\u0445\u043E\u0434.',
+    earn_plans: '\u041F\u043B\u0430\u043D\u044B \u0441\u0442\u0435\u0439\u043A\u0438\u043D\u0433\u0430',
+    earn_calculator: '\u041A\u0430\u043B\u044C\u043A\u0443\u043B\u044F\u0442\u043E\u0440 \u043F\u0440\u0438\u0431\u044B\u043B\u0438',
+    earn_how: '\u041A\u0430\u043A \u044D\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442?',
+    earn_faq: '\u0427\u0430\u0441\u0442\u044B\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B',
+    earn_stake_now: '\u0412\u043D\u0435\u0441\u0442\u0438 \u0441\u0435\u0439\u0447\u0430\u0441',
+    earn_monthly: '\u041C\u0435\u0441\u044F\u0447\u043D\u044B\u0439',
+    earn_quarterly: '\u041A\u0432\u0430\u0440\u0442\u0430\u043B\u044C\u043D\u044B\u0439',
+    earn_semi: '\u041F\u043E\u043B\u0443\u0433\u043E\u0434\u043E\u0432\u043E\u0439',
+    earn_annual: '\u0413\u043E\u0434\u043E\u0432\u043E\u0439',
+    earn_apy: '\u0413\u043E\u0434\u043E\u0432\u0430\u044F \u0434\u043E\u0445\u043E\u0434\u043D\u043E\u0441\u0442\u044C',
+    earn_min: '\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0439 \u0432\u0437\u043D\u043E\u0441',
+    earn_lock: '\u041F\u0435\u0440\u0438\u043E\u0434 \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0438',
+    earn_projected: '\u041E\u0436\u0438\u0434\u0430\u0435\u043C\u0430\u044F \u043F\u0440\u0438\u0431\u044B\u043B\u044C',
+
+    // Wallet
+    wallet_title: '\u041A\u043E\u0448\u0435\u043B\u0451\u043A',
+    wallet_balance: '\u0411\u0430\u043B\u0430\u043D\u0441',
+    wallet_send: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
+    wallet_receive: '\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C',
+    wallet_history: '\u0418\u0441\u0442\u043E\u0440\u0438\u044F',
+    wallet_available: '\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u043E',
+    wallet_locked: '\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043E',
+    wallet_total: '\u0418\u0442\u043E\u0433\u043E',
+
+    // Bots
+    bots_title: '\u0411\u043E\u0442\u044B',
+    bots_sub: '\u042D\u043A\u043E\u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u0443\u043C\u043D\u044B\u0445 \u0431\u043E\u0442\u043E\u0432 SLH \u2014 \u043A\u0430\u0436\u0434\u044B\u0439 \u0431\u043E\u0442 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u043D\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043C\u043E\u0439 \u044D\u043A\u043E\u043D\u043E\u043C\u0438\u0447\u0435\u0441\u043A\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u043E\u0439.',
+    bots_all: '\u0412\u0441\u0435',
+    bots_financial: '\u0424\u0438\u043D\u0430\u043D\u0441\u044B',
+    bots_saas: 'SaaS',
+    bots_community: '\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E',
+    bots_gaming: '\u0418\u0433\u0440\u044B',
+    bots_security: '\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C',
+    bots_education: '\u041E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u043D\u0438\u0435',
+    bots_open: '\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0431\u043E\u0442\u0430',
+    bots_coming: '\u0421\u043A\u043E\u0440\u043E',
+
+    // Referral
+    ref_title: '\u0420\u0435\u0444\u0435\u0440\u0430\u043B\u044C\u043D\u0430\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430',
+    ref_sub: '\u041F\u0440\u0438\u0433\u043B\u0430\u0448\u0430\u0439\u0442\u0435 \u0434\u0440\u0443\u0437\u0435\u0439 \u0438 \u043F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u043A\u043E\u043C\u0438\u0441\u0441\u0438\u044E \u043D\u0430 \u043A\u0430\u0436\u0434\u043E\u043C \u0443\u0440\u043E\u0432\u043D\u0435.',
+    ref_your_link: '\u0412\u0430\u0448\u0430 \u0441\u0441\u044B\u043B\u043A\u0430',
+    ref_stats: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430',
+    ref_tree: '\u0414\u0435\u0440\u0435\u0432\u043E \u0440\u0435\u0444\u0435\u0440\u0430\u043B\u043E\u0432',
+    ref_share: '\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F',
+    ref_copy: '\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C',
+    ref_commission: '\u041A\u043E\u043C\u0438\u0441\u0441\u0438\u044F',
+    ref_direct: '\u041F\u0440\u044F\u043C\u044B\u0435 \u0440\u0435\u0444\u0435\u0440\u0430\u043B\u044B',
+    ref_network: '\u0421\u0435\u0442\u044C',
+    ref_earned: '\u0412\u0441\u0435\u0433\u043E \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u043E',
+    ref_gen: '\u041F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u0435',
+
+    // Common
+    common_login: '\u0412\u043E\u0439\u0442\u0438',
+    common_logout: '\u0412\u044B\u0439\u0442\u0438',
+    common_copy: '\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C',
+    common_copied: '\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E!',
+    common_share: '\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F',
+    common_download: '\u0421\u043A\u0430\u0447\u0430\u0442\u044C',
+    common_close: '\u0417\u0430\u043A\u0440\u044B\u0442\u044C',
+    common_back: '\u041D\u0430\u0437\u0430\u0434',
+    common_loading: '\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...',
+    common_error: '\u041E\u0448\u0438\u0431\u043A\u0430',
+    common_success: '\u0423\u0441\u043F\u0435\u0445',
+    common_price: '\u0426\u0435\u043D\u0430',
+    common_amount: '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E',
+    common_total: '\u0418\u0442\u043E\u0433\u043E',
+    footer_rights: '\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B',
+    footer_powered: '\u0420\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u043D\u0430 SLH Spark'
+  },
+
+  ar: {
+    // Navigation
+    nav_home: '\u0627\u0644\u0631\u0626\u064A\u0633\u064A\u0629',
+    nav_trade: '\u0627\u0644\u062A\u062F\u0627\u0648\u0644',
+    nav_earn: '\u0627\u0644\u0631\u0628\u062D',
+    nav_wallet: '\u0627\u0644\u0645\u062D\u0641\u0638\u0629',
+    nav_bots: '\u0627\u0644\u0628\u0648\u062A\u0627\u062A',
+    nav_referral: '\u0627\u0644\u0625\u062D\u0627\u0644\u0627\u062A',
+    nav_blockchain: '\u0628\u0644\u0648\u0643\u062A\u0634\u064A\u0646',
+    nav_dashboard: '\u0644\u0648\u062D\u0629 \u0627\u0644\u062A\u062D\u0643\u0645',
+    nav_guides: '\u0627\u0644\u0623\u062F\u0644\u0629',
+    nav_whitepaper: '\u0627\u0644\u0648\u0631\u0642\u0629 \u0627\u0644\u0628\u064A\u0636\u0627\u0621',
+    nav_admin: '\u0627\u0644\u0625\u062F\u0627\u0631\u0629',
+    nav_login: '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
+    nav_logout: '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062E\u0631\u0648\u062C',
+
+    // Landing — Hero
+    hero_title: '\u0627\u0644\u0639\u0645\u0644\u0629 \u0627\u0644\u0631\u0642\u0645\u064A\u0629 \u0644\u0644\u0645\u062C\u062A\u0645\u0639',
+    hero_sub: 'SLH Spark \u2014 \u0646\u0638\u0627\u0645 \u0627\u0642\u062A\u0635\u0627\u062F\u064A \u0630\u0643\u064A \u0645\u0628\u0646\u064A \u0639\u0644\u0649 \u0627\u0644\u0628\u0648\u062A\u0627\u062A \u0648\u0627\u0644\u0628\u0644\u0648\u0643\u062A\u0634\u064A\u0646 \u0648\u0627\u0644\u0645\u062C\u062A\u0645\u0639. \u0627\u0646\u0636\u0645\u0648\u0627 \u0625\u0644\u0649 \u0627\u0644\u062B\u0648\u0631\u0629.',
+
+    // Landing — How It Works
+    how_tag: '\u0643\u064A\u0641 \u064A\u0639\u0645\u0644',
+    how_title: '\u0623\u0631\u0628\u0639 \u062E\u0637\u0648\u0627\u062A \u0644\u0644\u0628\u062F\u0627\u064A\u0629',
+    s1t: '\u0627\u0646\u0636\u0645 \u0625\u0644\u0649 \u0627\u0644\u0628\u0648\u062A',
+    s1p: '\u0627\u0641\u062A\u062D \u0628\u0648\u062A \u062A\u064A\u0644\u064A\u062C\u0631\u0627\u0645 \u0648\u0633\u062C\u0651\u0644 \u062E\u0644\u0627\u0644 \u062B\u0648\u0627\u0646\u064D.',
+    s2t: '\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u062A\u0648\u0643\u0646\u0627\u062A',
+    s2p: '\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u062A\u0648\u0643\u0646\u0627\u062A SLH \u0643\u0645\u0643\u0627\u0641\u0623\u0629 \u062A\u0633\u062C\u064A\u0644 \u0648\u0645\u0639 \u0643\u0644 \u0625\u062C\u0631\u0627\u0621.',
+    s3t: '\u062A\u062F\u0627\u0648\u0644 \u0648\u0627\u0631\u0628\u062D',
+    s3p: '\u062A\u062F\u0627\u0648\u0644 \u0627\u0644\u062A\u0648\u0643\u0646\u0627\u062A\u060C \u0627\u0633\u062A\u062B\u0645\u0631 \u0641\u064A \u062E\u0637\u0637 \u0627\u0644\u0631\u0628\u062D \u0648\u0627\u0628\u0646\u0650 \u062F\u062E\u0644\u0627\u064B \u0633\u0644\u0628\u064A\u0627\u064B.',
+    s4t: '\u0627\u062F\u0639\u064F \u0623\u0635\u062F\u0642\u0627\u0621\u0643',
+    s4p: '\u0627\u062F\u0639\u064F \u0623\u0635\u062F\u0642\u0627\u0621\u0643\u060C \u0627\u0631\u0628\u062D \u0639\u0645\u0648\u0644\u0627\u062A \u0648\u0627\u0628\u0646\u0650 \u0634\u0628\u0643\u0629 \u062F\u062E\u0644.',
+
+    // Landing — Features
+    feat_title: '\u0645\u064A\u0632\u0627\u062A \u0627\u0644\u0645\u0646\u0635\u0629',
+    feat_sub: '\u062A\u0643\u0646\u0648\u0644\u0648\u062C\u064A\u0627 \u0645\u062A\u0642\u062F\u0645\u0629 \u0644\u0627\u0642\u062A\u0635\u0627\u062F \u0645\u062C\u062A\u0645\u0639\u064A',
+
+    // Landing — Join
+    join_tag: '\u0627\u0646\u0636\u0645 \u0627\u0644\u0622\u0646',
+    join_title: '\u0643\u0646 \u062C\u0632\u0621\u0627\u064B \u0645\u0646 \u0627\u0644\u062B\u0648\u0631\u0629',
+    join_sub: '\u0627\u0646\u0636\u0645 \u0625\u0644\u0649 \u0622\u0644\u0627\u0641 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645\u064A\u0646 \u0627\u0644\u0630\u064A\u0646 \u064A\u0631\u0628\u062D\u0648\u0646 \u0628\u0627\u0644\u0641\u0639\u0644 \u0645\u0639 SLH Spark.',
+    join_btn: '\u0627\u0628\u062F\u0623 \u0627\u0644\u0622\u0646',
+    join_label: '\u0627\u0646\u0636\u0645 \u0639\u0628\u0631 \u062A\u064A\u0644\u064A\u062C\u0631\u0627\u0645',
+    join_telegram: '\u0627\u0641\u062A\u062D \u0627\u0644\u0628\u0648\u062A \u0641\u064A \u062A\u064A\u0644\u064A\u062C\u0631\u0627\u0645',
+    join_welcome: '\u0645\u0631\u062D\u0628\u0627\u064B \u0628\u0643\u0645 \u0641\u064A \u0645\u0646\u0638\u0648\u0645\u0629 SLH!',
+    join_your_link: '\u0631\u0627\u0628\u0637\u0643',
+
+    // Trade
+    trade_title: '\u0627\u0644\u062A\u062F\u0627\u0648\u0644',
+    trade_sub: '\u0627\u0634\u062A\u0631\u0650\u060C \u0628\u0650\u0639 \u0648\u0628\u0627\u062F\u0644 \u062A\u0648\u0643\u0646\u0627\u062A SLH \u0628\u0633\u0647\u0648\u0644\u0629.',
+    trade_prices: '\u0627\u0644\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u062D\u064A\u0629',
+    trade_swap: '\u0645\u0628\u0627\u062F\u0644\u0629',
+    trade_buy_slh: '\u0634\u0631\u0627\u0621 SLH',
+    trade_24h: '\u0627\u0644\u062A\u063A\u064A\u064A\u0631 \u062E\u0644\u0627\u0644 24 \u0633\u0627\u0639\u0629',
+    trade_market_cap: '\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064A\u0629',
+    trade_volume: '\u062D\u062C\u0645 \u0627\u0644\u062A\u062F\u0627\u0648\u0644',
+
+    // Earn
+    earn_title: '\u0627\u0644\u0631\u0628\u062D',
+    earn_sub: '\u0623\u0648\u062F\u0639 \u062A\u0648\u0643\u0646\u0627\u062A\u0643 \u0648\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0639\u0648\u0627\u0626\u062F \u064A\u0648\u0645\u064A\u0629.',
+    earn_plans: '\u062E\u0637\u0637 \u0627\u0644\u0627\u0633\u062A\u062B\u0645\u0627\u0631',
+    earn_calculator: '\u062D\u0627\u0633\u0628\u0629 \u0627\u0644\u0623\u0631\u0628\u0627\u062D',
+    earn_how: '\u0643\u064A\u0641 \u064A\u0639\u0645\u0644\u061F',
+    earn_faq: '\u0627\u0644\u0623\u0633\u0626\u0644\u0629 \u0627\u0644\u0634\u0627\u0626\u0639\u0629',
+    earn_stake_now: '\u0623\u0648\u062F\u0639 \u0627\u0644\u0622\u0646',
+    earn_monthly: '\u0634\u0647\u0631\u064A',
+    earn_quarterly: '\u0631\u0628\u0639 \u0633\u0646\u0648\u064A',
+    earn_semi: '\u0646\u0635\u0641 \u0633\u0646\u0648\u064A',
+    earn_annual: '\u0633\u0646\u0648\u064A',
+    earn_apy: '\u0627\u0644\u0639\u0627\u0626\u062F \u0627\u0644\u0633\u0646\u0648\u064A',
+    earn_min: '\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u062F\u0646\u0649 \u0644\u0644\u0625\u064A\u062F\u0627\u0639',
+    earn_lock: '\u0641\u062A\u0631\u0629 \u0627\u0644\u0642\u0641\u0644',
+    earn_projected: '\u0627\u0644\u0631\u0628\u062D \u0627\u0644\u0645\u062A\u0648\u0642\u0639',
+
+    // Wallet
+    wallet_title: '\u0627\u0644\u0645\u062D\u0641\u0638\u0629',
+    wallet_balance: '\u0627\u0644\u0631\u0635\u064A\u062F',
+    wallet_send: '\u0625\u0631\u0633\u0627\u0644',
+    wallet_receive: '\u0627\u0633\u062A\u0644\u0627\u0645',
+    wallet_history: '\u0627\u0644\u0633\u062C\u0644',
+    wallet_available: '\u0645\u062A\u0627\u062D',
+    wallet_locked: '\u0645\u0642\u0641\u0644',
+    wallet_total: '\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A',
+
+    // Bots
+    bots_title: '\u0627\u0644\u0628\u0648\u062A\u0627\u062A',
+    bots_sub: '\u0645\u0646\u0638\u0648\u0645\u0629 \u0628\u0648\u062A\u0627\u062A SLH \u0627\u0644\u0630\u0643\u064A\u0629 \u2014 \u0643\u0644 \u0628\u0648\u062A \u0647\u0648 \u0646\u0638\u0627\u0645 \u0627\u0642\u062A\u0635\u0627\u062F\u064A \u0645\u0633\u062A\u0642\u0644.',
+    bots_all: '\u0627\u0644\u0643\u0644',
+    bots_financial: '\u0645\u0627\u0644\u064A',
+    bots_saas: 'SaaS',
+    bots_community: '\u0645\u062C\u062A\u0645\u0639',
+    bots_gaming: '\u0623\u0644\u0639\u0627\u0628',
+    bots_security: '\u0623\u0645\u0627\u0646',
+    bots_education: '\u062A\u0639\u0644\u064A\u0645',
+    bots_open: '\u0627\u0641\u062A\u062D \u0627\u0644\u0628\u0648\u062A',
+    bots_coming: '\u0642\u0631\u064A\u0628\u0627\u064B',
+
+    // Referral
+    ref_title: '\u0628\u0631\u0646\u0627\u0645\u062C \u0627\u0644\u0625\u062D\u0627\u0644\u0627\u062A',
+    ref_sub: '\u0627\u062F\u0639\u064F \u0623\u0635\u062F\u0642\u0627\u0621\u0643 \u0648\u0627\u0631\u0628\u062D \u0639\u0645\u0648\u0644\u0627\u062A \u0639\u0644\u0649 \u0643\u0644 \u0645\u0633\u062A\u0648\u0649.',
+    ref_your_link: '\u0631\u0627\u0628\u0637\u0643',
+    ref_stats: '\u0627\u0644\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A',
+    ref_tree: '\u0634\u062C\u0631\u0629 \u0627\u0644\u0625\u062D\u0627\u0644\u0627\u062A',
+    ref_share: '\u0645\u0634\u0627\u0631\u0643\u0629',
+    ref_copy: '\u0646\u0633\u062E',
+    ref_commission: '\u0639\u0645\u0648\u0644\u0629',
+    ref_direct: '\u0625\u062D\u0627\u0644\u0627\u062A \u0645\u0628\u0627\u0634\u0631\u0629',
+    ref_network: '\u0627\u0644\u0634\u0628\u0643\u0629',
+    ref_earned: '\u0625\u062C\u0645\u0627\u0644\u064A \u0627\u0644\u0623\u0631\u0628\u0627\u062D',
+    ref_gen: '\u0627\u0644\u062C\u064A\u0644',
+
+    // Common
+    common_login: '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
+    common_logout: '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062E\u0631\u0648\u062C',
+    common_copy: '\u0646\u0633\u062E',
+    common_copied: '\u062A\u0645 \u0627\u0644\u0646\u0633\u062E!',
+    common_share: '\u0645\u0634\u0627\u0631\u0643\u0629',
+    common_download: '\u062A\u062D\u0645\u064A\u0644',
+    common_close: '\u0625\u063A\u0644\u0627\u0642',
+    common_back: '\u0631\u062C\u0648\u0639',
+    common_loading: '\u062C\u0627\u0631\u064D \u0627\u0644\u062A\u062D\u0645\u064A\u0644...',
+    common_error: '\u062E\u0637\u0623',
+    common_success: '\u0646\u062C\u0627\u062D',
+    common_price: '\u0627\u0644\u0633\u0639\u0631',
+    common_amount: '\u0627\u0644\u0643\u0645\u064A\u0629',
+    common_total: '\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A',
+    footer_rights: '\u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638\u0629',
+    footer_powered: '\u0645\u062F\u0639\u0648\u0645 \u0628\u0648\u0627\u0633\u0637\u0629 SLH Spark'
+  },
+
+  fr: {
+    // Navigation
+    nav_home: 'Accueil',
+    nav_trade: 'Trading',
+    nav_earn: 'Gagner',
+    nav_wallet: 'Portefeuille',
+    nav_bots: 'Bots',
+    nav_referral: 'Parrainage',
+    nav_blockchain: 'Blockchain',
+    nav_dashboard: 'Tableau de bord',
+    nav_guides: 'Guides',
+    nav_whitepaper: 'Livre blanc',
+    nav_admin: 'Admin',
+    nav_login: 'Connexion',
+    nav_logout: 'D\u00E9connexion',
+
+    // Landing — Hero
+    hero_title: 'La monnaie num\u00E9rique communautaire',
+    hero_sub: 'SLH Spark \u2014 Un syst\u00E8me \u00E9conomique intelligent bas\u00E9 sur les bots, la blockchain et la communaut\u00E9. Rejoignez la r\u00E9volution.',
+
+    // Landing — How It Works
+    how_tag: 'Comment \u00E7a marche',
+    how_title: 'Quatre \u00E9tapes pour commencer',
+    s1t: 'Rejoignez le bot',
+    s1p: 'Ouvrez notre bot Telegram et inscrivez-vous en quelques secondes.',
+    s2t: 'Recevez des tokens',
+    s2p: 'Recevez des tokens SLH en bonus d\'inscription et \u00E0 chaque action.',
+    s3t: 'Tradez et gagnez',
+    s3p: '\u00C9changez des tokens, investissez dans des plans de rendement et g\u00E9n\u00E9rez des revenus passifs.',
+    s4t: 'Parrainez vos amis',
+    s4p: 'Invitez vos amis, gagnez des commissions et construisez un r\u00E9seau de revenus.',
+
+    // Landing — Features
+    feat_title: 'Fonctionnalit\u00E9s de la plateforme',
+    feat_sub: 'Technologie avanc\u00E9e pour une \u00E9conomie communautaire',
+
+    // Landing — Join
+    join_tag: 'Rejoignez-nous',
+    join_title: 'Faites partie de la r\u00E9volution',
+    join_sub: 'Rejoignez des milliers d\'utilisateurs qui gagnent d\u00E9j\u00E0 avec SLH Spark.',
+    join_btn: 'Commencer',
+    join_label: 'Rejoindre via Telegram',
+    join_telegram: 'Ouvrir le bot sur Telegram',
+    join_welcome: 'Bienvenue dans l\'\u00E9cosyst\u00E8me SLH !',
+    join_your_link: 'Votre lien',
+
+    // Trade
+    trade_title: 'Trading',
+    trade_sub: 'Achetez, vendez et \u00E9changez des tokens SLH facilement.',
+    trade_prices: 'Prix en direct',
+    trade_swap: '\u00C9change',
+    trade_buy_slh: 'Acheter SLH',
+    trade_24h: 'Variation 24h',
+    trade_market_cap: 'Capitalisation',
+    trade_volume: 'Volume',
+
+    // Earn
+    earn_title: 'Gagner',
+    earn_sub: 'D\u00E9posez vos tokens et gagnez des rendements quotidiens.',
+    earn_plans: 'Plans de staking',
+    earn_calculator: 'Calculateur de profit',
+    earn_how: 'Comment \u00E7a marche ?',
+    earn_faq: 'FAQ',
+    earn_stake_now: 'Staker maintenant',
+    earn_monthly: 'Mensuel',
+    earn_quarterly: 'Trimestriel',
+    earn_semi: 'Semestriel',
+    earn_annual: 'Annuel',
+    earn_apy: 'Rendement annuel',
+    earn_min: 'D\u00E9p\u00F4t minimum',
+    earn_lock: 'P\u00E9riode de verrouillage',
+    earn_projected: 'Profit pr\u00E9vu',
+
+    // Wallet
+    wallet_title: 'Portefeuille',
+    wallet_balance: 'Solde',
+    wallet_send: 'Envoyer',
+    wallet_receive: 'Recevoir',
+    wallet_history: 'Historique',
+    wallet_available: 'Disponible',
+    wallet_locked: 'Verrouill\u00E9',
+    wallet_total: 'Total',
+
+    // Bots
+    bots_title: 'Bots',
+    bots_sub: 'L\'\u00E9cosyst\u00E8me de bots intelligents SLH \u2014 chaque bot est un syst\u00E8me \u00E9conomique ind\u00E9pendant.',
+    bots_all: 'Tous',
+    bots_financial: 'Financier',
+    bots_saas: 'SaaS',
+    bots_community: 'Communaut\u00E9',
+    bots_gaming: 'Jeux',
+    bots_security: 'S\u00E9curit\u00E9',
+    bots_education: '\u00C9ducation',
+    bots_open: 'Ouvrir le bot',
+    bots_coming: 'Bient\u00F4t',
+
+    // Referral
+    ref_title: 'Programme de parrainage',
+    ref_sub: 'Invitez vos amis et gagnez des commissions \u00E0 chaque niveau.',
+    ref_your_link: 'Votre lien',
+    ref_stats: 'Statistiques',
+    ref_tree: 'Arbre de parrainage',
+    ref_share: 'Partager',
+    ref_copy: 'Copier',
+    ref_commission: 'Commission',
+    ref_direct: 'Parrainages directs',
+    ref_network: 'R\u00E9seau',
+    ref_earned: 'Total gagn\u00E9',
+    ref_gen: 'G\u00E9n\u00E9ration',
+
+    // Common
+    common_login: 'Connexion',
+    common_logout: 'D\u00E9connexion',
+    common_copy: 'Copier',
+    common_copied: 'Copi\u00E9 !',
+    common_share: 'Partager',
+    common_download: 'T\u00E9l\u00E9charger',
+    common_close: 'Fermer',
+    common_back: 'Retour',
+    common_loading: 'Chargement...',
+    common_error: 'Erreur',
+    common_success: 'Succ\u00E8s',
+    common_price: 'Prix',
+    common_amount: 'Montant',
+    common_total: 'Total',
+    footer_rights: 'Tous droits r\u00E9serv\u00E9s',
+    footer_powered: 'Propuls\u00E9 par SLH Spark'
+  }
+};
+
+// RTL languages
+T._rtl = ['he', 'ar'];
+
+// Default language
+T._default = 'he';

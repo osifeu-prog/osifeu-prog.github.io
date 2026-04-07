@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLH Ecosystem | Earn - Staking & Passive Income</title>
+  <meta name="description" content="Earn passive income with SLH staking plans. Up to 65% APY. Stake TON tokens and earn daily returns.">
+  <meta name="keywords" content="SLH, staking, earn, passive income, APY, TON, crypto, yield, investment">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    /* ── Earn Page Styles ── */
+    .earn-page { padding-top: calc(var(--topnav-h) + 20px); min-height: 100vh; }
+    .earn-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
+
+    /* Hero */
+    .earn-hero {
+      text-align: center;
+      padding: 60px 20px 50px;
+      position: relative;
+    }
+    .earn-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(108, 92, 231, .15);
+      border: 1px solid rgba(108, 92, 231, .3);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+    .earn-hero-badge i { font-size: 14px; }
+    .earn-hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .earn-hero .apy-highlight {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .earn-hero p {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Stats Bar */
+    .earn-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .earn-stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .earn-stat-card .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+    .earn-stat-card .stat-value.gold { color: var(--gold); }
+    .earn-stat-card .stat-value.green { color: var(--green); }
+    .earn-stat-card .stat-label {
+      font-size: 13px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    /* Section titles */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text2);
+      margin-bottom: 32px;
+    }
+
+    /* Staking Plans Grid */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .plan-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .plan-card.popular::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--orange));
+    }
+    .plan-card .popular-badge {
+      position: absolute;
+      top: 12px;
+      inset-inline-end: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .plan-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .plan-icon.monthly { background: rgba(0, 180, 216, .15); color: var(--cyan); }
+    .plan-icon.quarterly { background: rgba(108, 92, 231, .15); color: var(--accent2); }
+    .plan-icon.semi { background: rgba(0, 206, 201, .15); color: var(--green); }
+    .plan-icon.annual { background: rgba(255, 211, 42, .15); color: var(--gold); }
+
+    .plan-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .plan-apy {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 12px 0;
+    }
+    .plan-apy small {
+      font-size: 14px;
+      font-weight: 600;
+      -webkit-text-fill-color: var(--text2);
+    }
+    .plan-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0 20px;
+    }
+    .plan-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .plan-detail .label { color: var(--text3); }
+    .plan-detail .value { font-weight: 600; color: var(--text); }
+    .plan-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .plan-btn:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    /* Calculator */
+    .calc-section { margin-bottom: 60px; }
+    .calc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .calc-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .calc-group { display: flex; flex-direction: column; gap: 6px; }
+    .calc-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+    }
+    .calc-group input,
+    .calc-group select {
+      padding: 12px 16px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .calc-group input:focus,
+    .calc-group select:focus {
+      border-color: var(--accent);
+    }
+    .calc-group select option { background: var(--bg2); color: var(--text); }
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .calc-result {
+      text-align: center;
+      padding: 16px;
+      background: var(--bg2);
+      border-radius: var(--radius-sm);
+    }
+    .calc-result .res-label {
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 6px;
+    }
+    .calc-result .res-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .calc-result .res-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    /* How to Earn Steps */
+    .steps-section { margin-bottom: 60px; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      transition: all var(--transition);
+    }
+    .step-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step-icon {
+      font-size: 28px;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+    .step-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .step-card p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* Positions Table */
+    .positions-section { margin-bottom: 60px; }
+    .positions-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+    }
+    .positions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .positions-table th {
+      padding: 14px 16px;
+      text-align: start;
+      font-weight: 600;
+      color: var(--text3);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .positions-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .positions-table tr:last-child td { border-bottom: none; }
+    .positions-table tr:hover td { background: rgba(108, 92, 231, .04); }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status-badge.active { background: rgba(0, 206, 201, .15); color: var(--green); }
+    .status-badge.locked { background: rgba(255, 165, 2, .15); color: var(--orange); }
+    .status-badge.completed { background: rgba(108, 92, 231, .15); color: var(--accent2); }
+    .positions-empty {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text3);
+    }
+    .positions-empty i { font-size: 40px; margin-bottom: 12px; display: block; color: var(--text3); }
+    .positions-login-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .positions-login-btn:hover { background: var(--accent2); color: #fff; }
+
+    /* Deals Section */
+    .deals-section { margin-bottom: 60px; }
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .deal-card {
+      background: linear-gradient(135deg, rgba(108, 92, 231, .1), rgba(0, 206, 201, .05));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .deal-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .deal-card .deal-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .deal-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .deal-card p { font-size: 13px; color: var(--text2); margin-bottom: 12px; line-height: 1.5; }
+    .deal-code {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg2);
+      border: 1px dashed var(--border2);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .deal-code:hover { border-color: var(--gold); }
+    .deal-code i { font-size: 12px; color: var(--text3); }
+
+    /* FAQ Accordion */
+    .faq-section { margin-bottom: 60px; }
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: var(--accent); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      gap: 12px;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--accent2); }
+    .faq-q i {
+      font-size: 12px;
+      color: var(--text3);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q i { transform: rotate(180deg); color: var(--accent); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 22px 18px;
+    }
+    .faq-a p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .earn-hero { padding: 40px 10px 30px; }
+      .calc-inputs { grid-template-columns: 1fr; }
+      .calc-results { grid-template-columns: 1fr; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .earn-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .earn-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared: Top Nav -->
+  <div id="topnav-root"></div>
+
+  <!-- Shared: Ticker -->
+  <div id="ticker-root"></div>
+
+  <main class="earn-page">
+    <div class="earn-container">
+
+      <!-- 1. Hero Banner -->
+      <section class="earn-hero rv">
+        <div class="earn-hero-badge">
+          <i class="fas fa-fire"></i>
+          <span data-i18n="earn_hero_badge">Live Staking Plans</span>
+        </div>
+        <h1>
+          <span data-i18n="earn_hero_title">Earn Passive Income</span><br>
+          <span class="apy-highlight" data-i18n="earn_hero_apy">Up to 65% APY</span>
+        </h1>
+        <p data-i18n="earn_sub">Stake your tokens and earn daily returns.</p>
+      </section>
+
+      <!-- Quick Stats -->
+      <section class="earn-stats rv">
+        <div class="earn-stat-card">
+          <div class="stat-value gold" id="stat-tvl">--</div>
+          <div class="stat-label" data-i18n="earn_stat_tvl">Total Value Locked</div>
+        </div>
+        <div class="earn-stat-card">
+          <div class="stat-value green" id="stat-stakers">--</div>
+          <div class="stat-label" data-i18n="earn_stat_stakers">Active Stakers</div>
+        </div>
+        <div class="earn-stat-card">
+          <div class="stat-value" id="stat-paid">--</div>
+          <div class="stat-label" data-i18n="earn_stat_paid">Total Paid Out</div>
+        </div>
+        <div class="earn-stat-card">
+          <div class="stat-value green" id="stat-max-apy">65%</div>
+          <div class="stat-label" data-i18n="earn_stat_max_apy">Max APY</div>
+        </div>
+      </section>
+
+      <!-- 2. Staking Plans Grid -->
+      <section class="plans-section rv">
+        <div class="section-tag"><i class="fas fa-coins"></i> <span data-i18n="earn_plans">Staking Plans</span></div>
+        <h2 class="section-title" data-i18n="earn_plans_title">Choose Your Staking Plan</h2>
+        <p class="section-sub" data-i18n="earn_plans_sub">Lock your TON tokens and earn guaranteed returns.</p>
+        <div class="plans-grid" id="plans-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 3. Earnings Calculator -->
+      <section class="calc-section rv">
+        <div class="section-tag"><i class="fas fa-calculator"></i> <span data-i18n="earn_calculator">Profit Calculator</span></div>
+        <h2 class="section-title" data-i18n="earn_calc_title">Calculate Your Earnings</h2>
+        <p class="section-sub" data-i18n="earn_calc_sub">See how much you can earn with SLH staking.</p>
+        <div class="calc-card">
+          <div class="calc-inputs">
+            <div class="calc-group">
+              <label data-i18n="earn_calc_amount">Amount (TON)</label>
+              <input type="number" id="calc-amount" min="1" step="0.1" value="10" placeholder="10">
+            </div>
+            <div class="calc-group">
+              <label data-i18n="earn_calc_plan">Select Plan</label>
+              <select id="calc-plan">
+                <option value="monthly" data-i18n="earn_monthly">Monthly</option>
+                <option value="quarterly" data-i18n="earn_quarterly">Quarterly</option>
+                <option value="semi" data-i18n="earn_semi">Semi-Annual</option>
+                <option value="annual" data-i18n="earn_annual">Annual</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-results">
+            <div class="calc-result">
+              <div class="res-label" data-i18n="earn_calc_monthly_return">Monthly Return</div>
+              <div class="res-value" id="calc-monthly">0 TON</div>
+            </div>
+            <div class="calc-result">
+              <div class="res-label" data-i18n="earn_calc_total_return">Total Return</div>
+              <div class="res-value" id="calc-total">0 TON</div>
+            </div>
+            <div class="calc-result">
+              <div class="res-label" data-i18n="earn_calc_unlock">Unlock Date</div>
+              <div class="res-value" id="calc-unlock" style="font-size:16px;">--</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. How to Earn -->
+      <section class="steps-section rv">
+        <div class="section-tag"><i class="fas fa-route"></i> <span data-i18n="earn_how">How It Works</span></div>
+        <h2 class="section-title" data-i18n="earn_how_title">Start Earning in 3 Steps</h2>
+        <p class="section-sub" data-i18n="earn_how_sub">Simple, transparent, and secure staking process.</p>
+        <div class="steps-grid">
+          <div class="step-card rv">
+            <div class="step-num">1</div>
+            <div class="step-icon"><i class="fas fa-wallet"></i></div>
+            <h3 data-i18n="earn_step1_title">Connect Wallet</h3>
+            <p data-i18n="earn_step1_desc">Link your TON wallet or log in through our Telegram bot to get started.</p>
+          </div>
+          <div class="step-card rv">
+            <div class="step-num">2</div>
+            <div class="step-icon"><i class="fas fa-hand-pointer"></i></div>
+            <h3 data-i18n="earn_step2_title">Choose a Plan</h3>
+            <p data-i18n="earn_step2_desc">Select a staking plan that fits your goals. Higher lock periods mean higher returns.</p>
+          </div>
+          <div class="step-card rv">
+            <div class="step-num">3</div>
+            <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+            <h3 data-i18n="earn_step3_title">Earn Returns</h3>
+            <p data-i18n="earn_step3_desc">Watch your earnings grow daily. Withdraw or re-stake when the lock period ends.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. My Positions -->
+      <section class="positions-section rv">
+        <div class="section-tag"><i class="fas fa-layer-group"></i> <span data-i18n="earn_positions">My Positions</span></div>
+        <h2 class="section-title" data-i18n="earn_positions_title">Active Staking Positions</h2>
+        <p class="section-sub" data-i18n="earn_positions_sub">Track your staking activity and returns.</p>
+        <div class="positions-table-wrap" id="positions-wrap">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 6. Deals Section -->
+      <section class="deals-section rv">
+        <div class="section-tag"><i class="fas fa-tags"></i> <span data-i18n="earn_deals">Active Promotions</span></div>
+        <h2 class="section-title" data-i18n="earn_deals_title">Special Deals & Bonuses</h2>
+        <p class="section-sub" data-i18n="earn_deals_sub">Take advantage of limited-time offers for extra returns.</p>
+        <div class="deals-grid" id="deals-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 7. FAQ Accordion -->
+      <section class="faq-section rv">
+        <div class="section-tag"><i class="fas fa-question-circle"></i> <span data-i18n="earn_faq">FAQ</span></div>
+        <h2 class="section-title" data-i18n="earn_faq_title">Frequently Asked Questions</h2>
+        <p class="section-sub" data-i18n="earn_faq_sub">Everything you need to know about SLH staking.</p>
+        <div class="faq-list" id="faq-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared: Bottom Nav -->
+  <div id="bottomnav-root"></div>
+
+  <!-- Shared: Footer -->
+  <div id="footer-root"></div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+  /* ====================================================
+     Earn Page — Inline Script
+     ==================================================== */
+
+  /* ── Plan Definitions (fallback if API unavailable) ── */
+  const DEFAULT_PLANS = [
+    {
+      id: 'monthly',
+      nameKey: 'earn_monthly',
+      icon: 'fa-calendar-day',
+      iconClass: 'monthly',
+      monthlyRate: 4,
+      annualRate: 48,
+      minDeposit: 1,
+      lockDays: 30,
+      popular: false
+    },
+    {
+      id: 'quarterly',
+      nameKey: 'earn_quarterly',
+      icon: 'fa-calendar-week',
+      iconClass: 'quarterly',
+      monthlyRate: 4.5,
+      annualRate: 55,
+      minDeposit: 5,
+      lockDays: 90,
+      popular: false
+    },
+    {
+      id: 'semi',
+      nameKey: 'earn_semi',
+      icon: 'fa-calendar-alt',
+      iconClass: 'semi',
+      monthlyRate: 5,
+      annualRate: 60,
+      minDeposit: 10,
+      lockDays: 180,
+      popular: true
+    },
+    {
+      id: 'annual',
+      nameKey: 'earn_annual',
+      icon: 'fa-calendar-check',
+      iconClass: 'annual',
+      monthlyRate: 5.4,
+      annualRate: 65,
+      minDeposit: 25,
+      lockDays: 365,
+      popular: false
+    }
+  ];
+
+  const DEALS = [
+    {
+      code: 'LAUNCH30',
+      titleKey: 'earn_deal1_title',
+      titleFallback: 'Launch Bonus',
+      descKey: 'earn_deal1_desc',
+      descFallback: 'Get 30% extra tokens on your first stake. New users only.',
+      badge: 'NEW'
+    },
+    {
+      code: 'BUNDLE_ALL',
+      titleKey: 'earn_deal2_title',
+      titleFallback: 'Bundle Deal',
+      descKey: 'earn_deal2_desc',
+      descFallback: 'Stake in 3+ plans and receive a 10% APY boost across all positions.',
+      badge: 'HOT'
+    },
+    {
+      code: 'REFER50',
+      titleKey: 'earn_deal3_title',
+      titleFallback: 'Referral Reward',
+      descKey: 'earn_deal3_desc',
+      descFallback: 'Earn 50 bonus SLH for every friend who stakes. Unlimited referrals.',
+      badge: 'EARN'
+    }
+  ];
+
+  const FAQ_ITEMS = [
+    {
+      qKey: 'earn_faq1_q', qFallback: 'What is staking and how does it work?',
+      aKey: 'earn_faq1_a', aFallback: 'Staking means locking your TON tokens in a smart contract for a fixed period. In return, you earn daily interest at the rate specified by your chosen plan. Your principal plus returns are unlocked at the end of the lock period.'
+    },
+    {
+      qKey: 'earn_faq2_q', qFallback: 'What is the minimum amount to stake?',
+      aKey: 'earn_faq2_a', aFallback: 'The minimum depends on the plan: Monthly requires 1 TON, Quarterly 5 TON, Semi-Annual 10 TON, and Annual 25 TON.'
+    },
+    {
+      qKey: 'earn_faq3_q', qFallback: 'Can I withdraw before the lock period ends?',
+      aKey: 'earn_faq3_a', aFallback: 'Early withdrawal is possible but may incur a penalty fee depending on the plan. We recommend staking only amounts you can lock for the full period to maximize your returns.'
+    },
+    {
+      qKey: 'earn_faq4_q', qFallback: 'How are returns calculated?',
+      aKey: 'earn_faq4_a', aFallback: 'Returns are calculated daily based on the monthly rate of your plan. For example, 4% monthly on 10 TON yields 0.4 TON per month. Returns accrue daily and compound automatically if you re-stake.'
+    },
+    {
+      qKey: 'earn_faq5_q', qFallback: 'Is my staked amount safe?',
+      aKey: 'earn_faq5_a', aFallback: 'All staked funds are secured by TON blockchain smart contracts. The SLH ecosystem uses multi-layer security including cold storage and real-time monitoring to protect your assets.'
+    },
+    {
+      qKey: 'earn_faq6_q', qFallback: 'How do promotional codes work?',
+      aKey: 'earn_faq6_a', aFallback: 'Enter a promotional code when creating a new staking position to receive bonus tokens or boosted rates. Each code has its own terms and expiry. Check the Deals section for current active promotions.'
+    }
+  ];
+
+  let activePlans = DEFAULT_PLANS;
+
+  /* ── Render: Plans Grid ── */
+  function renderPlans(plans) {
+    const grid = document.getElementById('plans-grid');
+    if (!grid) return;
+
+    grid.innerHTML = plans.map(p => `
+      <div class="plan-card ${p.popular ? 'popular' : ''}">
+        ${p.popular ? `<span class="popular-badge" data-i18n="earn_popular">Popular</span>` : ''}
+        <div class="plan-icon ${p.iconClass}"><i class="fas ${p.icon}"></i></div>
+        <div class="plan-name" data-i18n="${p.nameKey}">${t(p.nameKey)}</div>
+        <div class="plan-apy">
+          ${p.monthlyRate}% <small data-i18n="earn_per_month">/ month</small>
+        </div>
+        <div class="plan-details">
+          <div class="plan-detail">
+            <span class="label" data-i18n="earn_apy">${t('earn_apy')}</span>
+            <span class="value">${p.annualRate}%</span>
+          </div>
+          <div class="plan-detail">
+            <span class="label" data-i18n="earn_min">${t('earn_min')}</span>
+            <span class="value">${p.minDeposit} TON</span>
+          </div>
+          <div class="plan-detail">
+            <span class="label" data-i18n="earn_lock">${t('earn_lock')}</span>
+            <span class="value">${p.lockDays} ${t('earn_days') || 'days'}</span>
+          </div>
+        </div>
+        <button class="plan-btn" onclick="handleStake('${p.id}')" data-i18n="earn_stake_now">${t('earn_stake_now')}</button>
+      </div>
+    `).join('');
+  }
+
+  /* ── Render: Calculator ── */
+  function updateCalc() {
+    const amount = parseFloat(document.getElementById('calc-amount').value) || 0;
+    const planId = document.getElementById('calc-plan').value;
+    const plan = activePlans.find(p => p.id === planId) || activePlans[0];
+
+    const monthlyReturn = amount * (plan.monthlyRate / 100);
+    const totalMonths = plan.lockDays / 30;
+    const totalReturn = monthlyReturn * totalMonths;
+
+    const unlockDate = new Date();
+    unlockDate.setDate(unlockDate.getDate() + plan.lockDays);
+    const formattedDate = unlockDate.toLocaleDateString(getLang() === 'he' ? 'he-IL' : getLang() === 'ar' ? 'ar-SA' : getLang() === 'ru' ? 'ru-RU' : 'en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+
+    document.getElementById('calc-monthly').textContent = `${monthlyReturn.toFixed(2)} TON`;
+    document.getElementById('calc-total').textContent = `${totalReturn.toFixed(2)} TON`;
+    document.getElementById('calc-unlock').textContent = formattedDate;
+  }
+
+  /* ── Render: Positions ── */
+  function renderPositions(positions) {
+    const wrap = document.getElementById('positions-wrap');
+    if (!wrap) return;
+
+    if (!isLoggedIn()) {
+      wrap.innerHTML = `
+        <div class="positions-empty">
+          <i class="fas fa-lock"></i>
+          <p data-i18n="earn_positions_login">${t('earn_positions_login') || 'Log in to view your staking positions'}</p>
+          <a href="/dashboard.html" class="positions-login-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            <span data-i18n="nav_login">${t('nav_login')}</span>
+          </a>
+        </div>`;
+      return;
+    }
+
+    if (!positions || positions.length === 0) {
+      wrap.innerHTML = `
+        <div class="positions-empty">
+          <i class="fas fa-inbox"></i>
+          <p data-i18n="earn_no_positions">${t('earn_no_positions') || 'No active staking positions yet. Choose a plan above to start earning.'}</p>
+        </div>`;
+      return;
+    }
+
+    const rows = positions.map(pos => {
+      const statusClass = pos.status === 'active' ? 'active' : pos.status === 'locked' ? 'locked' : 'completed';
+      const statusText = pos.status === 'active' ? (t('earn_status_active') || 'Active')
+                       : pos.status === 'locked' ? (t('earn_status_locked') || 'Locked')
+                       : (t('earn_status_completed') || 'Completed');
+      const startDate = new Date(pos.startDate).toLocaleDateString();
+      const endDate = new Date(pos.endDate).toLocaleDateString();
+      return `<tr>
+        <td>${pos.planName || pos.plan || '--'}</td>
+        <td><strong>${formatNumber(pos.amount)} TON</strong></td>
+        <td>${pos.apy || pos.annualRate || '--'}%</td>
+        <td>${startDate}</td>
+        <td>${endDate}</td>
+        <td><span class="status-badge ${statusClass}"><i class="fas fa-circle" style="font-size:6px"></i> ${statusText}</span></td>
+        <td><strong style="color:var(--green)">+${formatNumber(pos.earned || 0)} TON</strong></td>
+      </tr>`;
+    }).join('');
+
+    wrap.innerHTML = `
+      <table class="positions-table">
+        <thead>
+          <tr>
+            <th data-i18n="earn_col_plan">${t('earn_col_plan') || 'Plan'}</th>
+            <th data-i18n="common_amount">${t('common_amount')}</th>
+            <th data-i18n="earn_apy">${t('earn_apy')}</th>
+            <th data-i18n="earn_col_start">${t('earn_col_start') || 'Start'}</th>
+            <th data-i18n="earn_col_end">${t('earn_col_end') || 'End'}</th>
+            <th data-i18n="earn_col_status">${t('earn_col_status') || 'Status'}</th>
+            <th data-i18n="earn_col_earned">${t('earn_col_earned') || 'Earned'}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+  /* ── Render: Deals ── */
+  function renderDeals() {
+    const grid = document.getElementById('deals-grid');
+    if (!grid) return;
+
+    grid.innerHTML = DEALS.map(d => `
+      <div class="deal-card">
+        <span class="deal-badge">${d.badge}</span>
+        <h3 data-i18n="${d.titleKey}">${t(d.titleKey) || d.titleFallback}</h3>
+        <p data-i18n="${d.descKey}">${t(d.descKey) || d.descFallback}</p>
+        <div class="deal-code" onclick="copyToClipboard('${d.code}')" title="Click to copy">
+          <i class="fas fa-copy"></i> ${d.code}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  /* ── Render: FAQ ── */
+  function renderFAQ() {
+    const list = document.getElementById('faq-list');
+    if (!list) return;
+
+    list.innerHTML = FAQ_ITEMS.map((faq, i) => `
+      <div class="faq-item" data-faq="${i}">
+        <div class="faq-q" onclick="toggleFaq(${i})">
+          <span data-i18n="${faq.qKey}">${t(faq.qKey) || faq.qFallback}</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p data-i18n="${faq.aKey}">${t(faq.aKey) || faq.aFallback}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleFaq(index) {
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach((item, i) => {
+      if (i === index) {
+        item.classList.toggle('open');
+      } else {
+        item.classList.remove('open');
+      }
+    });
+  }
+
+  /* ── Handle Stake Action ── */
+  function handleStake(planId) {
+    if (!isLoggedIn()) {
+      showToast(t('earn_login_required') || 'Please log in to stake', true);
+      setTimeout(() => { window.location.href = '/dashboard.html'; }, 1500);
+      return;
+    }
+    // Open Telegram bot with staking command
+    const user = getCurrentUser();
+    window.open(`https://t.me/SLH_AIR_bot?start=stake_${planId}_${user.id}`, '_blank');
+  }
+
+  /* ── Fetch Plans from API ── */
+  async function loadPlans() {
+    const data = await apiGet('/api/staking/plans');
+    if (data && Array.isArray(data) && data.length > 0) {
+      activePlans = data.map(p => ({
+        id: p.id || p.name,
+        nameKey: p.nameKey || `earn_${p.id}`,
+        icon: p.icon || 'fa-coins',
+        iconClass: p.iconClass || p.id || 'monthly',
+        monthlyRate: p.monthlyRate || p.rate,
+        annualRate: p.annualRate || p.apy,
+        minDeposit: p.minDeposit || p.min,
+        lockDays: p.lockDays || p.lock,
+        popular: p.popular || false
+      }));
+    }
+    renderPlans(activePlans);
+    updateCalc();
+  }
+
+  /* ── Fetch Positions from API ── */
+  async function loadPositions() {
+    if (!isLoggedIn()) {
+      renderPositions(null);
+      return;
+    }
+    const user = getCurrentUser();
+    const data = await apiGet(`/api/staking/positions/${user.id}`);
+    renderPositions(data && Array.isArray(data) ? data : []);
+  }
+
+  /* ── Fetch Stats ── */
+  async function loadStats() {
+    const data = await apiGet('/api/staking/stats');
+    if (data) {
+      if (data.tvl != null) document.getElementById('stat-tvl').textContent = formatNumber(data.tvl) + ' TON';
+      if (data.stakers != null) document.getElementById('stat-stakers').textContent = formatNumber(data.stakers);
+      if (data.totalPaid != null) document.getElementById('stat-paid').textContent = formatNumber(data.totalPaid) + ' TON';
+      if (data.maxApy != null) document.getElementById('stat-max-apy').textContent = data.maxApy + '%';
+    }
+  }
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    initShared({ activePage: 'earn', showTicker: true, showBottomNav: true });
+
+    // Render static sections
+    renderDeals();
+    renderFAQ();
+
+    // Load dynamic data
+    loadPlans();
+    loadPositions();
+    loadStats();
+
+    // Calculator listeners
+    document.getElementById('calc-amount').addEventListener('input', updateCalc);
+    document.getElementById('calc-plan').addEventListener('change', updateCalc);
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Bots | 20+ Telegram Bots Ecosystem</title>
+    <meta name="description" content="SLH Ecosystem - 20+ Telegram bots. Every bot is a business. Financial, SaaS, Community, Gaming, Security bots.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#050510">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/shared.css">
+    <style>
+        /* ── Hero ── */
+        .bots-hero {
+            text-align: center;
+            padding: 80px 24px 48px;
+            position: relative;
+        }
+        .bots-hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent2), var(--cyan), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bots-hero p {
+            font-size: 18px;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .bots-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* ── Filter Tabs ── */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 24px 32px;
+        }
+        .filter-tab {
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text2);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .filter-tab:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* ── Bot Grid ── */
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bot-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .bot-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(108, 92, 231, .12);
+            transform: translateY(-2px);
+        }
+        .bot-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .bot-emoji {
+            font-size: 36px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg3);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+        .bot-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .bot-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+        .bot-handle {
+            font-size: 13px;
+            color: var(--accent2);
+            font-family: var(--font-mono);
+        }
+        .bot-status {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+        [dir="rtl"] .bot-status {
+            right: auto;
+            left: 16px;
+        }
+        .bot-desc {
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.5;
+        }
+        .bot-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .bot-tag {
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--bg3);
+            color: var(--text3);
+        }
+        .bot-card-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .bot-open-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .bot-open-link:hover {
+            background: var(--accent2);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ── Coming Soon ── */
+        .coming-soon-section {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 0 24px 80px;
+        }
+        .coming-soon-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--text);
+        }
+        .coming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .coming-card {
+            background: var(--surface);
+            border: 1px dashed var(--border2);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            opacity: .7;
+            transition: all var(--transition);
+        }
+        .coming-card:hover {
+            opacity: 1;
+            border-color: var(--gold);
+        }
+        .coming-card .coming-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .coming-card .coming-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .coming-card .coming-label {
+            font-size: 12px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .bots-hero { padding: 70px 16px 32px; }
+            .bots-grid { grid-template-columns: 1fr; padding: 0 16px; }
+            .filter-tabs { padding: 0 16px 24px; }
+            .coming-grid { grid-template-columns: repeat(2, 1fr); }
+            .coming-soon-section { padding: 0 16px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Nav -->
+    <div id="topnav-root"></div>
+
+    <!-- Ticker -->
+    <div id="ticker-root"></div>
+
+    <!-- Hero -->
+    <section class="bots-hero rv">
+        <h1 data-i18n="bots_hero_title">20+ Telegram Bots — Every Bot is a Business</h1>
+        <p data-i18n="bots_sub">The smart bot ecosystem of SLH — every bot is an independent economic system.</p>
+        <div class="bots-count">
+            <i class="fas fa-robot"></i>
+            <span id="bot-count">20</span> <span data-i18n="bots_active">Active Bots</span>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all" data-i18n="bots_all">All</button>
+        <button class="filter-tab" data-filter="financial" data-i18n="bots_financial">Financial</button>
+        <button class="filter-tab" data-filter="saas" data-i18n="bots_saas">SaaS</button>
+        <button class="filter-tab" data-filter="community" data-i18n="bots_community">Community</button>
+        <button class="filter-tab" data-filter="gaming" data-i18n="bots_gaming">Gaming</button>
+        <button class="filter-tab" data-filter="security" data-i18n="bots_security">Security</button>
+    </div>
+
+    <!-- Bot Grid -->
+    <div class="bots-grid" id="bots-grid"></div>
+
+    <!-- Coming Soon -->
+    <section class="coming-soon-section rv">
+        <h2 data-i18n="bots_coming">Coming Soon</h2>
+        <div class="coming-grid" id="coming-grid"></div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-root"></div>
+
+    <!-- Bottom Nav -->
+    <div id="bottomnav-root"></div>
+
+    <script src="/js/translations.js"></script>
+    <script src="/js/shared.js"></script>
+    <script>
+    /* ── Bot Data ── */
+    const BOTS = [
+        { handle: '@SLH_AIR_bot', name: 'SLH Investment House', emoji: '\uD83C\uDFE6', desc: 'Full investment house with deposits, yields, staking, and portfolio management. 4%-65% APY.', status: 'LIVE', tags: ['financial', 'investment', 'staking'], category: 'financial' },
+        { handle: '@Grdian_bot', name: 'Guardian Security', emoji: '\uD83D\uDEE1\uFE0F', desc: 'Group protection bot with anti-spam, verification gates, threat detection, and admin tools.', status: 'LIVE', tags: ['security', 'admin', 'protection'], category: 'security' },
+        { handle: '@SLH_Academia_bot', name: 'SLH Academy', emoji: '\uD83C\uDF93', desc: 'Educational platform with courses, certifications, VIP tiers, and multi-language support.', status: 'LIVE', tags: ['community', 'education', 'premium'], category: 'community' },
+        { handle: '@Buy_My_Shop_bot', name: 'BotShop', emoji: '\uD83D\uDED2', desc: 'Buy, sell, and deploy ready-made Telegram bots. White-label SaaS marketplace.', status: 'LIVE', tags: ['saas', 'marketplace', 'bots'], category: 'saas' },
+        { handle: '@SLH_Wallet_bot', name: 'SLH Wallet', emoji: '\uD83D\uDCB0', desc: 'Multi-currency wallet with TON & BSC support. Send, receive, swap tokens instantly.', status: 'LIVE', tags: ['financial', 'wallet', 'crypto'], category: 'financial' },
+        { handle: '@Osifs_Factory_bot', name: 'Osif Factory', emoji: '\uD83C\uDFED', desc: 'Bot factory for creating and deploying custom Telegram bots with zero coding.', status: 'LIVE', tags: ['saas', 'builder', 'automation'], category: 'saas' },
+        { handle: '@Campaign_SLH_bot', name: 'Campaign Manager', emoji: '\uD83D\uDCE3', desc: 'Marketing campaigns, airdrops, promotions, and user engagement tools for groups.', status: 'LIVE', tags: ['community', 'marketing', 'campaigns'], category: 'community' },
+        { handle: '@SLH_community_bot', name: 'Community & Fun', emoji: '\uD83C\uDF89', desc: 'Community engagement with games, trivia, polls, memes, and social features.', status: 'LIVE', tags: ['community', 'fun', 'social'], category: 'community' },
+        { handle: '@G4meb0t_bot_bot', name: 'Game Bot', emoji: '\uD83C\uDFAE', desc: 'Arcade games, tournaments, leaderboards, and token rewards. Play to earn.', status: 'LIVE', tags: ['gaming', 'arcade', 'p2e'], category: 'gaming' },
+        { handle: '@SLH_ton_bot', name: 'SLH TON', emoji: '\uD83D\uDC8E', desc: 'TON blockchain integration with wallet, swaps, NFT minting, and dApp gateway.', status: 'LIVE', tags: ['financial', 'ton', 'blockchain'], category: 'financial' },
+        { handle: '@SLH_Ledger_bot', name: 'SLH Ledger', emoji: '\uD83D\uDCD7', desc: 'Transaction ledger, accounting records, and financial reporting for businesses.', status: 'LIVE', tags: ['financial', 'accounting', 'reports'], category: 'financial' },
+        { handle: '@OsifShop_bot', name: 'Shop SaaS', emoji: '\uD83C\uDFEA', desc: 'Inventory management SaaS for Telegram shops. Products, orders, payments, analytics.', status: 'LIVE', tags: ['saas', 'inventory', 'shop'], category: 'saas' },
+        { handle: '@MY_NFT_SHOP_bot', name: 'NFT Shop', emoji: '\uD83D\uDDBC\uFE0F', desc: 'NFT marketplace inside Telegram. Browse, buy, sell, and auction digital collectibles.', status: 'LIVE', tags: ['financial', 'nft', 'marketplace'], category: 'financial' },
+        { handle: '@NIFTI_Publisher_Bot', name: 'NFT Publisher', emoji: '\uD83D\uDCF0', desc: 'Publish and mint NFTs directly from Telegram. Batch minting, metadata editor.', status: 'LIVE', tags: ['saas', 'nft', 'publishing'], category: 'saas' },
+        { handle: '@NFTY_madness_bot', name: 'NFT Madness', emoji: '\uD83D\uDD25', desc: 'NFT gaming and collectible madness. Spin, win, trade rare digital items.', status: 'LIVE', tags: ['gaming', 'nft', 'collectibles'], category: 'gaming' },
+        { handle: '@Chance_Pais_bot', name: 'Chance', emoji: '\uD83C\uDFB0', desc: 'Luck-based games, raffles, lottery draws, and chance-based reward systems.', status: 'LIVE', tags: ['gaming', 'lottery', 'rewards'], category: 'gaming' },
+        { handle: '@My_crazy_panel_bot', name: 'Crazy Panel', emoji: '\uD83D\uDCCA', desc: 'Admin dashboard bot with analytics, user management, and control panel features.', status: 'LIVE', tags: ['saas', 'admin', 'dashboard'], category: 'saas' },
+        { handle: '@TON_MNH_bot', name: 'TON Manager', emoji: '\u2699\uFE0F', desc: 'TON blockchain management tools. Smart contracts, validators, staking management.', status: 'LIVE', tags: ['financial', 'ton', 'management'], category: 'financial' },
+        { handle: '@MY_SUPER_ADMIN_bot', name: 'Super Admin', emoji: '\uD83D\uDD11', desc: 'Super admin panel for managing all SLH bots, users, tokens, and system settings.', status: 'LIVE', tags: ['security', 'admin', 'system'], category: 'security' },
+        { handle: '@Slh_selha_bot', name: 'Selha', emoji: '\u2728', desc: 'Personal assistant bot with AI chat, reminders, tasks, and daily utilities.', status: 'LIVE', tags: ['community', 'ai', 'assistant'], category: 'community' }
+    ];
+
+    const COMING_SOON = [
+        { name: 'IoT Bot', icon: '\uD83C\uDF10', desc: 'Internet of Things device management' },
+        { name: 'Gambling Analytics', icon: '\uD83D\uDCCA', desc: 'Advanced gambling analytics engine' },
+        { name: 'NFT Smart Contracts', icon: '\uD83D\uDCDC', desc: 'Smart contract deployment platform' },
+        { name: 'Wellness Bot', icon: '\uD83E\uDDD8', desc: 'Health & wellness tracking assistant' }
+    ];
+
+    /* ── Render Functions ── */
+    function renderBotCard(bot) {
+        const statusBadge = bot.status === 'LIVE'
+            ? '<span class="badge badge-green">LIVE</span>'
+            : '<span class="badge badge-gold">COMING</span>';
+
+        const tags = bot.tags.map(tag =>
+            `<span class="bot-tag">${tag}</span>`
+        ).join('');
+
+        const tgLink = `https://t.me/${bot.handle.replace('@', '')}`;
+
+        return `
+        <div class="bot-card rv" data-category="${bot.category}">
+            <div class="bot-status">${statusBadge}</div>
+            <div class="bot-card-header">
+                <div class="bot-emoji">${bot.emoji}</div>
+                <div class="bot-info">
+                    <div class="bot-name">${bot.name}</div>
+                    <div class="bot-handle">${bot.handle}</div>
+                </div>
+            </div>
+            <div class="bot-desc">${bot.desc}</div>
+            <div class="bot-tags">${tags}</div>
+            <div class="bot-card-footer">
+                <a href="${tgLink}" target="_blank" rel="noopener" class="bot-open-link">
+                    <i class="fab fa-telegram"></i>
+                    <span data-i18n="bots_open">${t('bots_open')}</span>
+                </a>
+            </div>
+        </div>`;
+    }
+
+    function renderComingCard(item) {
+        return `
+        <div class="coming-card rv">
+            <div class="coming-icon">${item.icon}</div>
+            <div class="coming-name">${item.name}</div>
+            <div class="coming-label" data-i18n="bots_coming">${t('bots_coming')}</div>
+        </div>`;
+    }
+
+    function renderBots(filter = 'all') {
+        const grid = document.getElementById('bots-grid');
+        const filtered = filter === 'all' ? BOTS : BOTS.filter(b => b.category === filter);
+        grid.innerHTML = filtered.map(renderBotCard).join('');
+        document.getElementById('bot-count').textContent = filtered.length;
+        initScrollReveal();
+    }
+
+    function renderComingSoon() {
+        const grid = document.getElementById('coming-grid');
+        grid.innerHTML = COMING_SOON.map(renderComingCard).join('');
+    }
+
+    /* ── Filter Logic ── */
+    document.getElementById('filter-tabs').addEventListener('click', (e) => {
+        const tab = e.target.closest('.filter-tab');
+        if (!tab) return;
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderBots(tab.dataset.filter);
+    });
+
+    /* ── Init ── */
+    initShared({ activePage: 'bots' });
+    renderBots();
+    renderComingSoon();
+    </script>
+</body>
+</html>

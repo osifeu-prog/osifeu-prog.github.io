@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Wallet | Send, Receive & Manage Tokens</title>
+    <meta name="description" content="SLH Wallet - Multi-currency wallet with TON & BSC support. Send, receive, and manage your SLH, ZVK, and TON tokens.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#050510">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/shared.css">
+    <style>
+        .wallet-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: calc(var(--topnav-h) + 24px) 24px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .wallet-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .wallet-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .wallet-header i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        /* ── Balance Cards ── */
+        .balance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .balance-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all var(--transition);
+        }
+        .balance-card:hover {
+            border-color: var(--accent);
+        }
+        .balance-token {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text3);
+        }
+        .balance-token .token-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 700;
+        }
+        .token-slh { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+        .token-zvk { background: linear-gradient(135deg, var(--gold), var(--orange)); }
+        .token-ton { background: linear-gradient(135deg, var(--cyan), #0088cc); }
+        .token-locked { background: linear-gradient(135deg, var(--red), #cc3344); }
+
+        .balance-amount {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.1;
+        }
+        .balance-fiat {
+            font-size: 13px;
+            color: var(--text3);
+        }
+
+        /* ── Send/Receive Tabs ── */
+        .action-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .action-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        .action-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text3);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: none;
+        }
+        .action-tab:hover {
+            color: var(--text);
+        }
+        .action-tab.active {
+            color: var(--accent);
+            background: var(--bg3);
+            box-shadow: inset 0 -2px 0 var(--accent);
+        }
+        .action-body {
+            padding: 24px;
+        }
+        .action-panel {
+            display: none;
+        }
+        .action-panel.active {
+            display: block;
+        }
+
+        /* Send Form */
+        .send-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .send-form .form-row {
+            display: flex;
+            gap: 12px;
+        }
+        .send-form .form-row .form-group {
+            flex: 1;
+        }
+        .send-btn {
+            padding: 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+            width: 100%;
+        }
+        .send-btn:hover {
+            background: var(--accent2);
+            transform: translateY(-1px);
+        }
+
+        /* Receive */
+        .receive-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .address-block {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+        }
+        .address-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--text3);
+            margin-bottom: 8px;
+        }
+        .address-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .address-value {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent2);
+            word-break: break-all;
+        }
+        .address-copy-btn {
+            padding: 6px 14px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            color: var(--text2);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .address-copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .qr-placeholder {
+            width: 160px;
+            height: 160px;
+            background: var(--bg3);
+            border: 2px dashed var(--border2);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text3);
+            font-size: 14px;
+            margin: 0 auto;
+        }
+
+        /* ── Transaction History ── */
+        .history-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .history-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .history-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .tx-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tx-table th {
+            padding: 10px 16px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--text3);
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+        }
+        [dir="rtl"] .tx-table th {
+            text-align: right;
+        }
+        .tx-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+        .tx-table tr:last-child td {
+            border-bottom: none;
+        }
+        .tx-table tr:hover td {
+            background: var(--surface);
+        }
+        .tx-type-in { color: var(--green); }
+        .tx-type-out { color: var(--red); }
+
+        /* ── Token Info ── */
+        .token-info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .token-info-card .token-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .token-info-details {
+            flex: 1;
+            min-width: 200px;
+        }
+        .token-info-details .token-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .token-info-details .token-price-tag {
+            font-size: 14px;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .token-info-details .token-contract {
+            margin-top: 8px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text3);
+            word-break: break-all;
+        }
+        .token-info-details .token-contract a {
+            color: var(--accent2);
+        }
+
+        @media (max-width: 768px) {
+            .wallet-container { padding: calc(var(--topnav-h) + 16px) 16px 100px; }
+            .balance-grid { grid-template-columns: repeat(2, 1fr); }
+            .send-form .form-row { flex-direction: column; }
+            .token-info-card { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .balance-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Nav -->
+    <div id="topnav-root"></div>
+
+    <!-- Wallet Content -->
+    <div class="wallet-container">
+
+        <!-- Header -->
+        <div class="wallet-header rv">
+            <i class="fas fa-wallet"></i>
+            <h1 data-i18n="wallet_title">Wallet</h1>
+        </div>
+
+        <!-- Balance Cards -->
+        <div class="balance-grid rv">
+            <div class="balance-card">
+                <div class="balance-token">
+                    <span class="token-icon token-slh">S</span>
+                    <span>SLH</span>
+                </div>
+                <div class="balance-amount" id="bal-slh">0.00</div>
+                <div class="balance-fiat" id="bal-slh-fiat" data-i18n="wallet_available">Available</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-token">
+                    <span class="token-icon token-zvk">Z</span>
+                    <span>ZVK</span>
+                </div>
+                <div class="balance-amount" id="bal-zvk">0.00</div>
+                <div class="balance-fiat" id="bal-zvk-fiat" data-i18n="wallet_available">Available</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-token">
+                    <span class="token-icon token-ton"><i class="fas fa-gem" style="font-size:12px"></i></span>
+                    <span>TON</span>
+                </div>
+                <div class="balance-amount" id="bal-ton">0.00</div>
+                <div class="balance-fiat" id="bal-ton-fiat" data-i18n="wallet_available">Available</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-token">
+                    <span class="token-icon token-locked"><i class="fas fa-lock" style="font-size:12px"></i></span>
+                    <span>TON <small data-i18n="wallet_locked">Locked</small></span>
+                </div>
+                <div class="balance-amount" id="bal-ton-locked">0.00</div>
+                <div class="balance-fiat" id="bal-ton-locked-fiat" data-i18n="wallet_locked">Locked</div>
+            </div>
+        </div>
+
+        <!-- Send / Receive -->
+        <div class="action-card rv">
+            <div class="action-tabs">
+                <button class="action-tab active" data-panel="send" onclick="switchPanel('send')" data-i18n="wallet_send">Send</button>
+                <button class="action-tab" data-panel="receive" onclick="switchPanel('receive')" data-i18n="wallet_receive">Receive</button>
+            </div>
+            <div class="action-body">
+                <!-- Send Panel -->
+                <div class="action-panel active" id="panel-send">
+                    <form class="send-form" onsubmit="handleSend(event)">
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="wallet_recipient">Recipient</label>
+                            <input type="text" class="form-input" id="send-to" data-i18n="wallet_recipient_placeholder" placeholder="Username or wallet address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="common_amount">Amount</label>
+                                <input type="number" class="form-input" id="send-amount" placeholder="0.00" step="any" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="wallet_currency">Currency</label>
+                                <select class="form-select" id="send-currency">
+                                    <option value="SLH">SLH</option>
+                                    <option value="ZVK">ZVK</option>
+                                    <option value="TON">TON</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="send-btn" data-i18n="wallet_send">Send</button>
+                    </form>
+                </div>
+
+                <!-- Receive Panel -->
+                <div class="action-panel" id="panel-receive">
+                    <div class="receive-panel">
+                        <div class="address-block">
+                            <div class="address-label">TON Address</div>
+                            <div class="address-row">
+                                <span class="address-value" id="addr-ton">Loading...</span>
+                                <button class="address-copy-btn" onclick="copyToClipboard(document.getElementById('addr-ton').textContent)" data-i18n="common_copy">Copy</button>
+                            </div>
+                        </div>
+                        <div class="address-block">
+                            <div class="address-label">BSC Address</div>
+                            <div class="address-row">
+                                <span class="address-value" id="addr-bsc">Loading...</span>
+                                <button class="address-copy-btn" onclick="copyToClipboard(document.getElementById('addr-bsc').textContent)" data-i18n="common_copy">Copy</button>
+                            </div>
+                        </div>
+                        <div class="qr-placeholder">
+                            <span>QR Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="history-card rv">
+            <div class="history-header">
+                <h2 data-i18n="wallet_history">Transaction History</h2>
+                <button class="btn btn-sm btn-outline" onclick="loadTransactions()" data-i18n="wallet_refresh">Refresh</button>
+            </div>
+            <div class="table-wrap">
+                <table class="tx-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="wallet_tx_type">Type</th>
+                            <th data-i18n="common_amount">Amount</th>
+                            <th data-i18n="wallet_tx_from_to">From/To</th>
+                            <th data-i18n="wallet_tx_date">Date</th>
+                            <th data-i18n="wallet_tx_status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tx-body">
+                        <tr>
+                            <td colspan="5" class="empty-state" style="padding:40px">
+                                <i class="fas fa-inbox" style="font-size:32px;opacity:.4;display:block;margin-bottom:8px"></i>
+                                <span data-i18n="wallet_no_tx">No transactions yet</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Token Info -->
+        <div class="token-info-card rv">
+            <div class="token-badge">S</div>
+            <div class="token-info-details">
+                <div class="token-name">SLH Token</div>
+                <div class="token-price-tag" data-i18n="wallet_slh_price">Price: 444 ILS</div>
+                <div class="token-contract">
+                    BSC: <a href="https://bscscan.com/token/${BSC_CONTRACT}" target="_blank" rel="noopener" id="bsc-link">View on BscScan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-root"></div>
+
+    <!-- Bottom Nav -->
+    <div id="bottomnav-root"></div>
+
+    <script src="/js/translations.js"></script>
+    <script src="/js/shared.js"></script>
+    <script>
+    /* ── Panel Switch ── */
+    function switchPanel(panel) {
+        document.querySelectorAll('.action-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.action-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector(`.action-tab[data-panel="${panel}"]`).classList.add('active');
+        document.getElementById(`panel-${panel}`).classList.add('active');
+    }
+
+    /* ── Load Balances ── */
+    async function loadBalances() {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const data = await apiGet(`/wallet/balance/${user.id}`);
+        if (data) {
+            document.getElementById('bal-slh').textContent = formatNumber(data.slh || 0);
+            document.getElementById('bal-zvk').textContent = formatNumber(data.zvk || 0);
+            document.getElementById('bal-ton').textContent = formatNumber(data.ton || 0);
+            document.getElementById('bal-ton-locked').textContent = formatNumber(data.ton_locked || 0);
+
+            document.getElementById('bal-slh-fiat').textContent = formatCurrency((data.slh || 0) * SLH_PRICE_ILS, 'ILS');
+        }
+    }
+
+    /* ── Load Addresses ── */
+    async function loadAddresses() {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const data = await apiGet(`/wallet/address/${user.id}`);
+        if (data) {
+            document.getElementById('addr-ton').textContent = data.ton_address || TON_WALLET;
+            document.getElementById('addr-bsc').textContent = data.bsc_address || BSC_CONTRACT;
+        } else {
+            document.getElementById('addr-ton').textContent = TON_WALLET;
+            document.getElementById('addr-bsc').textContent = BSC_CONTRACT;
+        }
+    }
+
+    /* ── Send ── */
+    async function handleSend(e) {
+        e.preventDefault();
+        const to = document.getElementById('send-to').value.trim();
+        const amount = parseFloat(document.getElementById('send-amount').value);
+        const currency = document.getElementById('send-currency').value;
+        const user = getCurrentUser();
+
+        if (!to || !amount || amount <= 0) {
+            showToast(t('common_error'), true);
+            return;
+        }
+
+        const result = await apiPost('/wallet/send', {
+            from_id: user.id,
+            to,
+            amount,
+            currency
+        });
+
+        if (result && result.success) {
+            showToast(t('common_success'));
+            document.getElementById('send-to').value = '';
+            document.getElementById('send-amount').value = '';
+            loadBalances();
+            loadTransactions();
+        } else {
+            showToast(result?.error || t('common_error'), true);
+        }
+    }
+
+    /* ── Load Transactions ── */
+    async function loadTransactions() {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const data = await apiGet(`/wallet/transactions/${user.id}`);
+        const tbody = document.getElementById('tx-body');
+
+        if (!data || !data.length) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">
+                <i class="fas fa-inbox" style="font-size:32px;opacity:.4;display:block;margin-bottom:8px"></i>
+                <span data-i18n="wallet_no_tx">${t('wallet_no_tx') || 'No transactions yet'}</span>
+            </td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = data.map(tx => {
+            const isIn = tx.type === 'receive' || tx.type === 'deposit';
+            const typeClass = isIn ? 'tx-type-in' : 'tx-type-out';
+            const arrow = isIn ? '+' : '-';
+            const statusBadge = tx.status === 'completed'
+                ? '<span class="badge badge-green">OK</span>'
+                : '<span class="badge">Pending</span>';
+
+            return `<tr>
+                <td class="${typeClass}"><i class="fas fa-arrow-${isIn ? 'down' : 'up'}"></i> ${tx.type}</td>
+                <td class="${typeClass}">${arrow}${formatNumber(tx.amount)} ${tx.currency}</td>
+                <td>${tx.counterparty || '-'}</td>
+                <td>${timeAgo(tx.date)}</td>
+                <td>${statusBadge}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    /* ── Init ── */
+    initShared({ activePage: 'wallet', requireAuth: true, showBottomNav: true });
+    loadBalances();
+    loadAddresses();
+    loadTransactions();
+    </script>
+</body>
+</html>
