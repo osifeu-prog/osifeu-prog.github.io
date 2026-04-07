@@ -221,18 +221,26 @@
     }
 
     /* ── Data loading ────────────────────────── */
+    let refreshTimer = null;
+
     async function loadData(){
       try{
         const r = await fetch(API+'/stats',{signal:AbortSignal.timeout(5000)});
         if(!r.ok) throw new Error('API error');
         stats = await r.json();
+        stats._fromAPI = true;
         isLocal = false;
       }catch{
         stats = readLocal();
+        stats._fromAPI = false;
         isLocal = true;
       }
       document.getElementById('badge-mode').classList.toggle('show', isLocal);
       render();
+      // Auto-refresh every 30 seconds
+      if(!refreshTimer){
+        refreshTimer = setInterval(loadData, 30000);
+      }
     }
 
     function readLocal(){
@@ -253,43 +261,77 @@
     }
 
     function renderKPI(){
-      const d = stats.days || {};
-      const today = new Date().toISOString().slice(0,10);
-      let totalViews = 0, allVisitors = new Set();
-      Object.values(d).forEach(function(day){ totalViews += day.views||0; (day.visitors||[]).forEach(function(v){allVisitors.add(v);}); });
-      const todayData = d[today] || {views:0};
-      // Active now: heartbeats in last 2 min
-      const hb = stats.heartbeats || {};
-      const cutoff = Date.now() - 120000;
-      let activeNow = 0;
-      Object.values(hb).forEach(function(ts){ if(ts > cutoff) activeNow++; });
-      // Avg session
-      const pages = stats.pages || {};
-      let totalTime = 0, pageCount = 0;
-      Object.values(pages).forEach(function(p){ if(p.totalTime){ totalTime += p.totalTime; pageCount++; } });
-      const avgSession = pageCount ? Math.round(totalTime / pageCount) : 0;
+      if(stats._fromAPI){
+        // API format: {total_events, unique_visitors, today_views, today_visitors, daily, top_pages}
+        document.getElementById('kpi-visits').textContent = (stats.total_events||0).toLocaleString();
+        document.getElementById('kpi-unique').textContent = (stats.unique_visitors||0).toLocaleString();
+        document.getElementById('kpi-today').textContent = (stats.today_views||0).toLocaleString();
+        // Active now: today_visitors as proxy
+        document.getElementById('kpi-active').textContent = (stats.today_visitors||0).toLocaleString();
+        // Avg session: compute from daily if available
+        const daily = stats.daily || [];
+        if(daily.length > 0){
+          const totalViews = daily.reduce(function(s,d){return s+(d.views||0);},0);
+          const totalVisitors = daily.reduce(function(s,d){return s+(d.visitors||0);},0);
+          const avg = totalVisitors ? Math.round(totalViews / totalVisitors) : 0;
+          document.getElementById('kpi-duration').textContent = avg;
+        } else {
+          document.getElementById('kpi-duration').textContent = '0';
+        }
+      } else {
+        // localStorage fallback format
+        const d = stats.days || {};
+        const today = new Date().toISOString().slice(0,10);
+        let totalViews = 0, allVisitors = new Set();
+        Object.values(d).forEach(function(day){ totalViews += day.views||0; (day.visitors||[]).forEach(function(v){allVisitors.add(v);}); });
+        const todayData = d[today] || {views:0};
+        const hb = stats.heartbeats || {};
+        const cutoff = Date.now() - 120000;
+        let activeNow = 0;
+        Object.values(hb).forEach(function(ts){ if(ts > cutoff) activeNow++; });
+        const pages = stats.pages || {};
+        let totalTime = 0, pageCount = 0;
+        Object.values(pages).forEach(function(p){ if(p.totalTime){ totalTime += p.totalTime; pageCount++; } });
+        const avgSession = pageCount ? Math.round(totalTime / pageCount) : 0;
 
-      document.getElementById('kpi-visits').textContent = totalViews.toLocaleString();
-      document.getElementById('kpi-unique').textContent = allVisitors.size.toLocaleString();
-      document.getElementById('kpi-active').textContent = activeNow;
-      document.getElementById('kpi-duration').textContent = avgSession;
-      document.getElementById('kpi-today').textContent = (todayData.views||0).toLocaleString();
+        document.getElementById('kpi-visits').textContent = totalViews.toLocaleString();
+        document.getElementById('kpi-unique').textContent = allVisitors.size.toLocaleString();
+        document.getElementById('kpi-active').textContent = activeNow;
+        document.getElementById('kpi-duration').textContent = avgSession;
+        document.getElementById('kpi-today').textContent = (todayData.views||0).toLocaleString();
+      }
     }
 
     function renderDayChart(){
       const container = document.getElementById('chart-days');
-      const d = stats.days || {};
-      const days = [];
-      for(let i=6;i>=0;i--){
-        const dt = new Date(); dt.setDate(dt.getDate()-i);
-        const key = dt.toISOString().slice(0,10);
-        days.push({label: dt.toLocaleDateString('he',{weekday:'short'}), val: (d[key]||{}).views||0, key:key});
+
+      if(stats._fromAPI && stats.daily){
+        // API format: daily is [{day, views, visitors}, ...]
+        const daily = stats.daily.slice(-7);
+        const days = daily.map(function(d){
+          const dt = new Date(d.day);
+          return {label: dt.toLocaleDateString('he',{weekday:'short'}), val: d.views||0, visitors: d.visitors||0};
+        });
+        const max = Math.max(1, ...days.map(function(x){return x.val;}));
+        container.innerHTML = days.map(function(day){
+          const h = Math.max(4, Math.round((day.val/max)*160));
+          return '<div class="chart-bar-col"><div class="chart-bar-val">'+day.val+'</div><div class="chart-bar" style="height:'+h+'px"></div><div class="chart-bar-label">'+day.label+'</div></div>';
+        }).join('');
+      } else {
+        // localStorage fallback
+        const d = stats.days || {};
+        const days = [];
+        for(let i=6;i>=0;i--){
+          const dt = new Date(); dt.setDate(dt.getDate()-i);
+          const key = dt.toISOString().slice(0,10);
+          days.push({label: dt.toLocaleDateString('he',{weekday:'short'}), val: (d[key]||{}).views||0, key:key});
+        }
+        const max = Math.max(1, ...days.map(function(x){return x.val;}));
+        container.innerHTML = days.map(function(day){
+          const h = Math.max(4, Math.round((day.val/max)*160));
+          return '<div class="chart-bar-col"><div class="chart-bar-val">'+day.val+'</div><div class="chart-bar" style="height:'+h+'px"></div><div class="chart-bar-label">'+day.label+'</div></div>';
+        }).join('');
       }
-      const max = Math.max(1, ...days.map(function(x){return x.val;}));
-      container.innerHTML = days.map(function(day){
-        const h = Math.max(4, Math.round((day.val/max)*160));
-        return '<div class="chart-bar-col"><div class="chart-bar-val">'+day.val+'</div><div class="chart-bar" style="height:'+h+'px"></div><div class="chart-bar-label">'+day.label+'</div></div>';
-      }).join('');
     }
 
     function makePie(data, el, legendEl, colors){
@@ -316,13 +358,23 @@
 
     function renderPages(){
       const tbody = document.getElementById('tbl-pages');
-      const pages = stats.pages || {};
-      const rows = Object.entries(pages).sort(function(a,b){return b[1].views-a[1].views;}).slice(0,10);
-      tbody.innerHTML = rows.map(function(r){
-        const p = r[1];
-        const avg = p.views ? Math.round((p.totalTime||0)/p.views) : 0;
-        return '<tr><td>'+r[0]+'</td><td>'+p.views+'</td><td>'+(p.visitors||[]).length+'</td><td>'+avg+'s</td></tr>';
-      }).join('') || '<tr><td colspan="4" style="color:var(--text3)">No data yet</td></tr>';
+
+      if(stats._fromAPI && stats.top_pages){
+        // API format: [{page, views}, ...]
+        const rows = stats.top_pages.slice(0,10);
+        tbody.innerHTML = rows.map(function(r){
+          return '<tr><td>'+r.page+'</td><td>'+r.views+'</td><td>-</td><td>-</td></tr>';
+        }).join('') || '<tr><td colspan="4" style="color:var(--text3)">No data yet</td></tr>';
+      } else {
+        // localStorage fallback
+        const pages = stats.pages || {};
+        const rows = Object.entries(pages).sort(function(a,b){return b[1].views-a[1].views;}).slice(0,10);
+        tbody.innerHTML = rows.map(function(r){
+          const p = r[1];
+          const avg = p.views ? Math.round((p.totalTime||0)/p.views) : 0;
+          return '<tr><td>'+r[0]+'</td><td>'+p.views+'</td><td>'+(p.visitors||[]).length+'</td><td>'+avg+'s</td></tr>';
+        }).join('') || '<tr><td colspan="4" style="color:var(--text3)">No data yet</td></tr>';
+      }
     }
 
     function renderRefs(){
@@ -347,19 +399,29 @@
       }).join('') || '<tr><td colspan="2" style="color:var(--text3)">No data yet</td></tr>';
     }
 
-    /* ── Live Feed (poll localStorage) ───────── */
+    /* ── Live Feed ────────────────────────────── */
     function updateFeed(){
-      const s = readLocal();
-      const hb = s.heartbeats || {};
-      const now = Date.now();
-      // Fake live feed from recent heartbeats & local stats
       const feed = document.getElementById('live-feed');
-      const todayKey = new Date().toISOString().slice(0,10);
-      const todayViews = (s.days[todayKey]||{}).views || 0;
-      const activeCount = Object.values(hb).filter(function(t){return t > now-120000;}).length;
-      if(todayViews > 0 || activeCount > 0){
-        const item = '<div class="feed-item"><div class="feed-dot hb"></div><div class="feed-text">'+activeCount+' active users | '+todayViews+' views today</div><div class="feed-time">'+new Date().toLocaleTimeString('he')+'</div></div>';
-        feed.innerHTML = item + (feed.children.length > 20 ? '' : feed.innerHTML);
+      if(stats && stats._fromAPI){
+        // Use API data for live feed
+        const todayViews = stats.today_views || 0;
+        const todayVisitors = stats.today_visitors || 0;
+        if(todayViews > 0 || todayVisitors > 0){
+          const item = '<div class="feed-item"><div class="feed-dot hb"></div><div class="feed-text">'+todayVisitors+' visitors today | '+todayViews+' views today</div><div class="feed-time">'+new Date().toLocaleTimeString('he')+'</div></div>';
+          feed.innerHTML = item + (feed.children.length > 20 ? '' : feed.innerHTML);
+        }
+      } else {
+        // localStorage fallback
+        const s = readLocal();
+        const hb = s.heartbeats || {};
+        const now = Date.now();
+        const todayKey = new Date().toISOString().slice(0,10);
+        const todayViews = (s.days[todayKey]||{}).views || 0;
+        const activeCount = Object.values(hb).filter(function(t){return t > now-120000;}).length;
+        if(todayViews > 0 || activeCount > 0){
+          const item = '<div class="feed-item"><div class="feed-dot hb"></div><div class="feed-text">'+activeCount+' active users | '+todayViews+' views today</div><div class="feed-time">'+new Date().toLocaleTimeString('he')+'</div></div>';
+          feed.innerHTML = item + (feed.children.length > 20 ? '' : feed.innerHTML);
+        }
       }
     }
     setInterval(updateFeed, 5000);
@@ -367,19 +429,40 @@
     /* ── Export CSV ───────────────────────────── */
     document.getElementById('btn-export').addEventListener('click', function(){
       const s = stats || readLocal();
-      let csv = 'Date,Views,Unique Visitors\n';
-      Object.entries(s.days||{}).sort().forEach(function(e){
-        csv += e[0]+','+e[1].views+','+(e[1].visitors||[]).length+'\n';
-      });
-      csv += '\nPage,Views,Unique,Avg Time\n';
-      Object.entries(s.pages||{}).forEach(function(e){
-        const p = e[1];
-        csv += e[0]+','+p.views+','+(p.visitors||[]).length+','+(p.views?Math.round((p.totalTime||0)/p.views):0)+'\n';
-      });
-      csv += '\nReferrer,Count\n';
-      Object.entries(s.referrers||{}).forEach(function(e){ csv += e[0]+','+e[1]+'\n'; });
-      csv += '\nElement,Clicks\n';
-      Object.entries(s.clicks||{}).forEach(function(e){ csv += e[0]+','+e[1]+'\n'; });
+      let csv = '';
+
+      if(s._fromAPI){
+        // API format export
+        csv += 'Date,Views,Visitors\n';
+        (s.daily||[]).forEach(function(d){
+          csv += d.day+','+(d.views||0)+','+(d.visitors||0)+'\n';
+        });
+        csv += '\nPage,Views\n';
+        (s.top_pages||[]).forEach(function(p){
+          csv += p.page+','+(p.views||0)+'\n';
+        });
+        csv += '\nSummary\n';
+        csv += 'Total Events,'+( s.total_events||0)+'\n';
+        csv += 'Unique Visitors,'+(s.unique_visitors||0)+'\n';
+        csv += 'Today Views,'+(s.today_views||0)+'\n';
+        csv += 'Today Visitors,'+(s.today_visitors||0)+'\n';
+      } else {
+        // localStorage format export
+        csv += 'Date,Views,Unique Visitors\n';
+        Object.entries(s.days||{}).sort().forEach(function(e){
+          csv += e[0]+','+e[1].views+','+(e[1].visitors||[]).length+'\n';
+        });
+        csv += '\nPage,Views,Unique,Avg Time\n';
+        Object.entries(s.pages||{}).forEach(function(e){
+          const p = e[1];
+          csv += e[0]+','+p.views+','+(p.visitors||[]).length+','+(p.views?Math.round((p.totalTime||0)/p.views):0)+'\n';
+        });
+        csv += '\nReferrer,Count\n';
+        Object.entries(s.referrers||{}).forEach(function(e){ csv += e[0]+','+e[1]+'\n'; });
+        csv += '\nElement,Clicks\n';
+        Object.entries(s.clicks||{}).forEach(function(e){ csv += e[0]+','+e[1]+'\n'; });
+      }
+
       const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
