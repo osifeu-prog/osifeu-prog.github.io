@@ -14,31 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/shared.css">
     <style>
-        /* ── Price Ticker ── */
-        .price-ticker {
-            background: linear-gradient(90deg, var(--surface), var(--surface2), var(--surface));
-            border-bottom: 1px solid var(--border);
-            padding: 8px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            font-size: 13px;
-            font-weight: 600;
-            overflow: hidden;
-        }
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-        .ticker-label { color: var(--text2); }
-        .ticker-value { color: var(--gold); }
-        .ticker-change { font-size: 12px; }
-        .ticker-change.up { color: var(--green); }
-        .ticker-change.down { color: var(--red); }
-
         /* ── Hero ── */
         .community-hero {
             text-align: center;
@@ -539,23 +514,6 @@
     <!-- Shared UI Roots -->
     <div id="topnav-root"></div>
     <div id="ticker-root"></div>
-
-    <!-- Price Ticker -->
-    <div class="price-ticker" id="price-ticker">
-        <div class="ticker-item">
-            <span class="ticker-label">SLH/ILS</span>
-            <span class="ticker-value" id="ticker-price">444.00 ₪</span>
-            <span class="ticker-change up" id="ticker-change">+2.4%</span>
-        </div>
-        <div class="ticker-item">
-            <span class="ticker-label">SLH/USD</span>
-            <span class="ticker-value" id="ticker-usd">$121.50</span>
-        </div>
-        <div class="ticker-item">
-            <span class="ticker-label"><i class="fas fa-users"></i> Online</span>
-            <span class="ticker-value"><span class="online-dot"></span><span id="ticker-online">--</span></span>
-        </div>
-    </div>
 
     <!-- Hero -->
     <section class="community-hero">
@@ -1061,43 +1019,14 @@
         loadPostsFromAPI();
     });
 
-    /* ── Price Ticker ── */
-    async function updateTicker() {
-        const priceEl = document.getElementById('ticker-price');
-        const usdEl = document.getElementById('ticker-usd');
-        const changeEl = document.getElementById('ticker-change');
-
-        const baseILS = 444;
-        const variation = (Math.random() - 0.5) * 8;
-        const price = baseILS + variation;
-        const usd = price / 3.65;
-        const changePct = ((variation / baseILS) * 100).toFixed(1);
-
-        priceEl.textContent = price.toFixed(2) + ' ₪';
-        usdEl.textContent = '$' + usd.toFixed(2);
-        changeEl.textContent = (changePct >= 0 ? '+' : '') + changePct + '%';
-        changeEl.className = 'ticker-change ' + (changePct >= 0 ? 'up' : 'down');
-    }
-
-    /* ── Online Count Simulation ── */
-    function updateOnlineCount() {
-        const base = 38 + Math.floor(Math.random() * 25);
-        document.getElementById('ticker-online').textContent = base;
-        document.getElementById('sidebar-online').textContent = base;
-    }
-
     /* ── Init ── */
     document.addEventListener('DOMContentLoaded', () => {
-        initShared({ activePage: 'community' });
+        initShared({ activePage: 'community', showBottomNav: true });
         renderAuthSection();
         loadPostsFromAPI();
-        updateTicker();
-        updateOnlineCount();
 
-        // Refresh data periodically
-        setInterval(updateTicker, 30000);
-        setInterval(updateOnlineCount, 60000);
-        setInterval(loadPostsFromAPI, 45000); // Auto-refresh posts every 45s
+        // Auto-refresh posts every 45s
+        setInterval(loadPostsFromAPI, 45000);
     });
     </script>
 <script src="/js/analytics.js"></script>
