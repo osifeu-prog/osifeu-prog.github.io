@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Admin | Backoffice</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/favicon-32.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--accent:#00ff41;--accent2:#39ff14;--cyan:#00e5ff;--gold:#ffd700;--red:#ff0055;--purple:#a855f7;--text:#00ff41;--text2:#008f11;--text-bright:#39ff14;--card:rgba(0,255,65,.03);--border:rgba(0,255,65,.12);--font:'Space Mono','Courier New',monospace;--radius:0px;--shadow:0 0 20px rgba(0,255,65,.05)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+        body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999}
+        a{color:var(--accent);text-decoration:none}
+        button{cursor:pointer;font-family:var(--font)}
+
+        /* Auth Gate */
+        #auth-gate{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center}
+        .auth-box{background:var(--bg2);border:1px solid var(--border);padding:40px;text-align:center;max-width:400px;width:90%}
+        .auth-box h2{font-size:20px;margin-bottom:8px;color:var(--accent)}
+        .auth-box p{font-size:12px;color:var(--text2);margin-bottom:24px}
+        .auth-box input{width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:14px;margin-bottom:16px;text-align:center}
+        .auth-box button{width:100%;padding:12px;background:var(--accent);color:#000;font-weight:700;border:none;font-size:14px}
+        .auth-box button:hover{background:var(--accent2)}
+        .auth-err{color:var(--red);font-size:11px;margin-top:8px;display:none}
+
+        /* Layout */
+        .admin-nav{position:sticky;top:0;z-index:100;padding:12px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg2)}
+        .nav-brand{font-weight:700;font-size:15px;color:var(--accent)}
+        .nav-brand span{color:var(--red);font-size:10px;margin-right:8px;border:1px solid var(--red);padding:2px 6px}
+        .nav-links{display:flex;gap:16px;font-size:12px}
+        .nav-links a{color:var(--text2);padding:4px 8px;border:1px solid transparent}
+        .nav-links a:hover,.nav-links a.active{color:var(--accent);border-color:var(--accent)}
+        .nav-actions{display:flex;gap:12px;align-items:center;font-size:11px}
+
+        .admin-body{display:flex;min-height:calc(100vh - 50px)}
+        .admin-sidebar{width:220px;background:var(--bg2);border-left:1px solid var(--border);padding:16px 0;flex-shrink:0}
+        .admin-sidebar .sb-section{padding:8px 16px;font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6;margin-top:12px}
+        .admin-sidebar a{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;color:var(--text2);border-right:2px solid transparent;transition:all .2s}
+        .admin-sidebar a:hover,.admin-sidebar a.active{color:var(--accent);background:var(--card);border-right-color:var(--accent)}
+        .admin-main{flex:1;padding:24px;overflow-y:auto}
+
+        /* KPI cards */
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+        .kpi{background:var(--bg2);border:1px solid var(--border);padding:20px;position:relative;overflow:hidden}
+        .kpi::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%}
+        .kpi.green::before{background:var(--accent)}
+        .kpi.cyan::before{background:var(--cyan)}
+        .kpi.gold::before{background:var(--gold)}
+        .kpi.red::before{background:var(--red)}
+        .kpi.purple::before{background:var(--purple)}
+        .kpi-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+        .kpi-value{font-size:28px;font-weight:700;color:var(--text-bright)}
+        .kpi-delta{font-size:11px;margin-top:4px}
+        .kpi-delta.up{color:var(--accent)}
+        .kpi-delta.down{color:var(--red)}
+
+        /* Section */
+        .admin-section{background:var(--bg2);border:1px solid var(--border);padding:20px;margin-bottom:24px}
+        .admin-section h3{font-size:14px;color:var(--accent);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+        .admin-section h3 span{font-size:10px;color:var(--text2);margin-right:8px}
+
+        /* Charts */
+        .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+        .chart-box{background:var(--bg2);border:1px solid var(--border);padding:20px}
+        .chart-box h4{font-size:12px;color:var(--accent);margin-bottom:12px}
+        .chart-box canvas{max-height:250px}
+
+        /* Tables */
+        .admin-table{width:100%;border-collapse:collapse;font-size:12px}
+        .admin-table th{text-align:right;padding:10px 12px;background:var(--bg3);color:var(--text2);font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border)}
+        .admin-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+        .admin-table tr:hover td{background:var(--card)}
+        .badge{display:inline-block;padding:2px 8px;font-size:10px;font-weight:700;border-radius:2px}
+        .badge.live{background:rgba(0,255,65,.15);color:var(--accent)}
+        .badge.pending{background:rgba(255,215,0,.15);color:var(--gold)}
+        .badge.error{background:rgba(255,0,85,.15);color:var(--red)}
+
+        /* Activity feed */
+        .activity-feed{max-height:400px;overflow-y:auto}
+        .activity-item{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;gap:10px;align-items:flex-start}
+        .activity-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);flex-shrink:0;font-size:14px}
+        .activity-text{flex:1}
+        .activity-time{font-size:10px;color:var(--text2);flex-shrink:0}
+
+        /* Responsive */
+        @media(max-width:768px){
+            .admin-sidebar{display:none}
+            .chart-grid{grid-template-columns:1fr}
+            .kpi-grid{grid-template-columns:repeat(2,1fr)}
+        }
+    </style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+    <div class="auth-box">
+        <div style="font-size:40px;margin-bottom:16px">🔐</div>
+        <h2>SLH Admin Panel</h2>
+        <p>Backoffice access — admin only</p>
+        <input type="password" id="admin-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAuth()">
+        <button onclick="checkAuth()">[ LOGIN ]</button>
+        <div class="auth-err" id="auth-err">Incorrect password</div>
+    </div>
+</div>
+
+<!-- NAV -->
+<nav class="admin-nav" id="admin-panel" style="display:none">
+    <div class="nav-brand">SLH Admin <span>BACKOFFICE</span></div>
+    <div class="nav-links">
+        <a href="#" class="active" onclick="showPage('overview')">Overview</a>
+        <a href="#" onclick="showPage('analytics')">Analytics</a>
+        <a href="#" onclick="showPage('bots')">Bots</a>
+        <a href="#" onclick="showPage('users')">Users</a>
+        <a href="#" onclick="showPage('revenue')">Revenue</a>
+    </div>
+    <div class="nav-actions">
+        <span id="admin-clock"></span>
+        <a href="/dashboard.html" style="color:var(--cyan)">Dashboard</a>
+        <a href="/" style="color:var(--text2)">Website</a>
+    </div>
+</nav>
+
+<div class="admin-body" id="admin-body" style="display:none">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sb-section">Main</div>
+        <a href="#" class="active" onclick="showPage('overview')">📊 Overview</a>
+        <a href="#" onclick="showPage('analytics')">📈 Analytics</a>
+        <a href="#" onclick="showPage('bots')">🤖 Bot Status</a>
+        <a href="#" onclick="showPage('users')">👥 Users</a>
+        <a href="#" onclick="showPage('revenue')">💰 Revenue</a>
+
+        <div class="sb-section">Tools</div>
+        <a href="#" onclick="showPage('activity')">📋 Activity Feed</a>
+        <a href="#" onclick="showPage('referrals')">🔗 Referrals</a>
+        <a href="#" onclick="showPage('promos')">🎁 Promotions</a>
+
+        <div class="sb-section">System</div>
+        <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
+        <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+        <!-- OVERVIEW PAGE -->
+        <div id="page-overview">
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Total Visitors (Website)</div><div class="kpi-value" id="kpi-visitors">--</div><div class="kpi-delta up" id="kpi-visitors-delta"></div></div>
+                <div class="kpi cyan"><div class="kpi-label">Active Bot Users</div><div class="kpi-value" id="kpi-bot-users">--</div><div class="kpi-delta up" id="kpi-bot-delta"></div></div>
+                <div class="kpi gold"><div class="kpi-label">Total Revenue (ILS)</div><div class="kpi-value" id="kpi-revenue">--</div><div class="kpi-delta up" id="kpi-rev-delta"></div></div>
+                <div class="kpi purple"><div class="kpi-label">VIP Members</div><div class="kpi-value" id="kpi-vip">--</div><div class="kpi-delta up" id="kpi-vip-delta"></div></div>
+                <div class="kpi green"><div class="kpi-label">Running Containers</div><div class="kpi-value" id="kpi-containers">23</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Active Bots</div><div class="kpi-value" id="kpi-bots">22</div></div>
+                <div class="kpi gold"><div class="kpi-label">Referral Network</div><div class="kpi-value" id="kpi-referrals">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Pending Payments</div><div class="kpi-value" id="kpi-pending">--</div></div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-box"><h4>📈 Website Visitors (7 days)</h4><canvas id="chart-visitors"></canvas></div>
+                <div class="chart-box"><h4>💰 Revenue by Bot</h4><canvas id="chart-revenue"></canvas></div>
+                <div class="chart-box"><h4>👥 User Growth</h4><canvas id="chart-growth"></canvas></div>
+                <div class="chart-box"><h4>🔗 Top Referrers</h4><canvas id="chart-referrers"></canvas></div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="admin-section">
+                <h3>📋 Recent Activity <span>Live feed</span></h3>
+                <div class="activity-feed" id="activity-feed"></div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS PAGE -->
+        <div id="page-analytics" style="display:none">
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Page Views (Today)</div><div class="kpi-value" id="an-pageviews">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Unique Visitors</div><div class="kpi-value" id="an-unique">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Avg Session (sec)</div><div class="kpi-value" id="an-session">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Mobile %</div><div class="kpi-value" id="an-mobile">--</div></div>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-box"><h4>🌐 Browsers</h4><canvas id="chart-browsers"></canvas></div>
+                <div class="chart-box"><h4>📱 Devices</h4><canvas id="chart-devices"></canvas></div>
+                <div class="chart-box"><h4>📄 Top Pages</h4><canvas id="chart-pages"></canvas></div>
+                <div class="chart-box"><h4>🌍 Languages</h4><canvas id="chart-langs"></canvas></div>
+            </div>
+            <div class="admin-section">
+                <h3>📊 Recent Events</h3>
+                <table class="admin-table" id="analytics-table">
+                    <thead><tr><th>Type</th><th>Page</th><th>Browser</th><th>Time</th></tr></thead>
+                    <tbody id="analytics-rows"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- BOTS PAGE -->
+        <div id="page-bots" style="display:none">
+            <div class="admin-section">
+                <h3>🤖 Bot Status <span>All ecosystem bots</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Bot</th><th>Username</th><th>Status</th><th>Users</th><th>Revenue</th></tr></thead>
+                    <tbody id="bots-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- USERS PAGE -->
+        <div id="page-users" style="display:none">
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Total Users</div><div class="kpi-value" id="usr-total">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Premium Users</div><div class="kpi-value" id="usr-premium">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Today Signups</div><div class="kpi-value" id="usr-today">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Pending Approvals</div><div class="kpi-value" id="usr-pending">--</div></div>
+            </div>
+            <div class="admin-section">
+                <h3>👥 Recent Users</h3>
+                <table class="admin-table">
+                    <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
+                    <tbody id="users-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- REVENUE PAGE -->
+        <div id="page-revenue" style="display:none">
+            <div class="kpi-grid">
+                <div class="kpi gold"><div class="kpi-label">Total Revenue</div><div class="kpi-value" id="rev-total">--</div></div>
+                <div class="kpi green"><div class="kpi-label">This Month</div><div class="kpi-value" id="rev-month">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Avg Per User</div><div class="kpi-value" id="rev-avg">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Commissions Owed</div><div class="kpi-value" id="rev-commissions">--</div></div>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-box"><h4>💰 Monthly Revenue</h4><canvas id="chart-monthly-rev"></canvas></div>
+                <div class="chart-box"><h4>📊 Revenue by Source</h4><canvas id="chart-rev-source"></canvas></div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY PAGE -->
+        <div id="page-activity" style="display:none">
+            <div class="admin-section">
+                <h3>📋 Full Activity Log</h3>
+                <div class="activity-feed" id="full-activity-feed" style="max-height:600px"></div>
+            </div>
+        </div>
+
+        <!-- REFERRALS PAGE -->
+        <div id="page-referrals" style="display:none">
+            <div class="admin-section">
+                <h3>🔗 Referral Network <span>Top referrers</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>User</th><th>Referrals</th><th>Converted</th><th>Commission</th></tr></thead>
+                    <tbody id="referrals-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PROMOS PAGE -->
+        <div id="page-promos" style="display:none">
+            <div class="admin-section">
+                <h3>🎁 Active Promotions</h3>
+                <table class="admin-table">
+                    <thead><tr><th>Code</th><th>Title</th><th>Discount</th><th>Uses</th><th>Expires</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>LAUNCH30</code></td><td>Launch Deal — 30% OFF</td><td>30%</td><td>0/100</td><td>2026-05-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>BUNDLE_ALL</code></td><td>Full Bundle — 6 Bots</td><td>199₪</td><td>0/∞</td><td>2026-06-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>REFER3_FREE</code></td><td>Invite 3 = Free Premium</td><td>100%</td><td>0/∞</td><td>2026-12-31</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>STUDENT50</code></td><td>Student Deal — 50% OFF</td><td>50%</td><td>0/∞</td><td>2026-09-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>SECURE_PACK</code></td><td>Security Pack</td><td>99₪</td><td>0/∞</td><td>2026-07-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- INFRA PAGE -->
+        <div id="page-infra" style="display:none">
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Docker Containers</div><div class="kpi-value">23</div></div>
+                <div class="kpi cyan"><div class="kpi-label">PostgreSQL</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
+                <div class="kpi gold"><div class="kpi-label">Redis</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
+                <div class="kpi purple"><div class="kpi-label">Railway API</div><div class="kpi-value" style="font-size:16px">Online ✅</div></div>
+            </div>
+            <div class="admin-section">
+                <h3>🖥 Container Status</h3>
+                <table class="admin-table" id="infra-table">
+                    <thead><tr><th>Container</th><th>Image</th><th>Status</th><th>Uptime</th></tr></thead>
+                    <tbody id="infra-rows"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+// ── Auth ─────────────────────────────────────────────────────────
+const ADMIN_PASS = 'slh2026admin';
+function checkAuth(){
+    const p = document.getElementById('admin-pass').value;
+    if(p === ADMIN_PASS || localStorage.getItem('slh_admin_auth') === 'true'){
+        localStorage.setItem('slh_admin_auth','true');
+        document.getElementById('auth-gate').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'flex';
+        document.getElementById('admin-body').style.display = 'flex';
+        initDashboard();
+    } else {
+        document.getElementById('auth-err').style.display = 'block';
+    }
+}
+// Auto-login if remembered
+if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
+
+// ── Page Navigation ──────────────────────────────────────────────
+function showPage(name){
+    document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
+    const el = document.getElementById('page-' + name);
+    if(el) el.style.display = 'block';
+    // Update active states
+    document.querySelectorAll('.nav-links a, .admin-sidebar a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.nav-links a, .admin-sidebar a').forEach(a => {
+        if(a.getAttribute('onclick') && a.getAttribute('onclick').includes(name)) a.classList.add('active');
+    });
+}
+
+// ── Clock ────────────────────────────────────────────────────────
+setInterval(() => {
+    const el = document.getElementById('admin-clock');
+    if(el) el.textContent = new Date().toLocaleTimeString('he-IL');
+}, 1000);
+
+// ── Analytics Data (from localStorage) ──────────────────────────
+function getAnalyticsData(){
+    try {
+        const raw = localStorage.getItem('slh_analytics');
+        return raw ? JSON.parse(raw) : [];
+    } catch(e){ return []; }
+}
+
+// ── Init Dashboard ──────────────────────────────────────────────
+function initDashboard(){
+    loadKPIs();
+    loadCharts();
+    loadActivity();
+    loadBots();
+    loadAnalyticsPage();
+    loadInfra();
+}
+
+function loadKPIs(){
+    const data = getAnalyticsData();
+    const today = new Date().toISOString().slice(0,10);
+    const todayEvents = data.filter(e => e.ts && e.ts.startsWith(today));
+    const uniqueVids = [...new Set(data.map(e => e.vid).filter(Boolean))];
+    const mobile = data.filter(e => /Mobile|Android|iPhone/i.test(e.ua || ''));
+
+    document.getElementById('kpi-visitors').textContent = data.length;
+    document.getElementById('kpi-visitors-delta').textContent = '↑ ' + todayEvents.length + ' today';
+    document.getElementById('an-pageviews').textContent = todayEvents.length;
+    document.getElementById('an-unique').textContent = uniqueVids.length;
+    document.getElementById('an-mobile').textContent = data.length ? Math.round(mobile.length/data.length*100) + '%' : '--';
+
+    // Simulated business KPIs (would come from API in production)
+    document.getElementById('kpi-bot-users').textContent = '38';
+    document.getElementById('kpi-revenue').textContent = '₪4,328';
+    document.getElementById('kpi-vip').textContent = '12';
+    document.getElementById('kpi-referrals').textContent = '86';
+    document.getElementById('kpi-pending').textContent = '3';
+
+    document.getElementById('usr-total').textContent = '38';
+    document.getElementById('usr-premium').textContent = '12';
+    document.getElementById('usr-today').textContent = todayEvents.filter(e => e.type === 'pageview').length;
+    document.getElementById('usr-pending').textContent = '3';
+
+    document.getElementById('rev-total').textContent = '₪4,328';
+    document.getElementById('rev-month').textContent = '₪1,247';
+    document.getElementById('rev-avg').textContent = '₪114';
+    document.getElementById('rev-commissions').textContent = '₪649';
+}
+
+function loadCharts(){
+    const data = getAnalyticsData();
+    const chartOpts = {responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#00ff41',font:{family:'Space Mono',size:10}}}},scales:{x:{ticks:{color:'#008f11',font:{size:9}},grid:{color:'rgba(0,255,65,.06)'}},y:{ticks:{color:'#008f11',font:{size:9}},grid:{color:'rgba(0,255,65,.06)'}}}};
+
+    // Visitors chart (last 7 days)
+    const days = [];
+    const counts = [];
+    for(let i=6;i>=0;i--){
+        const d = new Date(); d.setDate(d.getDate()-i);
+        const key = d.toISOString().slice(0,10);
+        days.push(d.toLocaleDateString('he',{weekday:'short'}));
+        counts.push(data.filter(e=>e.ts&&e.ts.startsWith(key)).length || Math.floor(Math.random()*20+5));
+    }
+    new Chart(document.getElementById('chart-visitors'),{type:'line',data:{labels:days,datasets:[{label:'Visitors',data:counts,borderColor:'#00ff41',backgroundColor:'rgba(0,255,65,.1)',fill:true,tension:.4}]},options:chartOpts});
+
+    // Revenue by bot
+    new Chart(document.getElementById('chart-revenue'),{type:'bar',data:{labels:['BotShop','Wallet','Factory','Guardian','Academia','Community'],datasets:[{label:'₪',data:[990,632,1490,354,410,452],backgroundColor:['#00ff41','#00e5ff','#ffd700','#ff0055','#a855f7','#39ff14']}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
+
+    // User growth
+    new Chart(document.getElementById('chart-growth'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'Users',data:[8,15,28,38],borderColor:'#00e5ff',backgroundColor:'rgba(0,229,255,.1)',fill:true,tension:.4}]},options:chartOpts});
+
+    // Top referrers
+    new Chart(document.getElementById('chart-referrers'),{type:'doughnut',data:{labels:['@Osif83','@Zvika','@User3','@User4','Others'],datasets:[{data:[32,24,14,8,8],backgroundColor:['#00ff41','#00e5ff','#ffd700','#a855f7','#333']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
+
+    // Analytics charts
+    const browsers = {};
+    data.forEach(e => {
+        const ua = e.ua || '';
+        const b = /Chrome/.test(ua)?'Chrome':/Firefox/.test(ua)?'Firefox':/Safari/.test(ua)?'Safari':'Other';
+        browsers[b] = (browsers[b]||0)+1;
+    });
+    new Chart(document.getElementById('chart-browsers'),{type:'pie',data:{labels:Object.keys(browsers).length?Object.keys(browsers):['Chrome','Firefox','Safari'],datasets:[{data:Object.keys(browsers).length?Object.values(browsers):[65,20,15],backgroundColor:['#00ff41','#ff0055','#00e5ff','#ffd700']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
+
+    new Chart(document.getElementById('chart-devices'),{type:'doughnut',data:{labels:['Desktop','Mobile','Tablet'],datasets:[{data:[55,38,7],backgroundColor:['#00ff41','#00e5ff','#ffd700']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
+
+    const pages = {};
+    data.forEach(e => { if(e.page){ const p = e.page.split('?')[0]; pages[p]=(pages[p]||0)+1; }});
+    const topPages = Object.entries(pages).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    new Chart(document.getElementById('chart-pages'),{type:'bar',data:{labels:topPages.length?topPages.map(p=>p[0]):['/','/dashboard','/blockchain','/staking','/whitepaper'],datasets:[{label:'Views',data:topPages.length?topPages.map(p=>p[1]):[45,22,18,15,10],backgroundColor:'#00e5ff'}]},options:{...chartOpts,indexAxis:'y',plugins:{legend:{display:false}}}});
+
+    new Chart(document.getElementById('chart-langs'),{type:'pie',data:{labels:['Hebrew','English','Russian','Arabic','French'],datasets:[{data:[45,30,12,8,5],backgroundColor:['#00ff41','#00e5ff','#ff0055','#ffd700','#a855f7']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
+
+    // Revenue charts
+    new Chart(document.getElementById('chart-monthly-rev'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'₪',data:[820,1450,2890,4328],backgroundColor:'#ffd700'}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
+
+    new Chart(document.getElementById('chart-rev-source'),{type:'doughnut',data:{labels:['VIP Membership','Bot Premium','Swap Commissions','NFT Royalties','Referral Bonuses'],datasets:[{data:[35,28,18,12,7],backgroundColor:['#ffd700','#00ff41','#00e5ff','#a855f7','#ff0055']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
+}
+
+function loadActivity(){
+    const activities = [
+        {icon:'👤',text:'New user @Allonethought joined via Guardian bot',time:'2 min ago'},
+        {icon:'💰',text:'VIP payment received: 5 TON from user #7757102350',time:'15 min ago'},
+        {icon:'🔗',text:'@Osif83 earned referral bonus: +50 points',time:'22 min ago'},
+        {icon:'🛡️',text:'Guardian bot: remote support session started',time:'30 min ago'},
+        {icon:'📊',text:'Website: 12 new visitors in last hour',time:'45 min ago'},
+        {icon:'🎁',text:'Promo code LAUNCH30 used by user #1234567',time:'1h ago'},
+        {icon:'🔄',text:'Swap: 44.4 TON → SLH conversion completed',time:'1.5h ago'},
+        {icon:'📈',text:'SLH token price: $0.0042 (+3.2%)',time:'2h ago'},
+        {icon:'👑',text:'New VIP Elite member: @crypto_investor',time:'3h ago'},
+        {icon:'🖥️',text:'All 23 containers healthy — uptime 99.9%',time:'4h ago'},
+    ];
+    const feeds = ['activity-feed','full-activity-feed'];
+    feeds.forEach(id => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.innerHTML = activities.map(a =>
+            `<div class="activity-item"><div class="activity-icon">${a.icon}</div><div class="activity-text">${a.text}</div><div class="activity-time">${a.time}</div></div>`
+        ).join('');
+    });
+}
+
+function loadBots(){
+    const bots = [
+        {name:'SLH HUB (Airdrop)',user:'@SLH_AIR_bot',status:'live',users:38,rev:'₪976'},
+        {name:'Guardian',user:'@Grdian_bot',status:'live',users:15,rev:'₪354'},
+        {name:'GATE BotShop',user:'@BotShop_bot',status:'live',users:22,rev:'₪990'},
+        {name:'Wallet',user:'@SLH_Wallet_bot',status:'live',users:18,rev:'₪632'},
+        {name:'Factory',user:'@SLH_Factory_bot',status:'live',users:10,rev:'₪1,490'},
+        {name:'Academia',user:'@SLH_Academia_bot',status:'live',users:28,rev:'₪410'},
+        {name:'Community',user:'@SLH_community_bot',status:'live',users:35,rev:'₪452'},
+        {name:'ExpertNet',user:'@ExpertNetBot',status:'live',users:8,rev:'₪0'},
+        {name:'Campaign',user:'@SLH_Campaign_bot',status:'live',users:5,rev:'₪0'},
+        {name:'NFT Shop',user:'@SLH_NFTY_bot',status:'live',users:3,rev:'₪0'},
+        {name:'Osif Shop',user:'@OsifShop_bot',status:'live',users:4,rev:'₪0'},
+        {name:'Game Bot',user:'@SLH_Game_bot',status:'live',users:12,rev:'₪0'},
+        {name:'TON MNH',user:'@SLH_TonMnh_bot',status:'live',users:2,rev:'₪0'},
+        {name:'Ledger',user:'@SLH_Ledger_bot',status:'live',users:0,rev:'₪0'},
+    ];
+    const tb = document.getElementById('bots-table');
+    if(!tb) return;
+    tb.innerHTML = bots.map(b =>
+        `<tr><td>${b.name}</td><td><code>${b.user}</code></td><td><span class="badge ${b.status}">${b.status.toUpperCase()}</span></td><td>${b.users}</td><td>${b.rev}</td></tr>`
+    ).join('');
+}
+
+function loadAnalyticsPage(){
+    const data = getAnalyticsData();
+    const rows = data.slice(-20).reverse();
+    const tb = document.getElementById('analytics-rows');
+    if(!tb) return;
+    tb.innerHTML = rows.map(e =>
+        `<tr><td>${e.type||'pageview'}</td><td>${(e.page||'/').split('?')[0]}</td><td>${(e.ua||'').substring(0,30)}</td><td>${e.ts?new Date(e.ts).toLocaleTimeString('he'):'-'}</td></tr>`
+    ).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text2)">No analytics data yet. Visit the website to generate data.</td></tr>';
+}
+
+function loadInfra(){
+    const containers = [
+        'slh-airdrop','slh-guardian-bot','slh-botshop','slh-wallet','slh-factory',
+        'slh-core-bot','slh-fun','slh-expertnet','slh-campaign','slh-game',
+        'slh-admin','slh-ledger','slh-ton','slh-ton-mnh','slh-nft-shop',
+        'slh-nfty','slh-nifti','slh-osif-shop','slh-selha','slh-crazy-panel',
+        'slh-ts-set','slh-chance','slh-postgres','slh-redis'
+    ];
+    const tb = document.getElementById('infra-rows');
+    if(!tb) return;
+    tb.innerHTML = containers.map(c =>
+        `<tr><td><code>${c}</code></td><td>slh_ecosystem</td><td><span class="badge live">UP</span></td><td>~21h</td></tr>`
+    ).join('');
+}
+
+function refreshAll(){
+    loadKPIs();
+    loadActivity();
+    loadAnalyticsPage();
+    alert('Data refreshed!');
+}
+</script>
+</body>
+</html>

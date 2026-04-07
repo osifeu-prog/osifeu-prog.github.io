@@ -274,7 +274,7 @@
 
         <div class="login-divider" data-i18n="or_enter_id">or enter your Telegram ID</div>
 
-        <input type="number" id="manual-uid" class="login-input" placeholder="Telegram ID" dir="ltr">
+        <input type="text" id="manual-uid" class="login-input" placeholder="Telegram ID or @username" dir="ltr" style="margin-bottom:8px">
         <button class="login-btn" onclick="manualLogin()" data-i18n="sign_in">Sign In</button>
 
         <div class="login-hint">
@@ -283,9 +283,12 @@
         </div>
     </div>
 
-    <div class="login-links">
+    <div class="login-links" style="flex-wrap:wrap;justify-content:center">
         <a href="/" style="color:var(--text2)" data-i18n="back_to_site">&larr; Back to Site</a>
-        <a href="/guides.html" data-i18n="user_guides">User Guides &rarr;</a>
+        <a href="/guides.html" data-i18n="user_guides">User Guides</a>
+        <a href="/staking.html">Staking</a>
+        <a href="/blockchain.html">Blockchain</a>
+        <a href="/referral-card.html">🎨 Referral Card</a>
     </div>
 </div>
 
@@ -333,6 +336,7 @@
 
             <div class="sidebar-section">Tools</div>
             <div class="sidebar-item" onclick="navigate('bots')"><span class="icon">&#x1F916;</span> <span data-i18n="bots">Bots</span></div>
+            <div class="sidebar-item" onclick="navigate('analytics')"><span class="icon">&#x1F4CA;</span> <span data-i18n="analytics">Analytics</span></div>
             <div class="sidebar-item" onclick="navigate('settings')"><span class="icon">&#x2699;</span> <span data-i18n="settings">Settings</span></div>
         </aside>
 
@@ -630,6 +634,60 @@
                 </div>
             </div>
 
+            <!-- ===== ANALYTICS PAGE ===== -->
+            <div id="page-analytics" class="page">
+                <div class="section-header"><div class="section-title" data-i18n="analytics">Site Analytics</div></div>
+
+                <!-- KPI Cards -->
+                <div class="stat-grid" id="analytics-kpis">
+                    <div class="stat-card"><div class="stat-icon">&#x1F4C8;</div><div class="stat-label" data-i18n="an_total_views">Total Page Views</div><div class="stat-value" id="an-total">--</div><div class="stat-sub" data-i18n="an_all_time">All time</div></div>
+                    <div class="stat-card"><div class="stat-icon">&#x1F4C5;</div><div class="stat-label" data-i18n="an_today">Today</div><div class="stat-value" id="an-today">--</div><div class="stat-sub" data-i18n="an_page_views">Page views</div></div>
+                    <div class="stat-card"><div class="stat-icon">&#x1F465;</div><div class="stat-label" data-i18n="an_unique">Unique Visitors</div><div class="stat-value" id="an-unique">--</div><div class="stat-sub" data-i18n="an_all_time">All time</div></div>
+                    <div class="stat-card"><div class="stat-icon">&#x1F4F1;</div><div class="stat-label" data-i18n="an_mobile">Mobile %</div><div class="stat-value" id="an-mobile">--</div><div class="stat-sub" data-i18n="an_of_visitors">Of all visitors</div></div>
+                </div>
+
+                <!-- Charts Row -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                    <div class="settings-group">
+                        <h4 data-i18n="an_browsers">Browsers</h4>
+                        <div id="an-browsers-chart" style="min-height:120px"></div>
+                    </div>
+                    <div class="settings-group">
+                        <h4 data-i18n="an_os">Operating Systems</h4>
+                        <div id="an-os-chart" style="min-height:120px"></div>
+                    </div>
+                </div>
+
+                <!-- Top Pages -->
+                <div class="settings-group">
+                    <h4 data-i18n="an_top_pages">Top Pages</h4>
+                    <div id="an-pages-list"></div>
+                </div>
+
+                <!-- Top Referrers -->
+                <div class="settings-group">
+                    <h4 data-i18n="an_referrers">Traffic Sources</h4>
+                    <div id="an-refs-list"></div>
+                </div>
+
+                <!-- Languages -->
+                <div class="settings-group">
+                    <h4 data-i18n="an_languages">Languages</h4>
+                    <div id="an-langs-list"></div>
+                </div>
+
+                <!-- Recent Events -->
+                <div class="settings-group">
+                    <h4 data-i18n="an_recent">Recent Activity</h4>
+                    <div id="an-recent-list" style="max-height:300px;overflow-y:auto"></div>
+                </div>
+
+                <div style="text-align:center;margin-top:16px">
+                    <button class="nav-btn" onclick="refreshAnalytics()" data-i18n="an_refresh">Refresh Data</button>
+                    <button class="nav-btn danger" onclick="if(confirm('Clear all analytics data?')){localStorage.removeItem('slh_analytics');refreshAnalytics()}" data-i18n="an_clear">Clear Data</button>
+                </div>
+            </div>
+
             <!-- ===== SETTINGS PAGE ===== -->
             <div id="page-settings" class="page">
                 <div class="section-header"><div class="section-title">Settings</div></div>
@@ -785,8 +843,9 @@ const T = {
         // Login
         sign_in: 'כניסה', sign_in_sub: 'היכנס כדי לגשת ללוח הבקרה, התיק והרשת שלך',
         or_enter_id: 'או הזן מזהה טלגרם', find_id: 'איך מוצאים את המזהה?',
-        find_id_desc: 'פתח טלגרם ושלח /start ל-@userinfobot',
-        back_to_site: '← חזרה לאתר', user_guides: 'מדריכים →',
+        find_id_desc: '\u05e4\u05ea\u05d7 \u05d8\u05dc\u05d2\u05e8\u05dd \u05d5\u05e9\u05dc\u05d7 /start \u05dc-@userinfobot',
+        quick_access: '\u26a1 \u05db\u05e0\u05d9\u05e1\u05d4 \u05de\u05d4\u05d9\u05e8\u05d4 (\u05d0\u05d5\u05e8\u05d7)', guest_note: '\u05d2\u05dc\u05d5\u05e9 \u05db\u05d0\u05d5\u05e8\u05d7. \u05d7\u05d1\u05e8 \u05d8\u05dc\u05d2\u05e8\u05dd \u05de\u05d0\u05d5\u05d7\u05e8 \u05d9\u05d5\u05ea\u05e8 \u05dc\u05ea\u05db\u05d5\u05e0\u05d5\u05ea \u05de\u05dc\u05d0\u05d5\u05ea.',
+        back_to_site: '\u2190 \u05d7\u05d6\u05e8\u05d4 \u05dc\u05d0\u05ea\u05e8', user_guides: '\u05de\u05d3\u05e8\u05d9\u05db\u05d9\u05dd \u2192',
         // Sidebar
         overview: 'סקירה', portfolio: 'תיק', staking: 'סטייקינג', activity: 'פעילות',
         referrals: 'הפניות', leaderboard: 'מובילים', transfer: 'העברה', bots: 'בוטים', settings: 'הגדרות',
@@ -822,7 +881,9 @@ const T = {
         memo_optional: 'הערה (אופציונלי)', send: 'שלח', tx_history: 'היסטוריית העברות',
         no_transactions: 'אין העברות עדיין',
         // Bots
-        ecosystem_bots: 'בוטי האקוסיסטם',
+        ecosystem_bots: '\u05d1\u05d5\u05d8\u05d9 \u05d4\u05d0\u05e7\u05d5\u05e1\u05d9\u05e1\u05d8\u05dd',
+        analytics: '\u05d0\u05e0\u05dc\u05d9\u05d8\u05d9\u05e7\u05e1', an_total_views: '\u05e1\u05d4\"\u05db \u05e6\u05e4\u05d9\u05d5\u05ea', an_today: '\u05d4\u05d9\u05d5\u05dd', an_unique: '\u05de\u05d1\u05e7\u05e8\u05d9\u05dd \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9\u05d9\u05dd', an_mobile: '\u05de\u05d5\u05d1\u05d9\u05d9\u05dc %', an_all_time: '\u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d9\u05dd', an_page_views: '\u05e6\u05e4\u05d9\u05d5\u05ea \u05d3\u05e3', an_of_visitors: '\u05de\u05db\u05dc \u05d4\u05de\u05d1\u05e7\u05e8\u05d9\u05dd',
+        an_browsers: '\u05d3\u05e4\u05d3\u05e4\u05e0\u05d9\u05dd', an_os: '\u05de\u05e2\u05e8\u05db\u05d5\u05ea \u05d4\u05e4\u05e2\u05dc\u05d4', an_top_pages: '\u05d3\u05e4\u05d9\u05dd \u05de\u05d5\u05d1\u05d9\u05dc\u05d9\u05dd', an_referrers: '\u05de\u05e7\u05d5\u05e8\u05d5\u05ea \u05ea\u05e0\u05d5\u05e2\u05d4', an_languages: '\u05e9\u05e4\u05d5\u05ea', an_recent: '\u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05d0\u05d7\u05e8\u05d5\u05e0\u05d5\u05ea', an_refresh: '\u05e8\u05e2\u05e0\u05df', an_clear: '\u05e0\u05e7\u05d4 \u05e0\u05ea\u05d5\u05e0\u05d9\u05dd',
         investment_bot: 'בוט השקעות', deposits_staking: 'הפקדות, סטייקינג, תיק',
         shop_bot: 'בוט חנות', inventory_ecommerce: 'מלאי, ברקוד, מסחר',
         nft_market: 'שוק NFT', mint_trade: 'יצירה, מסחר, איסוף',
@@ -847,7 +908,8 @@ const T = {
         sign_in: 'Sign In', sign_in_sub: 'Sign in to access your personal dashboard, portfolio, and network',
         or_enter_id: 'or enter your Telegram ID', find_id: 'How to find your ID?',
         find_id_desc: 'Open Telegram and send /start to @userinfobot',
-        back_to_site: '← Back to Site', user_guides: 'User Guides →',
+        quick_access: '\u26a1 Quick Access (Guest)', guest_note: 'Browse as guest. Connect Telegram later for full features.',
+        back_to_site: '\u2190 Back to Site', user_guides: 'User Guides \u2192',
         overview: 'Overview', portfolio: 'Portfolio', staking: 'Staking', activity: 'Activity',
         referrals: 'Referrals', leaderboard: 'Leaderboard', transfer: 'Transfer', bots: 'Bots', settings: 'Settings',
         ton_available: 'TON Available', ton_locked: 'TON Locked', slh_tokens: 'SLH Tokens',
@@ -876,6 +938,8 @@ const T = {
         memo_optional: 'Memo (optional)', send: 'Send', tx_history: 'Transaction History',
         no_transactions: 'No transactions yet',
         ecosystem_bots: 'Ecosystem Bots',
+        analytics: 'Analytics', an_total_views: 'Total Page Views', an_today: 'Today', an_unique: 'Unique Visitors', an_mobile: 'Mobile %', an_all_time: 'All time', an_page_views: 'Page views', an_of_visitors: 'Of all visitors',
+        an_browsers: 'Browsers', an_os: 'Operating Systems', an_top_pages: 'Top Pages', an_referrers: 'Traffic Sources', an_languages: 'Languages', an_recent: 'Recent Activity', an_refresh: 'Refresh', an_clear: 'Clear Data',
         investment_bot: 'Investment Bot', deposits_staking: 'Deposits, staking, portfolio',
         shop_bot: 'Shop Bot', inventory_ecommerce: 'Inventory, barcode, e-commerce',
         nft_market: 'NFT Market', mint_trade: 'Mint, trade, collect',
@@ -896,7 +960,8 @@ const T = {
         dashboard: 'Панель', exit: 'Выход',
         sign_in: 'Войти', sign_in_sub: 'Войдите для доступа к панели, портфелю и сети',
         or_enter_id: 'или введите Telegram ID', find_id: 'Как найти свой ID?',
-        find_id_desc: 'Откройте Telegram и отправьте /start боту @userinfobot',
+        find_id_desc: '\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 Telegram \u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u044c\u0442\u0435 /start \u0431\u043e\u0442\u0443 @userinfobot',
+        quick_access: '\u26a1 \u0411\u044b\u0441\u0442\u0440\u044b\u0439 \u0434\u043e\u0441\u0442\u0443\u043f (\u0413\u043e\u0441\u0442\u044c)', guest_note: '\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u043a\u0430\u043a \u0433\u043e\u0441\u0442\u044c. \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 Telegram \u043f\u043e\u0437\u0436\u0435.',
         back_to_site: '← На сайт', user_guides: 'Руководства →',
         overview: 'Обзор', portfolio: 'Портфель', staking: 'Стейкинг', activity: 'Активность',
         referrals: 'Рефералы', leaderboard: 'Лидеры', transfer: 'Перевод', bots: 'Боты', settings: 'Настройки',
@@ -925,7 +990,9 @@ const T = {
         recipient_id: 'Telegram ID получателя', token: 'Токен',
         memo_optional: 'Заметка (необязательно)', send: 'Отправить', tx_history: 'История переводов',
         no_transactions: 'Нет переводов',
-        ecosystem_bots: 'Боты экосистемы',
+        ecosystem_bots: '\u0411\u043e\u0442\u044b \u044d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u044b',
+        analytics: '\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430', an_total_views: '\u0412\u0441\u0435\u0433\u043e \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u043e\u0432', an_today: '\u0421\u0435\u0433\u043e\u0434\u043d\u044f', an_unique: '\u0423\u043d\u0438\u043a\u0430\u043b\u044c\u043d\u044b\u0435', an_mobile: '\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0435 %', an_all_time: '\u0412\u0441\u0451 \u0432\u0440\u0435\u043c\u044f', an_page_views: '\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u044b', an_of_visitors: '\u041e\u0442 \u0432\u0441\u0435\u0445',
+        an_browsers: '\u0411\u0440\u0430\u0443\u0437\u0435\u0440\u044b', an_os: '\u041e\u0421', an_top_pages: '\u0413\u043b\u0430\u0432\u043d\u044b\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b', an_referrers: '\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u0438', an_languages: '\u042f\u0437\u044b\u043a\u0438', an_recent: '\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 \u0441\u043e\u0431\u044b\u0442\u0438\u044f', an_refresh: '\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c', an_clear: '\u041e\u0447\u0438\u0441\u0442\u0438\u0442\u044c',
         investment_bot: 'Инвестиционный бот', deposits_staking: 'Депозиты, стейкинг, портфель',
         shop_bot: 'Бот магазин', inventory_ecommerce: 'Инвентарь, штрихкод, торговля',
         nft_market: 'NFT маркет', mint_trade: 'Создание, торговля, коллекции',
@@ -946,7 +1013,8 @@ const T = {
         dashboard: 'لوحة التحكم', exit: 'خروج',
         sign_in: 'تسجيل الدخول', sign_in_sub: 'سجّل دخولك للوصول إلى لوحة التحكم والمحفظة والشبكة',
         or_enter_id: 'أو أدخل معرّف تيليجرام', find_id: 'كيف تجد معرّفك؟',
-        find_id_desc: 'افتح تيليجرام وأرسل /start إلى @userinfobot',
+        find_id_desc: '\u0627\u0641\u062a\u062d \u062a\u064a\u0644\u064a\u062c\u0631\u0627\u0645 \u0648\u0623\u0631\u0633\u0644 /start \u0625\u0644\u0649 @userinfobot',
+        quick_access: '\u26a1 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 (\u0636\u064a\u0641)', guest_note: '\u062a\u0635\u0641\u062d \u0643\u0636\u064a\u0641. \u0631\u0628\u0637 \u062a\u064a\u0644\u064a\u062c\u0631\u0627\u0645 \u0644\u0627\u062d\u0642\u0627 \u0644\u0644\u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0643\u0627\u0645\u0644\u0629.',
         back_to_site: '← العودة للموقع', user_guides: 'الأدلة →',
         overview: 'نظرة عامة', portfolio: 'المحفظة', staking: 'ستيكنج', activity: 'النشاط',
         referrals: 'الإحالات', leaderboard: 'المتصدرون', transfer: 'تحويل', bots: 'البوتات', settings: 'الإعدادات',
@@ -975,7 +1043,9 @@ const T = {
         recipient_id: 'معرّف تيليجرام للمستلم', token: 'الرمز',
         memo_optional: 'ملاحظة (اختياري)', send: 'إرسال', tx_history: 'سجل التحويلات',
         no_transactions: 'لا تحويلات بعد',
-        ecosystem_bots: 'بوتات النظام',
+        ecosystem_bots: '\u0628\u0648\u062a\u0627\u062a \u0627\u0644\u0646\u0638\u0627\u0645',
+        analytics: '\u062a\u062d\u0644\u064a\u0644\u0627\u062a', an_total_views: '\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0645\u0634\u0627\u0647\u062f\u0627\u062a', an_today: '\u0627\u0644\u064a\u0648\u0645', an_unique: '\u0632\u0648\u0627\u0631 \u0641\u0631\u064a\u062f\u0648\u0646', an_mobile: '\u0645\u0648\u0628\u0627\u064a\u0644 %', an_all_time: '\u0643\u0644 \u0627\u0644\u0623\u0648\u0642\u0627\u062a', an_page_views: '\u0645\u0634\u0627\u0647\u062f\u0627\u062a', an_of_visitors: '\u0645\u0646 \u0627\u0644\u0632\u0648\u0627\u0631',
+        an_browsers: '\u0627\u0644\u0645\u062a\u0635\u0641\u062d\u0627\u062a', an_os: '\u0623\u0646\u0638\u0645\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644', an_top_pages: '\u0623\u0641\u0636\u0644 \u0627\u0644\u0635\u0641\u062d\u0627\u062a', an_referrers: '\u0645\u0635\u0627\u062f\u0631 \u0627\u0644\u062a\u0631\u0627\u0641\u064a\u0643', an_languages: '\u0627\u0644\u0644\u063a\u0627\u062a', an_recent: '\u0627\u0644\u0646\u0634\u0627\u0637 \u0627\u0644\u0623\u062e\u064a\u0631', an_refresh: '\u062a\u062d\u062f\u064a\u062b', an_clear: '\u0645\u0633\u062d \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a',
         investment_bot: 'بوت الاستثمار', deposits_staking: 'إيداعات، ستيكنج، محفظة',
         shop_bot: 'بوت المتجر', inventory_ecommerce: 'مخزون، باركود، تجارة',
         nft_market: 'سوق NFT', mint_trade: 'إنشاء، تداول، جمع',
@@ -996,7 +1066,8 @@ const T = {
         dashboard: 'Tableau de bord', exit: 'Quitter',
         sign_in: 'Connexion', sign_in_sub: 'Connectez-vous pour accéder à votre tableau de bord, portefeuille et réseau',
         or_enter_id: 'ou entrez votre ID Telegram', find_id: 'Comment trouver votre ID ?',
-        find_id_desc: 'Ouvrez Telegram et envoyez /start à @userinfobot',
+        find_id_desc: 'Ouvrez Telegram et envoyez /start \u00e0 @userinfobot',
+        quick_access: '\u26a1 Acc\u00e8s rapide (Invit\u00e9)', guest_note: 'Parcourez en tant qu\u2019invit\u00e9. Connectez Telegram plus tard.',
         back_to_site: '← Retour au site', user_guides: 'Guides →',
         overview: 'Aperçu', portfolio: 'Portefeuille', staking: 'Staking', activity: 'Activité',
         referrals: 'Parrainages', leaderboard: 'Classement', transfer: 'Transfert', bots: 'Bots', settings: 'Paramètres',
@@ -1025,7 +1096,9 @@ const T = {
         recipient_id: 'ID Telegram du destinataire', token: 'Jeton',
         memo_optional: 'Note (optionnel)', send: 'Envoyer', tx_history: 'Historique des transferts',
         no_transactions: 'Aucun transfert',
-        ecosystem_bots: "Bots de l'écosystème",
+        ecosystem_bots: "Bots de l'\u00e9cosyst\u00e8me",
+        analytics: 'Analytique', an_total_views: 'Total des vues', an_today: "Aujourd'hui", an_unique: 'Visiteurs uniques', an_mobile: 'Mobile %', an_all_time: 'Tout temps', an_page_views: 'Pages vues', an_of_visitors: 'Des visiteurs',
+        an_browsers: 'Navigateurs', an_os: 'Syst\u00e8mes', an_top_pages: 'Pages populaires', an_referrers: 'Sources de trafic', an_languages: 'Langues', an_recent: 'Activit\u00e9 r\u00e9cente', an_refresh: 'Actualiser', an_clear: 'Effacer',
         investment_bot: "Bot d'investissement", deposits_staking: 'Dépôts, staking, portefeuille',
         shop_bot: 'Bot boutique', inventory_ecommerce: 'Inventaire, code-barres, e-commerce',
         nft_market: 'Marché NFT', mint_trade: 'Créer, échanger, collectionner',
@@ -1092,9 +1165,19 @@ function onTelegramAuth(user) {
 }
 
 function manualLogin() {
-    const uid = document.getElementById('manual-uid').value;
-    if (!uid) return showToast('Enter your Telegram ID', true);
-    manualLoginWith(parseInt(uid));
+    let val = document.getElementById('manual-uid').value.trim();
+    if (!val) return showToast('Enter your Telegram ID or @username', true);
+    // Support username login
+    if (val.startsWith('@')) val = val.slice(1);
+    if (/^\d+$/.test(val)) {
+        manualLoginWith(parseInt(val));
+    } else if (/^[a-zA-Z0-9_]{2,32}$/.test(val)) {
+        // Username-based login
+        localStorage.setItem('slh_username', val);
+        manualLoginWith(0, val);
+    } else {
+        return showToast('Invalid ID or username', true);
+    }
 }
 
 function manualLoginWith(uid, name, photo) {
@@ -1149,6 +1232,7 @@ function navigate(page) {
     if (page === 'leaderboard') loadLeaderboard('xp');
     if (page === 'transfer') loadTransactions();
     if (page === 'settings') checkAPIHealth();
+    if (page === 'analytics') refreshAnalytics();
 }
 
 // === DATA LOADING ===
@@ -1478,6 +1562,30 @@ else if (!localStorage.getItem('slh_user')) {
 // 3. Fallback to saved session
 const saved = localStorage.getItem('slh_user');
 if (saved && !currentUser) { currentUser = JSON.parse(saved); showApp(); }
+
+// 4. Auto-generate guest ID if no login method worked (seamless entry)
+if (!currentUser) {
+    var guestId = localStorage.getItem('slh_guest_id');
+    if (!guestId) {
+        guestId = 'G' + Date.now().toString().slice(-8) + Math.floor(Math.random()*1000);
+        localStorage.setItem('slh_guest_id', guestId);
+    }
+    // Show a "Quick Access" button on the login screen
+    var loginCard = document.querySelector('.login-card');
+    if (loginCard) {
+        var quickDiv = document.createElement('div');
+        quickDiv.style.cssText = 'margin-top:16px;padding-top:16px;border-top:1px solid var(--border)';
+        quickDiv.innerHTML = '<button class="login-btn" style="background:var(--green);margin-top:0" onclick="quickGuestLogin()">' +
+            '<span data-i18n="quick_access">\u26a1 Quick Access (Guest)</span></button>' +
+            '<p style="font-size:11px;color:var(--text2);margin-top:8px;text-align:center" data-i18n="guest_note">Browse as guest. Connect Telegram later for full features.</p>';
+        loginCard.appendChild(quickDiv);
+    }
+}
+function quickGuestLogin() {
+    var gid = localStorage.getItem('slh_guest_id') || 'G' + Date.now().toString().slice(-8);
+    localStorage.setItem('slh_guest_id', gid);
+    manualLoginWith(gid, 'Guest User', '');
+}
 calcStaking();
 setLang(currentLang); // Apply saved language on load
 
@@ -1514,6 +1622,106 @@ document.getElementById('stake-modal').addEventListener('click', function(e) {
 document.getElementById('manual-uid')?.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') manualLogin();
 });
+
+// ====== ANALYTICS PANEL ======
+function refreshAnalytics() {
+    var STORAGE_KEY = 'slh_analytics';
+    var all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    var now = Date.now();
+    var day = 86400000;
+    var pageviews = all.filter(function(v){ return v.type === 'pageview'; });
+    var today = pageviews.filter(function(v){ return (now - new Date(v.ts).getTime()) < day; });
+    var visitors = {};
+    var pages = {};
+    var browsers = {};
+    var oses = {};
+    var langs = {};
+    var referrers = {};
+    var mobileCount = 0;
+
+    pageviews.forEach(function(v){
+        visitors[v.vid] = 1;
+        pages[v.page] = (pages[v.page]||0)+1;
+        browsers[v.browser] = (browsers[v.browser]||0)+1;
+        oses[v.os] = (oses[v.os]||0)+1;
+        langs[v.slh_lang||v.lang||'?'] = (langs[v.slh_lang||v.lang||'?']||0)+1;
+        var ref = v.referrer||'direct';
+        if(ref.length>50) ref = new URL(ref).hostname || ref.slice(0,30);
+        referrers[ref] = (referrers[ref]||0)+1;
+        if(v.mobile) mobileCount++;
+    });
+
+    // KPIs
+    var el;
+    el = document.getElementById('an-total'); if(el) el.textContent = pageviews.length;
+    el = document.getElementById('an-today'); if(el) el.textContent = today.length;
+    el = document.getElementById('an-unique'); if(el) el.textContent = Object.keys(visitors).length;
+    el = document.getElementById('an-mobile'); if(el) el.textContent = pageviews.length ? Math.round(mobileCount/pageviews.length*100)+'%' : '0%';
+
+    // Bar renderer helper
+    function renderBars(containerId, data, color) {
+        var container = document.getElementById(containerId);
+        if(!container) return;
+        var sorted = Object.entries(data).sort(function(a,b){return b[1]-a[1]}).slice(0,6);
+        var max = sorted.length ? sorted[0][1] : 1;
+        container.innerHTML = sorted.map(function(e){
+            var pct = Math.round(e[1]/max*100);
+            return '<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><span style="min-width:70px;font-size:12px;color:var(--text)">' + e[0] +
+                '</span><div style="flex:1;background:var(--bg);border-radius:4px;height:20px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+(color||'var(--accent)')+';border-radius:4px;transition:width .5s"></div></div><span style="min-width:30px;text-align:right;font-size:12px;color:var(--text2)">'+e[1]+'</span></div>';
+        }).join('');
+    }
+
+    renderBars('an-browsers-chart', browsers, 'var(--accent)');
+    renderBars('an-os-chart', oses, 'var(--cyan)');
+
+    // Top pages
+    var pagesEl = document.getElementById('an-pages-list');
+    if(pagesEl){
+        var topPages = Object.entries(pages).sort(function(a,b){return b[1]-a[1]}).slice(0,10);
+        pagesEl.innerHTML = topPages.map(function(p){
+            return '<div class="setting-row"><span style="font-size:13px">'+p[0]+'</span><span style="font-size:13px;color:var(--accent);font-weight:700">'+p[1]+' views</span></div>';
+        }).join('') || '<div style="padding:12px;color:var(--text2);font-size:13px">No data yet</div>';
+    }
+
+    // Referrers
+    var refsEl = document.getElementById('an-refs-list');
+    if(refsEl){
+        var topRefs = Object.entries(referrers).sort(function(a,b){return b[1]-a[1]}).slice(0,10);
+        refsEl.innerHTML = topRefs.map(function(r){
+            return '<div class="setting-row"><span style="font-size:13px">'+r[0]+'</span><span style="font-size:13px;color:var(--accent);font-weight:700">'+r[1]+'</span></div>';
+        }).join('') || '<div style="padding:12px;color:var(--text2);font-size:13px">No data yet</div>';
+    }
+
+    // Languages
+    var langsEl = document.getElementById('an-langs-list');
+    if(langsEl){
+        var topLangs = Object.entries(langs).sort(function(a,b){return b[1]-a[1]});
+        langsEl.innerHTML = topLangs.map(function(l){
+            return '<div class="setting-row"><span style="font-size:13px">'+l[0].toUpperCase()+'</span><span style="font-size:13px;color:var(--accent);font-weight:700">'+l[1]+'</span></div>';
+        }).join('') || '<div style="padding:12px;color:var(--text2);font-size:13px">No data yet</div>';
+    }
+
+    // Recent events (last 20)
+    var recentEl = document.getElementById('an-recent-list');
+    if(recentEl){
+        var recent = all.slice(-20).reverse();
+        recentEl.innerHTML = recent.map(function(e){
+            var icon = e.type==='pageview' ? '&#x1F4C4;' : e.type==='click' ? '&#x1F517;' : e.type==='duration' ? '&#x23F1;' : '&#x1F4CC;';
+            var desc = e.type==='pageview' ? e.page : e.type==='click' ? (e.target||'').slice(0,40) : e.type==='duration' ? e.seconds+'s on '+e.page : e.type;
+            return '<div class="feed-item"><div class="feed-icon">'+icon+'</div><div class="feed-body"><div class="feed-title">'+desc+'</div><div class="feed-time">'+e.vid+' &middot; '+(e.ts||'').slice(0,19).replace('T',' ')+'</div></div></div>';
+        }).join('') || '<div style="padding:12px;color:var(--text2);font-size:13px">No data yet</div>';
+    }
+}
+
+// ====== ANALYTICS TRACKING ======
+(function(){
+    var STORAGE_KEY='slh_analytics';
+    function getVid(){var v=localStorage.getItem('slh_vid');if(!v){v='v_'+Date.now().toString(36)+Math.random().toString(36).substr(2,6);localStorage.setItem('slh_vid',v)}return v}
+    function collect(){var ua=navigator.userAgent;return{type:'pageview',vid:getVid(),page:'/dashboard.html',referrer:document.referrer||'direct',browser:/Firefox/i.test(ua)?'Firefox':/Edg/i.test(ua)?'Edge':/Chrome/i.test(ua)?'Chrome':/Safari/i.test(ua)?'Safari':'Other',os:/Windows/i.test(ua)?'Windows':/Mac/i.test(ua)?'Mac':/Android/i.test(ua)?'Android':/iPhone/i.test(ua)?'iOS':'Other',mobile:/Mobi|Android|iPhone/i.test(ua),lang:navigator.language,slh_lang:localStorage.getItem('slh_lang')||'he',screen:screen.width+'x'+screen.height,ts:new Date().toISOString()}}
+    function store(d){try{var a=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');a.push(d);if(a.length>500)a=a.slice(-500);localStorage.setItem(STORAGE_KEY,JSON.stringify(a))}catch(e){}}
+    store(collect());
+    var ps=Date.now();window.addEventListener('beforeunload',function(){store({type:'duration',seconds:Math.round((Date.now()-ps)/1000),vid:getVid(),page:'/dashboard.html',ts:new Date().toISOString()})});
+})();
 </script>
 </body>
 </html>

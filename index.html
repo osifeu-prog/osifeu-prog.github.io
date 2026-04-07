@@ -54,7 +54,7 @@
       "foundingLocation": "Israel",
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+972-58-420-3384",
+        "telephone": "+972-54-667-1882",
         "contactType": "customer service",
         "availableLanguage": ["Hebrew", "English", "Russian", "Arabic"]
       },
@@ -116,6 +116,40 @@
         .lang-btn:hover,.lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
         .nav-cta{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;padding:9px 22px;border-radius:10px;font-weight:600;text-decoration:none;font-size:13px;transition:.3s;box-shadow:0 2px 20px rgba(108,92,231,.3)}
         .nav-cta:hover{transform:translateY(-2px);box-shadow:0 4px 30px rgba(108,92,231,.5)}
+
+        /* HAMBURGER & SIDEBAR */
+        .hamburger{display:none;background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;transition:.3s;flex-shrink:0}
+        .hamburger:hover{border-color:var(--accent);color:var(--accent)}
+        .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s}
+        .sidebar-overlay.open{opacity:1;pointer-events:all}
+        .side-menu{position:fixed;top:0;right:-320px;width:300px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:9999;overflow-y:auto;transition:right .3s ease;padding:0}
+        html[dir="ltr"] .side-menu{right:auto;left:-320px;border-left:none;border-right:1px solid var(--border)}
+        .side-menu.open{right:0}
+        html[dir="ltr"] .side-menu.open{left:0}
+        .side-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+        .side-header h3{font-size:16px;color:var(--accent);font-weight:700}
+        .side-close{background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer;padding:4px 8px}
+        .side-close:hover{color:var(--red)}
+        .side-section{padding:12px 20px 4px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6}
+        .side-link{display:flex;align-items:center;gap:12px;padding:12px 20px;color:var(--text);text-decoration:none;font-size:14px;transition:.2s;border-bottom:1px solid rgba(255,255,255,.03)}
+        .side-link:hover{background:var(--accent-dim);color:var(--accent)}
+        .side-link .sl-icon{font-size:18px;width:24px;text-align:center}
+        .side-link .sl-badge{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--accent-dim);color:var(--accent);font-weight:600}
+        .side-themes{display:flex;gap:8px;padding:12px 20px}
+        .side-themes button{flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:11px;cursor:pointer;transition:.2s}
+        .side-themes button:hover{border-color:var(--accent);color:var(--accent)}
+        .side-langs{display:flex;flex-wrap:wrap;gap:6px;padding:8px 20px 16px}
+        .side-langs button{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;cursor:pointer;transition:.2s}
+        .side-langs button:hover{border-color:var(--accent);color:var(--accent)}
+        @media(max-width:900px){
+            .nav-mid,.nav-right{display:none !important}
+            .hamburger{display:flex}
+        }
+        /* Skip to content - accessibility */
+        .skip-link{position:absolute;top:-100px;left:0;background:var(--accent);color:var(--bg);padding:12px 24px;z-index:99999;font-weight:700;transition:top .2s;text-decoration:none;border-radius:0 0 8px 0}
+        .skip-link:focus{top:0}
+        *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+        .side-link:focus-visible,.lang-btn:focus-visible,.nav-cta:focus-visible,.btn:focus-visible{box-shadow:0 0 0 3px rgba(0,255,136,.3)}
 
         /* HERO */
         .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:110px 20px 50px;position:relative;z-index:1;background:linear-gradient(180deg,transparent 0%,rgba(108,92,231,.03) 50%,transparent 100%)}
@@ -375,10 +409,48 @@
 
         .ref-banner{position:fixed;top:60px;left:50%;transform:translateX(-50%);padding:10px 24px;border-radius:12px;background:linear-gradient(135deg,rgba(108,92,231,.9),rgba(0,206,201,.8));color:#fff;font-size:13px;font-weight:600;z-index:99;backdrop-filter:blur(10px);box-shadow:0 4px 30px rgba(108,92,231,.4);animation:fadeInDown .5s ease}
 
+        /* REFERRAL SHARE TOOLS */
+        .ref-share-section{max-width:700px;margin:32px auto 0;padding:0 20px}
+        .ref-share-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px;text-align:center}
+        .ref-bot-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:24px}
+        .ref-bot-link-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:.3s}
+        .ref-bot-link-row:hover{border-color:rgba(108,92,231,.3)}
+        .ref-bot-link-row .bot-name{font-size:12px;font-weight:600;color:var(--accent2);min-width:90px;white-space:nowrap}
+        .ref-bot-link-row input{flex:1;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:var(--text);font-size:11px;font-family:'Space Mono',monospace;outline:none;min-width:0}
+        .ref-bot-link-row .copy-bot-btn{padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;transition:.3s;white-space:nowrap}
+        .ref-bot-link-row .copy-bot-btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(108,92,231,.4)}
+        .ref-share-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+        .ref-action-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.3s;text-decoration:none;color:#fff}
+        .ref-action-btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+        .ref-action-btn.btn-generate{background:linear-gradient(135deg,var(--accent),#8b5cf6,var(--cyan));background-size:200% 200%;animation:gs 3s ease infinite}
+        .ref-action-btn.btn-telegram{background:#0088cc}
+        .ref-action-btn.btn-whatsapp{background:#25D366}
+        .ref-action-btn.btn-facebook{background:#1877F2}
+        .ref-action-btn.btn-card-page{background:linear-gradient(135deg,var(--gold),#ffaa00);color:#000}
+        .ref-canvas-preview{margin-top:24px;text-align:center}
+        .ref-canvas-preview canvas{max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 30px rgba(0,0,0,.3)}
+        .ref-download-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;background:linear-gradient(135deg,var(--green),#00a0a0);color:#fff;margin-top:16px;transition:.3s}
+        .ref-download-btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,206,201,.4)}
+
         @media(max-width:768px){
             #ref-stats-display{grid-template-columns:1fr}
             .ref-link-copy{flex-direction:column}
+            .ref-bot-links{grid-template-columns:1fr}
+            .ref-share-actions{flex-direction:column;align-items:stretch}
+            .ref-action-btn{justify-content:center}
         }
+
+        /* DASHBOARD */
+        .dash-kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px 12px;text-align:center}
+        .dash-kpi-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,36px);font-weight:800;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .dash-kpi-lbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+        .dash-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;position:relative}
+        .dash-card h3{font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px}
+        .dash-table{width:100%;border-collapse:collapse;font-size:13px}
+        .dash-table th{text-align:left;padding:10px 14px;background:rgba(108,92,231,.08);color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.06)}
+        .dash-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text)}
+        .dash-table tr:hover td{background:rgba(108,92,231,.04)}
+        .dash-up{color:#00cec9}.dash-down{color:#ff6b6b}
 
         /* ASCII ART STYLING */
         .ascii-hero {
@@ -1137,13 +1209,19 @@
 <div class="matrix-col" style="left:75%;animation-duration:28s;animation-delay:-8s">WALLET01TON10BNB01SEND1001</div>
 <div class="matrix-col" style="left:90%;animation-duration:15s;animation-delay:-12s">INVEST01EARN10GROW01SPARK10</div>
 
-<nav id="nb">
+<a href="#ecosystem" class="skip-link">Skip to content</a>
+
+<nav id="nb" role="navigation" aria-label="Main navigation">
+    <button class="hamburger" onclick="toggleSidebar()" aria-label="Open menu" aria-expanded="false">☰</button>
     <div class="logo"><div class="logo-d"><span>S</span></div><div class="logo-t">SLH <span>Ecosystem</span></div></div>
     <div class="nav-mid">
         <a href="#ecosystem" data-i18n="nav_eco">Ecosystem</a>
         <a href="#features" data-i18n="nav_tech">Technology</a>
         <a href="#products" data-i18n="nav_prod">Products</a>
-        <a href="#staking" data-i18n="nav_staking">Staking</a>
+        <a href="/staking.html" data-i18n="nav_staking">Staking</a>
+        <a href="/blockchain.html" data-i18n="nav_bsc">Blockchain</a>
+        <a href="#deals" data-i18n="nav_deals" style="color:var(--accent)">Deals</a>
+        <a href="#buy-slh" data-i18n="nav_buy" style="color:var(--gold)">Buy SLH</a>
         <a href="#referral" data-i18n="nav_ref">Referral</a>
         <a href="#contact" data-i18n="nav_contact">Contact</a>
     </div>
@@ -1166,6 +1244,86 @@
         <a href="https://t.me/SLH_AIR_bot" class="nav-cta tt-wrap" data-i18n="nav_cta"><span class="tt">Open the SLH Investment Bot in Telegram - free to try!</span>Try Free</a>
     </div>
 </nav>
+
+<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="side-menu" id="sideMenu" role="dialog" aria-label="Navigation menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:10px">
+            <div class="logo-d" style="width:32px;height:32px;font-size:14px"><span>S</span></div>
+            <span style="font-weight:700;color:var(--text);font-size:14px">SLH Ecosystem</span>
+        </div>
+        <button onclick="toggleSidebar()" aria-label="Close menu" style="background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer;padding:4px">✕</button>
+    </div>
+
+    <div style="padding:8px 0">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_nav">Navigation</div>
+        <a href="#ecosystem" class="side-link" onclick="toggleSidebar()" data-i18n="nav_eco">Ecosystem</a>
+        <a href="#features" class="side-link" onclick="toggleSidebar()" data-i18n="nav_tech">Technology</a>
+        <a href="#products" class="side-link" onclick="toggleSidebar()" data-i18n="nav_prod">Products</a>
+        <a href="/staking.html" class="side-link" onclick="toggleSidebar()" data-i18n="nav_staking">Staking</a>
+        <a href="#dashboard" class="side-link" onclick="toggleSidebar()" data-i18n="dash_tag">Live Dashboard</a>
+        <a href="/blockchain.html" class="side-link" onclick="toggleSidebar()" data-i18n="nav_bsc">Blockchain</a>
+        <a href="#deals" class="side-link" onclick="toggleSidebar()" data-i18n="nav_deals" style="color:var(--accent)">Deals</a>
+        <a href="#buy-slh" class="side-link" onclick="toggleSidebar()" data-i18n="nav_buy" style="color:var(--gold)">Buy SLH</a>
+        <a href="#referral" class="side-link" onclick="toggleSidebar()" data-i18n="nav_ref">Referral</a>
+        <a href="#contact" class="side-link" onclick="toggleSidebar()" data-i18n="nav_contact">Contact</a>
+    </div>
+
+    <div style="padding:8px 0;border-top:1px solid var(--border)">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_pages">Pages</div>
+        <a href="/dashboard.html" class="side-link">📊 Dashboard</a>
+        <a href="/guides.html" class="side-link">📖 Guides</a>
+        <a href="/referral-card.html" class="side-link">🎨 Referral Card Studio</a>
+        <a href="/staking.html" class="side-link">📈 Staking</a>
+        <a href="/blockchain.html" class="side-link">⛓️ Blockchain</a>
+        <a href="/whitepaper.html" class="side-link">📄 Whitepaper</a>
+        <a href="/admin.html" class="side-link" style="font-size:11px;opacity:.5">🔒 Admin</a>
+    </div>
+
+    <div style="padding:8px 0;border-top:1px solid var(--border)">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_bots">Bots</div>
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" class="side-link">🚀 SLH AIR (ExpertNet)</a>
+        <a href="https://t.me/SLH_Academia_bot" target="_blank" class="side-link">🎓 SLH Academia</a>
+        <a href="https://t.me/BotShop_bot" target="_blank" class="side-link">🏪 GATE BotShop</a>
+        <a href="https://t.me/Grdian_bot" target="_blank" class="side-link">🛡️ Guardian</a>
+        <a href="https://t.me/SLH_Wallet_bot" target="_blank" class="side-link">💰 Wallet</a>
+        <a href="https://t.me/SLH_Factory_bot" target="_blank" class="side-link">🏭 Factory</a>
+        <a href="https://t.me/SLH_Campaign_bot" target="_blank" class="side-link">📢 Campaign</a>
+        <a href="https://t.me/SLH_community_bot" target="_blank" class="side-link">🎮 Fun & Community</a>
+    </div>
+
+    <div style="padding:8px 0;border-top:1px solid var(--border)">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_theme">Theme</div>
+        <div style="display:flex;gap:8px;padding:8px 20px;flex-wrap:wrap">
+            <button class="lang-btn theme-btn" onclick="setTheme('terminal')">🖥️ Terminal</button>
+            <button class="lang-btn theme-btn" onclick="setTheme('crypto')">💎 Crypto</button>
+            <button class="lang-btn theme-btn" onclick="setTheme('light')">☀️ Light</button>
+            <button class="lang-btn theme-btn" onclick="setTheme('unified')">🌈 Auto</button>
+        </div>
+    </div>
+
+    <div style="padding:8px 0;border-top:1px solid var(--border)">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_lang">Language</div>
+        <div style="display:flex;gap:8px;padding:8px 20px;flex-wrap:wrap">
+            <button class="lang-btn" onclick="setLang('he')">HE</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('ru')">RU</button>
+            <button class="lang-btn" onclick="setLang('ar')">AR</button>
+            <button class="lang-btn" onclick="setLang('fr')">FR</button>
+        </div>
+    </div>
+
+    <div style="padding:8px 0;border-top:1px solid var(--border)">
+        <div style="padding:8px 20px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:.6" data-i18n="side_social">Social</div>
+        <a href="https://www.facebook.com/SLH.Fin.Tech.Academy" target="_blank" class="side-link">📘 SLH Academy</a>
+        <a href="https://www.facebook.com/SLH.cripto.il/" target="_blank" class="side-link">📘 SLH Crypto IL</a>
+        <a href="https://www.facebook.com/bynoni.bank/" target="_blank" class="side-link">📘 Bynoni Bank</a>
+        <a href="https://www.facebook.com/OMG.adv/" target="_blank" class="side-link">📘 OMG Advertising</a>
+        <a href="https://www.facebook.com/Salvation.Gates/" target="_blank" class="side-link">📘 Salvation Gates</a>
+        <a href="https://www.youtube.com/@themovment2unite" target="_blank" class="side-link">🎬 YouTube</a>
+    </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1220,6 +1378,46 @@
     <div class="st rv rd3"><div class="st-n">24/7</div><div class="st-l" data-i18n="st4">Automated</div></div>
 </div>
 
+<!-- JOIN / QUICK REGISTER -->
+<section id="join" style="padding:30px 0">
+    <div class="sc">
+        <span class="stag rv terminal-header" data-i18n="join_tag">Join Free</span>
+        <h2 class="stitle rv" data-i18n="join_title">הצטרף ל-SLH Ecosystem</h2>
+        <p class="ssub rv" data-i18n="join_sub">חינם לחלוטין | 20+ בוטים | בונוס הרשמה</p>
+    </div>
+    <div class="rv" style="max-width:600px;margin:24px auto;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center">
+        <div id="join-form" style="display:block">
+            <label style="font-size:14px;color:var(--text2);display:block;margin-bottom:12px" data-i18n="join_label">הכנס את שם המשתמש שלך בטלגרם:</label>
+            <div style="display:flex;gap:10px;max-width:400px;margin:0 auto">
+                <input type="text" id="join-username" placeholder="@username" style="flex:1;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:16px;font-family:'Space Mono',monospace;direction:ltr;text-align:center" oninput="this.value=this.value.replace(/[^a-zA-Z0-9_@]/g,'')">
+                <button onclick="quickJoin()" style="padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap" data-i18n="join_btn">הצטרף</button>
+            </div>
+            <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px">
+                <span style="color:var(--text2);font-size:12px">או</span>
+                <a href="https://t.me/SLH_AIR_bot" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0088cc;color:#fff;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none">
+                    <span>✈️</span> <span data-i18n="join_telegram">פתח בטלגרם</span>
+                </a>
+            </div>
+        </div>
+        <div id="join-success" style="display:none">
+            <div style="font-size:24px;margin-bottom:12px">🎉</div>
+            <div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:8px" data-i18n="join_welcome">!ברוך הבא</div>
+            <div style="font-size:14px;color:var(--text2);margin-bottom:16px" id="join-welcome-name"></div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:8px" data-i18n="join_your_link">הלינק האישי שלך:</div>
+            <div style="display:flex;gap:8px;max-width:450px;margin:0 auto;direction:ltr">
+                <input type="text" id="join-ref-link" readonly style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--accent);border-radius:8px;color:var(--accent);font-family:'Space Mono',monospace;font-size:12px;text-align:center">
+                <button onclick="copyJoinLink()" style="padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">📋</button>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+                <a id="join-share-tg" target="_blank" style="padding:8px 16px;background:#0088cc;color:#fff;border-radius:8px;font-size:12px;text-decoration:none;font-weight:600">✈️ Telegram</a>
+                <a id="join-share-wa" target="_blank" style="padding:8px 16px;background:#25D366;color:#fff;border-radius:8px;font-size:12px;text-decoration:none;font-weight:600">💬 WhatsApp</a>
+                <a id="join-share-fb" target="_blank" style="padding:8px 16px;background:#1877F2;color:#fff;border-radius:8px;font-size:12px;text-decoration:none;font-weight:600">📘 Facebook</a>
+            </div>
+            <a href="/referral-card.html" style="display:inline-block;margin-top:14px;font-size:12px;color:var(--gold);text-decoration:none" data-i18n="join_card_studio">🎨 צור כרטיס הפניה מעוצב →</a>
+        </div>
+    </div>
+</section>
+
 <div class="ascii-divider">==============================================</div>
 
 <!-- HOW IT WORKS -->
@@ -1239,7 +1437,8 @@
 <div class="ascii-divider">==============================================</div>
 
 <!-- ECOSYSTEM -->
-<section id="ecosystem">
+<main role="main">
+<section id="ecosystem" aria-label="Ecosystem">
     <div class="sc">
         <span class="stag rv terminal-header" data-i18n="eco_tag">Ecosystem</span>
         <h2 class="stitle rv" data-i18n="eco_title">Every Bot is a Business</h2>
@@ -1261,7 +1460,7 @@
 <div class="ascii-divider">==============================================</div>
 
 <!-- FEATURES -->
-<section id="features">
+<section id="features" aria-label="Features">
     <div class="sc">
         <span class="stag rv terminal-header" data-i18n="feat_tag">Technology</span>
         <h2 class="stitle rv" data-i18n="feat_title">Built Different</h2>
@@ -1295,7 +1494,7 @@
 <div class="ascii-divider">==============================================</div>
 
 <!-- PRODUCTS -->
-<section id="products">
+<section id="products" aria-label="Products">
     <div class="sc">
         <span class="stag rv" data-i18n="prod_tag">Products</span>
         <h2 class="stitle rv" data-i18n="prod_title">What You Get</h2>
@@ -1307,7 +1506,7 @@
 <div class="ascii-divider">==============================================</div>
 
 <!-- STAKING -->
-<section id="staking">
+<section id="staking" aria-label="Staking">
     <div class="sc">
         <span class="stag rv terminal-header" data-i18n="staking_tag">Staking</span>
         <h2 class="stitle rv" data-i18n="staking_title">Earn Passive Income</h2>
@@ -1392,8 +1591,252 @@
     </div>
 </section>
 
+<!-- DASHBOARD / DATA VISUALIZATION -->
+<section id="dashboard" aria-label="Dashboard" style="padding:60px 20px">
+    <div class="sc">
+        <span class="stag rv" data-i18n="dash_tag">Live Dashboard</span>
+        <h2 class="stitle rv" data-i18n="dash_title">Ecosystem Analytics</h2>
+        <p class="ssub rv" data-i18n="dash_sub">Real-time data from the SLH ecosystem — prices, distribution, activity metrics.</p>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="rv" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;max-width:900px;margin:32px auto">
+        <div class="dash-kpi"><div class="dash-kpi-val" id="kpi-bots">22</div><div class="dash-kpi-lbl" data-i18n="dash_kpi_bots">Active Bots</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val" id="kpi-coins">12</div><div class="dash-kpi-lbl" data-i18n="dash_kpi_coins">Tracked Coins</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val" id="kpi-containers">22</div><div class="dash-kpi-lbl" data-i18n="dash_kpi_containers">Docker Containers</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val" id="kpi-languages">5</div><div class="dash-kpi-lbl" data-i18n="dash_kpi_langs">Languages</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val" id="kpi-uptime">99.9%</div><div class="dash-kpi-lbl" data-i18n="dash_kpi_uptime">Uptime</div></div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px;max-width:1100px;margin:0 auto">
+        <!-- Chart 1: Crypto Prices (bar) -->
+        <div class="dash-card rv">
+            <h3 data-i18n="dash_ch_prices">Live Crypto Prices (USD)</h3>
+            <canvas id="chart-prices" height="260"></canvas>
+        </div>
+        <!-- Chart 2: Token Distribution (doughnut) -->
+        <div class="dash-card rv">
+            <h3 data-i18n="dash_ch_dist">SLH Token Distribution</h3>
+            <canvas id="chart-distribution" height="260"></canvas>
+        </div>
+        <!-- Chart 3: Bot Ecosystem (radar) -->
+        <div class="dash-card rv">
+            <h3 data-i18n="dash_ch_eco">Bot Ecosystem Metrics</h3>
+            <canvas id="chart-ecosystem" height="260"></canvas>
+        </div>
+        <!-- Chart 4: Revenue Streams (polar area) -->
+        <div class="dash-card rv">
+            <h3 data-i18n="dash_ch_rev">Revenue Streams</h3>
+            <canvas id="chart-revenue" height="260"></canvas>
+        </div>
+    </div>
+
+    <!-- Mini price table -->
+    <div class="rv" style="max-width:900px;margin:32px auto 0">
+        <div class="dash-card">
+            <h3 data-i18n="dash_ch_table">Coin Price Tracker</h3>
+            <div style="overflow-x:auto">
+                <table class="dash-table" id="price-table">
+                    <thead><tr><th>Coin</th><th data-i18n="dash_th_price">Price (USD)</th><th data-i18n="dash_th_24h">24h Change</th><th data-i18n="dash_th_cap">Market Cap</th></tr></thead>
+                    <tbody id="price-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BSC BLOCKCHAIN TRACKER -->
+<section id="blockchain" aria-label="Blockchain" style="padding:80px 0">
+    <div class="sc">
+        <span class="stag rv" data-i18n="bsc_tag">Blockchain</span>
+        <h2 class="stitle rv" data-i18n="bsc_title">SLH on BSC - Live Blockchain</h2>
+        <p class="ssub rv" data-i18n="bsc_sub">Track SLH token activity on Binance Smart Chain in real time. Fully transparent, on-chain verified.</p>
+    </div>
+
+    <div class="rv" style="max-width:1000px;margin:32px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div class="dash-kpi">
+            <div class="dash-kpi-val" id="bsc-price">$0.00</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_price">SLH Price</div>
+        </div>
+        <div class="dash-kpi">
+            <div class="dash-kpi-val" id="bsc-holders">--</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_holders">Token Holders</div>
+        </div>
+        <div class="dash-kpi">
+            <div class="dash-kpi-val" id="bsc-txns">--</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_txns">Total Transfers</div>
+        </div>
+        <div class="dash-kpi">
+            <div class="dash-kpi-val" id="bsc-mcap">--</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_mcap">Market Cap</div>
+        </div>
+    </div>
+
+    <!-- Contract Info -->
+    <div class="rv" style="max-width:1000px;margin:24px auto 0">
+        <div class="dash-card" style="text-align:center">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:8px" data-i18n="bsc_contract">Smart Contract</div>
+            <code id="slh-contract" style="font-size:13px;color:var(--green);word-break:break-all;cursor:pointer" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='var(--gold)';setTimeout(()=>this.style.color='var(--green)',1500)">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code>
+            <div style="margin-top:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" class="cta-btn" style="font-size:13px;padding:10px 20px" data-i18n="bsc_view_scan">View on BSCScan</a>
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" class="cta-btn" style="font-size:13px;padding:10px 20px;background:var(--green);color:var(--bg)" data-i18n="bsc_buy">Buy on PancakeSwap</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="rv" style="max-width:1000px;margin:24px auto 0">
+        <div class="dash-card">
+            <h3 data-i18n="bsc_recent_tx">Recent Transactions</h3>
+            <div style="overflow-x:auto">
+                <table class="dash-table" id="bsc-tx-table">
+                    <thead><tr>
+                        <th data-i18n="bsc_th_hash">Tx Hash</th>
+                        <th data-i18n="bsc_th_from">From</th>
+                        <th data-i18n="bsc_th_to">To</th>
+                        <th data-i18n="bsc_th_amount">Amount</th>
+                        <th data-i18n="bsc_th_time">Time</th>
+                    </tr></thead>
+                    <tbody id="bsc-tx-tbody">
+                        <tr><td colspan="5" style="text-align:center;color:var(--text2);padding:24px" data-i18n="bsc_loading">Loading blockchain data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROMOTIONS -->
+<section id="deals" aria-label="Promotions" style="padding:80px 20px">
+    <div class="sc">
+        <span class="stag rv" data-i18n="deals_tag">Active Deals</span>
+        <h2 class="stitle rv" data-i18n="deals_title">Special Promotions</h2>
+        <p class="ssub rv" data-i18n="deals_sub">Limited time offers — save big on premium access</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1000px;margin:0 auto">
+        <!-- Deal 1: Launch 30% -->
+        <div class="rv" style="background:linear-gradient(135deg,rgba(255,165,0,.12),rgba(255,69,0,.08));border:1px solid rgba(255,165,0,.25);border-radius:16px;padding:28px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px" data-i18n="deals_hot">HOT</div>
+            <div style="font-size:32px;margin-bottom:8px">🔥</div>
+            <h3 style="font-size:18px;margin-bottom:8px;color:var(--text1)" data-i18n="deal1_title">Launch Deal — 30% OFF</h3>
+            <p style="font-size:13px;color:var(--text2);margin-bottom:16px" data-i18n="deal1_desc">All bots at 30% discount. Code: LAUNCH30</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:12px;color:var(--accent)">⏰ <span data-i18n="deals_limited">Limited time</span></span>
+                <a href="https://t.me/SLH_AIR_bot" target="_blank" style="background:linear-gradient(135deg,var(--accent),var(--cyan));color:#000;font-weight:700;padding:8px 18px;border-radius:20px;font-size:12px;text-decoration:none" data-i18n="deals_claim">Claim Now</a>
+            </div>
+        </div>
+        <!-- Deal 2: Full Bundle -->
+        <div class="rv" style="background:linear-gradient(135deg,rgba(138,43,226,.12),rgba(75,0,130,.08));border:1px solid rgba(138,43,226,.25);border-radius:16px;padding:28px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">💎 BEST VALUE</div>
+            <div style="font-size:32px;margin-bottom:8px">💎</div>
+            <h3 style="font-size:18px;margin-bottom:8px;color:var(--text1)" data-i18n="deal2_title">Full Bundle — 6 Bots</h3>
+            <p style="font-size:13px;color:var(--text2);margin-bottom:16px" data-i18n="deal2_desc">All 6 premium bots for just 199₪ / 10 TON (save 60%+)</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:22px;font-weight:800;color:var(--accent)">199₪</span>
+                <a href="https://t.me/SLH_AIR_bot" target="_blank" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-weight:700;padding:8px 18px;border-radius:20px;font-size:12px;text-decoration:none" data-i18n="deals_claim">Claim Now</a>
+            </div>
+        </div>
+        <!-- Deal 3: Refer & Earn -->
+        <div class="rv" style="background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(0,150,200,.08));border:1px solid rgba(0,229,255,.25);border-radius:16px;padding:28px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,var(--cyan),#0090c0);color:#000;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">FREE</div>
+            <div style="font-size:32px;margin-bottom:8px">🤝</div>
+            <h3 style="font-size:18px;margin-bottom:8px;color:var(--text1)" data-i18n="deal3_title">Invite 3 = Free Premium</h3>
+            <p style="font-size:13px;color:var(--text2);margin-bottom:16px" data-i18n="deal3_desc">Invite 3 friends and get Community Premium for free!</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:12px;color:var(--cyan)">👥 15% commission per referral</span>
+                <a href="https://t.me/SLH_AIR_bot" target="_blank" style="background:linear-gradient(135deg,var(--cyan),#0090c0);color:#000;font-weight:700;padding:8px 18px;border-radius:20px;font-size:12px;text-decoration:none" data-i18n="deals_join">Join</a>
+            </div>
+        </div>
+        <!-- Deal 4: Security Pack -->
+        <div class="rv" style="background:linear-gradient(135deg,rgba(0,200,83,.12),rgba(0,150,60,.08));border:1px solid rgba(0,200,83,.25);border-radius:16px;padding:28px;position:relative;overflow:hidden">
+            <div style="font-size:32px;margin-bottom:8px">🛡️</div>
+            <h3 style="font-size:18px;margin-bottom:8px;color:var(--text1)" data-i18n="deal4_title">Security Pack</h3>
+            <p style="font-size:13px;color:var(--text2);margin-bottom:16px" data-i18n="deal4_desc">Guardian + Wallet bundle at 99₪ / 5 TON</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:22px;font-weight:800;color:#00c853">99₪</span>
+                <a href="https://t.me/Grdian_bot" target="_blank" style="background:linear-gradient(135deg,#00c853,#009624);color:#fff;font-weight:700;padding:8px 18px;border-radius:20px;font-size:12px;text-decoration:none" data-i18n="deals_claim">Claim Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BUY SLH -->
+<section id="buy-slh" aria-label="Buy SLH" style="padding:80px 20px">
+    <div class="sc">
+        <span class="stag rv" data-i18n="buy_tag">Buy SLH</span>
+        <h2 class="stitle rv" data-i18n="buy_title">Buy SLH Token</h2>
+        <p class="ssub rv" data-i18n="buy_sub">Purchase SLH tokens directly. Micro-amounts supported. BSC blockchain.</p>
+    </div>
+
+    <!-- Price Display -->
+    <div class="rv" style="max-width:500px;margin:0 auto 40px;text-align:center;background:linear-gradient(135deg,rgba(255,211,42,.12),rgba(255,211,42,.04));border:1px solid rgba(255,211,42,.3);border-radius:20px;padding:32px">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:8px" data-i18n="buy_price_label">Current Price</div>
+        <div style="font-size:42px;font-weight:900;font-family:'Space Grotesk',sans-serif;color:var(--gold);margin-bottom:8px" data-i18n="buy_price">1 SLH = 444₪</div>
+        <div style="font-size:12px;color:var(--text2)" data-i18n="buy_micro">Micro-amounts supported (0.00004 SLH and below)</div>
+    </div>
+
+    <!-- Tier Cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;max-width:1000px;margin:0 auto 40px">
+        <div class="rv" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:.3s">
+            <div style="font-size:24px;margin-bottom:6px">🔬</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px" data-i18n="buy_tier1_title">Micro Pack</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent2);margin-bottom:4px" data-i18n="buy_tier1_amount">0.00004 SLH</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gold)" data-i18n="buy_tier1_price">0.018₪</div>
+        </div>
+        <div class="rv" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:.3s">
+            <div style="font-size:24px;margin-bottom:6px">📦</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px" data-i18n="buy_tier2_title">Basic Pack</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent2);margin-bottom:4px" data-i18n="buy_tier2_amount">0.001 SLH</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gold)" data-i18n="buy_tier2_price">0.444₪</div>
+        </div>
+        <div class="rv" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:.3s">
+            <div style="font-size:24px;margin-bottom:6px">⭐</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px" data-i18n="buy_tier3_title">Standard Pack</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent2);margin-bottom:4px" data-i18n="buy_tier3_amount">0.01 SLH</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gold)" data-i18n="buy_tier3_price">4.44₪</div>
+        </div>
+        <div class="rv" style="background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(162,155,254,.05));border:1px solid rgba(108,92,231,.25);border-radius:14px;padding:20px;text-align:center;transition:.3s">
+            <div style="font-size:24px;margin-bottom:6px">💎</div>
+            <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px" data-i18n="buy_tier4_title">Premium Pack</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent2);margin-bottom:4px" data-i18n="buy_tier4_amount">0.1 SLH</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gold)" data-i18n="buy_tier4_price">44.4₪</div>
+        </div>
+        <div class="rv" style="background:linear-gradient(135deg,rgba(255,211,42,.12),rgba(255,211,42,.04));border:1px solid rgba(255,211,42,.3);border-radius:14px;padding:20px;text-align:center;transition:.3s">
+            <div style="font-size:24px;margin-bottom:6px">🏆</div>
+            <div style="font-size:13px;font-weight:600;color:var(--gold);margin-bottom:4px" data-i18n="buy_tier5_title">Full Pack</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent2);margin-bottom:4px" data-i18n="buy_tier5_amount">1 SLH</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gold)" data-i18n="buy_tier5_price">444₪</div>
+        </div>
+    </div>
+
+    <!-- Buy Actions -->
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;max-width:600px;margin:0 auto 40px">
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" style="flex:1;min-width:220px;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;font-weight:700;padding:16px 28px;border-radius:14px;font-size:15px;text-decoration:none;transition:.3s;box-shadow:0 4px 24px rgba(108,92,231,.3)" data-i18n="buy_telegram">Buy via Telegram</a>
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" style="flex:1;min-width:220px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-weight:600;padding:16px 28px;border-radius:14px;font-size:15px;text-decoration:none;transition:.3s" data-i18n="buy_contact">Contact Admin</a>
+    </div>
+
+    <!-- Contract & Wallet Info -->
+    <div style="max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:4px" data-i18n="buy_contract">BSC Contract</div>
+                <div style="font-size:12px;font-family:'Space Mono',monospace;color:var(--accent2);word-break:break-all">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</div>
+            </div>
+            <button onclick="navigator.clipboard.writeText('0xACb0A09414CEA1C879c67bB7A877E4e19480f022');this.textContent='✓'" style="background:var(--accent);color:#fff;border:none;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap" data-i18n="buy_copy">Copy</button>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:4px" data-i18n="buy_wallet">TON Wallet for Payment</div>
+                <div style="font-size:12px;font-family:'Space Mono',monospace;color:var(--cyan);word-break:break-all">UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp</div>
+            </div>
+            <button onclick="navigator.clipboard.writeText('UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp');this.textContent='✓'" style="background:var(--cyan);color:#000;border:none;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap" data-i18n="buy_copy">Copy</button>
+        </div>
+    </div>
+</section>
+
 <!-- REFERRAL -->
-<section id="referral">
+<section id="referral" aria-label="Referral">
     <div class="sc">
         <span class="stag rv" data-i18n="ref_tag">Referral Network</span>
         <h2 class="stitle rv" data-i18n="ref_title">Earn Up to 10 Generations Deep</h2>
@@ -1420,18 +1863,41 @@
             <button onclick="copyRefLink()" data-i18n="ref_copy">Copy</button>
         </div>
     </div>
+
+    <!-- Bot-specific referral links -->
+    <div class="ref-share-section rv">
+        <h3 class="ref-share-title" data-i18n="ref_bot_links_title">Bot Referral Links</h3>
+        <div class="ref-bot-links" id="ref-bot-links"></div>
+
+        <!-- Share & Generate actions -->
+        <h3 class="ref-share-title" data-i18n="ref_share_title">Share & Earn</h3>
+        <div class="ref-share-actions">
+            <button class="ref-action-btn btn-generate" onclick="generateRefCard()" data-i18n="ref_generate_image">Generate Shareable Image</button>
+            <a class="ref-action-btn btn-telegram" id="ref-share-tg" href="#" onclick="shareRefTelegram()" data-i18n="ref_share_telegram">Share on Telegram</a>
+            <a class="ref-action-btn btn-whatsapp" id="ref-share-wa" href="#" onclick="shareRefWhatsApp()" data-i18n="ref_share_whatsapp">Share on WhatsApp</a>
+            <a class="ref-action-btn btn-facebook" id="ref-share-fb" href="#" onclick="shareRefFacebook()" data-i18n="ref_share_facebook">Share on Facebook</a>
+            <a class="ref-action-btn btn-card-page" href="referral-card.html" data-i18n="ref_card_page">Referral Card Studio</a>
+        </div>
+
+        <!-- Canvas preview area -->
+        <div class="ref-canvas-preview" id="ref-canvas-preview" style="display:none">
+            <canvas id="ref-card-canvas" width="800" height="500"></canvas>
+            <br>
+            <button class="ref-download-btn" onclick="downloadRefCard()" data-i18n="ref_download">Download Image</button>
+        </div>
+    </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" aria-label="Contact">
     <div class="sc">
         <span class="stag rv" data-i18n="contact_tag">Contact</span>
         <h2 class="stitle rv" data-i18n="contact_title">Get in Touch</h2>
     </div>
     <div class="contact-row rv">
-        <a href="tel:0584203384" class="contact-item">📞 058-420-3384</a>
+        <a href="tel:0546671882" class="contact-item">📞 054-667-1882</a>
         <a href="https://t.me/SLH_AIR_bot" class="contact-item">💬 @SLH_AIR_bot</a>
-        <a href="mailto:osif@spark-ind.com" class="contact-item">📧 osif@spark-ind.com</a>
+        <a href="mailto:kaufmanungar@gmail.com" class="contact-item">📧 kaufmanungar@gmail.com</a>
     </div>
 </section>
 
@@ -1468,7 +1934,7 @@
     <p class="ssub rv" style="margin-left:auto;margin-right:auto">Working product. 20+ bots live. Multiple revenue streams. Raising seed round for strategic partners.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px" class="rv">
         <a href="/whitepaper.html" class="btn btn-o" style="border-color:var(--accent)">Whitepaper</a>
-        <a href="mailto:osif@spark-ind.com" class="btn btn-p">Invest in SLH</a>
+        <a href="mailto:kaufmanungar@gmail.com" class="btn btn-p">Invest in SLH</a>
     </div>
     <p class="rv" style="margin-top:20px;font-size:13px;color:var(--text2)">Seed Round | $2M Pre-money Valuation | Up to 20% Equity | SAFE or Equity</p>
 </section>
@@ -1480,12 +1946,13 @@
     <a href="https://t.me/SLH_AIR_bot" class="btn btn-p" data-i18n="cta_btn">Try Free</a>
 </div>
 
-<footer>
+</main>
+<footer role="contentinfo">
     <div class="fl">
         <a href="https://t.me/SLH_AIR_bot">Investment</a>
         <a href="https://t.me/OsifShop_bot">Shop SaaS</a>
         <a href="https://t.me/NIFTI_Publisher_Bot">NFT Market</a>
-        <a href="https://t.me/SLH_Guardian_bot">Security</a>
+        <a href="https://t.me/Grdian_bot">Security</a>
         <a href="https://t.me/SLH_Wallet_bot">Wallet</a>
         <a href="https://t.me/SLH_Factory_bot">Staking</a>
         <a href="https://t.me/G4meb0t_bot_bot">Games</a>
@@ -1511,6 +1978,7 @@
 const T = {
 he: {
     nav_eco:"אקוסיסטם",nav_tech:"טכנולוגיה",nav_prod:"מוצרים",nav_contact:"צור קשר",nav_cta:"נסה חינם",
+    side_nav:"ניווט",side_pages:"דפים",side_bots:"בוטים",side_theme:"ערכת נושא",side_lang:"שפה",side_social:"רשתות חברתיות",
     badge:"SPARK IND | פעיל עכשיו",hero_l1:"SLH בית השקעות",hero_l2:"דיגיטלי",
     hero_p:"20+ בוטים בטלגרם. הפקדות בלוקצ'יין אמיתיות. מערכת מלאי SaaS. אקוסיסטם כלכלי מלא. נבנה בישראל.",
     hero_btn1:"בוט השקעות",hero_btn2:"חנות SaaS",
@@ -1541,15 +2009,42 @@ he: {
     earn_s1t:"חבר ארנק",earn_s1p:"פתח את בוט ההשקעות וחבר את ארנק ה-TON שלך.",earn_s1a:"פתח @SLH_AIR_bot",
     earn_s2t:"בחר תוכנית",earn_s2p:"בחר את משך ההפקדה והסכום. מ-30 ימים עד 365 ימים.",earn_s2a:"צפה בתוכניות",
     earn_s3t2:"הרווח תשואה",earn_s3p2:"תשואה חודשית אוטומטית ישירות ליתרת החשבון שלך.",earn_s3a:"התחל להרוויח",
-    nav_ref:"הפניות",
-    ref_tag:"רשת הפניות",ref_title:"הרווח עד 10 דורות עומק",ref_sub:"הזמן חברים, הרווח עמלות על הפעילות שלהם. הרשת שלך גדלה אקספוננציאלית.",
+    nav_ref:"הפניות",nav_deals:"מבצעים",
+    dash_tag:"לוח בקרה חי",dash_title:"אנליטיקס של האקוסיסטם",dash_sub:"נתונים בזמן אמת מהאקוסיסטם SLH — מחירים, התפלגות, מדדי פעילות.",
+    dash_kpi_bots:"בוטים פעילים",dash_kpi_coins:"מטבעות במעקב",dash_kpi_containers:"קונטיינרים",dash_kpi_langs:"שפות",dash_kpi_uptime:"זמינות",
+    dash_ch_prices:"מחירי קריפטו חיים (USD)",dash_ch_dist:"התפלגות טוקן SLH",dash_ch_eco:"מדדי אקוסיסטם בוטים",dash_ch_rev:"ערוצי הכנסה",
+    dash_ch_table:"\u05de\u05e2\u05e7\u05d1 \u05de\u05d7\u05d9\u05e8\u05d9 \u05de\u05d8\u05d1\u05e2\u05d5\u05ea",dash_th_price:"\u05de\u05d7\u05d9\u05e8 (USD)",dash_th_24h:"\u05e9\u05d9\u05e0\u05d5\u05d9 24 \u05e9\u05e2\u05d5\u05ea",dash_th_cap:"\u05e9\u05d5\u05d5\u05d9 \u05e9\u05d5\u05e7",
+    nav_bsc:"\u05d1\u05dc\u05d5\u05e7\u05e6\'\u05d9\u05d9\u05df",bsc_tag:"\u05d1\u05dc\u05d5\u05e7\u05e6\'\u05d9\u05d9\u05df",bsc_title:"SLH \u05e2\u05dc BSC \u2014 \u05d1\u05dc\u05d5\u05e7\u05e6\'\u05d9\u05d9\u05df \u05d7\u05d9",bsc_sub:"\u05e2\u05e7\u05d5\u05d1 \u05d0\u05d7\u05e8\u05d9 \u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05d8\u05d5\u05e7\u05df SLH \u05e2\u05dc Binance Smart Chain \u05d1\u05d6\u05de\u05df \u05d0\u05de\u05ea. \u05e9\u05e7\u05d5\u05e3 \u05dc\u05d7\u05dc\u05d5\u05d8\u05d9\u05df, \u05de\u05d0\u05d5\u05de\u05ea \u05e2\u05dc \u05d4\u05e8\u05e9\u05ea.",
+    bsc_price:"\u05de\u05d7\u05d9\u05e8 SLH",bsc_holders:"\u05de\u05d7\u05d6\u05d9\u05e7\u05d9 \u05d8\u05d5\u05e7\u05df",bsc_txns:"\u05e1\u05d4\"\u05db \u05d4\u05e2\u05d1\u05e8\u05d5\u05ea",bsc_mcap:"\u05e9\u05d5\u05d5\u05d9 \u05e9\u05d5\u05e7",bsc_contract:"\u05d7\u05d5\u05d6\u05d4 \u05d7\u05db\u05dd",bsc_view_scan:"\u05e6\u05e4\u05d4 \u05d1-BSCScan",bsc_buy:"\u05e7\u05e0\u05d4 \u05d1-PancakeSwap",
+    bsc_recent_tx:"\u05e2\u05e1\u05e7\u05d0\u05d5\u05ea \u05d0\u05d7\u05e8\u05d5\u05e0\u05d5\u05ea",bsc_th_hash:"Tx Hash",bsc_th_from:"\u05de\u05d0\u05ea",bsc_th_to:"\u05d0\u05dc",bsc_th_amount:"\u05e1\u05db\u05d5\u05dd",bsc_th_time:"\u05d6\u05de\u05df",bsc_loading:"\u05d8\u05d5\u05e2\u05df \u05e0\u05ea\u05d5\u05e0\u05d9 \u05d1\u05dc\u05d5\u05e7\u05e6\'\u05d9\u05d9\u05df...",
+    ref_tag:"\u05e8\u05e9\u05ea \u05d4\u05e4\u05e0\u05d9\u05d5\u05ea",ref_title:"הרווח עד 10 דורות עומק",ref_sub:"הזמן חברים, הרווח עמלות על הפעילות שלהם. הרשת שלך גדלה אקספוננציאלית.",
     ref_input_placeholder:"הכנס את מזהה הטלגרם שלך",ref_btn:"צפה ברשת שלי",
     ref_link_label:"קישור ההפניה שלך:",ref_copy:"העתק",
     ref_gen:"דור",ref_direct:"הפניות ישירות",ref_network:"סה\"כ רשת",ref_earned:"סה\"כ הרווח",
     ref_loading:"טוען...",ref_no_data:"לא נמצאו נתונים",ref_descendants:"צאצאים",ref_copied:"הועתק!",
+    ref_bot_links_title:"קישורי הפניה לבוטים",ref_share_title:"שתף והרוויח",ref_generate_image:"צור תמונה לשיתוף",
+    ref_share_telegram:"שתף בטלגרם",ref_share_whatsapp:"שתף בוואטסאפ",ref_share_facebook:"שתף בפייסבוק",
+    ref_card_page:"סטודיו כרטיס הפניה",ref_download:"הורד תמונה",ref_commission_text:"15% עמלה על כל הפניה",
+    ref_share_msg:"הצטרפו לאקוסיסטם SLH! 20+ בוטים בטלגרם, השקעות, קריפטו ועוד. הירשמו דרך הקישור שלי וקבלו בונוס:",
+    deals_tag:"מבצעים",deals_title:"מבצעים מיוחדים",deals_sub:"הצעות מוגבלות בזמן — חסכו על גישת פרימיום",
+    deals_hot:"חם!",deals_limited:"זמן מוגבל",deals_claim:"מימוש",deals_join:"הצטרף",
+    deal1_title:"מבצע השקה — 30% הנחה",deal1_desc:"כל הבוטים ב-30% הנחה. קוד: LAUNCH30",
+    deal2_title:"חבילה מלאה — 6 בוטים",deal2_desc:"כל 6 בוטי הפרימיום רק ב-199₪ / 10 TON (חיסכון 60%+)",
+    deal3_title:"הזמן 3 = פרימיום חינם",deal3_desc:"הזמן 3 חברים וקבל Community Premium בחינם!",
+    deal4_title:"חבילת אבטחה",deal4_desc:"Guardian + Wallet במחיר מיוחד 99₪ / 5 TON",
+    nav_buy:"קנה SLH",buy_tag:"קנה SLH",buy_title:"קנה טוקן SLH",buy_sub:"קנה טוקני SLH ישירות. תומך בסכומי מיקרו. בלוקצ'יין BSC.",
+    buy_price_label:"מחיר נוכחי",buy_price:"1 SLH = 444₪",buy_micro:"תומך בסכומי מיקרו (0.00004 SLH ומטה)",
+    buy_tier1_title:"מנה מיני",buy_tier1_amount:"0.00004 SLH",buy_tier1_price:"0.018₪",
+    buy_tier2_title:"מנה בסיסית",buy_tier2_amount:"0.001 SLH",buy_tier2_price:"0.444₪",
+    buy_tier3_title:"מנה סטנדרטית",buy_tier3_amount:"0.01 SLH",buy_tier3_price:"4.44₪",
+    buy_tier4_title:"מנה פרימיום",buy_tier4_amount:"0.1 SLH",buy_tier4_price:"44.4₪",
+    buy_tier5_title:"מנה מלאה",buy_tier5_amount:"1 SLH",buy_tier5_price:"444₪",
+    buy_telegram:"קנה דרך טלגרם",buy_contact:"צור קשר עם מנהל",buy_contract:"חוזה BSC",buy_wallet:"ארנק TON לתשלום",buy_copy:"העתק",
+    join_tag:"הצטרף חינם",join_title:"הצטרף ל-SLH Ecosystem",join_sub:"חינם לחלוטין | 20+ בוטים | בונוס הרשמה",join_label:"הכנס את שם המשתמש שלך בטלגרם:",join_btn:"הצטרף",join_telegram:"פתח בטלגרם",join_welcome:"!ברוך הבא",join_your_link:"הלינק האישי שלך:",join_card_studio:"🎨 צור כרטיס הפניה מעוצב →",
 },
 en: {
     nav_eco:"Ecosystem",nav_tech:"Technology",nav_prod:"Products",nav_contact:"Contact",nav_cta:"Try Free",
+    side_nav:"Navigation",side_pages:"Pages",side_bots:"Bots",side_theme:"Theme",side_lang:"Language",side_social:"Social",
     badge:"SPARK IND | Live Now",hero_l1:"SLH Digital",hero_l2:"Investment House",
     hero_p:"20+ Telegram bots. Real blockchain deposits. Barcode scanning SaaS. Full economic ecosystem built in Israel.",
     hero_btn1:"Investment Bot",hero_btn2:"Shop SaaS",
@@ -1580,15 +2075,42 @@ en: {
     earn_s1t:"Connect Wallet",earn_s1p:"Open the investment bot and connect your TON wallet to get started.",earn_s1a:"Open @SLH_AIR_bot",
     earn_s2t:"Choose Plan",earn_s2p:"Select your deposit duration and amount. From 30 days to 365 days.",earn_s2a:"View Plans",
     earn_s3t2:"Earn Returns",earn_s3p2:"Automatic monthly yield deposited directly to your account balance.",earn_s3a:"Start Earning",
-    nav_ref:"Referral",
+    nav_ref:"Referral",nav_deals:"Deals",
+    dash_tag:"Live Dashboard",dash_title:"Ecosystem Analytics",dash_sub:"Real-time data from the SLH ecosystem — prices, distribution, activity metrics.",
+    dash_kpi_bots:"Active Bots",dash_kpi_coins:"Tracked Coins",dash_kpi_containers:"Docker Containers",dash_kpi_langs:"Languages",dash_kpi_uptime:"Uptime",
+    dash_ch_prices:"Live Crypto Prices (USD)",dash_ch_dist:"SLH Token Distribution",dash_ch_eco:"Bot Ecosystem Metrics",dash_ch_rev:"Revenue Streams",
+    dash_ch_table:"Coin Price Tracker",dash_th_price:"Price (USD)",dash_th_24h:"24h Change",dash_th_cap:"Market Cap",
+    nav_bsc:"Blockchain",bsc_tag:"Blockchain",bsc_title:"SLH on BSC \u2014 Live Blockchain",bsc_sub:"Track SLH token activity on Binance Smart Chain in real time. Fully transparent, on-chain verified.",
+    bsc_price:"SLH Price",bsc_holders:"Token Holders",bsc_txns:"Total Transfers",bsc_mcap:"Market Cap",bsc_contract:"Smart Contract",bsc_view_scan:"View on BSCScan",bsc_buy:"Buy on PancakeSwap",
+    bsc_recent_tx:"Recent Transactions",bsc_th_hash:"Tx Hash",bsc_th_from:"From",bsc_th_to:"To",bsc_th_amount:"Amount",bsc_th_time:"Time",bsc_loading:"Loading blockchain data...",
     ref_tag:"Referral Network",ref_title:"Earn Up to 10 Generations Deep",ref_sub:"Invite friends, earn commissions on their activity. Your network grows exponentially.",
     ref_input_placeholder:"Enter your Telegram ID",ref_btn:"View My Network",
     ref_link_label:"Your referral link:",ref_copy:"Copy",
     ref_gen:"Gen",ref_direct:"Direct Referrals",ref_network:"Total Network",ref_earned:"Total Earned",
     ref_loading:"Loading...",ref_no_data:"No data found",ref_descendants:"descendants",ref_copied:"Copied!",
+    ref_bot_links_title:"Bot Referral Links",ref_share_title:"Share & Earn",ref_generate_image:"Generate Shareable Image",
+    ref_share_telegram:"Share on Telegram",ref_share_whatsapp:"Share on WhatsApp",ref_share_facebook:"Share on Facebook",
+    ref_card_page:"Referral Card Studio",ref_download:"Download Image",ref_commission_text:"15% commission on every referral",
+    ref_share_msg:"Join the SLH Ecosystem! 20+ Telegram bots, investments, crypto & more. Sign up with my link and get a bonus:",
+    deals_tag:"Deals",deals_title:"Special Promotions",deals_sub:"Limited time offers — save big on premium access",
+    deals_hot:"HOT",deals_limited:"Limited time",deals_claim:"Claim Now",deals_join:"Join",
+    deal1_title:"Launch Deal — 30% OFF",deal1_desc:"All bots at 30% discount. Code: LAUNCH30",
+    deal2_title:"Full Bundle — 6 Bots",deal2_desc:"All 6 premium bots for just 199₪ / 10 TON (save 60%+)",
+    deal3_title:"Invite 3 = Free Premium",deal3_desc:"Invite 3 friends and get Community Premium for free!",
+    deal4_title:"Security Pack",deal4_desc:"Guardian + Wallet bundle at 99₪ / 5 TON",
+    nav_buy:"Buy SLH",buy_tag:"Buy SLH",buy_title:"Buy SLH Token",buy_sub:"Purchase SLH tokens directly. Micro-amounts supported. BSC blockchain.",
+    buy_price_label:"Current Price",buy_price:"1 SLH = 444₪",buy_micro:"Micro-amounts supported (0.00004 SLH and below)",
+    buy_tier1_title:"Micro Pack",buy_tier1_amount:"0.00004 SLH",buy_tier1_price:"0.018₪",
+    buy_tier2_title:"Basic Pack",buy_tier2_amount:"0.001 SLH",buy_tier2_price:"0.444₪",
+    buy_tier3_title:"Standard Pack",buy_tier3_amount:"0.01 SLH",buy_tier3_price:"4.44₪",
+    buy_tier4_title:"Premium Pack",buy_tier4_amount:"0.1 SLH",buy_tier4_price:"44.4₪",
+    buy_tier5_title:"Full Pack",buy_tier5_amount:"1 SLH",buy_tier5_price:"444₪",
+    buy_telegram:"Buy via Telegram",buy_contact:"Contact Admin",buy_contract:"BSC Contract",buy_wallet:"TON Wallet for Payment",buy_copy:"Copy",
+    join_tag:"Join Free",join_title:"Join SLH Ecosystem",join_sub:"Completely Free | 20+ Bots | Sign-up Bonus",join_label:"Enter your Telegram username:",join_btn:"Join",join_telegram:"Open in Telegram",join_welcome:"Welcome!",join_your_link:"Your personal link:",join_card_studio:"🎨 Create branded referral card →",
 },
 ru: {
     nav_eco:"\u042d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",nav_tech:"\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",nav_prod:"\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u044b",nav_contact:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442",nav_cta:"\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
+    side_nav:"\u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f",side_pages:"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b",side_bots:"\u0411\u043e\u0442\u044b",side_theme:"\u0422\u0435\u043c\u0430",side_lang:"\u042f\u0437\u044b\u043a",side_social:"\u0421\u043e\u0446\u0441\u0435\u0442\u0438",
     badge:"SPARK IND | \u0410\u043a\u0442\u0438\u0432\u043d\u043e",hero_l1:"SLH \u0426\u0438\u0444\u0440\u043e\u0432\u043e\u0439",hero_l2:"\u0418\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u043e\u043d\u043d\u044b\u0439 \u0414\u043e\u043c",
     hero_p:"20+ \u0431\u043e\u0442\u043e\u0432 \u0432 Telegram. \u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b \u043d\u0430 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d\u0435. SaaS \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u0432 \u0418\u0437\u0440\u0430\u0438\u043b\u0435.",
     hero_btn1:"\u0411\u043e\u0442 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0439",hero_btn2:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d SaaS",
@@ -1623,15 +2145,42 @@ ru: {
     earn_s1t:"\u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 \u043a\u043e\u0448\u0435\u043b\u0435\u043a",earn_s1p:"\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0431\u043e\u0442 \u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 TON \u043a\u043e\u0448\u0435\u043b\u0435\u043a.",earn_s1a:"\u041e\u0442\u043a\u0440\u044b\u0442\u044c @SLH_AIR_bot",
     earn_s2t:"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u043b\u0430\u043d",earn_s2p:"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0440\u043e\u043a \u0438 \u0441\u0443\u043c\u043c\u0443 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u0430. \u041e\u0442 30 \u0434\u043e 365 \u0434\u043d\u0435\u0439.",earn_s2a:"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u043f\u043b\u0430\u043d\u044b",
     earn_s3t2:"\u041f\u043e\u043b\u0443\u0447\u0430\u0439\u0442\u0435 \u0434\u043e\u0445\u043e\u0434",earn_s3p2:"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0435\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u044b\u0439 \u0434\u043e\u0445\u043e\u0434 \u043d\u0430 \u0432\u0430\u0448 \u0441\u0447\u0435\u0442.",earn_s3a:"\u041d\u0430\u0447\u0430\u0442\u044c",
-    nav_ref:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044b",
+    nav_ref:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044b",nav_deals:"\u0410\u043a\u0446\u0438\u0438",
+    dash_tag:"\u041f\u0430\u043d\u0435\u043b\u044c \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433\u0430",dash_title:"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 \u044d\u043a\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u044b",dash_sub:"\u0414\u0430\u043d\u043d\u044b\u0435 \u0432 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u043c \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u2014 \u0446\u0435\u043d\u044b, \u0440\u0430\u0441\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u0435, \u043c\u0435\u0442\u0440\u0438\u043a\u0438.",
+    dash_kpi_bots:"\u0410\u043a\u0442\u0438\u0432\u043d\u044b\u0435 \u0431\u043e\u0442\u044b",dash_kpi_coins:"\u041c\u043e\u043d\u0435\u0442\u044b",dash_kpi_containers:"\u041a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440\u044b",dash_kpi_langs:"\u042f\u0437\u044b\u043a\u0438",dash_kpi_uptime:"\u0410\u043f\u0442\u0430\u0439\u043c",
+    dash_ch_prices:"\u0426\u0435\u043d\u044b \u043a\u0440\u0438\u043f\u0442\u043e (USD)",dash_ch_dist:"\u0420\u0430\u0441\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u0435 SLH",dash_ch_eco:"\u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u0431\u043e\u0442\u043e\u0432",dash_ch_rev:"\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u0438 \u0434\u043e\u0445\u043e\u0434\u0430",
+    dash_ch_table:"\u0422\u0440\u0435\u043a\u0435\u0440 \u0446\u0435\u043d",dash_th_price:"\u0426\u0435\u043d\u0430 (USD)",dash_th_24h:"\u0418\u0437\u043c. 24\u0447",dash_th_cap:"\u041a\u0430\u043f\u0438\u0442\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f",
+    nav_bsc:"\u0411\u043b\u043e\u043a\u0447\u0435\u0439\u043d",bsc_tag:"\u0411\u043b\u043e\u043a\u0447\u0435\u0439\u043d",bsc_title:"SLH \u043d\u0430 BSC \u2014 \u0416\u0438\u0432\u043e\u0439 \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d",bsc_sub:"\u041e\u0442\u0441\u043b\u0435\u0436\u0438\u0432\u0430\u0439\u0442\u0435 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u0442\u043e\u043a\u0435\u043d\u0430 SLH \u043d\u0430 BSC \u0432 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u043c \u0432\u0440\u0435\u043c\u0435\u043d\u0438. \u041f\u043e\u043b\u043d\u0430\u044f \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e\u0441\u0442\u044c.",
+    bsc_price:"\u0426\u0435\u043d\u0430 SLH",bsc_holders:"\u0414\u0435\u0440\u0436\u0430\u0442\u0435\u043b\u0438",bsc_txns:"\u0412\u0441\u0435\u0433\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u043e\u0432",bsc_mcap:"\u041a\u0430\u043f\u0438\u0442\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f",bsc_contract:"\u0421\u043c\u0430\u0440\u0442-\u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442",bsc_view_scan:"\u041e\u0442\u043a\u0440\u044b\u0442\u044c BSCScan",bsc_buy:"\u041a\u0443\u043f\u0438\u0442\u044c \u043d\u0430 PancakeSwap",
+    bsc_recent_tx:"\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 \u0442\u0440\u0430\u043d\u0437\u0430\u043a\u0446\u0438\u0438",bsc_th_hash:"Tx Hash",bsc_th_from:"\u041e\u0442",bsc_th_to:"\u041a\u043e\u043c\u0443",bsc_th_amount:"\u0421\u0443\u043c\u043c\u0430",bsc_th_time:"\u0412\u0440\u0435\u043c\u044f",bsc_loading:"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430 \u0434\u0430\u043d\u043d\u044b\u0445...",
     ref_tag:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0435\u0442\u044c",ref_title:"\u0417\u0430\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0439\u0442\u0435 \u0434\u043e 10 \u043f\u043e\u043a\u043e\u043b\u0435\u043d\u0438\u0439 \u0432\u0433\u043b\u0443\u0431\u044c",ref_sub:"\u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0430\u0439\u0442\u0435 \u0434\u0440\u0443\u0437\u0435\u0439, \u043f\u043e\u043b\u0443\u0447\u0430\u0439\u0442\u0435 \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044e \u0441 \u0438\u0445 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438. \u0412\u0430\u0448\u0430 \u0441\u0435\u0442\u044c \u0440\u0430\u0441\u0442\u0435\u0442 \u044d\u043a\u0441\u043f\u043e\u043d\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e.",
     ref_input_placeholder:"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0430\u0448 Telegram ID",ref_btn:"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0441\u0435\u0442\u044c",
     ref_link_label:"\u0412\u0430\u0448\u0430 \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430:",ref_copy:"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
     ref_gen:"\u041f\u043e\u043a.",ref_direct:"\u041f\u0440\u044f\u043c\u044b\u0435 \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u044b",ref_network:"\u0412\u0441\u044f \u0441\u0435\u0442\u044c",ref_earned:"\u0412\u0441\u0435\u0433\u043e \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043e",
     ref_loading:"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430...",ref_no_data:"\u0414\u0430\u043d\u043d\u044b\u0435 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b",ref_descendants:"\u043f\u043e\u0442\u043e\u043c\u043a\u043e\u0432",ref_copied:"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
+    ref_bot_links_title:"\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0441\u044b\u043b\u043a\u0438 \u0431\u043e\u0442\u043e\u0432",ref_share_title:"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0438 \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c",ref_generate_image:"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+    ref_share_telegram:"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0432 Telegram",ref_share_whatsapp:"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0432 WhatsApp",ref_share_facebook:"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0432 Facebook",
+    ref_card_page:"\u0421\u0442\u0443\u0434\u0438\u044f \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u043e\u0439 \u043a\u0430\u0440\u0442\u044b",ref_download:"\u0421\u043a\u0430\u0447\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",ref_commission_text:"15% \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u0437\u0430 \u043a\u0430\u0436\u0434\u043e\u0433\u043e \u0440\u0435\u0444\u0435\u0440\u0430\u043b\u0430",
+    ref_share_msg:"\u041f\u0440\u0438\u0441\u043e\u0435\u0434\u0438\u043d\u044f\u0439\u0442\u0435\u0441\u044c \u043a SLH! 20+ \u0431\u043e\u0442\u043e\u0432 \u0432 Telegram, \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438, \u043a\u0440\u0438\u043f\u0442\u043e. \u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435\u0441\u044c \u043f\u043e \u043c\u043e\u0435\u0439 \u0441\u0441\u044b\u043b\u043a\u0435 \u0438 \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u0435 \u0431\u043e\u043d\u0443\u0441:",
+    deals_tag:"\u0410\u043a\u0446\u0438\u0438",deals_title:"\u0421\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u044f",deals_sub:"\u041e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u044b\u0435 \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u2014 \u044d\u043a\u043e\u043d\u043e\u043c\u044c\u0442\u0435 \u043d\u0430 \u043f\u0440\u0435\u043c\u0438\u0443\u043c \u0434\u043e\u0441\u0442\u0443\u043f\u0435",
+    deals_hot:"\u0413\u041e\u0420\u042f\u0427\u041e",deals_limited:"\u041e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043e",deals_claim:"\u0417\u0430\u0431\u0440\u0430\u0442\u044c",deals_join:"\u041f\u0440\u0438\u0441\u043e\u0435\u0434\u0438\u043d\u0438\u0442\u044c\u0441\u044f",
+    deal1_title:"\u0421\u0442\u0430\u0440\u0442\u043e\u0432\u0430\u044f \u0430\u043a\u0446\u0438\u044f \u2014 30% \u0421\u041a\u0418\u0414\u041a\u0410",deal1_desc:"\u0412\u0441\u0435 \u0431\u043e\u0442\u044b \u0441\u043e \u0441\u043a\u0438\u0434\u043a\u043e\u0439 30%. \u041a\u043e\u0434: LAUNCH30",
+    deal2_title:"\u041f\u043e\u043b\u043d\u044b\u0439 \u043f\u0430\u043a\u0435\u0442 \u2014 6 \u0431\u043e\u0442\u043e\u0432",deal2_desc:"\u0412\u0441\u0435 6 \u043f\u0440\u0435\u043c\u0438\u0443\u043c \u0431\u043e\u0442\u043e\u0432 \u0437\u0430 199\u20aa / 10 TON (\u044d\u043a\u043e\u043d\u043e\u043c\u0438\u044f 60%+)",
+    deal3_title:"\u041f\u0440\u0438\u0433\u043b\u0430\u0441\u0438 3 = \u0411\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0439 \u043f\u0440\u0435\u043c\u0438\u0443\u043c",deal3_desc:"\u041f\u0440\u0438\u0433\u043b\u0430\u0441\u0438 3 \u0434\u0440\u0443\u0437\u0435\u0439 \u0438 \u043f\u043e\u043b\u0443\u0447\u0438 Community Premium \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e!",
+    deal4_title:"\u041f\u0430\u043a\u0435\u0442 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438",deal4_desc:"Guardian + Wallet \u0437\u0430 99\u20aa / 5 TON",
+    nav_buy:"\u041a\u0443\u043f\u0438\u0442\u044c SLH",buy_tag:"\u041a\u0443\u043f\u0438\u0442\u044c SLH",buy_title:"\u041a\u0443\u043f\u0438\u0442\u044c \u0442\u043e\u043a\u0435\u043d SLH",buy_sub:"\u041a\u0443\u043f\u0438\u0442\u0435 \u0442\u043e\u043a\u0435\u043d\u044b SLH \u043d\u0430\u043f\u0440\u044f\u043c\u0443\u044e. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u043c\u0438\u043a\u0440\u043e-\u0441\u0443\u043c\u043c. \u0411\u043b\u043e\u043a\u0447\u0435\u0439\u043d BSC.",
+    buy_price_label:"\u0422\u0435\u043a\u0443\u0449\u0430\u044f \u0446\u0435\u043d\u0430",buy_price:"1 SLH = 444\u20aa",buy_micro:"\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u043c\u0438\u043a\u0440\u043e-\u0441\u0443\u043c\u043c (0.00004 SLH \u0438 \u043c\u0435\u043d\u044c\u0448\u0435)",
+    buy_tier1_title:"\u041c\u0438\u043d\u0438",buy_tier1_amount:"0.00004 SLH",buy_tier1_price:"0.018\u20aa",
+    buy_tier2_title:"\u0411\u0430\u0437\u043e\u0432\u044b\u0439",buy_tier2_amount:"0.001 SLH",buy_tier2_price:"0.444\u20aa",
+    buy_tier3_title:"\u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442",buy_tier3_amount:"0.01 SLH",buy_tier3_price:"4.44\u20aa",
+    buy_tier4_title:"\u041f\u0440\u0435\u043c\u0438\u0443\u043c",buy_tier4_amount:"0.1 SLH",buy_tier4_price:"44.4\u20aa",
+    buy_tier5_title:"\u041f\u043e\u043b\u043d\u044b\u0439",buy_tier5_amount:"1 SLH",buy_tier5_price:"444\u20aa",
+    buy_telegram:"\u041a\u0443\u043f\u0438\u0442\u044c \u0447\u0435\u0440\u0435\u0437 Telegram",buy_contact:"\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f \u0441 \u0430\u0434\u043c\u0438\u043d\u043e\u043c",buy_contract:"\u041a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 BSC",buy_wallet:"\u041a\u043e\u0448\u0435\u043b\u0435\u043a TON \u0434\u043b\u044f \u043e\u043f\u043b\u0430\u0442\u044b",buy_copy:"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
+    join_tag:"Бесплатно",join_title:"Присоединиться к SLH",join_sub:"Бесплатно | 20+ ботов | Бонус регистрации",join_label:"Введите ваш Telegram:",join_btn:"Вступить",join_telegram:"Открыть в Telegram",join_welcome:"Добро пожаловать!",join_your_link:"Ваша личная ссылка:",join_card_studio:"🎨 Создать реферальную карточку →",
 },
 ar: {
     nav_eco:"\u0627\u0644\u0646\u0638\u0627\u0645",nav_tech:"\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",nav_prod:"\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a",nav_contact:"\u0627\u062a\u0635\u0644 \u0628\u0646\u0627",nav_cta:"\u062c\u0631\u0628 \u0645\u062c\u0627\u0646\u0627",
+    side_nav:"\u0627\u0644\u062a\u0646\u0642\u0644",side_pages:"\u0627\u0644\u0635\u0641\u062d\u0627\u062a",side_bots:"\u0627\u0644\u0628\u0648\u062a\u0627\u062a",side_theme:"\u0627\u0644\u0645\u0638\u0647\u0631",side_lang:"\u0627\u0644\u0644\u063a\u0629",side_social:"\u0627\u062c\u062a\u0645\u0627\u0639\u064a",
     badge:"SPARK IND | \u0645\u0628\u0627\u0634\u0631 \u0627\u0644\u0622\u0646",hero_l1:"SLH \u0627\u0644\u0631\u0642\u0645\u064a",hero_l2:"\u062f\u0627\u0631 \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631",
     hero_p:"20+ \u0628\u0648\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0625\u064a\u062f\u0627\u0639\u0627\u062a \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 \u062d\u0642\u064a\u0642\u064a\u0629. \u0646\u0638\u0627\u0645 SaaS \u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0628\u0646\u064a \u0641\u064a \u0625\u0633\u0631\u0627\u0626\u064a\u0644.",
     hero_btn1:"\u0628\u0648\u062a \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631",hero_btn2:"\u0645\u062a\u062c\u0631 SaaS",
@@ -1666,15 +2215,42 @@ ar: {
     earn_s1t:"\u0627\u0631\u0628\u0637 \u0627\u0644\u0645\u062d\u0641\u0638\u0629",earn_s1p:"\u0627\u0641\u062a\u062d \u0628\u0648\u062a \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631 \u0648\u0627\u0631\u0628\u0637 \u0645\u062d\u0641\u0638\u0629 TON.",earn_s1a:"\u0627\u0641\u062a\u062d @SLH_AIR_bot",
     earn_s2t:"\u0627\u062e\u062a\u0631 \u062e\u0637\u0629",earn_s2p:"\u0627\u062e\u062a\u0631 \u0645\u062f\u0629 \u0648\u0645\u0628\u0644\u063a \u0627\u0644\u0625\u064a\u062f\u0627\u0639. \u0645\u0646 30 \u0625\u0644\u0649 365 \u064a\u0648\u0645.",earn_s2a:"\u0639\u0631\u0636 \u0627\u0644\u062e\u0637\u0637",
     earn_s3t2:"\u0627\u0631\u0628\u062d \u0639\u0648\u0627\u0626\u062f",earn_s3p2:"\u0639\u0627\u0626\u062f \u0634\u0647\u0631\u064a \u062a\u0644\u0642\u0627\u0626\u064a \u064a\u0636\u0627\u0641 \u0644\u062d\u0633\u0627\u0628\u0643 \u0645\u0628\u0627\u0634\u0631\u0629.",earn_s3a:"\u0627\u0628\u062f\u0623 \u0627\u0644\u0622\u0646",
-    nav_ref:"\u0627\u0644\u0625\u062d\u0627\u0644\u0627\u062a",
+    nav_ref:"\u0627\u0644\u0625\u062d\u0627\u0644\u0627\u062a",nav_deals:"\u0639\u0631\u0648\u0636",
+    dash_tag:"\u0644\u0648\u062d\u0629 \u0645\u0628\u0627\u0634\u0631\u0629",dash_title:"\u062a\u062d\u0644\u064a\u0644\u0627\u062a \u0627\u0644\u0646\u0638\u0627\u0645",dash_sub:"\u0628\u064a\u0627\u0646\u0627\u062a \u0641\u0648\u0631\u064a\u0629 \u0645\u0646 \u0646\u0638\u0627\u0645 SLH \u2014 \u0623\u0633\u0639\u0627\u0631\u060c \u062a\u0648\u0632\u064a\u0639\u060c \u0645\u0642\u0627\u064a\u064a\u0633.",
+    dash_kpi_bots:"\u0628\u0648\u062a\u0627\u062a \u0646\u0634\u0637\u0629",dash_kpi_coins:"\u0639\u0645\u0644\u0627\u062a",dash_kpi_containers:"\u062d\u0627\u0648\u064a\u0627\u062a",dash_kpi_langs:"\u0644\u063a\u0627\u062a",dash_kpi_uptime:"\u0648\u0642\u062a \u0627\u0644\u062a\u0634\u063a\u064a\u0644",
+    dash_ch_prices:"\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0643\u0631\u064a\u0628\u062a\u0648 (USD)",dash_ch_dist:"\u062a\u0648\u0632\u064a\u0639 \u0631\u0645\u0632 SLH",dash_ch_eco:"\u0645\u0642\u0627\u064a\u064a\u0633 \u0627\u0644\u0628\u0648\u062a\u0627\u062a",dash_ch_rev:"\u0645\u0635\u0627\u062f\u0631 \u0627\u0644\u062f\u062e\u0644",
+    dash_ch_table:"\u0645\u062a\u062a\u0628\u0639 \u0627\u0644\u0623\u0633\u0639\u0627\u0631",dash_th_price:"\u0627\u0644\u0633\u0639\u0631 (USD)",dash_th_24h:"\u062a\u063a\u064a\u064a\u0631 24\u0633",dash_th_cap:"\u0627\u0644\u0642\u064a\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064a\u0629",
+    nav_bsc:"\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646",bsc_tag:"\u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646",bsc_title:"SLH \u0639\u0644\u0649 BSC \u2014 \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 \u0645\u0628\u0627\u0634\u0631",bsc_sub:"\u062a\u062a\u0628\u0639 \u0646\u0634\u0627\u0637 \u062a\u0648\u0643\u0646 SLH \u0639\u0644\u0649 BSC \u0641\u064a \u0627\u0644\u0648\u0642\u062a \u0627\u0644\u0641\u0639\u0644\u064a. \u0634\u0641\u0627\u0641\u064a\u0629 \u0643\u0627\u0645\u0644\u0629.",
+    bsc_price:"\u0633\u0639\u0631 SLH",bsc_holders:"\u062d\u0627\u0645\u0644\u0648 \u0627\u0644\u062a\u0648\u0643\u0646",bsc_txns:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062a\u062d\u0648\u064a\u0644\u0627\u062a",bsc_mcap:"\u0627\u0644\u0642\u064a\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064a\u0629",bsc_contract:"\u0627\u0644\u0639\u0642\u062f \u0627\u0644\u0630\u0643\u064a",bsc_view_scan:"\u0639\u0631\u0636 \u0639\u0644\u0649 BSCScan",bsc_buy:"\u0634\u0631\u0627\u0621 \u0639\u0644\u0649 PancakeSwap",
+    bsc_recent_tx:"\u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0627\u062a \u0627\u0644\u0623\u062e\u064a\u0631\u0629",bsc_th_hash:"Tx Hash",bsc_th_from:"\u0645\u0646",bsc_th_to:"\u0625\u0644\u0649",bsc_th_amount:"\u0627\u0644\u0645\u0628\u0644\u063a",bsc_th_time:"\u0627\u0644\u0648\u0642\u062a",bsc_loading:"\u062c\u0627\u0631\u064a \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a...",
     ref_tag:"\u0634\u0628\u0643\u0629 \u0627\u0644\u0625\u062d\u0627\u0644\u0627\u062a",ref_title:"\u0627\u0631\u0628\u062d \u062d\u062a\u0649 10 \u0623\u062c\u064a\u0627\u0644 \u0639\u0645\u0642\u0627",ref_sub:"\u0627\u062f\u0639\u064f \u0623\u0635\u062f\u0642\u0627\u0621\u0643\u060c \u0648\u0627\u0631\u0628\u062d \u0639\u0645\u0648\u0644\u0627\u062a \u0639\u0644\u0649 \u0646\u0634\u0627\u0637\u0647\u0645. \u0634\u0628\u0643\u062a\u0643 \u062a\u0646\u0645\u0648 \u0628\u0634\u0643\u0644 \u0623\u0633\u064a.",
     ref_input_placeholder:"\u0623\u062f\u062e\u0644 \u0645\u0639\u0631\u0641 \u062a\u0644\u064a\u062c\u0631\u0627\u0645",ref_btn:"\u0639\u0631\u0636 \u0634\u0628\u0643\u062a\u064a",
     ref_link_label:"\u0631\u0627\u0628\u0637 \u0627\u0644\u0625\u062d\u0627\u0644\u0629 \u0627\u0644\u062e\u0627\u0635 \u0628\u0643:",ref_copy:"\u0646\u0633\u062e",
     ref_gen:"\u062c\u064a\u0644",ref_direct:"\u0625\u062d\u0627\u0644\u0627\u062a \u0645\u0628\u0627\u0634\u0631\u0629",ref_network:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0634\u0628\u0643\u0629",ref_earned:"\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0623\u0631\u0628\u0627\u062d",
     ref_loading:"\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u0645\u064a\u0644...",ref_no_data:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a",ref_descendants:"\u0645\u062a\u0641\u0631\u0639\u064a\u0646",ref_copied:"\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!",
+    ref_bot_links_title:"\u0631\u0648\u0627\u0628\u0637 \u0625\u062d\u0627\u0644\u0629 \u0627\u0644\u0628\u0648\u062a\u0627\u062a",ref_share_title:"\u0634\u0627\u0631\u0643 \u0648\u0627\u0631\u0628\u062d",ref_generate_image:"\u0625\u0646\u0634\u0627\u0621 \u0635\u0648\u0631\u0629 \u0644\u0644\u0645\u0634\u0627\u0631\u0643\u0629",
+    ref_share_telegram:"\u0645\u0634\u0627\u0631\u0643\u0629 \u0639\u0628\u0631 \u062a\u0644\u064a\u062c\u0631\u0627\u0645",ref_share_whatsapp:"\u0645\u0634\u0627\u0631\u0643\u0629 \u0639\u0628\u0631 \u0648\u0627\u062a\u0633\u0627\u0628",ref_share_facebook:"\u0645\u0634\u0627\u0631\u0643\u0629 \u0639\u0628\u0631 \u0641\u064a\u0633\u0628\u0648\u0643",
+    ref_card_page:"\u0627\u0633\u062a\u0648\u062f\u064a\u0648 \u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0625\u062d\u0627\u0644\u0629",ref_download:"\u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0635\u0648\u0631\u0629",ref_commission_text:"15% \u0639\u0645\u0648\u0644\u0629 \u0639\u0644\u0649 \u0643\u0644 \u0625\u062d\u0627\u0644\u0629",
+    ref_share_msg:"\u0627\u0646\u0636\u0645 \u0625\u0644\u0649 SLH! 20+ \u0628\u0648\u062a \u0641\u064a \u062a\u0644\u064a\u062c\u0631\u0627\u0645\u060c \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u0627\u062a\u060c \u0643\u0631\u064a\u0628\u062a\u0648. \u0633\u062c\u0644 \u0639\u0628\u0631 \u0631\u0627\u0628\u0637\u064a \u0648\u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0645\u0643\u0627\u0641\u0623\u0629:",
+    deals_tag:"\u0639\u0631\u0648\u0636",deals_title:"\u0639\u0631\u0648\u0636 \u062e\u0627\u0635\u0629",deals_sub:"\u0639\u0631\u0648\u0636 \u0645\u062d\u062f\u0648\u062f\u0629 \u0627\u0644\u0648\u0642\u062a \u2014 \u0648\u0641\u0631 \u0639\u0644\u0649 \u0627\u0644\u0648\u0635\u0648\u0644 \u0627\u0644\u0645\u0645\u064a\u0632",
+    deals_hot:"\u062d\u0627\u0631!",deals_limited:"\u0648\u0642\u062a \u0645\u062d\u062f\u0648\u062f",deals_claim:"\u0627\u062d\u0635\u0644 \u0639\u0644\u064a\u0647",deals_join:"\u0627\u0646\u0636\u0645",
+    deal1_title:"\u0639\u0631\u0636 \u0627\u0644\u0625\u0637\u0644\u0627\u0642 \u2014 \u062e\u0635\u0645 30%",deal1_desc:"\u062c\u0645\u064a\u0639 \u0627\u0644\u0628\u0648\u062a\u0627\u062a \u0628\u062e\u0635\u0645 30%. \u0627\u0644\u0631\u0645\u0632: LAUNCH30",
+    deal2_title:"\u0627\u0644\u062d\u0632\u0645\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629 \u2014 6 \u0628\u0648\u062a\u0627\u062a",deal2_desc:"\u062c\u0645\u064a\u0639 \u0627\u0644\u0628\u0648\u062a\u0627\u062a \u0627\u0644\u0645\u0645\u064a\u0632\u0629 \u0628\u0640 199\u20aa / 10 TON (\u0648\u0641\u0631 60%+)",
+    deal3_title:"\u0627\u062f\u0639\u064f 3 = \u0645\u0645\u064a\u0632 \u0645\u062c\u0627\u0646\u064a",deal3_desc:"\u0627\u062f\u0639\u064f 3 \u0623\u0635\u062f\u0642\u0627\u0621 \u0648\u0627\u062d\u0635\u0644 \u0639\u0644\u0649 Community Premium \u0645\u062c\u0627\u0646\u0627!",
+    deal4_title:"\u062d\u0632\u0645\u0629 \u0627\u0644\u0623\u0645\u0627\u0646",deal4_desc:"Guardian + Wallet \u0628\u0640 99\u20aa / 5 TON",
+    nav_buy:"\u0634\u0631\u0627\u0621 SLH",buy_tag:"\u0634\u0631\u0627\u0621 SLH",buy_title:"\u0634\u0631\u0627\u0621 \u0631\u0645\u0632 SLH",buy_sub:"\u0627\u0634\u062a\u0631\u0650 \u0631\u0645\u0648\u0632 SLH \u0645\u0628\u0627\u0634\u0631\u0629. \u062f\u0639\u0645 \u0627\u0644\u0645\u0628\u0627\u0644\u063a \u0627\u0644\u0635\u063a\u064a\u0631\u0629. \u0628\u0644\u0648\u0643\u062a\u0634\u064a\u0646 BSC.",
+    buy_price_label:"\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u062d\u0627\u0644\u064a",buy_price:"1 SLH = 444\u20aa",buy_micro:"\u062f\u0639\u0645 \u0627\u0644\u0645\u0628\u0627\u0644\u063a \u0627\u0644\u0635\u063a\u064a\u0631\u0629 (0.00004 SLH \u0648\u0623\u0642\u0644)",
+    buy_tier1_title:"\u0645\u064a\u0646\u064a",buy_tier1_amount:"0.00004 SLH",buy_tier1_price:"0.018\u20aa",
+    buy_tier2_title:"\u0623\u0633\u0627\u0633\u064a",buy_tier2_amount:"0.001 SLH",buy_tier2_price:"0.444\u20aa",
+    buy_tier3_title:"\u0642\u064a\u0627\u0633\u064a",buy_tier3_amount:"0.01 SLH",buy_tier3_price:"4.44\u20aa",
+    buy_tier4_title:"\u0645\u0645\u064a\u0632",buy_tier4_amount:"0.1 SLH",buy_tier4_price:"44.4\u20aa",
+    buy_tier5_title:"\u0643\u0627\u0645\u0644",buy_tier5_amount:"1 SLH",buy_tier5_price:"444\u20aa",
+    buy_telegram:"\u0634\u0631\u0627\u0621 \u0639\u0628\u0631 \u062a\u0644\u064a\u062c\u0631\u0627\u0645",buy_contact:"\u062a\u0648\u0627\u0635\u0644 \u0645\u0639 \u0627\u0644\u0645\u0633\u0624\u0648\u0644",buy_contract:"\u0639\u0642\u062f BSC",buy_wallet:"\u0645\u062d\u0641\u0638\u0629 TON \u0644\u0644\u062f\u0641\u0639",buy_copy:"\u0646\u0633\u062e",
+    join_tag:"انضم مجاناً",join_title:"انضم إلى SLH Ecosystem",join_sub:"مجاني تماماً | 20+ بوت | مكافأة تسجيل",join_label:"أدخل اسم المستخدم في تلجرام:",join_btn:"انضم",join_telegram:"افتح في تلجرام",join_welcome:"!أهلاً وسهلاً",join_your_link:"رابطك الشخصي:",join_card_studio:"🎨 أنشئ بطاقة إحالة مصممة →",
 },
 fr: {
     nav_eco:"Écosystème",nav_tech:"Technologie",nav_prod:"Produits",nav_contact:"Contact",nav_cta:"Essai gratuit",
+    side_nav:"Navigation",side_pages:"Pages",side_bots:"Bots",side_theme:"Thème",side_lang:"Langue",side_social:"Réseaux sociaux",
     badge:"SPARK IND | En ligne",hero_l1:"SLH Maison",hero_l2:"d'Investissement",
     hero_p:"20+ bots Telegram. Dépôts blockchain réels. SaaS de gestion de stock. Écosystème économique complet. Construit en Israël.",
     hero_btn1:"Bot Investissement",hero_btn2:"Boutique SaaS",
@@ -1709,13 +2285,39 @@ fr: {
     earn_s1t:"Connectez le portefeuille",earn_s1p:"Ouvrez le bot d'investissement et connectez votre portefeuille TON.",earn_s1a:"Ouvrir @SLH_AIR_bot",
     earn_s2t:"Choisissez un plan",earn_s2p:"Sélectionnez la durée et le montant. De 30 à 365 jours.",earn_s2a:"Voir les plans",
     earn_s3t2:"Gagnez des rendements",earn_s3p2:"Rendements mensuels automatiques crédités directement.",earn_s3a:"Commencer",
-    nav_ref:"Parrainages",
+    nav_ref:"Parrainages",nav_deals:"Offres",
+    dash_tag:"Tableau de bord",dash_title:"Analytique de l'\u00e9cosyst\u00e8me",dash_sub:"Donn\u00e9es en temps r\u00e9el de SLH \u2014 prix, distribution, m\u00e9triques.",
+    dash_kpi_bots:"Bots actifs",dash_kpi_coins:"Cryptos suivies",dash_kpi_containers:"Conteneurs",dash_kpi_langs:"Langues",dash_kpi_uptime:"Disponibilit\u00e9",
+    dash_ch_prices:"Prix crypto (USD)",dash_ch_dist:"Distribution SLH",dash_ch_eco:"M\u00e9triques bots",dash_ch_rev:"Sources de revenus",
+    dash_ch_table:"Suivi des prix",dash_th_price:"Prix (USD)",dash_th_24h:"Var. 24h",dash_th_cap:"Capitalisation",
+    nav_bsc:"Blockchain",bsc_tag:"Blockchain",bsc_title:"SLH sur BSC \u2014 Blockchain en direct",bsc_sub:"Suivez l'activit\u00e9 du token SLH sur BSC en temps r\u00e9el. Totalement transparent.",
+    bsc_price:"Prix SLH",bsc_holders:"D\u00e9tenteurs",bsc_txns:"Transferts totaux",bsc_mcap:"Capitalisation",bsc_contract:"Contrat intelligent",bsc_view_scan:"Voir sur BSCScan",bsc_buy:"Acheter sur PancakeSwap",
+    bsc_recent_tx:"Transactions r\u00e9centes",bsc_th_hash:"Tx Hash",bsc_th_from:"De",bsc_th_to:"\u00c0",bsc_th_amount:"Montant",bsc_th_time:"Heure",bsc_loading:"Chargement des donn\u00e9es...",
     ref_tag:"Parrainages",ref_title:"Réseau de parrainage à 10 niveaux",
     ref_sub:"Partagez votre lien. Gagnez des commissions sur 10 générations. Chaque ami qui rejoint vous rapporte des TON.",
     ref_input_placeholder:"Entrez votre ID Telegram",ref_btn:"Voir mon réseau",
     ref_link_label:"Votre lien de parrainage :",ref_copy:"Copier",
     ref_gen:"Gén",ref_direct:"Parrainages directs",ref_network:"Réseau total",ref_earned:"Total gagné",
     ref_loading:"Chargement...",ref_no_data:"Aucune donnée",ref_descendants:"descendants",ref_copied:"Copié !",
+    ref_bot_links_title:"Liens de parrainage des bots",ref_share_title:"Partagez et gagnez",ref_generate_image:"Créer une image partageable",
+    ref_share_telegram:"Partager sur Telegram",ref_share_whatsapp:"Partager sur WhatsApp",ref_share_facebook:"Partager sur Facebook",
+    ref_card_page:"Studio carte de parrainage",ref_download:"Télécharger l'image",ref_commission_text:"15% de commission par parrainage",
+    ref_share_msg:"Rejoignez SLH ! 20+ bots Telegram, investissements, crypto et plus. Inscrivez-vous avec mon lien et recevez un bonus :",
+    deals_tag:"Offres",deals_title:"Promotions spéciales",deals_sub:"Offres limitées — économisez sur l'accès premium",
+    deals_hot:"CHAUD",deals_limited:"Temps limité",deals_claim:"Obtenir",deals_join:"Rejoindre",
+    deal1_title:"Offre de lancement — 30% DE RÉDUCTION",deal1_desc:"Tous les bots à -30%. Code: LAUNCH30",
+    deal2_title:"Pack complet — 6 Bots",deal2_desc:"Les 6 bots premium pour seulement 199₪ / 10 TON (60%+ d'économie)",
+    deal3_title:"Invitez 3 = Premium gratuit",deal3_desc:"Invitez 3 amis et obtenez Community Premium gratuitement !",
+    deal4_title:"Pack sécurité",deal4_desc:"Guardian + Wallet à 99₪ / 5 TON",
+    nav_buy:"Acheter SLH",buy_tag:"Acheter SLH",buy_title:"Acheter le jeton SLH",buy_sub:"Achetez des jetons SLH directement. Micro-montants supportés. Blockchain BSC.",
+    buy_price_label:"Prix actuel",buy_price:"1 SLH = 444₪",buy_micro:"Micro-montants supportés (0.00004 SLH et moins)",
+    buy_tier1_title:"Pack Micro",buy_tier1_amount:"0.00004 SLH",buy_tier1_price:"0.018₪",
+    buy_tier2_title:"Pack Basique",buy_tier2_amount:"0.001 SLH",buy_tier2_price:"0.444₪",
+    buy_tier3_title:"Pack Standard",buy_tier3_amount:"0.01 SLH",buy_tier3_price:"4.44₪",
+    buy_tier4_title:"Pack Premium",buy_tier4_amount:"0.1 SLH",buy_tier4_price:"44.4₪",
+    buy_tier5_title:"Pack Complet",buy_tier5_amount:"1 SLH",buy_tier5_price:"444₪",
+    buy_telegram:"Acheter via Telegram",buy_contact:"Contacter l'admin",buy_contract:"Contrat BSC",buy_wallet:"Portefeuille TON pour paiement",buy_copy:"Copier",
+    join_tag:"Gratuit",join_title:"Rejoignez SLH Ecosystem",join_sub:"Gratuit | 20+ Bots | Bonus d'inscription",join_label:"Entrez votre pseudo Telegram :",join_btn:"Rejoindre",join_telegram:"Ouvrir dans Telegram",join_welcome:"Bienvenue !",join_your_link:"Votre lien personnel :",join_card_studio:"🎨 Créer une carte de parrainage →",
 }
 };
 
@@ -1724,7 +2326,7 @@ const BOTS = [
     {e:"💎",n:"SLH Investment House",h:"@SLH_AIR_bot",u:"https://t.me/SLH_AIR_bot",s:"live",d:{he:"הפקדות TON אמיתיות, 4%-65% תשואה, חשבונאות כפולה, KYC, דפי חשבון, סוואפ, Limit, התראות ל-12 מטבעות.",en:"Real TON deposits, 4%-65% APY, double-entry ledger, KYC, statements, swap quotes, limit orders, 12-coin alerts.",ru:"\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u044b TON, 4%-65% \u0434\u043e\u0445\u043e\u0434, \u0434\u0432\u043e\u0439\u043d\u0430\u044f \u0431\u0443\u0445\u0433\u0430\u043b\u0442\u0435\u0440\u0438\u044f, KYC, \u0441\u0432\u043e\u043f\u044b, \u043b\u0438\u043c\u0438\u0442-\u043e\u0440\u0434\u0435\u0440\u0430.",ar:"\u0625\u064a\u062f\u0627\u0639\u0627\u062a TON \u062d\u0642\u064a\u0642\u064a\u0629\u060c 4%-65% \u0639\u0627\u0626\u062f\u060c \u0645\u062d\u0627\u0633\u0628\u0629 \u0645\u0632\u062f\u0648\u062c\u0629\u060c KYC\u060c \u0643\u0634\u0648\u0641\u0627\u062a."},t:["tg-l","tg-b"]},
     {e:"🛒",n:"OsifShop",h:"@OsifShop_bot",u:"https://t.me/OsifShop_bot",s:"live",d:{he:"SaaS \u05dc\u05e0\u05d9\u05d4\u05d5\u05dc \u05de\u05dc\u05d0\u05d9. \u05e1\u05e8\u05d9\u05e7\u05ea \u05d1\u05e8\u05e7\u05d5\u05d3 \u05de\u05d4\u05de\u05e6\u05dc\u05de\u05d4, \u05de\u05e2\u05e7\u05d1 \u05de\u05dc\u05d0\u05d9, \u05de\u05d7\u05d9\u05e8\u05d9\u05dd, \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea, \u05d3\u05d5\u05d7\u05d5\u05ea, \u05d9\u05d9\u05e6\u05d5\u05d0 CSV.",en:"Inventory SaaS. Camera barcode scanning, stock tracking, pricing, low-stock alerts, reports, CSV export.",ru:"SaaS \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u043a\u043b\u0430\u0434\u043e\u043c. \u0421\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0448\u0442\u0440\u0438\u0445\u043a\u043e\u0434\u043e\u0432, \u043e\u0442\u0447\u0435\u0442\u044b, CSV.",ar:"SaaS \u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062e\u0632\u0648\u0646. \u0645\u0633\u062d \u0628\u0627\u0631\u0643\u0648\u062f \u0628\u0627\u0644\u0643\u0627\u0645\u064a\u0631\u0627\u060c \u062a\u0642\u0627\u0631\u064a\u0631."},t:["tg-s","tg-l"]},
     {e:"🎨",n:"NFTY Marketplace",h:"@NIFTI_Publisher_Bot",u:"https://t.me/NIFTI_Publisher_Bot",s:"live",d:{he:"\u05e9\u05d5\u05e7 \u05e0\u05db\u05e1\u05d9\u05dd \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9\u05d9\u05dd \u05e2\u05dd \u05d7\u05d9\u05d9\u05ea \u05de\u05d7\u05de\u05d3 \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9. \u05e7\u05e0\u05d4, \u05de\u05db\u05d9\u05e8\u05d4, \u05d0\u05e1\u05e4\u05e0\u05d5\u05ea.",en:"Digital asset marketplace with virtual pet companion. Buy, sell, collect. Pet evolution system.",ru:"\u041c\u0430\u0440\u043a\u0435\u0442\u043f\u043b\u0435\u0439\u0441 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u043a\u0442\u0438\u0432\u043e\u0432 \u0441 \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u043c \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u043c.",ar:"\u0633\u0648\u0642 \u0623\u0635\u0648\u0644 \u0631\u0642\u0645\u064a\u0629 \u0645\u0639 \u062d\u064a\u0648\u0627\u0646 \u0623\u0644\u064a\u0641 \u0627\u0641\u062a\u0631\u0627\u0636\u064a."},t:["tg-l","tg-g"]},
-    {e:"🛡",n:"Guardian Security",h:"@SLH_Guardian_bot",u:"https://t.me/SLH_Guardian_bot",s:"live",d:{he:"\u05d0\u05d1\u05d8\u05d7\u05ea \u05e7\u05d1\u05d5\u05e6\u05d5\u05ea \u05d8\u05dc\u05d2\u05e8\u05dd, \u05d0\u05e0\u05d8\u05d9-\u05e1\u05e4\u05d0\u05dd, \u05e0\u05d9\u05d8\u05d5\u05e8, \u05dc\u05d5\u05d2\u05d9\u05dd.",en:"Telegram group security. Anti-spam, moderation, audit logging, member verification.",ru:"\u0411\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c \u0433\u0440\u0443\u043f\u043f. \u0410\u043d\u0442\u0438-\u0441\u043f\u0430\u043c, \u043c\u043e\u0434\u0435\u0440\u0430\u0446\u0438\u044f, \u043b\u043e\u0433\u0438.",ar:"\u0623\u0645\u0627\u0646 \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0645\u0643\u0627\u0641\u062d\u0629 \u0627\u0644\u0633\u0628\u0627\u0645."},t:["tg-l"]},
+    {e:"🛡",n:"Guardian Security",h:"@SLH_Guardian_bot",u:"https://t.me/Grdian_bot",s:"live",d:{he:"\u05d0\u05d1\u05d8\u05d7\u05ea \u05e7\u05d1\u05d5\u05e6\u05d5\u05ea \u05d8\u05dc\u05d2\u05e8\u05dd, \u05d0\u05e0\u05d8\u05d9-\u05e1\u05e4\u05d0\u05dd, \u05e0\u05d9\u05d8\u05d5\u05e8, \u05dc\u05d5\u05d2\u05d9\u05dd.",en:"Telegram group security. Anti-spam, moderation, audit logging, member verification.",ru:"\u0411\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c \u0433\u0440\u0443\u043f\u043f. \u0410\u043d\u0442\u0438-\u0441\u043f\u0430\u043c, \u043c\u043e\u0434\u0435\u0440\u0430\u0446\u0438\u044f, \u043b\u043e\u0433\u0438.",ar:"\u0623\u0645\u0627\u0646 \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u062a\u0644\u064a\u062c\u0631\u0627\u0645. \u0645\u0643\u0627\u0641\u062d\u0629 \u0627\u0644\u0633\u0628\u0627\u0645."},t:["tg-l"]},
     {e:"🎓",n:"SLH Academia",h:"@SLH_Academia_bot",u:"https://t.me/SLH_Academia_bot",s:"live",d:{he:"\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05ea \u05dc\u05d9\u05de\u05d5\u05d3. \u05e7\u05d5\u05e8\u05e1\u05d9\u05dd, \u05d4\u05e1\u05de\u05db\u05d5\u05ea, \u05de\u05e0\u05d8\u05d5\u05e8\u05d9\u05e0\u05d2.",en:"Educational platform. Courses, certifications, mentorship. Multi-language.",ru:"\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u0430\u044f \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430. \u041a\u0443\u0440\u0441\u044b, \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u044b.",ar:"\u0645\u0646\u0635\u0629 \u062a\u0639\u0644\u064a\u0645\u064a\u0629. \u062f\u0648\u0631\u0627\u062a\u060c \u0634\u0647\u0627\u062f\u0627\u062a."},t:["tg-l"]},
     {e:"💰",n:"SLH Wallet",h:"@SLH_Wallet_bot",u:"https://t.me/SLH_Wallet_bot",s:"live",d:{he:"\u05d0\u05e8\u05e0\u05e7 \u05e8\u05d1-\u05e9\u05e8\u05e9\u05e8\u05ea\u05d9. TON, BNB, SLH. \u05d4\u05e2\u05d1\u05e8\u05d5\u05ea \u05de\u05d5\u05e6\u05e4\u05e0\u05d5\u05ea \u05d1-PIN.",en:"Multi-chain wallet. TON, BNB, SLH transfers. PIN-encrypted private keys.",ru:"\u041c\u0443\u043b\u044c\u0442\u0438-\u0447\u0435\u0439\u043d \u043a\u043e\u0448\u0435\u043b\u0435\u043a. TON, BNB, SLH.",ar:"\u0645\u062d\u0641\u0638\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0633\u0644\u0627\u0633\u0644. TON, BNB, SLH."},t:["tg-b","tg-l"]},
     {e:"🏭",n:"Factory",h:"@SLH_Factory_bot",u:"https://t.me/SLH_Factory_bot",s:"beta",d:{he:"\u05de\u05d0\u05d2\u05e8\u05d9 \u05e1\u05d8\u05d9\u05d9\u05e7\u05d9\u05e0\u05d2, \u05e0\u05d9\u05d4\u05d5\u05dc \u05d4\u05e9\u05e7\u05e2\u05d5\u05ea, \u05d4\u05de\u05e8\u05ea \u05d4\u05e4\u05e7\u05d3\u05d5\u05ea \u05dc\u05d8\u05d5\u05e7\u05e0\u05d9\u05dd.",en:"Staking pools, investment management, deposit-to-token conversion.",ru:"\u0421\u0442\u0435\u0439\u043a\u0438\u043d\u0433, \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u044f\u043c\u0438.",ar:"\u062a\u062e\u0632\u064a\u0646\u060c \u0625\u062f\u0627\u0631\u0629 \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u0627\u062a."},t:["tg-b"]},
@@ -1805,6 +2407,15 @@ function setLang(lang) {
     // Rebuild dynamic sections
     renderBots(); renderFeats(); renderProds(); renderComing();
     if (typeof renderRefRates === 'function') renderRefRates();
+
+    // Re-trigger typewriter on lang change
+    var heroP = document.querySelector('.hero-p.typing-cursor');
+    if (heroP && T[lang] && T[lang].hero_p) {
+        var txt = T[lang].hero_p;
+        heroP.textContent = '';
+        var ci = 0;
+        (function tw() { if (ci < txt.length) { heroP.textContent += txt.charAt(ci); ci++; setTimeout(tw, 25); } })();
+    }
 }
 
 function renderBots() {
@@ -2060,6 +2671,223 @@ function copyRefLink() {
 // Render referral rates on init
 renderRefRates();
 
+// === REFERRAL SHARE TOOLS ===
+const REF_BOTS = {
+    airdrop: {name: "SLH Airdrop", username: "SLH_AIR_bot"},
+    wallet: {name: "SLH Wallet", username: "SLH_Wallet_bot"},
+    factory: {name: "SLH Factory", username: "SLH_Factory_bot"},
+    guardian: {name: "Guardian", username: "Grdian_bot"},
+    community: {name: "Community", username: "SLH_community_bot"},
+    academia: {name: "Academia", username: "SLH_Academia_bot"},
+    botshop: {name: "BotShop", username: "BotShop_bot"},
+};
+
+function renderBotRefLinks() {
+    const container = document.getElementById('ref-bot-links');
+    if (!container) return;
+    const sl = T[currentLang] || T.en;
+    const uid = document.getElementById('ref-uid').value || 'YOUR_ID';
+    container.innerHTML = Object.entries(REF_BOTS).map(([key, bot]) => {
+        const link = 'https://t.me/' + bot.username + '?start=ref_' + uid;
+        return `<div class="ref-bot-link-row">
+            <span class="bot-name">${bot.name}</span>
+            <input type="text" readonly value="${link}" id="ref-bot-${key}">
+            <button class="copy-bot-btn" onclick="copyBotLink('${key}')">${sl.ref_copy || 'Copy'}</button>
+        </div>`;
+    }).join('');
+}
+
+function copyBotLink(key) {
+    const sl = T[currentLang] || T.en;
+    const input = document.getElementById('ref-bot-' + key);
+    if (!input) return;
+    navigator.clipboard.writeText(input.value).then(() => {
+        const btn = input.nextElementSibling;
+        const orig = btn.textContent;
+        btn.textContent = sl.ref_copied || 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+    });
+}
+
+function getRefLink() {
+    return document.getElementById('ref-link-text').value || 'https://t.me/SLH_AIR_bot?start=YOUR_ID';
+}
+
+function getShareMsg() {
+    const sl = T[currentLang] || T.en;
+    return (sl.ref_share_msg || 'Join the SLH Ecosystem!') + ' ' + getRefLink();
+}
+
+function shareRefTelegram() {
+    window.open('https://t.me/share/url?url=' + encodeURIComponent(getRefLink()) + '&text=' + encodeURIComponent(getShareMsg()), '_blank');
+}
+
+function shareRefWhatsApp() {
+    window.open('https://wa.me/?text=' + encodeURIComponent(getShareMsg()), '_blank');
+}
+
+function shareRefFacebook() {
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(getRefLink()), '_blank');
+}
+
+// Simple QR code generator via canvas (numeric-only for Telegram IDs)
+function drawQR(ctx, data, x, y, size) {
+    // Minimal QR-like pattern using a simple encoding
+    const modules = 21;
+    const cellSize = size / modules;
+    // Generate a deterministic pattern from the data string
+    let bits = [];
+    for (let i = 0; i < data.length; i++) {
+        let code = data.charCodeAt(i);
+        for (let b = 7; b >= 0; b--) bits.push((code >> b) & 1);
+    }
+    // Pad to fill grid
+    while (bits.length < modules * modules) bits.push(bits.length % 3 === 0 ? 1 : 0);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(x, y, size, size);
+    ctx.fillStyle = '#000000';
+
+    // Draw finder patterns (3 corners)
+    function drawFinder(fx, fy) {
+        ctx.fillRect(fx, fy, cellSize * 7, cellSize * 7);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(fx + cellSize, fy + cellSize, cellSize * 5, cellSize * 5);
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(fx + cellSize * 2, fy + cellSize * 2, cellSize * 3, cellSize * 3);
+    }
+    drawFinder(x, y);
+    drawFinder(x + cellSize * (modules - 7), y);
+    drawFinder(x, y + cellSize * (modules - 7));
+
+    // Fill data area
+    for (let row = 0; row < modules; row++) {
+        for (let col = 0; col < modules; col++) {
+            // Skip finder pattern areas
+            if ((row < 8 && col < 8) || (row < 8 && col >= modules - 8) || (row >= modules - 8 && col < 8)) continue;
+            let idx = row * modules + col;
+            if (bits[idx % bits.length]) {
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(x + col * cellSize, y + row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+}
+
+function generateRefCard() {
+    const canvas = document.getElementById('ref-card-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = 800, h = 500;
+    canvas.width = w;
+    canvas.height = h;
+    const sl = T[currentLang] || T.en;
+    const refLink = getRefLink();
+
+    // Background gradient
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, '#050510');
+    grad.addColorStop(0.5, '#0c0c24');
+    grad.addColorStop(1, '#050510');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Decorative border
+    ctx.strokeStyle = '#6c5ce7';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(12, 12, w - 24, h - 24);
+    // Inner glow line
+    ctx.strokeStyle = 'rgba(108,92,231,0.3)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(18, 18, w - 36, h - 36);
+
+    // Accent orbs
+    const orbGrad = ctx.createRadialGradient(150, 100, 0, 150, 100, 200);
+    orbGrad.addColorStop(0, 'rgba(108,92,231,0.15)');
+    orbGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = orbGrad;
+    ctx.fillRect(0, 0, 350, 300);
+
+    const orbGrad2 = ctx.createRadialGradient(650, 400, 0, 650, 400, 200);
+    orbGrad2.addColorStop(0, 'rgba(0,206,201,0.1)');
+    orbGrad2.addColorStop(1, 'transparent');
+    ctx.fillStyle = orbGrad2;
+    ctx.fillRect(450, 200, 350, 300);
+
+    // Logo / Brand
+    ctx.font = 'bold 42px "Space Grotesk", sans-serif';
+    ctx.fillStyle = '#a29bfe';
+    ctx.textAlign = 'center';
+    ctx.fillText('SLH ECOSYSTEM', w / 2, 70);
+
+    // Subtitle
+    ctx.font = 'bold 14px "Space Mono", monospace';
+    ctx.fillStyle = '#7878a0';
+    ctx.fillText('SPARK IND | Digital Investment House', w / 2, 100);
+
+    // Headline
+    ctx.font = 'bold 30px "Space Grotesk", sans-serif';
+    const headlineGrad = ctx.createLinearGradient(200, 140, 600, 140);
+    headlineGrad.addColorStop(0, '#6c5ce7');
+    headlineGrad.addColorStop(0.5, '#00cec9');
+    headlineGrad.addColorStop(1, '#ffd32a');
+    ctx.fillStyle = headlineGrad;
+    ctx.fillText('Join the SLH Ecosystem', w / 2, 155);
+
+    // Commission text
+    ctx.font = 'bold 22px "Inter", sans-serif';
+    ctx.fillStyle = '#00cec9';
+    ctx.fillText(sl.ref_commission_text || '15% commission on every referral', w / 2, 200);
+
+    // Separator line
+    ctx.strokeStyle = 'rgba(108,92,231,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(100, 225);
+    ctx.lineTo(700, 225);
+    ctx.stroke();
+
+    // Referral link
+    ctx.font = '600 16px "Inter", sans-serif';
+    ctx.fillStyle = '#eaeaf5';
+    ctx.fillText(sl.ref_link_label || 'Your referral link:', w / 2, 260);
+
+    ctx.font = '500 15px "Space Mono", monospace';
+    ctx.fillStyle = '#ffd32a';
+    ctx.fillText(refLink, w / 2, 290);
+
+    // QR Code
+    drawQR(ctx, refLink, w / 2 - 70, 310, 140);
+
+    // Footer
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.fillStyle = '#7878a0';
+    ctx.fillText('slh-nft.com | @SLH_AIR_bot | 20+ Bots | Built in Israel', w / 2, 480);
+
+    // Show preview
+    document.getElementById('ref-canvas-preview').style.display = 'block';
+    document.getElementById('ref-canvas-preview').scrollIntoView({behavior: 'smooth'});
+}
+
+function downloadRefCard() {
+    const canvas = document.getElementById('ref-card-canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'SLH-Referral-Card.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+// Update bot links when user enters their ID
+const origLoadRefTree = loadRefTree;
+loadRefTree = async function() {
+    await origLoadRefTree();
+    renderBotRefLinks();
+};
+
+// Initial render of bot links
+renderBotRefLinks();
+
 // === THEME SWITCHER ===
 const THEMES = ['terminal', 'crypto', 'light', 'unified'];
 let currentTheme = localStorage.getItem('slh_theme') || 'terminal';
@@ -2100,8 +2928,468 @@ function setTheme(theme) {
 
 setTheme(currentTheme);
 
+// === TYPEWRITER EFFECT ===
+(function() {
+    var el = document.querySelector('.hero-p.typing-cursor');
+    if (!el) return;
+    var fullText = el.textContent;
+    el.textContent = '';
+    el.style.minHeight = '2.5em';
+    var i = 0;
+    function type() {
+        if (i < fullText.length) {
+            el.textContent += fullText.charAt(i);
+            i++;
+            setTimeout(type, 25);
+        }
+    }
+    setTimeout(type, 800);
+})();
+
+// === SIDEBAR ===
+function toggleSidebar() {
+    var menu = document.getElementById('sideMenu');
+    var overlay = document.getElementById('sidebarOverlay');
+    var btn = document.querySelector('.hamburger');
+    var isOpen = menu.classList.toggle('open');
+    overlay.classList.toggle('open', isOpen);
+    if (btn) btn.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+// Close sidebar on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('sideMenu').classList.contains('open')) {
+        toggleSidebar();
+    }
+});
+
 // Init
 setLang(currentLang);
+</script>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+    // Chart defaults
+    Chart.defaults.color = '#7878a0';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.04)';
+    Chart.defaults.font.family = "'Inter',sans-serif";
+
+    const accentColors = ['#6c5ce7','#00cec9','#ffd32a','#ff6b6b','#a29bfe','#00b4d8','#fd79a8','#55efc4','#e17055','#74b9ff','#dfe6e9','#636e72'];
+
+    // ====== CHART 1: Crypto Prices (Bar) ======
+    const priceCtx = document.getElementById('chart-prices');
+    let priceChart = null;
+
+    async function fetchPrices(){
+        try {
+            const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,the-open-network,binancecoin,solana,ripple,dogecoin,cardano,polkadot,avalanche-2,tron,litecoin&vs_currencies=usd&include_24hr_change=true&include_market_cap=true');
+            return await res.json();
+        } catch(e){ return null; }
+    }
+
+    async function renderPriceChart(){
+        const data = await fetchPrices();
+        if(!data) return;
+        const coins = [
+            {id:'bitcoin',sym:'BTC'},{id:'ethereum',sym:'ETH'},{id:'the-open-network',sym:'TON'},
+            {id:'binancecoin',sym:'BNB'},{id:'solana',sym:'SOL'},{id:'ripple',sym:'XRP'},
+            {id:'dogecoin',sym:'DOGE'},{id:'cardano',sym:'ADA'},{id:'polkadot',sym:'DOT'},
+            {id:'avalanche-2',sym:'AVAX'},{id:'tron',sym:'TRX'},{id:'litecoin',sym:'LTC'}
+        ];
+        const labels = [], prices = [], colors = [];
+        coins.forEach(function(c,i){
+            if(data[c.id]){
+                labels.push(c.sym);
+                prices.push(data[c.id].usd);
+                colors.push(accentColors[i]);
+            }
+        });
+        if(priceChart) priceChart.destroy();
+        priceChart = new Chart(priceCtx, {
+            type:'bar',
+            data:{labels:labels,datasets:[{label:'USD',data:prices,backgroundColor:colors.map(function(c){return c+'cc'}),borderColor:colors,borderWidth:1,borderRadius:6}]},
+            options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return '$'+ctx.parsed.y.toLocaleString()}}}},scales:{y:{beginAtZero:false,ticks:{callback:function(v){return '$'+v.toLocaleString()}}},x:{grid:{display:false}}}}
+        });
+
+        // Price table
+        var tbody = document.getElementById('price-tbody');
+        if(tbody){
+            tbody.innerHTML = '';
+            coins.forEach(function(c){
+                if(!data[c.id]) return;
+                var d = data[c.id];
+                var ch = d.usd_24h_change||0;
+                var cls = ch>=0?'dash-up':'dash-down';
+                var arrow = ch>=0?'▲':'▼';
+                tbody.innerHTML += '<tr><td><strong>'+c.sym+'</strong></td><td>$'+d.usd.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td class="'+cls+'">'+arrow+' '+Math.abs(ch).toFixed(2)+'%</td><td>$'+(d.usd_market_cap?(d.usd_market_cap/1e9).toFixed(1)+'B':'—')+'</td></tr>';
+            });
+        }
+
+        // Update ticker too
+        coins.forEach(function(c){
+            var el = document.getElementById('t-'+c.sym.toLowerCase());
+            if(el && data[c.id]) el.textContent = '$'+data[c.id].usd.toLocaleString(undefined,{maximumFractionDigits:2});
+        });
+    }
+
+    // ====== CHART 2: Token Distribution (Doughnut) ======
+    new Chart(document.getElementById('chart-distribution'), {
+        type:'doughnut',
+        data:{
+            labels:['Ecosystem Reserve (30%)','Community Rewards (25%)','Team & Advisors (15%)','Staking Pools (15%)','Marketing (10%)','Liquidity (5%)'],
+            datasets:[{data:[30,25,15,15,10,5],backgroundColor:accentColors.slice(0,6),borderWidth:0,hoverOffset:8}]
+        },
+        options:{responsive:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{padding:12,boxWidth:12,font:{size:11}}}}}
+    });
+
+    // ====== CHART 3: Bot Ecosystem (Radar) ======
+    new Chart(document.getElementById('chart-ecosystem'), {
+        type:'radar',
+        data:{
+            labels:['Financial','SaaS','Community','Gaming','Security','Education'],
+            datasets:[
+                {label:'Active Bots',data:[4,4,3,2,1,1],backgroundColor:'rgba(108,92,231,0.2)',borderColor:'#6c5ce7',pointBackgroundColor:'#6c5ce7',borderWidth:2},
+                {label:'Planned',data:[6,6,5,4,2,3],backgroundColor:'rgba(0,206,201,0.1)',borderColor:'#00cec9',pointBackgroundColor:'#00cec9',borderWidth:2,borderDash:[5,5]}
+            ]
+        },
+        options:{responsive:true,scales:{r:{beginAtZero:true,max:7,ticks:{stepSize:1,font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'},pointLabels:{font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{padding:12,boxWidth:12,font:{size:11}}}}}
+    });
+
+    // ====== CHART 4: Revenue Streams (Polar Area) ======
+    new Chart(document.getElementById('chart-revenue'), {
+        type:'polarArea',
+        data:{
+            labels:['Premium Subs','Investment Spreads','Transaction Fees','SaaS Plans','NFT Commission','ZVK Sales','Affiliates'],
+            datasets:[{data:[35,25,15,10,7,5,3],backgroundColor:accentColors.slice(0,7).map(function(c){return c+'99'}),borderWidth:0}]
+        },
+        options:{responsive:true,scales:{r:{beginAtZero:true,ticks:{display:false},grid:{color:'rgba(255,255,255,0.04)'}}},plugins:{legend:{position:'bottom',labels:{padding:10,boxWidth:12,font:{size:11}}}}}
+    });
+
+    // ====== BSC BLOCKCHAIN DATA ======
+    var SLH_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
+    var BSCSCAN_API = 'https://api.bscscan.com/api';
+
+    function shortAddr(a){ return a ? a.slice(0,6)+'...'+a.slice(-4) : '--'; }
+    function timeAgo(ts){
+        var d = Math.floor((Date.now()/1000) - ts);
+        if(d<60) return d+'s ago';
+        if(d<3600) return Math.floor(d/60)+'m ago';
+        if(d<86400) return Math.floor(d/3600)+'h ago';
+        return Math.floor(d/86400)+'d ago';
+    }
+
+    async function fetchBSCData(){
+        try {
+            // Fetch token info via CoinGecko (SLH BSC)
+            var cgUrl = 'https://api.coingecko.com/api/v3/coins/binance-smart-chain/contract/'+SLH_CONTRACT;
+            var cgRes = await fetch(cgUrl).then(function(r){return r.ok ? r.json() : null}).catch(function(){return null});
+
+            if(cgRes){
+                var el = document.getElementById('bsc-price');
+                if(el) el.textContent = '$'+(cgRes.market_data?.current_price?.usd||0).toFixed(6);
+                var mcap = cgRes.market_data?.market_cap?.usd||0;
+                var mcapEl = document.getElementById('bsc-mcap');
+                if(mcapEl) mcapEl.textContent = mcap > 1e6 ? '$'+((mcap/1e6).toFixed(1))+'M' : mcap > 1e3 ? '$'+((mcap/1e3).toFixed(0))+'K' : '$'+mcap.toFixed(0);
+            }
+
+            // Fetch recent token transfers from BSCScan (free API, no key needed for basic)
+            var txUrl = BSCSCAN_API+'?module=account&action=tokentx&contractaddress='+SLH_CONTRACT+'&page=1&offset=10&sort=desc';
+            var txRes = await fetch(txUrl).then(function(r){return r.json()}).catch(function(){return null});
+
+            if(txRes && txRes.result && Array.isArray(txRes.result)){
+                var tbody = document.getElementById('bsc-tx-tbody');
+                if(!tbody) return;
+                var rows = txRes.result.map(function(tx){
+                    var amt = parseFloat(tx.value) / Math.pow(10, parseInt(tx.tokenDecimal||18));
+                    return '<tr>'+
+                        '<td><a href="https://bscscan.com/tx/'+tx.hash+'" target="_blank" style="color:var(--accent)">'+shortAddr(tx.hash)+'</a></td>'+
+                        '<td>'+shortAddr(tx.from)+'</td>'+
+                        '<td>'+shortAddr(tx.to)+'</td>'+
+                        '<td>'+amt.toLocaleString(undefined,{maximumFractionDigits:2})+' SLH</td>'+
+                        '<td>'+timeAgo(parseInt(tx.timeStamp))+'</td>'+
+                    '</tr>';
+                });
+                tbody.innerHTML = rows.join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text2)">No transactions found</td></tr>';
+
+                // Update holders count & txns from data
+                var holdersEl = document.getElementById('bsc-holders');
+                var txnsEl = document.getElementById('bsc-txns');
+                if(txnsEl) txnsEl.textContent = txRes.result.length >= 10 ? '10+' : txRes.result.length.toString();
+            }
+
+            // Try to get total holder count via token info endpoint
+            var holderUrl = BSCSCAN_API+'?module=token&action=tokenholdercount&contractaddress='+SLH_CONTRACT;
+            var holderRes = await fetch(holderUrl).then(function(r){return r.json()}).catch(function(){return null});
+            if(holderRes && holderRes.result){
+                var hEl = document.getElementById('bsc-holders');
+                if(hEl) hEl.textContent = parseInt(holderRes.result).toLocaleString();
+            }
+
+            // Get total transfer count
+            var txCountUrl = BSCSCAN_API+'?module=account&action=tokentx&contractaddress='+SLH_CONTRACT+'&page=1&offset=1&sort=asc';
+            // We'll estimate from the response - BSCScan free API doesn't have a direct count
+
+        } catch(e){ console.log('BSC fetch error:', e); }
+    }
+
+    fetchBSCData();
+    setInterval(fetchBSCData, 120000); // Refresh every 2 min
+
+    // Fetch live prices on load + every 60s
+    renderPriceChart();
+    setInterval(renderPriceChart, 60000);
+})();
+</script>
+
+<!-- ====== SLH ANALYTICS ENGINE ====== -->
+<script>
+(function(){
+    'use strict';
+    var API = 'https://slh-api-production.up.railway.app';
+    var STORAGE_KEY = 'slh_analytics';
+    var SESSION_KEY = 'slh_session';
+
+    // Generate anonymous visitor ID (persists across visits)
+    function getVisitorId(){
+        var vid = localStorage.getItem('slh_vid');
+        if(!vid){ vid = 'v_' + Date.now().toString(36) + Math.random().toString(36).substr(2,6); localStorage.setItem('slh_vid', vid); }
+        return vid;
+    }
+
+    // Session tracking
+    function getSession(){
+        var s = sessionStorage.getItem(SESSION_KEY);
+        if(s) return JSON.parse(s);
+        var session = { id: 's_'+Date.now().toString(36)+Math.random().toString(36).substr(2,4), start: Date.now(), pages: 0, events: [] };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+        return session;
+    }
+
+    function updateSession(data){
+        var s = getSession();
+        Object.assign(s, data);
+        s.pages++;
+        s.lastActivity = Date.now();
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(s));
+        return s;
+    }
+
+    // Collect visit data
+    function collectData(){
+        var ref = document.referrer || 'direct';
+        var ua = navigator.userAgent;
+        var lang = navigator.language || 'unknown';
+        var screen_res = screen.width + 'x' + screen.height;
+        var page = location.pathname + location.hash;
+        var isMobile = /Mobi|Android|iPhone/i.test(ua);
+        var browser = /Firefox/i.test(ua) ? 'Firefox' : /Edg/i.test(ua) ? 'Edge' : /Chrome/i.test(ua) ? 'Chrome' : /Safari/i.test(ua) ? 'Safari' : 'Other';
+        var os = /Windows/i.test(ua) ? 'Windows' : /Mac/i.test(ua) ? 'Mac' : /Linux/i.test(ua) ? 'Linux' : /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iOS' : 'Other';
+
+        return {
+            vid: getVisitorId(),
+            page: page,
+            referrer: ref,
+            browser: browser,
+            os: os,
+            mobile: isMobile,
+            lang: lang,
+            screen: screen_res,
+            slh_lang: localStorage.getItem('slh_lang') || 'he',
+            ts: new Date().toISOString(),
+            url: location.href
+        };
+    }
+
+    // Store analytics locally (admin can view)
+    function storeLocal(data){
+        try {
+            var all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            all.push(data);
+            // Keep last 500 visits locally
+            if(all.length > 500) all = all.slice(-500);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+        } catch(e){}
+    }
+
+    // Compute local stats (for admin panel)
+    function getStats(){
+        var all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        var now = Date.now();
+        var day = 86400000;
+        var today = all.filter(function(v){ return (now - new Date(v.ts).getTime()) < day; });
+        var week = all.filter(function(v){ return (now - new Date(v.ts).getTime()) < 7*day; });
+        var visitors = {};
+        var pages = {};
+        var browsers = {};
+        var oses = {};
+        var langs = {};
+        var referrers = {};
+        var mobileCount = 0;
+
+        all.forEach(function(v){
+            visitors[v.vid] = (visitors[v.vid]||0)+1;
+            pages[v.page] = (pages[v.page]||0)+1;
+            browsers[v.browser] = (browsers[v.browser]||0)+1;
+            oses[v.os] = (oses[v.os]||0)+1;
+            langs[v.slh_lang||v.lang] = (langs[v.slh_lang||v.lang]||0)+1;
+            referrers[v.referrer] = (referrers[v.referrer]||0)+1;
+            if(v.mobile) mobileCount++;
+        });
+
+        return {
+            total_views: all.length,
+            today_views: today.length,
+            week_views: week.length,
+            unique_visitors: Object.keys(visitors).length,
+            today_unique: Object.keys(today.reduce(function(a,v){a[v.vid]=1;return a},{})).length,
+            top_pages: Object.entries(pages).sort(function(a,b){return b[1]-a[1]}).slice(0,10),
+            browsers: browsers,
+            os_stats: oses,
+            languages: langs,
+            referrers: Object.entries(referrers).sort(function(a,b){return b[1]-a[1]}).slice(0,10),
+            mobile_pct: all.length ? Math.round(mobileCount/all.length*100) : 0,
+            first_visit: all.length ? all[0].ts : null,
+            last_visit: all.length ? all[all.length-1].ts : null
+        };
+    }
+
+    // Send to backend (fire and forget)
+    function sendToAPI(data){
+        try {
+            var payload = JSON.stringify(data);
+            if(navigator.sendBeacon){
+                navigator.sendBeacon(API + '/api/analytics/event', payload);
+            } else {
+                fetch(API + '/api/analytics/event', {
+                    method:'POST', headers:{'Content-Type':'application/json'},
+                    body: payload, keepalive: true
+                }).catch(function(){});
+            }
+        } catch(e){}
+    }
+
+    // Track section visibility (scroll depth / engagement)
+    function trackSections(){
+        var sections = document.querySelectorAll('section[id], .section-block');
+        if(!sections.length || !window.IntersectionObserver) return;
+        var seen = {};
+        var obs = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting && !seen[e.target.id]){
+                    seen[e.target.id] = true;
+                    storeLocal({type:'section_view', section: e.target.id, vid: getVisitorId(), ts: new Date().toISOString()});
+                }
+            });
+        }, {threshold: 0.3});
+        sections.forEach(function(s){ if(s.id) obs.observe(s); });
+    }
+
+    // Track CTA clicks
+    function trackClicks(){
+        document.addEventListener('click', function(e){
+            var link = e.target.closest('a[href*="t.me"], a[href*="mailto"], .cta-btn, .invest-btn, [data-track]');
+            if(link){
+                var data = {type:'click', target: link.href||link.textContent.trim().slice(0,50), vid: getVisitorId(), ts: new Date().toISOString(), page: location.pathname};
+                storeLocal(data);
+                sendToAPI(data);
+            }
+        });
+    }
+
+    // Track time on page
+    var pageStart = Date.now();
+    function trackDuration(){
+        var dur = Math.round((Date.now() - pageStart)/1000);
+        var data = {type:'duration', seconds: dur, vid: getVisitorId(), page: location.pathname, ts: new Date().toISOString()};
+        storeLocal(data);
+        sendToAPI(data);
+    }
+
+    // Main: record page view
+    var visit = collectData();
+    visit.type = 'pageview';
+    storeLocal(visit);
+    sendToAPI(visit);
+    updateSession({referrer: visit.referrer, page: visit.page});
+
+    // Set up engagement tracking
+    trackSections();
+    trackClicks();
+
+    // Track duration on page unload
+    window.addEventListener('beforeunload', trackDuration);
+
+    // Expose for admin panel
+    window.SLH_Analytics = {
+        getStats: getStats,
+        getRawData: function(){ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); },
+        getVisitorId: getVisitorId,
+        getSession: getSession,
+        clearData: function(){ localStorage.removeItem(STORAGE_KEY); }
+    };
+})();
+
+// ── Join / Quick Register System ─────────────────────────────────
+(function(){
+    var saved = localStorage.getItem('slh_username');
+    if(saved){
+        showJoinSuccess(saved);
+    }
+})();
+
+function quickJoin(){
+    var input = document.getElementById('join-username');
+    var username = (input.value||'').replace('@','').trim();
+    if(!username || username.length < 2){
+        input.style.borderColor='#ff4444';
+        input.placeholder='הכנס שם משתמש!';
+        return;
+    }
+    localStorage.setItem('slh_username', username);
+    showJoinSuccess(username);
+    // Update referral section too
+    if(document.getElementById('ref-user-input')){
+        document.getElementById('ref-user-input').value = username;
+    }
+    // Track
+    try{
+        var d = JSON.parse(localStorage.getItem('slh_analytics')||'[]');
+        d.push({type:'join',username:username,ts:Date.now()});
+        localStorage.setItem('slh_analytics',JSON.stringify(d));
+    }catch(e){}
+}
+
+function showJoinSuccess(username){
+    var form = document.getElementById('join-form');
+    var success = document.getElementById('join-success');
+    if(form) form.style.display='none';
+    if(success) success.style.display='block';
+    var nameEl = document.getElementById('join-welcome-name');
+    if(nameEl) nameEl.textContent = '@' + username;
+    var link = 'https://t.me/SLH_AIR_bot?start=ref_' + username;
+    var linkEl = document.getElementById('join-ref-link');
+    if(linkEl) linkEl.value = link;
+    var msg = encodeURIComponent('🚀 הצטרפו ל-SLH - בית השקעות דיגיטלי!\n💰 השקעות, מסחר, בוטים ועוד\n🎁 בונוס הרשמה!\n👉 ' + link);
+    var tg = document.getElementById('join-share-tg');
+    if(tg) tg.href = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + msg;
+    var wa = document.getElementById('join-share-wa');
+    if(wa) wa.href = 'https://wa.me/?text=' + msg;
+    var fb = document.getElementById('join-share-fb');
+    if(fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(link);
+}
+
+function copyJoinLink(){
+    var el = document.getElementById('join-ref-link');
+    if(el){
+        el.select();
+        try{ navigator.clipboard.writeText(el.value); }catch(e){ document.execCommand('copy'); }
+        el.style.borderColor='var(--green)';
+        setTimeout(function(){ el.style.borderColor='var(--accent)'; },2000);
+    }
+}
 </script>
 </body>
 </html>
