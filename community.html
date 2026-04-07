@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -523,7 +523,7 @@
             <div class="hero-stat">
                 <i class="fas fa-users"></i>
                 <span data-i18n="community_members">חברים</span>
-                <span class="stat-num" id="total-members">2,847</span>
+                <span class="stat-num" id="total-members">--</span>
             </div>
             <div class="hero-stat">
                 <i class="fas fa-comment-dots"></i>
@@ -533,7 +533,7 @@
             <div class="hero-stat">
                 <i class="fas fa-fire"></i>
                 <span data-i18n="community_active_today">פעילים היום</span>
-                <span class="stat-num" id="active-today">184</span>
+                <span class="stat-num" id="active-today">--</span>
             </div>
         </div>
     </section>
@@ -564,7 +564,7 @@
                 <h3><i class="fas fa-chart-bar"></i> <span data-i18n="community_stats">סטטיסטיקות</span></h3>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_total_members">סה"כ חברים</span>
-                    <span class="stat-value">2,847</span>
+                    <span class="stat-value" id="sidebar-total-members">--</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_online_now">מחוברים עכשיו</span>
@@ -572,7 +572,7 @@
                 </div>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_posts_today">פוסטים היום</span>
-                    <span class="stat-value" id="posts-today">12</span>
+                    <span class="stat-value" id="posts-today">--</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_new_members_week">חברים חדשים השבוע</span>
@@ -747,10 +747,26 @@
         if (data) {
             const el = document.getElementById('total-posts');
             if (el) el.textContent = (data.total_posts || 0).toLocaleString('he-IL');
+
             const pt = document.getElementById('posts-today');
             if (pt) pt.textContent = data.posts_today || 0;
+
             const at = document.getElementById('active-today');
             if (at) at.textContent = data.active_today || 0;
+
+            // NEW  total members
+            const tm = document.getElementById('total-members');
+            if (tm) tm.textContent = (data.total_users || 0).toLocaleString('he-IL');
+
+            // NEW  sidebar total members
+            const stm = document.getElementById('sidebar-total-members');
+            if (stm) stm.textContent = (data.total_users || 0).toLocaleString('he-IL');
+
+            // OPTIONAL  online fallback
+            const online = document.getElementById('sidebar-online');
+            if (online && data.active_today !== undefined) {
+                online.textContent = data.active_today;
+            }
         }
     }
 
@@ -1032,3 +1048,5 @@
 <script src="/js/analytics.js"></script>
 </body>
 </html>
+
+

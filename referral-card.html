@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/shared.css">
     <style>
         :root{--bg:#050510;--bg2:#0c0c24;--accent:#6c5ce7;--accent2:#a29bfe;--gold:#ffd32a;--green:#00cec9;--cyan:#00b4d8;--pink:#fd79a8;--text:#eaeaf5;--text2:#7878a0;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06)}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -62,6 +63,9 @@
     </style>
 </head>
 <body>
+<div id="topnav-root"></div>
+<div id="ticker-root"></div>
+
 <div class="bg-mesh"></div>
 <div class="grid-ov"></div>
 <div class="container">
@@ -401,6 +405,15 @@ renderBotChips();
 // Check URL param for lang
 const urlLang = new URLSearchParams(window.location.search).get('lang');
 if (urlLang && T[urlLang]) setLang(urlLang);
+</script>
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260407b"></script>
+<script src="/js/shared.js?v=20260407b"></script>
+<script>
+    initShared({ activePage: 'referral-card' });
 </script>
 <script src="/js/analytics.js"></script>
 </body>

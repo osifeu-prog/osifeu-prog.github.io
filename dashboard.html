@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/shared.css">
     <style>
         /* === THEME SYSTEM === */
         :root{
@@ -243,6 +244,9 @@
     </style>
 </head>
 <body data-theme="terminal">
+
+<div id="topnav-root"></div>
+<div id="ticker-root"></div>
 
 <!-- ============= LOGIN SCREEN ============= -->
 <div id="login-screen" class="login-screen">
@@ -1722,6 +1726,15 @@ function refreshAnalytics() {
     store(collect());
     var ps=Date.now();window.addEventListener('beforeunload',function(){store({type:'duration',seconds:Math.round((Date.now()-ps)/1000),vid:getVid(),page:'/dashboard.html',ts:new Date().toISOString()})});
 })();
+</script>
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260407b"></script>
+<script src="/js/shared.js?v=20260407b"></script>
+<script>
+    initShared({ activePage: 'dashboard', showBottomNav: true });
 </script>
 <script src="/js/analytics.js"></script>
 </body>

@@ -12,6 +12,7 @@
     <link rel="canonical" href="https://slh-nft.com/whitepaper.html">
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/shared.css">
     <style>
         :root{--bg:#050510;--bg2:#0a0a1e;--accent:#6c5ce7;--accent2:#a29bfe;--green:#00cec9;--cyan:#00b4d8;--gold:#ffd32a;--text:#eaeaf5;--text2:#7878a0;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06)}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -56,6 +57,9 @@
     </style>
 </head>
 <body>
+<div id="topnav-root"></div>
+<div id="ticker-root"></div>
+
 <div class="lang-bar">
     <button class="lb" onclick="setWpLang('he')">HE</button>
     <button class="lb" onclick="setWpLang('en')">EN</button>
@@ -624,6 +628,15 @@ setWpLang(wpLang);
     store(collect());
     var ps=Date.now();window.addEventListener('beforeunload',function(){store({type:'duration',seconds:Math.round((Date.now()-ps)/1000),vid:getVid(),page:'/whitepaper.html',ts:new Date().toISOString()})});
 })();
+</script>
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260407b"></script>
+<script src="/js/shared.js?v=20260407b"></script>
+<script>
+    initShared({ activePage: 'whitepaper' });
 </script>
 <script src="/js/analytics.js"></script>
 </body>
