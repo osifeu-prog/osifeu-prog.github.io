@@ -824,24 +824,24 @@
         <!-- Market Overview Cards -->
         <div class="market-overview rv" id="market-overview">
             <div class="mo-card">
-                <div class="mo-label"><i class="fas fa-globe"></i> Total Market Cap</div>
+                <div class="mo-label"><i class="fas fa-globe"></i> <span data-i18n="trade_total_mcap">Total Market Cap</span></div>
                 <div class="mo-value" id="mo-total-mcap">--</div>
                 <div class="mo-sub" id="mo-mcap-change">Loading...</div>
             </div>
             <div class="mo-card">
-                <div class="mo-label"><i class="fab fa-bitcoin"></i> BTC Dominance</div>
+                <div class="mo-label"><i class="fab fa-bitcoin"></i> <span data-i18n="trade_btc_dominance">BTC Dominance</span></div>
                 <div class="mo-value" id="mo-btc-dom">--</div>
                 <div class="mo-sub" style="color:var(--text3)" id="mo-btc-price">--</div>
             </div>
             <div class="mo-card">
-                <div class="mo-label"><i class="fas fa-fire"></i> Fear &amp; Greed</div>
+                <div class="mo-label"><i class="fas fa-fire"></i> <span data-i18n="trade_fear_greed">Fear &amp; Greed</span></div>
                 <div class="mo-value" id="mo-fng-val">--</div>
                 <div class="mo-sub" id="mo-fng-text">Loading...</div>
             </div>
             <div class="mo-card">
-                <div class="mo-label"><i class="fas fa-chart-bar"></i> 24h Volume</div>
+                <div class="mo-label"><i class="fas fa-chart-bar"></i> <span data-i18n="trade_24h_volume">24h Volume</span></div>
                 <div class="mo-value" id="mo-volume">--</div>
-                <div class="mo-sub" style="color:var(--text3)" id="mo-active">12 coins tracked</div>
+                <div class="mo-sub" style="color:var(--text3)" id="mo-active" data-i18n="trade_coins_tracked">12 coins tracked</div>
             </div>
         </div>
 
@@ -882,10 +882,10 @@
         <div class="trade-section rv" id="chart-section" style="margin-top:24px">
             <div class="section-header">
                 <i class="fas fa-chart-area"></i>
-                <h2>Price Chart</h2>
+                <h2 data-i18n="trade_price_chart">Price Chart</h2>
                 <div class="refresh-badge">
                     <span class="dot"></span>
-                    <span>Real-time</span>
+                    <span data-i18n="trade_realtime">Real-time</span>
                 </div>
             </div>
             <div class="chart-tabs" id="chart-coin-tabs">
@@ -918,7 +918,7 @@
             <div class="trade-section rv" id="news-section">
                 <div class="section-header">
                     <i class="fas fa-newspaper"></i>
-                    <h2>Crypto News</h2>
+                    <h2 data-i18n="trade_crypto_news">Crypto News</h2>
                 </div>
                 <div class="news-list" id="news-list">
                     <div class="news-empty">
@@ -934,7 +934,7 @@
                 <div class="trade-section rv" id="fng-section">
                     <div class="section-header">
                         <i class="fas fa-heartbeat"></i>
-                        <h2>Fear &amp; Greed Index</h2>
+                        <h2 data-i18n="trade_fng_title">Fear &amp; Greed Index</h2>
                     </div>
                     <div class="fng-container" id="fng-display">
                         <div class="fng-gauge" id="fng-gauge" style="background:conic-gradient(var(--orange) 0% 50%, var(--surface2) 50% 100%)">
@@ -942,7 +942,7 @@
                             <span class="fng-text" id="fng-label">Loading</span>
                         </div>
                         <div class="fng-details">
-                            <p id="fng-desc">The Fear & Greed Index measures market sentiment from 0 (Extreme Fear) to 100 (Extreme Greed). Use it as a contrarian signal.</p>
+                            <p id="fng-desc" data-i18n="trade_fng_desc">The Fear &amp; Greed Index measures market sentiment from 0 (Extreme Fear) to 100 (Extreme Greed). Use it as a contrarian signal.</p>
                         </div>
                     </div>
                 </div>
@@ -951,7 +951,7 @@
                 <div class="trade-section rv" id="gainers-section">
                     <div class="section-header">
                         <i class="fas fa-arrow-trend-up" style="color:var(--green)"></i>
-                        <h2>Top Gainers</h2>
+                        <h2 data-i18n="trade_top_gainers">Top Gainers</h2>
                     </div>
                     <div class="gl-list" id="gainers-list"></div>
                 </div>
@@ -960,7 +960,7 @@
                 <div class="trade-section rv" id="losers-section">
                     <div class="section-header">
                         <i class="fas fa-arrow-trend-down" style="color:var(--red)"></i>
-                        <h2 id="losers-title">Top Losers</h2>
+                        <h2 id="losers-title" data-i18n="trade_top_losers">Top Losers</h2>
                     </div>
                     <div class="gl-list" id="losers-list"></div>
                 </div>
@@ -1821,5 +1821,6 @@
     });
     </script>
 <script src="/js/analytics.js"></script>
+<script src="/js/ai-assistant.js?v=20260408a"></script>
 </body>
 </html>

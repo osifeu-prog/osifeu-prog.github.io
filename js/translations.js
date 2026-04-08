@@ -136,6 +136,36 @@ const T = {
     trade_slh_rate: 'שער SLH',
     trade_swap_now: 'המירו עכשיו',
 
+    // Trade — Market Overview
+    trade_total_mcap: 'שווי שוק כולל',
+    trade_btc_dominance: 'דומיננטיות BTC',
+    trade_fear_greed: 'פחד וחמדנות',
+    trade_24h_volume: 'נפח מסחר 24 שעות',
+    trade_coins_tracked: 'מטבעות נעקבים',
+    trade_avg_24h: 'ממוצע 24 שעות',
+
+    // Trade — Price Chart
+    trade_price_chart: 'גרף מחירים',
+    trade_realtime: 'זמן אמת',
+
+    // Trade — News
+    trade_crypto_news: 'חדשות קריפטו',
+    trade_no_news: 'אין חדשות כרגע',
+    trade_market_watch: 'מעקב שוק SLH',
+
+    // Trade — Fear & Greed
+    trade_fng_title: 'מדד פחד וחמדנות',
+    trade_fng_desc: 'מדד המשקף את סנטימנט השוק הנוכחי בין פחד קיצוני לחמדנות קיצונית.',
+    trade_extreme_fear: 'פחד קיצוני',
+    trade_fear: 'פחד',
+    trade_greed: 'חמדנות',
+    trade_extreme_greed: 'חמדנות קיצונית',
+
+    // Trade — Gainers/Losers
+    trade_top_gainers: 'עלייה חדה',
+    trade_top_losers: 'ירידה חדה',
+    trade_weakest: 'הביצועים החלשים',
+
     // Earn
     earn_title: 'הרוויחו',
     earn_sub: 'הפקידו טוקנים והרוויחו תשואה יומית.',
@@ -453,6 +483,36 @@ const T = {
     trade_slh_rate: 'SLH Rate',
     trade_swap_now: 'Swap Now',
 
+    // Trade — Market Overview
+    trade_total_mcap: 'Total Market Cap',
+    trade_btc_dominance: 'BTC Dominance',
+    trade_fear_greed: 'Fear & Greed',
+    trade_24h_volume: '24h Volume',
+    trade_coins_tracked: 'coins tracked',
+    trade_avg_24h: 'avg 24h',
+
+    // Trade — Price Chart
+    trade_price_chart: 'Price Chart',
+    trade_realtime: 'Real-time',
+
+    // Trade — News
+    trade_crypto_news: 'Crypto News',
+    trade_no_news: 'No news available right now',
+    trade_market_watch: 'SLH Market Watch',
+
+    // Trade — Fear & Greed
+    trade_fng_title: 'Fear & Greed Index',
+    trade_fng_desc: 'An index reflecting current market sentiment from extreme fear to extreme greed.',
+    trade_extreme_fear: 'Extreme Fear',
+    trade_fear: 'Fear',
+    trade_greed: 'Greed',
+    trade_extreme_greed: 'Extreme Greed',
+
+    // Trade — Gainers/Losers
+    trade_top_gainers: 'Top Gainers',
+    trade_top_losers: 'Top Losers',
+    trade_weakest: 'Weakest Performers',
+
     // Earn
     earn_title: 'Earn',
     earn_sub: 'Stake your tokens and earn daily returns.',
@@ -721,6 +781,36 @@ const T = {
     trade_market_cap: '\u0420\u044B\u043D\u043E\u0447\u043D\u0430\u044F \u043A\u0430\u043F\u0438\u0442\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F',
     trade_volume: '\u041E\u0431\u044A\u0451\u043C \u0442\u043E\u0440\u0433\u043E\u0432',
 
+    // Trade — Market Overview
+    trade_total_mcap: '\u041E\u0431\u0449\u0430\u044F \u043A\u0430\u043F\u0438\u0442\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F',
+    trade_btc_dominance: '\u0414\u043E\u043C\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 BTC',
+    trade_fear_greed: '\u0421\u0442\u0440\u0430\u0445 \u0438 \u0436\u0430\u0434\u043D\u043E\u0441\u0442\u044C',
+    trade_24h_volume: '\u041E\u0431\u044A\u0451\u043C \u0437\u0430 24\u0447',
+    trade_coins_tracked: '\u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0435\u043C\u044B\u0445 \u043C\u043E\u043D\u0435\u0442',
+    trade_avg_24h: '\u0441\u0440\u0435\u0434\u043D\u0435\u0435 \u0437\u0430 24\u0447',
+
+    // Trade — Price Chart
+    trade_price_chart: '\u0413\u0440\u0430\u0444\u0438\u043A \u0446\u0435\u043D',
+    trade_realtime: '\u0420\u0435\u0430\u043B\u044C\u043D\u043E\u0435 \u0432\u0440\u0435\u043C\u044F',
+
+    // Trade — News
+    trade_crypto_news: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438 \u043A\u0440\u0438\u043F\u0442\u043E',
+    trade_no_news: '\u041D\u043E\u0432\u043E\u0441\u0442\u0435\u0439 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442',
+    trade_market_watch: '\u041E\u0431\u0437\u043E\u0440 \u0440\u044B\u043D\u043A\u0430 SLH',
+
+    // Trade — Fear & Greed
+    trade_fng_title: '\u0418\u043D\u0434\u0435\u043A\u0441 \u0441\u0442\u0440\u0430\u0445\u0430 \u0438 \u0436\u0430\u0434\u043D\u043E\u0441\u0442\u0438',
+    trade_fng_desc: '\u0418\u043D\u0434\u0435\u043A\u0441, \u043E\u0442\u0440\u0430\u0436\u0430\u044E\u0449\u0438\u0439 \u0442\u0435\u043A\u0443\u0449\u0435\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435 \u0440\u044B\u043D\u043A\u0430 \u043E\u0442 \u043A\u0440\u0430\u0439\u043D\u0435\u0433\u043E \u0441\u0442\u0440\u0430\u0445\u0430 \u0434\u043E \u043A\u0440\u0430\u0439\u043D\u0435\u0439 \u0436\u0430\u0434\u043D\u043E\u0441\u0442\u0438.',
+    trade_extreme_fear: '\u041A\u0440\u0430\u0439\u043D\u0438\u0439 \u0441\u0442\u0440\u0430\u0445',
+    trade_fear: '\u0421\u0442\u0440\u0430\u0445',
+    trade_greed: '\u0416\u0430\u0434\u043D\u043E\u0441\u0442\u044C',
+    trade_extreme_greed: '\u041A\u0440\u0430\u0439\u043D\u044F\u044F \u0436\u0430\u0434\u043D\u043E\u0441\u0442\u044C',
+
+    // Trade — Gainers/Losers
+    trade_top_gainers: '\u041B\u0438\u0434\u0435\u0440\u044B \u0440\u043E\u0441\u0442\u0430',
+    trade_top_losers: '\u041B\u0438\u0434\u0435\u0440\u044B \u043F\u0430\u0434\u0435\u043D\u0438\u044F',
+    trade_weakest: '\u0421\u043B\u0430\u0431\u0435\u0439\u0448\u0438\u0435 \u043F\u043E \u0434\u0438\u043D\u0430\u043C\u0438\u043A\u0435',
+
     // Earn
     earn_title: '\u0417\u0430\u0440\u0430\u0431\u043E\u0442\u043E\u043A',
     earn_sub: '\u0412\u043D\u0435\u0441\u0438\u0442\u0435 \u0442\u043E\u043A\u0435\u043D\u044B \u0438 \u043F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u0435\u0436\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0439 \u0434\u043E\u0445\u043E\u0434.',
@@ -944,6 +1034,36 @@ const T = {
     trade_market_cap: '\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064A\u0629',
     trade_volume: '\u062D\u062C\u0645 \u0627\u0644\u062A\u062F\u0627\u0648\u0644',
 
+    // Trade — Market Overview
+    trade_total_mcap: '\u0625\u062C\u0645\u0627\u0644\u064A \u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0633\u0648\u0642\u064A\u0629',
+    trade_btc_dominance: '\u0647\u064A\u0645\u0646\u0629 BTC',
+    trade_fear_greed: '\u0627\u0644\u062E\u0648\u0641 \u0648\u0627\u0644\u0637\u0645\u0639',
+    trade_24h_volume: '\u062D\u062C\u0645 \u0627\u0644\u062A\u062F\u0627\u0648\u0644 24 \u0633\u0627\u0639\u0629',
+    trade_coins_tracked: '\u0639\u0645\u0644\u0627\u062A \u0645\u062A\u0627\u0628\u064E\u0639\u0629',
+    trade_avg_24h: '\u0645\u062A\u0648\u0633\u0637 24 \u0633\u0627\u0639\u0629',
+
+    // Trade — Price Chart
+    trade_price_chart: '\u0631\u0633\u0645 \u0628\u064A\u0627\u0646\u064A \u0644\u0644\u0623\u0633\u0639\u0627\u0631',
+    trade_realtime: '\u0645\u0628\u0627\u0634\u0631',
+
+    // Trade — News
+    trade_crypto_news: '\u0623\u062E\u0628\u0627\u0631 \u0627\u0644\u0643\u0631\u064A\u0628\u062A\u0648',
+    trade_no_news: '\u0644\u0627 \u062A\u0648\u062C\u062F \u0623\u062E\u0628\u0627\u0631 \u062D\u0627\u0644\u064A\u0627\u064B',
+    trade_market_watch: '\u0645\u0631\u0627\u0642\u0628\u0629 \u0633\u0648\u0642 SLH',
+
+    // Trade — Fear & Greed
+    trade_fng_title: '\u0645\u0624\u0634\u0631 \u0627\u0644\u062E\u0648\u0641 \u0648\u0627\u0644\u0637\u0645\u0639',
+    trade_fng_desc: '\u0645\u0624\u0634\u0631 \u064A\u0639\u0643\u0633 \u0645\u0639\u0646\u0648\u064A\u0627\u062A \u0627\u0644\u0633\u0648\u0642 \u0627\u0644\u062D\u0627\u0644\u064A\u0629 \u0645\u0646 \u0627\u0644\u062E\u0648\u0641 \u0627\u0644\u0634\u062F\u064A\u062F \u0625\u0644\u0649 \u0627\u0644\u0637\u0645\u0639 \u0627\u0644\u0634\u062F\u064A\u062F.',
+    trade_extreme_fear: '\u062E\u0648\u0641 \u0634\u062F\u064A\u062F',
+    trade_fear: '\u062E\u0648\u0641',
+    trade_greed: '\u0637\u0645\u0639',
+    trade_extreme_greed: '\u0637\u0645\u0639 \u0634\u062F\u064A\u062F',
+
+    // Trade — Gainers/Losers
+    trade_top_gainers: '\u0623\u0643\u0628\u0631 \u0627\u0644\u0631\u0627\u0628\u062D\u064A\u0646',
+    trade_top_losers: '\u0623\u0643\u0628\u0631 \u0627\u0644\u062E\u0627\u0633\u0631\u064A\u0646',
+    trade_weakest: '\u0627\u0644\u0623\u062F\u0627\u0621 \u0627\u0644\u0623\u0636\u0639\u0641',
+
     // Earn
     earn_title: '\u0627\u0644\u0631\u0628\u062D',
     earn_sub: '\u0623\u0648\u062F\u0639 \u062A\u0648\u0643\u0646\u0627\u062A\u0643 \u0648\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0639\u0648\u0627\u0626\u062F \u064A\u0648\u0645\u064A\u0629.',
@@ -1166,6 +1286,36 @@ const T = {
     trade_24h: 'Variation 24h',
     trade_market_cap: 'Capitalisation',
     trade_volume: 'Volume',
+
+    // Trade — Market Overview
+    trade_total_mcap: 'Capitalisation totale',
+    trade_btc_dominance: 'Dominance BTC',
+    trade_fear_greed: 'Peur et avidit\u00E9',
+    trade_24h_volume: 'Volume 24h',
+    trade_coins_tracked: 'cryptos suivies',
+    trade_avg_24h: 'moyenne 24h',
+
+    // Trade — Price Chart
+    trade_price_chart: 'Graphique des prix',
+    trade_realtime: 'Temps r\u00E9el',
+
+    // Trade — News
+    trade_crypto_news: 'Actualit\u00E9s crypto',
+    trade_no_news: 'Aucune actualit\u00E9 pour le moment',
+    trade_market_watch: 'Veille march\u00E9 SLH',
+
+    // Trade — Fear & Greed
+    trade_fng_title: 'Indice de peur et d\'avidit\u00E9',
+    trade_fng_desc: 'Un indice refl\u00E9tant le sentiment actuel du march\u00E9, de la peur extr\u00EAme \u00E0 l\'avidit\u00E9 extr\u00EAme.',
+    trade_extreme_fear: 'Peur extr\u00EAme',
+    trade_fear: 'Peur',
+    trade_greed: 'Avidit\u00E9',
+    trade_extreme_greed: 'Avidit\u00E9 extr\u00EAme',
+
+    // Trade — Gainers/Losers
+    trade_top_gainers: 'Plus fortes hausses',
+    trade_top_losers: 'Plus fortes baisses',
+    trade_weakest: 'Performances les plus faibles',
 
     // Earn
     earn_title: 'Gagner',
