@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLH Ecosystem | Roadmap - מפת דרכים</title>
+  <meta name="description" content="SLH Ecosystem Roadmap - Our vision, milestones, and development plan for the future of crypto investment.">
+  <meta name="keywords" content="SLH, roadmap, development, milestones, crypto, blockchain, future plans">
+  <meta name="author" content="SPARK IND">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://slh-nft.com/roadmap.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SLH Ecosystem">
+  <meta property="og:title" content="SLH Roadmap | Development Plan">
+  <meta property="og:description" content="Our vision and development roadmap for the SLH crypto ecosystem.">
+  <meta property="og:image" content="https://slh-nft.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://slh-nft.com/roadmap.html">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SLH Roadmap | Development Plan">
+  <meta name="twitter:description" content="Our vision and development roadmap for the SLH crypto ecosystem.">
+  <meta name="twitter:image" content="https://slh-nft.com/og.png">
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="he" href="https://slh-nft.com/roadmap.html">
+  <link rel="alternate" hreflang="en" href="https://slh-nft.com/roadmap.html?lang=en">
+  <link rel="alternate" hreflang="ru" href="https://slh-nft.com/roadmap.html?lang=ru">
+  <link rel="alternate" hreflang="ar" href="https://slh-nft.com/roadmap.html?lang=ar">
+  <link rel="alternate" hreflang="fr" href="https://slh-nft.com/roadmap.html?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://slh-nft.com/roadmap.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="css/shared.css?v=20260408e">
+
+  <style>
+    /* ===== Roadmap Page Styles ===== */
+
+    .roadmap-hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .roadmap-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, var(--accent)22 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .roadmap-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--text));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .roadmap-hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Progress bar */
+    .roadmap-progress {
+      max-width: 700px;
+      margin: 30px auto 10px;
+      padding: 0 20px;
+    }
+    .roadmap-progress-bar {
+      height: 8px;
+      background: var(--card-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .roadmap-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #a855f7);
+      border-radius: 4px;
+      transition: width 1.5s ease;
+    }
+    .roadmap-progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Stats row */
+    .roadmap-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px 20px;
+      flex-wrap: wrap;
+    }
+    .roadmap-stat {
+      text-align: center;
+    }
+    .roadmap-stat .num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .roadmap-stat .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Filter tabs */
+    .roadmap-filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 20px 30px;
+      flex-wrap: wrap;
+    }
+    .roadmap-filter-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .roadmap-filter-btn:hover, .roadmap-filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Timeline */
+    .timeline {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+    }
+    [dir="rtl"] .timeline::before { right: 50%; transform: translateX(50%); }
+    [dir="ltr"] .timeline::before { left: 50%; transform: translateX(-50%); }
+
+    .timeline-phase {
+      margin-bottom: 60px;
+    }
+    .timeline-phase-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-phase-title span {
+      background: var(--bg);
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-item {
+      position: relative;
+      width: 45%;
+      padding: 0 0 20px;
+    }
+    .timeline-item:nth-child(odd) { margin-inline-start: 55%; }
+    .timeline-item:nth-child(even) { margin-inline-end: 55%; text-align: end; }
+
+    .timeline-dot {
+      position: absolute;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg);
+      z-index: 2;
+      box-shadow: 0 0 12px var(--accent)66;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot {
+      inset-inline-start: -8%;
+      transform: translateX(-50%);
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+      inset-inline-end: -8%;
+      transform: translateX(50%);
+    }
+
+    .timeline-dot.completed { background: #22c55e; box-shadow: 0 0 12px #22c55e66; }
+    .timeline-dot.in-progress { background: #f59e0b; box-shadow: 0 0 12px #f59e0b66; animation: pulse-dot 2s infinite; }
+    .timeline-dot.upcoming { background: var(--muted); box-shadow: none; }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 12px #f59e0b66; }
+      50% { box-shadow: 0 0 24px #f59e0baa; }
+    }
+
+    .timeline-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .timeline-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .timeline-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .timeline-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .timeline-card .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .timeline-item:nth-child(even) .tags { justify-content: flex-end; }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .tag-done { background: #22c55e22; color: #22c55e; }
+    .tag-wip { background: #f59e0b22; color: #f59e0b; }
+    .tag-soon { background: #3b82f622; color: #3b82f6; }
+    .tag-future { background: #a855f722; color: #a855f7; }
+    .tag-cat { background: var(--accent)18; color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline::before {
+        right: unset !important; left: 20px !important; transform: none !important;
+      }
+      .timeline-item,
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        width: calc(100% - 50px);
+        margin-inline-start: 50px !important;
+        margin-inline-end: 0 !important;
+        text-align: start !important;
+      }
+      .timeline-item:nth-child(odd) .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot {
+        inset-inline-start: -42px;
+        inset-inline-end: unset;
+        transform: none;
+      }
+      .timeline-item:nth-child(even) .tags { justify-content: flex-start; }
+      .roadmap-hero h1 { font-size: 2rem; }
+      .roadmap-stats { gap: 20px; }
+    }
+
+    /* Vision section */
+    .vision-section {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .vision-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .vision-card:hover { transform: translateY(-4px); }
+    .vision-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .vision-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .vision-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+    /* CTA */
+    .roadmap-cta {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(180deg, transparent, var(--accent)08);
+    }
+    .roadmap-cta h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+    .roadmap-cta p { color: var(--muted); margin-bottom: 24px; max-width: 500px; margin-inline: auto; }
+    .cta-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-buttons a {
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-primary-cta { background: var(--accent); color: #fff; }
+    .btn-primary-cta:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .btn-secondary-cta { border: 1px solid var(--border); color: var(--text); background: var(--card-bg); }
+    .btn-secondary-cta:hover { border-color: var(--accent); color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <div id="topnav"></div>
+
+    <!-- Hero -->
+    <section class="roadmap-hero">
+      <h1 data-i18n="roadmap_title">מפת הדרכים של SLH</h1>
+      <p data-i18n="roadmap_subtitle">מהחזון הראשוני ועד לאקוסיסטם עולמי — כל השלבים שלנו</p>
+
+      <div class="roadmap-progress">
+        <div class="roadmap-progress-bar">
+          <div class="roadmap-progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div class="roadmap-progress-label">
+          <span data-i18n="roadmap_progress">התקדמות כוללת</span>
+          <span id="progressPct">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="roadmap-stats">
+      <div class="roadmap-stat">
+        <div class="num" id="statCompleted">0</div>
+        <div class="label" data-i18n="roadmap_completed">הושלמו</div>
+      </div>
+      <div class="roadmap-stat">
+        <div class="num" id="statInProgress">0</div>
+        <div class="label" data-i18n="roadmap_in_progress">בביצוע</div>
+      </div>
+      <div class="roadmap-stat">
+        <div class="num" id="statUpcoming">0</div>
+        <div class="label" data-i18n="roadmap_upcoming">בקרוב</div>
+      </div>
+      <div class="roadmap-stat">
+        <div class="num" id="statTotal">0</div>
+        <div class="label" data-i18n="roadmap_total">סה"כ אבני דרך</div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="roadmap-filters">
+      <button class="roadmap-filter-btn active" data-filter="all" data-i18n="roadmap_filter_all">הכל</button>
+      <button class="roadmap-filter-btn" data-filter="completed" data-i18n="roadmap_filter_done">הושלמו</button>
+      <button class="roadmap-filter-btn" data-filter="in-progress" data-i18n="roadmap_filter_wip">בביצוע</button>
+      <button class="roadmap-filter-btn" data-filter="upcoming" data-i18n="roadmap_filter_soon">בקרוב</button>
+      <button class="roadmap-filter-btn" data-filter="future" data-i18n="roadmap_filter_future">עתיד</button>
+    </section>
+
+    <!-- Timeline -->
+    <div class="timeline" id="timeline"></div>
+
+    <!-- Vision -->
+    <section class="vision-section">
+      <h2 style="text-align:center;font-size:1.8rem;font-weight:800;margin-bottom:30px" data-i18n="roadmap_vision_title">החזון שלנו</h2>
+      <div class="vision-grid">
+        <div class="vision-card">
+          <div class="icon"><i class="fas fa-globe"></i></div>
+          <h3 data-i18n="roadmap_v1_title">אקוסיסטם עולמי</h3>
+          <p data-i18n="roadmap_v1_desc">הפיכת SLH לפלטפורמת השקעות קריפטו מובילה עם משתמשים מ-50+ מדינות</p>
+        </div>
+        <div class="vision-card">
+          <div class="icon"><i class="fas fa-robot"></i></div>
+          <h3 data-i18n="roadmap_v2_title">AI-Powered</h3>
+          <p data-i18n="roadmap_v2_desc">בינה מלאכותית שמנהלת תיקי השקעות, מנתחת שווקים ומייעצת בזמן אמת</p>
+        </div>
+        <div class="vision-card">
+          <div class="icon"><i class="fas fa-university"></i></div>
+          <h3 data-i18n="roadmap_v3_title">בנק דיגיטלי</h3>
+          <p data-i18n="roadmap_v3_desc">שירותים בנקאיים מלאים: הלוואות, חיסכון, כרטיסי חיוב ותשלומים</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="roadmap-cta">
+      <h2 data-i18n="roadmap_cta_title">הצטרפו למסע</h2>
+      <p data-i18n="roadmap_cta_desc">היו חלק מהעתיד של ההשקעות הדיגיטליות. הצטרפו לאקוסיסטם SLH עוד היום.</p>
+      <div class="cta-buttons">
+        <a href="/earn.html" class="btn-primary-cta" data-i18n="roadmap_cta_start">התחילו להרוויח</a>
+        <a href="/community.html" class="btn-secondary-cta" data-i18n="roadmap_cta_community">הצטרפו לקהילה</a>
+      </div>
+    </section>
+
+    <div id="footer"></div>
+  </div>
+
+  <script src="js/shared.js?v=20260408e"></script>
+  <script src="js/translations.js?v=20260408e"></script>
+  <script src="js/ai-assistant.js?v=20260408e"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initShared({ activePage: 'roadmap', showTicker: true });
+
+    /* ===== ROADMAP DATA ===== */
+    const PHASES = [
+      {
+        title: { he: 'שלב 1 — בנייה (Q3-Q4 2025)', en: 'Phase 1 — Foundation (Q3-Q4 2025)', ru: 'Фаза 1 — Основа (Q3-Q4 2025)', ar: 'المرحلة 1 — الأساس (Q3-Q4 2025)', fr: 'Phase 1 — Fondation (Q3-Q4 2025)' },
+        items: [
+          { status: 'completed', cat: 'infra',
+            title: { he: 'השקת אתר SLH-NFT.com', en: 'Launch slh-nft.com Website', ru: 'Запуск сайта slh-nft.com', ar: 'إطلاق موقع slh-nft.com', fr: 'Lancement du site slh-nft.com' },
+            desc: { he: 'אתר רספונסיבי ב-5 שפות עם 7 ערכות עיצוב', en: 'Responsive website in 5 languages with 7 themes', ru: 'Адаптивный сайт на 5 языках с 7 темами', ar: 'موقع متجاوب بـ5 لغات و7 سمات', fr: 'Site responsive en 5 langues avec 7 thèmes' }
+          },
+          { status: 'completed', cat: 'token',
+            title: { he: 'הנפקת SLH Token ב-BSC', en: 'SLH Token Launch on BSC', ru: 'Запуск SLH Token на BSC', ar: 'إطلاق رمز SLH على BSC', fr: 'Lancement du jeton SLH sur BSC' },
+            desc: { he: 'חוזה חכם, 111M supply, 15 decimals, 176 holders', en: 'Smart contract, 111M supply, 15 decimals, 176 holders', ru: 'Смарт-контракт, 111M supply, 176 холдеров', ar: 'عقد ذكي، 111 مليون، 176 حامل', fr: 'Contrat intelligent, 111M supply, 176 détenteurs' }
+          },
+          { status: 'completed', cat: 'bots',
+            title: { he: 'פיתוח 7 בוטים בטלגרם', en: 'Develop 7 Telegram Bots', ru: 'Разработка 7 Telegram-ботов', ar: 'تطوير 7 بوتات تيليجرام', fr: 'Développement de 7 bots Telegram' },
+            desc: { he: 'Guardian, ExpertNet, BotShop, Factory, SLH_Spark, NFTY Madness, Ambassador', en: 'Guardian, ExpertNet, BotShop, Factory, SLH_Spark, NFTY Madness, Ambassador', ru: 'Guardian, ExpertNet, BotShop, Factory, SLH_Spark, NFTY Madness, Ambassador', ar: 'Guardian, ExpertNet, BotShop, Factory, SLH_Spark, NFTY Madness, Ambassador', fr: 'Guardian, ExpertNet, BotShop, Factory, SLH_Spark, NFTY Madness, Ambassador' }
+          },
+          { status: 'completed', cat: 'infra',
+            title: { he: 'תשתית Docker + PostgreSQL', en: 'Docker + PostgreSQL Infrastructure', ru: 'Инфраструктура Docker + PostgreSQL', ar: 'بنية Docker + PostgreSQL', fr: 'Infrastructure Docker + PostgreSQL' },
+            desc: { he: '5 בסיסי נתונים, 22+ טבלאות, Railway API', en: '5 databases, 22+ tables, Railway API', ru: '5 баз данных, 22+ таблиц, Railway API', ar: '5 قواعد بيانات، 22+ جدول', fr: '5 bases de données, 22+ tables, Railway API' }
+          },
+          { status: 'completed', cat: 'finance',
+            title: { he: 'מערכת סטייקינג', en: 'Staking System', ru: 'Система стейкинга', ar: 'نظام الستيكينج', fr: 'Système de staking' },
+            desc: { he: 'תוכניות 30/60/90/180 ימים, עד 65% תשואה שנתית', en: 'Plans for 30/60/90/180 days, up to 65% APY', ru: 'Планы на 30/60/90/180 дней, до 65% годовых', ar: 'خطط 30/60/90/180 يوم، حتى 65% عائد', fr: 'Plans 30/60/90/180 jours, jusqu\'à 65% APY' }
+          }
+        ]
+      },
+      {
+        title: { he: 'שלב 2 — צמיחה (Q1-Q2 2026)', en: 'Phase 2 — Growth (Q1-Q2 2026)', ru: 'Фаза 2 — Рост (Q1-Q2 2026)', ar: 'المرحلة 2 — النمو (Q1-Q2 2026)', fr: 'Phase 2 — Croissance (Q1-Q2 2026)' },
+        items: [
+          { status: 'completed', cat: 'social',
+            title: { he: 'מערכת קהילה + הפניות', en: 'Community + Referral System', ru: 'Система сообщества + рефералов', ar: 'نظام المجتمع + الإحالات', fr: 'Système communauté + parrainage' },
+            desc: { he: 'פוסטים, לייקים, תגובות, 5 רמות הפניה עם בונוסים', en: 'Posts, likes, comments, 5-level referral with bonuses', ru: 'Посты, лайки, комментарии, 5 уровней рефералов', ar: 'منشورات، إعجابات، تعليقات، 5 مستويات إحالة', fr: 'Posts, likes, commentaires, 5 niveaux de parrainage' }
+          },
+          { status: 'completed', cat: 'finance',
+            title: { he: 'ארנק דיגיטלי BSC + TON', en: 'Digital Wallet BSC + TON', ru: 'Цифровой кошелёк BSC + TON', ar: 'محفظة رقمية BSC + TON', fr: 'Portefeuille numérique BSC + TON' },
+            desc: { he: 'שליחה, קבלה, הפקדה, היסטוריית עסקאות', en: 'Send, receive, deposit, transaction history', ru: 'Отправка, получение, депозит, история транзакций', ar: 'إرسال، استقبال، إيداع، سجل المعاملات', fr: 'Envoyer, recevoir, déposer, historique des transactions' }
+          },
+          { status: 'in-progress', cat: 'ai',
+            title: { he: 'עוזר AI רב-ספק', en: 'Multi-Provider AI Assistant', ru: 'Мульти-провайдер AI ассистент', ar: 'مساعد ذكاء اصطناعي متعدد', fr: 'Assistant IA multi-fournisseur' },
+            desc: { he: 'Groq, Gemini, Together.ai + OpenAI עם fallback אוטומטי', en: 'Groq, Gemini, Together.ai + OpenAI with automatic fallback', ru: 'Groq, Gemini, Together.ai + OpenAI с автоматическим fallback', ar: 'Groq, Gemini, Together.ai + OpenAI مع تبديل تلقائي', fr: 'Groq, Gemini, Together.ai + OpenAI avec fallback automatique' }
+          },
+          { status: 'in-progress', cat: 'token',
+            title: { he: 'MNH — מטבע יציב צמוד לשקל', en: 'MNH — ILS-Pegged Stablecoin', ru: 'MNH — стейблкоин привязанный к шекелю', ar: 'MNH — عملة مستقرة مرتبطة بالشيكل', fr: 'MNH — Stablecoin indexé au shekel' },
+            desc: { he: 'חיסכון, P2P, סטייקינג, הפקדות בשקלים', en: 'Savings, P2P, staking, ILS deposits', ru: 'Сбережения, P2P, стейкинг, депозиты в шекелях', ar: 'ادخار، P2P، ستيكينج، إيداعات بالشيكل', fr: 'Épargne, P2P, staking, dépôts en shekels' }
+          },
+          { status: 'in-progress', cat: 'infra',
+            title: { he: 'מפת רשת נוירונים', en: 'Neural Network Map', ru: 'Карта нейронной сети', ar: 'خريطة الشبكة العصبية', fr: 'Carte du réseau neuronal' },
+            desc: { he: 'ויזואליזציה אינטראקטיבית של משתמשים, קבוצות, נושאים ובוטים', en: 'Interactive visualization of users, groups, topics and bots', ru: 'Интерактивная визуализация пользователей, групп, тем и ботов', ar: 'تصور تفاعلي للمستخدمين والمجموعات والموضوعات', fr: 'Visualisation interactive des utilisateurs, groupes, sujets et bots' }
+          }
+        ]
+      },
+      {
+        title: { he: 'שלב 3 — התרחבות (Q3-Q4 2026)', en: 'Phase 3 — Expansion (Q3-Q4 2026)', ru: 'Фаза 3 — Расширение (Q3-Q4 2026)', ar: 'المرحلة 3 — التوسع (Q3-Q4 2026)', fr: 'Phase 3 — Expansion (Q3-Q4 2026)' },
+        items: [
+          { status: 'upcoming', cat: 'bots',
+            title: { he: '20+ בוטים חדשים', en: '20+ New Bots', ru: '20+ новых ботов', ar: '20+ بوت جديد', fr: '20+ nouveaux bots' },
+            desc: { he: 'בוטים מתמחים: מסחר, אנליטיקס, תשלומים, משחקים, חינוך', en: 'Specialized bots: trading, analytics, payments, games, education', ru: 'Специализированные боты: трейдинг, аналитика, платежи, игры', ar: 'بوتات متخصصة: تداول، تحليلات، مدفوعات، ألعاب', fr: 'Bots spécialisés : trading, analytics, paiements, jeux, éducation' }
+          },
+          { status: 'upcoming', cat: 'social',
+            title: { he: 'מודל שגרירים SaaS', en: 'Ambassador SaaS Model', ru: 'Модель амбассадоров SaaS', ar: 'نموذج سفراء SaaS', fr: 'Modèle SaaS Ambassadeur' },
+            desc: { he: 'בוט לכל שגריר, חזון חינוכי, מערכת משפחות', en: 'Bot per ambassador, educational vision, family system', ru: 'Бот для каждого амбассадора, образовательная модель', ar: 'بوت لكل سفير، رؤية تعليمية، نظام عائلات', fr: 'Bot par ambassadeur, vision éducative, système familial' }
+          },
+          { status: 'upcoming', cat: 'token',
+            title: { he: '19 טוקנים באקוסיסטם', en: '19 Ecosystem Tokens', ru: '19 токенов в экосистеме', ar: '19 رمز في النظام', fr: '19 jetons dans l\'écosystème' },
+            desc: { he: 'כל בוט = מערכת כלכלית עצמאית עם טוקן ייחודי', en: 'Each bot = independent economy with unique token', ru: 'Каждый бот = независимая экономика с уникальным токеном', ar: 'كل بوت = اقتصاد مستقل برمز فريد', fr: 'Chaque bot = économie indépendante avec jeton unique' }
+          },
+          { status: 'upcoming', cat: 'finance',
+            title: { he: 'קבוצות פרימיום בתשלום', en: 'Premium Paid Groups', ru: 'Премиум группы', ar: 'مجموعات مميزة مدفوعة', fr: 'Groupes premium payants' },
+            desc: { he: 'VIP flow, אישורים, תשלום בטוקנים, פאנלים לאדמין', en: 'VIP flow, approvals, token payments, admin panels', ru: 'VIP поток, одобрения, оплата токенами, панели администратора', ar: 'تدفق VIP، موافقات، دفع بالرموز، لوحات إدارية', fr: 'Flux VIP, approbations, paiements en jetons, panneaux admin' }
+          },
+          { status: 'upcoming', cat: 'infra',
+            title: { he: 'PWA + התראות בזמן אמת', en: 'PWA + Real-Time Notifications', ru: 'PWA + уведомления в реальном времени', ar: 'PWA + إشعارات فورية', fr: 'PWA + Notifications en temps réel' },
+            desc: { he: 'אפליקציה מותקנת, service worker, push notifications', en: 'Installable app, service worker, push notifications', ru: 'Устанавливаемое приложение, service worker, push-уведомления', ar: 'تطبيق قابل للتثبيت، إشعارات push', fr: 'App installable, service worker, notifications push' }
+          }
+        ]
+      },
+      {
+        title: { he: 'שלב 4 — חזון (2027+)', en: 'Phase 4 — Vision (2027+)', ru: 'Фаза 4 — Видение (2027+)', ar: 'المرحلة 4 — الرؤية (2027+)', fr: 'Phase 4 — Vision (2027+)' },
+        items: [
+          { status: 'future', cat: 'finance',
+            title: { he: 'שירותי בנקאות דיגיטלית', en: 'Digital Banking Services', ru: 'Цифровые банковские услуги', ar: 'خدمات مصرفية رقمية', fr: 'Services bancaires numériques' },
+            desc: { he: 'הלוואות, חיסכון, כרטיסי חיוב, תשלומים מיידיים', en: 'Loans, savings, debit cards, instant payments', ru: 'Кредиты, сбережения, дебетовые карты, мгновенные платежи', ar: 'قروض، ادخار، بطاقات خصم، مدفوعات فورية', fr: 'Prêts, épargne, cartes de débit, paiements instantanés' }
+          },
+          { status: 'future', cat: 'ai',
+            title: { he: 'AI Portfolio Manager', en: 'AI Portfolio Manager', ru: 'AI менеджер портфеля', ar: 'مدير محفظة ذكي', fr: 'Gestionnaire de portefeuille IA' },
+            desc: { he: 'ניהול תיקים אוטומטי, ניתוח שוק, המלצות מותאמות אישית', en: 'Automated portfolio management, market analysis, personalized recommendations', ru: 'Автоматическое управление портфелем, анализ рынка, персональные рекомендации', ar: 'إدارة محافظ تلقائية، تحليل سوق، توصيات مخصصة', fr: 'Gestion automatisée de portefeuille, analyse de marché, recommandations personnalisées' }
+          },
+          { status: 'future', cat: 'social',
+            title: { he: 'רשת חברתית Web3', en: 'Web3 Social Network', ru: 'Социальная сеть Web3', ar: 'شبكة اجتماعية Web3', fr: 'Réseau social Web3' },
+            desc: { he: 'פרופילים מבוזרים, NFT avatars, DAO governance', en: 'Decentralized profiles, NFT avatars, DAO governance', ru: 'Децентрализованные профили, NFT аватары, DAO управление', ar: 'ملفات لامركزية، NFT أفاتار، حوكمة DAO', fr: 'Profils décentralisés, avatars NFT, gouvernance DAO' }
+          },
+          { status: 'future', cat: 'infra',
+            title: { he: 'Multi-Chain + DEX', en: 'Multi-Chain + DEX', ru: 'Мультичейн + DEX', ar: 'متعدد السلاسل + DEX', fr: 'Multi-Chain + DEX' },
+            desc: { he: 'תמיכה ב-Ethereum, Solana, TON — בורסה מבוזרת משלנו', en: 'Support for Ethereum, Solana, TON — our own DEX', ru: 'Поддержка Ethereum, Solana, TON — собственная DEX', ar: 'دعم Ethereum, Solana, TON — بورصة لامركزية خاصة', fr: 'Support Ethereum, Solana, TON — notre propre DEX' }
+          }
+        ]
+      }
+    ];
+
+    const lang = typeof getLang === 'function' ? getLang() : 'he';
+    const t = (obj) => obj[lang] || obj.en || obj.he;
+
+    const STATUS_TAG = {
+      'completed': { cls: 'tag-done', he: 'הושלם', en: 'Done', ru: 'Готово', ar: 'مكتمل', fr: 'Terminé' },
+      'in-progress': { cls: 'tag-wip', he: 'בביצוע', en: 'In Progress', ru: 'В процессе', ar: 'قيد التنفيذ', fr: 'En cours' },
+      'upcoming': { cls: 'tag-soon', he: 'בקרוב', en: 'Soon', ru: 'Скоро', ar: 'قريباً', fr: 'Bientôt' },
+      'future': { cls: 'tag-future', he: 'עתיד', en: 'Future', ru: 'Будущее', ar: 'المستقبل', fr: 'Futur' }
+    };
+    const CAT_LABELS = {
+      infra: { he: 'תשתית', en: 'Infra', ru: 'Инфра', ar: 'بنية', fr: 'Infra' },
+      token: { he: 'טוקן', en: 'Token', ru: 'Токен', ar: 'رمز', fr: 'Jeton' },
+      bots: { he: 'בוטים', en: 'Bots', ru: 'Боты', ar: 'بوتات', fr: 'Bots' },
+      finance: { he: 'פיננסים', en: 'Finance', ru: 'Финансы', ar: 'مالية', fr: 'Finance' },
+      social: { he: 'קהילה', en: 'Social', ru: 'Соцсети', ar: 'اجتماعي', fr: 'Social' },
+      ai: { he: 'AI', en: 'AI', ru: 'AI', ar: 'AI', fr: 'IA' }
+    };
+
+    // Count stats
+    let completed = 0, inProgress = 0, upcoming = 0, total = 0;
+    PHASES.forEach(p => p.items.forEach(i => {
+      total++;
+      if (i.status === 'completed') completed++;
+      else if (i.status === 'in-progress') inProgress++;
+      else upcoming++;
+    }));
+
+    document.getElementById('statCompleted').textContent = completed;
+    document.getElementById('statInProgress').textContent = inProgress;
+    document.getElementById('statUpcoming').textContent = upcoming + (total - completed - inProgress - upcoming);
+    document.getElementById('statTotal').textContent = total;
+
+    const pct = Math.round((completed / total) * 100);
+    document.getElementById('progressPct').textContent = pct + '%';
+    setTimeout(() => {
+      document.getElementById('progressFill').style.width = pct + '%';
+    }, 300);
+
+    // Render timeline
+    function renderTimeline(filter) {
+      const container = document.getElementById('timeline');
+      container.innerHTML = '';
+
+      PHASES.forEach(phase => {
+        const filtered = filter === 'all' ? phase.items : phase.items.filter(i => i.status === filter);
+        if (filtered.length === 0) return;
+
+        const phaseDiv = document.createElement('div');
+        phaseDiv.className = 'timeline-phase';
+        phaseDiv.innerHTML = `<div class="timeline-phase-title"><span>${t(phase.title)}</span></div>`;
+
+        filtered.forEach((item, idx) => {
+          const stag = STATUS_TAG[item.status];
+          const ctag = CAT_LABELS[item.cat] || { he: item.cat, en: item.cat };
+          const el = document.createElement('div');
+          el.className = 'timeline-item';
+          el.innerHTML = `
+            <div class="timeline-dot ${item.status}"></div>
+            <div class="timeline-card">
+              <h3>${t(item.title)}</h3>
+              <p>${t(item.desc)}</p>
+              <div class="tags">
+                <span class="tag ${stag.cls}">${stag[lang] || stag.en}</span>
+                <span class="tag tag-cat">${t(ctag)}</span>
+              </div>
+            </div>
+          `;
+          phaseDiv.appendChild(el);
+        });
+
+        container.appendChild(phaseDiv);
+      });
+    }
+
+    renderTimeline('all');
+
+    // Filter buttons
+    document.querySelectorAll('.roadmap-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.roadmap-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTimeline(btn.dataset.filter);
+      });
+    });
+  });
+  </script>
+</body>
+</html>
