@@ -441,6 +441,36 @@
                     </div>
                 </div>
 
+                <!-- Funnel Portfolio Recommendation (auto-loads from landing page funnel) -->
+                <div id="funnel-recommendation" style="display:none;margin-bottom:20px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(245,158,11,.1));border:1px solid rgba(139,92,246,.3);border-radius:var(--radius);padding:20px 24px;direction:rtl">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+                        <div>
+                            <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">המלצת תיק מותאמת אישית</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--text-bright)">🎯 <span id="fr-plan-name">תיק השקעות</span></div>
+                        </div>
+                        <button onclick="document.getElementById('funnel-recommendation').style.display='none'" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:18px" title="סגור">✕</button>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+                        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+                            <div style="font-size:10px;color:var(--text2)">חיסכון חודשי</div>
+                            <div id="fr-monthly" style="font-size:16px;font-weight:700;color:var(--accent)">—</div>
+                        </div>
+                        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+                            <div style="font-size:10px;color:var(--text2)">תשואה צפויה</div>
+                            <div id="fr-yield" style="font-size:16px;font-weight:700;color:#f59e0b">—</div>
+                        </div>
+                        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+                            <div style="font-size:10px;color:var(--text2)">תקופה</div>
+                            <div id="fr-period" style="font-size:16px;font-weight:700;color:var(--text-bright)">—</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap">
+                        <button onclick="navigate('portfolio')" class="btn btn-primary" style="padding:8px 20px;font-size:13px;border-radius:8px">📊 עבור לתיק ההשקעות</button>
+                        <button onclick="navigate('staking')" class="btn btn-outline" style="padding:8px 20px;font-size:13px;border-radius:8px">💎 התחל Staking</button>
+                        <a href="https://t.me/osifeu" target="_blank" class="btn btn-outline" style="padding:8px 20px;font-size:13px;border-radius:8px">💬 שיחה עם יועץ</a>
+                    </div>
+                </div>
+
                 <!-- Balance Cards -->
                 <div class="stat-grid">
                     <div class="stat-card">
@@ -601,6 +631,64 @@
                     <div class="section-header"><div class="section-title">Staking Positions</div></div>
                     <div class="table-wrap" id="portfolio-stakes">
                         <div class="empty-state"><div class="icon">&#x1F48E;</div><h4>No staking positions</h4><p>Choose a plan and start earning</p></div>
+                    </div>
+                </div>
+
+                <!-- Token Management (max 2 custom tokens) -->
+                <div class="section" style="margin-top:24px">
+                    <div class="section-header">
+                        <div class="section-title">🪙 ניהול טוקנים</div>
+                        <button class="ptf-add-btn" onclick="openTokenModal()" id="add-token-btn">+ הוסף טוקן</button>
+                    </div>
+                    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;direction:rtl">הוסיפו עד 2 טוקנים מותאמים אישית לארנק שלכם. הזינו כתובת חוזה (BSC/TON) ואנו נציג את היתרה בזמן אמת.</p>
+                    <div id="managed-tokens" style="display:grid;gap:12px">
+                        <!-- Default SLH Token (always shown) -->
+                        <div style="display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;direction:rtl">
+                            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#000;flex-shrink:0">SLH</div>
+                            <div style="flex:1">
+                                <div style="font-weight:700;color:var(--text-bright)">SLH Spark Token</div>
+                                <div style="font-size:11px;color:var(--text2);margin-top:2px;direction:ltr;text-align:right">BSC: 0xACb0...f022</div>
+                            </div>
+                            <div style="text-align:left">
+                                <div style="font-size:18px;font-weight:700;color:var(--gold)" id="tm-slh-bal">0</div>
+                                <div style="font-size:11px;color:var(--text2)">$<span id="tm-slh-usd">0.00</span></div>
+                            </div>
+                            <span style="font-size:10px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:10px">ברירת מחדל</span>
+                        </div>
+
+                        <!-- User custom tokens (from localStorage) -->
+                        <div id="custom-tokens-list"></div>
+                    </div>
+                </div>
+
+                <!-- Token Add Modal (hidden) -->
+                <div id="token-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center">
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%;direction:rtl">
+                        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:var(--text-bright)">🪙 הוסף טוקן מותאם</h3>
+                        <div style="margin-bottom:12px">
+                            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">שם הטוקן</label>
+                            <input id="tm-name" type="text" placeholder="לדוגמה: ZVIKUSH" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px">
+                        </div>
+                        <div style="margin-bottom:12px">
+                            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">סמל (Symbol)</label>
+                            <input id="tm-symbol" type="text" placeholder="לדוגמה: ZVK" maxlength="10" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px">
+                        </div>
+                        <div style="margin-bottom:12px">
+                            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">רשת</label>
+                            <select id="tm-network" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px">
+                                <option value="bsc">BSC (BEP-20)</option>
+                                <option value="ton">TON</option>
+                                <option value="eth">Ethereum (ERC-20)</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">כתובת חוזה (Contract Address)</label>
+                            <input id="tm-contract" type="text" placeholder="0x..." style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;direction:ltr">
+                        </div>
+                        <div style="display:flex;gap:10px">
+                            <button onclick="saveCustomToken()" class="btn btn-primary" style="flex:1;padding:12px;border-radius:8px">💾 שמור</button>
+                            <button onclick="closeTokenModal()" class="btn btn-outline" style="flex:1;padding:12px;border-radius:8px">ביטול</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1354,6 +1442,20 @@ function onTelegramAuth(user) {
     .catch(() => manualLoginWith(user.id, user.first_name, user.photo_url));
 }
 
+// Auto-login from deep link: dashboard.html?uid=12345&name=User
+function tryDeepLinkLogin() {
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid');
+    const name = params.get('name') || 'User';
+    if (uid && /^\d+$/.test(uid)) {
+        manualLoginWith(parseInt(uid), decodeURIComponent(name));
+        // Clean URL without reload
+        window.history.replaceState({}, '', window.location.pathname);
+        return true;
+    }
+    return false;
+}
+
 function manualLogin() {
     let val = document.getElementById('manual-uid').value.trim();
     if (!val) return showToast('Enter your Telegram ID or @username', true);
@@ -1408,12 +1510,44 @@ function showApp() {
     loadPriceTicker();
     applyTranslations();
     startDateClock();
+    loadFunnelRecommendation();
 
     // Show welcome wizard for first-time users
     if (!localStorage.getItem('slh_welcome_done')) {
         document.getElementById('welcome-ref').textContent = 'https://t.me/SLH_AIR_bot?start=' + currentUser.id;
         document.getElementById('welcome-modal').classList.add('show');
     }
+}
+
+// === FUNNEL → DASHBOARD PORTFOLIO RECOMMENDATION ===
+function loadFunnelRecommendation() {
+    try {
+        const raw = localStorage.getItem('slh_funnel');
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (!data.amount || !data.period) return;
+
+        const plans = {
+            '500':   { name: 'תיק התחלתי',  monthly: '₪300–500',     yield: '8–15%' },
+            '1000':  { name: 'תיק צמיחה',   monthly: '₪500–1,000',   yield: '15–25%' },
+            '5000':  { name: 'תיק מתקדם',   monthly: '₪1,000–5,000', yield: '25–40%' },
+            '5000+': { name: 'תיק פרימיום',  monthly: '₪5,000+',      yield: '40–65%' }
+        };
+        const periods = {
+            '3m':   'עד 3 חודשים',
+            '6m':   '3–6 חודשים',
+            '12m':  '6–12 חודשים',
+            '12m+': 'שנה+'
+        };
+        const plan = plans[data.amount] || plans['500'];
+        const period = periods[data.period] || '—';
+
+        document.getElementById('fr-plan-name').textContent = plan.name;
+        document.getElementById('fr-monthly').textContent = plan.monthly;
+        document.getElementById('fr-yield').textContent = plan.yield;
+        document.getElementById('fr-period').textContent = period;
+        document.getElementById('funnel-recommendation').style.display = 'block';
+    } catch (e) { /* ignore parse errors */ }
 }
 
 // === HEBREW DATE + LIVE CLOCK ===
@@ -1792,12 +1926,14 @@ if (tg && tg.initDataUnsafe?.user) {
     localStorage.setItem('slh_user', JSON.stringify(currentUser));
     showApp();
 }
-// 2. Try URL params (?uid=224223270 from bot deep link)
+// 2. Try URL params (?uid=224223270&name=Osif from bot deep link)
 else if (!localStorage.getItem('slh_user')) {
     const params = new URLSearchParams(window.location.search);
     const urlUid = params.get('uid') || params.get('id') || params.get('ref');
     if (urlUid) {
-        manualLoginWith(parseInt(urlUid));
+        const urlName = params.get('name') ? decodeURIComponent(params.get('name')) : 'User';
+        manualLoginWith(parseInt(urlUid), urlName);
+        window.history.replaceState({}, '', window.location.pathname);
     }
 }
 // 3. Fallback to saved session
@@ -2439,6 +2575,89 @@ function removeAsset(coin) {
 document.getElementById('add-asset-modal')?.addEventListener('click', function(e) {
     if (e.target === this) closeAddAssetModal();
 });
+
+// ====== TOKEN MANAGEMENT ======
+function getCustomTokens() {
+    try { return JSON.parse(localStorage.getItem('slh_custom_tokens') || '[]'); } catch { return []; }
+}
+
+function saveCustomToken() {
+    const name = document.getElementById('tm-name').value.trim();
+    const symbol = document.getElementById('tm-symbol').value.trim().toUpperCase();
+    const network = document.getElementById('tm-network').value;
+    const contract = document.getElementById('tm-contract').value.trim();
+
+    if (!name || !symbol) return showToast('הזינו שם וסמל', true);
+    if (!contract || contract.length < 10) return showToast('הזינו כתובת חוזה תקינה', true);
+
+    const tokens = getCustomTokens();
+    if (tokens.length >= 2) return showToast('מקסימום 2 טוקנים מותאמים', true);
+    if (tokens.find(t => t.contract === contract)) return showToast('טוקן זה כבר קיים', true);
+
+    tokens.push({ name, symbol, network, contract, addedAt: Date.now() });
+    localStorage.setItem('slh_custom_tokens', JSON.stringify(tokens));
+    closeTokenModal();
+    renderCustomTokens();
+    showToast(`${symbol} נוסף בהצלחה!`);
+}
+
+function removeCustomToken(contract) {
+    let tokens = getCustomTokens().filter(t => t.contract !== contract);
+    localStorage.setItem('slh_custom_tokens', JSON.stringify(tokens));
+    renderCustomTokens();
+    showToast('טוקן הוסר');
+}
+
+function renderCustomTokens() {
+    const tokens = getCustomTokens();
+    const list = document.getElementById('custom-tokens-list');
+    if (!list) return;
+
+    // Show/hide add button (max 2)
+    const addBtn = document.getElementById('add-token-btn');
+    if (addBtn) addBtn.style.display = tokens.length >= 2 ? 'none' : '';
+
+    if (tokens.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text2);font-size:13px;direction:rtl">אין טוקנים מותאמים. לחצו "+ הוסף טוקן" להוספה.</div>';
+        return;
+    }
+
+    const colors = ['#6c5ce7', '#00cec9'];
+    list.innerHTML = tokens.map((tk, i) => `
+        <div style="display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;direction:rtl">
+            <div style="width:44px;height:44px;border-radius:50%;background:${colors[i]};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0">${tk.symbol.slice(0,3)}</div>
+            <div style="flex:1">
+                <div style="font-weight:700;color:var(--text-bright)">${tk.name}</div>
+                <div style="font-size:11px;color:var(--text2);margin-top:2px;direction:ltr;text-align:right">${tk.network.toUpperCase()}: ${tk.contract.slice(0,6)}...${tk.contract.slice(-4)}</div>
+            </div>
+            <div style="text-align:left">
+                <div style="font-size:16px;font-weight:700;color:var(--text-bright)">—</div>
+                <div style="font-size:11px;color:var(--text2)">Web3 required</div>
+            </div>
+            <button onclick="removeCustomToken('${tk.contract}')" style="background:none;border:none;color:var(--red,#ff4757);cursor:pointer;font-size:16px" title="הסר">🗑️</button>
+        </div>
+    `).join('');
+}
+
+function openTokenModal() {
+    const tokens = getCustomTokens();
+    if (tokens.length >= 2) return showToast('מקסימום 2 טוקנים מותאמים', true);
+    document.getElementById('token-modal').style.display = 'flex';
+    document.getElementById('tm-name').value = '';
+    document.getElementById('tm-symbol').value = '';
+    document.getElementById('tm-contract').value = '';
+}
+
+function closeTokenModal() {
+    document.getElementById('token-modal').style.display = 'none';
+}
+
+document.getElementById('token-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeTokenModal();
+});
+
+// Init custom tokens on page load
+setTimeout(renderCustomTokens, 500);
 
 // ====== ANALYTICS TRACKING ======
 (function(){
