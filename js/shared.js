@@ -723,4 +723,152 @@ function initShared(options = {}) {
       }
     }
   });
+
+  // Cookie consent banner
+  initCookieConsent();
+}
+
+
+/* ===== COOKIE CONSENT ===== */
+
+function initCookieConsent() {
+  if (localStorage.getItem('slh_cookie_consent')) return;
+
+  const lang = getLang();
+  const texts = {
+    he: {
+      msg: 'אתר זה משתמש בקובצי עוגיות (cookies) כדי לשפר את חוויית השימוש, לנתח תנועה באתר ולשמור את ההעדפות שלך.',
+      accept: 'מסכים',
+      decline: 'דוחה',
+      settings: 'הגדרות',
+      title: '🍪 הודעת פרטיות',
+      essential: 'חיוניים',
+      analytics: 'אנליטיקה',
+      preferences: 'העדפות',
+      essentialDesc: 'נחוצים לתפקוד האתר',
+      analyticsDesc: 'עוזרים לנו להבין את השימוש באתר',
+      preferencesDesc: 'שמירת שפה, ערכת נושא והגדרות'
+    },
+    en: {
+      msg: 'This site uses cookies to improve your experience, analyze traffic, and save your preferences.',
+      accept: 'Accept',
+      decline: 'Decline',
+      settings: 'Settings',
+      title: '🍪 Privacy Notice',
+      essential: 'Essential',
+      analytics: 'Analytics',
+      preferences: 'Preferences',
+      essentialDesc: 'Required for the site to function',
+      analyticsDesc: 'Help us understand site usage',
+      preferencesDesc: 'Save language, theme, and settings'
+    },
+    ru: {
+      msg: 'Этот сайт использует файлы cookie для улучшения работы, анализа трафика и сохранения настроек.',
+      accept: 'Принять',
+      decline: 'Отклонить',
+      settings: 'Настройки',
+      title: '🍪 Уведомление о конфиденциальности',
+      essential: 'Необходимые',
+      analytics: 'Аналитика',
+      preferences: 'Настройки',
+      essentialDesc: 'Необходимы для работы сайта',
+      analyticsDesc: 'Помогают понять использование сайта',
+      preferencesDesc: 'Сохранение языка, темы и настроек'
+    },
+    ar: {
+      msg: 'يستخدم هذا الموقع ملفات تعريف الارتباط لتحسين تجربتك وتحليل حركة المرور وحفظ تفضيلاتك.',
+      accept: 'قبول',
+      decline: 'رفض',
+      settings: 'إعدادات',
+      title: '🍪 إشعار الخصوصية',
+      essential: 'أساسية',
+      analytics: 'تحليلات',
+      preferences: 'تفضيلات',
+      essentialDesc: 'مطلوبة لعمل الموقع',
+      analyticsDesc: 'تساعدنا على فهم استخدام الموقع',
+      preferencesDesc: 'حفظ اللغة والسمة والإعدادات'
+    },
+    fr: {
+      msg: 'Ce site utilise des cookies pour améliorer votre expérience, analyser le trafic et sauvegarder vos préférences.',
+      accept: 'Accepter',
+      decline: 'Refuser',
+      settings: 'Paramètres',
+      title: '🍪 Avis de confidentialité',
+      essential: 'Essentiels',
+      analytics: 'Analytiques',
+      preferences: 'Préférences',
+      essentialDesc: 'Nécessaires au fonctionnement du site',
+      analyticsDesc: 'Nous aident à comprendre l\'utilisation',
+      preferencesDesc: 'Sauvegarde de la langue, thème et paramètres'
+    }
+  };
+
+  const t = texts[lang] || texts.en;
+  const isRtl = RTL_LANGS.includes(lang);
+
+  const banner = document.createElement('div');
+  banner.id = 'cookie-consent';
+  banner.innerHTML = `
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong>${t.title}</strong>
+        <p>${t.msg}</p>
+      </div>
+      <div class="cookie-details" id="cookie-details" style="display:none">
+        <label class="cookie-opt">
+          <input type="checkbox" checked disabled> <b>${t.essential}</b> — ${t.essentialDesc}
+        </label>
+        <label class="cookie-opt">
+          <input type="checkbox" id="ck-analytics" checked> <b>${t.analytics}</b> — ${t.analyticsDesc}
+        </label>
+        <label class="cookie-opt">
+          <input type="checkbox" id="ck-prefs" checked> <b>${t.preferences}</b> — ${t.preferencesDesc}
+        </label>
+      </div>
+      <div class="cookie-btns">
+        <button class="ck-btn ck-settings" onclick="document.getElementById('cookie-details').style.display=document.getElementById('cookie-details').style.display==='none'?'block':'none'">${t.settings}</button>
+        <button class="ck-btn ck-decline" onclick="saveCookieConsent('decline')">${t.decline}</button>
+        <button class="ck-btn ck-accept" onclick="saveCookieConsent('accept')">${t.accept}</button>
+      </div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #cookie-consent{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(10,10,10,.97);border-top:1px solid rgba(0,255,65,.2);backdrop-filter:blur(12px);padding:16px 20px;font-family:var(--font-main,'Inter',sans-serif);animation:ck-slide .4s ease}
+    @keyframes ck-slide{from{transform:translateY(100%)}to{transform:translateY(0)}}
+    .cookie-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:16px;direction:${isRtl?'rtl':'ltr'}}
+    .cookie-text{flex:1;min-width:250px;color:#ccc;font-size:13px;line-height:1.5}
+    .cookie-text strong{color:#00ff41;display:block;margin-bottom:4px;font-size:14px}
+    .cookie-details{width:100%;padding:12px 0;border-top:1px solid rgba(255,255,255,.08)}
+    .cookie-opt{display:block;color:#aaa;font-size:12px;margin:6px 0;cursor:pointer}
+    .cookie-opt input{accent-color:#00ff41;margin-${isRtl?'left':'right'}:6px}
+    .cookie-opt b{color:#e0e0e0}
+    .cookie-btns{display:flex;gap:8px;flex-shrink:0}
+    .ck-btn{padding:8px 18px;border:1px solid rgba(255,255,255,.15);border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+    .ck-accept{background:#00ff41;color:#000;border-color:#00ff41}
+    .ck-accept:hover{background:#39ff14}
+    .ck-decline{background:transparent;color:#888;border-color:rgba(255,255,255,.15)}
+    .ck-decline:hover{color:#fff;border-color:#fff}
+    .ck-settings{background:transparent;color:#00e5ff;border-color:rgba(0,229,255,.3)}
+    .ck-settings:hover{border-color:#00e5ff}
+    @media(max-width:600px){.cookie-inner{flex-direction:column;text-align:center}.cookie-btns{width:100%;justify-content:center}}
+  `;
+
+  document.head.appendChild(style);
+  document.body.appendChild(banner);
+}
+
+function saveCookieConsent(choice) {
+  const consent = {
+    essential: true,
+    analytics: choice === 'accept' ? (document.getElementById('ck-analytics')?.checked ?? true) : false,
+    preferences: choice === 'accept' ? (document.getElementById('ck-prefs')?.checked ?? true) : false,
+    timestamp: new Date().toISOString(),
+    choice: choice
+  };
+  localStorage.setItem('slh_cookie_consent', JSON.stringify(consent));
+  const el = document.getElementById('cookie-consent');
+  if (el) el.style.animation = 'ck-slide .3s ease reverse forwards';
+  setTimeout(() => { if (el) el.remove(); }, 300);
 }
