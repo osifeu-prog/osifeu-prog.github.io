@@ -486,6 +486,150 @@
         .top-member-posts { font-size: 12px; color: var(--text3); }
 
         /* ── Empty State ── */
+        /* ── Post Image ── */
+        .post-image {
+            margin-bottom: 16px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            max-height: 500px;
+        }
+        .post-image img {
+            width: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+        .post-image img:hover { transform: scale(1.01); }
+
+        /* ── Image Preview ── */
+        .image-preview {
+            position: relative;
+            margin-top: 10px;
+            display: none;
+        }
+        .image-preview.has-image { display: block; }
+        .image-preview img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .image-preview .remove-image {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(0,0,0,.7);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+        }
+
+        /* ── Post Toolbar ── */
+        .post-toolbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .post-tool-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--text3);
+            font-size: 13px;
+            background: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .post-tool-btn:hover {
+            background: var(--bg3);
+            border-color: var(--border);
+            color: var(--text2);
+        }
+        .post-tool-btn i { font-size: 16px; }
+        .post-tool-btn.photo-btn:hover { color: var(--green); }
+        .post-tool-btn.poll-btn:hover { color: var(--gold); }
+
+        /* ── Proposal/Vote Card ── */
+        .vote-section {
+            margin: 12px 0 16px;
+            padding: 14px;
+            background: var(--bg3);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .vote-bar-bg {
+            height: 28px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin: 8px 0 4px;
+        }
+        .vote-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            transition: width .5s ease;
+        }
+        .vote-bar-fill.for { background: var(--green); }
+        .vote-bar-fill.against { background: var(--red); }
+        .vote-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .vote-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 13px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .vote-btn:hover { transform: translateY(-1px); }
+        .vote-btn.for:hover { border-color: var(--green); color: var(--green); }
+        .vote-btn.against:hover { border-color: var(--red); color: var(--red); }
+        .vote-btn.voted { opacity: .5; cursor: default; }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* ── Empty State ── */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -550,6 +694,9 @@
                 <button class="filter-tab active" data-filter="all" data-i18n="community_filter_all">הכל</button>
                 <button class="filter-tab" data-filter="investments" data-i18n="community_filter_investments">השקעות</button>
                 <button class="filter-tab" data-filter="slh" data-i18n="community_filter_slh">SLH</button>
+                <button class="filter-tab" data-filter="proposals" data-i18n="community_filter_proposals">הצעות</button>
+                <button class="filter-tab" data-filter="experts" data-i18n="community_filter_experts">מומחים</button>
+                <button class="filter-tab" data-filter="news" data-i18n="community_filter_news">חדשות</button>
                 <button class="filter-tab" data-filter="general" data-i18n="community_filter_general">כללי</button>
             </div>
 
@@ -634,8 +781,8 @@
     <div id="bottomnav-root"></div>
     <div id="footer-root"></div>
 
-    <script src="/js/translations.js?v=20260407e"></script>
-    <script src="/js/shared.js?v=20260407b"></script>
+    <script src="/js/translations.js?v=20260408a"></script>
+    <script src="/js/shared.js?v=20260408a"></script>
     <script>
     /* ============================================================
        SLH Community — Client-Side Logic (API-backed)
@@ -658,8 +805,13 @@
         all: 'הכל',
         investments: 'השקעות',
         slh: 'SLH',
+        proposals: 'הצעות',
+        experts: 'מומחים',
+        news: 'חדשות',
         general: 'כללי'
     };
+
+    let pendingImage = null; // base64 image for new post
 
     /* ── State ── */
     let currentFilter = 'all';
@@ -809,12 +961,25 @@
                         </button>
                     </div>
                     <textarea id="new-post-text" placeholder="מה חדש? שתפו עם הקהילה..." data-i18n-placeholder="community_new_post"></textarea>
+                    <div class="image-preview" id="image-preview">
+                        <img id="image-preview-img" src="" alt="">
+                        <button class="remove-image" onclick="removeImage()"><i class="fas fa-times"></i></button>
+                    </div>
                     <div class="new-post-actions">
-                        <select class="post-category-select" id="new-post-category">
-                            <option value="general" data-i18n="community_filter_general">כללי</option>
-                            <option value="investments" data-i18n="community_filter_investments">השקעות</option>
-                            <option value="slh" data-i18n="community_filter_slh">SLH</option>
-                        </select>
+                        <div class="post-toolbar">
+                            <input type="file" id="image-upload" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleImageSelect(event)">
+                            <button class="post-tool-btn photo-btn" onclick="document.getElementById('image-upload').click()">
+                                <i class="fas fa-image"></i> תמונה
+                            </button>
+                            <select class="post-category-select" id="new-post-category">
+                                <option value="general">כללי</option>
+                                <option value="investments">השקעות</option>
+                                <option value="slh">SLH</option>
+                                <option value="proposals">הצעות</option>
+                                <option value="experts">מומחים</option>
+                                <option value="news">חדשות</option>
+                            </select>
+                        </div>
                         <button class="btn-post" onclick="handleNewPost()" id="btn-publish" data-i18n="community_post_btn">
                             <i class="fas fa-paper-plane"></i> פרסום
                         </button>
@@ -847,6 +1012,67 @@
         renderAuthSection();
     }
 
+    /* ── Image Handling ── */
+    function handleImageSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Image must be under 2MB');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            pendingImage = e.target.result;
+            const preview = document.getElementById('image-preview');
+            const img = document.getElementById('image-preview-img');
+            img.src = pendingImage;
+            preview.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeImage() {
+        pendingImage = null;
+        const preview = document.getElementById('image-preview');
+        if (preview) preview.classList.remove('has-image');
+        const input = document.getElementById('image-upload');
+        if (input) input.value = '';
+    }
+
+    function openLightbox(src) {
+        let lb = document.getElementById('lightbox');
+        if (!lb) {
+            lb = document.createElement('div');
+            lb.id = 'lightbox';
+            lb.className = 'lightbox';
+            lb.onclick = () => lb.classList.remove('open');
+            lb.innerHTML = '<img id="lightbox-img" src="" alt="">';
+            document.body.appendChild(lb);
+        }
+        document.getElementById('lightbox-img').src = src;
+        lb.classList.add('open');
+    }
+
+    /* ── Vote on Proposal ── */
+    async function voteOnPost(postId, vote) {
+        const user = getUser();
+        if (!user) return;
+        const result = await apiPost(`/api/community/posts/${postId}/vote`, {
+            username: user.username,
+            vote: vote // 'for' or 'against'
+        });
+        if (result) {
+            const post = posts.find(p => p.id == postId);
+            if (post) {
+                if (!post.votes) post.votes = { for: 0, against: 0, voters: [] };
+                post.votes[vote] = (post.votes[vote] || 0) + 1;
+                if (!post.votes.voters) post.votes.voters = [];
+                post.votes.voters.push(user.username);
+                renderFeed();
+            }
+        }
+    }
+
     /* ── New Post (API) ── */
     async function handleNewPost() {
         const user = getUser();
@@ -860,12 +1086,14 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> שולח...';
 
-        const result = await apiPost('/api/community/posts', {
+        const postData = {
             username: user.username,
             text: text,
             category: category,
-            telegram_id: user.telegram || null
-        });
+            telegram_id: user.telegram || user.id || null,
+            image_data: pendingImage || null
+        };
+        const result = await apiPost('/api/community/posts', postData);
 
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> פרסום';
@@ -873,6 +1101,7 @@
         if (result && result.id) {
             textarea.value = '';
             textarea.style.borderColor = '';
+            removeImage();
             // Reload from API to get fresh data
             await loadPostsFromAPI();
         } else {
@@ -972,6 +1201,8 @@
                     <span class="post-category-badge">${catLabel}</span>
                 </div>
                 <div class="post-body">${escHtml(post.text)}</div>
+                ${post.image_url || post.image_data ? `<div class="post-image" onclick="openLightbox('${post.image_url || post.image_data}')"><img src="${post.image_url || post.image_data}" alt="" loading="lazy"></div>` : ''}
+                ${post.category === 'proposals' ? renderVoteSection(post) : ''}
                 <div class="post-actions">
                     <button class="post-action-btn" onclick="toggleLike(${post.id})">
                         <i class="far fa-heart"></i>
@@ -995,16 +1226,68 @@
     function sharePost(postId) {
         const post = posts.find(p => p.id == postId);
         if (!post) return;
-        const text = `${post.username}: ${post.text.slice(0, 100)}...\n\nקהילת SLH - ${location.origin}/community.html`;
+        const postText = post.text.slice(0, 200);
+        const url = `${location.origin}/community.html`;
+        const shareText = `${post.username}: ${postText}\n\nקהילת SLH Spark`;
+
+        // Native share API (mobile)
         if (navigator.share) {
-            navigator.share({ title: 'SLH Community', text });
-        } else {
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.currentTarget;
-                btn.style.color = 'var(--green)';
-                setTimeout(() => btn.style.color = '', 1500);
-            });
+            navigator.share({ title: 'SLH Community', text: shareText, url }).catch(() => {});
+            return;
         }
+
+        // Desktop: show share menu
+        const existing = document.getElementById('share-menu-' + postId);
+        if (existing) { existing.remove(); return; }
+
+        const encodedText = encodeURIComponent(shareText);
+        const encodedUrl = encodeURIComponent(url);
+
+        const menu = document.createElement('div');
+        menu.id = 'share-menu-' + postId;
+        menu.style.cssText = 'position:absolute;right:0;top:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:8px;z-index:100;display:flex;gap:6px;box-shadow:var(--shadow)';
+        menu.innerHTML = `
+            <a href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#1877F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#1DA1F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedText}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#0088cc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-telegram-plane"></i></a>
+            <button onclick="navigator.clipboard.writeText('${shareText.replace(/'/g,"\\'")} ${url}');this.parentElement.remove()" style="width:36px;height:36px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:14px;cursor:pointer"><i class="fas fa-link"></i></button>`;
+
+        const btn = event.currentTarget;
+        btn.style.position = 'relative';
+        btn.appendChild(menu);
+        setTimeout(() => document.addEventListener('click', function removeMenu(e) {
+            if (!menu.contains(e.target)) { menu.remove(); document.removeEventListener('click', removeMenu); }
+        }), 100);
+    }
+
+    /* ── Render Vote Section for Proposals ── */
+    function renderVoteSection(post) {
+        const user = getUser();
+        const votes = post.votes || { for: 0, against: 0, voters: [] };
+        const total = (votes.for || 0) + (votes.against || 0);
+        const forPct = total > 0 ? Math.round((votes.for / total) * 100) : 50;
+        const againstPct = 100 - forPct;
+        const hasVoted = user && votes.voters && votes.voters.includes(user.username);
+
+        return `
+            <div class="vote-section">
+                <div style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">
+                    <i class="fas fa-poll"></i> הצבעת קהילה
+                </div>
+                <div class="vote-bar-bg">
+                    <div class="vote-bar-fill for" style="width:${forPct}%">${forPct}% בעד</div>
+                </div>
+                <div class="vote-bar-bg">
+                    <div class="vote-bar-fill against" style="width:${againstPct}%">${againstPct}% נגד</div>
+                </div>
+                <div style="font-size:11px;color:var(--text3);margin-top:4px">${total} הצביעו</div>
+                ${!hasVoted && user ? `
+                <div class="vote-buttons">
+                    <button class="vote-btn for" onclick="voteOnPost(${post.id},'for')"><i class="fas fa-check"></i> בעד</button>
+                    <button class="vote-btn against" onclick="voteOnPost(${post.id},'against')"><i class="fas fa-times"></i> נגד</button>
+                </div>` : hasVoted ? '<div style="font-size:12px;color:var(--green);margin-top:8px"><i class="fas fa-check-circle"></i> הצבעתך נרשמה</div>' : ''}
+            </div>`;
     }
 
     /* ── Render Feed ── */
