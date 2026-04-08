@@ -456,7 +456,31 @@ const T = {
     roadmap_cta_title: 'הצטרפו למסע',
     roadmap_cta_desc: 'היו חלק מהעתיד של ההשקעות הדיגיטליות. הצטרפו לאקוסיסטם SLH עוד היום.',
     roadmap_cta_start: 'התחילו להרוויח',
-    roadmap_cta_community: 'הצטרפו לקהילה'
+    roadmap_cta_community: 'הצטרפו לקהילה',
+
+    // Registration
+    reg_title: 'הרשמה למערכת SLH',
+    reg_subtitle: 'שלמו פעם אחת וקבלו גישה מלאה לכל המערכת',
+    reg_price: 'מחיר: ₪44.4 (0.1 SLH)',
+    reg_what_you_get: 'מה מקבלים?',
+    reg_get_token: '0.1 טוקן SLH לחשבון שלך',
+    reg_get_dashboard: 'גישה ללוח בקרה אישי',
+    reg_get_wallet: 'ארנק דיגיטלי מלא',
+    reg_get_community: 'פרסום בקהילה',
+    reg_get_bots: 'גישה לבוטים',
+    reg_get_referral: 'תוכנית הפניות (עד 10 דורות)',
+    reg_send_to: 'שלחו TON לכתובת:',
+    reg_copy: 'העתק כתובת',
+    reg_copied: 'הועתק!',
+    reg_paid: 'שילמתי',
+    reg_tx_hash: 'הזינו TX Hash (אופציונלי)',
+    reg_pending: 'ממתין לאישור אדמין...',
+    reg_submitted: 'הוכחת תשלום נשלחה — ממתין לאישור',
+    reg_approved: 'ההרשמה אושרה! ברוכים הבאים!',
+    reg_locked: 'תכונה זו דורשת הרשמה',
+    reg_required: 'יש להירשם כדי להשתמש בתכונה זו',
+    reg_login_first: 'התחברו תחילה כדי להירשם',
+    reg_cta: 'הירשמו עכשיו'
   },
 
   en: {
@@ -911,7 +935,31 @@ const T = {
     roadmap_cta_title: 'Join the Journey',
     roadmap_cta_desc: 'Be part of the future of digital investment. Join the SLH ecosystem today.',
     roadmap_cta_start: 'Start Earning',
-    roadmap_cta_community: 'Join Community'
+    roadmap_cta_community: 'Join Community',
+
+    // Registration
+    reg_title: 'Register for SLH',
+    reg_subtitle: 'Pay once and get full access to the entire ecosystem',
+    reg_price: 'Price: ₪44.4 (0.1 SLH)',
+    reg_what_you_get: 'What you get:',
+    reg_get_token: '0.1 SLH token to your account',
+    reg_get_dashboard: 'Personal dashboard access',
+    reg_get_wallet: 'Full digital wallet',
+    reg_get_community: 'Community posting access',
+    reg_get_bots: 'Bot access',
+    reg_get_referral: 'Referral program (up to 10 generations)',
+    reg_send_to: 'Send TON to address:',
+    reg_copy: 'Copy Address',
+    reg_copied: 'Copied!',
+    reg_paid: "I've Paid",
+    reg_tx_hash: 'Enter TX Hash (optional)',
+    reg_pending: 'Waiting for admin approval...',
+    reg_submitted: 'Payment proof sent — awaiting approval',
+    reg_approved: 'Registration approved! Welcome!',
+    reg_locked: 'This feature requires registration',
+    reg_required: 'You need to register to use this feature',
+    reg_login_first: 'Log in first to register',
+    reg_cta: 'Register Now'
   },
 
   ru: {
@@ -1233,7 +1281,31 @@ const T = {
     roadmap_cta_title: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C',
     roadmap_cta_desc: '\u0421\u0442\u0430\u043D\u044C\u0442\u0435 \u0447\u0430\u0441\u0442\u044C\u044E \u0431\u0443\u0434\u0443\u0449\u0435\u0433\u043E \u0446\u0438\u0444\u0440\u043E\u0432\u044B\u0445 \u0438\u043D\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0439. \u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A SLH.',
     roadmap_cta_start: '\u041D\u0430\u0447\u0430\u0442\u044C \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0442\u044C',
-    roadmap_cta_community: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F'
+    roadmap_cta_community: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F',
+
+    // Registration
+    reg_title: '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u0432 SLH',
+    reg_subtitle: '\u041E\u043F\u043B\u0430\u0442\u0438\u0442\u0435 \u043E\u0434\u0438\u043D \u0440\u0430\u0437 \u0438 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F',
+    reg_price: '\u0426\u0435\u043D\u0430: \u20AA44.4 (0.1 SLH)',
+    reg_what_you_get: '\u0427\u0442\u043E \u0432\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442\u0435:',
+    reg_get_token: '0.1 \u0442\u043E\u043A\u0435\u043D SLH \u043D\u0430 \u0432\u0430\u0448 \u0441\u0447\u0451\u0442',
+    reg_get_dashboard: '\u041B\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0431\u0438\u043D\u0435\u0442',
+    reg_get_wallet: '\u041F\u043E\u043B\u043D\u044B\u0439 \u0446\u0438\u0444\u0440\u043E\u0432\u043E\u0439 \u043A\u043E\u0448\u0435\u043B\u0451\u043A',
+    reg_get_community: '\u041F\u0443\u0431\u043B\u0438\u043A\u0430\u0446\u0438\u044F \u0432 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0435',
+    reg_get_bots: '\u0414\u043E\u0441\u0442\u0443\u043F \u043A \u0431\u043E\u0442\u0430\u043C',
+    reg_get_referral: '\u0420\u0435\u0444\u0435\u0440\u0430\u043B\u044C\u043D\u0430\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 (\u0434\u043E 10 \u043F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u0439)',
+    reg_send_to: '\u041E\u0442\u043F\u0440\u0430\u0432\u044C\u0442\u0435 TON \u043D\u0430 \u0430\u0434\u0440\u0435\u0441:',
+    reg_copy: '\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C',
+    reg_copied: '\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E!',
+    reg_paid: '\u042F \u043E\u043F\u043B\u0430\u0442\u0438\u043B',
+    reg_tx_hash: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 TX Hash (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E)',
+    reg_pending: '\u041E\u0436\u0438\u0434\u0430\u043D\u0438\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F \u0430\u0434\u043C\u0438\u043D\u043E\u043C...',
+    reg_submitted: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u043E\u043F\u043B\u0430\u0442\u044B \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E',
+    reg_approved: '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u043E\u0434\u043E\u0431\u0440\u0435\u043D\u0430! \u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C!',
+    reg_locked: '\u042D\u0442\u0430 \u0444\u0443\u043D\u043A\u0446\u0438\u044F \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438',
+    reg_required: '\u041D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F',
+    reg_login_first: '\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u043E\u0439\u0434\u0438\u0442\u0435',
+    reg_cta: '\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F'
   },
 
   ar: {
@@ -1555,7 +1627,31 @@ const T = {
     roadmap_cta_title: '\u0627\u0646\u0636\u0645\u0648\u0627 \u0625\u0644\u0649 \u0627\u0644\u0631\u062D\u0644\u0629',
     roadmap_cta_desc: '\u0643\u0648\u0646\u0648\u0627 \u062C\u0632\u0621\u0627\u064B \u0645\u0646 \u0645\u0633\u062A\u0642\u0628\u0644 \u0627\u0644\u0627\u0633\u062A\u062B\u0645\u0627\u0631 \u0627\u0644\u0631\u0642\u0645\u064A. \u0627\u0646\u0636\u0645\u0648\u0627 \u0625\u0644\u0649 SLH \u0627\u0644\u064A\u0648\u0645.',
     roadmap_cta_start: '\u0627\u0628\u062F\u0623\u0648\u0627 \u0628\u0627\u0644\u0631\u0628\u062D',
-    roadmap_cta_community: '\u0627\u0646\u0636\u0645\u0648\u0627 \u0644\u0644\u0645\u062C\u062A\u0645\u0639'
+    roadmap_cta_community: '\u0627\u0646\u0636\u0645\u0648\u0627 \u0644\u0644\u0645\u062C\u062A\u0645\u0639',
+
+    // Registration
+    reg_title: '\u0627\u0644\u062A\u0633\u062C\u064A\u0644 \u0641\u064A SLH',
+    reg_subtitle: '\u0627\u062F\u0641\u0639 \u0645\u0631\u0629 \u0648\u0627\u062D\u062F\u0629 \u0648\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0648\u0635\u043E\u043B \u0643\u0627\u0645\u0644',
+    reg_price: '\u0627\u0644\u0633\u0639\u0631: \u20AA44.4 (0.1 SLH)',
+    reg_what_you_get: '\u0645\u0627\u0630\u0627 \u062A\u062D\u0635\u0644:',
+    reg_get_token: '0.1 \u0631\u0645\u0632 SLH \u0644\u062D\u0633\u0627\u0628\u0643',
+    reg_get_dashboard: '\u0644\u0648\u062D\u0629 \u062A\u062D\u0643\u0645 \u0634\u062E\u0635\u064A\u0629',
+    reg_get_wallet: '\u0645\u062D\u0641\u0638\u0629 \u0631\u0642\u0645\u064A\u0629 \u0643\u0627\u0645\u0644\u0629',
+    reg_get_community: '\u0627\u0644\u0646\u0634\u0631 \u0641\u064A \u0627\u0644\u0645\u062C\u062A\u0645\u0639',
+    reg_get_bots: '\u0648\u0635\u043E\u043B \u0644\u0644\u0628\u043E\u062A\u0627\u062A',
+    reg_get_referral: '\u0628\u0631\u0646\u0627\u0645\u062C \u0625\u062D\u0627\u0644\u0629 (\u062D\u062A\u0649 10 \u0623\u062C\u064A\u0627\u0644)',
+    reg_send_to: '\u0623\u0631\u0633\u0644 TON \u0625\u0644\u0649:',
+    reg_copy: '\u0646\u0633\u062E',
+    reg_copied: '\u062A\u0645 \u0627\u0644\u0646\u0633\u062E!',
+    reg_paid: '\u062F\u0641\u0639\u062A',
+    reg_tx_hash: '\u0623\u062F\u062E\u0644 TX Hash (\u0627\u062E\u062A\u064A\u0627\u0631\u064A)',
+    reg_pending: '\u0628\u0627\u0646\u062A\u0638\u0627\u0631 \u0645\u043E\u0627\u0641\u0642\u0629 \u0627\u0644\u0645\u0633\u0624\u043E\u0644...',
+    reg_submitted: '\u062A\u0645 \u0625\u0631\u0633\u0627\u0644 \u0625\u062B\u0628\u0627\u062A \u0627\u0644\u062F\u0641\u0639',
+    reg_approved: '\u062A\u0645\u062A \u0627\u0644\u0645\u0648\u0627\u0641\u0642\u0629! \u0645\u0631\u062D\u0628\u0627!',
+    reg_locked: '\u0647\u0630\u0647 \u0627\u0644\u0645\u064A\u0632\u0629 \u062A\u062A\u0637\u0644\u0628 \u0627\u0644\u062A\u0633\u062C\u064A\u0644',
+    reg_required: '\u064A\u062C\u0628 \u0627\u0644\u062A\u0633\u062C\u064A\u0644 \u0644\u0627\u0633\u062A\u062E\u062F\u0627\u0645 \u0647\u0630\u0647 \u0627\u0644\u0645\u064A\u0632\u0629',
+    reg_login_first: '\u0633\u062C\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0623\u0648\u0644\u0627',
+    reg_cta: '\u0633\u062C\u0644 \u0627\u0644\u0622\u0646'
   },
 
   fr: {
@@ -1877,7 +1973,31 @@ const T = {
     roadmap_cta_title: 'Rejoignez l\'aventure',
     roadmap_cta_desc: 'Faites partie de l\'avenir de l\'investissement num\u00E9rique. Rejoignez SLH aujourd\'hui.',
     roadmap_cta_start: 'Commencer \u00E0 gagner',
-    roadmap_cta_community: 'Rejoindre la communaut\u00E9'
+    roadmap_cta_community: 'Rejoindre la communaut\u00E9',
+
+    // Registration
+    reg_title: "S'inscrire \u00E0 SLH",
+    reg_subtitle: "Payez une fois et acc\u00E9dez \u00E0 tout l'\u00E9cosyst\u00E8me",
+    reg_price: 'Prix: \u20AA44.4 (0.1 SLH)',
+    reg_what_you_get: 'Ce que vous recevez:',
+    reg_get_token: '0.1 token SLH sur votre compte',
+    reg_get_dashboard: 'Tableau de bord personnel',
+    reg_get_wallet: 'Portefeuille num\u00E9rique complet',
+    reg_get_community: 'Publication dans la communaut\u00E9',
+    reg_get_bots: 'Acc\u00E8s aux bots',
+    reg_get_referral: 'Programme de parrainage (jusqu\u0027\u00E0 10 g\u00E9n\u00E9rations)',
+    reg_send_to: 'Envoyez TON \u00E0:',
+    reg_copy: "Copier l'adresse",
+    reg_copied: 'Copi\u00E9!',
+    reg_paid: "J'ai pay\u00E9",
+    reg_tx_hash: 'Entrez TX Hash (optionnel)',
+    reg_pending: "En attente d'approbation...",
+    reg_submitted: 'Preuve de paiement envoy\u00E9e',
+    reg_approved: 'Inscription approuv\u00E9e! Bienvenue!',
+    reg_locked: 'Cette fonctionnalit\u00E9 n\u00E9cessite une inscription',
+    reg_required: 'Vous devez vous inscrire',
+    reg_login_first: "Connectez-vous d'abord",
+    reg_cta: "S'inscrire maintenant"
   }
 };
 

@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/shared.css?v=20260408d">
+    <link rel="stylesheet" href="/css/shared.css?v=20260408g">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <style>
         /* === THEME SYSTEM === */
@@ -1339,8 +1339,9 @@ function onTelegramAuth(user) {
     })
     .then(r => r.json())
     .then(d => {
-        currentUser = {...user, ...d.user, balances: d.balances};
+        currentUser = {...user, ...d.user, balances: d.balances, is_registered: d.user?.is_registered || false};
         localStorage.setItem('slh_user', JSON.stringify(currentUser));
+        if (d.token) localStorage.setItem('slh_jwt', d.token);
         showApp();
     })
     .catch(() => manualLoginWith(user.id, user.first_name, user.photo_url));
@@ -1377,6 +1378,13 @@ function logout() {
 
 function showApp() {
     document.getElementById('login-screen').style.display = 'none';
+
+    // Check registration status
+    if (!currentUser.is_registered && currentUser.id && !/^G/.test(String(currentUser.id))) {
+        showRegistrationPanel();
+        return;
+    }
+
     document.getElementById('app').style.display = 'block';
 
     // Set nav info
@@ -1746,28 +1754,161 @@ else if (!localStorage.getItem('slh_user')) {
 const saved = localStorage.getItem('slh_user');
 if (saved && !currentUser) { currentUser = JSON.parse(saved); showApp(); }
 
-// 4. Auto-generate guest ID if no login method worked (seamless entry)
-if (!currentUser) {
-    var guestId = localStorage.getItem('slh_guest_id');
-    if (!guestId) {
-        guestId = 'G' + Date.now().toString().slice(-8) + Math.floor(Math.random()*1000);
-        localStorage.setItem('slh_guest_id', guestId);
+// Registration panel for users who logged in but haven't paid
+function showRegistrationPanel() {
+    const t = (key) => (typeof T !== 'undefined' && T[currentLang] && T[currentLang][key]) || T?.en?.[key] || key;
+    const tonWallet = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
+
+    let panel = document.getElementById('reg-panel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'reg-panel';
+        panel.className = 'login-screen';
+        panel.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center';
+        document.body.appendChild(panel);
     }
-    // Show a "Quick Access" button on the login screen
-    var loginCard = document.querySelector('.login-card');
-    if (loginCard) {
-        var quickDiv = document.createElement('div');
-        quickDiv.style.cssText = 'margin-top:16px;padding-top:16px;border-top:1px solid var(--border)';
-        quickDiv.innerHTML = '<button class="login-btn" style="background:var(--green);margin-top:0" onclick="quickGuestLogin()">' +
-            '<span data-i18n="quick_access">\u26a1 Quick Access (Guest)</span></button>' +
-            '<p style="font-size:11px;color:var(--text2);margin-top:8px;text-align:center" data-i18n="guest_note">Browse as guest. Connect Telegram later for full features.</p>';
-        loginCard.appendChild(quickDiv);
+
+    panel.innerHTML = `
+        <img src="/assets/img/phoenix-icon.png" alt="SLH" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--accent);margin-bottom:12px">
+        <h2 style="color:var(--accent);margin-bottom:4px">${t('reg_title')}</h2>
+        <p style="color:var(--text2);margin-bottom:20px;max-width:420px">${t('reg_subtitle')}</p>
+
+        <div style="background:var(--card);border:1px solid var(--accent-dim);padding:20px;border-radius:8px;max-width:440px;width:100%;margin-bottom:20px">
+            <div style="font-size:22px;font-weight:800;color:var(--accent);margin-bottom:12px">${t('reg_price')}</div>
+
+            <div style="text-align:start;margin-bottom:16px">
+                <div style="font-weight:600;margin-bottom:8px;color:var(--text)">${t('reg_what_you_get')}</div>
+                <div style="font-size:13px;color:var(--text2);line-height:2">
+                    ✅ ${t('reg_get_token')}<br>
+                    ✅ ${t('reg_get_dashboard')}<br>
+                    ✅ ${t('reg_get_wallet')}<br>
+                    ✅ ${t('reg_get_community')}<br>
+                    ✅ ${t('reg_get_bots')}<br>
+                    ✅ ${t('reg_get_referral')}
+                </div>
+            </div>
+
+            <div style="font-weight:600;margin-bottom:8px;color:var(--text)">${t('reg_send_to')}</div>
+            <div style="background:var(--bg);padding:10px;border:1px solid var(--border);border-radius:4px;font-family:monospace;font-size:11px;word-break:break-all;margin-bottom:8px;color:var(--accent)" id="reg-wallet-addr">${tonWallet}</div>
+            <button onclick="navigator.clipboard.writeText('${tonWallet}');this.textContent='${t('reg_copied')}';setTimeout(()=>this.textContent='${t('reg_copy')}',2000)" style="background:var(--accent);color:#000;border:none;padding:8px 20px;font-weight:700;border-radius:4px;cursor:pointer;font-size:13px;width:100%;margin-bottom:16px">${t('reg_copy')}</button>
+
+            <input type="text" id="reg-tx-hash" placeholder="${t('reg_tx_hash')}" dir="ltr" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:13px;border-radius:4px;margin-bottom:12px;font-family:monospace">
+
+            <button onclick="submitRegistration()" id="reg-submit-btn" style="background:linear-gradient(135deg,var(--accent),var(--green,#39ff14));color:#000;border:none;padding:12px 24px;font-weight:800;font-size:15px;border-radius:4px;cursor:pointer;width:100%">${t('reg_paid')}</button>
+
+            <div id="reg-status" style="margin-top:12px;font-size:13px;color:var(--text2);display:none"></div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <a href="/" style="color:var(--text2);font-size:13px">&larr; Back to site</a>
+            <a href="https://t.me/Osif83" style="color:var(--accent);font-size:13px">Contact @Osif83</a>
+        </div>
+    `;
+    panel.style.display = 'flex';
+
+    // Check current status and auto-initiate
+    initiateRegistration();
+}
+
+async function initiateRegistration() {
+    const jwt = localStorage.getItem('slh_jwt');
+    if (!jwt) return;
+
+    const ref = localStorage.getItem('slh_ref');
+    try {
+        const res = await fetch(API + '/api/registration/initiate', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt},
+            body: JSON.stringify({referrer_id: ref ? parseInt(ref) : null})
+        });
+        const data = await res.json();
+        if (data.status === 'already_registered') {
+            currentUser.is_registered = true;
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+            const panel = document.getElementById('reg-panel');
+            if (panel) panel.remove();
+            document.getElementById('app').style.display = 'block';
+            return;
+        }
+        if (data.status === 'submitted') {
+            showRegStatus('submitted');
+            startRegPolling();
+        }
+    } catch(e) {
+        console.error('[Registration] Init error:', e);
     }
 }
-function quickGuestLogin() {
-    var gid = localStorage.getItem('slh_guest_id') || 'G' + Date.now().toString().slice(-8);
-    localStorage.setItem('slh_guest_id', gid);
-    manualLoginWith(gid, 'Guest User', '');
+
+async function submitRegistration() {
+    const jwt = localStorage.getItem('slh_jwt');
+    if (!jwt) return;
+
+    const txHash = document.getElementById('reg-tx-hash')?.value?.trim() || '';
+    const btn = document.getElementById('reg-submit-btn');
+    if (btn) { btn.disabled = true; btn.textContent = '...'; }
+
+    try {
+        const res = await fetch(API + '/api/registration/submit-proof', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt},
+            body: JSON.stringify({tx_hash: txHash, note: ''})
+        });
+        const data = await res.json();
+        if (data.status === 'already_approved') {
+            currentUser.is_registered = true;
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+            const panel = document.getElementById('reg-panel');
+            if (panel) panel.remove();
+            document.getElementById('app').style.display = 'block';
+            return;
+        }
+        showRegStatus('submitted');
+        startRegPolling();
+    } catch(e) {
+        console.error('[Registration] Submit error:', e);
+        if (btn) { btn.disabled = false; btn.textContent = 'Try Again'; }
+    }
+}
+
+function showRegStatus(status) {
+    const el = document.getElementById('reg-status');
+    if (!el) return;
+    el.style.display = 'block';
+    const t = (key) => (typeof T !== 'undefined' && T[currentLang] && T[currentLang][key]) || T?.en?.[key] || key;
+    if (status === 'submitted') {
+        el.innerHTML = '<span style="color:var(--gold)">⏳ ' + t('reg_submitted') + '</span>';
+    } else if (status === 'approved') {
+        el.innerHTML = '<span style="color:var(--accent)">✅ ' + t('reg_approved') + '</span>';
+    } else {
+        el.innerHTML = '<span style="color:var(--text2)">⏳ ' + t('reg_pending') + '</span>';
+    }
+}
+
+let regPollInterval = null;
+function startRegPolling() {
+    if (regPollInterval) return;
+    regPollInterval = setInterval(async () => {
+        if (!currentUser?.id) return;
+        try {
+            const res = await fetch(API + '/api/registration/status/' + currentUser.id);
+            const data = await res.json();
+            if (data.is_registered) {
+                clearInterval(regPollInterval);
+                regPollInterval = null;
+                showRegStatus('approved');
+                currentUser.is_registered = true;
+                localStorage.setItem('slh_user', JSON.stringify(currentUser));
+                setTimeout(() => {
+                    const panel = document.getElementById('reg-panel');
+                    if (panel) panel.remove();
+                    document.getElementById('app').style.display = 'block';
+                    // Refresh nav
+                    document.getElementById('nav-username').textContent = currentUser.first_name || 'User';
+                    document.getElementById('nav-uid').textContent = '#' + currentUser.id;
+                }, 2000);
+            }
+        } catch(e) {}
+    }, 15000); // Poll every 15 seconds
 }
 calcStaking();
 setLang(currentLang); // Apply saved language on load
@@ -2263,12 +2404,12 @@ document.getElementById('add-asset-modal')?.addEventListener('click', function(e
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260408d"></script>
-<script src="/js/shared.js?v=20260408d"></script>
+<script src="/js/translations.js?v=20260408g"></script>
+<script src="/js/shared.js?v=20260408g"></script>
 <script>
     initShared({ activePage: 'dashboard', showBottomNav: true });
 </script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260408e"></script>
+<script src="/js/ai-assistant.js?v=20260408g"></script>
 </body>
 </html>

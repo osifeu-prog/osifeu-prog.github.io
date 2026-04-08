@@ -50,11 +50,24 @@ const BOTTOM_NAV_ITEMS = [
 
 /* ===== 2. API CLIENT ===== */
 
+function getJWT() {
+  return localStorage.getItem('slh_jwt') || '';
+}
+
+function setJWT(token) {
+  if (token) localStorage.setItem('slh_jwt', token);
+}
+
+function _authHeaders() {
+  const jwt = getJWT();
+  const h = { 'Content-Type': 'application/json' };
+  if (jwt) h['Authorization'] = `Bearer ${jwt}`;
+  return h;
+}
+
 async function apiGet(path) {
   try {
-    const res = await fetch(`${API_BASE}${path}`, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const res = await fetch(`${API_BASE}${path}`, { headers: _authHeaders() });
     if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
     return await res.json();
   } catch (err) {
@@ -67,7 +80,7 @@ async function apiPost(path, body) {
   try {
     const res = await fetch(`${API_BASE}${path}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: _authHeaders(),
       body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
@@ -129,6 +142,7 @@ function logout() {
     localStorage.setItem('slh_wallets_backup', JSON.stringify(user.wallets));
   }
   localStorage.removeItem('slh_user');
+  localStorage.removeItem('slh_jwt');
   window.location.href = '/';
 }
 
@@ -185,6 +199,32 @@ function requireAuth() {
     return false;
   }
   return true;
+}
+
+function isRegistered() {
+  const user = getCurrentUser();
+  return user?.is_registered === true;
+}
+
+function requireRegistration() {
+  if (!isLoggedIn()) {
+    window.location.href = '/dashboard.html';
+    return false;
+  }
+  if (!isRegistered()) {
+    window.location.href = '/dashboard.html#register';
+    return false;
+  }
+  return true;
+}
+
+/** Capture ?ref= parameter on any page and store it */
+function captureReferral() {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref && /^\d+$/.test(ref)) {
+    localStorage.setItem('slh_ref', ref);
+  }
 }
 
 
@@ -672,6 +712,7 @@ function renderBackgroundEffects() {
  * @param {Object} options
  * @param {string} options.activePage — current page key (e.g. 'home', 'trade')
  * @param {boolean} [options.requireAuth=false] — redirect if not logged in
+ * @param {boolean} [options.requireRegistered=false] — redirect if not registered (paid)
  * @param {boolean} [options.showTicker=true] — show price ticker
  * @param {boolean} [options.showBottomNav=false] — show mobile bottom nav
  */
@@ -679,12 +720,19 @@ function initShared(options = {}) {
   const {
     activePage = 'home',
     requireAuth: needAuth = false,
+    requireRegistered = false,
     showTicker = true,
     showBottomNav = false
   } = options;
 
+  // Capture referral from URL
+  captureReferral();
+
   // Auth gate
   if (needAuth && !requireAuth()) return;
+
+  // Registration gate
+  if (requireRegistered && !requireRegistration()) return;
 
   // Language
   const lang = getLang();

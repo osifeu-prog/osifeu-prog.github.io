@@ -25,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260408d">
+    <link rel="stylesheet" href="/css/shared.css?v=20260408g">
     <style>
         /* ── Cover Banner ── */
         .community-cover {
@@ -1004,8 +1004,8 @@
     <div id="bottomnav-root"></div>
     <div id="footer-root"></div>
 
-    <script src="/js/translations.js?v=20260408d"></script>
-    <script src="/js/shared.js?v=20260408d"></script>
+    <script src="/js/translations.js?v=20260408g"></script>
+    <script src="/js/shared.js?v=20260408g"></script>
     <script>
     /* ============================================================
        SLH Community — Client-Side Logic (API-backed, Facebook-style)
@@ -1246,18 +1246,32 @@
     function renderAuthSection() {
         const container = document.getElementById('auth-section');
         const user = getUser();
+        const registered = user?.is_registered === true;
 
         if (!user) {
+            // Not logged in — show login CTA
             container.innerHTML = `
                 <div class="login-gate">
                     <h3 data-i18n="community_login_title"><i class="fas fa-user-circle"></i> הצטרפו לקהילה</h3>
-                    <p data-i18n="community_login_subtitle">הירשמו כדי לפרסם, להגיב ולהתחבר עם משקיעים אחרים</p>
+                    <p data-i18n="community_login_subtitle">התחברו כדי לפרסם, להגיב ולהתחבר עם משקיעים אחרים</p>
                     <div class="login-fields">
-                        <input type="text" id="reg-username" placeholder="שם משתמש" maxlength="24">
-                        <input type="text" id="reg-telegram" placeholder="Telegram ID (אופציונלי)" maxlength="32">
-                        <button class="btn-login" onclick="handleRegister()" data-i18n="community_register_btn">
-                            <i class="fas fa-rocket"></i> הרשמה והצטרפות
-                        </button>
+                        <a href="/dashboard.html" class="btn-login" style="display:inline-block;text-align:center;text-decoration:none">
+                            <i class="fas fa-sign-in-alt"></i> <span data-i18n="nav_login">התחברות</span>
+                        </a>
+                    </div>
+                </div>`;
+        } else if (!registered) {
+            // Logged in but NOT registered (didn't pay) — show registration CTA
+            const uname = user.username || user.first_name || 'User';
+            container.innerHTML = `
+                <div class="login-gate">
+                    <h3><i class="fas fa-lock"></i> <span data-i18n="reg_locked">תכונה זו דורשת הרשמה</span></h3>
+                    <p data-i18n="reg_required">יש להירשם כדי לפרסם בקהילה</p>
+                    <p style="font-size:13px;color:var(--text3);margin-top:8px">שלום ${escHtml(uname)}! הרשמה עולה רק ₪44.4 וכוללת 0.1 SLH + גישה מלאה</p>
+                    <div class="login-fields">
+                        <a href="/dashboard.html#register" class="btn-login" style="display:inline-block;text-align:center;text-decoration:none">
+                            <i class="fas fa-rocket"></i> <span data-i18n="reg_cta">הירשמו עכשיו</span>
+                        </a>
                     </div>
                 </div>`;
         } else {
@@ -1299,27 +1313,14 @@
         }
     }
 
-    /* ── Register ── */
+    /* ── Register — redirect to dashboard for payment ── */
     function handleRegister() {
-        const username = document.getElementById('reg-username').value.trim();
-        const telegram = document.getElementById('reg-telegram').value.trim();
-        if (!username || username.length < 2) {
-            document.getElementById('reg-username').style.borderColor = 'var(--red)';
-            return;
-        }
-        const user = {
-            username,
-            telegram: telegram || null,
-            avatarGrad: Math.floor(Math.random() * AVATAR_GRADIENTS.length),
-            joinedAt: Date.now()
-        };
-        localStorage.setItem('slh_user', JSON.stringify(user));
-        renderAuthSection();
-        loadPostsFromAPI();
+        window.location.href = '/dashboard.html#register';
     }
 
     function handleLogout() {
         localStorage.removeItem('slh_user');
+        localStorage.removeItem('slh_jwt');
         renderAuthSection();
     }
 
@@ -1387,7 +1388,10 @@
     /* ── New Post (API) ── */
     async function handleNewPost() {
         const user = getUser();
-        if (!user) return;
+        if (!user || !user.is_registered) {
+            window.location.href = '/dashboard.html#register';
+            return;
+        }
         const textarea = document.getElementById('new-post-text');
         const text = textarea.value.trim();
         if (!text) { textarea.style.borderColor = 'var(--red)'; return; }
@@ -1692,6 +1696,6 @@
     });
     </script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260408e"></script>
+<script src="/js/ai-assistant.js?v=20260408g"></script>
 </body>
 </html>
