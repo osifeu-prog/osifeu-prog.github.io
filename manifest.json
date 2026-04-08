@@ -1,13 +1,26 @@
 {
-  "name": "SLH Ecosystem - Digital Investment House",
-  "short_name": "SLH",
-  "description": "20+ Telegram bots. Blockchain deposits. Inventory SaaS. Built in Israel.",
-  "start_url": "/",
+  "name": "SLH Spark — Digital Investment House",
+  "short_name": "SLH Spark",
+  "description": "בית ההשקעות הדיגיטלי — 20+ בוטים, Staking, קהילה",
+  "start_url": "/dashboard.html",
   "display": "standalone",
-  "background_color": "#050510",
-  "theme_color": "#6c5ce7",
+  "background_color": "#0a0a12",
+  "theme_color": "#8b5cf6",
+  "orientation": "any",
+  "lang": "he",
+  "dir": "rtl",
   "icons": [
-    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "/assets/img/phoenix-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "shortcuts": [
+    {"name": "Dashboard", "url": "/dashboard.html"},
+    {"name": "Community", "url": "/community.html"},
+    {"name": "Staking", "url": "/staking.html"}
   ]
 }

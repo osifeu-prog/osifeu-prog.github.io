@@ -501,6 +501,14 @@ function renderFooter() {
           <img src="/img/logo.svg" alt="SLH" class="footer-logo">
           <span>SLH Spark</span>
         </div>
+        <div class="footer-links" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin:8px 0;font-size:12px">
+          <a href="/terms.html" style="color:var(--text2)">Terms</a>
+          <a href="/privacy.html" style="color:var(--text2)">Privacy</a>
+          <a href="/guides.html" style="color:var(--text2)">Guides</a>
+          <a href="/wallet-guide.html" style="color:var(--text2)">Wallet</a>
+          <a href="/roadmap.html" style="color:var(--text2)">Roadmap</a>
+          <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="color:var(--text2)"><i class="fab fa-telegram"></i> Bot</a>
+        </div>
         <div class="footer-copy">
           &copy; ${year} SLH Spark. <span data-i18n="footer_rights">${t('footer_rights')}</span>
         </div>
@@ -810,6 +818,19 @@ function initShared(options = {}) {
 
   // Cookie consent banner
   initCookieConsent();
+
+  // PWA Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+
+  // PWA manifest link (if not already in head)
+  if (!document.querySelector('link[rel="manifest"]')) {
+    const m = document.createElement('link');
+    m.rel = 'manifest';
+    m.href = '/manifest.json';
+    document.head.appendChild(m);
+  }
 }
 
 
