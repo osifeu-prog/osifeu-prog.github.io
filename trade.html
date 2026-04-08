@@ -956,11 +956,11 @@
                     <div class="gl-list" id="gainers-list"></div>
                 </div>
 
-                <!-- Top Losers -->
+                <!-- Top Losers / Weakest -->
                 <div class="trade-section rv" id="losers-section">
                     <div class="section-header">
                         <i class="fas fa-arrow-trend-down" style="color:var(--red)"></i>
-                        <h2>Top Losers</h2>
+                        <h2 id="losers-title">Top Losers</h2>
                     </div>
                     <div class="gl-list" id="losers-list"></div>
                 </div>
@@ -1321,14 +1321,26 @@
                 </div>`).join('');
         }
 
+        // Update title based on whether losers are actually negative
+        const losersTitle = document.getElementById('losers-title');
+        if (losersTitle) {
+            const anyNegative = losers.some(c => c.change < 0);
+            losersTitle.textContent = anyNegative ? 'Top Losers' : 'Weakest Performers';
+        }
+
         if (lList) {
-            lList.innerHTML = losers.map((c, i) => `
-                <div class="gl-item" onclick="switchChartCoinById('${c.id}')" style="cursor:pointer">
+            lList.innerHTML = losers.map((c, i) => {
+                const isDown = c.change < 0;
+                const cls = isDown ? 'change-down' : 'change-up';
+                const arrow = isDown ? '\u25BC' : '\u25B2';
+                const sign = isDown ? '' : '+';
+                return `<div class="gl-item" onclick="switchChartCoinById('${c.id}')" style="cursor:pointer">
                     <span class="gl-rank">${i + 1}</span>
                     <div class="coin-icon ${c.cls}" style="width:28px;height:28px;font-size:12px"><i class="${c.icon}"></i></div>
                     <span class="gl-name">${c.name} <span>${c.sym}</span></span>
-                    <span class="gl-pct change-down">\u25BC ${Math.abs(c.change).toFixed(2)}%</span>
-                </div>`).join('');
+                    <span class="gl-pct ${cls}">${arrow} ${sign}${c.change.toFixed(2)}%</span>
+                </div>`;
+            }).join('');
         }
     }
 
@@ -1567,38 +1579,56 @@
         const list = document.getElementById('news-list');
         if (!list) return;
 
+        // Try CryptoCompare first, then CoinGecko status as fallback
+        let articles = [];
+
         try {
-            // Use CryptoCompare news API (free, no key required for basic)
             const res = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN&sortOrder=popular');
-            if (!res.ok) throw new Error(res.status);
-            const data = await res.json();
-            const rawArticles = Array.isArray(data.Data) ? data.Data : (data.Data ? Object.values(data.Data) : []);
-            const articles = rawArticles.slice(0, 10);
-
-            if (!articles || articles.length === 0) {
-                list.innerHTML = '<div class="news-empty"><i class="fas fa-newspaper" style="font-size:24px;margin-bottom:8px;display:block"></i>No news available right now.</div>';
-                return;
+            if (res.ok) {
+                const data = await res.json();
+                const raw = data.Data;
+                articles = Array.isArray(raw) ? raw.slice(0, 10) : (raw ? Object.values(raw).slice(0, 10) : []);
             }
-
-            list.innerHTML = articles.map(a => {
-                const timeAgoStr = timeAgo(a.published_on * 1000);
-                const imgUrl = a.imageurl || '';
-                return `<a href="${a.url}" target="_blank" rel="noopener" class="news-item">
-                    ${imgUrl ? `<img src="${imgUrl}" class="news-thumb" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
-                    <div class="news-body">
-                        <div class="news-title">${escapeHtml(a.title)}</div>
-                        <div class="news-meta">
-                            <span class="news-source">${escapeHtml(a.source)}</span>
-                            <span>${timeAgoStr}</span>
-                        </div>
-                    </div>
-                </a>`;
-            }).join('');
-
-        } catch (err) {
-            console.error('[Trade] news error:', err);
-            list.innerHTML = '<div class="news-empty"><i class="fas fa-exclamation-triangle" style="font-size:24px;margin-bottom:8px;display:block;color:var(--orange)"></i>Unable to load news. Try again later.</div>';
+        } catch (e) {
+            console.warn('[Trade] CryptoCompare news failed, trying fallback');
         }
+
+        // Fallback: generate news from current market data
+        if (articles.length === 0 && _lastPrices) {
+            const sorted = COINS.map(c => ({
+                ...c, change: _lastPrices[c.id]?.usd_24h_change || 0,
+                price: _lastPrices[c.id]?.usd || 0
+            })).sort((a, b) => Math.abs(b.change) - Math.abs(a.change));
+
+            articles = sorted.slice(0, 6).map(c => ({
+                title: `${c.name} (${c.sym}) ${c.change >= 0 ? 'rises' : 'drops'} ${Math.abs(c.change).toFixed(1)}% — now at $${formatNumber(c.price)}`,
+                source: 'SLH Market Watch',
+                url: `https://www.coingecko.com/en/coins/${c.id}`,
+                imageurl: '',
+                published_on: Date.now() / 1000
+            }));
+        }
+
+        if (articles.length === 0) {
+            list.innerHTML = '<div class="news-empty"><i class="fas fa-newspaper" style="font-size:24px;margin-bottom:8px;display:block"></i>No news available right now.</div>';
+            return;
+        }
+
+        list.innerHTML = articles.map(a => {
+            const ts = a.published_on ? a.published_on * 1000 : Date.now();
+            const timeAgoStr = timeAgo(ts);
+            const imgUrl = a.imageurl || '';
+            return `<a href="${a.url}" target="_blank" rel="noopener" class="news-item">
+                ${imgUrl ? `<img src="${imgUrl}" class="news-thumb" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+                <div class="news-body">
+                    <div class="news-title">${escapeHtml(a.title)}</div>
+                    <div class="news-meta">
+                        <span class="news-source">${escapeHtml(a.source || 'Crypto')}</span>
+                        <span>${timeAgoStr}</span>
+                    </div>
+                </div>
+            </a>`;
+        }).join('');
     }
 
     function escapeHtml(str) {
