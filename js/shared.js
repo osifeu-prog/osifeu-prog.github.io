@@ -14,7 +14,16 @@ const SLH_PRICE_ILS = 444;
 
 const RTL_LANGS = ['he', 'ar'];
 const SUPPORTED_LANGS = ['he', 'en', 'ru', 'ar', 'fr'];
-const THEMES = ['dark', 'terminal', 'crypto', 'light'];
+const THEMES = ['dark', 'terminal', 'crypto', 'cyberpunk', 'ocean', 'sunset', 'light'];
+const THEME_META = {
+  dark:      { icon: 'fa-moon',          label: 'Dark',      color: '#6c5ce7' },
+  terminal:  { icon: 'fa-terminal',      label: 'Terminal',   color: '#00ff41' },
+  crypto:    { icon: 'fa-bitcoin-sign',  label: 'Crypto',     color: '#a855f7' },
+  cyberpunk: { icon: 'fa-robot',         label: 'Cyberpunk',  color: '#00f3ff' },
+  ocean:     { icon: 'fa-water',         label: 'Ocean',      color: '#64ffda' },
+  sunset:    { icon: 'fa-sun',           label: 'Sunset',     color: '#ff6b9d' },
+  light:     { icon: 'fa-circle-half-stroke', label: 'Light', color: '#2563eb' }
+};
 
 const NAV_ITEMS = [
   { key: 'home', href: '/', icon: 'fa-home' },
@@ -25,6 +34,7 @@ const NAV_ITEMS = [
   { key: 'referral', href: '/referral.html', icon: 'fa-users', auth: true },
   { key: 'community', href: '/community.html', icon: 'fa-comments' },
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
+  { key: 'network', href: '/network.html', icon: 'fa-project-diagram' },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];
 
@@ -343,6 +353,18 @@ function renderTopNav(activePage) {
       </div>
     </div>` : '';
 
+  // Theme picker
+  const currentTheme = getTheme();
+  const themeMeta = THEME_META[currentTheme] || THEME_META.dark;
+  const themeOptions = THEMES.map(th => {
+    const m = THEME_META[th] || {};
+    const active = th === currentTheme ? ' active' : '';
+    return `<button class="theme-option${active}" data-theme="${th}" onclick="setTheme('${th}');document.querySelector('.theme-picker-wrap')?.classList.remove('open')" title="${m.label}">
+      <span class="theme-dot" style="background:${m.color}"></span>
+      <span>${m.label}</span>
+    </button>`;
+  }).join('');
+
   root.dataset.page = activePage;
   root.innerHTML = `
     <nav class="topnav">
@@ -352,6 +374,12 @@ function renderTopNav(activePage) {
       </a>
       <div class="topnav-links hide-mobile">${mainLinks}${moreDropdown}</div>
       <div class="topnav-right">
+        <div class="theme-picker-wrap">
+          <button class="theme-picker-btn" onclick="this.parentElement.classList.toggle('open')" title="Theme">
+            <i class="fas ${themeMeta.icon}" style="color:${themeMeta.color}"></i>
+          </button>
+          <div class="theme-picker-dropdown">${themeOptions}</div>
+        </div>
         <div class="lang-selector">${langSelector}</div>
         ${authBtn}
         <button class="hamburger show-mobile" onclick="toggleDrawer()" aria-label="Menu">
@@ -360,12 +388,14 @@ function renderTopNav(activePage) {
       </div>
     </nav>`;
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   document.addEventListener('click', (e) => {
     const dd = document.getElementById('profile-dropdown');
     if (dd && !e.target.closest('.nav-user-wrap')) dd.classList.remove('open');
     const more = document.querySelector('.nav-more-wrap');
     if (more && !e.target.closest('.nav-more-wrap')) more.classList.remove('open');
+    const tp = document.querySelector('.theme-picker-wrap');
+    if (tp && !e.target.closest('.theme-picker-wrap')) tp.classList.remove('open');
   });
 }
 
