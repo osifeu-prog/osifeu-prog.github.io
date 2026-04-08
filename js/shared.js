@@ -651,6 +651,42 @@ function timeAgo(date) {
   return `${Math.floor(diff / 2592000)}mo`;
 }
 
+// === Hebrew Date Utilities (global) ===
+function getHebrewDateString(date) {
+  date = date || new Date();
+  try {
+    const parts = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    }).formatToParts(date);
+    const day = parts.find(p => p.type === 'day')?.value || '';
+    const month = parts.find(p => p.type === 'month')?.value || '';
+    const year = parts.find(p => p.type === 'year')?.value || '';
+    return `${day} ${month} ${year}`;
+  } catch (e) {
+    try { return new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { dateStyle: 'long' }).format(date); }
+    catch (e2) { return ''; }
+  }
+}
+
+function getGregorianDateString(date) {
+  date = date || new Date();
+  return date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function renderDateWidget(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  function tick() {
+    const now = new Date();
+    el.innerHTML = `
+      <div style="font-size:14px;font-weight:600;color:var(--accent,#00e5ff);letter-spacing:.3px">${getHebrewDateString(now)}</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">${getGregorianDateString(now)}</div>
+      <div style="font-size:18px;font-weight:700;color:var(--text-bright,#fff);margin-top:2px;font-variant-numeric:tabular-nums">${now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>`;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
 function initScrollReveal() {
   const els = document.querySelectorAll('.rv');
   if (!els.length) return;

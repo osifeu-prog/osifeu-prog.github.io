@@ -878,10 +878,13 @@
     <div class="community-cover">
         <h1 data-i18n="community_title">&#x1F3DB;&#xFE0F; SLH Community</h1>
         <span class="cover-subtitle" data-i18n="community_subtitle">הצטרפו לקהילת המשקיעים הגדולה בישראל</span>
-        <div class="online-badge">
-            <span class="green-dot"></span>
-            <span id="cover-online">--</span>
-            <span data-i18n="community_members_online">חברים מחוברים</span>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:6px;flex-wrap:wrap;justify-content:center">
+            <div class="online-badge">
+                <span class="green-dot"></span>
+                <span id="cover-online">--</span>
+                <span data-i18n="community_members_online">חברים מחוברים</span>
+            </div>
+            <div id="community-date-widget" style="padding:4px 12px;background:rgba(0,0,0,.3);border-radius:8px;font-size:12px;backdrop-filter:blur(6px)"></div>
         </div>
     </div>
 
@@ -1690,6 +1693,7 @@
         initShared({ activePage: 'community', showBottomNav: true });
         renderAuthSection();
         loadPostsFromAPI();
+        if (typeof renderDateWidget === 'function') renderDateWidget('community-date-widget');
 
         // Auto-refresh posts every 45s
         setInterval(loadPostsFromAPI, 45000);

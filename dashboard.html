@@ -409,9 +409,14 @@
                     <img src="/assets/img/butterfly-banner.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.25">
                     <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 28px;gap:16px">
                         <img src="/assets/img/phoenix-icon.png" alt="SLH" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--accent)">
-                        <div>
+                        <div style="flex:1">
                             <div style="font-size:20px;font-weight:700;color:var(--text-bright)">Welcome to SLH Ecosystem</div>
                             <div style="font-size:13px;color:var(--text2);margin-top:4px">Your decentralized investment dashboard</div>
+                        </div>
+                        <div id="date-clock-widget" style="text-align:center;min-width:180px;padding:8px 14px;background:rgba(0,0,0,.35);border-radius:12px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08)">
+                            <div id="heb-date" style="font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.3px"></div>
+                            <div id="greg-date" style="font-size:11px;color:var(--text2);margin-top:2px"></div>
+                            <div id="live-clock" style="font-size:18px;font-weight:700;color:var(--text-bright);margin-top:2px;font-variant-numeric:tabular-nums"></div>
                         </div>
                     </div>
                 </div>
@@ -1400,11 +1405,54 @@ function showApp() {
     loadAllData();
     loadPriceTicker();
     applyTranslations();
+    startDateClock();
 
     // Show welcome wizard for first-time users
     if (!localStorage.getItem('slh_welcome_done')) {
         document.getElementById('welcome-ref').textContent = 'https://t.me/SLH_AIR_bot?start=' + currentUser.id;
         document.getElementById('welcome-modal').classList.add('show');
+    }
+}
+
+// === HEBREW DATE + LIVE CLOCK ===
+function startDateClock() {
+    function updateClock() {
+        const now = new Date();
+        // Live clock
+        const el = document.getElementById('live-clock');
+        if (el) el.textContent = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        // Gregorian date
+        const gEl = document.getElementById('greg-date');
+        if (gEl) gEl.textContent = now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+        // Hebrew date
+        const hEl = document.getElementById('heb-date');
+        if (hEl) hEl.textContent = toHebrewDate(now);
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+}
+
+function toHebrewDate(date) {
+    // Hebrew month names
+    const hMonths = ['\u05EA\u05E9\u05E8\u05D9','\u05D7\u05E9\u05D5\u05D5\u05DF','\u05DB\u05E1\u05DC\u05D5','\u05D8\u05D1\u05EA','\u05E9\u05D1\u05D8','\u05D0\u05D3\u05E8','\u05D0\u05D3\u05E8 \u05D1','\u05E0\u05D9\u05E1\u05DF','\u05D0\u05D9\u05D9\u05E8','\u05E1\u05D9\u05D5\u05DF','\u05EA\u05DE\u05D5\u05D6','\u05D0\u05D1','\u05D0\u05DC\u05D5\u05DC'];
+    // Use Intl API for Hebrew calendar
+    try {
+        const hebParts = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        }).formatToParts(date);
+        const day = hebParts.find(p => p.type === 'day')?.value || '';
+        const month = hebParts.find(p => p.type === 'month')?.value || '';
+        const year = hebParts.find(p => p.type === 'year')?.value || '';
+        return day + ' ' + month + ' ' + year;
+    } catch (e) {
+        // Fallback: simple Hebrew date string
+        try {
+            return new Intl.DateTimeFormat('he-IL-u-ca-hebrew', {
+                dateStyle: 'long'
+            }).format(date);
+        } catch (e2) {
+            return '';
+        }
     }
 }
 
