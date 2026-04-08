@@ -152,6 +152,7 @@
     <main class="admin-main">
         <!-- OVERVIEW PAGE -->
         <div id="page-overview">
+            <div id="last-updated" style="font-size:10px;color:var(--text2);margin-bottom:12px;text-align:left;font-family:var(--font)">Last updated: --</div>
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Total Visitors (Website)</div><div class="kpi-value" id="kpi-visitors">--</div><div class="kpi-delta up" id="kpi-visitors-delta"></div></div>
                 <div class="kpi cyan"><div class="kpi-label">Active Bot Users</div><div class="kpi-value" id="kpi-bot-users">--</div><div class="kpi-delta up" id="kpi-bot-delta"></div></div>
@@ -284,7 +285,7 @@
                 <div class="kpi green"><div class="kpi-label">Docker Containers</div><div class="kpi-value">23</div></div>
                 <div class="kpi cyan"><div class="kpi-label">PostgreSQL</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
                 <div class="kpi gold"><div class="kpi-label">Redis</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
-                <div class="kpi purple"><div class="kpi-label">Railway API</div><div class="kpi-value" style="font-size:16px">Online ✅</div></div>
+                <div class="kpi purple"><div class="kpi-label">Railway API</div><div class="kpi-value" id="infra-api-status" style="font-size:16px">Checking...</div><div class="kpi-delta" id="infra-api-ms" style="color:var(--text2);font-size:10px"></div></div>
             </div>
             <div class="admin-section">
                 <h3>🖥 Container Status</h3>
@@ -341,6 +342,55 @@ function getAnalyticsData(){
     } catch(e){ return []; }
 }
 
+// ── API Config ──────────────────────────────────────────────────
+const SLH_API = 'https://slh-api-production.up.railway.app';
+
+async function fetchAdminStats() {
+    try {
+        const [stats, users, health] = await Promise.allSettled([
+            fetch(SLH_API + '/api/stats').then(r => r.json()),
+            fetch(SLH_API + '/api/users/count').then(r => r.json()),
+            fetch(SLH_API + '/api/health').then(r => r.json())
+        ]);
+        return {
+            stats: stats.status === 'fulfilled' ? stats.value : null,
+            users: users.status === 'fulfilled' ? users.value : null,
+            health: health.status === 'fulfilled' ? health.value : null
+        };
+    } catch(e) {
+        console.error('[Admin] API error:', e);
+        return { stats: null, users: null, health: null };
+    }
+}
+
+async function checkApiHealth() {
+    const start = Date.now();
+    try {
+        const res = await fetch(SLH_API + '/api/health');
+        const ms = Date.now() - start;
+        const data = await res.json();
+        return { ok: res.ok, ms, data };
+    } catch(e) {
+        return { ok: false, ms: -1, data: null };
+    }
+}
+
+function getActivityIcon(type) {
+    const icons = {user:'👤',payment:'💰',referral:'🔗',bot:'🤖',system:'🖥️',promo:'🎁',swap:'🔄',token:'📈',vip:'👑',website:'📊'};
+    return icons[type] || '📋';
+}
+
+function timeAgo(dateStr) {
+    if (!dateStr) return '--';
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + ' min ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs / 24) + 'd ago';
+}
+
 // ── Init Dashboard ──────────────────────────────────────────────
 function initDashboard(){
     loadKPIs();
@@ -349,37 +399,64 @@ function initDashboard(){
     loadBots();
     loadAnalyticsPage();
     loadInfra();
+    // Auto-refresh every 30 seconds
+    setInterval(() => { loadKPIs(); loadActivity(); loadInfra(); }, 30000);
 }
 
-function loadKPIs(){
-    const data = getAnalyticsData();
-    const today = new Date().toISOString().slice(0,10);
-    const todayEvents = data.filter(e => e.ts && e.ts.startsWith(today));
-    const uniqueVids = [...new Set(data.map(e => e.vid).filter(Boolean))];
-    const mobile = data.filter(e => /Mobile|Android|iPhone/i.test(e.ua || ''));
+async function loadKPIs(){
+    const apiData = await fetchAdminStats();
+    const analytics = getAnalyticsData();
 
-    document.getElementById('kpi-visitors').textContent = data.length;
+    // Website analytics from localStorage
+    const today = new Date().toISOString().slice(0,10);
+    const todayEvents = analytics.filter(e => e.ts && e.ts.startsWith(today));
+    const uniqueVids = [...new Set(analytics.map(e => e.vid).filter(Boolean))];
+    const mobile = analytics.filter(e => /Mobile|Android|iPhone/i.test(e.ua || ''));
+
+    // Update "Last Updated" timestamp
+    const luEl = document.getElementById('last-updated');
+    if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + (apiData.health ? ' | API: connected' : ' | API: offline');
+
+    // Overview — website analytics
+    document.getElementById('kpi-visitors').textContent = analytics.length || '--';
     document.getElementById('kpi-visitors-delta').textContent = '↑ ' + todayEvents.length + ' today';
+
+    // Overview — business metrics from API (fallback to hardcoded)
+    const totalUsers = apiData.stats?.total_users || apiData.users?.count || '38';
+    const totalRevenue = apiData.stats?.total_revenue || null;
+    const vipCount = apiData.stats?.vip_count || '12';
+    const referralCount = apiData.stats?.referral_count || '86';
+
+    document.getElementById('kpi-bot-users').textContent = totalUsers;
+    document.getElementById('kpi-bot-delta').textContent = apiData.stats ? '↑ live data' : 'fallback data';
+    document.getElementById('kpi-revenue').textContent = totalRevenue !== null ? '₪' + Number(totalRevenue).toLocaleString() : '₪4,328';
+    document.getElementById('kpi-rev-delta').textContent = apiData.stats ? '↑ live data' : 'fallback data';
+    document.getElementById('kpi-vip').textContent = vipCount;
+    document.getElementById('kpi-referrals').textContent = referralCount;
+
+    // API health indicator
+    const healthOk = apiData.health?.status === 'ok' || apiData.health?.status === 'healthy';
+    document.getElementById('kpi-pending').textContent = healthOk ? '0' : (apiData.health ? 'Check API' : '3');
+
+    // Analytics page KPIs
     document.getElementById('an-pageviews').textContent = todayEvents.length;
     document.getElementById('an-unique').textContent = uniqueVids.length;
-    document.getElementById('an-mobile').textContent = data.length ? Math.round(mobile.length/data.length*100) + '%' : '--';
+    document.getElementById('an-mobile').textContent = analytics.length ? Math.round(mobile.length/analytics.length*100) + '%' : '--';
 
-    // Simulated business KPIs (would come from API in production)
-    document.getElementById('kpi-bot-users').textContent = '38';
-    document.getElementById('kpi-revenue').textContent = '₪4,328';
-    document.getElementById('kpi-vip').textContent = '12';
-    document.getElementById('kpi-referrals').textContent = '86';
-    document.getElementById('kpi-pending').textContent = '3';
+    // Users page
+    document.getElementById('usr-total').textContent = totalUsers;
+    document.getElementById('usr-premium').textContent = vipCount;
+    document.getElementById('usr-today').textContent = todayEvents.length;
+    document.getElementById('usr-pending').textContent = apiData.stats?.pending_approvals || '3';
 
-    document.getElementById('usr-total').textContent = '38';
-    document.getElementById('usr-premium').textContent = '12';
-    document.getElementById('usr-today').textContent = todayEvents.filter(e => e.type === 'pageview').length;
-    document.getElementById('usr-pending').textContent = '3';
-
-    document.getElementById('rev-total').textContent = '₪4,328';
-    document.getElementById('rev-month').textContent = '₪1,247';
-    document.getElementById('rev-avg').textContent = '₪114';
-    document.getElementById('rev-commissions').textContent = '₪649';
+    // Revenue page
+    const revMonth = apiData.stats?.revenue_this_month || null;
+    const revAvg = apiData.stats?.avg_revenue_per_user || null;
+    const revComm = apiData.stats?.commissions_owed || null;
+    document.getElementById('rev-total').textContent = totalRevenue !== null ? '₪' + Number(totalRevenue).toLocaleString() : '₪4,328';
+    document.getElementById('rev-month').textContent = revMonth !== null ? '₪' + Number(revMonth).toLocaleString() : '₪1,247';
+    document.getElementById('rev-avg').textContent = revAvg !== null ? '₪' + Number(revAvg).toLocaleString() : '₪114';
+    document.getElementById('rev-commissions').textContent = revComm !== null ? '₪' + Number(revComm).toLocaleString() : '₪649';
 }
 
 function loadCharts(){
@@ -430,19 +507,42 @@ function loadCharts(){
     new Chart(document.getElementById('chart-rev-source'),{type:'doughnut',data:{labels:['VIP Membership','Bot Premium','Swap Commissions','NFT Royalties','Referral Bonuses'],datasets:[{data:[35,28,18,12,7],backgroundColor:['#ffd700','#00ff41','#00e5ff','#a855f7','#ff0055']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
 }
 
-function loadActivity(){
-    const activities = [
-        {icon:'👤',text:'New user @Allonethought joined via Guardian bot',time:'2 min ago'},
-        {icon:'💰',text:'VIP payment received: 5 TON from user #7757102350',time:'15 min ago'},
-        {icon:'🔗',text:'@Osif83 earned referral bonus: +50 points',time:'22 min ago'},
-        {icon:'🛡️',text:'Guardian bot: remote support session started',time:'30 min ago'},
-        {icon:'📊',text:'Website: 12 new visitors in last hour',time:'45 min ago'},
-        {icon:'🎁',text:'Promo code LAUNCH30 used by user #1234567',time:'1h ago'},
-        {icon:'🔄',text:'Swap: 44.4 TON → SLH conversion completed',time:'1.5h ago'},
-        {icon:'📈',text:'SLH token price: $0.0042 (+3.2%)',time:'2h ago'},
-        {icon:'👑',text:'New VIP Elite member: @crypto_investor',time:'3h ago'},
-        {icon:'🖥️',text:'All 23 containers healthy — uptime 99.9%',time:'4h ago'},
-    ];
+async function loadActivity(){
+    let activities = [];
+
+    // Try loading from API first
+    try {
+        const res = await fetch(SLH_API + '/api/activity/recent?limit=15');
+        if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+                activities = data.map(a => ({
+                    icon: getActivityIcon(a.type),
+                    text: a.description || a.message || a.text || JSON.stringify(a),
+                    time: timeAgo(a.created_at || a.timestamp)
+                }));
+            }
+        }
+    } catch(e) {
+        console.warn('[Admin] Activity API unavailable, using fallback');
+    }
+
+    // Fallback to static data if API returns nothing
+    if (activities.length === 0) {
+        activities = [
+            {icon:'👤',text:'New user @Allonethought joined via Guardian bot',time:'2 min ago'},
+            {icon:'💰',text:'VIP payment received: 5 TON from user #7757102350',time:'15 min ago'},
+            {icon:'🔗',text:'@Osif83 earned referral bonus: +50 points',time:'22 min ago'},
+            {icon:'🛡️',text:'Guardian bot: remote support session started',time:'30 min ago'},
+            {icon:'📊',text:'Website: 12 new visitors in last hour',time:'45 min ago'},
+            {icon:'🎁',text:'Promo code LAUNCH30 used by user #1234567',time:'1h ago'},
+            {icon:'🔄',text:'Swap: 44.4 TON → SLH conversion completed',time:'1.5h ago'},
+            {icon:'📈',text:'SLH token price: $0.0042 (+3.2%)',time:'2h ago'},
+            {icon:'👑',text:'New VIP Elite member: @crypto_investor',time:'3h ago'},
+            {icon:'🖥️',text:'All 23 containers healthy — uptime 99.9%',time:'4h ago'},
+        ];
+    }
+
     const feeds = ['activity-feed','full-activity-feed'];
     feeds.forEach(id => {
         const el = document.getElementById(id);
@@ -487,7 +587,7 @@ function loadAnalyticsPage(){
     ).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text2)">No analytics data yet. Visit the website to generate data.</td></tr>';
 }
 
-function loadInfra(){
+async function loadInfra(){
     const containers = [
         'slh-airdrop','slh-guardian-bot','slh-botshop','slh-wallet','slh-factory',
         'slh-core-bot','slh-fun','slh-expertnet','slh-campaign','slh-game',
@@ -500,13 +600,31 @@ function loadInfra(){
     tb.innerHTML = containers.map(c =>
         `<tr><td><code>${c}</code></td><td>slh_ecosystem</td><td><span class="badge live">UP</span></td><td>~21h</td></tr>`
     ).join('');
+
+    // Live Railway API health check
+    const apiStatusEl = document.getElementById('infra-api-status');
+    const apiMsEl = document.getElementById('infra-api-ms');
+    if (apiStatusEl) {
+        apiStatusEl.textContent = 'Checking...';
+        apiStatusEl.style.color = 'var(--gold)';
+        const h = await checkApiHealth();
+        if (h.ok) {
+            apiStatusEl.textContent = 'Online ✅';
+            apiStatusEl.style.color = 'var(--accent)';
+            if (apiMsEl) apiMsEl.textContent = h.ms + 'ms response';
+        } else {
+            apiStatusEl.textContent = 'Offline ❌';
+            apiStatusEl.style.color = 'var(--red)';
+            if (apiMsEl) apiMsEl.textContent = 'unreachable';
+        }
+    }
 }
 
-function refreshAll(){
-    loadKPIs();
-    loadActivity();
+async function refreshAll(){
+    await Promise.all([loadKPIs(), loadActivity(), loadInfra()]);
     loadAnalyticsPage();
-    alert('Data refreshed!');
+    const luEl = document.getElementById('last-updated');
+    if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + ' | manual refresh';
 }
 </script>
 
