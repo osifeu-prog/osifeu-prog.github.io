@@ -8,6 +8,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#050510">
+    <meta property="og:title" content="SLH Community">
+    <meta property="og:description" content="Join the SLH investment community">
+    <meta property="og:image" content="https://slh-nft.com/og.png">
+    <meta property="og:url" content="https://slh-nft.com/community.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://slh-nft.com/og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1540,11 +1547,17 @@
         const post = posts.find(p => p.id == postId);
         if (!post) return;
         const postText = post.text.slice(0, 200);
-        const url = `${location.origin}/community.html`;
+        const shareUrl = `https://slh-nft.com/community.html#post-${postId}`;
         const shareText = `${post.username}: ${postText}\n\nקהילת SLH Spark`;
 
+        // Dynamically update OG image meta tag for post-specific image
+        const ogImage = post.image_url || 'https://slh-nft.com/og.png';
+        document.querySelector('meta[property="og:image"]')?.setAttribute('content', ogImage);
+        document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', ogImage);
+        document.querySelector('meta[property="og:url"]')?.setAttribute('content', shareUrl);
+
         if (navigator.share) {
-            navigator.share({ title: 'SLH Community', text: shareText, url }).catch(() => {});
+            navigator.share({ title: 'SLH Community', text: shareText, url: shareUrl }).catch(() => {});
             return;
         }
 
@@ -1552,17 +1565,17 @@
         if (existing) { existing.remove(); return; }
 
         const encodedText = encodeURIComponent(shareText);
-        const encodedUrl = encodeURIComponent(url);
+        const encodedUrl = encodeURIComponent(shareUrl);
 
         const menu = document.createElement('div');
         menu.id = 'share-menu-' + postId;
         menu.style.cssText = 'position:absolute;right:0;top:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:8px;z-index:100;display:flex;gap:6px;box-shadow:var(--shadow)';
         menu.innerHTML = `
-            <a href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#1877F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#1877F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-facebook-f"></i></a>
             <a href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#1DA1F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-twitter"></i></a>
             <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedText}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#0088cc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none"><i class="fab fa-telegram-plane"></i></a>
-            <button onclick="navigator.clipboard.writeText('${shareText.replace(/'/g,"\\'")} ${url}');this.parentElement.remove()" style="width:36px;height:36px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:14px;cursor:pointer"><i class="fas fa-link"></i></button>`;
+            <button onclick="navigator.clipboard.writeText('${shareText.replace(/'/g,"\\'")} ${shareUrl}');this.parentElement.remove()" style="width:36px;height:36px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:14px;cursor:pointer"><i class="fas fa-link"></i></button>`;
 
         const btn = event.currentTarget;
         btn.style.position = 'relative';
