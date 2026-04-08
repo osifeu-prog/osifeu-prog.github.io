@@ -88,7 +88,9 @@
         .notif-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:var(--red);border-radius:50%;font-size:9px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
 
         /* === LOGIN === */
-        .login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;text-align:center;padding:24px}
+        .login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;text-align:center;padding:24px;background:url('assets/img/cyberpunk-hero.png') center/cover no-repeat;position:relative}
+        .login-screen::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,18,.85) 0%,rgba(10,10,18,.6) 50%,rgba(10,10,18,.9) 100%);z-index:0}
+        .login-screen>*{position:relative;z-index:1}
         .login-logo{font-size:48px;font-weight:700;color:var(--accent);margin-bottom:8px;letter-spacing:-2px}
         .login-sub{color:var(--text2);font-size:15px;margin-bottom:40px;max-width:400px;line-height:1.6}
         .login-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:420px;width:100%}
