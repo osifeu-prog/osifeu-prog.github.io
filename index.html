@@ -386,26 +386,128 @@
     </div>
   </section>
 
-  <!-- MANIFESTO BANNER -->
+  <!-- INVESTMENT INTAKE FUNNEL + MANIFESTO -->
   <section class="landing-section rv" style="text-align:center;padding:48px 24px">
-    <div style="max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(245,158,11,.08));border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:40px 32px">
-      <h2 style="font-size:28px;font-weight:800;margin-bottom:20px;direction:rtl"><span style="display:block;font-size:22px;color:var(--text2);margin-bottom:8px">יש לכם כסף להשקיע?</span><span style="background:linear-gradient(135deg,var(--accent),#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">SLH זו הבחירה החכמה</span></h2>
-      <div style="font-size:16px;line-height:2;color:var(--text2);direction:rtl" data-i18n="landing_manifesto">
-        ברור שפספסתם את הביטקויין,<br>
-        לא הבנתם מה זה אומר,<br>
-        <b style="color:var(--text)">ביט,</b> או <b style="color:var(--text)">קויין..</b><br><br>
-        היום אתם משלמים ב<b style="color:var(--accent)">ביט</b> כמעט בכל רכישה,<br>
-        אבל עדיין לא מבינים ש<b style="color:#f59e0b">קויין</b> — זה למעשה <b style="color:var(--text)">בחירה.</b><br><br>
-        מי שישן על האף לא ירוויח כסף,<br>
-        בעולם של כיסופים..<br>
-        מי שישן על האף לא יקום,<br>
-        בעולם של מתעוררים...<br><br>
-        <span style="font-size:20px;font-weight:700;color:var(--accent)">סוציוקרטיה — מנהל, לא משטר ולא ממשל.</span><br>
-        <span style="font-size:22px;font-weight:800;color:var(--text)">קהילה. 🏛️</span>
+    <div id="invest-funnel" style="max-width:720px;margin:0 auto;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(245,158,11,.08));border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:40px 32px;direction:rtl">
+
+      <!-- Step 0: Manifesto intro -->
+      <div id="funnel-intro">
+        <h2 style="font-size:28px;font-weight:800;margin-bottom:8px"><span style="display:block;font-size:20px;color:var(--text2);margin-bottom:6px">יש לכם כסף להשקיע?</span><span style="background:linear-gradient(135deg,var(--accent),#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">SLH זו הבחירה החכמה</span></h2>
+        <div style="font-size:15px;line-height:2;color:var(--text2);margin-bottom:24px">
+          ברור שפספסתם את הביטקויין,<br>
+          לא הבנתם מה זה אומר,<br>
+          <b style="color:var(--text)">ביט,</b> או <b style="color:var(--text)">קויין..</b><br><br>
+          היום אתם משלמים ב<b style="color:var(--accent)">ביט</b> כמעט בכל רכישה,<br>
+          אבל עדיין לא מבינים ש<b style="color:#f59e0b">קויין</b> — זה למעשה <b style="color:var(--text)">בחירה.</b><br><br>
+          מי שישן על האף לא ירוויח כסף, בעולם של כיסופים..<br>
+          מי שישן על האף לא יקום, בעולם של מתעוררים...<br><br>
+          <span style="font-size:18px;font-weight:700;color:var(--accent)">סוציוקרטיה — מנהל, לא משטר ולא ממשל.</span><br>
+          <span style="font-size:20px;font-weight:800;color:var(--text)">קהילה. 🏛️</span>
+        </div>
+        <button onclick="startFunnel()" class="btn btn-primary" style="padding:14px 36px;font-size:16px;font-weight:700;border-radius:12px">
+          🚀 בואו נבנה לכם תיק השקעות
+        </button>
+        <div style="margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="/community.html" class="btn btn-outline" data-track="manifesto-join-community" style="padding:10px 20px;font-size:13px"><i class="fas fa-users"></i> הצטרף לקהילה</a>
+          <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" data-track="manifesto-open-bot" style="padding:10px 20px;font-size:13px"><i class="fab fa-telegram"></i> SLH Bot</a>
+        </div>
       </div>
-      <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="/community.html" class="btn btn-primary" data-track="manifesto-join-community" style="padding:12px 28px"><i class="fas fa-users"></i> הצטרף לקהילה</a>
-        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline" data-track="manifesto-open-bot" style="padding:12px 28px"><i class="fab fa-telegram"></i> SLH Bot</a>
+
+      <!-- Step 1: יש לכם כסף להשקיע? -->
+      <div id="funnel-q1" style="display:none">
+        <div style="font-size:13px;color:var(--accent);margin-bottom:8px;letter-spacing:1px">שאלה 1 מתוך 3</div>
+        <div style="height:4px;background:var(--bg);border-radius:4px;margin-bottom:24px;overflow:hidden"><div style="width:33%;height:100%;background:linear-gradient(90deg,var(--accent),#f59e0b);border-radius:4px;transition:width .5s"></div></div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:8px;color:var(--text-bright)">💰 יש לכם כסף להשקיע?</h3>
+        <p style="color:var(--text2);margin-bottom:24px;font-size:15px">לפני שנתחיל, חשוב להבין — השקעה היא רק מכסף פנוי, לא מכסף שאתם צריכים למחיה.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <button onclick="funnelNext(1,'yes')" class="btn btn-primary" style="padding:14px 32px;font-size:16px;border-radius:12px">✅ כן, יש לי כסף פנוי</button>
+          <button onclick="funnelNext(1,'no')" class="btn btn-outline" style="padding:14px 32px;font-size:16px;border-radius:12px">🤔 עוד לא בטוח</button>
+        </div>
+      </div>
+
+      <!-- Step 2: איזה סכום? -->
+      <div id="funnel-q2" style="display:none">
+        <div style="font-size:13px;color:var(--accent);margin-bottom:8px;letter-spacing:1px">שאלה 2 מתוך 3</div>
+        <div style="height:4px;background:var(--bg);border-radius:4px;margin-bottom:24px;overflow:hidden"><div style="width:66%;height:100%;background:linear-gradient(90deg,var(--accent),#f59e0b);border-radius:4px;transition:width .5s"></div></div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:8px;color:var(--text-bright)">📊 איזה סכום תרצו להשקיע?</h3>
+        <p style="color:var(--text2);margin-bottom:24px;font-size:15px">אין סכום מינימלי — כל סכום הוא התחלה. אנחנו נתאים את התיק לפי היכולת שלכם.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin:0 auto">
+          <button onclick="funnelNext(2,'500')" class="btn btn-outline" style="padding:14px;font-size:15px;border-radius:10px">עד ₪500/חודש</button>
+          <button onclick="funnelNext(2,'1000')" class="btn btn-outline" style="padding:14px;font-size:15px;border-radius:10px">₪500 – ₪1,000</button>
+          <button onclick="funnelNext(2,'5000')" class="btn btn-outline" style="padding:14px;font-size:15px;border-radius:10px">₪1,000 – ₪5,000</button>
+          <button onclick="funnelNext(2,'5000+')" class="btn btn-primary" style="padding:14px;font-size:15px;border-radius:10px">₪5,000+</button>
+        </div>
+      </div>
+
+      <!-- Step 3: לאיזה תקופה? -->
+      <div id="funnel-q3" style="display:none">
+        <div style="font-size:13px;color:var(--accent);margin-bottom:8px;letter-spacing:1px">שאלה 3 מתוך 3</div>
+        <div style="height:4px;background:var(--bg);border-radius:4px;margin-bottom:24px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,var(--accent),#f59e0b);border-radius:4px;transition:width .5s"></div></div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:8px;color:var(--text-bright)">⏱️ לאיזה תקופה?</h3>
+        <p style="color:var(--text2);margin-bottom:24px;font-size:15px">טווח ההשקעה משפיע על סוג התיק שנבנה — ככל שהתקופה ארוכה יותר, הפוטנציאל גדול יותר.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin:0 auto">
+          <button onclick="funnelNext(3,'3m')" class="btn btn-outline" style="padding:14px;font-size:15px;border-radius:10px">עד 3 חודשים</button>
+          <button onclick="funnelNext(3,'6m')" class="btn btn-outline" style="padding:14px;font-size:15px;border-radius:10px">3–6 חודשים</button>
+          <button onclick="funnelNext(3,'12m')" class="btn btn-primary" style="padding:14px;font-size:15px;border-radius:10px">6–12 חודשים</button>
+          <button onclick="funnelNext(3,'12m+')" class="btn btn-primary" style="padding:14px;font-size:15px;border-radius:10px">שנה+</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Results - Portfolio Summary -->
+      <div id="funnel-result" style="display:none">
+        <div style="font-size:36px;margin-bottom:8px">🎯</div>
+        <h3 style="font-size:24px;font-weight:800;margin-bottom:6px;color:var(--text-bright)">התיק שלכם מוכן!</h3>
+        <p style="color:var(--text2);margin-bottom:20px;font-size:14px">על בסיס התשובות שלכם, הנה ההמלצה הראשונית:</p>
+
+        <div id="portfolio-card" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:right;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+            <span id="res-plan" style="font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--accent),#f59e0b);color:#000;padding:4px 14px;border-radius:20px"></span>
+            <span id="res-period" style="font-size:13px;color:var(--text2)"></span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="background:var(--bg2);border-radius:8px;padding:12px;text-align:center">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:4px">חיסכון חודשי</div>
+              <div id="res-monthly" style="font-size:20px;font-weight:800;color:var(--accent)"></div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:12px;text-align:center">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:4px">תשואה צפויה</div>
+              <div id="res-yield" style="font-size:20px;font-weight:800;color:#f59e0b"></div>
+            </div>
+          </div>
+
+          <div style="font-size:13px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);padding-top:12px">
+            <div style="margin-bottom:6px">📌 <b style="color:var(--text)">מה כולל התיק:</b></div>
+            <div id="res-includes" style="padding-right:8px"></div>
+          </div>
+        </div>
+
+        <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6">
+          💡 זו המלצה ראשונית בלבד. בשיחה אישית נבנה תיק מפורט הכולל:<br>
+          <b style="color:var(--text)">מאזן הוצאות והכנסות</b> • <b style="color:var(--text)">ניתוח תזרים</b> • <b style="color:var(--text)">תוכנית חיסכון מותאמת</b>
+        </p>
+
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="/dashboard.html" class="btn btn-primary" style="padding:14px 28px;font-size:15px;border-radius:12px">📋 הרשם ובנה תיק מלא</a>
+          <a href="https://t.me/osifeu" target="_blank" rel="noopener" class="btn btn-outline" style="padding:14px 28px;font-size:15px;border-radius:12px">💬 שיחה אישית עם יועץ</a>
+        </div>
+        <button onclick="resetFunnel()" style="margin-top:12px;background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;text-decoration:underline">↩️ התחל מחדש</button>
+      </div>
+
+      <!-- "Not ready" path -->
+      <div id="funnel-notready" style="display:none">
+        <div style="font-size:36px;margin-bottom:8px">🌱</div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;color:var(--text-bright)">מעולה שאתם כאן!</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:20px">
+          גם אם עדיין אין לכם כסף להשקיע — הצעד הראשון הוא <b style="color:var(--text)">ללמוד ולהבין</b>.<br>
+          הצטרפו לקהילה, עקבו אחרי התוכן שלנו, ובנו את הידע שלכם.<br>
+          כשתהיו מוכנים — אנחנו כאן.
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="/community.html" class="btn btn-primary" style="padding:12px 28px;border-radius:12px"><i class="fas fa-users"></i> הצטרפו לקהילה</a>
+          <a href="/guides.html" class="btn btn-outline" style="padding:12px 28px;border-radius:12px">📚 מדריכים חינמיים</a>
+        </div>
+        <button onclick="resetFunnel()" style="margin-top:12px;background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;text-decoration:underline">↩️ חזרה</button>
       </div>
     </div>
   </section>
@@ -472,6 +574,87 @@
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') btn.click();
       });
+    }
+
+    // === INVESTMENT INTAKE FUNNEL ===
+    const funnelData = { hasCapital: null, amount: null, period: null };
+
+    function startFunnel() {
+      document.getElementById('funnel-intro').style.display = 'none';
+      document.getElementById('funnel-q1').style.display = 'block';
+      document.getElementById('invest-funnel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function funnelNext(step, answer) {
+      if (step === 1) {
+        funnelData.hasCapital = answer;
+        document.getElementById('funnel-q1').style.display = 'none';
+        if (answer === 'no') {
+          document.getElementById('funnel-notready').style.display = 'block';
+        } else {
+          document.getElementById('funnel-q2').style.display = 'block';
+        }
+      } else if (step === 2) {
+        funnelData.amount = answer;
+        document.getElementById('funnel-q2').style.display = 'none';
+        document.getElementById('funnel-q3').style.display = 'block';
+      } else if (step === 3) {
+        funnelData.period = answer;
+        document.getElementById('funnel-q3').style.display = 'none';
+        showPortfolio();
+      }
+    }
+
+    function showPortfolio() {
+      const a = funnelData.amount;
+      const p = funnelData.period;
+
+      // Portfolio recommendations based on answers
+      const plans = {
+        '500':  { name: 'תיק התחלתי',  monthly: '₪300–500', yieldRange: '8–15%' },
+        '1000': { name: 'תיק צמיחה',   monthly: '₪500–1,000', yieldRange: '15–25%' },
+        '5000': { name: 'תיק מתקדם',   monthly: '₪1,000–5,000', yieldRange: '25–40%' },
+        '5000+':{ name: 'תיק פרימיום',  monthly: '₪5,000+', yieldRange: '40–65%' }
+      };
+      const periods = {
+        '3m':  { label: 'עד 3 חודשים — טווח קצר', staking: 'Basic (30 יום, 8% APY)' },
+        '6m':  { label: '3–6 חודשים — טווח בינוני', staking: 'Standard (90 יום, 15% APY)' },
+        '12m': { label: '6–12 חודשים — טווח ארוך', staking: 'Premium (180 יום, 25% APY)' },
+        '12m+':{ label: 'שנה+ — טווח אסטרטגי', staking: 'Diamond (365 יום, 40% APY)' }
+      };
+
+      const plan = plans[a] || plans['500'];
+      const period = periods[p] || periods['3m'];
+
+      document.getElementById('res-plan').textContent = plan.name;
+      document.getElementById('res-period').textContent = period.label;
+      document.getElementById('res-monthly').textContent = plan.monthly;
+      document.getElementById('res-yield').textContent = plan.yieldRange;
+
+      const includes = [
+        '✅ מאזן הוצאות והכנסות אישי',
+        '✅ ניתוח תזרים חודשי',
+        `✅ Staking: ${period.staking}`,
+        '✅ חיסכון חודשי מותאם לשאיפות שלכם',
+        '✅ גישה לקהילת המשקיעים של SLH',
+        '✅ ליווי אישי ובניית תיק מפורט'
+      ];
+      document.getElementById('res-includes').innerHTML = includes.join('<br>');
+      document.getElementById('funnel-result').style.display = 'block';
+      document.getElementById('invest-funnel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Save to localStorage for dashboard pre-fill
+      localStorage.setItem('slh_funnel', JSON.stringify(funnelData));
+    }
+
+    function resetFunnel() {
+      ['funnel-q1','funnel-q2','funnel-q3','funnel-result','funnel-notready'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+      document.getElementById('funnel-intro').style.display = 'block';
+      funnelData.hasCapital = null;
+      funnelData.amount = null;
+      funnelData.period = null;
     }
 
     // Init
