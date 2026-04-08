@@ -9,6 +9,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260408b">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <style>
         /* === THEME SYSTEM === */
         :root{
@@ -241,6 +242,45 @@
         .ticker-inner{display:inline-flex;gap:32px;animation:scroll 30s linear infinite;font-size:12px}
         .ticker-item{color:var(--text2)}.ticker-item .price{color:var(--accent);font-weight:600}
         @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+        /* === PORTFOLIO TRACKER === */
+        .ptf-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+        .ptf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;transition:.2s}
+        .ptf-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+        .ptf-card .ptf-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:6px}
+        .ptf-card .ptf-val{font-size:26px;font-weight:700;color:var(--text-bright)}
+        .ptf-card .ptf-sub{font-size:12px;color:var(--text2);margin-top:4px}
+        .ptf-card .ptf-icon{position:absolute;top:16px;left:16px;font-size:22px;opacity:.4}
+        .ptf-change-up{color:#00ff41 !important}
+        .ptf-change-down{color:#ff0055 !important}
+        .ptf-holdings-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+        .ptf-holdings-wrap table{width:100%;border-collapse:collapse}
+        .ptf-holdings-wrap th{text-align:right;padding:12px 16px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);background:var(--bg3);border-bottom:1px solid var(--border)}
+        .ptf-holdings-wrap td{padding:12px 16px;font-size:13px;border-bottom:1px solid var(--border)}
+        .ptf-holdings-wrap tr:last-child td{border-bottom:none}
+        .ptf-holdings-wrap tr:hover td{background:var(--card);cursor:pointer}
+        .ptf-holdings-wrap .coin-name{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--text-bright)}
+        .ptf-holdings-wrap .coin-symbol{font-size:11px;color:var(--text2);font-weight:400}
+        .ptf-alloc-bar{height:6px;border-radius:3px;background:var(--bg3);overflow:hidden;min-width:60px}
+        .ptf-alloc-bar .fill{height:100%;border-radius:3px;transition:width .5s}
+        .ptf-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+        .ptf-chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+        .ptf-chart-card h4{font-size:14px;color:var(--text-bright);margin-bottom:16px}
+        .ptf-chart-card canvas{max-height:280px}
+        .ptf-add-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--accent);border:none;border-radius:var(--radius);color:var(--bg);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+        .ptf-add-btn:hover{opacity:.85;transform:translateY(-1px)}
+        .ptf-remove-btn{background:transparent;border:none;color:var(--red);font-size:16px;cursor:pointer;padding:4px 8px;opacity:.6;transition:.2s}
+        .ptf-remove-btn:hover{opacity:1}
+        .ptf-login-msg{text-align:center;padding:60px 24px;color:var(--text2)}
+        .ptf-login-msg h3{color:var(--text-bright);font-size:20px;margin-bottom:8px}
+        .ptf-login-msg p{font-size:14px;max-width:400px;margin:0 auto;line-height:1.6}
+        @media(max-width:768px){
+            .ptf-charts-row{grid-template-columns:1fr}
+            .ptf-summary{grid-template-columns:1fr 1fr}
+        }
+        @media(max-width:480px){
+            .ptf-summary{grid-template-columns:1fr}
+        }
     </style>
 </head>
 <body data-theme="terminal">
@@ -445,10 +485,94 @@
 
             <!-- ===== PORTFOLIO PAGE ===== -->
             <div id="page-portfolio" class="page">
-                <div class="section-header"><div class="section-title">Portfolio & Deposits</div></div>
-                <div id="deposits-list">
-                    <div class="table-wrap">
-                        <div class="empty-state"><div class="icon">&#x1F4C8;</div><h4>No active deposits</h4><p>Start staking to earn returns on your TON</p></div>
+
+                <!-- Portfolio Login Gate -->
+                <div id="ptf-login-gate" class="ptf-login-msg" style="display:none">
+                    <div style="font-size:48px;margin-bottom:16px;opacity:.5">&#x1F512;</div>
+                    <h3>Log in to track your portfolio</h3>
+                    <p>Sign in with your Telegram account to track your crypto holdings, view performance charts, and manage your assets.</p>
+                </div>
+
+                <!-- Portfolio Content (shown when logged in) -->
+                <div id="ptf-content">
+
+                <!-- Section Header -->
+                <div class="section-header">
+                    <div class="section-title">My Portfolio</div>
+                    <button class="ptf-add-btn" onclick="openAddAssetModal()">+ Add Asset</button>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="ptf-summary">
+                    <div class="ptf-card">
+                        <div class="ptf-icon">&#x1F4B0;</div>
+                        <div class="ptf-label">Total Value (USD)</div>
+                        <div class="ptf-val" id="ptf-total-usd">$0.00</div>
+                        <div class="ptf-sub" id="ptf-total-ils">&#x20AA;0.00</div>
+                    </div>
+                    <div class="ptf-card">
+                        <div class="ptf-icon">&#x1F4C8;</div>
+                        <div class="ptf-label">24h Change</div>
+                        <div class="ptf-val" id="ptf-24h-change">0.00%</div>
+                        <div class="ptf-sub" id="ptf-24h-dollar">$0.00</div>
+                    </div>
+                    <div class="ptf-card">
+                        <div class="ptf-icon">&#x1F4E6;</div>
+                        <div class="ptf-label">Total Assets</div>
+                        <div class="ptf-val" id="ptf-asset-count">0</div>
+                        <div class="ptf-sub">coins tracked</div>
+                    </div>
+                    <div class="ptf-card">
+                        <div class="ptf-icon">&#x1F3C6;</div>
+                        <div class="ptf-label">Best Performer</div>
+                        <div class="ptf-val" id="ptf-best-name">-</div>
+                        <div class="ptf-sub" id="ptf-best-pct">-</div>
+                    </div>
+                </div>
+
+                <!-- Holdings Table -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">Holdings</div>
+                    </div>
+                    <div class="ptf-holdings-wrap">
+                        <table id="ptf-holdings-table">
+                            <thead>
+                                <tr>
+                                    <th>Coin</th>
+                                    <th>Amount</th>
+                                    <th>Value (USD)</th>
+                                    <th>24h Change</th>
+                                    <th>Allocation %</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="ptf-holdings-body">
+                                <tr><td colspan="6" style="text-align:center;color:var(--text2);padding:32px">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="ptf-charts-row">
+                    <div class="ptf-chart-card">
+                        <h4>Allocation</h4>
+                        <canvas id="ptf-alloc-chart"></canvas>
+                    </div>
+                    <div class="ptf-chart-card">
+                        <h4>Portfolio Value (30 Days)</h4>
+                        <canvas id="ptf-perf-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Existing Deposits Section -->
+                <div class="section" style="margin-top:8px">
+                    <div class="section-header"><div class="section-title">Deposits</div></div>
+                    <div id="deposits-list">
+                        <div class="table-wrap">
+                            <div class="empty-state"><div class="icon">&#x1F4C8;</div><h4>No active deposits</h4><p>Start staking to earn returns on your TON</p></div>
+                        </div>
                     </div>
                 </div>
                 <div class="section" style="margin-top:24px">
@@ -457,6 +581,8 @@
                         <div class="empty-state"><div class="icon">&#x1F48E;</div><h4>No staking positions</h4><p>Choose a plan and start earning</p></div>
                     </div>
                 </div>
+
+                </div><!-- /ptf-content -->
             </div>
 
             <!-- ===== STAKING PAGE ===== -->
@@ -817,6 +943,43 @@
             <span style="color:var(--accent);font-weight:700" id="modal-earnings">0.04 TON</span>
         </div>
         <button class="form-btn" onclick="submitStake()" id="modal-submit-btn">Confirm Stake</button>
+    </div>
+</div>
+
+<!-- ===== ADD ASSET MODAL ===== -->
+<div class="modal-overlay" id="add-asset-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeAddAssetModal()">&times;</button>
+        <h3>Add Asset to Portfolio</h3>
+        <div class="form-group">
+            <div class="form-label">Select Coin</div>
+            <select class="form-select" id="asset-coin-select">
+                <option value="bitcoin">Bitcoin (BTC)</option>
+                <option value="ethereum">Ethereum (ETH)</option>
+                <option value="the-open-network">Toncoin (TON)</option>
+                <option value="binancecoin">BNB</option>
+                <option value="solana">Solana (SOL)</option>
+                <option value="ripple">XRP</option>
+                <option value="dogecoin">Dogecoin (DOGE)</option>
+                <option value="cardano">Cardano (ADA)</option>
+                <option value="polkadot">Polkadot (DOT)</option>
+                <option value="avalanche-2">Avalanche (AVAX)</option>
+                <option value="chainlink">Chainlink (LINK)</option>
+                <option value="matic-network">Polygon (MATIC)</option>
+                <option value="slh">SLH Token</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="form-label">Amount</div>
+            <input type="number" class="form-input" id="asset-amount-input" placeholder="0.00" min="0" step="any" dir="ltr">
+        </div>
+        <div id="asset-preview" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text2)">
+                <span>Estimated Value:</span>
+                <span style="color:var(--accent);font-weight:700" id="asset-est-value">$0.00</span>
+            </div>
+        </div>
+        <button class="form-btn" onclick="saveAsset()">Add to Portfolio</button>
     </div>
 </div>
 
@@ -1237,6 +1400,7 @@ function navigate(page) {
     if (page === 'transfer') loadTransactions();
     if (page === 'settings') checkAPIHealth();
     if (page === 'analytics') refreshAnalytics();
+    if (page === 'portfolio') initPortfolioTracker();
 }
 
 // === DATA LOADING ===
@@ -1716,6 +1880,359 @@ function refreshAnalytics() {
         }).join('') || '<div style="padding:12px;color:var(--text2);font-size:13px">No data yet</div>';
     }
 }
+
+// ====== PORTFOLIO TRACKER ======
+const PTF_COINS = {
+    bitcoin:{symbol:'BTC',name:'Bitcoin',color:'#f7931a'},
+    ethereum:{symbol:'ETH',name:'Ethereum',color:'#627eea'},
+    'the-open-network':{symbol:'TON',name:'Toncoin',color:'#0098ea'},
+    binancecoin:{symbol:'BNB',name:'BNB',color:'#f3ba2f'},
+    solana:{symbol:'SOL',name:'Solana',color:'#9945ff'},
+    ripple:{symbol:'XRP',name:'XRP',color:'#00aae4'},
+    dogecoin:{symbol:'DOGE',name:'Dogecoin',color:'#c2a633'},
+    cardano:{symbol:'ADA',name:'Cardano',color:'#0033ad'},
+    polkadot:{symbol:'DOT',name:'Polkadot',color:'#e6007a'},
+    'avalanche-2':{symbol:'AVAX',name:'Avalanche',color:'#e84142'},
+    chainlink:{symbol:'LINK',name:'Chainlink',color:'#2a5ada'},
+    'matic-network':{symbol:'MATIC',name:'Polygon',color:'#8247e5'},
+    slh:{symbol:'SLH',name:'SLH Token',color:'#00ff41'}
+};
+const PTF_USD_ILS = 3.65;
+let ptfPriceCache = {};
+let ptfAllocChart = null;
+let ptfPerfChart = null;
+let ptfRefreshTimer = null;
+
+function getPortfolio() {
+    try {
+        var u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        return u.portfolio || [];
+    } catch(e) { return []; }
+}
+function savePortfolio(arr) {
+    try {
+        var u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        u.portfolio = arr;
+        localStorage.setItem('slh_user', JSON.stringify(u));
+        if (currentUser) currentUser.portfolio = arr;
+    } catch(e) {}
+}
+function getPtfSnapshots() {
+    try { return JSON.parse(localStorage.getItem('slh_ptf_snapshots') || '[]'); } catch(e) { return []; }
+}
+function savePtfSnapshot(totalUsd) {
+    var snaps = getPtfSnapshots();
+    var today = new Date().toISOString().slice(0,10);
+    var last = snaps.length ? snaps[snaps.length-1] : null;
+    if (last && last.date === today) {
+        last.value = totalUsd;
+    } else {
+        snaps.push({date: today, value: totalUsd});
+    }
+    if (snaps.length > 30) snaps = snaps.slice(-30);
+    localStorage.setItem('slh_ptf_snapshots', JSON.stringify(snaps));
+}
+
+async function fetchPortfolioPrices() {
+    var portfolio = getPortfolio();
+    var ids = portfolio.map(function(h){return h.coin}).filter(function(c){return c !== 'slh'});
+    if (ids.length === 0 && portfolio.some(function(h){return h.coin==='slh'})) {
+        ptfPriceCache.slh = {usd:0.025, usd_24h_change:0};
+        return ptfPriceCache;
+    }
+    if (ids.length === 0) return ptfPriceCache;
+    try {
+        var url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + ids.join(',') + '&vs_currencies=usd&include_24hr_change=true';
+        var r = await fetch(url);
+        var d = await r.json();
+        for (var k in d) {
+            ptfPriceCache[k] = {usd: d[k].usd || 0, usd_24h_change: d[k].usd_24h_change || 0};
+        }
+    } catch(e) {
+        console.warn('Portfolio price fetch error:', e);
+    }
+    // SLH token always fixed price
+    ptfPriceCache.slh = {usd:0.025, usd_24h_change:0};
+    return ptfPriceCache;
+}
+
+async function initPortfolioTracker() {
+    var gate = document.getElementById('ptf-login-gate');
+    var content = document.getElementById('ptf-content');
+    if (!currentUser) {
+        if (gate) gate.style.display = 'block';
+        if (content) content.style.display = 'none';
+        return;
+    }
+    if (gate) gate.style.display = 'none';
+    if (content) content.style.display = 'block';
+
+    // If empty portfolio, seed with demo data
+    var portfolio = getPortfolio();
+    if (portfolio.length === 0) {
+        portfolio = [
+            {coin:'bitcoin', amount:0.05},
+            {coin:'ethereum', amount:0.5},
+            {coin:'the-open-network', amount:100},
+            {coin:'solana', amount:5},
+            {coin:'slh', amount:10000}
+        ];
+        savePortfolio(portfolio);
+    }
+
+    await fetchPortfolioPrices();
+    renderPortfolio();
+
+    // Auto-refresh every 30s
+    if (ptfRefreshTimer) clearInterval(ptfRefreshTimer);
+    ptfRefreshTimer = setInterval(async function(){
+        var activePage = document.querySelector('#page-portfolio.active');
+        if (!activePage) return;
+        await fetchPortfolioPrices();
+        renderPortfolio();
+    }, 30000);
+}
+
+function renderPortfolio() {
+    var portfolio = getPortfolio();
+    var totalValue = 0;
+    var totalChange = 0;
+    var prevTotal = 0;
+    var holdings = [];
+
+    portfolio.forEach(function(h) {
+        var p = ptfPriceCache[h.coin];
+        if (!p) return;
+        var val = h.amount * p.usd;
+        var chg = p.usd_24h_change || 0;
+        var prevVal = val / (1 + chg/100);
+        totalValue += val;
+        prevTotal += prevVal;
+        holdings.push({
+            coin: h.coin,
+            amount: h.amount,
+            value: val,
+            change24h: chg,
+            info: PTF_COINS[h.coin] || {symbol:h.coin.toUpperCase(), name:h.coin, color:'#888'}
+        });
+    });
+
+    var overallChange = prevTotal > 0 ? ((totalValue - prevTotal) / prevTotal * 100) : 0;
+    var dollarChange = totalValue - prevTotal;
+
+    // Save daily snapshot
+    savePtfSnapshot(totalValue);
+
+    // Summary cards
+    document.getElementById('ptf-total-usd').textContent = '$' + totalValue.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('ptf-total-ils').innerHTML = '&#x20AA;' + (totalValue * PTF_USD_ILS).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    var chgEl = document.getElementById('ptf-24h-change');
+    chgEl.textContent = (overallChange >= 0 ? '+' : '') + overallChange.toFixed(2) + '%';
+    chgEl.className = 'ptf-val ' + (overallChange >= 0 ? 'ptf-change-up' : 'ptf-change-down');
+    var dolEl = document.getElementById('ptf-24h-dollar');
+    dolEl.textContent = (dollarChange >= 0 ? '+$' : '-$') + Math.abs(dollarChange).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    dolEl.className = 'ptf-sub ' + (dollarChange >= 0 ? 'ptf-change-up' : 'ptf-change-down');
+
+    document.getElementById('ptf-asset-count').textContent = holdings.length;
+
+    // Best performer
+    var best = holdings.reduce(function(a, b){ return (b.change24h > (a ? a.change24h : -999)) ? b : a; }, null);
+    if (best) {
+        document.getElementById('ptf-best-name').textContent = best.info.symbol;
+        var bestPctEl = document.getElementById('ptf-best-pct');
+        bestPctEl.textContent = (best.change24h >= 0 ? '+' : '') + best.change24h.toFixed(2) + '%';
+        bestPctEl.className = 'ptf-sub ' + (best.change24h >= 0 ? 'ptf-change-up' : 'ptf-change-down');
+    }
+
+    // Holdings table
+    holdings.sort(function(a,b){ return b.value - a.value; });
+    var tbody = document.getElementById('ptf-holdings-body');
+    if (holdings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text2);padding:32px">No assets yet. Click "Add Asset" to start tracking.</td></tr>';
+    } else {
+        tbody.innerHTML = holdings.map(function(h) {
+            var alloc = totalValue > 0 ? (h.value / totalValue * 100) : 0;
+            var chgClass = h.change24h >= 0 ? 'ptf-change-up' : 'ptf-change-down';
+            var coinPage = h.coin === 'slh' ? '#' : '/trade.html?coin=' + h.info.symbol.toLowerCase();
+            return '<tr onclick="window.location.href=\'' + coinPage + '\'">' +
+                '<td><div class="coin-name"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + h.info.color + '"></span>' + h.info.symbol + ' <span class="coin-symbol">' + h.info.name + '</span></div></td>' +
+                '<td dir="ltr">' + h.amount.toLocaleString('en-US', {maximumFractionDigits:8}) + '</td>' +
+                '<td dir="ltr">$' + h.value.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + '</td>' +
+                '<td class="' + chgClass + '">' + (h.change24h >= 0 ? '+' : '') + h.change24h.toFixed(2) + '%</td>' +
+                '<td><div style="display:flex;align-items:center;gap:8px"><div class="ptf-alloc-bar"><div class="fill" style="width:' + alloc.toFixed(0) + '%;background:' + h.info.color + '"></div></div><span style="font-size:12px;color:var(--text2)">' + alloc.toFixed(1) + '%</span></div></td>' +
+                '<td><button class="ptf-remove-btn" onclick="event.stopPropagation();removeAsset(\'' + h.coin + '\')" title="Remove">&times;</button></td>' +
+                '</tr>';
+        }).join('');
+    }
+
+    // Allocation Pie Chart
+    renderAllocChart(holdings, totalValue);
+    // Performance Line Chart
+    renderPerfChart();
+}
+
+function renderAllocChart(holdings) {
+    var ctx = document.getElementById('ptf-alloc-chart');
+    if (!ctx) return;
+    if (ptfAllocChart) ptfAllocChart.destroy();
+    var labels = holdings.map(function(h){ return h.info.symbol; });
+    var data = holdings.map(function(h){ return h.value; });
+    var colors = holdings.map(function(h){ return h.info.color; });
+    ptfAllocChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors,
+                borderColor: 'rgba(0,0,0,.3)',
+                borderWidth: 2,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#888', padding: 12, font: {size:11} }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            var val = ctx.parsed;
+                            var total = ctx.dataset.data.reduce(function(a,b){return a+b},0);
+                            var pct = total > 0 ? (val/total*100).toFixed(1) : 0;
+                            return ctx.label + ': $' + val.toLocaleString('en-US',{minimumFractionDigits:2}) + ' (' + pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderPerfChart() {
+    var ctx = document.getElementById('ptf-perf-chart');
+    if (!ctx) return;
+    if (ptfPerfChart) ptfPerfChart.destroy();
+    var snaps = getPtfSnapshots();
+    if (snaps.length < 2) {
+        // Seed with some history for visual effect
+        var today = new Date();
+        var baseVal = 0;
+        try { baseVal = parseFloat(document.getElementById('ptf-total-usd').textContent.replace(/[$,]/g,'')) || 0; } catch(e){}
+        if (snaps.length === 0 && baseVal > 0) {
+            for (var i = 6; i >= 0; i--) {
+                var d = new Date(today); d.setDate(d.getDate() - i);
+                snaps.push({date: d.toISOString().slice(0,10), value: baseVal * (0.95 + Math.random()*0.1)});
+            }
+            snaps[snaps.length-1].value = baseVal;
+        }
+    }
+    var labels = snaps.map(function(s){ return s.date.slice(5); }); // MM-DD
+    var data = snaps.map(function(s){ return s.value; });
+    ptfPerfChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Portfolio Value (USD)',
+                data: data,
+                borderColor: '#00ff41',
+                backgroundColor: 'rgba(0,255,65,.08)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 3,
+                pointBackgroundColor: '#00ff41',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    ticks: {color:'#888', font:{size:10}},
+                    grid: {color:'rgba(255,255,255,.04)'}
+                },
+                y: {
+                    ticks: {
+                        color:'#888', font:{size:10},
+                        callback: function(v){ return '$' + v.toLocaleString(); }
+                    },
+                    grid: {color:'rgba(255,255,255,.06)'}
+                }
+            },
+            plugins: {
+                legend: {display:false},
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx){ return '$' + ctx.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2}); }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function openAddAssetModal() {
+    document.getElementById('add-asset-modal').classList.add('show');
+    document.getElementById('asset-amount-input').value = '';
+    document.getElementById('asset-preview').style.display = 'none';
+    // Live preview on amount change
+    document.getElementById('asset-amount-input').oninput = updateAssetPreview;
+    document.getElementById('asset-coin-select').onchange = updateAssetPreview;
+}
+function closeAddAssetModal() {
+    document.getElementById('add-asset-modal').classList.remove('show');
+}
+function updateAssetPreview() {
+    var coin = document.getElementById('asset-coin-select').value;
+    var amount = parseFloat(document.getElementById('asset-amount-input').value) || 0;
+    var preview = document.getElementById('asset-preview');
+    if (amount > 0 && ptfPriceCache[coin]) {
+        var val = amount * ptfPriceCache[coin].usd;
+        document.getElementById('asset-est-value').textContent = '$' + val.toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+        preview.style.display = 'block';
+    } else {
+        preview.style.display = 'none';
+    }
+}
+async function saveAsset() {
+    var coin = document.getElementById('asset-coin-select').value;
+    var amount = parseFloat(document.getElementById('asset-amount-input').value);
+    if (!amount || amount <= 0) {
+        showToast('Please enter a valid amount', true);
+        return;
+    }
+    var portfolio = getPortfolio();
+    var existing = portfolio.find(function(h){ return h.coin === coin; });
+    if (existing) {
+        existing.amount += amount;
+    } else {
+        portfolio.push({coin: coin, amount: amount});
+    }
+    savePortfolio(portfolio);
+    closeAddAssetModal();
+    // Refresh prices if new coin added
+    await fetchPortfolioPrices();
+    renderPortfolio();
+    showToast((PTF_COINS[coin]||{symbol:coin}).symbol + ' added to portfolio');
+}
+function removeAsset(coin) {
+    if (!confirm('Remove ' + (PTF_COINS[coin]||{symbol:coin}).symbol + ' from portfolio?')) return;
+    var portfolio = getPortfolio().filter(function(h){ return h.coin !== coin; });
+    savePortfolio(portfolio);
+    renderPortfolio();
+    showToast('Asset removed');
+}
+
+// Close add-asset modal on overlay click
+document.getElementById('add-asset-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeAddAssetModal();
+});
 
 // ====== ANALYTICS TRACKING ======
 (function(){
