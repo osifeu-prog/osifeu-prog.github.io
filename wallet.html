@@ -378,6 +378,9 @@
             <span id="api-status" class="api-status"></span>
         </div>
 
+        <!-- Web3 Wallet Connection -->
+        <div class="rv" id="wallet-connect-section"></div>
+
         <!-- Balance Cards -->
         <div class="balance-grid rv">
             <div class="balance-card">
@@ -519,8 +522,10 @@
     <!-- Bottom Nav -->
     <div id="bottomnav-root"></div>
 
-    <script src="/js/translations.js?v=20260407d"></script>
-    <script src="/js/shared.js?v=20260407c"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
+    <script src="/js/translations.js?v=20260408a"></script>
+    <script src="/js/shared.js?v=20260408a"></script>
+    <script src="/js/web3-wallet.js?v=20260408a"></script>
     <script>
     /* ── Wallet Constants ── */
     const WALLET_API = 'https://slh-api-production.up.railway.app/api/wallet';
@@ -708,6 +713,11 @@
 
     /* ── Init ── */
     initShared({ activePage: 'wallet', requireAuth: true, showBottomNav: true });
+
+    // Web3 wallet connect buttons
+    if (typeof renderWalletConnectButtons === 'function') {
+      renderWalletConnectButtons('wallet-connect-section');
+    }
 
     // Load everything in parallel
     Promise.all([

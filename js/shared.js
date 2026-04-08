@@ -7,8 +7,9 @@
 
 const API_BASE = 'https://slh-api-production.up.railway.app';
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
-const TON_WALLET = 'UQBxYz_example_ton_wallet_address';
-const BSC_CONTRACT = '0x_example_bsc_contract_address';
+const TON_WALLET = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
+const BSC_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
+const ADMIN_BSC_WALLET = '0xD0617B54FB4b6b66307846f217b4D685800E3dA4';
 const SLH_PRICE_ILS = 444;
 
 const RTL_LANGS = ['he', 'ar'];
@@ -72,7 +73,18 @@ async function apiPost(path, body) {
 function getCurrentUser() {
   try {
     const raw = localStorage.getItem('slh_user');
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const user = JSON.parse(raw);
+
+    // Migrate old schema — ensure wallets + profile fields exist
+    let dirty = false;
+    if (!user.wallets) { user.wallets = { bsc: null, ton: null }; dirty = true; }
+    if (!user.profilePhoto) { user.profilePhoto = null; dirty = true; }
+    if (!user.coverPhoto) { user.coverPhoto = null; dirty = true; }
+    if (!user.avatarGrad && user.avatarGrad !== 0) { user.avatarGrad = Math.floor(Math.random() * 8); dirty = true; }
+    if (dirty) localStorage.setItem('slh_user', JSON.stringify(user));
+
+    return user;
   } catch { return null; }
 }
 
@@ -81,14 +93,38 @@ function isLoggedIn() {
 }
 
 function login(id, username, photo) {
-  const user = { id, username, photo, loggedAt: Date.now() };
+  // Preserve existing wallets/profile on re-login
+  const existing = getCurrentUser();
+  const user = {
+    id,
+    username,
+    photo: photo || existing?.photo || null,
+    profilePhoto: existing?.profilePhoto || null,
+    coverPhoto: existing?.coverPhoto || null,
+    wallets: existing?.wallets || { bsc: null, ton: null },
+    avatarGrad: existing?.avatarGrad ?? Math.floor(Math.random() * 8),
+    loggedAt: Date.now()
+  };
   localStorage.setItem('slh_user', JSON.stringify(user));
   return user;
 }
 
 function logout() {
+  // Keep wallet data even after logout
+  const user = getCurrentUser();
+  if (user?.wallets?.bsc || user?.wallets?.ton) {
+    localStorage.setItem('slh_wallets_backup', JSON.stringify(user.wallets));
+  }
   localStorage.removeItem('slh_user');
   window.location.href = '/';
+}
+
+function updateUserProfile(updates) {
+  const user = getCurrentUser();
+  if (!user) return null;
+  Object.assign(user, updates);
+  localStorage.setItem('slh_user', JSON.stringify(user));
+  return user;
 }
 
 function requireAuth() {
@@ -201,13 +237,68 @@ function renderTopNav(activePage) {
     `<button class="lang-btn ${l === lang ? 'active' : ''}" data-lang="${l}" onclick="setLang('${l}')">${l.toUpperCase()}</button>`
   ).join('');
 
+  // Wallet badges
+  const walletBadges = logged && typeof getWalletBadgeHTML === 'function' ? getWalletBadgeHTML() : '';
+
+  // Avatar with gradient fallback
+  const avatarGrads = ['#6c5ce7,#a29bfe','#00cec9,#81ecec','#fd79a8,#fab1a0','#ffd32a,#fdcb6e','#e17055,#d63031','#00b894,#55efc4','#0984e3,#74b9ff','#e84393,#fd79a8'];
+  const gradIdx = user?.avatarGrad ?? 0;
+  const userInitial = (user?.username || '?')[0].toUpperCase();
+  const avatarSrc = user?.profilePhoto || user?.photo;
+  const avatarHTML = avatarSrc
+    ? `<img src="${avatarSrc}" alt="" class="user-avatar" onclick="toggleProfileDropdown()">`
+    : `<div class="user-avatar-grad" style="background:linear-gradient(135deg,${avatarGrads[gradIdx]})" onclick="toggleProfileDropdown()">${userInitial}</div>`;
+
   const authBtn = logged
-    ? `<div class="nav-user">
-        <img src="${user.photo || '/img/avatar.svg'}" alt="" class="user-avatar">
-        <span class="nav-username">${user.username || ''}</span>
-        <button class="login-btn" onclick="logout()" data-i18n="nav_logout">${t('nav_logout')}</button>
+    ? `<div class="nav-user-wrap">
+        ${avatarHTML}
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div class="pd-header">
+            <div class="pd-avatar">${avatarSrc ? `<img src="${avatarSrc}" alt="">` : `<div class="pd-avatar-grad" style="background:linear-gradient(135deg,${avatarGrads[gradIdx]})">${userInitial}</div>`}</div>
+            <div class="pd-info">
+              <div class="pd-name">${user.username || 'User'}</div>
+              <div class="pd-id">ID: ${user.id || '--'}</div>
+            </div>
+          </div>
+          ${walletBadges ? `<div class="pd-wallets">${walletBadges}</div>` : ''}
+          <div class="pd-menu">
+            <a href="/dashboard.html" class="pd-item"><i class="fas fa-tachometer-alt"></i> ${t('nav_dashboard')}</a>
+            <a href="/wallet.html" class="pd-item"><i class="fas fa-wallet"></i> ${t('nav_wallet')}</a>
+            <a href="/community.html" class="pd-item"><i class="fas fa-comments"></i> ${t('nav_community')}</a>
+            <a href="/referral.html" class="pd-item"><i class="fas fa-users"></i> ${t('nav_referral')}</a>
+          </div>
+          <div class="pd-footer">
+            <button class="pd-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> ${t('nav_logout')}</button>
+          </div>
+        </div>
        </div>`
     : `<a href="/dashboard.html" class="login-btn" data-i18n="nav_login">${t('nav_login')}</a>`;
+
+  // Main nav: show only top 5 items, rest go to "More" dropdown
+  const mainNavItems = NAV_ITEMS.filter(item => !item.auth || logged);
+  const visibleItems = mainNavItems.slice(0, 5);
+  const moreItems = mainNavItems.slice(5);
+
+  const mainLinks = visibleItems.map(item => {
+    const cls = item.key === activePage ? 'active' : '';
+    return `<a href="${item.href}" class="${cls}" data-page="${item.key}">
+      <i class="fas ${item.icon}"></i>
+      <span data-i18n="nav_${item.key}">${t('nav_' + item.key)}</span>
+    </a>`;
+  }).join('');
+
+  const moreDropdown = moreItems.length ? `
+    <div class="nav-more-wrap">
+      <button class="nav-more-btn" onclick="this.parentElement.classList.toggle('open')">
+        <i class="fas fa-ellipsis-h"></i> <span>${t('nav_more') || 'More'}</span>
+      </button>
+      <div class="nav-more-dropdown">
+        ${moreItems.map(item => {
+          const cls = item.key === activePage ? 'active' : '';
+          return `<a href="${item.href}" class="${cls}"><i class="fas ${item.icon}"></i> ${t('nav_' + item.key)}</a>`;
+        }).join('')}
+      </div>
+    </div>` : '';
 
   root.innerHTML = `
     <nav class="topnav">
@@ -215,15 +306,23 @@ function renderTopNav(activePage) {
         <div class="logo-icon">⚡</div>
         <span>SLH Spark</span>
       </a>
-      <div class="topnav-links hide-mobile">${links}</div>
+      <div class="topnav-links hide-mobile">${mainLinks}${moreDropdown}</div>
       <div class="topnav-right">
-        ${langSelector}
+        <div class="lang-selector">${langSelector}</div>
         ${authBtn}
         <button class="hamburger show-mobile" onclick="toggleDrawer()" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>`;
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    const dd = document.getElementById('profile-dropdown');
+    if (dd && !e.target.closest('.nav-user-wrap')) dd.classList.remove('open');
+    const more = document.querySelector('.nav-more-wrap');
+    if (more && !e.target.closest('.nav-more-wrap')) more.classList.remove('open');
+  });
 }
 
 function renderMobileDrawer() {
@@ -293,6 +392,11 @@ function renderFooter() {
         <div class="footer-powered" data-i18n="footer_powered">${t('footer_powered')}</div>
       </div>
     </footer>`;
+}
+
+function toggleProfileDropdown() {
+  const dd = document.getElementById('profile-dropdown');
+  if (dd) dd.classList.toggle('open');
 }
 
 function toggleDrawer() {

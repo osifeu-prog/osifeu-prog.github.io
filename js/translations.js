@@ -18,6 +18,7 @@ const T = {
     nav_guides: 'מדריכים',
     nav_whitepaper: 'נייר לבן',
     nav_admin: 'ניהול',
+    nav_more: 'עוד',
     nav_login: 'התחברות',
     nav_logout: 'התנתקות',
 
@@ -329,6 +330,7 @@ const T = {
     nav_guides: 'Guides',
     nav_whitepaper: 'Whitepaper',
     nav_admin: 'Admin',
+    nav_more: 'More',
     nav_login: 'Login',
     nav_logout: 'Logout',
 
