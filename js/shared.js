@@ -129,6 +129,45 @@ function updateUserProfile(updates) {
   return user;
 }
 
+/* Profile photo upload — converts to compressed base64 */
+function uploadProfilePhoto(callback) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Image too large (max 5MB)', true);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      // Compress via canvas
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxSize = 200;
+        let w = img.width, h = img.height;
+        if (w > h) { h = (maxSize * h) / w; w = maxSize; }
+        else { w = (maxSize * w) / h; h = maxSize; }
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        updateUserProfile({ profilePhoto: dataUrl });
+        showToast('Profile photo updated!');
+        if (callback) callback(dataUrl);
+        // Re-render nav to show new photo
+        renderTopNav(document.getElementById('topnav-root')?.dataset?.page);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
 function requireAuth() {
   if (!isLoggedIn()) {
     window.location.href = '/dashboard.html';
@@ -265,6 +304,7 @@ function renderTopNav(activePage) {
           </div>
           ${walletBadges ? `<div class="pd-wallets">${walletBadges}</div>` : ''}
           <div class="pd-menu">
+            <a href="javascript:void(0)" class="pd-item" onclick="uploadProfilePhoto()"><i class="fas fa-camera"></i> ${lang === 'he' ? 'שנה תמונה' : 'Change Photo'}</a>
             <a href="/dashboard.html" class="pd-item"><i class="fas fa-tachometer-alt"></i> ${t('nav_dashboard')}</a>
             <a href="/wallet.html" class="pd-item"><i class="fas fa-wallet"></i> ${t('nav_wallet')}</a>
             <a href="/community.html" class="pd-item"><i class="fas fa-comments"></i> ${t('nav_community')}</a>
@@ -303,6 +343,7 @@ function renderTopNav(activePage) {
       </div>
     </div>` : '';
 
+  root.dataset.page = activePage;
   root.innerHTML = `
     <nav class="topnav">
       <a href="/" class="topnav-logo">
