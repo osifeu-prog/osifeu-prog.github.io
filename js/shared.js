@@ -82,6 +82,8 @@ function getCurrentUser() {
     if (!user.profilePhoto) { user.profilePhoto = null; dirty = true; }
     if (!user.coverPhoto) { user.coverPhoto = null; dirty = true; }
     if (!user.avatarGrad && user.avatarGrad !== 0) { user.avatarGrad = Math.floor(Math.random() * 8); dirty = true; }
+    // Normalize username: use first_name as fallback
+    if (!user.username && user.first_name) { user.username = user.first_name; dirty = true; }
     if (dirty) localStorage.setItem('slh_user', JSON.stringify(user));
 
     return user;
@@ -243,8 +245,9 @@ function renderTopNav(activePage) {
   // Avatar with gradient fallback
   const avatarGrads = ['#6c5ce7,#a29bfe','#00cec9,#81ecec','#fd79a8,#fab1a0','#ffd32a,#fdcb6e','#e17055,#d63031','#00b894,#55efc4','#0984e3,#74b9ff','#e84393,#fd79a8'];
   const gradIdx = user?.avatarGrad ?? 0;
-  const userInitial = (user?.username || '?')[0].toUpperCase();
-  const avatarSrc = user?.profilePhoto || user?.photo;
+  const displayName = user?.username || user?.first_name || 'User';
+  const userInitial = displayName[0].toUpperCase();
+  const avatarSrc = [user?.profilePhoto, user?.photo_url, user?.photo].find(s => s && s.length > 5) || null;
   const avatarHTML = avatarSrc
     ? `<img src="${avatarSrc}" alt="" class="user-avatar" onclick="toggleProfileDropdown()">`
     : `<div class="user-avatar-grad" style="background:linear-gradient(135deg,${avatarGrads[gradIdx]})" onclick="toggleProfileDropdown()">${userInitial}</div>`;
@@ -256,7 +259,7 @@ function renderTopNav(activePage) {
           <div class="pd-header">
             <div class="pd-avatar">${avatarSrc ? `<img src="${avatarSrc}" alt="">` : `<div class="pd-avatar-grad" style="background:linear-gradient(135deg,${avatarGrads[gradIdx]})">${userInitial}</div>`}</div>
             <div class="pd-info">
-              <div class="pd-name">${user.username || 'User'}</div>
+              <div class="pd-name">${displayName}</div>
               <div class="pd-id">ID: ${user.id || '--'}</div>
             </div>
           </div>

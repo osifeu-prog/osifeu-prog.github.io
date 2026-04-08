@@ -197,6 +197,7 @@ input, select, textarea {
   padding: 0 24px;
   background: rgba(5, 5, 16, .92);
   backdrop-filter: blur(20px);
+  overflow: visible;
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border2);
   box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
@@ -274,6 +275,8 @@ input, select, textarea {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .topnav-right .theme-btn,
@@ -324,6 +327,12 @@ input, select, textarea {
 /* Nav user area */
 .nav-user-wrap {
   position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-username {
+  display: none;
 }
 
 .topnav-right .user-avatar {
@@ -364,6 +373,7 @@ input, select, textarea {
 
 /* Profile Dropdown */
 .profile-dropdown {
+  display: none;
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
@@ -373,10 +383,6 @@ input, select, textarea {
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   z-index: 1200;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all .2s ease;
   overflow: hidden;
 }
 
@@ -386,9 +392,7 @@ input, select, textarea {
 }
 
 .profile-dropdown.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  display: block;
 }
 
 .pd-header {
@@ -521,6 +525,7 @@ input, select, textarea {
 }
 
 .nav-more-dropdown {
+  display: none;
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
@@ -530,10 +535,6 @@ input, select, textarea {
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   z-index: 1100;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all .2s ease;
   padding: 8px;
 }
 
@@ -543,9 +544,7 @@ input, select, textarea {
 }
 
 .nav-more-wrap.open .nav-more-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  display: block;
 }
 
 .nav-more-dropdown a {
