@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260408d">
+    <link rel="stylesheet" href="/css/shared.css?v=20260409d">
     <style>
         /* ── Hero ── */
         .bots-hero {
@@ -300,38 +300,50 @@
     <!-- Bottom Nav -->
     <div id="bottomnav-root"></div>
 
-    <script src="/js/translations.js?v=20260408d"></script>
-    <script src="/js/shared.js?v=20260408d"></script>
+    <script src="/js/translations.js?v=20260409d"></script>
+    <script src="/js/shared.js?v=20260409d"></script>
     <script>
     /* ── Bot Data ── */
+    // Status values: LIVE (stable) / BETA (working but rough) / WIP (work in progress) / SOON (placeholder)
     const BOTS = [
-        { handle: '@SLH_AIR_bot', name: 'SLH Investment House', emoji: '\uD83C\uDFE6', desc: 'Full investment house with deposits, yields, staking, and portfolio management. 4%-65% APY.', status: 'LIVE', tags: ['financial', 'investment', 'staking'], category: 'financial' },
-        { handle: '@Grdian_bot', name: 'Guardian Security', emoji: '\uD83D\uDEE1\uFE0F', desc: 'Group protection bot with anti-spam, verification gates, threat detection, and admin tools.', status: 'LIVE', tags: ['security', 'admin', 'protection'], category: 'security' },
-        { handle: '@SLH_Academia_bot', name: 'SLH Academy', emoji: '\uD83C\uDF93', desc: 'Educational platform with courses, certifications, VIP tiers, and multi-language support.', status: 'LIVE', tags: ['community', 'education', 'premium'], category: 'community' },
-        { handle: '@Buy_My_Shop_bot', name: 'BotShop', emoji: '\uD83D\uDED2', desc: 'Buy, sell, and deploy ready-made Telegram bots. White-label SaaS marketplace.', status: 'LIVE', tags: ['saas', 'marketplace', 'bots'], category: 'saas' },
-        { handle: '@SLH_Wallet_bot', name: 'SLH Wallet', emoji: '\uD83D\uDCB0', desc: 'Multi-currency wallet with TON & BSC support. Send, receive, swap tokens instantly.', status: 'LIVE', tags: ['financial', 'wallet', 'crypto'], category: 'financial' },
-        { handle: '@Osifs_Factory_bot', name: 'Osif Factory', emoji: '\uD83C\uDFED', desc: 'Bot factory for creating and deploying custom Telegram bots with zero coding.', status: 'LIVE', tags: ['saas', 'builder', 'automation'], category: 'saas' },
-        { handle: '@Campaign_SLH_bot', name: 'Campaign Manager', emoji: '\uD83D\uDCE3', desc: 'Marketing campaigns, airdrops, promotions, and user engagement tools for groups.', status: 'LIVE', tags: ['community', 'marketing', 'campaigns'], category: 'community' },
-        { handle: '@SLH_community_bot', name: 'Community & Fun', emoji: '\uD83C\uDF89', desc: 'Community engagement with games, trivia, polls, memes, and social features.', status: 'LIVE', tags: ['community', 'fun', 'social'], category: 'community' },
-        { handle: '@G4meb0t_bot_bot', name: 'Game Bot', emoji: '\uD83C\uDFAE', desc: 'Arcade games, tournaments, leaderboards, and token rewards. Play to earn.', status: 'LIVE', tags: ['gaming', 'arcade', 'p2e'], category: 'gaming' },
-        { handle: '@SLH_ton_bot', name: 'SLH TON', emoji: '\uD83D\uDC8E', desc: 'TON blockchain integration with wallet, swaps, NFT minting, and dApp gateway.', status: 'LIVE', tags: ['financial', 'ton', 'blockchain'], category: 'financial' },
-        { handle: '@SLH_Ledger_bot', name: 'SLH Ledger', emoji: '\uD83D\uDCD7', desc: 'Transaction ledger, accounting records, and financial reporting for businesses.', status: 'LIVE', tags: ['financial', 'accounting', 'reports'], category: 'financial' },
-        { handle: '@OsifShop_bot', name: 'Shop SaaS', emoji: '\uD83C\uDFEA', desc: 'Inventory management SaaS for Telegram shops. Products, orders, payments, analytics.', status: 'LIVE', tags: ['saas', 'inventory', 'shop'], category: 'saas' },
-        { handle: '@MY_NFT_SHOP_bot', name: 'NFT Shop', emoji: '\uD83D\uDDBC\uFE0F', desc: 'NFT marketplace inside Telegram. Browse, buy, sell, and auction digital collectibles.', status: 'LIVE', tags: ['financial', 'nft', 'marketplace'], category: 'financial' },
-        { handle: '@NIFTI_Publisher_Bot', name: 'NFT Publisher', emoji: '\uD83D\uDCF0', desc: 'Publish and mint NFTs directly from Telegram. Batch minting, metadata editor.', status: 'LIVE', tags: ['saas', 'nft', 'publishing'], category: 'saas' },
-        { handle: '@NFTY_madness_bot', name: 'NFT Madness', emoji: '\uD83D\uDD25', desc: 'NFT gaming and collectible madness. Spin, win, trade rare digital items.', status: 'LIVE', tags: ['gaming', 'nft', 'collectibles'], category: 'gaming' },
-        { handle: '@Chance_Pais_bot', name: 'Chance', emoji: '\uD83C\uDFB0', desc: 'Luck-based games, raffles, lottery draws, and chance-based reward systems.', status: 'LIVE', tags: ['gaming', 'lottery', 'rewards'], category: 'gaming' },
-        { handle: '@My_crazy_panel_bot', name: 'Crazy Panel', emoji: '\uD83D\uDCCA', desc: 'Admin dashboard bot with analytics, user management, and control panel features.', status: 'LIVE', tags: ['saas', 'admin', 'dashboard'], category: 'saas' },
-        { handle: '@TON_MNH_bot', name: 'TON Manager', emoji: '\u2699\uFE0F', desc: 'TON blockchain management tools. Smart contracts, validators, staking management.', status: 'LIVE', tags: ['financial', 'ton', 'management'], category: 'financial' },
-        { handle: '@MY_SUPER_ADMIN_bot', name: 'Super Admin', emoji: '\uD83D\uDD11', desc: 'Super admin panel for managing all SLH bots, users, tokens, and system settings.', status: 'LIVE', tags: ['security', 'admin', 'system'], category: 'security' },
-        { handle: '@Slh_selha_bot', name: 'Selha', emoji: '\u2728', desc: 'Personal assistant bot with AI chat, reminders, tasks, and daily utilities.', status: 'LIVE', tags: ['community', 'ai', 'assistant'], category: 'community' }
+        // === FINANCIAL ===
+        { handle: '@SLH_AIR_bot', name: 'SLH Investment House', emoji: '\uD83C\uDFE6', desc: 'Main investment hub: deposits, yields, staking, portfolio management, multi-gen referrals. 4%-65% APY.', status: 'LIVE', tags: ['financial', 'investment', 'staking'], category: 'financial' },
+        { handle: '@SLH_Wallet_bot', name: 'SLH Wallet', emoji: '\uD83D\uDCB0', desc: 'Multi-currency wallet with TON, BSC, and internal SLH ledger. Send, receive, swap tokens.', status: 'LIVE', tags: ['financial', 'wallet', 'crypto'], category: 'financial' },
+        { handle: '@SLH_Ledger_bot', name: 'SLH Ledger', emoji: '\uD83D\uDCD7', desc: 'Transaction ledger and accounting records. Hardware ESP32 integration planned for offline receipts.', status: 'BETA', tags: ['financial', 'accounting', 'hardware'], category: 'financial' },
+        { handle: '@TON_MNH_bot', name: 'TON MNH Stablecoin', emoji: '\u2699\uFE0F', desc: 'MNH — ILS-pegged stablecoin on TON. 1:1 to shekel, instant transfers, no lockups.', status: 'LIVE', tags: ['financial', 'ton', 'stablecoin'], category: 'financial' },
+        { handle: '@SLH_ton_bot', name: 'SLH TON Gateway', emoji: '\uD83D\uDC8E', desc: 'Placeholder: Q2 2026 will bring native TON swaps, NFT minting, and dApp integrations.', status: 'SOON', tags: ['financial', 'ton', 'roadmap'], category: 'financial' },
+
+        // === SaaS ===
+        { handle: '@OsifShop_bot', name: 'OsifShop — Inventory SaaS', emoji: '\uD83C\uDFEA', desc: 'Inventory management for small shops: products, barcode scan, orders, analytics. Course/album categories coming.', status: 'BETA', tags: ['saas', 'inventory', 'shop'], category: 'saas' },
+        { handle: '@MY_NFT_SHOP_bot', name: 'NFT Shop', emoji: '\uD83D\uDDBC\uFE0F', desc: 'NFT marketplace inside Telegram. Currently under restoration — full feature set returning this week.', status: 'WIP', tags: ['financial', 'nft', 'marketplace'], category: 'financial' },
+        { handle: '@Buy_My_Shop_bot', name: 'Buy My Shop', emoji: '\uD83D\uDED2', desc: 'Shopify-style ecommerce marketplace for the SLH ecosystem. Restoration in progress.', status: 'WIP', tags: ['saas', 'marketplace', 'ecommerce'], category: 'saas' },
+        { handle: '@Osifs_Factory_bot', name: 'Osif Factory', emoji: '\uD83C\uDFED', desc: 'Bot factory — create custom Telegram bots with zero coding. Admin login currently requires Redis fix.', status: 'WIP', tags: ['saas', 'builder', 'automation'], category: 'saas' },
+        { handle: '@My_crazy_panel_bot', name: 'Crazy Panel', emoji: '\uD83D\uDCCA', desc: 'Admin dashboard: analytics, user management, token management, control panel.', status: 'BETA', tags: ['saas', 'admin', 'dashboard'], category: 'saas' },
+        { handle: '@NIFTI_Publisher_Bot', name: 'SLH Wellness', emoji: '\uD83E\uDDD8', desc: 'Wellness companion: mindfulness content, breathing exercises, CBT journaling, daily health tips.', status: 'BETA', tags: ['saas', 'wellness', 'health'], category: 'saas' },
+
+        // === COMMUNITY ===
+        { handle: '@SLH_Academia_bot', name: 'SLH Academy', emoji: '\uD83C\uDF93', desc: 'Educational platform: courses, certifications, VIP tiers, full translations coming to 5 languages.', status: 'BETA', tags: ['community', 'education', 'premium'], category: 'community' },
+        { handle: '@Campaign_SLH_bot', name: 'Campaign Manager', emoji: '\uD83D\uDCE3', desc: 'Marketing campaigns, airdrops, promotions, and user engagement tools for community growth.', status: 'BETA', tags: ['community', 'marketing', 'campaigns'], category: 'community' },
+        { handle: '@SLH_community_bot', name: 'Community Hub', emoji: '\uD83C\uDF89', desc: 'Community engagement via polls, leaderboards, daily updates. Integrates with community.html feed.', status: 'BETA', tags: ['community', 'social', 'engagement'], category: 'community' },
+        { handle: '@Slh_selha_bot', name: 'SLH Help Desk', emoji: '\u2728', desc: 'Placeholder: will become official customer-support / FAQ bot with AI-assisted responses.', status: 'SOON', tags: ['community', 'support', 'ai'], category: 'community' },
+
+        // === GAMING ===
+        { handle: '@NFTY_madness_bot', name: 'NFTY Tamagotchi', emoji: '\uD83D\uDC31', desc: 'Virtual pet game: feed, play, evolve. CBT breathing exercises, daily quests, 15 achievements.', status: 'LIVE', tags: ['gaming', 'pet', 'wellness'], category: 'gaming' },
+        { handle: '@G4meb0t_bot_bot', name: 'Matchmaking Bot', emoji: '\uD83C\uDFAE', desc: 'Social matchmaking with personality profiling. Connects users based on interests and goals.', status: 'BETA', tags: ['gaming', 'social', 'profiling'], category: 'gaming' },
+        { handle: '@Chance_Pais_bot', name: 'Recovery Bot', emoji: '\uD83E\uDDE0', desc: 'Gambling-addiction recovery support: CBT journaling, craving tracker, peer support. Pivoting from chance-game.', status: 'WIP', tags: ['wellness', 'recovery', 'cbt'], category: 'community' },
+
+        // === SECURITY / ADMIN ===
+        { handle: '@MY_SUPER_ADMIN_bot', name: 'Super Admin', emoji: '\uD83D\uDD11', desc: 'Super admin panel for managing all SLH bots, users, tokens, and system settings.', status: 'BETA', tags: ['security', 'admin', 'system'], category: 'security' },
+        { handle: '@Grdian_bot', name: 'Guardian', emoji: '\uD83D\uDEE1\uFE0F', desc: 'System-wide monitoring and remote support. TeamViewer-style assistance for customers (planned).', status: 'BETA', tags: ['security', 'monitoring', 'support'], category: 'security' }
     ];
 
     const COMING_SOON = [
-        { name: 'IoT Bot', icon: '\uD83C\uDF10', desc: 'Internet of Things device management' },
-        { name: 'Gambling Analytics', icon: '\uD83D\uDCCA', desc: 'Advanced gambling analytics engine' },
-        { name: 'NFT Smart Contracts', icon: '\uD83D\uDCDC', desc: 'Smart contract deployment platform' },
-        { name: 'Wellness Bot', icon: '\uD83E\uDDD8', desc: 'Health & wellness tracking assistant' }
+        { name: 'Course Marketplace', icon: '\uD83C\uDF93', desc: 'Upload & sell digital courses (150 ILS one-time)' },
+        { name: 'P2P Token Exchange', icon: '\uD83D\uDD04', desc: 'List your SLH tokens at your own price' },
+        { name: 'Facebook Feed Sync', icon: '\uD83D\uDCD8', desc: 'Display your FB pages in dashboard' },
+        { name: 'YouTube Feed Sync', icon: '\uD83D\uDCFA', desc: 'Display your YT channels in dashboard' },
+        { name: 'Real-time Community Chat', icon: '\uD83D\uDCAC', desc: 'WebSocket live chat in community page' },
+        { name: 'Web3 Wallet Connect', icon: '\uD83D\uDD17', desc: 'MetaMask / Trust Wallet → real balances' }
     ];
 
     /* ── Render Functions ── */
@@ -404,6 +416,6 @@
     renderComingSoon();
     </script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260408e"></script>
+<script src="/js/ai-assistant.js?v=20260409d"></script>
 </body>
 </html>

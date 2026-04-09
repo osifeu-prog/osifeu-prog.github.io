@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260408g">
+    <link rel="stylesheet" href="/css/shared.css?v=20260409d">
     <style>
         .wallet-container {
             max-width: 900px;
@@ -373,7 +373,82 @@
         @media (max-width: 480px) {
             .balance-grid { grid-template-columns: 1fr; }
         }
+
+        /* === WEB3 WALLET PANEL === */
+        .web3-panel{
+            background:linear-gradient(135deg,var(--bg2,#111),var(--bg3,#1a1a1a));
+            border:1px solid var(--border,rgba(255,255,255,.08));
+            border-radius:12px;padding:24px;position:relative;overflow:hidden;
+        }
+        .web3-panel::before{
+            content:'';position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,#f6851b,#e2761b,#00b4d8,#0077b6);
+        }
+        .web3-panel h3{
+            font-size:15px;margin:0 0 6px 0;color:var(--text-bright,#fff);
+            display:flex;align-items:center;gap:10px;
+        }
+        .web3-panel h3 .web3-badge{
+            font-size:9px;padding:3px 8px;border-radius:10px;
+            background:rgba(246,133,27,.15);color:#f6851b;
+            text-transform:uppercase;letter-spacing:1px;font-weight:700;
+        }
+        .web3-panel .web3-sub{font-size:12px;color:var(--text2,#888);margin-bottom:16px}
+        .btn-web3-connect{
+            background:linear-gradient(135deg,#f6851b,#e2761b);
+            color:#fff;border:none;padding:12px 24px;border-radius:10px;
+            font-size:14px;font-weight:700;cursor:pointer;
+            display:inline-flex;align-items:center;gap:10px;
+            transition:.2s;box-shadow:0 4px 12px rgba(246,133,27,.25);
+        }
+        .btn-web3-connect:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(246,133,27,.4)}
+        .web3-addr{
+            background:var(--card,rgba(255,255,255,.03));
+            border:1px solid var(--border,rgba(255,255,255,.08));border-radius:8px;
+            padding:10px 14px;font-family:'Space Mono',monospace;font-size:12px;
+            color:var(--cyan,#00e5ff);display:inline-flex;align-items:center;gap:8px;
+            margin-bottom:16px;
+        }
+        .web3-balance-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+            gap:12px;margin-bottom:16px;
+        }
+        .web3-card{
+            background:var(--card,rgba(255,255,255,.03));
+            border:1px solid var(--border,rgba(255,255,255,.08));border-radius:10px;
+            padding:14px;position:relative;transition:.2s;
+        }
+        .web3-card:hover{border-color:var(--accent,#00ff41);transform:translateY(-1px)}
+        .web3-card .label{
+            font-size:10px;text-transform:uppercase;letter-spacing:1.2px;
+            color:var(--text2,#888);display:block;margin-bottom:6px;
+        }
+        .web3-card .amount{
+            font-size:18px;font-weight:700;color:var(--text-bright,#fff);
+            font-family:'Space Mono',monospace;
+        }
+        .web3-card[data-token="SLH"]{border-left:3px solid #ffd700}
+        .web3-card[data-token="BNB"]{border-left:3px solid #f3ba2f}
+        .web3-card[data-token="ETH"]{border-left:3px solid #627eea}
+        .web3-card[data-token="USDT"]{border-left:3px solid #26a17b}
+        .btn-web3-disconnect{
+            background:transparent;border:1px solid var(--border,rgba(255,255,255,.08));
+            color:var(--text2,#888);padding:6px 14px;border-radius:8px;
+            font-size:11px;cursor:pointer;transition:.2s;
+        }
+        .btn-web3-disconnect:hover{border-color:#ff0055;color:#ff0055}
+        .web3-hint{
+            margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);
+            border:1px solid rgba(0,229,255,.15);border-radius:8px;
+            font-size:11px;color:var(--text2,#888);line-height:1.5;
+        }
+        @media(max-width:600px){
+            .web3-panel{padding:18px}
+            .web3-balance-grid{grid-template-columns:repeat(2,1fr)}
+        }
     </style>
+    <!-- Web3 / ethers.js v6 for MetaMask + Trust Wallet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
 </head>
 <body>
 
@@ -394,7 +469,51 @@
         </div>
 
         <!-- Web3 Wallet Connection -->
-        <div class="rv" id="wallet-connect-section"></div>
+        <div class="web3-panel rv" id="wallet-connect-section">
+            <h3>
+                <i class="fas fa-link"></i>
+                <span data-i18n="web3_title">יתרות אמיתיות מהבלוקצ'יין</span>
+                <span class="web3-badge">LIVE</span>
+            </h3>
+            <div class="web3-sub" data-i18n="web3_sub">חבר ארנק MetaMask או Trust Wallet כדי לראות את היתרות האמיתיות שלך ישירות מהרשת</div>
+
+            <div id="web3-status">
+                <button id="btn-connect-wallet" class="btn-web3-connect">
+                    <i class="fas fa-wallet"></i> <span data-i18n="web3_connect">חבר ארנק</span>
+                </button>
+                <div class="web3-hint" data-i18n="web3_hint">
+                    תומך ב-MetaMask (דסקטופ) ו-Trust Wallet (מובייל). הארנק שלך נשאר מאובטח — אנחנו רק קוראים יתרות, לא שולחים עסקאות.
+                </div>
+            </div>
+
+            <div id="web3-balances" style="display:none">
+                <div class="web3-addr">
+                    <i class="fas fa-link"></i>
+                    <span id="web3-addr-short">—</span>
+                </div>
+                <div class="web3-balance-grid">
+                    <div class="web3-card" data-token="SLH">
+                        <span class="label">SLH (BSC)</span>
+                        <span class="amount" id="w3-slh">—</span>
+                    </div>
+                    <div class="web3-card" data-token="BNB">
+                        <span class="label">BNB</span>
+                        <span class="amount" id="w3-bnb">—</span>
+                    </div>
+                    <div class="web3-card" data-token="ETH">
+                        <span class="label">ETH</span>
+                        <span class="amount" id="w3-eth">—</span>
+                    </div>
+                    <div class="web3-card" data-token="USDT">
+                        <span class="label">USDT (BSC)</span>
+                        <span class="amount" id="w3-usdt">—</span>
+                    </div>
+                </div>
+                <button id="btn-disconnect-wallet" class="btn-web3-disconnect" data-i18n="web3_disconnect">
+                    ✕ נתק ארנק
+                </button>
+            </div>
+        </div>
 
         <!-- Balance Cards -->
         <div class="balance-grid rv">
@@ -538,9 +657,10 @@
     <div id="bottomnav-root"></div>
 
     <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
-    <script src="/js/translations.js?v=20260408g"></script>
-    <script src="/js/shared.js?v=20260408g"></script>
+    <script src="/js/translations.js?v=20260409d"></script>
+    <script src="/js/shared.js?v=20260409d"></script>
     <script src="/js/web3-wallet.js?v=20260408a"></script>
+    <script src="/js/web3.js?v=20260409d"></script>
     <script>
     /* ── Wallet Constants ── */
     const WALLET_API = 'https://slh-api-production.up.railway.app/api/wallet';
@@ -745,7 +865,7 @@
     });
     </script>
     <script src="/js/analytics.js?v=20260407c"></script>
-    <script src="/js/ai-assistant.js?v=20260408g"></script>
+    <script src="/js/ai-assistant.js?v=20260409d"></script>
 </body>
 </html>
 

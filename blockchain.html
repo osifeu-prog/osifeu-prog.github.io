@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/css/shared.css?v=20260408d">
+    <link rel="stylesheet" href="/css/shared.css?v=20260409d">
     <meta name="theme-color" content="#0a0a0a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -223,11 +223,23 @@
         <p class="rv" data-i18n="bsc_sub">Track SLH token activity on Binance Smart Chain in real time. Fully transparent, on-chain verified.</p>
     </div>
 
+    <!-- DEX listing status banner -->
+    <div id="dex-status-banner" class="rv" style="margin-bottom:20px">
+        <div style="padding:16px 20px;background:linear-gradient(135deg,rgba(255,140,0,0.10),rgba(108,92,231,0.10));border:1px solid rgba(255,140,0,0.3);border-radius:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+            <div style="font-size:24px">⏳</div>
+            <div style="flex:1;min-width:200px">
+                <div style="font-weight:800;color:var(--accent);font-size:14px;margin-bottom:3px" id="dex-status-title">בודק רישום ב-DEX...</div>
+                <div style="font-size:12px;color:var(--text2)" id="dex-status-desc">סריקה דרך Dexscreener API — תשובה תוך שניות</div>
+            </div>
+            <a id="dex-status-cta" href="https://pancakeswap.finance/add/BNB/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" rel="noopener" style="padding:10px 18px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#000;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none;display:none">➕ הוסף נזילות</a>
+        </div>
+    </div>
+
     <!-- KPI Row -->
     <div class="rv" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px">
         <div class="dash-kpi">
             <div class="dash-kpi-val" id="bsc-price">$0.00</div>
-            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_price">SLH Price</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" id="bsc-price-label">SLH Rate</div>
         </div>
         <div class="dash-kpi">
             <div class="dash-kpi-val" id="bsc-holders">--</div>
@@ -239,7 +251,7 @@
         </div>
         <div class="dash-kpi">
             <div class="dash-kpi-val" id="bsc-mcap">--</div>
-            <div style="font-size:12px;color:var(--text2);margin-top:4px" data-i18n="bsc_mcap">Market Cap</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px" id="bsc-mcap-label">Notional Value</div>
         </div>
     </div>
 
@@ -415,7 +427,7 @@
         <a href="https://t.me/NIFTI_Publisher_Bot">NFT Market</a>
         <a href="https://t.me/Grdian_bot">Guardian</a>
         <a href="https://t.me/SLH_Wallet_bot">Wallet</a>
-        <a href="https://t.me/SLH_Factory_bot">Factory</a>
+        <a href="https://t.me/Osifs_Factory_bot">Factory</a>
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:16px;font-size:13px">
         <a href="https://www.facebook.com/SLH.Fin.Tech.Academy" target="_blank" style="color:var(--text2);transition:.2s">Academy</a>
@@ -462,11 +474,69 @@ async function rpcCall(data) {
     return (await r.json()).result;
 }
 
+// ════════════════════════════════════════
+// Check DEX listing status via Dexscreener
+// ════════════════════════════════════════
+let dexListed = false;
+let dexPriceUsd = null;
+
+async function checkDEXListing() {
+    try {
+        const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/' + SLH_CONTRACT);
+        const data = await r.json();
+        const titleEl = document.getElementById('dex-status-title');
+        const descEl = document.getElementById('dex-status-desc');
+        const ctaEl = document.getElementById('dex-status-cta');
+        const priceLabelEl = document.getElementById('bsc-price-label');
+        const mcapLabelEl = document.getElementById('bsc-mcap-label');
+
+        if (data && data.pairs && data.pairs.length > 0) {
+            // Listed on a DEX
+            const pair = data.pairs[0];
+            dexListed = true;
+            dexPriceUsd = parseFloat(pair.priceUsd);
+            if (titleEl) titleEl.textContent = '✅ ' + pair.dexId.toUpperCase() + ' — ' + (pair.baseToken?.symbol || 'SLH') + '/' + (pair.quoteToken?.symbol || 'BNB');
+            if (descEl) descEl.textContent = 'Liquidity: $' + fmtNum(pair.liquidity?.usd || 0, 0) + ' · 24h Volume: $' + fmtNum(pair.volume?.h24 || 0, 0);
+            if (priceLabelEl) priceLabelEl.textContent = 'SLH Market Price';
+            if (mcapLabelEl) mcapLabelEl.textContent = 'Market Cap';
+            if (ctaEl) {
+                ctaEl.textContent = '📊 View on ' + pair.dexId;
+                ctaEl.href = pair.url || 'https://pancakeswap.finance/swap?outputCurrency=' + SLH_CONTRACT;
+                ctaEl.style.display = 'inline-block';
+            }
+            // Use real DEX price for market cap calculation
+            const priceEl = document.getElementById('bsc-price');
+            if (priceEl) priceEl.innerHTML = '$' + fmtNum(dexPriceUsd, 4);
+            if (totalSupplyCache > 0) {
+                const realMcap = totalSupplyCache * dexPriceUsd;
+                const mcapEl = document.getElementById('bsc-mcap');
+                if (mcapEl) mcapEl.textContent = realMcap > 1e6 ? '$' + fmtNum(realMcap / 1e6, 2) + 'M' : realMcap > 1e3 ? '$' + fmtNum(realMcap / 1e3, 1) + 'K' : '$' + fmtNum(realMcap, 0);
+            }
+        } else {
+            // Not listed yet
+            dexListed = false;
+            if (titleEl) titleEl.textContent = '⏳ עדיין לא רשום ב-DEX';
+            if (descEl) descEl.textContent = 'SLH עדיין לא זמין ל-swap. מחיר פנימי קבוע: ₪' + SLH_PRICE_ILS + ' (~$' + fmtNum(SLH_PRICE_USD, 2) + '). ליצור pool ראשון?';
+            if (priceLabelEl) priceLabelEl.textContent = 'SLH Internal Rate';
+            if (mcapLabelEl) mcapLabelEl.textContent = 'Notional Value (internal)';
+            if (ctaEl) {
+                ctaEl.textContent = '➕ צור Pool ב-PancakeSwap';
+                ctaEl.href = 'https://pancakeswap.finance/add/BNB/' + SLH_CONTRACT;
+                ctaEl.style.display = 'inline-block';
+            }
+        }
+    } catch (e) {
+        console.log('[DEX] listing check error:', e);
+        const titleEl = document.getElementById('dex-status-title');
+        if (titleEl) titleEl.textContent = '⚠️ לא הצלחנו לאמת רישום ב-DEX';
+    }
+}
+
 async function fetchTokenInfo() {
     try {
         // Get decimals
         const decHex = await rpcCall({ method:'eth_call', params:[{to:SLH_CONTRACT,data:'0x313ce567'},'latest'] });
-        const decimals = decHex ? parseInt(decHex, 16) : 15;
+        const decimals = decHex ? parseInt(decHex, 16) : 18;
         const decEl = document.getElementById('bsc-decimals');
         if(decEl) decEl.textContent = decimals;
 
@@ -478,15 +548,20 @@ async function fetchTokenInfo() {
             const el = document.getElementById('bsc-supply');
             if(el) el.textContent = fmtNum(totalSupplyCache, 0);
 
-            // Calculate market cap
-            const mcap = totalSupplyCache * SLH_PRICE_USD;
+            // Use real price if DEX-listed, otherwise label as "notional" value
+            const effectivePrice = dexListed && dexPriceUsd ? dexPriceUsd : SLH_PRICE_USD;
+            const mcap = totalSupplyCache * effectivePrice;
             const mcapEl = document.getElementById('bsc-mcap');
-            if(mcapEl) mcapEl.textContent = mcap > 1e6 ? '$'+fmtNum(mcap/1e6,1)+'M' : mcap > 1e3 ? '$'+fmtNum(mcap/1e3,0)+'K' : '$'+fmtNum(mcap,0);
+            if(mcapEl) {
+                const mcapText = mcap > 1e6 ? '$'+fmtNum(mcap/1e6,2)+'M' : mcap > 1e3 ? '$'+fmtNum(mcap/1e3,1)+'K' : '$'+fmtNum(mcap,0);
+                mcapEl.textContent = dexListed ? mcapText : mcapText + ' *';
+                if (!dexListed) mcapEl.title = 'Notional value based on internal rate — SLH not yet listed on any DEX';
+            }
         }
 
-        // Set price
+        // Set price (will be overridden by checkDEXListing if listed)
         const priceEl = document.getElementById('bsc-price');
-        if(priceEl) priceEl.innerHTML = '$'+fmtNum(SLH_PRICE_USD,2)+' <small style="color:var(--green);font-size:12px">₪'+SLH_PRICE_ILS+'</small>';
+        if(priceEl && !dexListed) priceEl.innerHTML = '$'+fmtNum(SLH_PRICE_USD,2)+' <small style="color:var(--gold);font-size:12px">₪'+SLH_PRICE_ILS+'</small>';
 
     } catch(e) { console.log('[BSC] tokenInfo error:', e); }
 }
@@ -712,6 +787,9 @@ window.addEventListener('scroll', () => {
 // INIT
 // ════════════════════════════════════════
 (async function init() {
+    // Check DEX listing FIRST so price/labels reflect reality
+    await checkDEXListing();
+
     // BSC
     fetchTokenInfo();
     fetchBSCData();
@@ -722,7 +800,7 @@ window.addEventListener('scroll', () => {
     fetchTONData();
 
     // Refresh every 2 minutes
-    setInterval(() => { fetchTokenInfo(); fetchBSCData(); }, 120000);
+    setInterval(() => { checkDEXListing().then(() => { fetchTokenInfo(); fetchBSCData(); }); }, 120000);
     setInterval(() => { fetchTONPrice().then(()=>fetchTONData()); }, 120000);
 
     // Render interactive charts
@@ -1041,9 +1119,9 @@ function renderActivityChart() {
 <div id="footer-root"></div>
 
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260408e"></script>
-<script src="/js/translations.js?v=20260408d"></script>
-<script src="/js/shared.js?v=20260408d"></script>
+<script src="/js/ai-assistant.js?v=20260409d"></script>
+<script src="/js/translations.js?v=20260409d"></script>
+<script src="/js/shared.js?v=20260409d"></script>
 <script>
     initShared({ activePage: 'blockchain' });
 </script>
