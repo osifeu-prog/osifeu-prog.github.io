@@ -117,7 +117,8 @@ const BOTS = {
 let selectedBot = 'airdrop';
 let currentLang = 'en';
 
-const T = {
+// Namespaced page translations to avoid collision with global T in translations.js
+const PAGE_T = {
     he: {
         rc_back:"חזרה לאקוסיסטם SLH",rc_title:"סטודיו כרטיס הפניה",
         rc_subtitle:"צור כרטיס הפניה מותאם אישית לשיתוף עם חברים והרוויח 15% עמלה",
@@ -172,7 +173,7 @@ const T = {
 
 function setLang(lang) {
     currentLang = lang;
-    const sl = T[lang] || T.en;
+    const sl = PAGE_T[lang] || PAGE_T.en;
     const isRTL = (lang === 'he' || lang === 'ar');
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -252,7 +253,7 @@ function generateCard() {
     const w = 800, h = 500;
     canvas.width = w;
     canvas.height = h;
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const refLink = getRefLink();
     const username = document.getElementById('rc-username').value.trim() || 'YOUR_ID';
     const bot = BOTS[selectedBot] || BOTS.airdrop;
@@ -382,14 +383,14 @@ function downloadCard() {
 
 function shareTelegram() {
     const link = getRefLink();
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const msg = (sl.rc_share_msg || 'Join SLH!') + ' ' + link;
     window.open('https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(msg), '_blank');
 }
 
 function shareWhatsApp() {
     const link = getRefLink();
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const msg = (sl.rc_share_msg || 'Join SLH!') + ' ' + link;
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }

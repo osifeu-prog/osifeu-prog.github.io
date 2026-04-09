@@ -333,7 +333,8 @@
 </div>
 
 <script>
-const T = {
+// Namespaced to avoid collision with global T in translations.js
+const PAGE_T = {
 he: {
     back:"\u2190 \u05d7\u05d6\u05e8\u05d4 \u05dc\u05d0\u05e7\u05d5\u05e1\u05d9\u05e1\u05d8\u05dd SLH",
     badge:"Whitepaper v1.0",
@@ -602,7 +603,7 @@ function setWpLang(lang) {
     var rtl = lang === 'he' || lang === 'ar';
     document.documentElement.dir = rtl ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
-    var d = T[lang] || T.en;
+    var d = PAGE_T[lang] || PAGE_T.en;
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var k = el.getAttribute('data-i18n');
         if (d[k]) el.textContent = d[k];

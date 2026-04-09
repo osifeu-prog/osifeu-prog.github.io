@@ -1240,7 +1240,8 @@ function setTheme(t) {
     document.querySelector(`.theme-btn[onclick="setTheme('${t}')"]`)?.classList.add('active');
 }
 // === i18n SYSTEM ===
-const T = {
+// Namespaced inline dashboard translations — avoid collision with global T in translations.js
+const PAGE_T = {
     he: {
         // Nav
         dashboard: 'לוח בקרה', exit: 'יציאה',
@@ -1618,7 +1619,17 @@ const T = {
 let currentLang = localStorage.getItem('slh_lang') || 'he';
 const RTL_LANGS = ['he', 'ar'];
 
-function t(key) { return (T[currentLang] || T.en)[key] || (T.en)[key] || key; }
+function t(key) {
+    // 1) try page-specific PAGE_T
+    const p = (PAGE_T[currentLang] || PAGE_T.en)[key];
+    if (p) return p;
+    // 2) fall back to global T from /js/translations.js for nav_*, footer_*, marketplace_*, etc
+    if (typeof T !== 'undefined') {
+        const g = (T[currentLang] || T.en || {})[key];
+        if (g) return g;
+    }
+    return key;
+}
 
 function setLang(l) {
     currentLang = l;
@@ -2204,7 +2215,7 @@ if (saved && !currentUser) {
 
 // Registration panel for users who logged in but haven't paid
 function showRegistrationPanel() {
-    const t = (key) => (typeof T !== 'undefined' && T[currentLang] && T[currentLang][key]) || T?.en?.[key] || key;
+    const t = (key) => (PAGE_T[currentLang] && PAGE_T[currentLang][key]) || PAGE_T?.en?.[key] || (typeof T !== 'undefined' ? ((T[currentLang] && T[currentLang][key]) || T?.en?.[key]) : null) || key;
     const tonWallet = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
 
     let panel = document.getElementById('reg-panel');
@@ -2322,7 +2333,7 @@ function showRegStatus(status) {
     const el = document.getElementById('reg-status');
     if (!el) return;
     el.style.display = 'block';
-    const t = (key) => (typeof T !== 'undefined' && T[currentLang] && T[currentLang][key]) || T?.en?.[key] || key;
+    const t = (key) => (PAGE_T[currentLang] && PAGE_T[currentLang][key]) || PAGE_T?.en?.[key] || (typeof T !== 'undefined' ? ((T[currentLang] && T[currentLang][key]) || T?.en?.[key]) : null) || key;
     if (status === 'submitted') {
         el.innerHTML = '<span style="color:var(--gold)">⏳ ' + t('reg_submitted') + '</span>';
     } else if (status === 'approved') {

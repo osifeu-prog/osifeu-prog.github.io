@@ -535,6 +535,59 @@
         <p class="ssub rv" data-i18n="ref_sub">Invite friends, earn commissions on their activity. Your network grows exponentially.</p>
     </div>
 
+    <!-- ===== EXPANDED EXPLAINER — Multi-generation referral ===== -->
+    <div class="ref-explainer rv" style="max-width:800px;margin:24px auto 40px;padding:0 20px">
+      <div style="background:linear-gradient(135deg,rgba(108,92,231,.08),rgba(0,229,255,.05));border:1px solid rgba(108,92,231,.25);border-radius:16px;padding:28px 32px;backdrop-filter:blur(10px)">
+        <h3 style="color:var(--accent,#8b5cf6);font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🌳</span>
+          <span data-i18n="ref_explainer_title">איך עובד ה-network effect של 10 דורות?</span>
+        </h3>
+        <p style="color:var(--text2);font-size:14px;line-height:1.9;margin-bottom:16px" data-i18n="ref_explainer_p1">
+          כל חבר שתביא למערכת הופך ל<strong>דור 1</strong> שלך. כאשר הוא מפקיד, אתה מרוויח 5% מההפקדה שלו.
+          אבל זה לא נגמר שם — כאשר <em>החבר שלו</em> (דור 2) מפקיד, אתה עדיין מרוויח 3%. וכך הלאה עד דור 10.
+          הרשת שלך עובדת עבורך גם כשאתה ישן.
+        </p>
+
+        <div style="background:rgba(0,0,0,.25);border-radius:12px;padding:18px 22px;margin:18px 0;font-family:'Space Mono',monospace;font-size:13px;line-height:1.8;color:var(--text)">
+          <div style="color:var(--cyan,#00e5ff);margin-bottom:10px">📊 דוגמה מעשית:</div>
+          <div style="color:#b8b8d4">
+            אתה מזמין את יוסי → <span style="color:#00ff88">יוסי מפקיד ₪1000</span> → אתה מרוויח <strong style="color:var(--accent2,#00e5ff)">₪50 (5%)</strong><br>
+            יוסי מזמין את דנה → <span style="color:#00ff88">דנה מפקידה ₪1000</span> → אתה מרוויח <strong style="color:var(--accent2,#00e5ff)">₪30 (3%)</strong><br>
+            דנה מזמינה את רון → <span style="color:#00ff88">רון מפקיד ₪1000</span> → אתה מרוויח <strong style="color:var(--accent2,#00e5ff)">₪20 (2%)</strong><br>
+            ... וכך הלאה עד דור 10
+          </div>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);color:var(--gold,#ffd700)">
+            💰 סה"כ מרשת של 3 דורות בלבד: <strong>₪100</strong> בלי שעשית כלום!
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;margin-bottom:6px">👥</div>
+            <div style="font-size:12px;color:var(--text2)">חבר שמביא חבר</div>
+            <div style="font-size:13px;color:var(--text);font-weight:600;margin-top:4px">גם הוא מרוויח מההרשת שלו</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;margin-bottom:6px">📈</div>
+            <div style="font-size:12px;color:var(--text2)">צמיחה אקספוננציאלית</div>
+            <div style="font-size:13px;color:var(--text);font-weight:600;margin-top:4px">10 חברים × 10 = 100 דור 2</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;margin-bottom:6px">♾️</div>
+            <div style="font-size:12px;color:var(--text2)">הכנסה פסיבית</div>
+            <div style="font-size:13px;color:var(--text);font-weight:600;margin-top:4px">רשת עובדת 24/7</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(255,221,0,.08);border:1px solid rgba(255,221,0,.25);border-radius:10px;padding:14px 18px;margin-top:20px;font-size:13px;color:var(--text);line-height:1.7">
+          <strong style="color:var(--gold,#ffd700)">💡 טיפ:</strong>
+          כל הפעולות של הרשת שלך נרשמות אוטומטית בבלוקצ'יין.
+          אתה יכול לצפות בעץ ההפניות המלא שלך בכל רגע מתחת לדף הזה.
+        </div>
+      </div>
+    </div>
+    <!-- ===== /EXPANDED EXPLAINER ===== -->
+
     <!-- Commission rates visual -->
     <div class="ref-rates rv" id="ref-rates"></div>
 
@@ -579,8 +632,8 @@
 </footer>
 
 <script>
-// === TRANSLATIONS ===
-const T = {
+// === TRANSLATIONS === (namespaced to avoid collision with global T in translations.js)
+const PAGE_T = {
 he: {
     nav_home:"\u05d1\u05d9\u05ea",nav_bsc:"\u05d1\u05dc\u05d5\u05e7\u05e6'\u05d9\u05d9\u05df",nav_staking:"\u05e1\u05d8\u05d9\u05d9\u05e7\u05d9\u05e0\u05d2",nav_dash:"\u05dc\u05d5\u05d7 \u05d1\u05e7\u05e8\u05d4",nav_wp:"\u05de\u05e1\u05de\u05da \u05d8\u05db\u05e0\u05d9",nav_cta:"\u05e0\u05e1\u05d4 \u05d7\u05d9\u05e0\u05dd",
     side_nav:"\u05e0\u05d9\u05d5\u05d5\u05d8",side_theme:"\u05e2\u05e8\u05db\u05ea \u05e0\u05d5\u05e9\u05d0",side_lang:"\u05e9\u05e4\u05d4",
@@ -716,7 +769,7 @@ function setLang(lang) {
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
+        if (PAGE_T[lang] && PAGE_T[lang][key]) el.textContent = PAGE_T[lang][key];
     });
 
     document.querySelectorAll('.lang-btn').forEach(b => {
@@ -727,7 +780,7 @@ function setLang(lang) {
 
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (T[lang] && T[lang][key]) el.placeholder = T[lang][key];
+        if (PAGE_T[lang] && PAGE_T[lang][key]) el.placeholder = PAGE_T[lang][key];
     });
 
     renderRefRates();
@@ -825,7 +878,7 @@ const REF_RATES = [10, 5, 3, 2, 1, 0.5, 0.3, 0.2, 0.1, 0.05];
 function renderRefRates() {
     const container = document.getElementById('ref-rates');
     if (!container) return;
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const genLabel = sl.ref_gen || 'Gen';
     container.innerHTML = REF_RATES.map((rate, i) => `
         <div class="ref-bar">
@@ -839,7 +892,7 @@ function renderRefRates() {
 async function loadRefTree() {
     const uid = document.getElementById('ref-uid').value;
     if (!uid) return;
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const treeEl = document.getElementById('ref-tree-display');
     const statsEl = document.getElementById('ref-stats-display');
     treeEl.innerHTML = '<p style="color:var(--text2)">' + (sl.ref_loading || 'Loading...') + '</p>';
@@ -886,7 +939,7 @@ async function loadRefTree() {
 
 function renderTree(children, container, gen) {
     if (!children || children.length === 0 || gen > 4) return;
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const genLabel = sl.ref_gen || 'Gen';
     const descLabel = sl.ref_descendants || 'descendants';
     const wrapper = document.createElement('div');
@@ -913,7 +966,7 @@ function renderTree(children, container, gen) {
 }
 
 function copyRefLink() {
-    const sl = T[currentLang] || T.en;
+    const sl = PAGE_T[currentLang] || PAGE_T.en;
     const input = document.getElementById('ref-link-text');
     input.select();
     document.execCommand('copy');

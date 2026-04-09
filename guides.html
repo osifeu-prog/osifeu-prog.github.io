@@ -393,7 +393,8 @@
 </div>
 
 <script>
-const T = {
+// Guides-specific translations — namespaced to avoid collision with global T in translations.js
+const GUIDES_T = {
 he: {
     g_back:"\u2190 חזרה לאקוסיסטם SLH",
     g_title:"[ מדריכים למשתמש ]",
@@ -978,7 +979,15 @@ function setLang(lang) {
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
+        // 1) page-specific guides translations take priority
+        if (GUIDES_T[lang] && GUIDES_T[lang][key]) {
+            el.textContent = GUIDES_T[lang][key];
+            return;
+        }
+        // 2) fall back to global T from translations.js (nav_*, footer_*, etc)
+        if (typeof T !== 'undefined' && T[lang] && T[lang][key]) {
+            el.textContent = T[lang][key];
+        }
     });
 
     document.querySelectorAll('.lang-btn').forEach(b => {
@@ -986,7 +995,10 @@ function setLang(lang) {
     });
 }
 
+// Run once now for inline GUIDES_T strings...
 setLang(currentLang);
+// ...and run again AFTER translations.js has loaded (it's included below this script)
+document.addEventListener('DOMContentLoaded', () => setLang(currentLang));
 </script>
 
 <div id="bottomnav-root"></div>
