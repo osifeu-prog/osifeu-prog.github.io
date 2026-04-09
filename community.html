@@ -121,6 +121,328 @@
             gap: 24px;
         }
 
+        /* ── View Switch (Feed / Marketplace) ── */
+        .view-switch {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            padding: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+        .view-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text2);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .view-btn i { font-size: 15px; }
+        .view-btn:hover { color: var(--text); }
+        .view-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(255,140,0,0.25);
+        }
+        .view-panel { display: none; }
+        .view-panel.active { display: block; }
+
+        /* ── Marketplace ── */
+        .marketplace-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 20px;
+            margin-bottom: 18px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            flex-wrap: wrap;
+        }
+        .marketplace-stats {
+            display: flex;
+            gap: 22px;
+        }
+        .mp-stat { display: flex; flex-direction: column; align-items: flex-start; }
+        .mp-stat-num {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .mp-stat-label {
+            font-size: 11px;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+        .mp-new-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(255,140,0,0.3);
+            transition: transform var(--transition);
+        }
+        .mp-new-btn:hover { transform: translateY(-2px); }
+
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .mp-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text2);
+            font-size: 15px;
+        }
+        .mp-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .mp-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+        .mp-card-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, rgba(255,140,0,0.08), rgba(0,188,212,0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .mp-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mp-card-image .mp-placeholder-icon {
+            font-size: 52px;
+            color: var(--text2);
+            opacity: 0.4;
+        }
+        .mp-card-body {
+            padding: 14px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .mp-card-category {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .mp-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .mp-card-seller {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: auto;
+        }
+        .mp-card-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+        .mp-card-sold-out {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 100px;
+            text-transform: uppercase;
+        }
+
+        /* Modals */
+        .mp-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        .mp-modal[hidden] { display: none; }
+        .mp-modal-content {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .mp-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .mp-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .mp-modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text2);
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+        .mp-modal-close:hover { color: var(--text); }
+        .mp-form {
+            padding: 20px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .mp-form label {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text2);
+            font-weight: 600;
+        }
+        .mp-form input, .mp-form textarea, .mp-form select {
+            padding: 12px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .mp-form textarea { resize: vertical; min-height: 80px; }
+        .mp-form input:focus, .mp-form textarea:focus, .mp-form select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .mp-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .mp-submit-btn {
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: transform var(--transition);
+        }
+        .mp-submit-btn:hover { transform: translateY(-2px); }
+        .mp-form-note {
+            font-size: 11px;
+            color: var(--text2);
+            text-align: center;
+            font-style: italic;
+        }
+        .mp-item-details {
+            padding: 20px 24px 24px;
+        }
+        .mp-item-details .mp-detail-image {
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .mp-item-details .mp-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .mp-item-details .mp-detail-row:last-of-type { border-bottom: none; }
+        .mp-item-details .mp-detail-label { color: var(--text2); }
+        .mp-item-details .mp-detail-value { color: var(--text); font-weight: 600; }
+        .mp-item-details .mp-detail-desc {
+            margin: 14px 0;
+            padding: 14px;
+            background: var(--surface);
+            border-radius: 10px;
+            line-height: 1.6;
+            color: var(--text);
+            white-space: pre-wrap;
+        }
+        .mp-buy-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform var(--transition);
+        }
+        .mp-buy-btn:hover:not(:disabled) { transform: translateY(-2px); }
+        .mp-buy-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
         /* ── Filter Tabs ── */
         .filter-tabs {
             display: flex;
@@ -884,7 +1206,7 @@
                 <span id="cover-online">--</span>
                 <span data-i18n="community_members_online">חברים מחוברים</span>
             </div>
-            <div id="community-date-widget" style="padding:4px 12px;background:rgba(0,0,0,.3);border-radius:8px;font-size:12px;backdrop-filter:blur(6px)"></div>
+            <div id="community-date-widget" class="date-widget-hero"></div>
         </div>
     </div>
 
@@ -911,23 +1233,147 @@
     <div class="community-layout">
         <!-- Feed Column -->
         <div class="community-feed">
-            <!-- Login Gate / New Post -->
-            <div id="auth-section"></div>
-
-            <!-- Filter Tabs -->
-            <div class="filter-tabs" id="filter-tabs">
-                <button class="filter-tab active" data-filter="all" data-i18n="community_filter_all">הכל</button>
-                <button class="filter-tab" data-filter="investments" data-i18n="community_filter_investments">השקעות</button>
-                <button class="filter-tab" data-filter="slh" data-i18n="community_filter_slh">SLH</button>
-                <button class="filter-tab" data-filter="proposals" data-i18n="community_filter_proposals">הצעות</button>
-                <button class="filter-tab" data-filter="experts" data-i18n="community_filter_experts">מומחים</button>
-                <button class="filter-tab" data-filter="news" data-i18n="community_filter_news">חדשות</button>
-                <button class="filter-tab" data-filter="updates">🔔 עדכונים</button>
-                <button class="filter-tab" data-filter="general" data-i18n="community_filter_general">כללי</button>
+            <!-- Main View Switch: Feed <> Marketplace -->
+            <div class="view-switch" id="view-switch">
+                <button class="view-btn active" data-view="feed">
+                    <i class="fas fa-stream"></i>
+                    <span data-i18n="community_view_feed">פיד</span>
+                </button>
+                <button class="view-btn" data-view="marketplace">
+                    <i class="fas fa-store"></i>
+                    <span data-i18n="community_view_marketplace">חנות</span>
+                </button>
             </div>
 
-            <!-- Posts Feed -->
-            <div id="posts-feed"></div>
+            <!-- FEED VIEW -->
+            <div class="view-panel active" id="view-feed">
+                <!-- Login Gate / New Post -->
+                <div id="auth-section"></div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs" id="filter-tabs">
+                    <button class="filter-tab active" data-filter="all" data-i18n="community_filter_all">הכל</button>
+                    <button class="filter-tab" data-filter="investments" data-i18n="community_filter_investments">השקעות</button>
+                    <button class="filter-tab" data-filter="slh" data-i18n="community_filter_slh">SLH</button>
+                    <button class="filter-tab" data-filter="proposals" data-i18n="community_filter_proposals">הצעות</button>
+                    <button class="filter-tab" data-filter="experts" data-i18n="community_filter_experts">מומחים</button>
+                    <button class="filter-tab" data-filter="news" data-i18n="community_filter_news">חדשות</button>
+                    <button class="filter-tab" data-filter="updates">🔔 עדכונים</button>
+                    <button class="filter-tab" data-filter="general" data-i18n="community_filter_general">כללי</button>
+                </div>
+
+                <!-- Posts Feed -->
+                <div id="posts-feed"></div>
+            </div>
+
+            <!-- MARKETPLACE VIEW -->
+            <div class="view-panel" id="view-marketplace" hidden>
+                <!-- Header bar with stats + new listing button -->
+                <div class="marketplace-header">
+                    <div class="marketplace-stats">
+                        <div class="mp-stat">
+                            <span class="mp-stat-num" id="mp-total-items">--</span>
+                            <span class="mp-stat-label" data-i18n="marketplace_items">פריטים</span>
+                        </div>
+                        <div class="mp-stat">
+                            <span class="mp-stat-num" id="mp-total-orders">--</span>
+                            <span class="mp-stat-label" data-i18n="marketplace_orders">הזמנות</span>
+                        </div>
+                        <div class="mp-stat">
+                            <span class="mp-stat-num" id="mp-active-sellers">--</span>
+                            <span class="mp-stat-label" data-i18n="marketplace_sellers">מוכרים</span>
+                        </div>
+                    </div>
+                    <button class="mp-new-btn" id="mp-new-listing-btn">
+                        <i class="fas fa-plus"></i>
+                        <span data-i18n="marketplace_new_listing">פריט חדש</span>
+                    </button>
+                </div>
+
+                <!-- Category filters -->
+                <div class="filter-tabs" id="mp-filter-tabs">
+                    <button class="filter-tab active" data-mp-category="" data-i18n="marketplace_cat_all">הכל</button>
+                    <button class="filter-tab" data-mp-category="digital" data-i18n="marketplace_cat_digital">דיגיטלי</button>
+                    <button class="filter-tab" data-mp-category="physical" data-i18n="marketplace_cat_physical">פיזי</button>
+                    <button class="filter-tab" data-mp-category="course" data-i18n="marketplace_cat_course">קורסים</button>
+                    <button class="filter-tab" data-mp-category="service" data-i18n="marketplace_cat_service">שירותים</button>
+                    <button class="filter-tab" data-mp-category="nft" data-i18n="marketplace_cat_nft">NFT</button>
+                </div>
+
+                <!-- Items grid -->
+                <div class="marketplace-grid" id="marketplace-grid">
+                    <div class="mp-empty" data-i18n="marketplace_loading">טוען פריטים...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Listing Modal -->
+        <div class="mp-modal" id="mp-new-modal" hidden>
+            <div class="mp-modal-content">
+                <div class="mp-modal-header">
+                    <h3 data-i18n="marketplace_new_listing">פריט חדש</h3>
+                    <button class="mp-modal-close" id="mp-modal-close">&times;</button>
+                </div>
+                <form class="mp-form" id="mp-new-form">
+                    <label>
+                        <span data-i18n="marketplace_title">כותרת</span>
+                        <input type="text" name="title" required minlength="3" maxlength="200">
+                    </label>
+                    <label>
+                        <span data-i18n="marketplace_description">תיאור</span>
+                        <textarea name="description" rows="4" maxlength="2000"></textarea>
+                    </label>
+                    <div class="mp-form-row">
+                        <label>
+                            <span data-i18n="marketplace_price">מחיר</span>
+                            <input type="number" name="price" step="0.01" min="0.01" required>
+                        </label>
+                        <label>
+                            <span data-i18n="marketplace_currency">מטבע</span>
+                            <select name="currency">
+                                <option value="SLH">SLH</option>
+                                <option value="TON">TON</option>
+                                <option value="ILS">₪ ILS</option>
+                                <option value="USD">$ USD</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="mp-form-row">
+                        <label>
+                            <span data-i18n="marketplace_category">קטגוריה</span>
+                            <select name="category">
+                                <option value="digital" data-i18n="marketplace_cat_digital">דיגיטלי</option>
+                                <option value="physical" data-i18n="marketplace_cat_physical">פיזי</option>
+                                <option value="course" data-i18n="marketplace_cat_course">קורסים</option>
+                                <option value="service" data-i18n="marketplace_cat_service">שירותים</option>
+                                <option value="nft" data-i18n="marketplace_cat_nft">NFT</option>
+                                <option value="general">כללי</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span data-i18n="marketplace_stock">מלאי</span>
+                            <input type="number" name="stock" min="1" value="1" required>
+                        </label>
+                    </div>
+                    <label>
+                        <span data-i18n="marketplace_image_url">קישור לתמונה (אופציונלי)</span>
+                        <input type="url" name="image_url" placeholder="https://...">
+                    </label>
+                    <button type="submit" class="mp-submit-btn" data-i18n="marketplace_submit">פרסם</button>
+                    <div class="mp-form-note" data-i18n="marketplace_approval_note">* פריטים חדשים יוצגו לאחר אישור אדמין</div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Item Details Modal -->
+        <div class="mp-modal" id="mp-item-modal" hidden>
+            <div class="mp-modal-content">
+                <div class="mp-modal-header">
+                    <h3 id="mp-item-title"></h3>
+                    <button class="mp-modal-close" id="mp-item-close">&times;</button>
+                </div>
+                <div class="mp-item-details" id="mp-item-details"></div>
+            </div>
         </div>
 
         <!-- Sidebar -->
@@ -1711,14 +2157,269 @@
         if (tp && posts.length > 0) tp.textContent = posts.length.toLocaleString('he-IL');
     }
 
-    /* ── Filter Tabs ── */
+    /* ── Filter Tabs (Feed) ── */
     document.getElementById('filter-tabs').addEventListener('click', (e) => {
         const tab = e.target.closest('.filter-tab');
         if (!tab) return;
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        // Only affect feed filter tabs (scoped to #filter-tabs)
+        document.querySelectorAll('#filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentFilter = tab.dataset.filter;
         loadPostsFromAPI();
+    });
+
+    /* ============================================================
+       MARKETPLACE LOGIC
+       ============================================================ */
+    const CURRENCY_SYMBOLS = { SLH: '◆', TON: 'TON', ILS: '₪', USD: '$' };
+    const CATEGORY_ICONS = {
+        digital: 'fa-download', physical: 'fa-box', course: 'fa-graduation-cap',
+        service: 'fa-handshake', nft: 'fa-gem', general: 'fa-tag'
+    };
+    let mpCurrentCategory = '';
+    let mpItems = [];
+
+    function formatPrice(price, currency) {
+        const symbol = CURRENCY_SYMBOLS[currency] || currency;
+        const num = Number(price).toLocaleString('he-IL', { maximumFractionDigits: 2 });
+        return currency === 'ILS' || currency === 'USD' ? `${symbol}${num}` : `${num} ${symbol}`;
+    }
+
+    async function loadMarketplaceStats() {
+        try {
+            const data = await apiGet('/api/marketplace/stats');
+            document.getElementById('mp-total-items').textContent = data.total_items ?? 0;
+            document.getElementById('mp-total-orders').textContent = data.total_orders ?? 0;
+            document.getElementById('mp-active-sellers').textContent = data.active_sellers ?? 0;
+        } catch (e) {
+            console.error('[Marketplace] stats error:', e);
+        }
+    }
+
+    async function loadMarketplaceItems() {
+        const grid = document.getElementById('marketplace-grid');
+        grid.innerHTML = '<div class="mp-empty"><i class="fas fa-spinner fa-spin"></i> טוען פריטים...</div>';
+        try {
+            const qs = mpCurrentCategory ? `?category=${encodeURIComponent(mpCurrentCategory)}` : '';
+            const data = await apiGet(`/api/marketplace/items${qs}`);
+            mpItems = data.items || [];
+            renderMarketplaceGrid();
+        } catch (e) {
+            console.error('[Marketplace] items error:', e);
+            grid.innerHTML = '<div class="mp-empty"><i class="fas fa-exclamation-triangle"></i> שגיאה בטעינת החנות</div>';
+        }
+    }
+
+    function renderMarketplaceGrid() {
+        const grid = document.getElementById('marketplace-grid');
+        if (!mpItems.length) {
+            grid.innerHTML = `
+                <div class="mp-empty">
+                    <i class="fas fa-store-slash" style="font-size:42px;opacity:0.35;display:block;margin-bottom:12px"></i>
+                    אין פריטים להצגה עדיין.<br><small>היו הראשונים להעלות פריט לחנות!</small>
+                </div>`;
+            return;
+        }
+        grid.innerHTML = mpItems.map(item => {
+            const soldOut = item.status === 'sold_out' || item.stock === 0;
+            const catIcon = CATEGORY_ICONS[item.category] || 'fa-tag';
+            const img = item.image_url
+                ? `<img src="${escapeAttr(item.image_url)}" alt="${escapeAttr(item.title)}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas ${catIcon} mp-placeholder-icon\\'></i>'">`
+                : `<i class="fas ${catIcon} mp-placeholder-icon"></i>`;
+            return `
+                <div class="mp-card" onclick="openMarketplaceItem(${item.id})">
+                    <div class="mp-card-image">${img}</div>
+                    <div class="mp-card-body">
+                        <span class="mp-card-category">${escapeHtml(item.category)}</span>
+                        <div class="mp-card-title">${escapeHtml(item.title)}</div>
+                        <div class="mp-card-seller">@${escapeHtml(item.seller_name || 'user' + item.seller_id)}</div>
+                        <div class="mp-card-price">
+                            ${formatPrice(item.price, item.currency)}
+                            ${soldOut ? '<span class="mp-card-sold-out">אזל</span>' : ''}
+                        </div>
+                    </div>
+                </div>`;
+        }).join('');
+    }
+
+    function escapeHtml(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+    }
+    function escapeAttr(s) { return escapeHtml(s); }
+
+    async function openMarketplaceItem(itemId) {
+        const modal = document.getElementById('mp-item-modal');
+        const titleEl = document.getElementById('mp-item-title');
+        const details = document.getElementById('mp-item-details');
+        titleEl.textContent = 'טוען...';
+        details.innerHTML = '<div class="mp-empty"><i class="fas fa-spinner fa-spin"></i></div>';
+        modal.hidden = false;
+        try {
+            const item = await apiGet(`/api/marketplace/items/${itemId}`);
+            titleEl.textContent = item.title;
+            const user = getUser();
+            const isOwnItem = user && user.telegram_id === item.seller_id;
+            const soldOut = item.status === 'sold_out' || item.stock === 0;
+            const catIcon = CATEGORY_ICONS[item.category] || 'fa-tag';
+            const img = item.image_url
+                ? `<img src="${escapeAttr(item.image_url)}" class="mp-detail-image" onerror="this.style.display='none'">`
+                : `<div class="mp-card-image" style="border-radius:12px;margin-bottom:16px"><i class="fas ${catIcon} mp-placeholder-icon"></i></div>`;
+            details.innerHTML = `
+                ${img}
+                <div class="mp-detail-desc">${escapeHtml(item.description || 'אין תיאור')}</div>
+                <div class="mp-detail-row">
+                    <span class="mp-detail-label">מחיר</span>
+                    <span class="mp-detail-value" style="color:var(--accent);font-size:18px">${formatPrice(item.price, item.currency)}</span>
+                </div>
+                <div class="mp-detail-row">
+                    <span class="mp-detail-label">קטגוריה</span>
+                    <span class="mp-detail-value">${escapeHtml(item.category)}</span>
+                </div>
+                <div class="mp-detail-row">
+                    <span class="mp-detail-label">מלאי</span>
+                    <span class="mp-detail-value">${item.stock}</span>
+                </div>
+                <div class="mp-detail-row">
+                    <span class="mp-detail-label">מוכר</span>
+                    <span class="mp-detail-value">@${escapeHtml(item.seller_name || 'user' + item.seller_id)}</span>
+                </div>
+                <button class="mp-buy-btn" id="mp-buy-action"
+                    ${!user ? 'disabled' : ''}
+                    ${isOwnItem ? 'disabled' : ''}
+                    ${soldOut ? 'disabled' : ''}>
+                    ${!user ? 'התחבר כדי לרכוש'
+                      : isOwnItem ? 'זה הפריט שלך'
+                      : soldOut ? 'אזל מהמלאי'
+                      : `<i class="fas fa-shopping-cart"></i> רכוש עכשיו`}
+                </button>`;
+            const buyBtn = document.getElementById('mp-buy-action');
+            if (buyBtn && user && !isOwnItem && !soldOut) {
+                buyBtn.addEventListener('click', () => buyMarketplaceItem(item.id, buyBtn));
+            }
+        } catch (e) {
+            console.error('[Marketplace] item detail error:', e);
+            details.innerHTML = '<div class="mp-empty">שגיאה בטעינת הפריט</div>';
+        }
+    }
+
+    async function buyMarketplaceItem(itemId, btn) {
+        const user = getUser();
+        if (!user) { alert('עליך להתחבר כדי לרכוש'); return; }
+        if (!confirm('לאשר רכישת הפריט?')) return;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> מעבד...';
+        try {
+            const result = await apiPost('/api/marketplace/buy', {
+                buyer_id: user.telegram_id,
+                item_id: itemId,
+                quantity: 1
+            });
+            if (result.ok) {
+                alert(`הזמנה #${result.order_id} נוצרה!\nסה"כ: ${formatPrice(result.total_price, result.currency)}\n\n${result.message}`);
+                document.getElementById('mp-item-modal').hidden = true;
+                loadMarketplaceItems();
+                loadMarketplaceStats();
+            } else {
+                alert(result.message || 'שגיאה ביצירת ההזמנה');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-shopping-cart"></i> רכוש עכשיו';
+            }
+        } catch (e) {
+            console.error('[Marketplace] buy error:', e);
+            alert('שגיאה: ' + (e.message || 'לא ניתן לבצע את הרכישה'));
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-shopping-cart"></i> רכוש עכשיו';
+        }
+    }
+
+    async function submitNewListing(e) {
+        e.preventDefault();
+        const user = getUser();
+        if (!user) { alert('עליך להתחבר כדי לפרסם פריט'); return; }
+
+        const form = e.target;
+        const fd = new FormData(form);
+        const payload = {
+            seller_id: user.telegram_id,
+            title: fd.get('title'),
+            description: fd.get('description') || '',
+            price: parseFloat(fd.get('price')),
+            currency: fd.get('currency'),
+            category: fd.get('category'),
+            stock: parseInt(fd.get('stock'), 10) || 1,
+            image_url: fd.get('image_url') || ''
+        };
+        const btn = form.querySelector('.mp-submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'מפרסם...';
+        try {
+            const result = await apiPost('/api/marketplace/list', payload);
+            if (result.ok) {
+                alert(result.message || 'הפריט הועלה בהצלחה!');
+                form.reset();
+                document.getElementById('mp-new-modal').hidden = true;
+                loadMarketplaceItems();
+                loadMarketplaceStats();
+            } else {
+                alert('שגיאה: ' + (result.message || 'לא ניתן לפרסם'));
+            }
+        } catch (e) {
+            console.error('[Marketplace] list error:', e);
+            alert('שגיאה: ' + (e.message || 'לא ניתן לפרסם את הפריט'));
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'פרסם';
+        }
+    }
+
+    /* ── Marketplace: View switching ── */
+    document.getElementById('view-switch').addEventListener('click', (e) => {
+        const btn = e.target.closest('.view-btn');
+        if (!btn) return;
+        const view = btn.dataset.view;
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b === btn));
+        document.getElementById('view-feed').classList.toggle('active', view === 'feed');
+        document.getElementById('view-feed').hidden = view !== 'feed';
+        document.getElementById('view-marketplace').classList.toggle('active', view === 'marketplace');
+        document.getElementById('view-marketplace').hidden = view !== 'marketplace';
+        if (view === 'marketplace') {
+            loadMarketplaceStats();
+            loadMarketplaceItems();
+        }
+    });
+
+    /* ── Marketplace: Category filter ── */
+    document.getElementById('mp-filter-tabs').addEventListener('click', (e) => {
+        const tab = e.target.closest('.filter-tab');
+        if (!tab) return;
+        document.querySelectorAll('#mp-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        mpCurrentCategory = tab.dataset.mpCategory || '';
+        loadMarketplaceItems();
+    });
+
+    /* ── Marketplace: New listing modal ── */
+    document.getElementById('mp-new-listing-btn').addEventListener('click', () => {
+        const user = getUser();
+        if (!user) { alert('עליך להתחבר כדי לפרסם פריט'); return; }
+        document.getElementById('mp-new-modal').hidden = false;
+    });
+    document.getElementById('mp-modal-close').addEventListener('click', () => {
+        document.getElementById('mp-new-modal').hidden = true;
+    });
+    document.getElementById('mp-new-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'mp-new-modal') e.target.hidden = true;
+    });
+    document.getElementById('mp-new-form').addEventListener('submit', submitNewListing);
+
+    /* ── Marketplace: Item details modal close ── */
+    document.getElementById('mp-item-close').addEventListener('click', () => {
+        document.getElementById('mp-item-modal').hidden = true;
+    });
+    document.getElementById('mp-item-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'mp-item-modal') e.target.hidden = true;
     });
 
     /* ── Init ── */
