@@ -500,7 +500,7 @@ const T = {
     // Registration
     reg_title: 'הרשמה למערכת SLH',
     reg_subtitle: 'שלמו פעם אחת וקבלו גישה מלאה לכל המערכת',
-    reg_price: 'מחיר: ₪44.4 (0.1 SLH)',
+    reg_price: 'מחיר: ₪22.221 (חד-פעמי)',
     reg_what_you_get: 'מה מקבלים?',
     reg_get_token: '0.1 טוקן SLH לחשבון שלך',
     reg_get_dashboard: 'גישה ללוח בקרה אישי',
@@ -1018,7 +1018,7 @@ const T = {
     // Registration
     reg_title: 'Register for SLH',
     reg_subtitle: 'Pay once and get full access to the entire ecosystem',
-    reg_price: 'Price: ₪44.4 (0.1 SLH)',
+    reg_price: 'Price: ₪22.221 (one-time)',
     reg_what_you_get: 'What you get:',
     reg_get_token: '0.1 SLH token to your account',
     reg_get_dashboard: 'Personal dashboard access',
@@ -1404,7 +1404,7 @@ const T = {
     // Registration
     reg_title: '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u0432 SLH',
     reg_subtitle: '\u041E\u043F\u043B\u0430\u0442\u0438\u0442\u0435 \u043E\u0434\u0438\u043D \u0440\u0430\u0437 \u0438 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F',
-    reg_price: '\u0426\u0435\u043D\u0430: \u20AA44.4 (0.1 SLH)',
+    reg_price: '\u0426\u0435\u043D\u0430: \u20AA22.221 (\u0435\u0434\u0438\u043D\u043E\u0440\u0430\u0437\u043E\u0432\u043E)',
     reg_what_you_get: '\u0427\u0442\u043E \u0432\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442\u0435:',
     reg_get_token: '0.1 \u0442\u043E\u043A\u0435\u043D SLH \u043D\u0430 \u0432\u0430\u0448 \u0441\u0447\u0451\u0442',
     reg_get_dashboard: '\u041B\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0431\u0438\u043D\u0435\u0442',

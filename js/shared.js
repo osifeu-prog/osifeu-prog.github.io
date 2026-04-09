@@ -33,6 +33,9 @@ const NAV_ITEMS = [
   { key: 'bots', href: '/bots.html', icon: 'fa-robot' },
   { key: 'referral', href: '/referral.html', icon: 'fa-users', auth: true },
   { key: 'community', href: '/community.html', icon: 'fa-comments' },
+  { key: 'blog', href: '/daily-blog.html', icon: 'fa-newspaper' },
+  { key: 'guides', href: '/guides.html', icon: 'fa-book' },
+  { key: 'wallet_guide', href: '/wallet-guide.html', icon: 'fa-graduation-cap' },
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
   { key: 'network', href: '/network.html', icon: 'fa-project-diagram' },
   { key: 'roadmap', href: '/roadmap.html', icon: 'fa-road' },
@@ -230,11 +233,17 @@ function captureReferral() {
 
 /* ===== 4. i18n ENGINE ===== */
 
-function t(key) {
+function t(key, fallback) {
   const lang = getLang();
   if (T[lang] && T[lang][key]) return T[lang][key];
   if (T[T._default] && T[T._default][key]) return T[T._default][key];
-  return key;
+  return (fallback !== undefined) ? fallback : key;
+}
+
+// Returns true if a translation exists for the given key in current or default language
+function hasT(key) {
+  const lang = getLang();
+  return !!(T[lang] && T[lang][key]) || !!(T[T._default] && T[T._default][key]);
 }
 
 function getLang() {
@@ -251,6 +260,22 @@ function setLang(lang) {
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
+    // Keep original text as fallback on first run, cache it on dataset
+    if (!el.dataset.i18nOrig) {
+      el.dataset.i18nOrig = (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')
+        ? (el.placeholder || '')
+        : (el.textContent || '');
+    }
+    // Only replace if translation exists, otherwise keep original default
+    if (!hasT(key)) {
+      // Restore original (in case previous lang had it but new lang doesn't)
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = el.dataset.i18nOrig;
+      } else {
+        el.textContent = el.dataset.i18nOrig;
+      }
+      return;
+    }
     const val = t(key);
     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
       el.placeholder = val;
@@ -261,6 +286,13 @@ function setLang(lang) {
 
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const key = el.getAttribute('data-i18n-html');
+    if (!el.dataset.i18nOrigHtml) {
+      el.dataset.i18nOrigHtml = el.innerHTML || '';
+    }
+    if (!hasT(key)) {
+      el.innerHTML = el.dataset.i18nOrigHtml;
+      return;
+    }
     el.innerHTML = t(key);
   });
 
@@ -495,26 +527,86 @@ function renderFooter() {
 
   const year = new Date().getFullYear();
   root.innerHTML = `
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <img src="/img/logo.svg" alt="SLH" class="footer-logo">
-          <span>SLH Spark</span>
+    <footer class="site-footer" style="margin-top:60px;padding:50px 20px 30px;background:var(--surface);border-top:1px solid var(--border)">
+      <div class="footer-sitemap" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;margin-bottom:30px">
+        <div class="footer-col">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">🏠 ${t('footer_main', 'ראשי')}</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+            <li><a href="/" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_home', 'ראשי')}</a></li>
+            <li><a href="/trade.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_trade', 'מסחר')}</a></li>
+            <li><a href="/earn.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_earn', 'הרוויח')}</a></li>
+            <li><a href="/wallet.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_wallet', 'ארנק')}</a></li>
+            <li><a href="/dashboard.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('dashboard', 'לוח בקרה')}</a></li>
+          </ul>
         </div>
-        <div class="footer-links" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin:8px 0;font-size:12px">
-          <a href="/terms.html" style="color:var(--text2)">Terms</a>
-          <a href="/privacy.html" style="color:var(--text2)">Privacy</a>
-          <a href="/guides.html" style="color:var(--text2)">Guides</a>
-          <a href="/wallet-guide.html" style="color:var(--text2)">Wallet</a>
-          <a href="/roadmap.html" style="color:var(--text2)">Roadmap</a>
-          <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="color:var(--text2)"><i class="fab fa-telegram"></i> Bot</a>
+        <div class="footer-col">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">👥 ${t('footer_community', 'קהילה')}</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+            <li><a href="/community.html" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_community', 'פורום')}</a></li>
+            <li><a href="/community.html#marketplace" style="color:var(--text2);text-decoration:none;font-size:13px">🏪 ${t('nav_marketplace', 'חנות קהילתית')}</a></li>
+            <li><a href="/daily-blog.html" style="color:var(--text2);text-decoration:none;font-size:13px">📰 ${t('nav_blog', 'בלוג יומי')}</a></li>
+            <li><a href="/invite.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎁 ${t('nav_invite', 'הזמן חברים')}</a></li>
+            <li><a href="/referral.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤝 ${t('nav_referral', 'הפניות')}</a></li>
+          </ul>
         </div>
-        <div class="footer-copy">
-          &copy; ${year} SLH Spark. <span data-i18n="footer_rights">${t('footer_rights')}</span>
+        <div class="footer-col">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">💎 ${t('footer_products', 'מוצרים')}</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+            <li><a href="/bots.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤖 ${t('nav_bots', '20+ בוטים')}</a></li>
+            <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 ${t('nav_staking', 'סטייקינג 65%')}</a></li>
+            <li><a href="/blockchain.html" style="color:var(--text2);text-decoration:none;font-size:13px">⛓️ ${t('nav_blockchain', "בלוקצ'יין")}</a></li>
+            <li><a href="/analytics.html" style="color:var(--text2);text-decoration:none;font-size:13px">📊 ${t('nav_analytics', 'אנליטיקה')}</a></li>
+            <li><a href="/whitepaper.html" style="color:var(--text2);text-decoration:none;font-size:13px">📜 ${t('nav_whitepaper', 'ספר לבן')}</a></li>
+          </ul>
         </div>
-        <div class="footer-powered" data-i18n="footer_powered">${t('footer_powered')}</div>
+        <div class="footer-col">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">📚 ${t('footer_learn', 'למד')}</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+            <li><a href="/guides.html" style="color:var(--text2);text-decoration:none;font-size:13px">📖 ${t('nav_guides', 'מדריכים')}</a></li>
+            <li><a href="/wallet-guide.html" style="color:var(--text2);text-decoration:none;font-size:13px">💼 ${t('nav_wallet_guide', 'מדריך ארנק')}</a></li>
+            <li><a href="/roadmap.html" style="color:var(--text2);text-decoration:none;font-size:13px">🗺️ ${t('nav_roadmap', 'מפת דרכים')}</a></li>
+            <li><a href="/terms.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_terms', 'תנאי שימוש')}</a></li>
+            <li><a href="/privacy.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_privacy', 'פרטיות')}</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">🔗 ${t('footer_connect', 'התחברות')}</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+            <li><a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> @SLH_AIR_bot</a></li>
+            <li><a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Community</a></li>
+            <li><a href="https://t.me/SLH_Academia_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Academia</a></li>
+            <li><a href="https://t.me/Osif83" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_support', 'תמיכה')}</a></li>
+            <li><a href="/admin.html" style="color:var(--text2);text-decoration:none;font-size:13px">⚙️ ${t('nav_admin', 'אדמין')}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid var(--border);text-align:center">
+        <div class="footer-brand" style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px">
+          <img src="/img/logo.svg" alt="SLH" class="footer-logo" style="width:32px;height:32px">
+          <span style="font-weight:800;font-size:16px;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">SLH Spark</span>
+        </div>
+        <div class="footer-copy" style="font-size:12px;color:var(--text2)">
+          &copy; ${year} SLH Spark. <span data-i18n="footer_rights">${t('footer_rights', 'כל הזכויות שמורות')}</span>
+        </div>
+        <div class="footer-powered" data-i18n="footer_powered" style="font-size:11px;color:var(--text3);margin-top:4px">${t('footer_powered', 'מופעל על ידי SLH Spark · SPARK IND')}</div>
       </div>
     </footer>`;
+
+  // Auto-inject footer-root if missing
+  if (!document.getElementById('footer-root-auto')) {
+    const autoFooter = document.createElement('div');
+    autoFooter.id = 'footer-root-auto';
+    // marker only — no-op
+  }
+}
+
+// Auto-create footer-root on pages that don't have one
+function ensureFooterRoot() {
+  if (!document.getElementById('footer-root')) {
+    const root = document.createElement('div');
+    root.id = 'footer-root';
+    document.body.appendChild(root);
+  }
 }
 
 function toggleProfileDropdown() {
@@ -684,12 +776,93 @@ function getGregorianDateString(date) {
 function renderDateWidget(containerId) {
   const el = document.getElementById(containerId);
   if (!el) return;
+  // Inject styles once
+  if (!document.getElementById('slh-date-widget-styles')) {
+    const style = document.createElement('style');
+    style.id = 'slh-date-widget-styles';
+    style.textContent = `
+      .date-widget-hero, .date-widget {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 18px;
+        background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(0,229,255,.08));
+        border: 1px solid rgba(139,92,246,.3);
+        border-radius: 14px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
+        font-family: inherit;
+        transition: transform .3s ease, box-shadow .3s ease;
+      }
+      .date-widget-hero:hover, .date-widget:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(139,92,246,.25), inset 0 1px 0 rgba(255,255,255,.1);
+      }
+      .date-widget-hero .dw-hebrew, .date-widget .dw-hebrew {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent, #8b5cf6);
+        letter-spacing: .2px;
+        white-space: nowrap;
+      }
+      .date-widget-hero .dw-hebrew::before, .date-widget .dw-hebrew::before {
+        content: '✡';
+        font-size: 14px;
+        opacity: .8;
+      }
+      .date-widget-hero .dw-separator, .date-widget .dw-separator {
+        width: 1px;
+        height: 22px;
+        background: rgba(255,255,255,.15);
+      }
+      .date-widget-hero .dw-greg, .date-widget .dw-greg {
+        font-size: 11px;
+        color: var(--text2, #a0a0b8);
+        white-space: nowrap;
+      }
+      .date-widget-hero .dw-clock, .date-widget .dw-clock {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-bright, #fff);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: .5px;
+        white-space: nowrap;
+      }
+      .date-widget-hero .dw-clock::before, .date-widget .dw-clock::before {
+        content: '🕐 ';
+        font-size: 13px;
+        margin-inline-end: 2px;
+      }
+      @media (max-width: 520px) {
+        .date-widget-hero, .date-widget {
+          flex-wrap: wrap;
+          gap: 6px 10px;
+          padding: 8px 12px;
+        }
+        .date-widget-hero .dw-separator, .date-widget .dw-separator { display: none; }
+        .date-widget-hero .dw-hebrew, .date-widget .dw-hebrew { font-size: 11px; }
+        .date-widget-hero .dw-greg, .date-widget .dw-greg { font-size: 10px; }
+        .date-widget-hero .dw-clock, .date-widget .dw-clock { font-size: 13px; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  // Ensure the container has widget class
+  if (!el.classList.contains('date-widget-hero') && !el.classList.contains('date-widget')) {
+    el.classList.add('date-widget');
+  }
   function tick() {
     const now = new Date();
     el.innerHTML = `
-      <div style="font-size:14px;font-weight:600;color:var(--accent,#00e5ff);letter-spacing:.3px">${getHebrewDateString(now)}</div>
-      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">${getGregorianDateString(now)}</div>
-      <div style="font-size:18px;font-weight:700;color:var(--text-bright,#fff);margin-top:2px;font-variant-numeric:tabular-nums">${now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>`;
+      <span class="dw-hebrew">${getHebrewDateString(now)}</span>
+      <span class="dw-separator"></span>
+      <span class="dw-greg">${getGregorianDateString(now)}</span>
+      <span class="dw-separator"></span>
+      <span class="dw-clock">${now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>`;
   }
   tick();
   setInterval(tick, 1000);
@@ -794,6 +967,10 @@ function initShared(options = {}) {
   if (showBottomNav) {
     renderBottomNav(activePage);
   }
+
+  // Re-apply translations AFTER nav/footer are injected
+  // (so any data-i18n attrs inside injected HTML get translated properly)
+  setLang(lang);
 
   // Ticker
   if (showTicker) {

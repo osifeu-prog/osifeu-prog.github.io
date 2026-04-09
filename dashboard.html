@@ -25,6 +25,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260408g">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <!-- Web3 / ethers.js v6 for MetaMask + Trust Wallet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
     <style>
         /* === THEME SYSTEM === */
         :root{
@@ -298,6 +300,83 @@
         @media(max-width:480px){
             .ptf-summary{grid-template-columns:1fr}
         }
+
+        /* === WEB3 WALLET PANEL === */
+        .web3-panel{
+            background:linear-gradient(135deg,var(--bg2),var(--bg3));
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            padding:24px;
+            margin-bottom:24px;
+            position:relative;
+            overflow:hidden;
+        }
+        .web3-panel::before{
+            content:'';position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,#f6851b,#e2761b,#00b4d8,#0077b6);
+        }
+        .web3-panel h3{
+            font-size:15px;margin:0 0 6px 0;color:var(--text-bright);
+            display:flex;align-items:center;gap:10px;
+        }
+        .web3-panel h3 .web3-badge{
+            font-size:9px;padding:3px 8px;border-radius:10px;
+            background:rgba(246,133,27,.15);color:#f6851b;
+            text-transform:uppercase;letter-spacing:1px;font-weight:700;
+        }
+        .web3-panel .web3-sub{font-size:12px;color:var(--text2);margin-bottom:16px}
+        .web3-panel .btn-web3-connect{
+            background:linear-gradient(135deg,#f6851b,#e2761b);
+            color:#fff;border:none;padding:12px 24px;border-radius:10px;
+            font-size:14px;font-weight:700;cursor:pointer;
+            display:inline-flex;align-items:center;gap:10px;
+            transition:.2s;box-shadow:0 4px 12px rgba(246,133,27,.25);
+        }
+        .btn-web3-connect:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(246,133,27,.4)}
+        .btn-web3-connect:active{transform:translateY(0)}
+        .web3-addr{
+            background:var(--card);border:1px solid var(--border);border-radius:8px;
+            padding:10px 14px;font-family:'Space Mono',monospace;font-size:12px;
+            color:var(--cyan);display:inline-flex;align-items:center;gap:8px;
+            margin-bottom:16px;
+        }
+        .web3-addr::before{content:'&#x1F517;';font-size:14px}
+        .web3-balance-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+            gap:12px;margin-bottom:16px;
+        }
+        .web3-card{
+            background:var(--card);border:1px solid var(--border);border-radius:10px;
+            padding:14px;position:relative;transition:.2s;
+        }
+        .web3-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+        .web3-card .label{
+            font-size:10px;text-transform:uppercase;letter-spacing:1.2px;
+            color:var(--text2);display:block;margin-bottom:6px;
+        }
+        .web3-card .amount{
+            font-size:18px;font-weight:700;color:var(--text-bright);
+            font-family:'Space Mono',monospace;
+        }
+        .web3-card[data-token="SLH"]{border-left:3px solid var(--gold)}
+        .web3-card[data-token="BNB"]{border-left:3px solid #f3ba2f}
+        .web3-card[data-token="ETH"]{border-left:3px solid #627eea}
+        .web3-card[data-token="USDT"]{border-left:3px solid #26a17b}
+        .btn-web3-disconnect{
+            background:transparent;border:1px solid var(--border);color:var(--text2);
+            padding:6px 14px;border-radius:8px;font-size:11px;cursor:pointer;
+            transition:.2s;
+        }
+        .btn-web3-disconnect:hover{border-color:var(--red);color:var(--red)}
+        .web3-hint{
+            margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);
+            border:1px solid rgba(0,229,255,.15);border-radius:8px;
+            font-size:11px;color:var(--text2);line-height:1.5;
+        }
+        @media(max-width:600px){
+            .web3-panel{padding:18px}
+            .web3-balance-grid{grid-template-columns:repeat(2,1fr)}
+        }
     </style>
 </head>
 <body data-theme="terminal">
@@ -338,9 +417,14 @@
         <input type="text" id="manual-uid" class="login-input" placeholder="Telegram ID or @username" dir="ltr" style="margin-bottom:8px">
         <button class="login-btn" onclick="manualLogin()" data-i18n="sign_in">Sign In</button>
 
-        <div class="login-hint">
-            <h4 data-i18n="find_id">How to find your ID?</h4>
-            <p data-i18n="find_id_desc">Open Telegram and send /start to @userinfobot</p>
+        <div class="login-hint" style="background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(0,188,212,0.08));border:1px solid rgba(255,140,0,0.3);border-radius:12px;padding:16px;margin-top:14px">
+            <h4 data-i18n="find_id" style="color:var(--accent);margin-bottom:8px">🤖 לא יודעים את ה-ID?</h4>
+            <p data-i18n="find_id_desc" style="font-size:13px;margin-bottom:12px">לחצו על הכפתור למטה — הבוט שלנו יפתח, ישלח לכם את ה-ID, ויעביר אתכם חזרה לאתר אוטומטית.</p>
+            <a href="https://t.me/SLH_AIR_bot?start=get_id" target="_blank" rel="noopener"
+               style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:linear-gradient(135deg,#0088cc,#00bcd4);color:#fff;text-decoration:none;border-radius:10px;font-weight:700;font-size:13px">
+                <i class="fab fa-telegram"></i>
+                <span data-i18n="find_id_btn">קבל ID מהבוט שלנו</span>
+            </a>
         </div>
     </div>
 
@@ -467,7 +551,7 @@
                     <div style="display:flex;gap:10px;flex-wrap:wrap">
                         <button onclick="navigate('portfolio')" class="btn btn-primary" style="padding:8px 20px;font-size:13px;border-radius:8px">📊 עבור לתיק ההשקעות</button>
                         <button onclick="navigate('staking')" class="btn btn-outline" style="padding:8px 20px;font-size:13px;border-radius:8px">💎 התחל Staking</button>
-                        <a href="https://t.me/osifeu" target="_blank" class="btn btn-outline" style="padding:8px 20px;font-size:13px;border-radius:8px">💬 שיחה עם יועץ</a>
+                        <a href="https://t.me/osifeu_prog" target="_blank" class="btn btn-outline" style="padding:8px 20px;font-size:13px;border-radius:8px">💬 שיחה עם יועץ</a>
                     </div>
                 </div>
 
@@ -520,6 +604,49 @@
                         <div class="stat-label" data-i18n="active_stakes">Active Stakes</div>
                         <div class="stat-value" id="stakes-count" style="font-size:22px">0</div>
                         <div class="stat-sub" data-i18n="positions">Positions</div>
+                    </div>
+                </div>
+
+                <!-- ============= WEB3 WALLET PANEL ============= -->
+                <div class="web3-panel">
+                    <h3>
+                        &#x1F517; <span data-i18n="web3_title">יתרות אמיתיות מהבלוקצ'יין</span>
+                        <span class="web3-badge">LIVE</span>
+                    </h3>
+                    <div class="web3-sub" data-i18n="web3_sub">חבר ארנק MetaMask או Trust Wallet כדי לראות את היתרות האמיתיות שלך ישירות מהרשת</div>
+
+                    <div id="web3-status">
+                        <button id="btn-connect-wallet" class="btn-web3-connect">
+                            &#x1F98A; <span data-i18n="web3_connect">חבר ארנק</span>
+                        </button>
+                        <div class="web3-hint" data-i18n="web3_hint">
+                            תומך ב-MetaMask (דסקטופ) ו-Trust Wallet (מובייל). הארנק שלך נשאר מאובטח — אנחנו רק קוראים יתרות, לא שולחים עסקאות.
+                        </div>
+                    </div>
+
+                    <div id="web3-balances" style="display:none">
+                        <div class="web3-addr"><span id="web3-addr-short">—</span></div>
+                        <div class="web3-balance-grid">
+                            <div class="web3-card" data-token="SLH">
+                                <span class="label">SLH (BSC)</span>
+                                <span class="amount" id="w3-slh">—</span>
+                            </div>
+                            <div class="web3-card" data-token="BNB">
+                                <span class="label">BNB</span>
+                                <span class="amount" id="w3-bnb">—</span>
+                            </div>
+                            <div class="web3-card" data-token="ETH">
+                                <span class="label">ETH</span>
+                                <span class="amount" id="w3-eth">—</span>
+                            </div>
+                            <div class="web3-card" data-token="USDT">
+                                <span class="label">USDT (BSC)</span>
+                                <span class="amount" id="w3-usdt">—</span>
+                            </div>
+                        </div>
+                        <button id="btn-disconnect-wallet" class="btn-web3-disconnect" data-i18n="web3_disconnect">
+                            &#x2715; נתק ארנק
+                        </button>
                     </div>
                 </div>
 
@@ -1120,7 +1247,9 @@ const T = {
         // Login
         sign_in: 'כניסה', sign_in_sub: 'היכנס כדי לגשת ללוח הבקרה, התיק והרשת שלך',
         or_enter_id: 'או הזן מזהה טלגרם', find_id: 'איך מוצאים את המזהה?',
-        find_id_desc: '\u05e4\u05ea\u05d7 \u05d8\u05dc\u05d2\u05e8\u05dd \u05d5\u05e9\u05dc\u05d7 /start \u05dc-@userinfobot',
+        find_id: 'לא יודעים את ה-ID?',
+        find_id_desc: 'לחצו על הכפתור למטה — הבוט שלנו יפתח, ישלח לכם את ה-ID, ויעביר אתכם חזרה לאתר אוטומטית.',
+        find_id_btn: 'קבל ID מהבוט שלנו',
         quick_access: '\u26a1 \u05db\u05e0\u05d9\u05e1\u05d4 \u05de\u05d4\u05d9\u05e8\u05d4 (\u05d0\u05d5\u05e8\u05d7)', guest_note: '\u05d2\u05dc\u05d5\u05e9 \u05db\u05d0\u05d5\u05e8\u05d7. \u05d7\u05d1\u05e8 \u05d8\u05dc\u05d2\u05e8\u05dd \u05de\u05d0\u05d5\u05d7\u05e8 \u05d9\u05d5\u05ea\u05e8 \u05dc\u05ea\u05db\u05d5\u05e0\u05d5\u05ea \u05de\u05dc\u05d0\u05d5\u05ea.',
         back_to_site: '\u2190 \u05d7\u05d6\u05e8\u05d4 \u05dc\u05d0\u05ea\u05e8', user_guides: '\u05de\u05d3\u05e8\u05d9\u05db\u05d9\u05dd \u2192',
         // Sidebar
@@ -1179,12 +1308,32 @@ const T = {
         choose_language: 'בחרו שפה', choose_theme_w: 'בחרו ערכת נושא', start_exploring: 'התחל לחקור →',
         // General
         loading: 'טוען...', error: 'שגיאה', success: 'הצלחה',
+        // Registration
+        reg_title: 'הרשמה למערכת SLH',
+        reg_subtitle: 'תשלום חד-פעמי מקנה גישה מלאה לכל שירותי הקהילה והמערכת',
+        reg_price: '22.221 ש"ח בלבד (חד-פעמי)',
+        reg_what_you_get: 'מה מקבלים בתמורה?',
+        reg_get_token: 'טוקן SLH מתנה לחשבון שלכם',
+        reg_get_dashboard: 'גישה מלאה ללוח בקרה אישי',
+        reg_get_wallet: 'ארנק דיגיטלי מלא (TON + BSC + ETH)',
+        reg_get_community: 'פרסום וצפייה בקהילה + חנות + בלוג',
+        reg_get_bots: 'גישה לכל 20+ הבוטים במערכת',
+        reg_get_referral: 'תוכנית הפניות (עד 10 דורות)',
+        reg_send_to: 'שלחו TON לכתובת:',
+        reg_copy: 'העתק כתובת',
+        reg_copied: '✓ הועתק!',
+        reg_tx_hash: 'הזינו Transaction Hash',
+        reg_paid: '✅ שילמתי — פתחו את החשבון',
+        reg_pending: 'ממתין לאישור אדמין',
+        reg_approved: '✅ מאושר! פותח חשבון...',
     },
     en: {
         dashboard: 'Dashboard', exit: 'Exit',
         sign_in: 'Sign In', sign_in_sub: 'Sign in to access your personal dashboard, portfolio, and network',
         or_enter_id: 'or enter your Telegram ID', find_id: 'How to find your ID?',
-        find_id_desc: 'Open Telegram and send /start to @userinfobot',
+        find_id: "Don't know your ID?",
+        find_id_desc: 'Click below — our bot will open, send you the ID, and bring you right back to the site.',
+        find_id_btn: 'Get ID from our bot',
         quick_access: '\u26a1 Quick Access (Guest)', guest_note: 'Browse as guest. Connect Telegram later for full features.',
         back_to_site: '\u2190 Back to Site', user_guides: 'User Guides \u2192',
         overview: 'Overview', portfolio: 'Portfolio', staking: 'Staking', activity: 'Activity',
@@ -1232,12 +1381,31 @@ const T = {
         welcome_title: 'Welcome to SLH!', welcome_sub: "Let's set up your account",
         choose_language: 'Choose Language', choose_theme_w: 'Choose Theme', start_exploring: 'Start Exploring →',
         loading: 'Loading...', error: 'Error', success: 'Success',
+        // Registration
+        reg_title: 'Register for SLH',
+        reg_subtitle: 'One-time payment unlocks full access to the community and all services',
+        reg_price: 'Only 22.221 ILS (~$6) one-time',
+        reg_what_you_get: 'What you get:',
+        reg_get_token: 'Free SLH token in your account',
+        reg_get_dashboard: 'Full personal dashboard access',
+        reg_get_wallet: 'Complete digital wallet (TON + BSC + ETH)',
+        reg_get_community: 'Community posting + marketplace + blog',
+        reg_get_bots: 'Access to all 20+ ecosystem bots',
+        reg_get_referral: 'Referral program (10 generations)',
+        reg_send_to: 'Send TON to address:',
+        reg_copy: 'Copy Address',
+        reg_copied: '✓ Copied!',
+        reg_tx_hash: 'Enter Transaction Hash',
+        reg_paid: '✅ I Paid — Open Account',
+        reg_pending: 'Waiting for admin approval',
+        reg_approved: '✅ Approved! Opening account...',
     },
     ru: {
         dashboard: 'Панель', exit: 'Выход',
         sign_in: 'Войти', sign_in_sub: 'Войдите для доступа к панели, портфелю и сети',
         or_enter_id: 'или введите Telegram ID', find_id: 'Как найти свой ID?',
-        find_id_desc: '\u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 Telegram \u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u044c\u0442\u0435 /start \u0431\u043e\u0442\u0443 @userinfobot',
+        find_id_desc: '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u043d\u0438\u0436\u0435 \u2014 \u043d\u0430\u0448 \u0431\u043e\u0442 \u043e\u0442\u043a\u0440\u043e\u0435\u0442\u0441\u044f, \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442 \u0432\u0430\u043c ID \u0438 \u0432\u0435\u0440\u043d\u0435\u0442 \u0432\u0430\u0441 \u043d\u0430 \u0441\u0430\u0439\u0442.',
+        find_id_btn: '\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c ID \u043e\u0442 \u043d\u0430\u0448\u0435\u0433\u043e \u0431\u043e\u0442\u0430',
         quick_access: '\u26a1 \u0411\u044b\u0441\u0442\u0440\u044b\u0439 \u0434\u043e\u0441\u0442\u0443\u043f (\u0413\u043e\u0441\u0442\u044c)', guest_note: '\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u043a\u0430\u043a \u0433\u043e\u0441\u0442\u044c. \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u0435 Telegram \u043f\u043e\u0437\u0436\u0435.',
         back_to_site: '← На сайт', user_guides: 'Руководства →',
         overview: 'Обзор', portfolio: 'Портфель', staking: 'Стейкинг', activity: 'Активность',
@@ -1285,12 +1453,30 @@ const T = {
         welcome_title: 'Добро пожаловать в SLH!', welcome_sub: 'Настроим ваш аккаунт',
         choose_language: 'Выберите язык', choose_theme_w: 'Выберите тему', start_exploring: 'Начать →',
         loading: 'Загрузка...', error: 'Ошибка', success: 'Успех',
+        reg_title: 'Регистрация в SLH',
+        reg_subtitle: 'Единоразовый платеж открывает полный доступ ко всей экосистеме',
+        reg_price: 'Всего 22.221 ILS (~$6) единоразово',
+        reg_what_you_get: 'Что вы получаете:',
+        reg_get_token: 'Бесплатный токен SLH на ваш счёт',
+        reg_get_dashboard: 'Полный доступ к панели',
+        reg_get_wallet: 'Полный кошелёк (TON + BSC + ETH)',
+        reg_get_community: 'Посты + маркетплейс + блог',
+        reg_get_bots: 'Доступ ко всем 20+ ботам',
+        reg_get_referral: 'Реферальная программа (10 уровней)',
+        reg_send_to: 'Отправьте TON на адрес:',
+        reg_copy: 'Копировать',
+        reg_copied: '✓ Скопировано!',
+        reg_tx_hash: 'Введите Transaction Hash',
+        reg_paid: '✅ Я оплатил — открыть счёт',
+        reg_pending: 'Ожидание подтверждения',
+        reg_approved: '✅ Подтверждено! Открываем счёт...',
     },
     ar: {
         dashboard: 'لوحة التحكم', exit: 'خروج',
         sign_in: 'تسجيل الدخول', sign_in_sub: 'سجّل دخولك للوصول إلى لوحة التحكم والمحفظة والشبكة',
         or_enter_id: 'أو أدخل معرّف تيليجرام', find_id: 'كيف تجد معرّفك؟',
-        find_id_desc: '\u0627\u0641\u062a\u062d \u062a\u064a\u0644\u064a\u062c\u0631\u0627\u0645 \u0648\u0623\u0631\u0633\u0644 /start \u0625\u0644\u0649 @userinfobot',
+        find_id_desc: '\u0627\u0646\u0642\u0631 \u0623\u062f\u0646\u0627\u0647 \u2014 \u0633\u064a\u0641\u062a\u062d \u0628\u0648\u062a\u0646\u0627 \u0648\u064a\u0631\u0633\u0644 \u0644\u0643 \u0627\u0644\u0645\u0639\u0631\u0651\u0641 \u0648\u064a\u0639\u064a\u062f\u0643 \u0625\u0644\u0649 \u0627\u0644\u0645\u0648\u0642\u0639.',
+        find_id_btn: '\u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u0645\u0639\u0631\u0651\u0641 \u0645\u0646 \u0628\u0648\u062a\u0646\u0627',
         quick_access: '\u26a1 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 (\u0636\u064a\u0641)', guest_note: '\u062a\u0635\u0641\u062d \u0643\u0636\u064a\u0641. \u0631\u0628\u0637 \u062a\u064a\u0644\u064a\u062c\u0631\u0627\u0645 \u0644\u0627\u062d\u0642\u0627 \u0644\u0644\u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0643\u0627\u0645\u0644\u0629.',
         back_to_site: '← العودة للموقع', user_guides: 'الأدلة →',
         overview: 'نظرة عامة', portfolio: 'المحفظة', staking: 'ستيكنج', activity: 'النشاط',
@@ -1338,12 +1524,30 @@ const T = {
         welcome_title: '!مرحباً بك في SLH', welcome_sub: 'لنُعدّ حسابك',
         choose_language: 'اختر اللغة', choose_theme_w: 'اختر السمة', start_exploring: 'ابدأ الاستكشاف →',
         loading: 'جاري التحميل...', error: 'خطأ', success: 'نجاح',
+        reg_title: 'التسجيل في SLH',
+        reg_subtitle: 'دفعة واحدة تفتح وصولاً كاملاً إلى جميع خدمات المجتمع',
+        reg_price: '22.221 شيكل فقط (دفعة واحدة)',
+        reg_what_you_get: 'ماذا تحصل:',
+        reg_get_token: 'رمز SLH مجاني في حسابك',
+        reg_get_dashboard: 'وصول كامل إلى لوحة التحكم',
+        reg_get_wallet: 'محفظة رقمية كاملة',
+        reg_get_community: 'النشر في المجتمع + المتجر + المدونة',
+        reg_get_bots: 'الوصول إلى جميع الروبوتات',
+        reg_get_referral: 'برنامج الإحالات (10 أجيال)',
+        reg_send_to: 'أرسل TON إلى العنوان:',
+        reg_copy: 'نسخ',
+        reg_copied: '✓ تم النسخ!',
+        reg_tx_hash: 'أدخل رقم المعاملة',
+        reg_paid: '✅ لقد دفعت',
+        reg_pending: 'في انتظار الموافقة',
+        reg_approved: '✅ تمت الموافقة!',
     },
     fr: {
         dashboard: 'Tableau de bord', exit: 'Quitter',
         sign_in: 'Connexion', sign_in_sub: 'Connectez-vous pour accéder à votre tableau de bord, portefeuille et réseau',
         or_enter_id: 'ou entrez votre ID Telegram', find_id: 'Comment trouver votre ID ?',
-        find_id_desc: 'Ouvrez Telegram et envoyez /start \u00e0 @userinfobot',
+        find_id_desc: 'Cliquez ci-dessous \u2014 notre bot s\'ouvrira, vous enverra l\'ID et vous ram\u00e8nera sur le site.',
+        find_id_btn: 'Obtenir l\'ID de notre bot',
         quick_access: '\u26a1 Acc\u00e8s rapide (Invit\u00e9)', guest_note: 'Parcourez en tant qu\u2019invit\u00e9. Connectez Telegram plus tard.',
         back_to_site: '← Retour au site', user_guides: 'Guides →',
         overview: 'Aperçu', portfolio: 'Portefeuille', staking: 'Staking', activity: 'Activité',
@@ -1391,6 +1595,23 @@ const T = {
         welcome_title: 'Bienvenue sur SLH !', welcome_sub: 'Configurons votre compte',
         choose_language: 'Choisir la langue', choose_theme_w: 'Choisir le thème', start_exploring: 'Explorer →',
         loading: 'Chargement...', error: 'Erreur', success: 'Succès',
+        reg_title: 'Inscription à SLH',
+        reg_subtitle: 'Un paiement unique débloque l\'accès complet à tous les services',
+        reg_price: '22.221 ILS seulement (paiement unique)',
+        reg_what_you_get: 'Ce que vous obtenez :',
+        reg_get_token: 'Jeton SLH gratuit sur votre compte',
+        reg_get_dashboard: 'Accès complet au tableau de bord',
+        reg_get_wallet: 'Portefeuille numérique complet',
+        reg_get_community: 'Publication communauté + marché + blog',
+        reg_get_bots: 'Accès à tous les 20+ bots',
+        reg_get_referral: 'Programme de parrainage (10 générations)',
+        reg_send_to: 'Envoyez TON à l\'adresse :',
+        reg_copy: 'Copier',
+        reg_copied: '✓ Copié !',
+        reg_tx_hash: 'Saisir le Transaction Hash',
+        reg_paid: '✅ J\'ai payé',
+        reg_pending: 'En attente d\'approbation',
+        reg_approved: '✅ Approuvé !',
     }
 };
 
@@ -1488,6 +1709,21 @@ function logout() {
 function showApp() {
     document.getElementById('login-screen').style.display = 'none';
 
+    // Sanitize currentUser — prevent #undefined display
+    if (!currentUser || currentUser.id === undefined || currentUser.id === null ||
+        currentUser.id === 'undefined' || Number.isNaN(currentUser.id)) {
+        // Bad session — force re-login
+        console.warn('[SLH] currentUser missing id, forcing logout', currentUser);
+        logout();
+        return;
+    }
+    // Normalize id to number or preserve string (for guest G-prefixed ids)
+    if (typeof currentUser.id === 'string' && /^\d+$/.test(currentUser.id)) {
+        currentUser.id = parseInt(currentUser.id, 10);
+    }
+    // Persist sanitized version
+    localStorage.setItem('slh_user', JSON.stringify(currentUser));
+
     // Check registration status
     if (!currentUser.is_registered && currentUser.id && !/^G/.test(String(currentUser.id))) {
         showRegistrationPanel();
@@ -1496,15 +1732,16 @@ function showApp() {
 
     document.getElementById('app').style.display = 'block';
 
-    // Set nav info
-    document.getElementById('nav-username').textContent = currentUser.first_name || 'User';
-    document.getElementById('nav-uid').textContent = '#' + currentUser.id;
+    // Set nav info — with safe fallbacks
+    const uidStr = String(currentUser.id || '—');
+    document.getElementById('nav-username').textContent = currentUser.first_name || currentUser.username || 'User';
+    document.getElementById('nav-uid').textContent = '#' + uidStr;
     if (currentUser.photo_url) {
         document.getElementById('nav-avatar').src = currentUser.photo_url;
         document.getElementById('nav-avatar').style.display = 'block';
     }
-    document.getElementById('my-ref-link').value = 'https://t.me/SLH_AIR_bot?start=' + currentUser.id;
-    document.getElementById('settings-uid').textContent = currentUser.id;
+    document.getElementById('my-ref-link').value = 'https://t.me/SLH_AIR_bot?start=' + uidStr;
+    document.getElementById('settings-uid').textContent = uidStr;
 
     loadAllData();
     loadPriceTicker();
@@ -1927,18 +2164,43 @@ if (tg && tg.initDataUnsafe?.user) {
     showApp();
 }
 // 2. Try URL params (?uid=224223270&name=Osif from bot deep link)
-else if (!localStorage.getItem('slh_user')) {
+else {
     const params = new URLSearchParams(window.location.search);
-    const urlUid = params.get('uid') || params.get('id') || params.get('ref');
-    if (urlUid) {
-        const urlName = params.get('name') ? decodeURIComponent(params.get('name')) : 'User';
-        manualLoginWith(parseInt(urlUid), urlName);
+    const urlUid = params.get('uid') || params.get('id') || params.get('ref') || params.get('tgid');
+    if (urlUid && /^\d+$/.test(urlUid)) {
+        const urlName = params.get('name') ? decodeURIComponent(params.get('name')) :
+                        (params.get('first_name') ? decodeURIComponent(params.get('first_name')) : 'User');
+        const urlUsername = params.get('username') ? decodeURIComponent(params.get('username')) : '';
+        currentUser = {
+            id: parseInt(urlUid, 10),
+            first_name: urlName,
+            username: urlUsername,
+            photo_url: params.get('photo') ? decodeURIComponent(params.get('photo')) : ''
+        };
+        localStorage.setItem('slh_user', JSON.stringify(currentUser));
         window.history.replaceState({}, '', window.location.pathname);
+        showApp();
     }
 }
 // 3. Fallback to saved session
 const saved = localStorage.getItem('slh_user');
-if (saved && !currentUser) { currentUser = JSON.parse(saved); showApp(); }
+if (saved && !currentUser) {
+    try {
+        const parsed = JSON.parse(saved);
+        // Validate saved session has a valid id
+        if (parsed && parsed.id !== undefined && parsed.id !== null &&
+            parsed.id !== 'undefined' && !Number.isNaN(parsed.id)) {
+            currentUser = parsed;
+            showApp();
+        } else {
+            console.warn('[SLH] invalid saved session, clearing', parsed);
+            localStorage.removeItem('slh_user');
+        }
+    } catch (e) {
+        console.error('[SLH] failed to parse saved session', e);
+        localStorage.removeItem('slh_user');
+    }
+}
 
 // Registration panel for users who logged in but haven't paid
 function showRegistrationPanel() {
@@ -2673,12 +2935,13 @@ setTimeout(renderCustomTokens, 500);
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260408g"></script>
-<script src="/js/shared.js?v=20260408g"></script>
+<script src="/js/translations.js?v=20260409a"></script>
+<script src="/js/shared.js?v=20260409a"></script>
 <script>
     initShared({ activePage: 'dashboard', showBottomNav: true });
 </script>
+<script src="/js/web3.js?v=20260409a"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260408g"></script>
+<script src="/js/ai-assistant.js?v=20260409a"></script>
 </body>
 </html>
