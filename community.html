@@ -1253,13 +1253,18 @@
                 <!-- Filter Tabs -->
                 <div class="filter-tabs" id="filter-tabs">
                     <button class="filter-tab active" data-filter="all" data-i18n="community_filter_all">הכל</button>
-                    <button class="filter-tab" data-filter="investments" data-i18n="community_filter_investments">השקעות</button>
-                    <button class="filter-tab" data-filter="slh" data-i18n="community_filter_slh">SLH</button>
-                    <button class="filter-tab" data-filter="proposals" data-i18n="community_filter_proposals">הצעות</button>
-                    <button class="filter-tab" data-filter="experts" data-i18n="community_filter_experts">מומחים</button>
-                    <button class="filter-tab" data-filter="news" data-i18n="community_filter_news">חדשות</button>
+                    <button class="filter-tab" data-filter="investments">📈 <span data-i18n="community_filter_investments">השקעות</span></button>
+                    <button class="filter-tab" data-filter="slh">💎 <span data-i18n="community_filter_slh">SLH</span></button>
+                    <button class="filter-tab" data-filter="proposals">💡 <span data-i18n="community_filter_proposals">הצעות</span></button>
+                    <button class="filter-tab" data-filter="experts">🎓 <span data-i18n="community_filter_experts">מומחים</span></button>
+                    <button class="filter-tab" data-filter="news">📰 <span data-i18n="community_filter_news">חדשות</span></button>
+                    <button class="filter-tab" data-filter="events">🎉 אירועים</button>
+                    <button class="filter-tab" data-filter="guides">📚 מדריכים</button>
+                    <button class="filter-tab" data-filter="questions">❓ שאלות</button>
+                    <button class="filter-tab" data-filter="success">🏆 הצלחות</button>
+                    <button class="filter-tab" data-filter="alerts">🚨 התראות</button>
                     <button class="filter-tab" data-filter="updates">🔔 עדכונים</button>
-                    <button class="filter-tab" data-filter="general" data-i18n="community_filter_general">כללי</button>
+                    <button class="filter-tab" data-filter="general">💬 <span data-i18n="community_filter_general">כללי</span></button>
                 </div>
 
                 <!-- Posts Feed -->
@@ -1779,12 +1784,17 @@
                                 <i class="fas fa-image"></i> תמונה
                             </button>
                             <select class="post-category-select" id="new-post-category">
-                                <option value="general">כללי</option>
-                                <option value="investments">השקעות</option>
-                                <option value="slh">SLH</option>
-                                <option value="proposals">הצעות</option>
-                                <option value="experts">מומחים</option>
-                                <option value="news">חדשות</option>
+                                <option value="general">💬 כללי</option>
+                                <option value="investments">📈 השקעות</option>
+                                <option value="slh">💎 SLH</option>
+                                <option value="proposals">💡 הצעות</option>
+                                <option value="experts">🎓 מומחים</option>
+                                <option value="news">📰 חדשות</option>
+                                <option value="events">🎉 אירועים</option>
+                                <option value="guides">📚 מדריכים</option>
+                                <option value="questions">❓ שאלות</option>
+                                <option value="success">🏆 סיפורי הצלחה</option>
+                                <option value="alerts">🚨 התראות שוק</option>
                             </select>
                         </div>
                         <button class="btn-post" onclick="handleNewPost()" id="btn-publish" data-i18n="community_post_btn">

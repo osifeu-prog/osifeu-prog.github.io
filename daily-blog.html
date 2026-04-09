@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLH Daily Blog | מה חדש היום</title>
+  <meta name="description" content="בלוג יומי של SLH Spark — עדכונים יומיים על תיקונים, פיצ'רים חדשים, ותוכניות עבודה.">
+  <meta name="keywords" content="SLH, daily blog, updates, changelog, roadmap, development">
+  <meta name="author" content="SPARK IND">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://slh-nft.com/daily-blog.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SLH Ecosystem">
+  <meta property="og:title" content="SLH Daily Blog | מה חדש היום">
+  <meta property="og:description" content="עדכונים יומיים, תיקונים, פיצ'רים חדשים - שקיפות מלאה של הפיתוח.">
+  <meta property="og:image" content="https://slh-nft.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://slh-nft.com/daily-blog.html">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SLH Daily Blog | מה חדש היום">
+  <meta name="twitter:description" content="עדכונים יומיים, תיקונים, פיצ'רים חדשים.">
+  <meta name="twitter:image" content="https://slh-nft.com/og.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="/css/shared.css?v=20260409a">
+
+  <style>
+    .blog-hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(139,92,246,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .blog-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent, #8b5cf6), var(--text, #fff));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .blog-hero p {
+      font-size: 1.15rem;
+      color: var(--muted, #a0a0b8);
+      max-width: 640px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .blog-hero-stats {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .blog-stat {
+      padding: 10px 18px;
+      background: rgba(139,92,246,.08);
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text, #fff);
+    }
+    .blog-stat strong {
+      color: var(--accent, #8b5cf6);
+      font-size: 16px;
+      display: block;
+    }
+
+    .blog-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 20px 20px 80px;
+    }
+    .blog-entry {
+      background: var(--card-bg, rgba(20,20,30,.6));
+      border: 1px solid var(--border, rgba(139,92,246,.2));
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .blog-entry:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139,92,246,.4);
+      box-shadow: 0 8px 32px rgba(139,92,246,.15);
+    }
+    .blog-entry h2 {
+      font-size: 1.5rem;
+      color: var(--accent, #8b5cf6);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .blog-entry h2 .date-badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      background: rgba(139,92,246,.15);
+      border: 1px solid rgba(139,92,246,.3);
+      border-radius: 6px;
+      color: var(--text, #fff);
+      font-family: monospace;
+    }
+    .blog-entry h3 {
+      font-size: 1.05rem;
+      color: var(--text-bright, #fff);
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .blog-entry p {
+      color: var(--text2, #c8c8dc);
+      line-height: 1.8;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .blog-entry ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+    .blog-entry ul li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      color: var(--text2, #c8c8dc);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .blog-entry ul li::before {
+      content: '▸';
+      position: absolute;
+      right: 0;
+      color: var(--accent, #8b5cf6);
+      font-weight: 700;
+    }
+    .blog-entry ul li strong {
+      color: var(--text-bright, #fff);
+    }
+    .blog-entry code {
+      background: rgba(139,92,246,.12);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--accent, #8b5cf6);
+      font-family: 'Space Mono', monospace;
+    }
+    .blog-theme {
+      padding: 12px 16px;
+      background: rgba(245,158,11,.08);
+      border-right: 3px solid #f59e0b;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--text, #fff);
+    }
+    .blog-theme strong {
+      color: #f59e0b;
+    }
+
+    .section-shipped h3::before { content: '✅'; }
+    .section-progress h3::before { content: '🚧'; }
+    .section-coming h3::before { content: '📣'; }
+    .section-action h3::before { content: '🔐'; }
+
+    .blog-cta {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(139,92,246,.1), rgba(0,229,255,.06));
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 16px;
+      margin: 40px 0 0;
+    }
+    .blog-cta h3 {
+      font-size: 1.4rem;
+      color: var(--accent, #8b5cf6);
+      margin-bottom: 10px;
+    }
+    .blog-cta p {
+      color: var(--text2, #c8c8dc);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .blog-cta .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+      .blog-entry {
+        padding: 20px 18px;
+      }
+      .blog-entry h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="topnav-root"></div>
+  <div id="ticker-root"></div>
+
+  <div class="blog-hero">
+    <h1 data-i18n="blog_hero_title">📰 בלוג יומי — מה חדש היום?</h1>
+    <p data-i18n="blog_hero_sub">שקיפות מלאה: כל שינוי, תיקון ופיצ'ר חדש במערכת מתועד כאן בעדכון יומי.</p>
+    <div id="date-widget-root" style="margin:20px auto"></div>
+    <div class="blog-hero-stats">
+      <div class="blog-stat">
+        <strong id="blog-entries-count">1</strong>
+        <span data-i18n="blog_entries">ערכים</span>
+      </div>
+      <div class="blog-stat">
+        <strong id="blog-days-live">Day 1</strong>
+        <span data-i18n="blog_streak">רצף</span>
+      </div>
+      <div class="blog-stat">
+        <strong>
+          <a href="/roadmap.html" style="color:inherit;text-decoration:none">→</a>
+        </strong>
+        <span data-i18n="blog_see_roadmap">ראה מפת דרכים</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-container" id="blog-container">
+    <!-- === 2026-04-09 (evening) === -->
+    <article class="blog-entry">
+      <h2>
+        חיווט Web3 הושלם — יתרות אמיתיות מהבלוקצ'יין
+        <span class="date-badge">2026-04-09 · ערב</span>
+      </h2>
+
+      <div class="blog-theme">
+        <strong>נושא היום:</strong> לקוחות רואים עכשיו יתרות אמיתיות על השרשרת
+        בדשבורד ובדף הארנק. זו התשתית למסחר P2P: אם משתמשים לא יכולים לסמוך על
+        המספרים — הם לא יסחרו.
+      </div>
+
+      <div class="section-shipped">
+        <h3>שוחרר בפגישה הזו</h3>
+        <ul>
+          <li><strong>Web3:</strong> מודול <code>js/web3.js</code> מבוסס ethers.js v6 — חיבור ל-MetaMask / Trust Wallet, קריאת יתרות מ-BSC (SLH, BNB, USDT) ו-Ethereum (ETH), חיבור אוטומטי חוזר, תגובה להחלפת חשבונות.</li>
+          <li><strong>דשבורד:</strong> פאנל Web3 מלא בין כרטיסי ההפניות לפעילות אחרונה — כפתור חיבור כתום, שבב כתובת מקוצרת, רשת יתרות ל-4 טוקנים, גבולות בצבעי המטבעות.</li>
+          <li><strong>דף ארנק:</strong> אותו פאנל Web3 ישר מתחת לכותרת, מחליף את ה-placeholder הריק הישן.</li>
+          <li><strong>API:</strong> <code>POST /api/user/link-wallet</code>, <code>GET /api/user/wallet/{id}</code>, ו-<code>POST /api/user/unlink-wallet</code> — מאמת פורמט כתובת, מונע שיוך של אותו ארנק לשני חשבונות, שומר אותיות קטנות.</li>
+          <li><strong>DB:</strong> מיגרציה אוטומטית מוסיפה עמודות <code>eth_wallet</code>, <code>ton_wallet</code> ואינדקסים חלקיים ל-<code>web_users</code>. גם נוצר SQL עצמאי ב-<code>ops/migrations/20260409_web3_wallet.sql</code>.</li>
+          <li><strong>i18n:</strong> תרגומי פאנל Web3 בכל 5 השפות (HE/EN/RU/AR/FR).</li>
+        </ul>
+      </div>
+
+      <div class="section-progress">
+        <h3>עדיין בעבודה</h3>
+        <ul>
+          <li>חיבור ארנק TON דרך TonConnect (הפאנל כרגע מציג רק שרשראות EVM).</li>
+          <li>הוכחת בעלות על ארנק באמצעות חתימה (לרישום P2P).</li>
+          <li>רישום אוטומטי: <code>/start</code> בבוט מסנכרן משתמש ל-DB של האתר.</li>
+          <li>Course marketplace — קורסים דיגיטליים.</li>
+        </ul>
+      </div>
+
+      <div class="section-coming">
+        <h3>צפוי השבוע</h3>
+        <ul>
+          <li><strong>ממשק P2P marketplace:</strong> רשום SLH במחיר שלך, חתום הצעה עם הארנק.</li>
+          <li>החלפה מלאה של 20 tokens של בוטים דרך @BotFather.</li>
+          <li>צ'אט בזמן אמת בקהילה (WebSocket).</li>
+          <li>קורס לדוגמה ראשון חינמי לבדיקת ה-marketplace.</li>
+        </ul>
+      </div>
+
+      <div class="section-action">
+        <h3>פעולה שנדרשת ממך</h3>
+        <ul>
+          <li>החלף את כל ה-tokens של הבוטים דרך @BotFather (ראה SECURITY_TOKEN_ROTATION.md).</li>
+          <li>בדוק את הפאנל החדש: dashboard.html → "חבר ארנק" → ודא שיתרות BSC + ETH אמיתיות מופיעות.</li>
+          <li>צור Facebook App ב-<code>developers.facebook.com</code> לאינטגרציית פיד.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- === 2026-04-09 === -->
+    <article class="blog-entry">
+      <h2>
+        תיקונים קריטיים לאחר אתחול
+        <span class="date-badge">2026-04-09</span>
+      </h2>
+
+      <div class="blog-theme">
+        <strong>נושא היום:</strong> לאחר אתחול מערכת ובדיקה מקצה לקצה, תיקנו את
+        הבאגים הנראים ביותר שהמשתמשים דיווחו עליהם, התחלנו תוכנית עבודה מובנית
+        והכנו את התשתית לשלב הבא.
+      </div>
+
+      <div class="section-shipped">
+        <h3>שוחרר היום</h3>
+        <ul>
+          <li><strong>אבטחה:</strong> נוצר מסמך <code>SECURITY_TOKEN_ROTATION.md</code> — יש להחליף את כל ה-tokens של הבוטים דרך BotFather השבוע.</li>
+          <li><strong>אתר:</strong> תוקן הקישור השבור <code>@osifeu</code> ב-4 דפים (dashboard, index, privacy, terms) — כעת מצביע ל-<code>@osifeu_prog</code> ול-<code>@TON_MNH_bot</code>.</li>
+          <li><strong>דשבורד:</strong> תוקן הבאג של <code>#undefined</code> במזהה המשתמש. session לא תקין מנוקה אוטומטית, קישורי deep-link תומכים בפרמטרים נוספים.</li>
+          <li><strong>תרגום:</strong> תוקנו מפתחות i18n גולמיים (<code>nav_home</code>, <code>footer_rights</code> וכו') שהופיעו בדף המדריכים ובעוד דפים. מנוע התרגום שומר כעת על הטקסט המקורי כאשר המפתח חסר.</li>
+          <li><strong>עיצוב:</strong> יוּפָּה ה-widget של תאריך/שעון בקהילה — זכוכית, גרדיאנט, אפקט ריחוף — משתלב בעיצוב הכללי.</li>
+          <li><strong>Ops:</strong> נוצר <code>WORK_PLAN_2026-04.md</code> — תוכנית מובנית של 4 sprints שכוללת תיקונים קריטיים, אינטגרציית Web3, מקסום בוטים ומנוע הכנסות.</li>
+        </ul>
+      </div>
+
+      <div class="section-progress">
+        <h3>בעבודה עכשיו</h3>
+        <ul>
+          <li>חיבור ארנק Web3 (MetaMask / Trust Wallet) בדשבורד.</li>
+          <li>סכמה ו-API ל-Course Marketplace (קורסים דיגיטליים).</li>
+          <li>חיווט דף הבלוג היומי לאתר (הדף שאתה צופה בו עכשיו).</li>
+          <li>קידום Roadmap / Guides לניווט הראשי.</li>
+        </ul>
+      </div>
+
+      <div class="section-coming">
+        <h3>צפוי השבוע</h3>
+        <ul>
+          <li><strong>רישום אוטומטי:</strong> <code>/start</code> בבוט יסנכרן את המשתמש ל-DB של האתר אוטומטית, ללא הרשמה נפרדת.</li>
+          <li><strong>יתרות אמיתיות on-chain:</strong> BSC SLH + TON לצד יתרות פנימיות.</li>
+          <li><strong>P2P marketplace:</strong> רשום את הטוקנים שלך למכירה במחיר שלך.</li>
+          <li><strong>קורס לדוגמה ראשון:</strong> חינמי כדי לבדוק את ה-marketplace.</li>
+        </ul>
+      </div>
+
+      <div class="section-action">
+        <h3>פעולה שנדרשת ממך</h3>
+        <ul>
+          <li>החלף את כל ה-tokens של הבוטים דרך @BotFather (ראה SECURITY_TOKEN_ROTATION.md).</li>
+          <li>צור Facebook App ב-<code>developers.facebook.com</code> לאינטגרציית פיד.</li>
+          <li>אשר: האם @Chance_Pais_bot צריך לעבור להיות בוט שיקום מהימורים?</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Placeholder for future entries — auto-populated from ops/DAILY_BLOG.md -->
+
+    <div class="blog-cta">
+      <h3>💡 רוצה לעקוב?</h3>
+      <p>עקוב אחר התוכנית המלאה במפת הדרכים, או הירשם לדיוור בטלגרם כדי לקבל עדכון יומי אוטומטי.</p>
+      <div class="btn-row">
+        <a href="/roadmap.html" class="btn btn-primary">📍 מפת דרכים</a>
+        <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fab fa-telegram"></i> עקוב בטלגרם
+        </a>
+        <a href="/guides.html" class="btn btn-outline">📖 מדריכים</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-root"></div>
+
+  <script src="/js/translations.js?v=20260409a"></script>
+  <script src="/js/shared.js?v=20260409a"></script>
+  <script>
+    initShared({ activePage: 'blog' });
+    // Render date widget in hero
+    if (typeof renderDateWidget === 'function') {
+      renderDateWidget('date-widget-root');
+    }
+    // Count entries dynamically
+    const entries = document.querySelectorAll('.blog-entry').length;
+    const el = document.getElementById('blog-entries-count');
+    if (el) el.textContent = entries;
+  </script>
+</body>
+</html>
