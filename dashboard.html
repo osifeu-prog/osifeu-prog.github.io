@@ -2282,7 +2282,7 @@ function showRegistrationPanel() {
         <!-- BETA COUPON — free access for first 49 users -->
         <div style="background:linear-gradient(135deg,rgba(255,140,0,0.12),rgba(0,188,212,0.12));border:2px dashed rgba(255,140,0,0.4);border-radius:14px;padding:20px;max-width:440px;width:100%;margin-bottom:20px;text-align:center">
             <div style="font-size:24px;margin-bottom:6px">🎁 <b style="color:var(--accent)">49 חברי Genesis</b></div>
-            <div style="font-size:13px;color:var(--text2);margin-bottom:12px">המשתמשים הראשונים מקבלים <b style="color:var(--text)">גישה מלאה חינם</b> + NFT + <b>100 SLH</b> מתנה</div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:12px">המשתמשים הראשונים מקבלים <b style="color:var(--text)">גישה מלאה חינם</b> + NFT + <b>0.44 SLH (~195 ₪)</b> מתנה</div>
             <div style="font-size:11px;color:var(--text2);margin-bottom:8px" id="beta-remaining">⏳ טוען מלאי...</div>
             <input type="text" id="reg-coupon-code" placeholder="GENESIS49" dir="ltr" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--accent);color:var(--text);font-size:14px;border-radius:8px;margin-bottom:10px;font-family:monospace;text-align:center;text-transform:uppercase;letter-spacing:2px">
             <button onclick="redeemBetaCoupon()" id="reg-coupon-btn" style="background:linear-gradient(135deg,var(--accent),#00bcd4);color:#fff;border:none;padding:14px;font-weight:800;font-size:15px;border-radius:10px;cursor:pointer;width:100%">🔑 הזן קוד Genesis</button>
@@ -2413,7 +2413,7 @@ async function redeemBetaCoupon() {
             if (data.nft_number) {
                 showRegCouponStatus(
                     `🎉 ברוכים הבאים, Genesis Member #${data.nft_number}!<br>` +
-                    `💎 קיבלת ${data.slh_credited || 100} SLH + NFT<br>` +
+                    `💎 קיבלת ${data.slh_credited || 0.44} SLH + NFT<br>` +
                     `⏳ נותרו ${data.remaining_slots ?? '?'} מקומות`,
                     false
                 );
