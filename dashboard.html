@@ -1222,6 +1222,25 @@
 
 <script>
 const API = 'https://slh-api-production.up.railway.app';
+// Defensive: purge any corrupt slh_user BEFORE init (prevents #undefined)
+(function purgeCorruptSession(){
+    try {
+        const raw = localStorage.getItem('slh_user');
+        if (!raw) return;
+        const p = JSON.parse(raw);
+        const id = p && p.id;
+        const idStr = String(id);
+        const isValidId = id !== undefined && id !== null
+            && idStr !== 'undefined' && idStr !== 'null' && idStr !== 'NaN' && idStr !== ''
+            && (/^\d+$/.test(idStr) || /^G/.test(idStr));
+        if (!isValidId) {
+            console.warn('[SLH] purged corrupt slh_user on boot', p);
+            localStorage.removeItem('slh_user');
+        }
+    } catch(e) {
+        localStorage.removeItem('slh_user');
+    }
+})();
 let currentUser = null;
 let currentPlan = null;
 
@@ -1762,8 +1781,10 @@ function showApp() {
 
     // Show welcome wizard for first-time users
     if (!localStorage.getItem('slh_welcome_done')) {
-        document.getElementById('welcome-ref').textContent = 'https://t.me/SLH_AIR_bot?start=' + currentUser.id;
-        document.getElementById('welcome-modal').classList.add('show');
+        const welcomeRefEl = document.getElementById('welcome-ref');
+        if (welcomeRefEl) welcomeRefEl.textContent = 'https://t.me/SLH_AIR_bot?start=' + uidStr;
+        const welcomeModalEl = document.getElementById('welcome-modal');
+        if (welcomeModalEl) welcomeModalEl.classList.add('show');
     }
 }
 
@@ -2258,6 +2279,16 @@ function showRegistrationPanel() {
             <div id="reg-status" style="margin-top:12px;font-size:13px;color:var(--text2);display:none"></div>
         </div>
 
+        <!-- BETA COUPON — free access for first 49 users -->
+        <div style="background:linear-gradient(135deg,rgba(255,140,0,0.12),rgba(0,188,212,0.12));border:2px dashed rgba(255,140,0,0.4);border-radius:14px;padding:20px;max-width:440px;width:100%;margin-bottom:20px;text-align:center">
+            <div style="font-size:24px;margin-bottom:6px">🎁 <b style="color:var(--accent)">49 חברי Genesis</b></div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:12px">המשתמשים הראשונים מקבלים <b style="color:var(--text)">גישה מלאה חינם</b> + NFT + <b>100 SLH</b> מתנה</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:8px" id="beta-remaining">⏳ טוען מלאי...</div>
+            <input type="text" id="reg-coupon-code" placeholder="GENESIS49" dir="ltr" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--accent);color:var(--text);font-size:14px;border-radius:8px;margin-bottom:10px;font-family:monospace;text-align:center;text-transform:uppercase;letter-spacing:2px">
+            <button onclick="redeemBetaCoupon()" id="reg-coupon-btn" style="background:linear-gradient(135deg,var(--accent),#00bcd4);color:#fff;border:none;padding:14px;font-weight:800;font-size:15px;border-radius:10px;cursor:pointer;width:100%">🔑 הזן קוד Genesis</button>
+            <div id="reg-coupon-status" style="margin-top:10px;font-size:13px;display:none"></div>
+        </div>
+
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
             <a href="/" style="color:var(--text2);font-size:13px">&larr; Back to site</a>
             <a href="https://t.me/Osif83" style="color:var(--accent);font-size:13px">Contact @Osif83</a>
@@ -2270,50 +2301,64 @@ function showRegistrationPanel() {
 }
 
 async function initiateRegistration() {
-    const jwt = localStorage.getItem('slh_jwt');
-    if (!jwt) return;
-
-    const ref = localStorage.getItem('slh_ref');
+    // 1) Load beta coupon availability for the CTA
     try {
-        const res = await fetch(API + '/api/registration/initiate', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt},
-            body: JSON.stringify({referrer_id: ref ? parseInt(ref) : null})
-        });
-        const data = await res.json();
-        if (data.status === 'already_registered') {
-            currentUser.is_registered = true;
-            localStorage.setItem('slh_user', JSON.stringify(currentUser));
-            const panel = document.getElementById('reg-panel');
-            if (panel) panel.remove();
-            document.getElementById('app').style.display = 'block';
-            return;
+        const r = await fetch(API + '/api/beta/status');
+        const data = await r.json();
+        const remEl = document.getElementById('beta-remaining');
+        if (remEl && data.coupons && data.coupons.length > 0) {
+            const c = data.coupons[0];
+            if (c.remaining > 0) {
+                remEl.innerHTML = `✨ נותרו <b style="color:var(--accent)">${c.remaining}</b> מתוך ${c.max_uses} מקומות · קוד: <code>${c.code}</code>`;
+            } else {
+                remEl.innerHTML = `❌ כל מקומות ה-Genesis נוצלו`;
+            }
         }
-        if (data.status === 'submitted') {
-            showRegStatus('submitted');
-            startRegPolling();
+    } catch (e) { console.log('[beta status] err:', e); }
+
+    // 2) Check if user is already registered via /api/user/full/
+    const uid = currentUser?.id;
+    if (!uid) return;
+    try {
+        const r = await fetch(`${API}/api/user/full/${uid}`);
+        if (r.ok) {
+            const d = await r.json();
+            if (d.profile?.is_registered) {
+                currentUser.is_registered = true;
+                localStorage.setItem('slh_user', JSON.stringify(currentUser));
+                const panel = document.getElementById('reg-panel');
+                if (panel) panel.remove();
+                document.getElementById('app').style.display = 'block';
+                return;
+            }
         }
-    } catch(e) {
-        console.error('[Registration] Init error:', e);
-    }
+    } catch (e) { console.log('[initiate] user/full err:', e); }
 }
 
 async function submitRegistration() {
-    const jwt = localStorage.getItem('slh_jwt');
-    if (!jwt) return;
+    const uid = currentUser?.id;
+    if (!uid) {
+        showRegCouponStatus('אין מזהה משתמש — בצע התחברות דרך הבוט', true);
+        return;
+    }
 
     const txHash = document.getElementById('reg-tx-hash')?.value?.trim() || '';
     const btn = document.getElementById('reg-submit-btn');
-    if (btn) { btn.disabled = true; btn.textContent = '...'; }
+    if (btn) { btn.disabled = true; btn.textContent = '⏳...'; }
 
     try {
-        const res = await fetch(API + '/api/registration/submit-proof', {
+        const res = await fetch(API + '/api/registration/unlock', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt},
-            body: JSON.stringify({tx_hash: txHash, note: ''})
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_id: uid,
+                method: 'payment_proof',
+                tx_hash: txHash,
+                note: ''
+            })
         });
         const data = await res.json();
-        if (data.status === 'already_approved') {
+        if (data.ok && data.status === 'already_registered') {
             currentUser.is_registered = true;
             localStorage.setItem('slh_user', JSON.stringify(currentUser));
             const panel = document.getElementById('reg-panel');
@@ -2321,12 +2366,90 @@ async function submitRegistration() {
             document.getElementById('app').style.display = 'block';
             return;
         }
-        showRegStatus('submitted');
-        startRegPolling();
+        if (data.ok && data.status === 'submitted') {
+            showRegStatus('submitted');
+            if (btn) btn.textContent = '✅ התקבל! ממתין לאישור אדמין';
+            startRegPolling();
+        } else {
+            if (btn) { btn.disabled = false; btn.textContent = '⚠️ נסה שוב'; }
+            showRegCouponStatus(data.message || data.detail || 'שגיאה לא ידועה', true);
+        }
     } catch(e) {
         console.error('[Registration] Submit error:', e);
-        if (btn) { btn.disabled = false; btn.textContent = 'Try Again'; }
+        if (btn) { btn.disabled = false; btn.textContent = '⚠️ נסה שוב'; }
+        showRegCouponStatus('שגיאת רשת — נסה שוב', true);
     }
+}
+
+async function redeemBetaCoupon() {
+    const uid = currentUser?.id;
+    if (!uid) {
+        showRegCouponStatus('אין מזהה משתמש — בצע התחברות דרך הבוט @SLH_AIR_bot', true);
+        return;
+    }
+    const code = (document.getElementById('reg-coupon-code')?.value || '').trim().toUpperCase();
+    if (!code) {
+        showRegCouponStatus('הזן קוד', true);
+        return;
+    }
+    const btn = document.getElementById('reg-coupon-btn');
+    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ בודק...'; }
+
+    try {
+        const res = await fetch(API + '/api/registration/unlock', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_id: uid,
+                method: 'coupon',
+                coupon_code: code
+            })
+        });
+        const data = await res.json();
+        if (data.ok && (data.status === 'approved' || data.status === 'already_registered' || data.status === 'already_redeemed')) {
+            currentUser.is_registered = true;
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+
+            if (data.nft_number) {
+                showRegCouponStatus(
+                    `🎉 ברוכים הבאים, Genesis Member #${data.nft_number}!<br>` +
+                    `💎 קיבלת ${data.slh_credited || 100} SLH + NFT<br>` +
+                    `⏳ נותרו ${data.remaining_slots ?? '?'} מקומות`,
+                    false
+                );
+            } else {
+                showRegCouponStatus('✅ קופון תקף — נפתח גישה מלאה', false);
+            }
+
+            // Remove the reg panel after 2 seconds and show the dashboard
+            setTimeout(() => {
+                const panel = document.getElementById('reg-panel');
+                if (panel) panel.remove();
+                document.getElementById('app').style.display = 'block';
+                // Refresh user data
+                if (typeof loadUserData === 'function') loadUserData();
+            }, 2500);
+            return;
+        }
+        if (btn) { btn.disabled = false; btn.innerHTML = '🔑 נסה קוד אחר'; }
+        showRegCouponStatus(data.message || data.detail || 'קוד לא תקף', true);
+    } catch(e) {
+        console.error('[Coupon] error:', e);
+        if (btn) { btn.disabled = false; btn.innerHTML = '🔑 נסה שוב'; }
+        showRegCouponStatus('שגיאת רשת — נסה שוב', true);
+    }
+}
+
+function showRegCouponStatus(html, isError) {
+    const el = document.getElementById('reg-coupon-status');
+    if (!el) return;
+    el.style.display = 'block';
+    el.innerHTML = html;
+    el.style.color = isError ? '#ef4444' : '#22c55e';
+    el.style.padding = '10px';
+    el.style.background = isError ? 'rgba(239,68,68,0.1)' : 'rgba(34,197,94,0.1)';
+    el.style.borderRadius = '8px';
+    el.style.border = '1px solid ' + (isError ? 'rgba(239,68,68,0.3)' : 'rgba(34,197,94,0.3)');
 }
 
 function showRegStatus(status) {

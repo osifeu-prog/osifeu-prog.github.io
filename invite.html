@@ -331,6 +331,28 @@
     <p>שתף את SLH Spark עם החברים שלך בוואטסאפ, טלגרם או אימייל — וקבל עמלות מ-10 דורות על כל מי שמצטרף. ללא ספאם, ללא סיכון חסימה — רק כלי שיתוף חוקיים לחלוטין.</p>
   </section>
 
+  <!-- GENESIS 49 BETA BANNER -->
+  <div style="max-width:720px;margin:0 auto 30px;padding:0 20px">
+    <div style="padding:22px;background:linear-gradient(135deg,rgba(255,140,0,0.15),rgba(0,188,212,0.15));border:2px solid rgba(255,140,0,0.45);border-radius:18px;text-align:center;box-shadow:0 8px 24px rgba(255,140,0,0.2)">
+      <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:8px">🎁 Limited · First 49 Only</div>
+      <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:8px">Genesis Members — חינם!</div>
+      <div style="font-size:14px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+        49 המשתמשים הראשונים מקבלים:<br>
+        <b style="color:var(--text)">✨ גישה מלאה לכל המערכת</b> ·
+        <b style="color:var(--text)">💎 100 SLH מתנה</b> ·
+        <b style="color:var(--text)">🎨 NFT Genesis ייחודי</b>
+      </div>
+      <div id="invite-beta-remaining" style="font-size:13px;color:var(--accent);font-weight:700;margin-bottom:14px">⏳ טוען מלאי...</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;max-width:420px;margin:0 auto">
+        <code id="invite-coupon-code" style="flex:1;min-width:140px;padding:12px;background:var(--bg);border:1px solid var(--accent);border-radius:10px;font-size:15px;font-weight:700;color:var(--accent);letter-spacing:2px;cursor:pointer" onclick="copyCouponCode()">GENESIS49</code>
+        <button onclick="copyCouponCode()" style="padding:12px 22px;background:linear-gradient(135deg,var(--accent),#00bcd4);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">📋 העתק קוד</button>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:12px">
+        📱 פתח <a href="https://t.me/SLH_AIR_bot?start=get_id" target="_blank" style="color:var(--accent)">@SLH_AIR_bot</a> · שלח <code>/start</code> · הדבק קוד ב-<a href="/dashboard.html" style="color:var(--accent)">dashboard</a>
+      </div>
+    </div>
+  </div>
+
   <!-- REFERRAL CARD -->
   <div class="referral-card">
     <div class="ref-label"><i class="fas fa-link"></i> הקישור האישי שלך</div>
@@ -537,6 +559,37 @@ ${refLink}
       buildShareLinks();
       renderTemplate();
       updateQR();
+      loadBetaRemaining();
+    }
+
+    async function loadBetaRemaining() {
+      try {
+        const r = await fetch('https://slh-api-production.up.railway.app/api/beta/status');
+        const data = await r.json();
+        const el = document.getElementById('invite-beta-remaining');
+        const codeEl = document.getElementById('invite-coupon-code');
+        if (el && data.coupons && data.coupons.length > 0) {
+          const c = data.coupons[0];
+          if (codeEl) codeEl.textContent = c.code;
+          if (c.remaining > 0) {
+            el.innerHTML = `⏳ נותרו <b>${c.remaining}</b> מתוך ${c.max_uses} מקומות`;
+          } else {
+            el.innerHTML = `❌ כל המקומות נוצלו — השאר בנטרק לסבב הבא!`;
+          }
+        }
+      } catch (e) { console.log('[beta remaining]', e); }
+    }
+
+    function copyCouponCode() {
+      const code = document.getElementById('invite-coupon-code')?.textContent || 'GENESIS49';
+      navigator.clipboard.writeText(code).then(() => {
+        const el = document.getElementById('invite-beta-remaining');
+        if (el) {
+          const orig = el.innerHTML;
+          el.innerHTML = '✅ הקוד הועתק! עכשיו הדבק אותו ב-<a href="/dashboard.html" style="color:var(--text)">dashboard</a>';
+          setTimeout(() => el.innerHTML = orig, 3000);
+        }
+      });
     }
 
     function buildShareLinks() {
