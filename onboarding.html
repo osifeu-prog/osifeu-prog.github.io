@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Genesis Members — 49 הראשונים | SLH Spark</title>
+    <meta name="description" content="ברוכים הבאים לבית ההשקעות הדיגיטלי SLH Spark. מדריך הפעלה מקצה לקצה למשתמשי Genesis — 100 SLH + NFT ייחודי חינם ל-49 הראשונים.">
+    <link rel="canonical" href="https://slh-nft.com/onboarding.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://slh-nft.com/onboarding.html">
+    <meta property="og:title" content="🎁 Genesis 49 — הצטרף ראשון ל-SLH Spark חינם">
+    <meta property="og:description" content="49 המשתמשים הראשונים מקבלים גישה מלאה + 100 SLH + NFT Genesis ייחודי. הצטרף עכשיו!">
+    <meta property="og:image" content="https://slh-nft.com/og.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🎁 Genesis 49 — הצטרף ראשון ל-SLH Spark חינם">
+    <meta name="twitter:description" content="49 המשתמשים הראשונים מקבלים גישה מלאה + 100 SLH + NFT Genesis ייחודי">
+    <meta name="twitter:image" content="https://slh-nft.com/og.png">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/shared.css?v=20260410a">
+
+    <style>
+        .hero-onboard {
+            padding: 60px 20px 40px;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(255,140,0,0.15), transparent 60%);
+            border-bottom: 1px solid rgba(255,140,0,0.2);
+        }
+        .genesis-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #ff8c00, #00bcd4);
+            color: #fff;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(255,140,0,0.4);
+            margin-bottom: 20px;
+        }
+        .hero-onboard h1 {
+            font-size: 36px;
+            font-weight: 900;
+            margin: 10px 0;
+            background: linear-gradient(135deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-onboard .sub {
+            font-size: 18px;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 10px auto 30px;
+            line-height: 1.6;
+        }
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .reward-card {
+            padding: 24px 16px;
+            background: linear-gradient(135deg, rgba(255,140,0,0.1), rgba(0,188,212,0.1));
+            border: 2px solid rgba(255,140,0,0.3);
+            border-radius: 16px;
+            text-align: center;
+        }
+        .reward-card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .reward-card .value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .reward-card .label {
+            font-size: 12px;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .live-counter {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(0,255,65,0.1);
+            border: 2px solid rgba(0,255,65,0.4);
+            border-radius: 12px;
+            margin: 20px auto;
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--accent);
+        }
+        .live-counter .pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0f0;
+            box-shadow: 0 0 10px #0f0;
+            margin-inline-end: 8px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .step {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg2, rgba(255,255,255,0.03));
+            border: 1px solid var(--border, rgba(255,255,255,0.1));
+            border-radius: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        .step:hover {
+            border-color: var(--accent);
+            transform: translateX(-4px);
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), #00bcd4);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            box-shadow: 0 4px 16px rgba(255,140,0,0.3);
+        }
+        .step-body h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0 0 8px;
+            color: var(--text);
+        }
+        .step-body p {
+            color: var(--text2);
+            line-height: 1.7;
+            margin: 0 0 12px;
+        }
+        .step-body .cta {
+            display: inline-block;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--accent), #00bcd4);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-top: 8px;
+            transition: transform 0.2s;
+        }
+        .step-body .cta:hover {
+            transform: translateY(-2px);
+        }
+        .code-box {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--bg);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin: 0 4px;
+        }
+        .code-box:hover {
+            background: rgba(255,140,0,0.1);
+        }
+
+        .features {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .features h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        .feature-card {
+            padding: 20px;
+            background: var(--bg2, rgba(255,255,255,0.03));
+            border: 1px solid var(--border, rgba(255,255,255,0.1));
+            border-radius: 12px;
+        }
+        .feature-card .icon {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .feature-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .cta-final {
+            max-width: 700px;
+            margin: 60px auto 40px;
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,140,0,0.15), rgba(0,188,212,0.15));
+            border: 2px solid rgba(255,140,0,0.4);
+            border-radius: 20px;
+        }
+        .cta-final h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .cta-final .big-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--accent), #00bcd4);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 18px;
+            margin-top: 20px;
+            box-shadow: 0 8px 24px rgba(255,140,0,0.3);
+            transition: transform 0.2s;
+        }
+        .cta-final .big-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255,140,0,0.4);
+        }
+
+        .quicklinks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .quicklinks a {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .quicklinks a:hover {
+            background: rgba(255,140,0,0.1);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            .hero-onboard h1 { font-size: 28px; }
+            .hero-onboard .sub { font-size: 15px; }
+            .step { flex-direction: column; }
+            .step-num { margin: 0 auto; }
+            .step-body { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div id="topnav-root"></div>
+
+    <!-- HERO -->
+    <section class="hero-onboard">
+        <div class="genesis-badge">🎁 Genesis 49 · Limited Offer</div>
+        <h1>ברוכים הבאים ל-SLH Spark</h1>
+        <p class="sub">
+            ההתחלה שלך בבית ההשקעות הדיגיטלי החדש של ישראל.
+            <br>49 המשתמשים הראשונים מקבלים חבילת Genesis חינם — גישה מלאה, 100 SLH ו-NFT ייחודי.
+        </p>
+
+        <div class="live-counter" id="live-counter">
+            <span class="pulse"></span>
+            <span id="remaining-slots">טוען...</span>
+        </div>
+
+        <div class="rewards-grid">
+            <div class="reward-card">
+                <span class="icon">💎</span>
+                <div class="value">100 SLH</div>
+                <div class="label">מתנת הצטרפות</div>
+            </div>
+            <div class="reward-card">
+                <span class="icon">🎨</span>
+                <div class="value">NFT ייחודי</div>
+                <div class="label">Genesis Member #</div>
+            </div>
+            <div class="reward-card">
+                <span class="icon">🔓</span>
+                <div class="value">גישה מלאה</div>
+                <div class="label">ללא עלות הרשמה</div>
+            </div>
+            <div class="reward-card">
+                <span class="icon">🏆</span>
+                <div class="value">תחילת שרשרת</div>
+                <div class="label">10 דורות הפניות</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="steps">
+        <h2 style="text-align:center;font-size:28px;font-weight:800;margin:20px 0 30px">איך מתחילים? 4 שלבים פשוטים</h2>
+
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+                <h3>🔐 התחבר עם טלגרם</h3>
+                <p>
+                    לחץ על <a href="/dashboard.html" style="color:var(--accent)">Dashboard</a> ובחר "Login with Telegram".
+                    אנחנו מזהים אותך לפי חשבון הטלגרם שלך — אין צורך ליצור סיסמה או למלא טפסים מיותרים.
+                </p>
+                <a href="/dashboard.html" class="cta">
+                    <i class="fab fa-telegram"></i> התחבר עכשיו
+                </a>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+                <h3>🎟️ הזן קוד Genesis</h3>
+                <p>
+                    בלוח הבקרה תראה תיבה להזנת קופון. הזן
+                    <span class="code-box" onclick="copyGenesis()">GENESIS49</span>
+                    כדי לקבל את חבילת ה-Genesis בחינם.
+                </p>
+                <p style="font-size:13px;color:var(--text3)">
+                    💡 המערכת תזהה אותך מיד, תאשר את הגישה, ותזכה אותך ב-100 SLH + NFT ייחודי.
+                </p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+                <h3>👤 בחר שם תצוגה</h3>
+                <p>
+                    עבור ל-<a href="/dashboard.html#settings" style="color:var(--accent)">הגדרות</a> ובחר את השם שיוצג בלוח המובילים ובקהילה.
+                    השם שלך יישמר גם אחרי שתיכנס שוב, ולא יוחלף אוטומטית מהטלגרם.
+                </p>
+                <p style="font-size:13px;color:var(--text3)">
+                    💡 השם יכול להכיל 2-32 תווים, כולל עברית, אנגלית ואימוג'י.
+                </p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+                <h3>💰 חבר ארנק קריפטו (אופציונלי)</h3>
+                <p>
+                    בדף <a href="/wallet.html" style="color:var(--accent)">Wallet</a> תוכל לחבר את MetaMask או TrustWallet
+                    כדי לראות את היתרות שלך ישירות מהבלוקצ'יין (BSC + ETH).
+                    זה לא חובה — אתה יכול להשתמש ביתרה הפנימית (SLH + ZVK) גם בלי חיבור.
+                </p>
+                <a href="/wallet.html" class="cta">
+                    <i class="fas fa-wallet"></i> פתח ארנק
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <h2>🚀 מה יש לך עכשיו במערכת?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">💼</div>
+                <h4>תיק השקעות</h4>
+                <p>ניהול יתרות SLH, ZVK, TON ו-BNB במקום אחד. גם יתרות פנימיות וגם on-chain.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💎</div>
+                <h4>סטייקינג עד 65%</h4>
+                <p>4 תוכניות: 48% / 55% / 60% / 65% שנתי. התחל מ-1 TON.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🤝</div>
+                <h4>הפניות 10 דורות</h4>
+                <p>הרוויח עמלה מכל מי שמצטרף דרכך — עד 10 דורות עומק (10% ראשון, 5% שני, וכו').</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💬</div>
+                <h4>קהילה פעילה</h4>
+                <p>פוסטים, תגובות, לייקים, חנות P2P, בלוג יומי. הכל בעברית.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🤖</div>
+                <h4>22 בוטי טלגרם</h4>
+                <p>Wallet, Academia, Shop, Guardian, Factory, AIR HUB ועוד — כולם מחוברים.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h4>אנליטיקה אישית</h4>
+                <p>עקוב אחרי הכנסות הפניות, סטטוס סטייקינג, תנועות בתיק ומחירי שוק בזמן אמת.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🎮</div>
+                <h4>משחקים וZVK</h4>
+                <p>משחקי תמנון וטמגוצ'י ב-@NFTY_madness_bot. צבור ZVK דרך משחק.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌍</div>
+                <h4>5 שפות</h4>
+                <p>עברית, אנגלית, רוסית, ערבית, צרפתית. החלף בזמן אמת.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK LINKS -->
+    <section style="max-width:900px;margin:0 auto 40px;padding:0 20px;text-align:center">
+        <h3 style="font-size:20px;margin-bottom:16px;color:var(--text2)">📚 מדריכים מפורטים</h3>
+        <div class="quicklinks">
+            <a href="/guides.html"><i class="fas fa-book"></i> כל המדריכים</a>
+            <a href="/wallet-guide.html"><i class="fas fa-wallet"></i> מדריך ארנק</a>
+            <a href="/staking.html"><i class="fas fa-lock"></i> סטייקינג</a>
+            <a href="/referral.html"><i class="fas fa-users"></i> הפניות</a>
+            <a href="/community.html"><i class="fas fa-comments"></i> קהילה</a>
+            <a href="/bots.html"><i class="fas fa-robot"></i> בוטים</a>
+            <a href="/roadmap.html"><i class="fas fa-map"></i> מפת דרכים</a>
+            <a href="/whitepaper.html"><i class="fas fa-file"></i> נייר לבן</a>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta-final">
+        <h2>🔥 מוכן להצטרף?</h2>
+        <p style="font-size:16px;color:var(--text2);margin:10px 0">
+            הזן את הקוד
+            <span class="code-box" onclick="copyGenesis()">GENESIS49</span>
+            ב-Dashboard ותהיה חלק מ-Genesis — תמיד.
+        </p>
+        <a href="/dashboard.html" class="big-cta">
+            <i class="fas fa-rocket"></i> התחל עכשיו חינם
+        </a>
+        <p style="font-size:12px;color:var(--text3);margin-top:16px">
+            ⏰ ההצעה מוגבלת ל-49 המשתמשים הראשונים בלבד
+        </p>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="/js/translations.js?v=20260410a"></script>
+    <script src="/js/shared.js?v=20260410a"></script>
+    <script>
+        const API = 'https://slh-api-production.up.railway.app';
+
+        // Live counter
+        async function loadRemainingSlots() {
+            try {
+                const res = await fetch(API + '/api/beta/status');
+                if (!res.ok) throw new Error('API unreachable');
+                const data = await res.json();
+                const remaining = data.total_remaining ?? 49;
+                const used = 49 - remaining;
+                document.getElementById('remaining-slots').innerHTML =
+                    `נותרו <strong style="font-size:22px;color:#fff">${remaining}</strong> מתוך 49 מקומות · ${used} הצטרפו כבר`;
+            } catch (err) {
+                console.warn('[Onboarding] Failed to load beta status:', err);
+                document.getElementById('remaining-slots').textContent = '49 מקומות פנויים';
+            }
+        }
+
+        // Copy Genesis code
+        function copyGenesis() {
+            navigator.clipboard?.writeText('GENESIS49');
+            const toast = document.createElement('div');
+            toast.textContent = '📋 GENESIS49 הועתק!';
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--accent);color:#fff;border-radius:8px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3)';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // Track referral on page load (if ?ref= is in URL)
+        (function trackRef() {
+            const params = new URLSearchParams(window.location.search);
+            const ref = params.get('ref');
+            if (ref) {
+                try {
+                    localStorage.setItem('slh_ref', ref);
+                    console.log('[SLH] Referral tracked:', ref);
+                    // Analytics event (if available)
+                    if (typeof trackEvent === 'function') {
+                        trackEvent('onboarding_visit', { ref, page: 'onboarding' });
+                    }
+                } catch (e) { /* ignore */ }
+            }
+        })();
+
+        // Initial load
+        loadRemainingSlots();
+        // Refresh every 30s
+        setInterval(loadRemainingSlots, 30000);
+    </script>
+</body>
+</html>
