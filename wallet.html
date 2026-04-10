@@ -527,6 +527,14 @@
             </div>
             <div class="balance-card">
                 <div class="balance-token">
+                    <span class="token-icon token-zvk" style="background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff">Z</span>
+                    <span>ZVK</span>
+                </div>
+                <div class="balance-amount" id="bal-zvk">--</div>
+                <div class="balance-fiat" id="bal-zvk-fiat" data-i18n="wallet_game_rewards">Game Rewards</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-token">
                     <span class="token-icon token-ton"><i class="fas fa-gem" style="font-size:12px"></i></span>
                     <span>TON</span>
                 </div>
@@ -722,37 +730,52 @@
     }
 
     /* ── Load Balances ── */
+    // Uses /api/user/{id} because it includes TON_available/locked + SLH + ZVK
+    // in a single response. /api/wallet/{id}/balances only has SLH+ZVK.
     async function loadBalances() {
         const user = getCurrentUser();
         if (!user) return;
 
-        const data = await walletFetch(`/${user.id}/balances`);
+        let data = null;
+        try {
+            const res = await fetch(`${WALLET_API.replace('/api/wallet','')}/api/user/${user.id}`, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (res.ok) data = await res.json();
+        } catch (err) {
+            console.warn('[Wallet API] user endpoint', err.message);
+        }
 
-        if (data) {
+        if (data && data.balances) {
             setApiStatus(true);
 
-            const bag  = data.balances || data || {};
-            const slh  = parseFloat(bag.SLH || bag.slh || data.SLH || data.slh || 0);
-            const ton  = parseFloat(bag.TON || bag.ton || data.TON || data.ton || 0);
-            const bnb  = parseFloat(bag.BNB || bag.bnb || data.BNB || data.bnb || 0);
-            const tonL = parseFloat(bag.TON_LOCKED || bag.ton_locked || data.TON_LOCKED || data.ton_locked || 0);
+            const bag = data.balances;
+            const slh  = parseFloat(bag.SLH || 0);
+            const zvk  = parseFloat(bag.ZVK || 0);
+            const ton  = parseFloat(bag.TON_available || bag.TON || 0);
+            const tonL = parseFloat(bag.TON_locked || bag.TON_LOCKED || 0);
+            // BNB is on-chain only — shown in Web3 panel when user connects MetaMask
+            const bnb  = parseFloat(bag.BNB || 0);
 
             document.getElementById('bal-slh').textContent        = formatNumber(slh);
+            document.getElementById('bal-zvk').textContent        = formatNumber(zvk);
             document.getElementById('bal-ton').textContent         = formatNumber(ton);
             document.getElementById('bal-bnb').textContent         = formatNumber(bnb);
             document.getElementById('bal-ton-locked').textContent  = formatNumber(tonL);
 
-            // Fiat equivalents for SLH
+            // Fiat equivalents
             document.getElementById('bal-slh-fiat').textContent =
                 slh > 0 ? `~ ${formatNumber(slh * slhPriceILS)} ILS` : t('wallet_available');
+            document.getElementById('bal-zvk-fiat').textContent     = t('wallet_game_rewards') || 'Game Rewards';
             document.getElementById('bal-ton-fiat').textContent     = t('wallet_available');
-            document.getElementById('bal-bnb-fiat').textContent     = t('wallet_available');
+            document.getElementById('bal-bnb-fiat').textContent     = bnb > 0 ? t('wallet_available') : 'Connect MetaMask ↑';
             document.getElementById('bal-ton-locked-fiat').textContent = t('wallet_locked');
         } else {
             // Fallback: zeroes when API is down
             setApiStatus(false);
-            ['bal-slh', 'bal-ton', 'bal-bnb', 'bal-ton-locked'].forEach(id => {
-                document.getElementById(id).textContent = '0.00';
+            ['bal-slh', 'bal-zvk', 'bal-ton', 'bal-bnb', 'bal-ton-locked'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '0.00';
             });
         }
     }
