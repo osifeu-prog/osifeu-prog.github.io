@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>למטפלים — SLH Healing Network</title>
+<meta name="description" content="הרשמה לרשת המטפלים של SLH. קבל SLH כתשלום על זמן הטיפול שלך.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="SLH Healing Network - For Therapists">
+<meta property="og:description" content="Join the healing community. Earn SLH for your therapy time.">
+<meta property="og:image" content="https://slh-api-production.up.railway.app/api/og/default.png">
+
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shared.css?v=20260411i">
+
+<style>
+    :root {
+        --bg: #0a1018;
+        --bg2: #0f1a26;
+        --bg3: #162438;
+        --accent: #00e887;
+        --pink: #ff6b9d;
+        --gold: #ffd700;
+        --text: #e8f4ff;
+        --text2: #9cb8d6;
+        --border: rgba(255, 107, 157, 0.3);
+    }
+    body {
+        background: radial-gradient(circle at 30% 10%, rgba(255, 107, 157, 0.08), transparent 60%), var(--bg);
+        color: var(--text);
+        font-family: 'Assistant', system-ui, sans-serif;
+        line-height: 1.7;
+    }
+
+    .hero {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 80px 24px 30px;
+        text-align: center;
+    }
+    .icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+    }
+    h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--pink), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 12px;
+    }
+    .tagline {
+        font-size: 17px;
+        color: var(--text);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .section {
+        max-width: 800px;
+        margin: 0 auto 32px;
+        padding: 0 24px;
+    }
+
+    /* Value prop */
+    .benefits {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+    .benefit {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        text-align: center;
+    }
+    .benefit .ic { font-size: 36px; margin-bottom: 8px; }
+    .benefit .title { font-size: 15px; font-weight: 800; color: var(--pink); margin-bottom: 6px; }
+    .benefit .desc { font-size: 12px; color: var(--text2); }
+
+    /* Form */
+    .form-card {
+        background: var(--bg2);
+        border: 2px solid var(--border);
+        border-radius: 20px;
+        padding: 36px;
+    }
+    .form-card h2 {
+        font-size: 22px;
+        color: var(--pink);
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        font-size: 13px;
+        color: var(--text2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        margin-top: 16px;
+        font-weight: 700;
+    }
+    input, select, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 14px;
+        font-family: inherit;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--text2);
+    }
+    .checkbox-row input { width: auto; }
+
+    button.submit {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--pink), var(--accent));
+        color: #000;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-top: 24px;
+    }
+
+    .note {
+        background: rgba(255, 215, 0, 0.05);
+        border-right: 3px solid var(--gold);
+        padding: 14px 18px;
+        border-radius: 8px;
+        margin-top: 14px;
+        font-size: 12px;
+        color: var(--text2);
+        line-height: 1.8;
+    }
+    .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        display: none;
+    }
+    .result.ok { background: rgba(0, 232, 135, 0.1); color: var(--accent); border: 1px solid var(--accent); display: block; }
+    .result.err { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; display: block; }
+</style>
+</head>
+<body>
+
+<div id="topnav-root"></div>
+
+<section class="hero">
+    <div class="icon">🩺</div>
+    <h1>רשת המטפלים של SLH</h1>
+    <p class="tagline">
+        קבל SLH כתשלום על זמן הטיפול שלך. היה חלק מהכלכלה של הריפוי — ללא גבולות.
+    </p>
+</section>
+
+<section class="section">
+    <div class="benefits">
+        <div class="benefit">
+            <div class="ic">💰</div>
+            <div class="title">תשלום קבוע</div>
+            <div class="desc">SLH לכל שעת טיפול — ניתן להחליף ל-MNH (₪1:1)</div>
+        </div>
+        <div class="benefit">
+            <div class="ic">🌍</div>
+            <div class="title">קהל רחב</div>
+            <div class="desc">גישה לנזקקים שלא יכלו לשלם בשיטה הישנה</div>
+        </div>
+        <div class="benefit">
+            <div class="ic">📊</div>
+            <div class="title">שקיפות מלאה</div>
+            <div class="desc">כל טרנזקציה ב-blockchain — ללא מעילות</div>
+        </div>
+        <div class="benefit">
+            <div class="ic">🏛️</div>
+            <div class="title">קהילה</div>
+            <div class="desc">חלק מקהילה סוציוקרטית שמנהלת את עצמה</div>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h2>הירשם לרשת</h2>
+
+        <label>שם מלא *</label>
+        <input id="name" type="text" placeholder="רותם כהן">
+
+        <label>מקצוע *</label>
+        <select id="profession">
+            <option>פסיכולוג/ית</option>
+            <option>מטפל/ת CBT</option>
+            <option>פסיכיאטר/ית</option>
+            <option>פיזיותרפיסט/ית</option>
+            <option>יועץ/ת חינוכי/ת</option>
+            <option>מטפל/ת NLP</option>
+            <option>הומאופתיה</option>
+            <option>דיקור סיני</option>
+            <option>רפואה משלימה</option>
+            <option>מטפל/ת באמנות</option>
+            <option>עובד/ת סוציאלי/ת</option>
+            <option>מטפל/ת זוגי/ת ומשפחתי/ת</option>
+            <option>אחר</option>
+        </select>
+
+        <label>שנות ניסיון</label>
+        <input id="experience" type="number" min="0" max="60" placeholder="5">
+
+        <label>Telegram Handle (אופציונלי)</label>
+        <input id="handle" type="text" placeholder="@yourhandle">
+
+        <label>אימייל *</label>
+        <input id="email" type="email" placeholder="you@example.com">
+
+        <label>טלפון (אופציונלי)</label>
+        <input id="phone" type="tel" placeholder="050-1234567">
+
+        <label>תחומי התמחות</label>
+        <textarea id="specialties" placeholder="לדוגמה: חרדה, דיכאון, טראומה, יחסים, הפרעות אכילה..."></textarea>
+
+        <label>כמה שעות בשבוע אתה מוכן להקדיש ל-SLH Network?</label>
+        <select id="hours">
+            <option value="1-3">1-3 שעות</option>
+            <option value="4-8">4-8 שעות</option>
+            <option value="9-15">9-15 שעות</option>
+            <option value="16-30">16-30 שעות</option>
+            <option value="30+">30+ שעות</option>
+        </select>
+
+        <label class="checkbox-row">
+            <input type="checkbox" id="agree">
+            אני מסכים/ה לקבל תשלום ב-SLH ולהיות חלק מרשת המטפלים
+        </label>
+
+        <div class="note">
+            💡 <strong>מה קורה אחרי הרישום?</strong><br>
+            1. אני (אוסיף) יצור איתך קשר תוך 48 שעות<br>
+            2. נקבע שיחת היכרות קצרה (30 דק' ב-Zoom)<br>
+            3. תקבל 10 SLH כבונוס הצטרפות לרשת<br>
+            4. תתווסף לקבוצת טלגרם של המטפלים
+        </div>
+
+        <button class="submit" onclick="submitTherapist()">🌸 הצטרף לרשת ההחלמה</button>
+
+        <div class="result" id="result"></div>
+    </div>
+</section>
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260411i"></script>
+<script src="/js/shared.js?v=20260411i"></script>
+<script>
+initShared({ activePage: 'therapists', showBottomNav: true });
+
+async function submitTherapist() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const agree = document.getElementById('agree').checked;
+    const result = document.getElementById('result');
+
+    if (!name || !email) {
+        result.className = 'result err';
+        result.textContent = 'שם ואימייל חובה';
+        return;
+    }
+    if (!agree) {
+        result.className = 'result err';
+        result.textContent = 'יש לאשר את ההצטרפות לרשת';
+        return;
+    }
+
+    // Store the registration locally (will be replaced with API endpoint later)
+    const registration = {
+        name,
+        profession: document.getElementById('profession').value,
+        experience: document.getElementById('experience').value,
+        handle: document.getElementById('handle').value.trim(),
+        email,
+        phone: document.getElementById('phone').value.trim(),
+        specialties: document.getElementById('specialties').value.trim(),
+        hours: document.getElementById('hours').value,
+        submitted_at: new Date().toISOString()
+    };
+
+    // Save to localStorage for now + post via existing community endpoint
+    try {
+        const existing = JSON.parse(localStorage.getItem('slh_therapist_registrations') || '[]');
+        existing.push(registration);
+        localStorage.setItem('slh_therapist_registrations', JSON.stringify(existing));
+
+        // Also post as a community message so it's logged server-side
+        await fetch('https://slh-api-production.up.railway.app/api/community/posts', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username: 'Therapist:' + name,
+                text: `🩺 הרשמה חדשה לרשת המטפלים: ${name} | ${registration.profession} | ניסיון: ${registration.experience} שנים | ${registration.hours}/week | ${email}${registration.handle ? ' | ' + registration.handle : ''}`,
+                category: 'general',
+                telegram_id: null
+            })
+        });
+
+        result.className = 'result ok';
+        result.innerHTML = '✅ הרשמה נקלטה! אוסיף יצור איתך קשר תוך 48 שעות. תודה על ההצטרפות לרשת ההחלמה.';
+
+        // Clear form
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('specialties').value = '';
+    } catch(e) {
+        result.className = 'result err';
+        result.textContent = '❌ שגיאה: ' + e.message;
+    }
+}
+</script>
+</body>
+</html>
