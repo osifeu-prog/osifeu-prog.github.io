@@ -915,8 +915,31 @@
             document.getElementById('theme-picker-popup').classList.toggle('open');
             document.getElementById('a11y-popup')?.classList.remove('open');
         }
+        // Theme color definitions (also defined in CSS, but used here for direct DOM application)
+        const THEME_COLORS = {
+            dark:      { bg:'#050510', bg2:'#0a0a1a', text:'#e8e8f0', text2:'#9898b0', accent:'#ff8c00' },
+            terminal:  { bg:'#0a0a0a', bg2:'#0d0d0d', text:'#00ff41', text2:'#00cc33', accent:'#00ff41' },
+            crypto:    { bg:'#0c0014', bg2:'#10001e', text:'#f0e6ff', text2:'#b39ddb', accent:'#a855f7' },
+            light:     { bg:'#f8fafc', bg2:'#f1f5f9', text:'#0f172a', text2:'#475569', accent:'#2563eb' },
+            cyberpunk: { bg:'#050505', bg2:'#0a0a0a', text:'#00ff41', text2:'#00cccc', accent:'#00f3ff' },
+            ocean:     { bg:'#001828', bg2:'#002a40', text:'#b8e0ff', text2:'#7fb8d6', accent:'#00d4ff' },
+            sunset:    { bg:'#1a0f1f', bg2:'#251530', text:'#ffd700', text2:'#ffaa70', accent:'#ff6b35' },
+        };
+
         function pickTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
+            const colors = THEME_COLORS[theme] || THEME_COLORS.dark;
+            const root = document.documentElement;
+            // Set BOTH the data-theme attribute (for CSS rules) AND inline CSS variables
+            // (forces override even if CSS specificity loses)
+            root.setAttribute('data-theme', theme);
+            root.style.setProperty('--bg', colors.bg);
+            root.style.setProperty('--bg2', colors.bg2);
+            root.style.setProperty('--text', colors.text);
+            root.style.setProperty('--text2', colors.text2);
+            root.style.setProperty('--accent', colors.accent);
+            // Force body bg directly as fallback
+            document.body.style.setProperty('background', colors.bg, 'important');
+            document.body.style.setProperty('color', colors.text, 'important');
             try { localStorage.setItem('slh_theme', theme); } catch(e) {}
             document.querySelectorAll('.theme-option').forEach(b => {
                 b.classList.toggle('active', b.dataset.theme === theme);
@@ -924,7 +947,7 @@
             document.getElementById('theme-picker-popup').classList.remove('open');
             const t = document.createElement('div');
             t.textContent = '🎨 ערכת נושא: ' + theme;
-            t.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--accent,#ff8c00);color:#fff;border-radius:8px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3)';
+            t.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;background:' + colors.accent + ';color:#fff;border-radius:8px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3)';
             document.body.appendChild(t);
             setTimeout(() => t.remove(), 2000);
         }
