@@ -553,6 +553,9 @@
 </div>
 
 <script>
+// ── API Config (MUST be before auto-login trigger to avoid TDZ error) ──
+const SLH_API = 'https://slh-api-production.up.railway.app';
+
 // ── Auth ─────────────────────────────────────────────────────────
 // Multiple admin passwords — share a different one with each partner
 const ADMIN_PASSWORDS = [
@@ -602,9 +605,7 @@ function getAnalyticsData(){
     } catch(e){ return []; }
 }
 
-// ── API Config ──────────────────────────────────────────────────
-const SLH_API = 'https://slh-api-production.up.railway.app';
-
+// ── API fetching (SLH_API is declared at the top of this script block) ─
 async function fetchAdminStats() {
     // Safe fetch with timeout per endpoint (5s each)
     const safeJson = async (url) => {
