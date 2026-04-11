@@ -8,7 +8,7 @@ const T = {
     // Navigation
     nav_home: 'ראשי',
     nav_trade: 'מסחר',
-    nav_earn: 'הרוויח',
+    nav_earn: 'להרוויח',
     nav_wallet: 'ארנק',
     nav_bots: 'בוטים',
     nav_referral: 'הפניות',
@@ -90,7 +90,7 @@ const T = {
     // Landing — Hero
     hero_title: 'המטבע הדיגיטלי של הקהילה',
     hero_sub: 'SLH Spark — מערכת כלכלית חכמה מבוססת בוטים, בלוקצ\'יין וקהילה. הצטרפו למהפכה.',
-    landing_hero_title: 'בית ההשקעות הדיגיטלי SLH',
+    landing_hero_title: 'SLH — האקוסיסטם של העולם החדש',
     landing_hero_sub: '20+ בוטים בטלגרם. בלוקצ\'יין אמיתי. 65% תשואה שנתית. בנוי בישראל.',
     landing_cta_trade: 'התחילו לסחור',
     landing_cta_earn: 'הרוויחו 65% תשואה',
@@ -608,7 +608,7 @@ const T = {
     // Landing — Hero
     hero_title: 'The Community Digital Currency',
     hero_sub: 'SLH Spark — A smart economic system powered by bots, blockchain, and community. Join the revolution.',
-    landing_hero_title: 'SLH Digital Investment House',
+    landing_hero_title: 'SLH — The Ecosystem of the New World',
     landing_hero_sub: '20+ Telegram bots. Real blockchain. 65% APY. Built in Israel.',
     landing_cta_trade: 'Start Trading',
     landing_cta_earn: 'Earn 65% APY',

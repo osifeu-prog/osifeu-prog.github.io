@@ -1764,7 +1764,29 @@ function manualLoginWith(uid, name, photo) {
     }
     currentUser = {id: uid, first_name: name || 'User', username: '', photo_url: photo || ''};
     localStorage.setItem('slh_user', JSON.stringify(currentUser));
-    showApp();
+    // CRITICAL: Ensure user is persisted to DB (fix for "users disappearing" bug)
+    // Before this fix, manual login only saved to localStorage and never hit the API,
+    // so users who typed their Telegram ID manually never appeared in web_users.
+    fetch(API + '/api/user/ensure', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            telegram_id: uid,
+            first_name: name || 'User',
+            photo_url: photo || ''
+        })
+    })
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+        if (data && data.ok) {
+            currentUser.is_registered = data.is_registered;
+            currentUser.balances = data.balances;
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+            console.log('[SLH] User ensured in DB:', uid, 'registered=', data.is_registered);
+        }
+    })
+    .catch(e => console.warn('[SLH] user.ensure failed (non-fatal):', e.message))
+    .finally(() => showApp());
 }
 
 function logout() {
@@ -2760,18 +2782,8 @@ async function initPortfolioTracker() {
     if (gate) gate.style.display = 'none';
     if (content) content.style.display = 'block';
 
-    // If empty portfolio, seed with demo data
+    // NO DEMO DATA — portfolio starts empty. User adds only real holdings.
     var portfolio = getPortfolio();
-    if (portfolio.length === 0) {
-        portfolio = [
-            {coin:'bitcoin', amount:0.05},
-            {coin:'ethereum', amount:0.5},
-            {coin:'the-open-network', amount:100},
-            {coin:'solana', amount:5},
-            {coin:'slh', amount:10000}
-        ];
-        savePortfolio(portfolio);
-    }
 
     await fetchPortfolioPrices();
     renderPortfolio();
@@ -2910,20 +2922,9 @@ function renderPerfChart() {
     var ctx = document.getElementById('ptf-perf-chart');
     if (!ctx) return;
     if (ptfPerfChart) ptfPerfChart.destroy();
+    // NO synthetic history — only real daily snapshots. Chart stays empty
+    // until the user has at least 2 days of real data.
     var snaps = getPtfSnapshots();
-    if (snaps.length < 2) {
-        // Seed with some history for visual effect
-        var today = new Date();
-        var baseVal = 0;
-        try { baseVal = parseFloat(document.getElementById('ptf-total-usd').textContent.replace(/[$,]/g,'')) || 0; } catch(e){}
-        if (snaps.length === 0 && baseVal > 0) {
-            for (var i = 6; i >= 0; i--) {
-                var d = new Date(today); d.setDate(d.getDate() - i);
-                snaps.push({date: d.toISOString().slice(0,10), value: baseVal * (0.95 + Math.random()*0.1)});
-            }
-            snaps[snaps.length-1].value = baseVal;
-        }
-    }
     var labels = snaps.map(function(s){ return s.date.slice(5); }); // MM-DD
     var data = snaps.map(function(s){ return s.value; });
     ptfPerfChart = new Chart(ctx, {
