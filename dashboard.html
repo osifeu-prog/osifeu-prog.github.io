@@ -2293,14 +2293,39 @@ function showRegistrationPanel() {
         </div>
 
         <!-- BETA COUPON — free access for first 49 users -->
-        <div style="background:linear-gradient(135deg,rgba(255,140,0,0.12),rgba(0,188,212,0.12));border:2px dashed rgba(255,140,0,0.4);border-radius:14px;padding:20px;max-width:440px;width:100%;margin-bottom:20px;text-align:center">
-            <div style="font-size:24px;margin-bottom:6px">🎁 <b style="color:var(--accent)">49 חברי Genesis</b></div>
-            <div style="font-size:13px;color:var(--text2);margin-bottom:12px">המשתמשים הראשונים מקבלים <b style="color:var(--text)">גישה מלאה חינם</b> + NFT + <b>0.44 SLH (~195 ₪)</b> מתנה</div>
-            <div style="font-size:11px;color:var(--text2);margin-bottom:8px" id="beta-remaining">⏳ טוען מלאי...</div>
-            <input type="text" id="reg-coupon-code" placeholder="GENESIS49" dir="ltr" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--accent);color:var(--text);font-size:14px;border-radius:8px;margin-bottom:10px;font-family:monospace;text-align:center;text-transform:uppercase;letter-spacing:2px">
-            <button onclick="redeemBetaCoupon()" id="reg-coupon-btn" style="background:linear-gradient(135deg,var(--accent),#00bcd4);color:#fff;border:none;padding:14px;font-weight:800;font-size:15px;border-radius:10px;cursor:pointer;width:100%">🔑 הזן קוד Genesis</button>
+        <div style="background:linear-gradient(135deg,rgba(255,140,0,0.18),rgba(0,188,212,0.18));border:3px solid rgba(255,140,0,0.6);border-radius:16px;padding:24px;max-width:480px;width:100%;margin-bottom:20px;text-align:center;box-shadow:0 8px 32px rgba(255,140,0,0.25);animation:pulseGlow 2s ease-in-out infinite">
+            <style>@keyframes pulseGlow{0%,100%{box-shadow:0 8px 32px rgba(255,140,0,0.25)}50%{box-shadow:0 8px 48px rgba(255,140,0,0.5)}}</style>
+            <div style="font-size:28px;margin-bottom:8px">🎁 <b style="color:var(--accent)">Genesis 49</b> — חבילה דו-שלבית!</div>
+            <div style="font-size:14px;color:var(--text);margin-bottom:14px;line-height:1.6">
+                <div style="margin:6px 0">💎 <b>0.1 SLH</b> (~44 ₪) <span style="color:var(--text2)">להפצה מיידית</span></div>
+                <div style="margin:6px 0">🎁 <b style="color:#22c55e">+1 SLH</b> (~444 ₪) <span style="color:var(--text2)">מתנה אחרי ההפצה</span></div>
+                <div style="margin:6px 0">🎨 <b>NFT Genesis</b> + 🔓 <b>גישה מלאה</b></div>
+            </div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:12px" id="beta-remaining">⏳ טוען מלאי...</div>
+            <input type="text" id="reg-coupon-code" value="GENESIS49" dir="ltr" style="width:100%;padding:14px;background:var(--bg);border:2px solid var(--accent);color:var(--accent);font-size:18px;border-radius:10px;margin-bottom:12px;font-family:monospace;text-align:center;text-transform:uppercase;letter-spacing:3px;font-weight:800">
+            <button onclick="redeemBetaCoupon()" id="reg-coupon-btn" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:16px;font-weight:900;font-size:16px;border-radius:12px;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(34,197,94,0.3)">✨ אישור — קבל את המתנה!</button>
             <div id="reg-coupon-status" style="margin-top:10px;font-size:13px;display:none"></div>
         </div>
+
+        <script>
+        // Auto-fill coupon if ?promo= in URL
+        (function autofillPromo(){
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const promo = params.get('promo');
+                if (promo) {
+                    setTimeout(() => {
+                        const input = document.getElementById('reg-coupon-code');
+                        if (input) {
+                            input.value = promo.toUpperCase();
+                            input.style.background = 'rgba(34,197,94,0.1)';
+                            console.log('[SLH] Auto-filled promo code:', promo);
+                        }
+                    }, 500);
+                }
+            } catch(e) {}
+        })();
+        </script>
 
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
             <a href="/" style="color:var(--text2);font-size:13px">&larr; Back to site</a>
@@ -2426,7 +2451,7 @@ async function redeemBetaCoupon() {
             if (data.nft_number) {
                 showRegCouponStatus(
                     `🎉 ברוכים הבאים, Genesis Member #${data.nft_number}!<br>` +
-                    `💎 קיבלת ${data.slh_credited || 0.44} SLH + NFT<br>` +
+                    `💎 קיבלת ${data.slh_credited || 0.1} SLH (~44₪) להפצה<br>🎁 +1 SLH מתנה לאחר ההפצה<br>🎨 NFT Genesis<br>` +
                     `⏳ נותרו ${data.remaining_slots ?? '?'} מקומות`,
                     false
                 );
