@@ -329,8 +329,32 @@
 
 <!-- Recommended Scenarios -->
 <section class="section">
-    <h2>🎯 3 תרחישי השקה — בחר לפי תקציב וסיכון</h2>
+    <h2>🎯 5 תרחישי השקה — מינימום טכני עד מקצועי</h2>
     <div class="scenarios">
+        <div class="scenario-card" onclick="applyScenario('ultra')" style="border-color:rgba(0,232,135,0.4)">
+            <div class="scenario-name">🔬 Ultra Micro</div>
+            <div class="scenario-cost">~$32</div>
+            <div class="scenario-details">
+                <strong>0.05 BNB + 50 SLH</strong><br>
+                מחיר התחלתי: <strong>$0.61 / SLH</strong><br>
+                Market Cap: <strong>$67.6M</strong><br>
+                Slippage על 0.005 BNB: ~9%<br>
+                <em>⚠️ המינימום הטכני המוחלט — רק להוכחת מנגנון</em>
+            </div>
+        </div>
+
+        <div class="scenario-card" onclick="applyScenario('nano')" style="border-color:rgba(168,85,247,0.4)">
+            <div class="scenario-name">🧪 Nano Seed</div>
+            <div class="scenario-cost">~$63</div>
+            <div class="scenario-details">
+                <strong>0.1 BNB + 100 SLH</strong><br>
+                מחיר התחלתי: <strong>$0.61 / SLH</strong><br>
+                Market Cap: <strong>$67.6M</strong><br>
+                Slippage על 0.01 BNB: ~9%<br>
+                <em>המינימום המעשי — מתאים לשלב הוכחת רעיון</em>
+            </div>
+        </div>
+
         <div class="scenario-card" onclick="applyScenario('micro')">
             <div class="scenario-name">🌱 Micro Seed</div>
             <div class="scenario-cost">~$310</div>
@@ -339,7 +363,7 @@
                 מחיר התחלתי: <strong>$0.61 / SLH</strong><br>
                 Market Cap: <strong>$67.6M</strong><br>
                 Slippage על 0.05 BNB: ~9%<br>
-                <em>הסיכון הנמוך ביותר — רק $304 ב-BNB</em>
+                <em>מוכן לקהל מוגבל, עדיין שטחי</em>
             </div>
         </div>
 
@@ -364,6 +388,90 @@
                 Market Cap: <strong>$67.5M</strong><br>
                 Slippage על 0.5 BNB: ~9%<br>
                 <em>עומק נזילות מקצועי, מוכן לקהל רחב</em>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gas Fees Warning -->
+    <div style="margin-top:18px;padding:16px 20px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:12px">
+        <div style="font-size:13px;color:#ef9a9a;font-weight:800;margin-bottom:6px">⚠️ חשוב — עלויות נוספות ל-Gas</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+            לכל התרחישים מעליהם, צריך להוסיף <strong>~0.003 BNB ($1.80)</strong> ל-gas fees:<br>
+            • Approve SLH Contract: ~0.0005 BNB<br>
+            • Create Pair: ~0.0015 BNB<br>
+            • Add Liquidity: ~0.001 BNB<br>
+            <strong>סה"כ gas:</strong> ~$1.80 · <strong>סה"כ Ultra Micro אמיתי:</strong> ~$33.80
+        </div>
+    </div>
+</section>
+
+<!-- Crowdfunding / Presale Path -->
+<section class="section" style="margin-top:40px">
+    <h2>💰 אלטרנטיבה חכמה — Presale / Crowdfunding</h2>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px">
+        <p style="color:var(--text2);margin-bottom:20px;font-size:14px;line-height:1.8">
+            במקום להוציא כסף מהכיס שלך, תוכל <strong style="color:var(--accent)">לגייס את הסכום מהקהל</strong>
+            דרך פלטפורמות IDO/Presale שמנהלות את כל התהליך. המשתתפים שולחים BNB → בסוף הגיוס →
+            הטוקנים מחולקים + ה-pool נוצר אוטומטית + הנזילות ננעלת.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:20px">
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                    <div style="font-size:16px;font-weight:800;color:var(--accent)">PinkSale</div>
+                    <span style="background:rgba(0,232,135,0.15);color:var(--accent2);padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700">⭐ מומלץ</span>
+                </div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.8">
+                    <strong>עלות:</strong> 0.75 BNB (~$456) + 2% מהגיוס<br>
+                    <strong>יתרון:</strong> הכי מוכר בקהילת BSC, KYC אוטומטי, נעילת LP אוטומטית<br>
+                    <strong>זמן:</strong> עד 14 ימים לגיוס<br>
+                    <strong>מינימום:</strong> ללא (אתה קובע)
+                </div>
+                <a href="https://www.pinksale.finance/launchpad/create?chain=BSC" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:8px 14px;background:var(--accent);color:#000;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700">Create Launchpad →</a>
+            </div>
+
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px">
+                <div style="font-size:16px;font-weight:800;color:var(--purple);margin-bottom:10px">DxSale</div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.8">
+                    <strong>עלות:</strong> 1 BNB (~$608) cap + 2%<br>
+                    <strong>יתרון:</strong> וותיק וותיק, fair launch option, cheap<br>
+                    <strong>זמן:</strong> עד 7 ימים<br>
+                    <strong>מינימום:</strong> 0.5 BNB softcap
+                </div>
+                <a href="https://dx.app/app/v3/defisalecreate" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:8px 14px;background:var(--purple);color:#fff;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700">Start on DxSale →</a>
+            </div>
+
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px">
+                <div style="font-size:16px;font-weight:800;color:#00b4d8;margin-bottom:10px">GemPad</div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.8">
+                    <strong>עלות:</strong> 0.3 BNB (~$182) + 3%<br>
+                    <strong>יתרון:</strong> הכי זול, מתאים לפרויקטים קטנים<br>
+                    <strong>זמן:</strong> עד 30 ימים<br>
+                    <strong>מינימום:</strong> 0.1 BNB softcap
+                </div>
+                <a href="https://app.gempad.app/create" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:8px 14px;background:#00b4d8;color:#000;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700">GemPad Create →</a>
+            </div>
+        </div>
+
+        <!-- Smart Strategy -->
+        <div style="margin-top:20px;padding:18px;background:linear-gradient(135deg, rgba(0,232,135,0.08), rgba(243,186,47,0.08));border:1px solid var(--accent2);border-radius:12px">
+            <div style="font-size:14px;font-weight:800;color:var(--accent2);margin-bottom:10px">💡 האסטרטגיה החכמה ביותר — Private Presale + Public Launch</div>
+            <ol style="padding-right:22px;color:var(--text2);font-size:13px;line-height:1.9">
+                <li><strong>Private Round (חינם לחלוטין — 0 עלות ממך):</strong><br>
+                פנה ל-10 המשקיעים הקיימים שלך → כל אחד תורם 0.1-0.5 BNB בתמורה ל-SLH במחיר מופחת של $0.40<br>
+                → אוספים ~1-5 BNB ($608-$3,040) מוכן לגמרי</li>
+                <li><strong>Fair Launch ב-GemPad (0.3 BNB מה-private round):</strong><br>
+                שאר ה-BNB (0.7-4.7) + SLH מתאים → השק ב-$0.61 כמחיר ציבורי<br>
+                → משתתפים ציבוריים קונים במחיר סופי</li>
+                <li><strong>PancakeSwap Pool נוצר אוטומטית:</strong><br>
+                בסוף הגיוס, GemPad/PinkSale יוצר את ה-pool + נועל את ה-LP<br>
+                → אתה מסיים עם pool חי בלי להוציא כלום מהכיס שלך</li>
+                <li><strong>Genesis 49 כקבוצת Whitelist ראשונה:</strong><br>
+                ה-49 משתמשים הראשונים שיש להם את ה-NFT מקבלים עדיפות וזכות ראשונים לרכוש בהנחה<br>
+                → מנגנון הקיים כבר במערכת שלנו!</li>
+            </ol>
+            <div style="margin-top:12px;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;font-size:12px;color:var(--text3)">
+                <strong style="color:var(--accent2)">התוצאה:</strong> Pool של $1,200-$6,000 בלי להוציא דולר אחד. הסיכון שלך = 0. הרווח שלך = הכל.
             </div>
         </div>
     </div>
@@ -622,9 +730,11 @@
 
     function applyScenario(name) {
         const scenarios = {
-            'micro':  { bnb: 0.5, slh: 500 },
-            'seed':   { bnb: 1,   slh: 1000 },
-            'growth': { bnb: 5,   slh: 5000 }
+            'ultra':  { bnb: 0.05, slh: 50 },
+            'nano':   { bnb: 0.1,  slh: 100 },
+            'micro':  { bnb: 0.5,  slh: 500 },
+            'seed':   { bnb: 1,    slh: 1000 },
+            'growth': { bnb: 5,    slh: 5000 }
         };
         const s = scenarios[name];
         if (!s) return;
