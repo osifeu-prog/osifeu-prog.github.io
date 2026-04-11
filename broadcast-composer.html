@@ -202,9 +202,17 @@
             <span style="text-transform:none;font-size:13px;color:var(--text)">Dry run — preview count without sending</span>
         </label>
 
+        <div style="background:rgba(0,232,135,0.06);border:1px solid var(--accent2);padding:14px;border-radius:10px;margin-top:16px;font-size:13px">
+            💡 <strong style="color:var(--accent2)">התחל תמיד עם Dry Run</strong> — זה רק מציג כמה נמענים תהיו, בלי לשלוח בפועל.
+            רק אחרי שרואים שזה עובד, לחץ "Send for Real".
+        </div>
         <div class="btn-group">
-            <button class="btn btn-dry" onclick="send(true)">🧪 Dry Run (Preview)</button>
-            <button class="btn btn-primary" onclick="send(false)">📤 Send for Real</button>
+            <button class="btn btn-dry" onclick="send(true)" style="flex:2;background:linear-gradient(135deg,#ffd700,#f3ba2f);font-size:16px">
+                🧪 Step 1 — Dry Run (Preview Only)
+            </button>
+            <button class="btn btn-primary" onclick="send(false)" style="flex:1;opacity:0.6">
+                📤 Step 2 — Send for Real
+            </button>
             <button class="btn btn-outline" onclick="loadHistory()">📜 Refresh History</button>
         </div>
 

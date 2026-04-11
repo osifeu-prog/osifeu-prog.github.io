@@ -313,24 +313,49 @@
     </div>
 </section>
 
-<!-- Agent Reports (placeholder) -->
+<!-- Agent Reports — COMPLETED -->
 <section class="section">
-    <h2><span class="num">4</span> Background Agents</h2>
-    <div class="card">
-        <h3>🔍 Drive Scan Agent</h3>
+    <h2><span class="num">4</span> Background Agents — Both Completed ✅</h2>
+
+    <div class="card" style="border-left-color: var(--accent)">
+        <h3>🛡️ Security Audit — 3 CRITICAL + 5 HIGH Found</h3>
         <p>
-            סרק את D:\SLH_* (30+ תיקיות) לזיהוי פיצ'רים חבויים. הדוח יישמר ב-
-            <code>D:\SLH_ECOSYSTEM\ops\DRIVE_SCAN_REPORT_20260412.md</code>.
-            אם הסוכן סיים, הקובץ כבר קיים. אחרת, רץ עדיין.
+            סקירה של 4600+ שורות ב-main.py. מצא <strong>3 CRITICAL, 5 HIGH, 6 MEDIUM, 4 LOW</strong>.
+            תיקנתי 5/6 אמיתיים (C-1, C-3, H-1, H-2, H-3). אחד (C-2) false positive.
+            הדוח המלא:
         </p>
+        <ul style="padding-right:20px;font-size:13px;color:var(--text2)">
+            <li><strong>C-1 FIXED:</strong> Marketplace f-string SQL injection → parameterized CASE</li>
+            <li><strong>C-3 FIXED:</strong> Startup warnings for default credentials on boot</li>
+            <li><strong>H-1/H-2 FIXED:</strong> /api/admin/* now require X-Admin-Key header</li>
+            <li><strong>H-3 FIXED:</strong> CORS allow_headers whitelist (no wildcard)</li>
+            <li><strong>Commits:</strong> efe99a7 (api) + 48e1915 (admin.html) + e9025ad (broadcast)</li>
+        </ul>
+        <div class="links">
+            <a href="#" onclick="alert('Read: D:\\\\SLH_ECOSYSTEM\\\\ops\\\\SECURITY_AUDIT_20260412.md'); return false;">📄 SECURITY_AUDIT_20260412.md</a>
+        </div>
     </div>
-    <div class="card">
-        <h3>🛡️ Security Audit Agent</h3>
+
+    <div class="card" style="border-left-color: var(--gold)">
+        <h3>🔍 Drive Scan — Found SLH_PROJECT_V2 as separate live service!</h3>
         <p>
-            בדיקת אבטחה של כל main.py (~4600 שורות). מחפש SQL injection, missing auth,
-            exposed secrets, CORS issues, rate limit gaps. הדוח ב-
-            <code>D:\SLH_ECOSYSTEM\ops\SECURITY_AUDIT_20260412.md</code>.
+            סרקתי 30+ תיקיות D:\SLH*. הממצא הכי חשוב:
+            <strong style="color:var(--gold)">SLH_PROJECT_V2 הוא לא backup —</strong>
+            הוא שירות חי ונפרד ב-Railway (github.com/osifeu-prog/SLH_PROJECT_V2.git).
+            היעד שלו: 100K+ משתמשים של "SLH Academia". יש לוודא שאין חפיפה או קונפליקטים
+            עם SLH_ECOSYSTEM (זה גרם לבעיית NFTY token earlier).
         </p>
+        <ul style="padding-right:20px;font-size:13px;color:var(--text2)">
+            <li><strong>Active main:</strong> D:\SLH_ECOSYSTEM (source of truth) ✓</li>
+            <li><strong>Separate Railway service:</strong> SLH_PROJECT_V2 (SLH Academia) ⚠️</li>
+            <li><strong>Worth integrating:</strong> D:\SLH (React Native wallet WIP)</li>
+            <li><strong>Can delete:</strong> SLH_AGENT_MERCHANT, SLH_AGENT_SALES (duplicates)</li>
+            <li><strong>Empty:</strong> SLHSITE, SLH_BNB, SLH_BOTS, SLH_CONTROL, SLH_APP, SLHWallet</li>
+            <li><strong>Old backups:</strong> 9 ZIP files, 8 of them &gt;30 days old → cold storage</li>
+        </ul>
+        <div class="links">
+            <a href="#" onclick="alert('Read: D:\\\\SLH_ECOSYSTEM\\\\ops\\\\DRIVE_SCAN_REPORT_20260412.md'); return false;">📄 DRIVE_SCAN_REPORT_20260412.md</a>
+        </div>
     </div>
 </section>
 
