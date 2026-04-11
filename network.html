@@ -471,41 +471,34 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     const statusEl = document.getElementById('holders-status');
     const tableEl = document.getElementById('holders-table');
     const bodyEl = document.getElementById('holders-body');
-    statusEl.textContent = '⏳ Fetching holders from BSCScan...';
+    statusEl.textContent = '⏳ טוען מחזיקי SLH מ-BSC דרך ה-backend...';
     statusEl.style.color = '#00b4d8';
 
     try {
-      // Public BSCScan endpoint — no API key, rate limited
-      // When user provides API key, update to use /tokenholderlist with apikey param
-      const url = `https://api.bscscan.com/api?module=token&action=tokenholderlist&contractaddress=${SLH_CONTRACT}&page=1&offset=100`;
-      const r = await fetch(url);
+      // Call our backend — which uses BSCSCAN_API_KEY env var securely (no CORS, no exposed key)
+      const r = await fetch(SLH_API + '/api/network/slh-holders?limit=100');
       const data = await r.json();
-      if (data.status !== '1' || !data.result) {
-        statusEl.innerHTML = `⚠️ <strong>BSCScan API Key נדרש</strong> — ${data.message || data.result || 'Rate limited'}<br><span style="color:#b0b0c0;font-size:11px">ספק BSCScan API key (<a href="https://bscscan.com/apis" target="_blank" style="color:#00b4d8">bscscan.com/apis</a>) כדי לראות את 176 המחזיקים האמיתיים</span>`;
+      if (!data.ok) {
+        statusEl.innerHTML = `⚠️ <strong>${data.error || 'BSCScan API Key לא מוגדר ב-backend'}</strong><br><span style="color:#b0b0c0;font-size:11px">${data.hint || 'על המנהל להגדיר BSCSCAN_API_KEY ב-Railway → slh-api → Variables'}</span>`;
         statusEl.style.color = '#ef4444';
         return;
       }
 
-      const holders = data.result;
-      document.getElementById('live-real-holders').textContent = holders.length;
-      const totalSupply = 111186328; // from SLH contract
-      bodyEl.innerHTML = holders.slice(0,50).map((h, i) => {
-        const balance = parseFloat(h.TokenHolderQuantity) / 1e15; // 15 decimals
-        const pct = (balance / totalSupply * 100).toFixed(4);
-        const addr = h.TokenHolderAddress;
-        return `<tr>
-          <td class="rank">${i+1}</td>
-          <td style="font-family:monospace;font-size:11px;direction:ltr">${addr.slice(0,8)}...${addr.slice(-6)}</td>
-          <td style="direction:ltr">${balance.toLocaleString('en-US',{maximumFractionDigits:2})}</td>
-          <td>${pct}%</td>
-          <td><a href="https://bscscan.com/address/${addr}" target="_blank" style="color:#00b4d8">🔗</a></td>
-        </tr>`;
-      }).join('');
+      const holders = data.holders || [];
+      document.getElementById('live-real-holders').textContent = data.total_holders || holders.length;
+      bodyEl.innerHTML = holders.slice(0, 50).map(h => `
+        <tr>
+          <td class="rank">${h.rank}</td>
+          <td style="font-family:monospace;font-size:11px;direction:ltr">${h.address.slice(0,8)}...${h.address.slice(-6)}</td>
+          <td style="direction:ltr">${h.balance.toLocaleString('en-US',{maximumFractionDigits:2})}</td>
+          <td>${h.percent}%</td>
+          <td><a href="${h.bscscan_url}" target="_blank" style="color:#00b4d8">🔗</a></td>
+        </tr>`).join('');
       tableEl.style.display = 'table';
-      statusEl.textContent = `✅ Loaded ${holders.length} holders`;
+      statusEl.textContent = `✅ נטענו ${holders.length} מחזיקים — chain: ${data.chain}`;
       statusEl.style.color = '#00e887';
     } catch(e) {
-      statusEl.innerHTML = `❌ Failed: ${e.message}<br><span style="color:#b0b0c0;font-size:11px">ייתכן CORS blocking — צריך לעבור דרך ה-backend שלנו</span>`;
+      statusEl.innerHTML = `❌ שגיאה: ${e.message}`;
       statusEl.style.color = '#ef4444';
     }
   };
