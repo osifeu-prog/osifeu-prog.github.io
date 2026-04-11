@@ -821,22 +821,70 @@
                 <!-- Receive Panel -->
                 <div class="action-panel" id="panel-receive">
                     <div class="receive-panel">
-                        <div class="address-block">
-                            <div class="address-label">TON Deposit Address</div>
-                            <div class="address-row">
-                                <span class="address-value" id="addr-ton">Loading...</span>
-                                <button class="address-copy-btn" onclick="copyToClipboard(document.getElementById('addr-ton').textContent)" data-i18n="common_copy">Copy</button>
+                        <!-- Network Selector -->
+                        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+                            <button onclick="showQr('ton')" id="qr-btn-ton" class="qr-net-btn active" style="flex:1;min-width:120px;padding:10px 14px;background:rgba(0,152,234,0.15);border:1px solid #0098ea;color:#0098ea;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px">
+                                🔵 TON Network
+                            </button>
+                            <button onclick="showQr('bsc')" id="qr-btn-bsc" class="qr-net-btn" style="flex:1;min-width:120px;padding:10px 14px;background:rgba(243,186,47,0.15);border:1px solid #f3ba2f;color:#f3ba2f;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px">
+                                🟡 BSC (BNB Chain)
+                            </button>
+                        </div>
+
+                        <!-- TON Receive Block -->
+                        <div id="qr-block-ton" class="qr-block">
+                            <div style="background:rgba(0,152,234,0.05);border:1px solid rgba(0,152,234,0.3);border-radius:12px;padding:20px;text-align:center">
+                                <div style="font-size:11px;color:#b0b0c0;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px">TON Network</div>
+                                <div style="font-size:14px;color:#fff;font-weight:700;margin-bottom:14px">כתובת ההפקדה שלך</div>
+                                <!-- QR Code -->
+                                <div style="background:#fff;padding:14px;border-radius:10px;display:inline-block;margin-bottom:14px">
+                                    <img id="qr-img-ton" src="" alt="QR Code" style="display:block;width:200px;height:200px">
+                                </div>
+                                <!-- Address -->
+                                <div style="display:flex;gap:8px;align-items:center;background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:8px;margin-bottom:12px">
+                                    <span style="flex:1;font-family:monospace;font-size:11px;color:#e8e8f0;direction:ltr;text-align:left;word-break:break-all" id="addr-ton">Loading...</span>
+                                    <button onclick="copyToClipboard(document.getElementById('addr-ton').textContent)" style="background:#0098ea;color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700">📋 העתק</button>
+                                </div>
+                                <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                                    <a href="#" id="tonkeeper-link" target="_blank" rel="noopener" style="background:#0098ea;color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700">🔗 פתח ב-Tonkeeper</a>
+                                    <a href="#" id="tonscan-link" target="_blank" rel="noopener" style="background:rgba(0,152,234,0.15);color:#0098ea;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700;border:1px solid #0098ea">🔍 הצג ב-Tonscan</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="address-block">
-                            <div class="address-label">BSC Deposit Address</div>
-                            <div class="address-row">
-                                <span class="address-value" id="addr-bsc">Loading...</span>
-                                <button class="address-copy-btn" onclick="copyToClipboard(document.getElementById('addr-bsc').textContent)" data-i18n="common_copy">Copy</button>
+
+                        <!-- BSC Receive Block -->
+                        <div id="qr-block-bsc" class="qr-block" style="display:none">
+                            <div style="background:rgba(243,186,47,0.05);border:1px solid rgba(243,186,47,0.3);border-radius:12px;padding:20px;text-align:center">
+                                <div style="font-size:11px;color:#b0b0c0;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px">BSC (BNB Smart Chain)</div>
+                                <div style="font-size:14px;color:#fff;font-weight:700;margin-bottom:14px">כתובת ההפקדה שלך</div>
+                                <div style="background:#fff;padding:14px;border-radius:10px;display:inline-block;margin-bottom:14px">
+                                    <img id="qr-img-bsc" src="" alt="QR Code" style="display:block;width:200px;height:200px">
+                                </div>
+                                <div style="display:flex;gap:8px;align-items:center;background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:8px;margin-bottom:12px">
+                                    <span style="flex:1;font-family:monospace;font-size:11px;color:#e8e8f0;direction:ltr;text-align:left;word-break:break-all" id="addr-bsc">Loading...</span>
+                                    <button onclick="copyToClipboard(document.getElementById('addr-bsc').textContent)" style="background:#f3ba2f;color:#000;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700">📋 העתק</button>
+                                </div>
+                                <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                                    <a href="#" id="metamask-link" target="_blank" rel="noopener" style="background:#f3ba2f;color:#000;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700">🦊 פתח ב-MetaMask</a>
+                                    <a href="#" id="bscscan-link" target="_blank" rel="noopener" style="background:rgba(243,186,47,0.15);color:#f3ba2f;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700;border:1px solid #f3ba2f">🔍 הצג ב-BSCScan</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="qr-placeholder">
-                            <span>QR Code</span>
+
+                        <!-- Test Transfer Guide -->
+                        <div style="margin-top:16px;padding:14px;background:rgba(0,232,135,0.05);border:1px solid rgba(0,232,135,0.3);border-radius:10px">
+                            <div style="font-size:13px;color:#00e887;font-weight:800;margin-bottom:8px">🧪 בדיקה ראשונה — סכומי מינימום בטוחים</div>
+                            <div style="font-size:11px;color:#b0b0c0;line-height:1.8">
+                                <strong style="color:#fff">⚠️ 0.00001 TON לא יעבוד</strong> — עמלת הרשת (~0.01 TON) תאכל את ההעברה.<br>
+                                <strong style="color:#00e887">מינימום מומלץ לבדיקה:</strong>
+                                <ul style="padding-right:20px;margin:6px 0">
+                                    <li><strong>TON:</strong> 0.05 TON (~$0.07) — עמלה 0.005 TON</li>
+                                    <li><strong>BNB:</strong> 0.001 BNB (~$0.60) — עמלה 0.0002 BNB</li>
+                                    <li><strong>USDT on BSC:</strong> $1 — עמלה ~$0.20</li>
+                                    <li><strong>USDT on TRC20:</strong> $2 — עמלה ~$1</li>
+                                </ul>
+                                <strong>הכלל הזהב:</strong> סכום הבדיקה = 10× עמלת הרשת. יותר מדי נמוך = יתיישב ב-mempool או יידחה.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1007,24 +1055,58 @@
         }
     }
 
-    /* ── Load Deposit Addresses ── */
+    /* ── Load Deposit Addresses + QR Codes ── */
     async function loadAddresses() {
         const user = getCurrentUser();
         if (!user) return;
 
         const data = await walletFetch(`/${user.id}`);
 
-        if (data) {
-            document.getElementById('addr-ton').textContent =
-                data.ton_address || data.deposit_address_ton || TON_WALLET_ADDR;
-            document.getElementById('addr-bsc').textContent =
-                data.bsc_address || data.deposit_address_bsc || BSC_CONTRACT_ADDR;
-        } else {
-            // Fallback: show project wallets
-            document.getElementById('addr-ton').textContent = TON_WALLET_ADDR;
-            document.getElementById('addr-bsc').textContent = BSC_CONTRACT_ADDR;
-        }
+        const tonAddr = (data && (data.ton_address || data.deposit_address_ton)) || TON_WALLET_ADDR;
+        const bscAddr = (data && (data.bsc_address || data.deposit_address_bsc)) || BSC_CONTRACT_ADDR;
+
+        document.getElementById('addr-ton').textContent = tonAddr;
+        document.getElementById('addr-bsc').textContent = bscAddr;
+
+        // Generate QR codes via qrserver.com (privacy-safe: only public addresses are sent)
+        generateQrCodes(tonAddr, bscAddr);
     }
+
+    /* ── QR Code Generation ──
+       Uses qrserver.com API (free, no key, public addresses only).
+       URI schemes follow standards:
+       - TON: ton://transfer/{address}
+       - BSC (EIP-681): ethereum:{address}@56 */
+    function generateQrCodes(tonAddr, bscAddr) {
+        const tonUri = 'ton://transfer/' + tonAddr;
+        const bscUri = 'ethereum:' + bscAddr + '@56';
+        const qrBase = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=2&format=png&data=';
+
+        const tonImg = document.getElementById('qr-img-ton');
+        const bscImg = document.getElementById('qr-img-bsc');
+        if (tonImg) tonImg.src = qrBase + encodeURIComponent(tonUri);
+        if (bscImg) bscImg.src = qrBase + encodeURIComponent(bscAddr);
+
+        // Deep links to popular apps
+        const tonkeeper = document.getElementById('tonkeeper-link');
+        const tonscan = document.getElementById('tonscan-link');
+        const metamask = document.getElementById('metamask-link');
+        const bscscan = document.getElementById('bscscan-link');
+        if (tonkeeper) tonkeeper.href = tonUri;
+        if (tonscan) tonscan.href = 'https://tonscan.org/address/' + tonAddr;
+        if (metamask) metamask.href = 'https://metamask.app.link/send/' + bscAddr + '@56';
+        if (bscscan) bscscan.href = 'https://bscscan.com/address/' + bscAddr;
+    }
+
+    /* ── Switch QR Network Display ── */
+    window.showQr = function(network) {
+        document.getElementById('qr-block-ton').style.display = network === 'ton' ? 'block' : 'none';
+        document.getElementById('qr-block-bsc').style.display = network === 'bsc' ? 'block' : 'none';
+        const tonBtn = document.getElementById('qr-btn-ton');
+        const bscBtn = document.getElementById('qr-btn-bsc');
+        if (tonBtn) tonBtn.classList.toggle('active', network === 'ton');
+        if (bscBtn) bscBtn.classList.toggle('active', network === 'bsc');
+    };
 
     /* ── Send ── */
     async function handleSend(e) {
