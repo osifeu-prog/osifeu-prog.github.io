@@ -72,35 +72,255 @@
             line-height: 1.6;
         }
         .rewards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 980px;
             margin: 0 auto;
+            justify-content: center;
         }
         .reward-card {
-            padding: 24px 16px;
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 14px 12px;
             background: linear-gradient(135deg, rgba(255,140,0,0.1), rgba(0,188,212,0.1));
-            border: 2px solid rgba(255,140,0,0.3);
-            border-radius: 16px;
+            border: 1px solid rgba(255,140,0,0.3);
+            border-radius: 12px;
             text-align: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            text-align: right;
         }
         .reward-card .icon {
-            font-size: 40px;
-            margin-bottom: 10px;
+            font-size: 28px;
             display: block;
+            flex-shrink: 0;
+        }
+        .reward-card .body {
+            flex: 1;
+            min-width: 0;
+            text-align: right;
         }
         .reward-card .value {
-            font-size: 24px;
+            font-size: 17px;
             font-weight: 800;
             color: var(--accent);
-            margin-bottom: 6px;
+            margin-bottom: 2px;
+            line-height: 1.2;
+            white-space: nowrap;
         }
         .reward-card .label {
+            font-size: 11px;
+            color: var(--text2);
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 720px) {
+            .rewards-grid {
+                flex-direction: column;
+                max-width: 380px;
+            }
+            .reward-card {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
+
+        /* ===== Theme Picker (onboarding-specific) ===== */
+        .theme-picker-fab {
+            position: fixed;
+            bottom: 24px;
+            inset-inline-start: 24px;
+            z-index: 1000;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff8c00, #00bcd4);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+        .theme-picker-fab:hover { transform: scale(1.1); }
+        .theme-picker-popup {
+            position: fixed;
+            bottom: 88px;
+            inset-inline-start: 24px;
+            z-index: 1001;
+            background: var(--bg2, #111);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+            display: none;
+        }
+        .theme-picker-popup.open { display: block; }
+        .theme-picker-popup h4 {
+            margin: 0 0 10px;
             font-size: 12px;
             color: var(--text2);
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 13px;
+            color: var(--text);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: right;
+        }
+        .theme-option:hover { background: rgba(255,255,255,0.08); }
+        .theme-option.active {
+            background: rgba(255,140,0,0.15);
+            border: 1px solid rgba(255,140,0,0.4);
+        }
+        .theme-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ===== Accessibility Toolbar ===== */
+        .a11y-fab {
+            position: fixed;
+            bottom: 24px;
+            inset-inline-end: 24px;
+            z-index: 1000;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #00bcd4);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .a11y-popup {
+            position: fixed;
+            bottom: 88px;
+            inset-inline-end: 24px;
+            z-index: 1001;
+            background: var(--bg2, #111);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 14px;
+            min-width: 240px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+            display: none;
+        }
+        .a11y-popup.open { display: block; }
+        .a11y-popup h4 {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: var(--accent);
+        }
+        .a11y-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text);
+        }
+        .a11y-btns {
+            display: flex;
+            gap: 6px;
+        }
+        .a11y-btn {
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .a11y-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* High contrast mode */
+        body.a11y-high-contrast {
+            filter: contrast(1.4) brightness(1.05);
+        }
+        body.a11y-large-font { font-size: 18px; }
+        body.a11y-larger-font { font-size: 22px; }
+        body.a11y-underline-links a { text-decoration: underline !important; }
+        body.a11y-no-animation *, body.a11y-no-animation *::before, body.a11y-no-animation *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+
+        /* ===== Cookie Consent Banner ===== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: linear-gradient(135deg, rgba(10,10,15,0.98), rgba(15,15,25,0.98));
+            backdrop-filter: blur(12px);
+            border-top: 2px solid var(--accent);
+            padding: 20px;
+            display: none;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+        }
+        .cookie-banner.show { display: block; }
+        .cookie-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .cookie-icon { font-size: 36px; flex-shrink: 0; }
+        .cookie-text { flex: 1; min-width: 250px; font-size: 13px; color: var(--text); line-height: 1.6; }
+        .cookie-text a { color: var(--accent); }
+        .cookie-buttons { display: flex; gap: 10px; flex-shrink: 0; }
+        .cookie-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--text);
+        }
+        .cookie-btn.accept {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+            border-color: transparent;
+        }
+        .cookie-btn.essentials {
+            background: linear-gradient(135deg, #ff8c00, #ff6b00);
+            color: #fff;
+            border-color: transparent;
         }
 
         .live-counter {
@@ -328,23 +548,31 @@
         <div class="rewards-grid">
             <div class="reward-card">
                 <span class="icon">💎</span>
-                <div class="value">10 ZVK</div>
-                <div class="label">~ 44 ₪ · להפצה מיידית</div>
+                <div class="body">
+                    <div class="value">10 ZVK</div>
+                    <div class="label">~44₪ להפצה</div>
+                </div>
             </div>
             <div class="reward-card" style="border-color:rgba(34,197,94,0.5);background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(0,188,212,0.1))">
                 <span class="icon">🎁</span>
-                <div class="value" style="color:#22c55e">+100 ZVK</div>
-                <div class="label">~ 444 ₪ · אחרי הפצה</div>
+                <div class="body">
+                    <div class="value" style="color:#22c55e">+100 ZVK</div>
+                    <div class="label">~444₪ אחרי הפצה</div>
+                </div>
             </div>
             <div class="reward-card">
                 <span class="icon">🎨</span>
-                <div class="value">NFT</div>
-                <div class="label">Genesis Member #</div>
+                <div class="body">
+                    <div class="value">NFT</div>
+                    <div class="label">Genesis Member</div>
+                </div>
             </div>
             <div class="reward-card">
                 <span class="icon">🏆</span>
-                <div class="value">10 דורות</div>
-                <div class="label">שרשרת הפניות</div>
+                <div class="body">
+                    <div class="value">10 דורות</div>
+                    <div class="label">שרשרת הפניות</div>
+                </div>
             </div>
         </div>
 
@@ -514,6 +742,89 @@
 
     <div id="footer-root"></div>
 
+    <!-- ============================================================ -->
+    <!-- THEME SWITCHER (Floating Action Button)                       -->
+    <!-- ============================================================ -->
+    <button class="theme-picker-fab" onclick="toggleThemePicker()" title="ערכת נושא" aria-label="החלף ערכת נושא">
+        🎨
+    </button>
+    <div class="theme-picker-popup" id="theme-picker-popup">
+        <h4>🎨 ערכת נושא</h4>
+        <button class="theme-option" data-theme="dark" onclick="pickTheme('dark')">
+            <span class="theme-dot" style="background:#6c5ce7"></span> Dark (ברירת מחדל)
+        </button>
+        <button class="theme-option" data-theme="terminal" onclick="pickTheme('terminal')">
+            <span class="theme-dot" style="background:#00ff41"></span> Terminal
+        </button>
+        <button class="theme-option" data-theme="crypto" onclick="pickTheme('crypto')">
+            <span class="theme-dot" style="background:#a855f7"></span> Crypto
+        </button>
+        <button class="theme-option" data-theme="cyberpunk" onclick="pickTheme('cyberpunk')">
+            <span class="theme-dot" style="background:#00f3ff"></span> Cyberpunk
+        </button>
+        <button class="theme-option" data-theme="ocean" onclick="pickTheme('ocean')">
+            <span class="theme-dot" style="background:#64ffda"></span> Ocean
+        </button>
+        <button class="theme-option" data-theme="sunset" onclick="pickTheme('sunset')">
+            <span class="theme-dot" style="background:#ff6b9d"></span> Sunset
+        </button>
+        <button class="theme-option" data-theme="light" onclick="pickTheme('light')">
+            <span class="theme-dot" style="background:#2563eb"></span> Light
+        </button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ACCESSIBILITY TOOLBAR (Floating Action Button)                -->
+    <!-- ============================================================ -->
+    <button class="a11y-fab" onclick="toggleA11y()" title="נגישות" aria-label="כלי נגישות">
+        ♿
+    </button>
+    <div class="a11y-popup" id="a11y-popup" role="dialog" aria-label="הגדרות נגישות">
+        <h4>♿ נגישות</h4>
+        <div class="a11y-row">
+            <span>גודל גופן</span>
+            <div class="a11y-btns">
+                <button class="a11y-btn" onclick="setFontSize('normal')">A</button>
+                <button class="a11y-btn" onclick="setFontSize('large')">A+</button>
+                <button class="a11y-btn" onclick="setFontSize('larger')">A++</button>
+            </div>
+        </div>
+        <div class="a11y-row">
+            <span>ניגודיות גבוהה</span>
+            <button class="a11y-btn" id="a11y-contrast-btn" onclick="toggleContrast()">כבוי</button>
+        </div>
+        <div class="a11y-row">
+            <span>הדגש קישורים</span>
+            <button class="a11y-btn" id="a11y-links-btn" onclick="toggleLinkUnderline()">כבוי</button>
+        </div>
+        <div class="a11y-row">
+            <span>בטל אנימציות</span>
+            <button class="a11y-btn" id="a11y-anim-btn" onclick="toggleAnimations()">כבוי</button>
+        </div>
+        <button class="a11y-btn" style="width:100%;margin-top:10px;background:rgba(239,68,68,0.15);color:#ef4444;border-color:rgba(239,68,68,0.3)" onclick="resetA11y()">איפוס</button>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-top:10px;line-height:1.5">
+            הצהרת נגישות לפי תקן WCAG 2.1 AA<br>
+            <a href="/accessibility.html" style="color:var(--accent)">קרא עוד</a>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- COOKIE CONSENT BANNER                                         -->
+    <!-- ============================================================ -->
+    <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
+        <div class="cookie-content">
+            <div class="cookie-icon">🍪</div>
+            <div class="cookie-text">
+                <strong>אנחנו משתמשים בעוגיות (Cookies) ואחסון מקומי</strong> כדי לשפר את חוויית השימוש שלך — לזכור את שפת הממשק, ערכת הנושא, התחברות הטלגרם והעדפות הנגישות.
+                <br>אנחנו <strong>לא</strong> משתפים את המידע שלך עם צד שלישי. קרא את <a href="/privacy.html">מדיניות הפרטיות</a> ו<a href="/terms.html">תנאי השימוש</a>.
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn essentials" onclick="cookieEssentials()">חיוניות בלבד</button>
+                <button class="cookie-btn accept" onclick="cookieAccept()">✅ אישור הכל</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/translations.js?v=20260410a"></script>
     <script src="/js/shared.js?v=20260410a"></script>
     <script>
@@ -567,6 +878,119 @@
         loadRemainingSlots();
         // Refresh every 30s
         setInterval(loadRemainingSlots, 30000);
+
+        // ============================================================
+        // THEME SWITCHER
+        // ============================================================
+        function toggleThemePicker() {
+            document.getElementById('theme-picker-popup').classList.toggle('open');
+            document.getElementById('a11y-popup')?.classList.remove('open');
+        }
+        function pickTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            try { localStorage.setItem('slh_theme', theme); } catch(e) {}
+            document.querySelectorAll('.theme-option').forEach(b => {
+                b.classList.toggle('active', b.dataset.theme === theme);
+            });
+            document.getElementById('theme-picker-popup').classList.remove('open');
+            const t = document.createElement('div');
+            t.textContent = '🎨 ערכת נושא: ' + theme;
+            t.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--accent,#ff8c00);color:#fff;border-radius:8px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3)';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2000);
+        }
+        // Apply saved theme on load
+        try {
+            const savedTheme = localStorage.getItem('slh_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const activeBtn = document.querySelector(`.theme-option[data-theme="${savedTheme}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+        } catch(e) {}
+
+        // ============================================================
+        // ACCESSIBILITY TOOLBAR
+        // ============================================================
+        function toggleA11y() {
+            document.getElementById('a11y-popup').classList.toggle('open');
+            document.getElementById('theme-picker-popup')?.classList.remove('open');
+        }
+        function setFontSize(size) {
+            document.body.classList.remove('a11y-large-font', 'a11y-larger-font');
+            if (size === 'large') document.body.classList.add('a11y-large-font');
+            if (size === 'larger') document.body.classList.add('a11y-larger-font');
+            try { localStorage.setItem('a11y_font', size); } catch(e) {}
+            document.querySelectorAll('.a11y-row .a11y-btn').forEach((b, i) => {
+                if (b.textContent.match(/^A/)) b.classList.toggle('active', b.textContent === (size === 'normal' ? 'A' : size === 'large' ? 'A+' : 'A++'));
+            });
+        }
+        function toggleContrast() {
+            const on = document.body.classList.toggle('a11y-high-contrast');
+            try { localStorage.setItem('a11y_contrast', on ? '1' : '0'); } catch(e) {}
+            const btn = document.getElementById('a11y-contrast-btn');
+            if (btn) { btn.textContent = on ? 'דולק' : 'כבוי'; btn.classList.toggle('active', on); }
+        }
+        function toggleLinkUnderline() {
+            const on = document.body.classList.toggle('a11y-underline-links');
+            try { localStorage.setItem('a11y_links', on ? '1' : '0'); } catch(e) {}
+            const btn = document.getElementById('a11y-links-btn');
+            if (btn) { btn.textContent = on ? 'דולק' : 'כבוי'; btn.classList.toggle('active', on); }
+        }
+        function toggleAnimations() {
+            const on = document.body.classList.toggle('a11y-no-animation');
+            try { localStorage.setItem('a11y_anim', on ? '1' : '0'); } catch(e) {}
+            const btn = document.getElementById('a11y-anim-btn');
+            if (btn) { btn.textContent = on ? 'דולק' : 'כבוי'; btn.classList.toggle('active', on); }
+        }
+        function resetA11y() {
+            document.body.classList.remove('a11y-high-contrast','a11y-large-font','a11y-larger-font','a11y-underline-links','a11y-no-animation');
+            ['a11y_font','a11y_contrast','a11y_links','a11y_anim'].forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
+            document.querySelectorAll('#a11y-popup .a11y-btn').forEach(b => b.classList.remove('active'));
+            ['a11y-contrast-btn','a11y-links-btn','a11y-anim-btn'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = 'כבוי';
+            });
+        }
+        // Restore a11y on load
+        try {
+            const f = localStorage.getItem('a11y_font'); if (f && f !== 'normal') setFontSize(f);
+            if (localStorage.getItem('a11y_contrast') === '1') toggleContrast();
+            if (localStorage.getItem('a11y_links') === '1') toggleLinkUnderline();
+            if (localStorage.getItem('a11y_anim') === '1') toggleAnimations();
+        } catch(e) {}
+
+        // ============================================================
+        // COOKIE CONSENT
+        // ============================================================
+        function showCookieBannerIfNeeded() {
+            try {
+                if (!localStorage.getItem('slh_cookie_consent')) {
+                    setTimeout(() => document.getElementById('cookie-banner').classList.add('show'), 1500);
+                }
+            } catch(e) {}
+        }
+        function cookieAccept() {
+            try { localStorage.setItem('slh_cookie_consent', JSON.stringify({level: 'all', at: new Date().toISOString()})); } catch(e) {}
+            document.getElementById('cookie-banner').classList.remove('show');
+        }
+        function cookieEssentials() {
+            try { localStorage.setItem('slh_cookie_consent', JSON.stringify({level: 'essentials', at: new Date().toISOString()})); } catch(e) {}
+            document.getElementById('cookie-banner').classList.remove('show');
+        }
+        showCookieBannerIfNeeded();
+
+        // Close popups when clicking outside
+        document.addEventListener('click', (e) => {
+            const themePopup = document.getElementById('theme-picker-popup');
+            const themeFab = document.querySelector('.theme-picker-fab');
+            const a11yPopup = document.getElementById('a11y-popup');
+            const a11yFab = document.querySelector('.a11y-fab');
+            if (themePopup && !themePopup.contains(e.target) && !themeFab?.contains(e.target)) {
+                themePopup.classList.remove('open');
+            }
+            if (a11yPopup && !a11yPopup.contains(e.target) && !a11yFab?.contains(e.target)) {
+                a11yPopup.classList.remove('open');
+            }
+        });
     </script>
 </body>
 </html>
