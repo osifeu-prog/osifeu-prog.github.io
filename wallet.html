@@ -475,14 +475,21 @@
                 <span data-i18n="web3_title">יתרות אמיתיות מהבלוקצ'יין</span>
                 <span class="web3-badge">LIVE</span>
             </h3>
-            <div class="web3-sub" data-i18n="web3_sub">חבר ארנק MetaMask או Trust Wallet כדי לראות את היתרות האמיתיות שלך ישירות מהרשת</div>
+            <div class="web3-sub" data-i18n="web3_sub">חבר MetaMask, Trust Wallet או ארנק תואם WalletConnect כדי לראות את היתרות האמיתיות שלך ישירות מהרשת (BSC + ETH)</div>
 
             <div id="web3-status">
                 <button id="btn-connect-wallet" class="btn-web3-connect">
                     <i class="fas fa-wallet"></i> <span data-i18n="web3_connect">חבר ארנק</span>
                 </button>
-                <div class="web3-hint" data-i18n="web3_hint">
-                    תומך ב-MetaMask (דסקטופ) ו-Trust Wallet (מובייל). הארנק שלך נשאר מאובטח — אנחנו רק קוראים יתרות, לא שולחים עסקאות.
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+                    <span style="padding:5px 10px;background:rgba(246,133,27,0.12);border:1px solid rgba(246,133,27,0.3);border-radius:20px;font-size:11px;color:#f6851b;font-weight:700">🦊 MetaMask</span>
+                    <span style="padding:5px 10px;background:rgba(51,117,224,0.12);border:1px solid rgba(51,117,224,0.3);border-radius:20px;font-size:11px;color:#3375e0;font-weight:700">🛡 Trust Wallet</span>
+                    <span style="padding:5px 10px;background:rgba(54,174,248,0.12);border:1px solid rgba(54,174,248,0.3);border-radius:20px;font-size:11px;color:#36aef8;font-weight:700">🔵 TonConnect</span>
+                    <span style="padding:5px 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;font-size:11px;color:var(--text2);font-weight:700">⚙ WalletConnect</span>
+                </div>
+                <div class="web3-hint" data-i18n="web3_hint" style="margin-top:12px">
+                    במובייל: פתח את Trust Wallet → DApp Browser → הכנס <code>slh-nft.com/wallet.html</code><br>
+                    <strong>האבטחה שלך מוגנת</strong> — אנחנו רק קוראים יתרות, לא שולחים עסקאות ולא מבקשים מפתחות.
                 </div>
             </div>
 
@@ -493,19 +500,19 @@
                 </div>
                 <div class="web3-balance-grid">
                     <div class="web3-card" data-token="SLH">
-                        <span class="label">SLH (BSC)</span>
+                        <span class="label">SLH (BSC) 🔗</span>
                         <span class="amount" id="w3-slh">—</span>
                     </div>
                     <div class="web3-card" data-token="BNB">
-                        <span class="label">BNB</span>
+                        <span class="label">BNB 🔗</span>
                         <span class="amount" id="w3-bnb">—</span>
                     </div>
                     <div class="web3-card" data-token="ETH">
-                        <span class="label">ETH</span>
+                        <span class="label">ETH 🔗</span>
                         <span class="amount" id="w3-eth">—</span>
                     </div>
                     <div class="web3-card" data-token="USDT">
-                        <span class="label">USDT (BSC)</span>
+                        <span class="label">USDT (BSC) 🔗</span>
                         <span class="amount" id="w3-usdt">—</span>
                     </div>
                 </div>

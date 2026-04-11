@@ -346,23 +346,35 @@ function getAnalyticsData(){
 const SLH_API = 'https://slh-api-production.up.railway.app';
 
 async function fetchAdminStats() {
+    // Safe fetch with timeout per endpoint (5s each)
+    const safeJson = async (url) => {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 5000);
+        try {
+            const r = await fetch(url, { signal: ctrl.signal, cache: 'no-store' });
+            clearTimeout(timer);
+            if (!r.ok) {
+                console.warn('[Admin] HTTP', r.status, url);
+                return null;
+            }
+            return await r.json();
+        } catch (e) {
+            clearTimeout(timer);
+            console.warn('[Admin] fetch failed:', url, e.message);
+            return null;
+        }
+    };
     try {
-        const [dashboard, stats, health, community, analytics, referrals] = await Promise.allSettled([
-            fetch(SLH_API + '/api/admin/dashboard').then(r => r.json()),
-            fetch(SLH_API + '/api/stats').then(r => r.json()),
-            fetch(SLH_API + '/api/health').then(r => r.json()),
-            fetch(SLH_API + '/api/community/stats').then(r => r.json()),
-            fetch(SLH_API + '/api/analytics/stats').then(r => r.json()),
-            fetch(SLH_API + '/api/referral/leaderboard?limit=10').then(r => r.json())
+        const [dashboard, stats, health, community, analytics, referrals] = await Promise.all([
+            safeJson(SLH_API + '/api/admin/dashboard'),
+            safeJson(SLH_API + '/api/stats'),
+            safeJson(SLH_API + '/api/health'),
+            safeJson(SLH_API + '/api/community/stats'),
+            safeJson(SLH_API + '/api/analytics/stats'),
+            safeJson(SLH_API + '/api/referral/leaderboard?limit=10')
         ]);
-        return {
-            dashboard: dashboard.status === 'fulfilled' ? dashboard.value : null,
-            stats: stats.status === 'fulfilled' ? stats.value : null,
-            health: health.status === 'fulfilled' ? health.value : null,
-            community: community.status === 'fulfilled' ? community.value : null,
-            analytics: analytics.status === 'fulfilled' ? analytics.value : null,
-            referrals: referrals.status === 'fulfilled' ? referrals.value : null
-        };
+        console.log('[Admin] API responses:', { dashboard, stats, health, community, analytics, referrals });
+        return { dashboard, stats, health, community, analytics, referrals };
     } catch(e) {
         console.error('[Admin] API error:', e);
         return { dashboard: null, stats: null, health: null, community: null, analytics: null, referrals: null };

@@ -1763,9 +1763,22 @@ function showApp() {
     document.getElementById('app').style.display = 'block';
 
     // Set nav info — with safe fallbacks
+    // Priority: display_name (user-set) > first_name (Telegram) > username > 'User'
     const uidStr = String(currentUser.id || '—');
-    document.getElementById('nav-username').textContent = currentUser.first_name || currentUser.username || 'User';
+    const displayName = currentUser.display_name || currentUser.first_name || currentUser.username || 'User';
+    document.getElementById('nav-username').textContent = displayName;
     document.getElementById('nav-uid').textContent = '#' + uidStr;
+
+    // Refresh display_name from API in case user updated it from another device
+    fetch(`${API}/api/user/${currentUser.id}`).then(r => r.ok ? r.json() : null).then(data => {
+        if (data && data.user) {
+            const freshName = data.user.display_name || data.user.first_name || data.user.username || displayName;
+            document.getElementById('nav-username').textContent = freshName;
+            currentUser.display_name = data.user.display_name;
+            currentUser.first_name = data.user.first_name || currentUser.first_name;
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+        }
+    }).catch(() => {});
     if (currentUser.photo_url) {
         document.getElementById('nav-avatar').src = currentUser.photo_url;
         document.getElementById('nav-avatar').style.display = 'block';

@@ -136,12 +136,24 @@
     return 0;
   }
 
-  // ---- Render balances into the dashboard UI ----
+  // ---- Render balances into the UI ----
+  // Writes to two possible places:
+  //   1. Dedicated Web3 panel: #w3-slh / #w3-bnb / #w3-eth / #w3-usdt
+  //   2. Main wallet.html balance cards: #bal-bnb / #bal-usdt / etc.
+  //      (so the user sees on-chain values even in the "big" cards)
   async function renderWeb3Balances(address) {
     if (!address) return;
-    const setIf = (id, val) => {
+    const setIf = (id, val, decimals) => {
       const el = document.getElementById(id);
-      if (el) el.textContent = (val || 0).toFixed(4);
+      if (!el) return;
+      const d = decimals !== undefined ? decimals : 4;
+      el.textContent = (val || 0).toFixed(d);
+      // if this is a main balance card, also update the fiat label
+      const fiatEl = document.getElementById(id + '-fiat');
+      if (fiatEl && val > 0) {
+        fiatEl.textContent = '🔗 on-chain';
+        fiatEl.style.color = '#22c55e';
+      }
     };
     try {
       const [slh, bnb, eth, usdt] = await Promise.all([
@@ -150,10 +162,24 @@
         getETHBalance(address),
         getBSCBalance(address, USDT_CONTRACT_BSC)
       ]);
+      // Web3 panel (dashboard + wallet pages)
       setIf('w3-slh', slh);
       setIf('w3-bnb', bnb);
       setIf('w3-eth', eth);
       setIf('w3-usdt', usdt);
+
+      // Main balance cards (wallet.html) - overwrite internal 0 with on-chain
+      // Only overwrite if on-chain value > 0, otherwise keep internal display
+      if (bnb > 0) setIf('bal-bnb', bnb);
+      // Don't overwrite bal-slh - that's internal ledger (199,788)
+      // Add a new card for on-chain USDT BSC if the ID exists
+      if (usdt > 0) setIf('bal-usdt-bsc', usdt);
+      if (eth > 0)  setIf('bal-eth', eth);
+
+      // Save last-known values for TON fetching by address
+      if (typeof window !== 'undefined') {
+        window.__slh_web3_last = { slh, bnb, eth, usdt, address, at: Date.now() };
+      }
     } catch (e) { log('renderWeb3Balances', e); }
   }
 
