@@ -116,6 +116,7 @@
     <div class="nav-brand">SLH Admin <span>BACKOFFICE</span></div>
     <div class="nav-links">
         <a href="#" class="active" onclick="showPage('overview')">Overview</a>
+        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Institutional</a>
         <a href="#" onclick="showPage('analytics')">Analytics</a>
         <a href="#" onclick="showPage('bots')">Bots</a>
         <a href="#" onclick="showPage('users')">Users</a>
@@ -137,6 +138,13 @@
         <a href="#" onclick="showPage('bots')">🤖 Bot Status</a>
         <a href="#" onclick="showPage('users')">👥 Users</a>
         <a href="#" onclick="showPage('revenue')">💰 Revenue</a>
+
+        <div class="sb-section">🏛 Institutional</div>
+        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Overview</a>
+        <a href="#" onclick="showPage('audit')">📜 Audit Log</a>
+        <a href="#" onclick="showPage('cex')">🏦 CEX Integrations</a>
+        <a href="#" onclick="showPage('portfolio')">💼 Portfolio</a>
+        <a href="#" onclick="showPage('compliance')">⚖️ Compliance</a>
 
         <div class="sb-section">Tools</div>
         <a href="#" onclick="showPage('activity')">📋 Activity Feed</a>
@@ -276,6 +284,234 @@
                         <tr><td><code>SECURE_PACK</code></td><td>Security Pack</td><td>99₪</td><td>0/∞</td><td>2026-07-01</td><td><span class="badge live">ACTIVE</span></td></tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- INSTITUTIONAL OVERVIEW PAGE -->
+        <div id="page-institutional" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,255,65,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">🏛 SLH SPARK — INSTITUTIONAL GRADE</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Regulator-ready audit trail · CEX portfolio consolidation · Encrypted key storage · HMAC-signed API calls · Hash-chained immutable logs
+                </p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi gold"><div class="kpi-label">Audit Chain Status</div><div class="kpi-value" id="inst-chain-status" style="font-size:16px">--</div><div class="kpi-delta" id="inst-chain-entries" style="font-size:10px;color:var(--text2)"></div></div>
+                <div class="kpi green"><div class="kpi-label">Total Audit Entries</div><div class="kpi-value" id="inst-total-entries">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">CEX Keys Linked</div><div class="kpi-value" id="inst-cex-keys">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Total Portfolio (ILS)</div><div class="kpi-value" id="inst-portfolio-ils">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Genesis 49 Remaining</div><div class="kpi-value" id="inst-genesis">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Encryption</div><div class="kpi-value" style="font-size:13px;color:var(--gold)">XOR+KEY</div><div class="kpi-delta" style="font-size:9px;color:var(--red)">⚠ Upgrade to AES-GCM</div></div>
+                <div class="kpi cyan"><div class="kpi-label">KYC Provider</div><div class="kpi-value" style="font-size:13px">SUMSUB</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending keys</div></div>
+                <div class="kpi purple"><div class="kpi-label">Custody</div><div class="kpi-value" style="font-size:13px">FIREBLOCKS</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending contract</div></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🔒 Compliance Readiness <span>Checklist</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Control</th><th>Status</th><th>Description</th><th>Action</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>AUDIT_HASH_CHAIN</code></td><td><span class="badge live">LIVE</span></td><td>SHA-256 immutable hash chain (append-only)</td><td>—</td></tr>
+                        <tr><td><code>CEX_READ_ONLY</code></td><td><span class="badge live">LIVE</span></td><td>Bybit V5 + Binance V3 READ-ONLY HMAC signed</td><td>—</td></tr>
+                        <tr><td><code>KEY_ENCRYPTION</code></td><td><span class="badge pending">DEV</span></td><td>XOR+key (dev). Upgrade to AES-GCM + KMS for prod.</td><td>Phase-6</td></tr>
+                        <tr><td><code>KYC_SUMSUB</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Sumsub webhook + verification endpoints scaffolded</td><td>Awaits keys</td></tr>
+                        <tr><td><code>CUSTODY_FIREBLOCKS</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Fireblocks vault integration scaffolded</td><td>Awaits contract</td></tr>
+                        <tr><td><code>TRAVEL_RULE</code></td><td><span class="badge pending">PLANNED</span></td><td>FATF Travel Rule compliance flags</td><td>Phase-7</td></tr>
+                        <tr><td><code>SANCTIONS_CHECK</code></td><td><span class="badge pending">PLANNED</span></td><td>OFAC + EU sanctions list screening</td><td>Phase-7</td></tr>
+                        <tr><td><code>LLOYDS_INSURANCE</code></td><td><span class="badge error">TODO</span></td><td>Lloyd's of London insurance policy</td><td>Manual</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🎯 Target Returns <span>10 investors · 1M+ each</span></h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <div style="font-size:10px;color:var(--text2)">Current Baseline</div>
+                        <div style="font-size:32px;color:var(--accent);font-weight:700">65%</div>
+                        <div style="font-size:10px;color:var(--text2)">annual yield</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <div style="font-size:10px;color:var(--text2)">Conservative Target</div>
+                        <div style="font-size:32px;color:var(--cyan);font-weight:700">72%</div>
+                        <div style="font-size:10px;color:var(--text2)">+7% via CEX optimization</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <div style="font-size:10px;color:var(--text2)">Aggressive Target</div>
+                        <div style="font-size:32px;color:var(--gold);font-weight:700">85%</div>
+                        <div style="font-size:10px;color:var(--text2)">with strategy engine</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <div style="font-size:10px;color:var(--text2)">Max Drawdown</div>
+                        <div style="font-size:32px;color:var(--red);font-weight:700">-12%</div>
+                        <div style="font-size:10px;color:var(--text2)">risk budget</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDIT LOG PAGE -->
+        <div id="page-audit" style="display:none">
+            <div class="admin-section">
+                <h3>🔒 Hash Chain Verification <span>SHA-256 immutable</span></h3>
+                <div id="audit-verify-result" style="padding:16px;background:var(--bg3);border:1px solid var(--border);font-size:12px;margin-bottom:16px">
+                    <button onclick="verifyAuditChain()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ VERIFY CHAIN ]</button>
+                    <span id="audit-verify-msg" style="margin-right:16px;color:var(--text2)">Click to run full chain verification</span>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>📜 Recent Audit Entries <span>Last 100</span></h3>
+                <div style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap">
+                    <input type="text" id="audit-filter-action" placeholder="Filter by action (e.g. cex.snapshot.bybit)" style="flex:1;min-width:200px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <input type="number" id="audit-filter-user" placeholder="Filter by user_id" style="width:150px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <button onclick="loadAuditEntries()" style="background:var(--accent);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ REFRESH ]</button>
+                </div>
+                <table class="admin-table" id="audit-table">
+                    <thead><tr><th>ID</th><th>Time</th><th>Action</th><th>Actor</th><th>Resource</th><th>Amount</th><th>Risk</th><th>Hash</th></tr></thead>
+                    <tbody id="audit-rows"><tr><td colspan="8" style="text-align:center;color:var(--text2)">Click Refresh to load entries</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- CEX INTEGRATIONS PAGE -->
+        <div id="page-cex" style="display:none">
+            <div class="admin-section">
+                <h3>🏦 CEX Key Management <span>Bybit + Binance READ-ONLY</span></h3>
+                <div style="padding:12px;background:rgba(255,215,0,.05);border:1px solid var(--gold);margin-bottom:16px;font-size:11px">
+                    ⚠️ <strong style="color:var(--gold)">READ-ONLY ONLY</strong> — API keys must have <code>read</code> permission only. NEVER enable <code>trade</code> or <code>withdraw</code>. Keys are encrypted at rest (XOR+env key, upgrade to AES-GCM pending).
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                    <div>
+                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">➕ Link New Key</h4>
+                        <input type="number" id="cex-user-id" placeholder="User ID (telegram)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <select id="cex-exchange" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                            <option value="bybit">Bybit (UNIFIED)</option>
+                            <option value="binance">Binance (SPOT)</option>
+                        </select>
+                        <input type="text" id="cex-label" placeholder="Label (e.g. Bybit ראשי)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="text" id="cex-key" placeholder="API Key" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="password" id="cex-secret" placeholder="API Secret" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <button onclick="addCexKey()" style="width:100%;padding:10px;background:var(--accent);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font)">[ LINK KEY ]</button>
+                    </div>
+                    <div>
+                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">🔍 Query Keys</h4>
+                        <input type="number" id="cex-query-user-id" placeholder="User ID to query" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <button onclick="queryCexKeys()" style="width:100%;padding:10px;background:var(--cyan);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px">[ LIST KEYS ]</button>
+                        <div style="padding:10px;background:var(--bg);border:1px solid var(--border);font-size:10px;color:var(--text2)">
+                            <strong>Required scopes:</strong><br>
+                            <code>Bybit:</code> Read-Only Wallet<br>
+                            <code>Binance:</code> Enable Reading
+                        </div>
+                    </div>
+                </div>
+
+                <table class="admin-table" id="cex-keys-table">
+                    <thead><tr><th>ID</th><th>Exchange</th><th>Label</th><th>Key (masked)</th><th>Status</th><th>Last Used</th><th>Actions</th></tr></thead>
+                    <tbody id="cex-keys-rows"><tr><td colspan="7" style="text-align:center;color:var(--text2)">Query a user to view linked keys</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PORTFOLIO PAGE -->
+        <div id="page-portfolio" style="display:none">
+            <div class="admin-section">
+                <h3>💼 Portfolio Consolidation <span>Latest CEX snapshots</span></h3>
+                <div style="margin-bottom:16px;display:flex;gap:12px;align-items:center">
+                    <input type="number" id="portfolio-user-id" placeholder="User ID" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <button onclick="loadPortfolio()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ LOAD PORTFOLIO ]</button>
+                </div>
+
+                <div class="kpi-grid" style="margin-bottom:16px">
+                    <div class="kpi gold"><div class="kpi-label">Total USD</div><div class="kpi-value" id="portfolio-total-usd">--</div></div>
+                    <div class="kpi green"><div class="kpi-label">Total ILS</div><div class="kpi-value" id="portfolio-total-ils">--</div></div>
+                    <div class="kpi cyan"><div class="kpi-label">Exchanges</div><div class="kpi-value" id="portfolio-exchanges">--</div></div>
+                </div>
+
+                <div id="portfolio-breakdown"></div>
+            </div>
+        </div>
+
+        <!-- COMPLIANCE PAGE -->
+        <div id="page-compliance" style="display:none">
+            <div class="admin-section">
+                <h3>⚖️ Compliance Controls <span>Regulator-ready</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">📜 Audit Trail</h4>
+                        <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
+                            <li>✅ SHA-256 hash chain</li>
+                            <li>✅ Append-only (REVOKE UPDATE/DELETE)</li>
+                            <li>✅ Actor + timestamp + resource</li>
+                            <li>✅ Risk score field</li>
+                            <li>✅ Compliance flags array</li>
+                            <li>✅ USD + native amount tracking</li>
+                            <li>✅ /verify-chain endpoint for auditors</li>
+                        </ul>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">🔐 Key Management</h4>
+                        <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
+                            <li>⚠️ XOR encryption (dev)</li>
+                            <li>⚠️ ENCRYPTION_KEY env var</li>
+                            <li>❌ Hardware KMS (pending)</li>
+                            <li>❌ Key rotation policy (pending)</li>
+                            <li>❌ AES-GCM upgrade (pending)</li>
+                            <li>✅ Masked display only</li>
+                            <li>✅ Secrets never in logs</li>
+                        </ul>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">🛂 KYC (Sumsub)</h4>
+                        <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
+                            <li>📋 Scaffolding ready</li>
+                            <li>📋 Webhook endpoint scaffolded</li>
+                            <li>📋 Applicant creation endpoint</li>
+                            <li>❌ API token (pending)</li>
+                            <li>❌ Level name config</li>
+                            <li>❌ Webhook secret</li>
+                            <li><em>Ready-to-plug when credentials provided</em></li>
+                        </ul>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
+                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">🏦 Custody (Fireblocks)</h4>
+                        <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
+                            <li>📋 Scaffolding ready</li>
+                            <li>📋 Vault creation endpoint</li>
+                            <li>📋 Transaction signing endpoint</li>
+                            <li>❌ API key (pending)</li>
+                            <li>❌ Signing key (pending)</li>
+                            <li>❌ Workspace provisioned</li>
+                            <li><em>Ready-to-plug when credentials provided</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>📋 Regulator Checklist <span>For audits</span></h3>
+                <div style="font-size:11px;color:var(--text2);line-height:1.8">
+                    <p><strong style="color:var(--accent)">✅ Ready for inspection:</strong></p>
+                    <ul style="padding-right:20px;margin:8px 0">
+                        <li>Immutable audit log with /api/audit/verify-chain endpoint</li>
+                        <li>Complete audit trail of all CEX syncs, key operations, user actions</li>
+                        <li>Read-only CEX access (no trading or withdrawal rights)</li>
+                        <li>Encrypted API key storage</li>
+                        <li>Genesis 49 coupon system with unique redemption tracking</li>
+                        <li>User distribution/cashback tracking with tier-based crediting</li>
+                    </ul>
+                    <p style="margin-top:12px"><strong style="color:var(--gold)">⚠️ Pending before production launch:</strong></p>
+                    <ul style="padding-right:20px;margin:8px 0">
+                        <li>AES-GCM encryption for CEX keys + KMS-backed key rotation</li>
+                        <li>Sumsub KYC integration (API token + webhook secret needed)</li>
+                        <li>Fireblocks custody integration (API credentials needed)</li>
+                        <li>Travel Rule compliance flags (FATF)</li>
+                        <li>OFAC/EU sanctions screening</li>
+                        <li>Lloyd's insurance policy</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -681,6 +917,258 @@ async function refreshAll(){
     const luEl = document.getElementById('last-updated');
     if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + ' | manual refresh';
 }
+
+// ============================================================
+// INSTITUTIONAL DASHBOARD — Audit, CEX, Portfolio, Compliance
+// ============================================================
+
+async function loadInstitutionalOverview(){
+    // Chain status
+    try {
+        const chainRes = await fetch(SLH_API + '/api/audit/verify-chain');
+        const chain = await chainRes.json();
+        const statusEl = document.getElementById('inst-chain-status');
+        const entriesEl = document.getElementById('inst-chain-entries');
+        const totalEl = document.getElementById('inst-total-entries');
+        if (chain.ok) {
+            statusEl.textContent = chain.total === 0 ? 'EMPTY ✓' : 'INTACT ✓';
+            statusEl.style.color = 'var(--accent)';
+            entriesEl.textContent = chain.message || '';
+        } else {
+            statusEl.textContent = 'BROKEN ⚠';
+            statusEl.style.color = 'var(--red)';
+            entriesEl.textContent = chain.broken?.length + ' broken entries';
+        }
+        if (totalEl) totalEl.textContent = chain.total || 0;
+    } catch(e) {
+        console.warn('[Inst] chain check failed', e);
+        const statusEl = document.getElementById('inst-chain-status');
+        if (statusEl) { statusEl.textContent = 'OFFLINE'; statusEl.style.color = 'var(--red)'; }
+    }
+
+    // Genesis 49 status
+    try {
+        const betaRes = await fetch(SLH_API + '/api/beta/status');
+        const beta = await betaRes.json();
+        const el = document.getElementById('inst-genesis');
+        if (el) el.textContent = beta.total_remaining ?? '--';
+    } catch(e) {}
+
+    // CEX keys count + portfolio — defer (needs user_id)
+    const cexEl = document.getElementById('inst-cex-keys');
+    const portEl = document.getElementById('inst-portfolio-ils');
+    if (cexEl) cexEl.textContent = '—';
+    if (portEl) portEl.textContent = '—';
+}
+
+async function verifyAuditChain(){
+    const msgEl = document.getElementById('audit-verify-msg');
+    msgEl.textContent = 'Verifying...';
+    msgEl.style.color = 'var(--gold)';
+    try {
+        const res = await fetch(SLH_API + '/api/audit/verify-chain?limit=10000');
+        const data = await res.json();
+        if (data.ok) {
+            msgEl.textContent = `✅ ${data.message} — ${data.total} entries scanned`;
+            msgEl.style.color = 'var(--accent)';
+        } else {
+            msgEl.textContent = `❌ ${data.message} — ${data.broken.length} broken entries`;
+            msgEl.style.color = 'var(--red)';
+        }
+    } catch(e) {
+        msgEl.textContent = '❌ Verification failed: ' + e.message;
+        msgEl.style.color = 'var(--red)';
+    }
+}
+
+async function loadAuditEntries(){
+    const actionFilter = document.getElementById('audit-filter-action').value.trim();
+    const userFilter = document.getElementById('audit-filter-user').value.trim();
+    let url = SLH_API + '/api/audit/recent?limit=100';
+    if (actionFilter) url += '&action_filter=' + encodeURIComponent(actionFilter);
+    if (userFilter) url += '&user_id=' + encodeURIComponent(userFilter);
+
+    const tb = document.getElementById('audit-rows');
+    tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text2)">Loading...</td></tr>';
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!data.entries || data.entries.length === 0) {
+            tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text2)">No entries found</td></tr>';
+            return;
+        }
+        tb.innerHTML = data.entries.map(e => {
+            const amt = e.amount_native ? `${Number(e.amount_native).toLocaleString()} ${e.amount_currency || ''}` : '—';
+            const risk = e.risk_score != null ? e.risk_score : '—';
+            const riskColor = e.risk_score > 70 ? 'var(--red)' : e.risk_score > 40 ? 'var(--gold)' : 'var(--accent)';
+            return `<tr>
+                <td>${e.id}</td>
+                <td style="font-size:10px">${e.timestamp ? new Date(e.timestamp).toLocaleString('he-IL') : '--'}</td>
+                <td><code style="font-size:10px">${e.action || '-'}</code></td>
+                <td>${e.actor_type}${e.actor_user_id ? '/' + e.actor_user_id : ''}</td>
+                <td style="font-size:10px">${e.resource_type || '-'}${e.resource_id ? ':' + e.resource_id : ''}</td>
+                <td>${amt}</td>
+                <td style="color:${riskColor}">${risk}</td>
+                <td><code style="font-size:9px;color:var(--text2)">${e.entry_hash || '-'}</code></td>
+            </tr>`;
+        }).join('');
+    } catch(e) {
+        tb.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--red)">Error: ${e.message}</td></tr>`;
+    }
+}
+
+async function addCexKey(){
+    const user_id = parseInt(document.getElementById('cex-user-id').value);
+    const exchange = document.getElementById('cex-exchange').value;
+    const label = document.getElementById('cex-label').value.trim();
+    const api_key = document.getElementById('cex-key').value.trim();
+    const api_secret = document.getElementById('cex-secret').value.trim();
+
+    if (!user_id || !label || !api_key || !api_secret) {
+        alert('All fields required');
+        return;
+    }
+    if (!confirm(`Link ${exchange.toUpperCase()} key for user ${user_id}?\nLabel: ${label}\n\nMUST be READ-ONLY scope.`)) return;
+
+    try {
+        const res = await fetch(SLH_API + '/api/cex/add-key', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id, exchange, label, api_key, api_secret, permissions: ['read'] })
+        });
+        const data = await res.json();
+        if (data.ok || data.id || res.ok) {
+            alert(`✅ Key linked (id=${data.id || '?'})`);
+            document.getElementById('cex-key').value = '';
+            document.getElementById('cex-secret').value = '';
+            document.getElementById('cex-query-user-id').value = user_id;
+            queryCexKeys();
+        } else {
+            alert('❌ ' + (data.detail || data.error || 'Failed'));
+        }
+    } catch(e) {
+        alert('❌ Error: ' + e.message);
+    }
+}
+
+async function queryCexKeys(){
+    const user_id = parseInt(document.getElementById('cex-query-user-id').value);
+    if (!user_id) { alert('Enter user_id'); return; }
+
+    const tb = document.getElementById('cex-keys-rows');
+    tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text2)">Loading...</td></tr>';
+
+    try {
+        const res = await fetch(SLH_API + '/api/cex/keys/' + user_id);
+        const data = await res.json();
+        if (!data.keys || data.keys.length === 0) {
+            tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text2)">No keys linked for this user</td></tr>';
+            return;
+        }
+        tb.innerHTML = data.keys.map(k => `
+            <tr>
+                <td>${k.id}</td>
+                <td><code>${k.exchange}</code></td>
+                <td>${k.label}</td>
+                <td><code style="font-size:10px">${k.api_key_masked}</code></td>
+                <td>${k.is_active ? '<span class="badge live">ACTIVE</span>' : '<span class="badge error">INACTIVE</span>'}</td>
+                <td style="font-size:10px">${k.last_used_at ? new Date(k.last_used_at).toLocaleString('he-IL') : 'never'}</td>
+                <td>
+                    <button onclick="syncCexKey(${k.id})" style="background:var(--accent);color:#000;border:none;padding:4px 8px;font-size:10px;cursor:pointer;font-family:var(--font);margin-left:4px">SYNC</button>
+                    <button onclick="deleteCexKey(${k.id}, ${user_id})" style="background:var(--red);color:#fff;border:none;padding:4px 8px;font-size:10px;cursor:pointer;font-family:var(--font)">DEL</button>
+                </td>
+            </tr>
+        `).join('');
+        // Update overview count
+        const cexEl = document.getElementById('inst-cex-keys');
+        if (cexEl) cexEl.textContent = data.keys.length;
+    } catch(e) {
+        tb.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--red)">Error: ${e.message}</td></tr>`;
+    }
+}
+
+async function syncCexKey(key_id){
+    if (!confirm('Sync balances from CEX? This will create a new snapshot.')) return;
+    try {
+        const res = await fetch(SLH_API + '/api/cex/sync/' + key_id, { method: 'POST' });
+        const data = await res.json();
+        if (data.ok) {
+            alert(`✅ Synced\nTotal USD: $${data.total_usd?.toFixed(2) || 0}\nAssets: ${data.assets_count || 0}`);
+            queryCexKeys();
+        } else {
+            alert('❌ ' + (data.error || 'Sync failed'));
+        }
+    } catch(e) {
+        alert('❌ Error: ' + e.message);
+    }
+}
+
+async function deleteCexKey(key_id, user_id){
+    if (!confirm(`Delete key ${key_id}? This cannot be undone.`)) return;
+    try {
+        const res = await fetch(SLH_API + '/api/cex/keys/' + key_id + '?user_id=' + user_id, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.ok) {
+            alert('✅ Deleted');
+            queryCexKeys();
+        } else {
+            alert('❌ Failed');
+        }
+    } catch(e) {
+        alert('❌ Error: ' + e.message);
+    }
+}
+
+async function loadPortfolio(){
+    const user_id = parseInt(document.getElementById('portfolio-user-id').value);
+    if (!user_id) { alert('Enter user_id'); return; }
+
+    try {
+        const res = await fetch(SLH_API + '/api/cex/portfolio/' + user_id);
+        const data = await res.json();
+        document.getElementById('portfolio-total-usd').textContent = '$' + (data.total_usd || 0).toLocaleString();
+        document.getElementById('portfolio-total-ils').textContent = '₪' + (data.total_ils || 0).toLocaleString();
+        document.getElementById('portfolio-exchanges').textContent = data.exchanges?.length || 0;
+
+        const breakdown = document.getElementById('portfolio-breakdown');
+        if (!data.exchanges || data.exchanges.length === 0) {
+            breakdown.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2)">No snapshots yet. Sync CEX keys first.</div>';
+            return;
+        }
+        breakdown.innerHTML = data.exchanges.map(ex => {
+            let balances = ex.spot_balances || {};
+            if (typeof balances === 'string') { try { balances = JSON.parse(balances); } catch(e) { balances = {}; } }
+            const entries = Object.entries(balances);
+            return `
+                <div class="admin-section">
+                    <h3>🏦 ${ex.exchange.toUpperCase()} <span>$${(ex.total_usd || 0).toLocaleString()} · ${new Date(ex.snapshot_at).toLocaleString('he-IL')}</span></h3>
+                    <table class="admin-table">
+                        <thead><tr><th>Asset</th><th>Balance</th><th>USD Value</th></tr></thead>
+                        <tbody>
+                            ${entries.length ? entries.map(([sym, b]) => `
+                                <tr>
+                                    <td><code>${sym}</code></td>
+                                    <td>${b.balance || (b.free || 0) + (b.locked || 0)}</td>
+                                    <td>$${(b.usd_value || 0).toLocaleString()}</td>
+                                </tr>
+                            `).join('') : '<tr><td colspan="3" style="text-align:center;color:var(--text2)">No balances</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }).join('');
+    } catch(e) {
+        alert('❌ Error: ' + e.message);
+    }
+}
+
+// Auto-load institutional overview when page is shown
+const origShowPage = showPage;
+showPage = function(name){
+    origShowPage(name);
+    if (name === 'institutional') loadInstitutionalOverview();
+    if (name === 'audit') loadAuditEntries();
+};
 </script>
 
 <div id="bottomnav-root"></div>
