@@ -194,8 +194,8 @@
         <label>תוכן ההודעה (HTML formatting supported: &lt;b&gt;, &lt;i&gt;, &lt;a href&gt;)</label>
         <textarea id="message" placeholder="שלום,&#10;&#10;ההודעה כאן..."></textarea>
 
-        <label>Admin Key</label>
-        <input type="password" id="admin-key" placeholder="ADMIN_BROADCAST_KEY">
+        <label>Admin Key <span style="text-transform:none;color:var(--text2);font-weight:400">(any admin panel password works: slh2026admin, slh_admin_2026, slh-spark-admin, slh-institutional)</span></label>
+        <input type="password" id="admin-key" placeholder="e.g. slh2026admin">
 
         <label style="display:flex;align-items:center;gap:8px;flex-direction:row">
             <input type="checkbox" id="dry-run" checked style="width:auto;margin:0">
@@ -372,6 +372,12 @@ async function loadHistory() {
         el.innerHTML = '<em style="color:var(--red)">Failed to load history</em>';
     }
 }
+
+// Auto-fill admin key from localStorage if user is logged into admin panel
+(function(){
+    const saved = localStorage.getItem('slh_admin_password');
+    if (saved) document.getElementById('admin-key').value = saved;
+})();
 
 loadHistory();
 </script>
