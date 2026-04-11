@@ -767,10 +767,121 @@
     </p>
     <div class="cta-buttons">
         <a href="/admin.html" class="btn-primary">🏛 פתח Admin Panel</a>
+        <a href="/system-health.html" class="btn-primary" style="background:var(--accent2)">🔬 System Health</a>
+        <a href="/dex-launch.html" class="btn-primary" style="background:var(--gold);color:#000">⚡ DEX Launch</a>
         <a href="/dashboard.html" class="btn-outline">📊 Dashboard</a>
         <a href="/wallet.html" class="btn-outline">💼 Wallet</a>
         <a href="/daily-blog.html" class="btn-outline">📰 Daily Blog</a>
         <a href="/roadmap.html" class="btn-outline">🗺 Roadmap</a>
+    </div>
+</section>
+
+<!-- 9. NEW: Session 2 Additions -->
+<section class="section" id="session2">
+    <h2><span class="num">9</span> Session 2 — עדכוני המשך</h2>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> QR Codes + Test Amounts — Wallet Receive</h3>
+        <p>
+            QR אמיתיים (200x200) עם URI schemes תקניים: <code>ton://transfer/{addr}</code> ו-<code>ethereum:{addr}@56</code>.
+            Deep links ל-Tonkeeper / Tonscan / MetaMask / BSCScan. מדריך מינימום סכומים בטוחים לבדיקה (0.05 TON, 0.001 BNB).
+        </p>
+        <a href="/wallet.html" class="verify">פתח את Wallet → Receive</a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> AES-GCM Encryption למפתחות CEX</h3>
+        <p>
+            החלפת ה-XOR הזמני ב-AES-GCM authenticated encryption. פורמט: <code>v2:nonce_hex:ciphertext_hex</code>.
+            32-byte key מ-<code>ENCRYPTION_KEY</code> env var דרך SHA-256. תאימות לאחור: v1 (XOR) עדיין פתיחה אם יש נתונים ישנים.
+        </p>
+        <div class="tech">
+            <span class="tech-tag">AESGCM from cryptography lib</span>
+            <span class="tech-tag blue">96-bit random nonce</span>
+            <span class="tech-tag gold">backwards compat</span>
+        </div>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> Admin Panel — 7 ערכות צבעים</h3>
+        <p>
+            FAB 🎨 בפינה עם Terminal / Dark / Light / Crypto / Cyberpunk / Ocean / Sunset. הבחירה נשמרת ב-localStorage.
+            מתגבר על ה-hardcoded green terminal theme דרך <code>[data-theme="..."]</code> CSS overrides.
+        </p>
+        <a href="/admin.html" class="verify">פתח Admin Panel (סיסמה: <code>slh2026admin</code>)</a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> DEX Launch Page — PancakeSwap Pool Creator</h3>
+        <p>
+            עמוד חדש עם מחשבון חכם לקביעת ערכי pool, 3 תרחישי השקה מומלצים (Micro/Seed/Growth),
+            8 שלבי ביצוע מדויקים עם deep links ל-PancakeSwap, ואזהרות בטיחות.
+        </p>
+        <div class="tech">
+            <span class="tech-tag">Constant Product AMM math</span>
+            <span class="tech-tag blue">Slippage calculator</span>
+            <span class="tech-tag gold">LP lock recommendation</span>
+        </div>
+        <a href="/dex-launch.html" class="verify">פתח DEX Launch Page</a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> System Health Page — בדיקות חיות</h3>
+        <p>
+            עמוד חדש שבודק בזמן אמת את כל רכיבי המערכת: 5 API endpoints, 4 institutional, 6 data,
+            3 integrations, 12 website pages. Auto-refresh כל 60 שניות. מציג פס סטטוס כללי +
+            מונים ירוק/צהוב/אדום.
+        </p>
+        <a href="/system-health.html" class="verify">פתח System Health</a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> Tokenomics API — MNH/ZVK/SLH Triple-Token</h3>
+        <p>
+            4 endpoints חדשים: <code>/api/tokenomics/stats</code> (supply, burned, staked, reserves),
+            <code>/api/tokenomics/internal-transfer</code> (FREE MNH transfers), <code>/api/tokenomics/burn</code>
+            (record burns for supply accounting), <code>/api/tokenomics/reserves/add</code> (proof of reserves).
+            כל פעולה חתומה באודית trail.
+        </p>
+        <div class="tech">
+            <span class="tech-tag">3 new DB tables</span>
+            <span class="tech-tag blue">Internal ledger</span>
+            <span class="tech-tag gold">Deflationary burn</span>
+        </div>
+        <a href="https://slh-api-production.up.railway.app/api/tokenomics/stats" class="verify" target="_blank">
+            <code>GET /api/tokenomics/stats</code>
+        </a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> Strategy Engine — 3 Backtested Strategies</h3>
+        <p>
+            3 אסטרטגיות ready-to-go עם backtest simulation:
+            <strong>Grid BTC/USDT</strong> (25.4% annual, LOW risk, drawdown -8.2%),
+            <strong>DCA + Weekly Rebalance</strong> (42.7%, MEDIUM, -22.5%),
+            <strong>Multi-Asset Momentum</strong> (78.3%, HIGH, -34.1%).
+            Endpoint: <code>/api/strategy/list</code> ו-<code>/api/strategy/backtest/{id}?months=12</code>.
+        </p>
+        <div class="tech">
+            <span class="tech-tag">Target: 65%+ annual</span>
+            <span class="tech-tag blue">Sharpe ratios 1.4-2.1</span>
+        </div>
+        <a href="https://slh-api-production.up.railway.app/api/strategy/list" class="verify" target="_blank">
+            <code>GET /api/strategy/list</code>
+        </a>
+    </div>
+
+    <div class="item-card">
+        <h3><span class="check">✓</span> BSCScan / BSC Holders Endpoint</h3>
+        <p>
+            <code>/api/network/slh-holders</code> מוכן לקבלת נתוני מחזיקי SLH. הבעיה: Etherscan V2 free
+            לא תומך ב-BSC יותר. צריך להחליף ל-<strong>Moralis</strong> או <strong>Alchemy</strong> (שניהם חינם).
+            Endpoint מציג הודעת שגיאה ברורה עם הנחיות עד שהמפתח מוגדר ב-Railway env.
+        </p>
+        <div class="tech">
+            <span class="tech-tag">5-min cache</span>
+            <span class="tech-tag blue">awaits Moralis key</span>
+        </div>
     </div>
 </section>
 
