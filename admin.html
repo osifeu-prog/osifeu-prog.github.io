@@ -435,7 +435,11 @@ async function loadKPIs(){
 
     // "Last Updated" timestamp
     const luEl = document.getElementById('last-updated');
-    const apiOk = apiData.health?.status === 'ok' || apiData.health?.status === 'healthy';
+    // ANY of these = API working: health.status='ok', stats has total_users, dashboard has total_users
+    const apiOk = (apiData.health && (apiData.health.status === 'ok' || apiData.health.status === 'healthy'))
+                  || (apiData.stats && typeof apiData.stats.total_users === 'number')
+                  || (apiData.dashboard && typeof apiData.dashboard.total_users === 'number');
+    console.log('[Admin] apiOk=', apiOk, 'health=', apiData.health, 'stats=', apiData.stats);
     if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + (apiOk ? ' | API: ✅ connected' : ' | API: ❌ offline');
 
     // === Overview KPIs (real data priority) ===
