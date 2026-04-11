@@ -1739,21 +1739,29 @@ function tryDeepLinkLogin() {
 
 function manualLogin() {
     let val = document.getElementById('manual-uid').value.trim();
-    if (!val) return showToast('Enter your Telegram ID or @username', true);
-    // Support username login
+    if (!val) return showToast('אנא הזן מזהה Telegram (מספר) או לחץ על "קבל ID מהבוט"', true);
+    // Support username login — but username alone is NOT a valid login
     if (val.startsWith('@')) val = val.slice(1);
     if (/^\d+$/.test(val)) {
-        manualLoginWith(parseInt(val));
-    } else if (/^[a-zA-Z0-9_]{2,32}$/.test(val)) {
-        // Username-based login
-        localStorage.setItem('slh_username', val);
-        manualLoginWith(0, val);
+        // Numeric Telegram ID — valid
+        const id = parseInt(val);
+        if (id < 100000 || id > 9999999999) {
+            return showToast('מזהה Telegram לא תקין — אמור להיות מספר באורך 7-10 ספרות', true);
+        }
+        manualLoginWith(id);
     } else {
-        return showToast('Invalid ID or username', true);
+        // Username or anything else — reject, redirect to bot
+        return showToast('❌ שם משתמש לבד לא מספיק — חייב Telegram ID מספרי. לחץ על "קבל ID מהבוט"', true);
     }
 }
 
 function manualLoginWith(uid, name, photo) {
+    // Validate uid STRICTLY — must be a real Telegram numeric ID
+    if (!uid || typeof uid !== 'number' || uid < 100000 || Number.isNaN(uid)) {
+        console.error('[SLH] manualLoginWith rejected invalid uid:', uid);
+        showToast('מזהה לא תקין. חזור לכפתור "קבל ID מהבוט"', true);
+        return;
+    }
     currentUser = {id: uid, first_name: name || 'User', username: '', photo_url: photo || ''};
     localStorage.setItem('slh_user', JSON.stringify(currentUser));
     showApp();
