@@ -1601,6 +1601,21 @@
         return d.innerHTML;
     }
 
+    // Escape HTML then auto-linkify URLs (safe — escapes first)
+    function linkifyText(str) {
+        const escaped = escHtml(str || '');
+        // Match http(s) URLs, stop at whitespace or common punctuation
+        const urlPattern = /(https?:\/\/[^\s<>"']+)/g;
+        return escaped.replace(/\n/g, '<br>').replace(urlPattern, (url) => {
+            // Clean trailing punctuation
+            let clean = url;
+            const trailing = clean.match(/[.,;:!?]+$/);
+            let suffix = '';
+            if (trailing) { suffix = trailing[0]; clean = clean.slice(0, -suffix.length); }
+            return `<a href="${clean}" target="_blank" rel="noopener nofollow" style="color:#00b4d8;text-decoration:underline;word-break:break-all">${clean}</a>${suffix}`;
+        });
+    }
+
     /* ── API Calls ── */
     async function apiGet(path) {
         try {
@@ -1815,11 +1830,16 @@
                         <img id="image-preview-img" src="" alt="">
                         <button class="remove-image" onclick="removeImage()"><i class="fas fa-times"></i></button>
                     </div>
+                    <!-- Link input (optional) -->
+                    <input type="url" id="new-post-link" placeholder="🔗 הוסף קישור (אופציונלי) — https://..." style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e8e8f0;font-size:13px;margin-top:8px;display:none" dir="ltr">
                     <div class="new-post-actions">
                         <div class="post-toolbar">
-                            <input type="file" id="image-upload" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleImageSelect(event)">
+                            <input type="file" id="image-upload" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none" onchange="handleImageSelect(event)">
                             <button class="post-tool-btn photo-btn" onclick="document.getElementById('image-upload').click()">
                                 <i class="fas fa-image"></i> תמונה
+                            </button>
+                            <button class="post-tool-btn" onclick="toggleLinkInput()" style="background:rgba(0,180,216,0.1);color:#00b4d8;border:1px solid rgba(0,180,216,0.3);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:12px">
+                                <i class="fas fa-link"></i> קישור
                             </button>
                             <select class="post-category-select" id="new-post-category">
                                 <option value="general">💬 כללי</option>
@@ -1993,6 +2013,11 @@
     }
 
     /* ── New Post (API) ── */
+    function toggleLinkInput() {
+        const el = document.getElementById('new-post-link');
+        if (el) el.style.display = el.style.display === 'none' || !el.style.display ? 'block' : 'none';
+        if (el && el.style.display === 'block') el.focus();
+    }
     async function handleNewPost() {
         const user = getUser();
         if (!user || !user.is_registered) {
@@ -2000,8 +2025,23 @@
             return;
         }
         const textarea = document.getElementById('new-post-text');
-        const text = textarea.value.trim();
+        let text = textarea.value.trim();
         if (!text) { textarea.style.borderColor = 'var(--red)'; return; }
+
+        // Optional link — append to text if present and valid
+        const linkEl = document.getElementById('new-post-link');
+        const linkVal = (linkEl?.value || '').trim();
+        if (linkVal) {
+            try {
+                new URL(linkVal); // validates
+                // Only allow http/https
+                if (!/^https?:\/\//i.test(linkVal)) throw new Error('must be http(s)');
+                text += '\n\n🔗 ' + linkVal;
+            } catch(e) {
+                if (linkEl) linkEl.style.borderColor = 'var(--red)';
+                return;
+            }
+        }
 
         const category = document.getElementById('new-post-category').value;
         const btn = document.getElementById('btn-publish');
@@ -2023,6 +2063,7 @@
         if (result && result.id) {
             textarea.value = '';
             textarea.style.borderColor = '';
+            if (linkEl) { linkEl.value = ''; linkEl.style.display = 'none'; linkEl.style.borderColor = ''; }
             removeImage();
             await loadPostsFromAPI();
         } else {
@@ -2159,7 +2200,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="post-body">${escHtml(post.text)}</div>
+                <div class="post-body">${linkifyText(post.text)}</div>
                 ${imgSrc ? `<div class="post-image" onclick="openLightbox('${imgSrc}')"><img src="${imgSrc}" alt="" loading="lazy"></div>` : ''}
                 ${post.category === 'proposals' ? renderVoteSection(post) : ''}
                 <div class="post-reactions-summary">

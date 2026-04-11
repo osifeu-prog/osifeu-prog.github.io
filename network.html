@@ -143,6 +143,27 @@
     <p data-i18n="net_subtitle">מיפוי אינטראקטיבי של כל החיבורים במערכת — משתמשים, קבוצות, נושאים ובוטים ברשת SLH</p>
   </section>
 
+  <!-- REAL DATA Banner -->
+  <section style="max-width:1200px;margin:0 auto 20px;padding:0 20px">
+    <div style="background:linear-gradient(135deg,rgba(0,180,216,0.1),rgba(108,92,231,0.08));border:1px solid rgba(0,180,216,0.3);border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:11px;color:#00b4d8;text-transform:uppercase;letter-spacing:1px;font-weight:700">🔴 Live Data — SLH Ecosystem</div>
+        <div style="font-size:14px;color:#e8e8f0;margin-top:4px">
+          <strong id="live-real-users">--</strong> real users · <strong id="live-real-bots">25</strong> active bots ·
+          <strong id="live-real-holders">176</strong> SLH holders on BSC
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="loadOnChainHolders()" style="background:rgba(243,186,47,0.1);color:#f3ba2f;border:1px solid rgba(243,186,47,0.3);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700">
+          🏦 Load BSC Holders
+        </button>
+        <a href="/dashboard.html" style="background:rgba(0,255,135,0.1);color:#00e887;border:1px solid rgba(0,255,135,0.3);padding:8px 16px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700">
+          📊 Dashboard
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Stats bar -->
   <section class="net-stats">
     <div class="stat-card cyan">
@@ -224,6 +245,97 @@
       </thead>
       <tbody id="top-nodes-body"></tbody>
     </table>
+  </section>
+
+  <!-- SLH Holders (BSCScan) -->
+  <section class="net-table-section" style="margin-top:32px">
+    <h3>
+      <i class="fas fa-coins" style="color:#f3ba2f"></i>
+      SLH Holders — Binance Smart Chain
+      <span style="font-size:11px;color:#8a8aa0;margin-right:8px">(דרך BSCScan API)</span>
+    </h3>
+    <p style="color:#b0b0c0;font-size:13px;margin:-8px 0 14px">
+      שקיפות מלאה: רשימת מחזיקי SLH על הבלוקצ'יין. נתונים אמיתיים מ-BSCScan כשה-API key מוגדר.
+    </p>
+    <div id="holders-status" style="padding:14px;background:rgba(243,186,47,0.06);border:1px dashed rgba(243,186,47,0.3);border-radius:10px;font-size:12px;color:#f3ba2f;text-align:center;margin-bottom:14px">
+      ⏳ BSCScan API key לא הוגדר — לחץ "Load BSC Holders" למעלה כדי לנסות לטעון דרך ה-endpoint הציבורי
+    </div>
+    <table class="net-table" id="holders-table" style="display:none">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Address</th>
+          <th>Balance (SLH)</th>
+          <th>% Supply</th>
+          <th>BSCScan</th>
+        </tr>
+      </thead>
+      <tbody id="holders-body"></tbody>
+    </table>
+  </section>
+
+  <!-- Ecosystem Architecture Overview -->
+  <section class="net-table-section" style="margin-top:32px">
+    <h3><i class="fas fa-sitemap" style="color:#00cec9"></i> SLH Ecosystem Architecture</h3>
+    <p style="color:#b0b0c0;font-size:13px;margin:-8px 0 14px">
+      איך הרכיבים מתחברים: משתמשים → בוטים → API → DB → CEX → On-Chain
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+      <div style="padding:16px;background:rgba(0,180,216,0.06);border:1px solid rgba(0,180,216,0.2);border-radius:10px">
+        <div style="color:#00b4d8;font-weight:800;font-size:14px;margin-bottom:6px">👤 User Layer</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • Telegram accounts<br>
+          • Website login (manual ID / Widget)<br>
+          • Dashboard + Wallet views<br>
+          • Community posts
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(0,206,201,0.06);border:1px solid rgba(0,206,201,0.2);border-radius:10px">
+        <div style="color:#00cec9;font-weight:800;font-size:14px;margin-bottom:6px">🤖 Bot Layer (25)</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • Spark (main investment)<br>
+          • Guardian (security)<br>
+          • Academia, BotShop, Wallet<br>
+          • +20 specialized bots
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(108,92,231,0.06);border:1px solid rgba(108,92,231,0.2);border-radius:10px">
+        <div style="color:#6c5ce7;font-weight:800;font-size:14px;margin-bottom:6px">🔌 API Layer</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • FastAPI on Railway<br>
+          • 60+ endpoints<br>
+          • JWT auth + HMAC signing<br>
+          • Audit log (SHA-256 chain)
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(243,186,47,0.06);border:1px solid rgba(243,186,47,0.2);border-radius:10px">
+        <div style="color:#f3ba2f;font-weight:800;font-size:14px;margin-bottom:6px">💾 Data Layer</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • PostgreSQL 15 (Railway)<br>
+          • Redis (cache + rate limit)<br>
+          • institutional_audit (hash chain)<br>
+          • cex_snapshots (portfolio history)
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(0,255,135,0.06);border:1px solid rgba(0,255,135,0.2);border-radius:10px">
+        <div style="color:#00e887;font-weight:800;font-size:14px;margin-bottom:6px">🏦 CEX Layer</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • Bybit V5 UNIFIED (read-only)<br>
+          • Binance V3 SPOT (read-only)<br>
+          • HMAC-signed requests<br>
+          • Encrypted key storage
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px">
+        <div style="color:#ef4444;font-weight:800;font-size:14px;margin-bottom:6px">⛓️ On-Chain Layer</div>
+        <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
+          • BSC — SLH token (111M supply)<br>
+          • TON — wallets + MNH stablecoin<br>
+          • Ethereum — future multichain<br>
+          • BSCScan holders list
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -335,6 +447,68 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   document.getElementById('stat-connections').textContent = connections.length;
   document.getElementById('stat-groups').textContent = groups.length;
   document.getElementById('stat-health').textContent = '97.3%';
+
+  /* ══════════════════════════════════════════════
+     REAL DATA — fetch live counts from API
+     ══════════════════════════════════════════════ */
+  const SLH_API = 'https://slh-api-production.up.railway.app';
+  const SLH_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
+
+  async function loadRealCounts() {
+    try {
+      const r = await fetch(SLH_API + '/api/admin/dashboard');
+      if (!r.ok) return;
+      const d = await r.json();
+      document.getElementById('live-real-users').textContent = d.total_users || '--';
+    } catch(e) { console.warn('[Network] real counts failed:', e.message); }
+  }
+  loadRealCounts();
+
+  /* ══════════════════════════════════════════════
+     BSCScan Holders — public endpoint (rate-limited)
+     ══════════════════════════════════════════════ */
+  window.loadOnChainHolders = async function() {
+    const statusEl = document.getElementById('holders-status');
+    const tableEl = document.getElementById('holders-table');
+    const bodyEl = document.getElementById('holders-body');
+    statusEl.textContent = '⏳ Fetching holders from BSCScan...';
+    statusEl.style.color = '#00b4d8';
+
+    try {
+      // Public BSCScan endpoint — no API key, rate limited
+      // When user provides API key, update to use /tokenholderlist with apikey param
+      const url = `https://api.bscscan.com/api?module=token&action=tokenholderlist&contractaddress=${SLH_CONTRACT}&page=1&offset=100`;
+      const r = await fetch(url);
+      const data = await r.json();
+      if (data.status !== '1' || !data.result) {
+        statusEl.innerHTML = `⚠️ <strong>BSCScan API Key נדרש</strong> — ${data.message || data.result || 'Rate limited'}<br><span style="color:#b0b0c0;font-size:11px">ספק BSCScan API key (<a href="https://bscscan.com/apis" target="_blank" style="color:#00b4d8">bscscan.com/apis</a>) כדי לראות את 176 המחזיקים האמיתיים</span>`;
+        statusEl.style.color = '#ef4444';
+        return;
+      }
+
+      const holders = data.result;
+      document.getElementById('live-real-holders').textContent = holders.length;
+      const totalSupply = 111186328; // from SLH contract
+      bodyEl.innerHTML = holders.slice(0,50).map((h, i) => {
+        const balance = parseFloat(h.TokenHolderQuantity) / 1e15; // 15 decimals
+        const pct = (balance / totalSupply * 100).toFixed(4);
+        const addr = h.TokenHolderAddress;
+        return `<tr>
+          <td class="rank">${i+1}</td>
+          <td style="font-family:monospace;font-size:11px;direction:ltr">${addr.slice(0,8)}...${addr.slice(-6)}</td>
+          <td style="direction:ltr">${balance.toLocaleString('en-US',{maximumFractionDigits:2})}</td>
+          <td>${pct}%</td>
+          <td><a href="https://bscscan.com/address/${addr}" target="_blank" style="color:#00b4d8">🔗</a></td>
+        </tr>`;
+      }).join('');
+      tableEl.style.display = 'table';
+      statusEl.textContent = `✅ Loaded ${holders.length} holders`;
+      statusEl.style.color = '#00e887';
+    } catch(e) {
+      statusEl.innerHTML = `❌ Failed: ${e.message}<br><span style="color:#b0b0c0;font-size:11px">ייתכן CORS blocking — צריך לעבור דרך ה-backend שלנו</span>`;
+      statusEl.style.color = '#ef4444';
+    }
+  };
 
   /* ══════════════════════════════════════════════
      TOP 10 TABLE
