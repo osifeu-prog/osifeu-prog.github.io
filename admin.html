@@ -20,10 +20,11 @@
         [data-theme="sunset"]{--bg:#1a0a14;--bg2:#251018;--bg3:#30161f;--accent:#ff6b6b;--accent2:#ffa07a;--cyan:#ffd93d;--gold:#ffb703;--red:#c53030;--purple:#a855f7;--text:#ffe5d9;--text2:#c9a88a;--text-bright:#fff;--card:rgba(255,107,107,.04);--border:rgba(255,107,107,.2);--font:'Inter',system-ui,sans-serif;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.4)}
         /* Hide CRT scan lines in non-terminal themes */
         [data-theme] body::after{display:none !important}
-        /* Theme FAB */
-        #theme-fab{position:fixed;bottom:20px;left:20px;z-index:99999;background:var(--accent);color:#000;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;font-size:22px;box-shadow:0 6px 20px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+        /* Theme FAB — positioned above the AI FAB to avoid overlap.
+           AI FAB is at bottom:24px; left:24px; size 58px, so we sit at bottom:94px. */
+        #theme-fab{position:fixed;bottom:94px;left:24px;z-index:99997;background:var(--accent);color:#000;width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;font-size:20px;box-shadow:0 4px 16px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s}
         #theme-fab:hover{transform:scale(1.1)}
-        #theme-panel{position:fixed;bottom:85px;left:20px;z-index:99999;background:var(--bg2);border:1px solid var(--border);padding:16px;border-radius:12px;display:none;flex-direction:column;gap:6px;min-width:220px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+        #theme-panel{position:fixed;bottom:150px;left:24px;z-index:99998;background:var(--bg2);border:1px solid var(--border);padding:16px;border-radius:12px;display:none;flex-direction:column;gap:6px;min-width:220px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
         #theme-panel.open{display:flex}
         #theme-panel .title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-family:'Inter',sans-serif}
         #theme-panel button{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;cursor:pointer;font-size:12px;text-align:right;font-family:inherit;border-radius:6px;transition:all .2s}
