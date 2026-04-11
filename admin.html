@@ -554,10 +554,16 @@
 
 <script>
 // ── Auth ─────────────────────────────────────────────────────────
-const ADMIN_PASS = 'slh2026admin';
+// Multiple admin passwords — share a different one with each partner
+const ADMIN_PASSWORDS = [
+    'slh2026admin',        // primary (Osif)
+    'slh_admin_2026',      // partner A (underscore variant)
+    'slh-spark-admin',     // partner B
+    'slh-institutional'    // accountant / lawyer
+];
 function checkAuth(){
     const p = document.getElementById('admin-pass').value;
-    if(p === ADMIN_PASS || localStorage.getItem('slh_admin_auth') === 'true'){
+    if(ADMIN_PASSWORDS.includes(p) || localStorage.getItem('slh_admin_auth') === 'true'){
         localStorage.setItem('slh_admin_auth','true');
         document.getElementById('auth-gate').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'flex';
