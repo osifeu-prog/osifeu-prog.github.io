@@ -33,9 +33,38 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260410a">
+    <link rel="stylesheet" href="/css/shared.css?v=20260411b">
 
     <style>
+        /* ===== Force theme changes to actually take effect on onboarding ===== */
+        :root {
+            --bg: #050510;
+            --bg2: #0a0a1a;
+            --text: #e8e8f0;
+            --text2: #9898b0;
+            --text3: #6a6a88;
+            --accent: #ff8c00;
+        }
+        html, body {
+            background: var(--bg) !important;
+            color: var(--text) !important;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+        /* Dark (default) */
+        html[data-theme="dark"] { --bg:#050510; --bg2:#0a0a1a; --text:#e8e8f0; --text2:#9898b0; --text3:#6a6a88; --accent:#ff8c00; }
+        /* Terminal */
+        html[data-theme="terminal"] { --bg:#0a0a0a; --bg2:#0d0d0d; --text:#00ff41; --text2:#00cc33; --text3:#009926; --accent:#00ff41; }
+        /* Crypto */
+        html[data-theme="crypto"] { --bg:#0c0014; --bg2:#10001e; --text:#f0e6ff; --text2:#b39ddb; --text3:#7c5cbf; --accent:#a855f7; }
+        /* Light */
+        html[data-theme="light"] { --bg:#f8fafc; --bg2:#f1f5f9; --text:#0f172a; --text2:#475569; --text3:#94a3b8; --accent:#2563eb; }
+        /* Cyberpunk */
+        html[data-theme="cyberpunk"] { --bg:#050505; --bg2:#0a0a0a; --text:#00ff41; --text2:#00cccc; --text3:#008888; --accent:#00f3ff; }
+        /* Ocean */
+        html[data-theme="ocean"] { --bg:#001828; --bg2:#002a40; --text:#b8e0ff; --text2:#7fb8d6; --text3:#4d8aa8; --accent:#00d4ff; }
+        /* Sunset */
+        html[data-theme="sunset"] { --bg:#1a0f1f; --bg2:#251530; --text:#ffd700; --text2:#ffaa70; --text3:#cc8855; --accent:#ff6b35; }
+
         .hero-onboard {
             padding: 60px 20px 40px;
             text-align: center;
