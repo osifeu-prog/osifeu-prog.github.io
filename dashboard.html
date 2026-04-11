@@ -1220,8 +1220,38 @@
     </div>
 </div>
 
+<style>
+@keyframes slhPulseGlow {
+    0%,100% { box-shadow: 0 8px 32px rgba(255,140,0,0.25); }
+    50% { box-shadow: 0 8px 48px rgba(255,140,0,0.5); }
+}
+</style>
+
 <script>
 const API = 'https://slh-api-production.up.railway.app';
+
+// Auto-fill ?promo= coupon code into reg-coupon-code when registration panel renders
+(function setupAutofillPromo(){
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const promo = params.get('promo');
+        if (!promo) return;
+        // Watch for the input being added to DOM
+        const observer = new MutationObserver(() => {
+            const input = document.getElementById('reg-coupon-code');
+            if (input) {
+                input.value = promo.toUpperCase();
+                input.style.background = 'rgba(34,197,94,0.1)';
+                console.log('[SLH] Auto-filled promo code:', promo);
+                observer.disconnect();
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        // Stop observing after 30s anyway
+        setTimeout(() => observer.disconnect(), 30000);
+    } catch(e) { console.warn('[SLH] autofillPromo error', e); }
+})();
+
 // Defensive: purge any corrupt slh_user BEFORE init (prevents #undefined)
 (function purgeCorruptSession(){
     try {
@@ -2293,39 +2323,18 @@ function showRegistrationPanel() {
         </div>
 
         <!-- BETA COUPON — free access for first 49 users -->
-        <div style="background:linear-gradient(135deg,rgba(255,140,0,0.18),rgba(0,188,212,0.18));border:3px solid rgba(255,140,0,0.6);border-radius:16px;padding:24px;max-width:480px;width:100%;margin-bottom:20px;text-align:center;box-shadow:0 8px 32px rgba(255,140,0,0.25);animation:pulseGlow 2s ease-in-out infinite">
-            <style>@keyframes pulseGlow{0%,100%{box-shadow:0 8px 32px rgba(255,140,0,0.25)}50%{box-shadow:0 8px 48px rgba(255,140,0,0.5)}}</style>
+        <div style="background:linear-gradient(135deg,rgba(255,140,0,0.18),rgba(0,188,212,0.18));border:3px solid rgba(255,140,0,0.6);border-radius:16px;padding:24px;max-width:480px;width:100%;margin-bottom:20px;text-align:center;box-shadow:0 8px 32px rgba(255,140,0,0.25);animation:slhPulseGlow 2s ease-in-out infinite">
             <div style="font-size:28px;margin-bottom:8px">🎁 <b style="color:var(--accent)">Genesis 49</b> — חבילה דו-שלבית!</div>
             <div style="font-size:14px;color:var(--text);margin-bottom:14px;line-height:1.6">
-                <div style="margin:6px 0">💎 <b>0.1 SLH</b> (~44 ₪) <span style="color:var(--text2)">להפצה מיידית</span></div>
-                <div style="margin:6px 0">🎁 <b style="color:#22c55e">+1 SLH</b> (~444 ₪) <span style="color:var(--text2)">מתנה אחרי ההפצה</span></div>
-                <div style="margin:6px 0">🎨 <b>NFT Genesis</b> + 🔓 <b>גישה מלאה</b></div>
+                <div style="margin:6px 0">💎 <b>10,000 ZVK</b> (~44 ₪ שווי) <span style="color:var(--text2)">להפצה מיידית</span></div>
+                <div style="margin:6px 0">🎁 <b style="color:#22c55e">+100,000 ZVK</b> (~444 ₪ שווי) <span style="color:var(--text2)">מתנה אחרי ההפצה</span></div>
+                <div style="margin:6px 0">🎨 <b>NFT Genesis</b> + 🔓 <b>גישה מלאה לאקוסיסטם</b></div>
             </div>
             <div style="font-size:11px;color:var(--text2);margin-bottom:12px" id="beta-remaining">⏳ טוען מלאי...</div>
             <input type="text" id="reg-coupon-code" value="GENESIS49" dir="ltr" style="width:100%;padding:14px;background:var(--bg);border:2px solid var(--accent);color:var(--accent);font-size:18px;border-radius:10px;margin-bottom:12px;font-family:monospace;text-align:center;text-transform:uppercase;letter-spacing:3px;font-weight:800">
             <button onclick="redeemBetaCoupon()" id="reg-coupon-btn" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:16px;font-weight:900;font-size:16px;border-radius:12px;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(34,197,94,0.3)">✨ אישור — קבל את המתנה!</button>
             <div id="reg-coupon-status" style="margin-top:10px;font-size:13px;display:none"></div>
         </div>
-
-        <script>
-        // Auto-fill coupon if ?promo= in URL
-        (function autofillPromo(){
-            try {
-                const params = new URLSearchParams(window.location.search);
-                const promo = params.get('promo');
-                if (promo) {
-                    setTimeout(() => {
-                        const input = document.getElementById('reg-coupon-code');
-                        if (input) {
-                            input.value = promo.toUpperCase();
-                            input.style.background = 'rgba(34,197,94,0.1)';
-                            console.log('[SLH] Auto-filled promo code:', promo);
-                        }
-                    }, 500);
-                }
-            } catch(e) {}
-        })();
-        </script>
 
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
             <a href="/" style="color:var(--text2);font-size:13px">&larr; Back to site</a>
@@ -2451,7 +2460,7 @@ async function redeemBetaCoupon() {
             if (data.nft_number) {
                 showRegCouponStatus(
                     `🎉 ברוכים הבאים, Genesis Member #${data.nft_number}!<br>` +
-                    `💎 קיבלת ${data.slh_credited || 0.1} SLH (~44₪) להפצה<br>🎁 +1 SLH מתנה לאחר ההפצה<br>🎨 NFT Genesis<br>` +
+                    `💎 קיבלת ${(data.zvk_credited || 10000).toLocaleString()} ZVK (~44₪) להפצה<br>🎁 +100,000 ZVK (~444₪) מתנה לאחר ההפצה<br>🎨 NFT Genesis<br>` +
                     `⏳ נותרו ${data.remaining_slots ?? '?'} מקומות`,
                     false
                 );

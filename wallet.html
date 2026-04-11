@@ -566,6 +566,78 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- EXTERNAL WALLETS — Bybit / Binance / Bitget / OKX / Self     -->
+        <!-- ============================================================ -->
+        <div class="web3-panel rv" style="margin-top:24px">
+            <h3>
+                <i class="fas fa-network-wired"></i>
+                <span>הארנקים החיצוניים שלי</span>
+                <span class="web3-badge" style="background:#00bcd4">READ-ONLY</span>
+            </h3>
+            <div class="web3-sub">
+                הוסף כתובות ארנק מ-Bybit, Binance, Bitget, OKX או ארנק עצמי — נציג את היתרות שלך במקום אחד.
+                <br><strong style="color:#22c55e">🔒 קריאה בלבד.</strong> אנחנו לא מבקשים מפתחות, חתימות או API keys.
+            </div>
+
+            <button onclick="openAddExternalWalletModal()" style="background:linear-gradient(135deg,#00bcd4,#0891b2);color:#fff;border:none;padding:12px 22px;font-weight:800;font-size:14px;border-radius:10px;cursor:pointer;margin:14px 0">
+                <i class="fas fa-plus"></i> הוסף ארנק חיצוני
+            </button>
+
+            <div id="ext-wallets-list" style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+                <div style="text-align:center;color:var(--text2);padding:18px;border:1px dashed rgba(255,255,255,0.1);border-radius:10px;font-size:13px">
+                    טוען...
+                </div>
+            </div>
+
+            <div id="ext-total" style="display:none;margin-top:16px;padding:14px;background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(0,188,212,0.1));border:1px solid rgba(34,197,94,0.3);border-radius:10px;text-align:center">
+                <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px">סה"כ ערך כל הארנקים החיצוניים</div>
+                <div style="font-size:24px;font-weight:900;color:#22c55e;margin-top:4px" id="ext-total-value">$0.00</div>
+                <div style="font-size:13px;color:var(--text2);margin-top:2px" id="ext-total-ils">≈ ₪0</div>
+            </div>
+        </div>
+
+        <!-- Add External Wallet Modal -->
+        <div id="ext-wallet-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px">
+            <div style="background:var(--bg2,#111);border:2px solid var(--accent);border-radius:16px;padding:28px;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+                <h3 style="margin:0 0 16px;color:var(--accent);font-size:20px">➕ הוסף ארנק חיצוני</h3>
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">📋 שם תיוג (לבחירתך)</label>
+                <input id="ext-label" type="text" placeholder="למשל: Bybit ראשי, Binance ספוט, ארנק קר" style="width:100%;padding:11px;background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:14px;font-size:14px">
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">🌐 רשת</label>
+                <select id="ext-network" style="width:100%;padding:11px;background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:14px;font-size:14px">
+                    <option value="TON">TON Network</option>
+                    <option value="BSC">BSC (Binance Smart Chain)</option>
+                    <option value="ETH">Ethereum</option>
+                    <option value="BTC">Bitcoin</option>
+                </select>
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">🏦 ספק (אופציונלי)</label>
+                <select id="ext-provider" style="width:100%;padding:11px;background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:14px;font-size:14px">
+                    <option value="self">ארנק עצמי / Cold Wallet</option>
+                    <option value="bybit">Bybit</option>
+                    <option value="binance">Binance</option>
+                    <option value="bitget">Bitget</option>
+                    <option value="okx">OKX</option>
+                    <option value="kucoin">KuCoin</option>
+                </select>
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">🔑 כתובת ציבורית</label>
+                <input id="ext-address" type="text" placeholder="UQCJ0UuC6RYsZ1Jwj2zFevsjQ8Q5hg3ml80xqH54nqltq7Nh" dir="ltr" style="width:100%;padding:11px;background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:14px;font-size:13px;font-family:monospace">
+
+                <div style="font-size:11px;color:#22c55e;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);padding:10px;border-radius:8px;margin-bottom:14px;line-height:1.6">
+                    🔒 <strong>ביטחון מלא:</strong> הכתובת ציבורית — אין סיכון. אנחנו רק מציגים את היתרה שלך.<br>
+                    אף פעם אל תיתן למישהו את ה-Seed phrase או Private key שלך.
+                </div>
+
+                <div style="display:flex;gap:10px">
+                    <button onclick="closeExternalWalletModal()" style="flex:1;padding:13px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.15);border-radius:10px;cursor:pointer;font-weight:700">ביטול</button>
+                    <button onclick="saveExternalWallet()" style="flex:2;padding:13px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:800">✅ הוסף + טען יתרה</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Send / Receive -->
         <div class="action-card rv">
             <div class="action-tabs">
@@ -884,12 +956,137 @@
       renderWalletConnectButtons('wallet-connect-section');
     }
 
+    // ============================================================
+    // EXTERNAL WALLETS — Bybit / Binance / Bitget / OKX / Self
+    // ============================================================
+    async function loadExternalWallets() {
+        const user = getCurrentUser();
+        if (!user) return;
+        const listEl = document.getElementById('ext-wallets-list');
+        if (!listEl) return;
+
+        try {
+            const res = await fetch(`${WALLET_API.replace('/api/wallet','')}/api/external-wallets/${user.id}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+
+            if (!data.wallets || data.wallets.length === 0) {
+                listEl.innerHTML = `
+                    <div style="text-align:center;color:var(--text2);padding:24px;border:1px dashed rgba(255,255,255,0.1);border-radius:10px;font-size:13px">
+                        <div style="font-size:32px;margin-bottom:8px">🪙</div>
+                        עדיין לא הוספת ארנקים חיצוניים<br>
+                        <span style="font-size:11px">לחץ "הוסף ארנק חיצוני" כדי להתחיל</span>
+                    </div>`;
+                document.getElementById('ext-total').style.display = 'none';
+                return;
+            }
+
+            const providerIcons = {bybit:'🟠', binance:'🟡', bitget:'🔵', okx:'⚫', kucoin:'🟢', self:'🛡️'};
+            const networkColors = {TON:'#0098ea', BSC:'#f3ba2f', ETH:'#627eea', BTC:'#f7931a'};
+
+            let totalUsd = 0;
+            listEl.innerHTML = data.wallets.map(w => {
+                const icon = providerIcons[w.provider] || '🛡️';
+                const color = networkColors[w.network] || '#888';
+                const native = parseFloat(w.last_balance_native || 0);
+                totalUsd += parseFloat(w.last_balance_usdt || 0);
+                const lastChecked = w.last_checked ? new Date(w.last_checked).toLocaleString('he-IL') : 'אף פעם';
+                const shortAddr = w.address.length > 20 ? w.address.slice(0,8) + '...' + w.address.slice(-6) : w.address;
+                return `
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-right:3px solid ${color};border-radius:10px;padding:14px 16px">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                            <div style="font-weight:800;color:#fff;font-size:14px">${icon} ${w.label}</div>
+                            <button onclick="deleteExternalWallet(${w.id})" style="background:transparent;border:1px solid rgba(239,68,68,0.3);color:#ef4444;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">🗑️ הסר</button>
+                        </div>
+                        <div style="font-family:monospace;font-size:11px;color:var(--text2);margin-bottom:8px;direction:ltr;text-align:left">${shortAddr}</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                            <span style="font-size:11px;color:${color};font-weight:700;text-transform:uppercase">${w.network}</span>
+                            <span style="font-size:18px;font-weight:900;color:#fff">${native.toFixed(4)}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <span style="font-size:10px;color:var(--text3)">עודכן: ${lastChecked}</span>
+                            <button onclick="refreshExternalWallet(${w.id})" style="background:rgba(0,188,212,0.1);color:#00bcd4;border:1px solid rgba(0,188,212,0.3);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">🔄 רענן</button>
+                        </div>
+                    </div>`;
+            }).join('');
+
+            const totalEl = document.getElementById('ext-total');
+            const totalValEl = document.getElementById('ext-total-value');
+            const totalIlsEl = document.getElementById('ext-total-ils');
+            if (totalEl) totalEl.style.display = totalUsd > 0 ? 'block' : 'none';
+            if (totalValEl) totalValEl.textContent = '$' + totalUsd.toFixed(2);
+            if (totalIlsEl) totalIlsEl.textContent = '≈ ₪' + (totalUsd * 3.65).toFixed(2);
+        } catch (err) {
+            console.warn('[ExtWallets] Error:', err);
+            listEl.innerHTML = `<div style="color:#ef4444;padding:14px;font-size:13px">⚠️ שגיאה בטעינת הארנקים</div>`;
+        }
+    }
+
+    function openAddExternalWalletModal() {
+        document.getElementById('ext-wallet-modal').style.display = 'flex';
+        document.getElementById('ext-label').value = '';
+        document.getElementById('ext-address').value = '';
+        document.getElementById('ext-network').value = 'TON';
+        document.getElementById('ext-provider').value = 'self';
+    }
+
+    function closeExternalWalletModal() {
+        document.getElementById('ext-wallet-modal').style.display = 'none';
+    }
+
+    async function saveExternalWallet() {
+        const user = getCurrentUser();
+        if (!user) return showToast('יש להתחבר תחילה', true);
+        const label = document.getElementById('ext-label').value.trim();
+        const network = document.getElementById('ext-network').value;
+        const provider = document.getElementById('ext-provider').value;
+        const address = document.getElementById('ext-address').value.trim();
+        if (!label) return showToast('תן תווית לארנק', true);
+        if (!address || address.length < 10) return showToast('כתובת לא תקינה', true);
+        try {
+            const res = await fetch(`${WALLET_API.replace('/api/wallet','')}/api/external-wallets/add`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({user_id: user.id, label, network, provider, address})
+            });
+            const data = await res.json();
+            if (!res.ok || !data.ok) throw new Error(data.detail || 'Failed');
+            showToast('✅ נוסף! טוען יתרה...');
+            closeExternalWalletModal();
+            // Refresh balance immediately
+            await fetch(`${WALLET_API.replace('/api/wallet','')}/api/external-wallets/refresh/${data.wallet_id}`, {method: 'POST'});
+            await loadExternalWallets();
+        } catch (err) {
+            showToast('שגיאה: ' + err.message, true);
+        }
+    }
+
+    async function deleteExternalWallet(walletId) {
+        if (!confirm('להסיר את הארנק הזה?')) return;
+        const user = getCurrentUser();
+        if (!user) return;
+        try {
+            await fetch(`${WALLET_API.replace('/api/wallet','')}/api/external-wallets/${walletId}?user_id=${user.id}`, {method: 'DELETE'});
+            showToast('הוסר');
+            await loadExternalWallets();
+        } catch(e) { showToast('שגיאה', true); }
+    }
+
+    async function refreshExternalWallet(walletId) {
+        try {
+            showToast('🔄 מרענן יתרה...');
+            await fetch(`${WALLET_API.replace('/api/wallet','')}/api/external-wallets/refresh/${walletId}`, {method: 'POST'});
+            await loadExternalWallets();
+        } catch(e) { showToast('שגיאה', true); }
+    }
+
     // Load everything in parallel
     Promise.all([
         loadPrice(),
         loadBalances(),
         loadAddresses(),
-        loadTransactions()
+        loadTransactions(),
+        loadExternalWallets()
     ]).then(() => {
         console.log('[Wallet] Init complete, API:', apiOnline ? 'online' : 'offline');
     });
