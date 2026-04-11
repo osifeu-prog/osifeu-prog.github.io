@@ -568,6 +568,8 @@ function checkAuth(){
     const p = document.getElementById('admin-pass').value;
     if(ADMIN_PASSWORDS.includes(p) || localStorage.getItem('slh_admin_auth') === 'true'){
         localStorage.setItem('slh_admin_auth','true');
+        // Save the password for API authentication (X-Admin-Key header)
+        if (p) localStorage.setItem('slh_admin_password', p);
         document.getElementById('auth-gate').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'flex';
         document.getElementById('admin-body').style.display = 'flex';
@@ -606,13 +608,17 @@ function getAnalyticsData(){
 }
 
 // ── API fetching (SLH_API is declared at the top of this script block) ─
+// SECURITY: Send X-Admin-Key header on admin endpoints (matches ADMIN_API_KEY env var)
+const ADMIN_API_KEY = localStorage.getItem('slh_admin_password') || 'slh2026admin';
 async function fetchAdminStats() {
     // Safe fetch with timeout per endpoint (5s each)
-    const safeJson = async (url) => {
+    const safeJson = async (url, withAuth = false) => {
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 5000);
         try {
-            const r = await fetch(url, { signal: ctrl.signal, cache: 'no-store' });
+            const headers = {};
+            if (withAuth) headers['X-Admin-Key'] = ADMIN_API_KEY;
+            const r = await fetch(url, { signal: ctrl.signal, cache: 'no-store', headers });
             clearTimeout(timer);
             if (!r.ok) {
                 console.warn('[Admin] HTTP', r.status, url);
@@ -627,7 +633,7 @@ async function fetchAdminStats() {
     };
     try {
         const [dashboard, stats, health, community, analytics, referrals] = await Promise.all([
-            safeJson(SLH_API + '/api/admin/dashboard'),
+            safeJson(SLH_API + '/api/admin/dashboard', true), // admin auth
             safeJson(SLH_API + '/api/stats'),
             safeJson(SLH_API + '/api/health'),
             safeJson(SLH_API + '/api/community/stats'),
@@ -803,7 +809,9 @@ async function loadActivity(){
 
     // Try loading from admin activity API
     try {
-        const res = await fetch(SLH_API + '/api/admin/activity?limit=15');
+        const res = await fetch(SLH_API + '/api/admin/activity?limit=15', {
+            headers: { 'X-Admin-Key': ADMIN_API_KEY }
+        });
         if (res.ok) {
             const data = await res.json();
             if (Array.isArray(data) && data.length > 0) {
