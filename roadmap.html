@@ -478,17 +478,41 @@
             title: { he: 'ארנק דיגיטלי BSC + TON', en: 'Digital Wallet BSC + TON', ru: 'Цифровой кошелёк BSC + TON', ar: 'محفظة رقمية BSC + TON', fr: 'Portefeuille numérique BSC + TON' },
             desc: { he: 'שליחה, קבלה, הפקדה, היסטוריית עסקאות', en: 'Send, receive, deposit, transaction history', ru: 'Отправка, получение, депозит, история транзакций', ar: 'إرسال، استقبال، إيداع، سجل المعاملات', fr: 'Envoyer, recevoir, déposer, historique des transactions' }
           },
-          { status: 'in-progress', cat: 'ai',
+          { status: 'completed', cat: 'ai',
             title: { he: 'עוזר AI רב-ספק', en: 'Multi-Provider AI Assistant', ru: 'Мульти-провайдер AI ассистент', ar: 'مساعد ذكاء اصطناعي متعدد', fr: 'Assistant IA multi-fournisseur' },
             desc: { he: 'Groq, Gemini, Together.ai + OpenAI עם fallback אוטומטי', en: 'Groq, Gemini, Together.ai + OpenAI with automatic fallback', ru: 'Groq, Gemini, Together.ai + OpenAI с автоматическим fallback', ar: 'Groq, Gemini, Together.ai + OpenAI مع تبديل تلقائي', fr: 'Groq, Gemini, Together.ai + OpenAI avec fallback automatique' }
           },
-          { status: 'in-progress', cat: 'token',
+          { status: 'completed', cat: 'token',
             title: { he: 'MNH — מטבע יציב צמוד לשקל', en: 'MNH — ILS-Pegged Stablecoin', ru: 'MNH — стейблкоин привязанный к шекелю', ar: 'MNH — عملة مستقرة مرتبطة بالشيكل', fr: 'MNH — Stablecoin indexé au shekel' },
             desc: { he: 'חיסכון, P2P, סטייקינג, הפקדות בשקלים', en: 'Savings, P2P, staking, ILS deposits', ru: 'Сбережения, P2P, стейкинг, депозиты в шекелях', ar: 'ادخار، P2P، ستيكينج، إيداعات بالشيكل', fr: 'Épargne, P2P, staking, dépôts en shekels' }
           },
-          { status: 'in-progress', cat: 'infra',
+          { status: 'completed', cat: 'infra',
             title: { he: 'מפת רשת נוירונים', en: 'Neural Network Map', ru: 'Карта нейронной сети', ar: 'خريطة الشبكة العصبية', fr: 'Carte du réseau neuronal' },
-            desc: { he: 'ויזואליזציה אינטראקטיבית של משתמשים, קבוצות, נושאים ובוטים', en: 'Interactive visualization of users, groups, topics and bots', ru: 'Интерактивная визуализация пользователей, групп, тем и ботов', ar: 'تصور تفاعلي للمستخدمين والمجموعات والموضوعات', fr: 'Visualisation interactive des utilisateurs, groupes, sujets et bots' }
+            desc: { he: 'ויזואליזציה אינטראקטיבית של משתמשים, קבוצות, נושאים ובוטים', en: 'Interactive visualization of users, groups, topics and bots', ru: 'Интерактивная визуализация пользователей, групп, тем и ботов', ar: 'تصور تفاعلي للمستخدمين والمجموعות والموضوعات', fr: 'Visualisation interactive des utilisateurs, groupes, sujets et bots' }
+          },
+          { status: 'completed', cat: 'infra',
+            title: { he: 'יומן ביקורת בלתי-שביר (SHA-256 Hash Chain)', en: 'Immutable Audit Log (SHA-256 Hash Chain)', ru: 'Неизменяемый журнал аудита (SHA-256)', ar: 'سجل تدقيق غير قابل للتغيير (SHA-256)', fr: 'Journal d\'audit immuable (SHA-256)' },
+            desc: { he: 'regulator-ready — endpoint /api/audit/verify-chain, כל פעולה חתומה ב-hash chain, append-only', en: 'Regulator-ready — /api/audit/verify-chain, every action hash-chained, append-only', ru: 'Готов для регулятора — каждое действие в hash-цепочке', ar: 'جاهز للمنظم — كل إجراء مسجل في سلسلة hash', fr: 'Prêt pour le régulateur — chaque action dans une chaîne de hash' }
+          },
+          { status: 'completed', cat: 'finance',
+            title: { he: 'אינטגרציית CEX (Bybit + Binance)', en: 'CEX Integration (Bybit + Binance)', ru: 'Интеграция CEX (Bybit + Binance)', ar: 'تكامل CEX (Bybit + Binance)', fr: 'Intégration CEX (Bybit + Binance)' },
+            desc: { he: 'READ-ONLY API Keys מוצפנים, HMAC-SHA256, sync + portfolio consolidation', en: 'READ-ONLY encrypted API keys, HMAC-SHA256 signing, portfolio consolidation', ru: 'READ-ONLY шифрованные API ключи, HMAC-SHA256', ar: 'مفاتيح API مشفرة للقراءة فقط', fr: 'Clés API chiffrées READ-ONLY, HMAC-SHA256' }
+          },
+          { status: 'completed', cat: 'infra',
+            title: { he: 'Genesis 49 + Cashback Tiers', en: 'Genesis 49 + Cashback Tiers', ru: 'Genesis 49 + Кешбэк уровни', ar: 'Genesis 49 + مستويات الكاش باك', fr: 'Genesis 49 + Niveaux de cashback' },
+            desc: { he: '49 קופונים ראשונים עם NFT + 10 ZVK, מדרגות 1/5/10/25/50/100 distributions', en: 'First 49 coupons w/ NFT + 10 ZVK, tiers 1/5/10/25/50/100 distributions', ru: 'Первые 49 купонов с NFT + 10 ZVK', ar: 'أول 49 قسيمة مع NFT + 10 ZVK', fr: '49 premiers coupons avec NFT + 10 ZVK' }
+          },
+          { status: 'in-progress', cat: 'infra',
+            title: { he: 'פאנל ניהולי מוסדי', en: 'Institutional Admin Panel', ru: 'Институциональная админ-панель', ar: 'لوحة إدارية مؤسسية', fr: 'Panneau d\'administration institutionnel' },
+            desc: { he: '/admin.html → Institutional: Audit, CEX, Portfolio, Compliance', en: '/admin.html → Institutional: Audit, CEX, Portfolio, Compliance', ru: '/admin.html → Институциональная секция', ar: '/admin.html → قسم مؤسسي', fr: '/admin.html → Section institutionnelle' }
+          },
+          { status: 'in-progress', cat: 'finance',
+            title: { he: 'Strategy Engine — יעד 65%+', en: 'Strategy Engine — 65%+ Target', ru: 'Движок стратегий — цель 65%+', ar: 'محرك الاستراتيجيات — هدف 65%+', fr: 'Moteur de stratégies — Cible 65%+' },
+            desc: { he: 'מנוע אסטרטגיות השקעה עם backtesting לתשואה 65%-85% שנתית', en: 'Investment strategy engine with backtesting for 65%-85% annual yield', ru: 'Движок инвестиционных стратегий с бэктестингом', ar: 'محرك استراتيجيات استثمار مع اختبار خلفي', fr: 'Moteur de stratégies d\'investissement avec backtesting' }
+          },
+          { status: 'in-progress', cat: 'infra',
+            title: { he: 'Sumsub KYC + Fireblocks Custody', en: 'Sumsub KYC + Fireblocks Custody', ru: 'Sumsub KYC + Fireblocks', ar: 'Sumsub KYC + Fireblocks', fr: 'Sumsub KYC + Fireblocks Custody' },
+            desc: { he: 'Scaffolding מוכן, מחכה ל-credentials ומיזוג ל-production', en: 'Scaffolding ready, awaiting credentials for production', ru: 'Каркас готов, ожидает credentials', ar: 'الهيكل جاهز، ينتظر بيانات الاعتماد', fr: 'Structure prête, attend les credentials' }
           }
         ]
       },

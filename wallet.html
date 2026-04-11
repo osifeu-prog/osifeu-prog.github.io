@@ -597,6 +597,75 @@
             </div>
         </div>
 
+        <!-- CEX PORTFOLIO (Bybit + Binance READ-ONLY API KEYS) -->
+        <div class="web3-card rv" style="margin-top:18px;border-color:rgba(255,215,0,0.3)">
+            <h3 class="web3-title" style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:22px">🏦</span>
+                <span>תיק CEX מלא</span>
+                <span class="web3-badge" style="background:#ffd700;color:#000">READ-ONLY API</span>
+                <span class="web3-badge" style="background:#a855f7">חדש</span>
+            </h3>
+            <div class="web3-sub">
+                חבר את חשבונות <strong>Bybit</strong> ו-<strong>Binance</strong> שלך עם API Key בהרשאת <strong>קריאה בלבד</strong>.
+                המערכת תציג את <strong>כל המטבעות</strong> שלך — לא רק TON — כולל שווי USD ו-ILS מלא.
+                <br><span style="color:#ef4444;font-size:11px">⚠️ חובה API Key ב-Read-Only scope — אל תפעיל Trade או Withdraw.</span>
+            </div>
+
+            <div id="cex-portfolio-summary" style="display:none;margin:14px 0;padding:16px;background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(0,188,212,0.06));border:1px solid rgba(255,215,0,0.3);border-radius:12px;text-align:center">
+                <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px">סה"כ תיק CEX</div>
+                <div style="font-size:28px;font-weight:900;color:#ffd700;margin-top:4px" id="cex-total-usd">$0.00</div>
+                <div style="font-size:14px;color:var(--text2);margin-top:2px" id="cex-total-ils">≈ ₪0.00</div>
+                <div style="font-size:11px;color:var(--text3);margin-top:6px" id="cex-last-sync">לא סונכרן</div>
+            </div>
+
+            <div id="cex-keys-list" style="display:flex;flex-direction:column;gap:10px;margin-top:14px"></div>
+            <div id="cex-breakdown" style="margin-top:14px"></div>
+
+            <div style="display:flex;gap:10px;margin-top:14px">
+                <button onclick="openAddCexKeyModal()" style="flex:1;background:linear-gradient(135deg,#ffd700,#f59e0b);color:#000;border:none;padding:12px 22px;font-weight:800;font-size:14px;border-radius:10px;cursor:pointer">
+                    🔑 חבר API Key חדש
+                </button>
+                <button onclick="syncAllCexKeys()" style="background:rgba(0,188,212,0.15);color:#00bcd4;border:1px solid rgba(0,188,212,0.4);padding:12px 22px;font-weight:700;font-size:14px;border-radius:10px;cursor:pointer">
+                    🔄 סנכרן הכל
+                </button>
+            </div>
+        </div>
+
+        <!-- Add CEX Key Modal -->
+        <div id="cex-key-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:20px">
+            <div style="background:var(--bg2,#111);border:2px solid #ffd700;border-radius:16px;padding:28px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.7);max-height:90vh;overflow-y:auto">
+                <h3 style="margin:0 0 14px;color:#ffd700;font-size:20px">🔑 חבר API Key</h3>
+                <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);padding:12px;border-radius:8px;margin-bottom:14px;font-size:12px;line-height:1.7">
+                    ⚠️ <strong style="color:#ef4444">חשוב מאוד:</strong><br>
+                    • המפתח חייב להיות <strong>Read-Only</strong> בלבד<br>
+                    • <strong>Bybit:</strong> Read-Only Wallet<br>
+                    • <strong>Binance:</strong> Enable Reading בלבד<br>
+                    • אל תאפשר Trade, Withdraw או Transfer<br>
+                    • המפתחות מוצפנים ב-DB. לא מוצגים ולא נשמרים בלוגים
+                </div>
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">בורסה</label>
+                <select id="cex-exchange" style="width:100%;padding:11px;background:var(--bg);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:12px;font-size:14px">
+                    <option value="bybit">Bybit (UNIFIED)</option>
+                    <option value="binance">Binance (SPOT)</option>
+                </select>
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">שם תיוג</label>
+                <input id="cex-label" type="text" placeholder="למשל: Bybit ראשי" style="width:100%;padding:11px;background:var(--bg);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:12px;font-size:14px">
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">API Key</label>
+                <input id="cex-api-key" type="text" placeholder="..." dir="ltr" style="width:100%;padding:11px;background:var(--bg);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:12px;font-size:13px;font-family:monospace">
+
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px">API Secret</label>
+                <input id="cex-api-secret" type="password" placeholder="..." dir="ltr" style="width:100%;padding:11px;background:var(--bg);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:8px;margin-bottom:14px;font-size:13px;font-family:monospace">
+
+                <div style="display:flex;gap:10px">
+                    <button onclick="closeAddCexKeyModal()" style="flex:1;padding:13px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.15);border-radius:10px;cursor:pointer;font-weight:700">ביטול</button>
+                    <button onclick="saveCexKey()" style="flex:2;padding:13px;background:linear-gradient(135deg,#ffd700,#f59e0b);color:#000;border:none;border-radius:10px;cursor:pointer;font-weight:800">🔒 חבר והצפן</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Add External Wallet Modal -->
         <div id="ext-wallet-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px">
             <div style="background:var(--bg2,#111);border:2px solid var(--accent);border-radius:16px;padding:28px;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
@@ -1080,13 +1149,203 @@
         } catch(e) { showToast('שגיאה', true); }
     }
 
+    // ============================================================
+    // CEX PORTFOLIO — Bybit + Binance API Keys (READ-ONLY)
+    // ============================================================
+    const CEX_API = WALLET_API.replace('/api/wallet','');
+
+    async function loadCexPortfolio() {
+        const user = getCurrentUser();
+        if (!user) return;
+        const keysEl = document.getElementById('cex-keys-list');
+        const breakdownEl = document.getElementById('cex-breakdown');
+        const summaryEl = document.getElementById('cex-portfolio-summary');
+        if (!keysEl) return;
+
+        try {
+            // 1) List all keys for this user
+            const keysRes = await fetch(`${CEX_API}/api/cex/keys/${user.id}`);
+            const keysData = await keysRes.json();
+            const keys = keysData.keys || [];
+
+            if (keys.length === 0) {
+                keysEl.innerHTML = `
+                    <div style="text-align:center;color:var(--text2);padding:20px;border:1px dashed rgba(255,215,0,0.2);border-radius:10px;font-size:13px">
+                        <div style="font-size:32px;margin-bottom:8px">🔐</div>
+                        עדיין לא חיברת API Keys<br>
+                        <span style="font-size:11px">חבר Bybit / Binance לראות את כל הנכסים שלך</span>
+                    </div>`;
+                breakdownEl.innerHTML = '';
+                summaryEl.style.display = 'none';
+                return;
+            }
+
+            keysEl.innerHTML = keys.map(k => {
+                const emoji = k.exchange === 'bybit' ? '🟠' : '🟡';
+                const lastUsed = k.last_used_at ? new Date(k.last_used_at).toLocaleString('he-IL') : 'אף פעם';
+                const errBadge = k.last_error ? `<span style="color:#ef4444;font-size:10px">⚠️ ${k.last_error.substring(0,40)}</span>` : '';
+                return `
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,215,0,0.2);border-right:3px solid #ffd700;border-radius:10px;padding:14px 16px">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                            <div style="font-weight:800;color:#fff;font-size:14px">${emoji} ${k.label}</div>
+                            <div style="display:flex;gap:6px">
+                                <button onclick="syncCexKey(${k.id})" style="background:rgba(0,188,212,0.1);color:#00bcd4;border:1px solid rgba(0,188,212,0.3);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">🔄 סנכרן</button>
+                                <button onclick="deleteCexKey(${k.id})" style="background:transparent;border:1px solid rgba(239,68,68,0.3);color:#ef4444;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">🗑️</button>
+                            </div>
+                        </div>
+                        <div style="font-family:monospace;font-size:11px;color:var(--text2);direction:ltr;text-align:left;margin-bottom:4px">${k.api_key_masked}</div>
+                        <div style="font-size:10px;color:var(--text3)">סנכרון אחרון: ${lastUsed}</div>
+                        ${errBadge}
+                    </div>`;
+            }).join('');
+
+            // 2) Fetch consolidated portfolio
+            const portRes = await fetch(`${CEX_API}/api/cex/portfolio/${user.id}`);
+            const port = await portRes.json();
+
+            if (port.total_usd > 0 || port.exchanges?.length) {
+                summaryEl.style.display = 'block';
+                document.getElementById('cex-total-usd').textContent = '$' + (port.total_usd || 0).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+                document.getElementById('cex-total-ils').textContent = '≈ ₪' + (port.total_ils || 0).toLocaleString('he-IL', {minimumFractionDigits:2, maximumFractionDigits:2});
+                const lastSync = port.exchanges?.length ? port.exchanges[0].snapshot_at : null;
+                document.getElementById('cex-last-sync').textContent = lastSync ? 'עודכן: ' + new Date(lastSync).toLocaleString('he-IL') : 'לא סונכרן';
+            } else {
+                summaryEl.style.display = 'none';
+            }
+
+            // 3) Render breakdown per exchange
+            if (!port.exchanges || port.exchanges.length === 0) {
+                breakdownEl.innerHTML = '';
+                return;
+            }
+            breakdownEl.innerHTML = port.exchanges.map(ex => {
+                let balances = ex.spot_balances || {};
+                if (typeof balances === 'string') { try { balances = JSON.parse(balances); } catch(e) { balances = {}; } }
+                const entries = Object.entries(balances).sort((a,b)=>(b[1].usd_value||0)-(a[1].usd_value||0));
+                const emoji = ex.exchange === 'bybit' ? '🟠' : '🟡';
+                return `
+                    <div style="margin-top:14px;padding:14px;background:rgba(0,0,0,0.3);border-radius:10px;border:1px solid rgba(255,255,255,0.08)">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                            <h4 style="color:#ffd700;font-size:14px;margin:0">${emoji} ${ex.exchange.toUpperCase()}</h4>
+                            <div style="font-weight:800;color:#22c55e;font-size:15px">$${(ex.total_usd || 0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                        </div>
+                        ${entries.length ? `
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px">
+                                ${entries.map(([sym, b]) => {
+                                    const balance = b.balance || ((b.free || 0) + (b.locked || 0));
+                                    const usd = b.usd_value || 0;
+                                    return `
+                                        <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06)">
+                                            <div style="font-weight:800;color:#fff;font-size:13px">${sym}</div>
+                                            <div style="font-size:12px;color:var(--text2);direction:ltr">${Number(balance).toLocaleString('en-US',{maximumFractionDigits:8})}</div>
+                                            ${usd > 0 ? `<div style="font-size:11px;color:#22c55e">$${usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>` : ''}
+                                        </div>`;
+                                }).join('')}
+                            </div>
+                        ` : `<div style="color:var(--text3);font-size:12px;text-align:center;padding:14px">אין יתרות — לחץ סנכרן לטעינה</div>`}
+                    </div>`;
+            }).join('');
+        } catch (err) {
+            console.warn('[CEX] Error:', err);
+            keysEl.innerHTML = `<div style="color:#ef4444;padding:14px;font-size:13px">⚠️ שגיאה: ${err.message}</div>`;
+        }
+    }
+
+    function openAddCexKeyModal() {
+        document.getElementById('cex-key-modal').style.display = 'flex';
+        document.getElementById('cex-label').value = '';
+        document.getElementById('cex-api-key').value = '';
+        document.getElementById('cex-api-secret').value = '';
+    }
+    function closeAddCexKeyModal() {
+        document.getElementById('cex-key-modal').style.display = 'none';
+    }
+
+    async function saveCexKey() {
+        const user = getCurrentUser();
+        if (!user) return showToast('יש להתחבר תחילה', true);
+        const exchange = document.getElementById('cex-exchange').value;
+        const label = document.getElementById('cex-label').value.trim();
+        const api_key = document.getElementById('cex-api-key').value.trim();
+        const api_secret = document.getElementById('cex-api-secret').value.trim();
+        if (!label) return showToast('תן תווית', true);
+        if (api_key.length < 8) return showToast('API Key קצר מדי', true);
+        if (api_secret.length < 8) return showToast('Secret קצר מדי', true);
+
+        try {
+            const res = await fetch(`${CEX_API}/api/cex/add-key`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    user_id: user.id,
+                    exchange,
+                    label,
+                    api_key,
+                    api_secret,
+                    permissions: ['read']
+                })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.detail || 'Failed');
+            showToast('✅ נחבר! טוען יתרות...');
+            closeAddCexKeyModal();
+            // Immediate sync to load balances
+            if (data.key_id) {
+                await fetch(`${CEX_API}/api/cex/sync/${data.key_id}`, {method: 'POST'});
+            }
+            await loadCexPortfolio();
+        } catch (err) {
+            showToast('שגיאה: ' + err.message, true);
+        }
+    }
+
+    async function syncCexKey(keyId) {
+        showToast('🔄 מסנכרן...');
+        try {
+            const res = await fetch(`${CEX_API}/api/cex/sync/${keyId}`, {method: 'POST'});
+            const data = await res.json();
+            if (data.ok) {
+                showToast(`✅ סונכרן — ${data.assets_count || 0} נכסים, $${(data.total_usd || 0).toFixed(2)}`);
+            } else {
+                showToast(`⚠️ ${data.error || 'Sync failed'}`, true);
+            }
+            await loadCexPortfolio();
+        } catch (err) {
+            showToast('שגיאה: ' + err.message, true);
+        }
+    }
+
+    async function syncAllCexKeys() {
+        const user = getCurrentUser();
+        if (!user) return;
+        const keysRes = await fetch(`${CEX_API}/api/cex/keys/${user.id}`);
+        const keysData = await keysRes.json();
+        for (const k of (keysData.keys || [])) {
+            try { await fetch(`${CEX_API}/api/cex/sync/${k.id}`, {method: 'POST'}); } catch(e) {}
+        }
+        showToast('✅ כל המפתחות סונכרנו');
+        await loadCexPortfolio();
+    }
+
+    async function deleteCexKey(keyId) {
+        if (!confirm('להסיר את ה-API Key?')) return;
+        const user = getCurrentUser();
+        if (!user) return;
+        try {
+            await fetch(`${CEX_API}/api/cex/keys/${keyId}?user_id=${user.id}`, {method: 'DELETE'});
+            showToast('הוסר');
+            await loadCexPortfolio();
+        } catch(e) { showToast('שגיאה', true); }
+    }
+
     // Load everything in parallel
     Promise.all([
         loadPrice(),
         loadBalances(),
         loadAddresses(),
         loadTransactions(),
-        loadExternalWallets()
+        loadExternalWallets(),
+        loadCexPortfolio()
     ]).then(() => {
         console.log('[Wallet] Init complete, API:', apiOnline ? 'online' : 'offline');
     });
