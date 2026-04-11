@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broadcast Composer — Admin Only</title>
+<meta name="description" content="Send Telegram broadcasts to registered users">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shared.css?v=20260411i">
+<style>
+    :root {
+        --bg: #0a0e1a;
+        --bg2: #111628;
+        --bg3: #1a2038;
+        --accent: #00b4d8;
+        --accent2: #00e887;
+        --gold: #ffd700;
+        --red: #ef4444;
+        --text: #e8e8f0;
+        --text2: #8a8aa0;
+        --border: rgba(0, 180, 216, 0.3);
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; }
+    .container { max-width: 900px; margin: 40px auto; padding: 0 24px; }
+    h1 { font-size: 32px; font-weight: 900; color: var(--accent); margin-bottom: 8px; }
+    .sub { color: var(--text2); margin-bottom: 24px; }
+
+    .panel {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 20px;
+    }
+    .panel h2 {
+        font-size: 16px;
+        color: var(--accent2);
+        margin-bottom: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    label {
+        display: block;
+        font-size: 12px;
+        color: var(--text2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        margin-top: 14px;
+    }
+    input, select, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 14px;
+        font-family: inherit;
+        resize: vertical;
+    }
+    textarea { min-height: 200px; font-family: monospace; font-size: 13px; }
+
+    .templates {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .template-card {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .template-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .template-card h3 {
+        font-size: 14px;
+        color: var(--accent);
+        margin-bottom: 6px;
+    }
+    .template-card p {
+        font-size: 11px;
+        color: var(--text2);
+        line-height: 1.5;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+    button.btn {
+        padding: 14px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-dry { background: var(--gold); color: #000; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+
+    .result {
+        margin-top: 20px;
+        padding: 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        display: none;
+    }
+    .result.ok { background: rgba(0, 232, 135, 0.1); border: 1px solid var(--accent2); color: var(--accent2); display: block; }
+    .result.err { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); display: block; }
+
+    .preview {
+        background: #171b29;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-top: 12px;
+        font-family: system-ui, sans-serif;
+        font-size: 13px;
+        color: #d9d9e0;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+        border-right: 3px solid var(--accent);
+    }
+
+    .history-item {
+        padding: 12px 14px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 12px;
+    }
+    .history-item .meta {
+        color: var(--text2);
+        font-size: 11px;
+    }
+    .history-item .success { color: var(--accent2); }
+    .history-item .failed { color: var(--red); }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📣 Broadcast Composer</h1>
+    <p class="sub">שלח הודעת טלגרם לכל המשתמשים הרשומים דרך @SLH_AIR_bot</p>
+
+    <!-- Templates -->
+    <div class="panel">
+        <h2>📋 Templates מוכנים</h2>
+        <div class="templates">
+            <div class="template-card" onclick="loadTemplate('genesis-launch')">
+                <h3>🚀 Genesis Launch</h3>
+                <p>ההודעה ההיסטורית ל-Tzvika + שותפים — הזמנה להשתתף ב-Ultra Micro Pool</p>
+            </div>
+            <div class="template-card" onclick="loadTemplate('system-update')">
+                <h3>🛠 System Update</h3>
+                <p>הודעה כללית על עדכון במערכת / פיצ'ר חדש</p>
+            </div>
+            <div class="template-card" onclick="loadTemplate('genesis49-reminder')">
+                <h3>🎁 Genesis 49 Reminder</h3>
+                <p>תזכורת לגבי הקופון עם 46 מקומות נותרים</p>
+            </div>
+            <div class="template-card" onclick="loadTemplate('custom')">
+                <h3>✍️ Custom</h3>
+                <p>התחל מאפס</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Composer -->
+    <div class="panel">
+        <h2>✉️ הודעה חדשה</h2>
+        <label>יעד</label>
+        <select id="target">
+            <option value="registered">Registered users only (4 users)</option>
+            <option value="genesis49">Genesis 49 holders (3 users)</option>
+            <option value="all">All users (6 users)</option>
+            <option value="custom">Custom IDs</option>
+        </select>
+
+        <label>תוכן ההודעה (HTML formatting supported: &lt;b&gt;, &lt;i&gt;, &lt;a href&gt;)</label>
+        <textarea id="message" placeholder="שלום,&#10;&#10;ההודעה כאן..."></textarea>
+
+        <label>Admin Key</label>
+        <input type="password" id="admin-key" placeholder="ADMIN_BROADCAST_KEY">
+
+        <label style="display:flex;align-items:center;gap:8px;flex-direction:row">
+            <input type="checkbox" id="dry-run" checked style="width:auto;margin:0">
+            <span style="text-transform:none;font-size:13px;color:var(--text)">Dry run — preview count without sending</span>
+        </label>
+
+        <div class="btn-group">
+            <button class="btn btn-dry" onclick="send(true)">🧪 Dry Run (Preview)</button>
+            <button class="btn btn-primary" onclick="send(false)">📤 Send for Real</button>
+            <button class="btn btn-outline" onclick="loadHistory()">📜 Refresh History</button>
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <!-- Live preview -->
+        <label>Live Preview (איך יראה בטלגרם)</label>
+        <div class="preview" id="preview">הטקסט יוצג כאן בזמן אמת...</div>
+    </div>
+
+    <!-- History -->
+    <div class="panel">
+        <h2>📜 History</h2>
+        <div id="history"><em style="color:var(--text2)">Loading...</em></div>
+    </div>
+
+</div>
+
+<script src="/js/translations.js?v=20260411i"></script>
+<script>
+const API = 'https://slh-api-production.up.railway.app';
+
+const TEMPLATES = {
+    'genesis-launch': `שלום {{name}} 👑
+
+הגענו לרגע ההיסטורי — Genesis Launch של SLH Spark.
+
+אחרי חודשים של בנייה, אנחנו עומדים להשיק את הטוקן הראשון ב-PancakeSwap. אני רוצה שתהיה חלק מההשקה כ-Co-Founder.
+
+🎁 מה תקבל:
+• Genesis NFT ייחודי (חד-פעמי)
+• 50 SLH מתנה ישירות
+• Co-Founder credit קבוע באתר
+• רישום ב-audit log בלתי-שביר (SHA-256)
+
+💰 השקעה: 0.05 BNB (~$30 בלבד)
+
+📋 איך מבצעים:
+1. פתח את MetaMask / Trust Wallet → וודא שאתה על BSC
+2. שלח 0.05 BNB לכתובת: 0xd061de73B06d5E91bfA46b35EfB7B08b16903da4
+3. העתק את ה-TX hash
+4. דווח בקישור: https://slh-nft.com/launch-event.html
+5. המתן 24 שעות לאימות + קבל את הפרסים
+
+👉 ההזמנה האישית: https://slh-nft.com/partner-launch-invite.html?partner={{name}}
+👉 דשבורד הפרטנרים: https://slh-nft.com/partner-dashboard.html
+
+אני זקוק לאישור שלך תוך 48 שעות.
+
+— Osif`,
+
+    'system-update': `שלום,
+
+עדכון חשוב במערכת SLH Spark:
+
+[הכנס כאן את תוכן העדכון]
+
+✅ מה חדש
+✅ מה תוקן
+✅ מה צפוי
+
+📚 מדריך מלא: https://slh-nft.com/ecosystem-guide.html
+📄 Daily blog: https://slh-nft.com/daily-blog.html
+
+— Team SLH`,
+
+    'genesis49-reminder': `שלום 🎁
+
+רק תזכורת — נותרו עוד 46 מקומות מתוך 49 ב-Genesis 49 Coupon.
+
+מי שנרשם מקבל:
+• 10 ZVK מתנה + NFT ייחודי
+• Whitelist לכל ההשקות עתידיות
+• 100 ZVK נוספים אחרי תהליך Distribution
+
+🎯 רישום: https://slh-nft.com/dashboard.html#register
+הזן את קוד GENESIS49 אחרי ההרשמה.
+
+— Team SLH`,
+
+    'custom': ''
+};
+
+function loadTemplate(name) {
+    const tpl = TEMPLATES[name] || '';
+    document.getElementById('message').value = tpl;
+    updatePreview();
+}
+
+function updatePreview() {
+    const text = document.getElementById('message').value;
+    // Simple HTML preview (strip tags visually)
+    const preview = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    document.getElementById('preview').textContent = text || 'הטקסט יוצג כאן בזמן אמת...';
+}
+
+document.getElementById('message').addEventListener('input', updatePreview);
+
+async function send(dryRun) {
+    const message = document.getElementById('message').value.trim();
+    const target = document.getElementById('target').value;
+    const adminKey = document.getElementById('admin-key').value.trim();
+    const resultEl = document.getElementById('result');
+
+    if (!message) { alert('הודעה ריקה'); return; }
+    if (!adminKey) { alert('Admin key חובה'); return; }
+    if (message.length < 5) { alert('הודעה קצרה מדי'); return; }
+    if (message.length > 4000) { alert('הודעה ארוכה מדי (מקסימום 4000 chars)'); return; }
+
+    if (!dryRun && !confirm(`⚠️ Ready to send to ALL ${target} users?\n\nMessage length: ${message.length} chars\n\nThis CANNOT be undone.`)) {
+        return;
+    }
+
+    resultEl.className = 'result';
+    resultEl.style.display = 'block';
+    resultEl.style.color = 'var(--text2)';
+    resultEl.innerHTML = '⏳ Sending...';
+
+    try {
+        const r = await fetch(API + '/api/broadcast/send', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message,
+                target,
+                admin_key: adminKey,
+                dry_run: dryRun
+            })
+        });
+        const data = await r.json();
+        if (data.ok && dryRun) {
+            resultEl.className = 'result ok';
+            resultEl.innerHTML = `✅ Dry Run OK — Would send to <b>${data.total_recipients}</b> recipients<br>Sample IDs: ${JSON.stringify(data.sample_ids)}`;
+        } else if (data.ok) {
+            resultEl.className = 'result ok';
+            resultEl.innerHTML = `✅ Sent to <b>${data.total_recipients}</b> users<br>Success: <b>${data.success}</b>, Failed: <b>${data.failed}</b><br>Broadcast ID: <code>${data.broadcast_id}</code>`;
+            loadHistory();
+        } else {
+            resultEl.className = 'result err';
+            resultEl.innerHTML = `❌ ${data.error || data.detail || 'Failed'}${data.hint ? '<br><em>' + data.hint + '</em>' : ''}`;
+        }
+    } catch(e) {
+        resultEl.className = 'result err';
+        resultEl.textContent = '❌ ' + e.message;
+    }
+}
+
+async function loadHistory() {
+    const el = document.getElementById('history');
+    try {
+        const r = await fetch(API + '/api/broadcast/history');
+        const d = await r.json();
+        if (!d.broadcasts || d.broadcasts.length === 0) {
+            el.innerHTML = '<em style="color:var(--text2)">No broadcasts yet.</em>';
+            return;
+        }
+        el.innerHTML = d.broadcasts.map(b => `
+            <div class="history-item">
+                <div><b>#${b.id}</b> · ${b.target} · <span class="success">✓${b.success}</span> / <span class="failed">✗${b.failed}</span> / ${b.total} total</div>
+                <div class="meta">${new Date(b.sent_at).toLocaleString('he-IL')}</div>
+                <div class="meta" style="margin-top:4px">${(b.preview || '').substring(0, 120)}${b.preview && b.preview.length > 120 ? '...' : ''}</div>
+            </div>
+        `).join('');
+    } catch(e) {
+        el.innerHTML = '<em style="color:var(--red)">Failed to load history</em>';
+    }
+}
+
+loadHistory();
+</script>
+</body>
+</html>
