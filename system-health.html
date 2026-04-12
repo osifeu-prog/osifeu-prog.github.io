@@ -337,7 +337,7 @@
     let stats = { pass: 0, warn: 0, fail: 0 };
 
     // Admin key for authenticated endpoints (from localStorage or default)
-    const HEALTH_ADMIN_KEY = localStorage.getItem('slh_admin_password') || 'slh2026admin';
+    const HEALTH_ADMIN_KEY = localStorage.getItem('slh_admin_password') || '';
 
     async function checkEndpoint(check) {
         const start = Date.now();

@@ -196,7 +196,7 @@
   <script>
   (function(){
     'use strict';
-    const PASS = 'slh_admin_2026';
+    const PASS = localStorage.getItem('slh_admin_password') || '';
     const API = 'https://slh-api-production.up.railway.app/api/analytics';
     const STATS_KEY = 'slh_analytics_stats';
     let isLocal = false;
