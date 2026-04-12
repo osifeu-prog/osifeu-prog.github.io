@@ -81,9 +81,15 @@
     /* Value prop */
     .benefits {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 16px;
         margin-bottom: 32px;
+    }
+    @media (max-width: 900px) {
+        .benefits { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+        .benefits { grid-template-columns: 1fr; }
     }
     .benefit {
         background: var(--bg2);
@@ -189,23 +195,23 @@
     <div class="benefits">
         <div class="benefit">
             <div class="ic">💰</div>
-            <div class="title">תשלום קבוע</div>
-            <div class="desc">SLH לכל שעת טיפול — ניתן להחליף ל-MNH (₪1:1)</div>
+            <div class="title">תגמול הוגן</div>
+            <div class="desc">ZVK + MNH על כל שעת טיפול. ככל שערך SLH עולה (יעד: ₪444), כך גם ערך הפעילות שלך במערכת.</div>
         </div>
         <div class="benefit">
             <div class="ic">🌍</div>
             <div class="title">קהל רחב</div>
-            <div class="desc">גישה לנזקקים שלא יכלו לשלם בשיטה הישנה</div>
+            <div class="desc">גישה לנזקקים שלא יכלו לשלם בשיטה הישנה — המערכת מממנת את הטיפול שלהם.</div>
         </div>
         <div class="benefit">
             <div class="ic">📊</div>
             <div class="title">שקיפות מלאה</div>
-            <div class="desc">כל טרנזקציה ב-blockchain — ללא מעילות</div>
+            <div class="desc">כל טרנזקציה ביומן ביקורת SHA-256 — שקיפות מלאה ללא מעילות.</div>
         </div>
         <div class="benefit">
             <div class="ic">🏛️</div>
-            <div class="title">קהילה</div>
-            <div class="desc">חלק מקהילה סוציוקרטית שמנהלת את עצמה</div>
+            <div class="title">קהילה סוציוקרטית</div>
+            <div class="desc">הקהילה מנהלת את עצמה. SLH = זכות הצבעה. כל חבר שווה.</div>
         </div>
     </div>
 
@@ -263,9 +269,9 @@
 
         <div class="note">
             💡 <strong>מה קורה אחרי הרישום?</strong><br>
-            1. אני (אוסיף) יצור איתך קשר תוך 48 שעות<br>
+            1. נציג מצוות SLH Spark יצור איתך קשר תוך 48 שעות<br>
             2. נקבע שיחת היכרות קצרה (30 דק' ב-Zoom)<br>
-            3. תקבל 10 SLH כבונוס הצטרפות לרשת<br>
+            3. תקבל 100 ZVK כבונוס הצטרפות לרשת<br>
             4. תתווסף לקבוצת טלגרם של המטפלים
         </div>
 
@@ -332,7 +338,7 @@ async function submitTherapist() {
         });
 
         result.className = 'result ok';
-        result.innerHTML = '✅ הרשמה נקלטה! אוסיף יצור איתך קשר תוך 48 שעות. תודה על ההצטרפות לרשת ההחלמה.';
+        result.innerHTML = '✅ הרשמה נקלטה! נציג מצוות SLH Spark יצור איתך קשר תוך 48 שעות. תודה על ההצטרפות לרשת ההחלמה. 🌸';
 
         // Clear form
         document.getElementById('name').value = '';
