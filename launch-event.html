@@ -474,7 +474,7 @@
     <h1>Genesis Launch 🚀</h1>
     <p class="tagline">ההשקה הראשונה של SLH Spark ב-PancakeSwap</p>
     <p class="sub">
-        הפאול הראשוני של SLH על BSC נוצר מהתרומות של שותפי Genesis. כל תרומה
+        הפּוּל הראשוני של SLH על BSC נוצר מהתרומות של שותפי Genesis. כל תרומה
         נכתבת ב-audit log בלתי-שביר עם SHA-256 hash chain ומוצגת כאן בזמן אמת.
         היסטוריה שאי אפשר לזייף.
     </p>
@@ -679,12 +679,12 @@ async function loadLaunchStatus() {
         document.getElementById('target-usd').textContent = '$' + (data.target_usd || 30);
         document.getElementById('progress-pct').textContent = (data.progress_pct || 0).toFixed(1);
         document.getElementById('progress-fill').style.width = Math.min(data.progress_pct || 0, 100) + '%';
-        document.getElementById('stat-contributors').textContent = data.contributors_count || 0;
+        // Filter out cancelled contributions — use active count for display
+        const active = (data.contributors || []).filter(c => c.status !== 'cancelled');
+        document.getElementById('stat-contributors').textContent = active.length;
         document.getElementById('stat-raised-usd').textContent = '$' + raisedUsd.toFixed(2);
         document.getElementById('stat-status').textContent = (data.status === 'FILLED' ? 'OPEN' : (data.status || 'OPEN')).toUpperCase();
 
-        // Filter out cancelled contributions
-        const active = (data.contributors || []).filter(c => c.status !== 'cancelled');
         renderContributors(active);
     } catch(e) {
         console.warn('[Launch] Status load failed:', e);
