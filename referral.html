@@ -355,7 +355,7 @@
         <div class="link-gen-card rv">
             <h2 data-i18n="ref_your_link">Your Referral Link</h2>
             <div class="link-gen-row">
-                <input type="text" class="form-input" id="ref-username" data-i18n="ref_username_placeholder" placeholder="Enter your Telegram username">
+                <input type="text" class="form-input" id="ref-username" data-i18n="ref_username_placeholder" placeholder="Telegram ID (e.g. 224223270)">
                 <button class="btn btn-primary" onclick="generateLink()" data-i18n="ref_generate">Generate Link</button>
             </div>
             <div class="link-output" id="link-output">
@@ -464,24 +464,34 @@
 
     let currentRefLink = '';
 
-    function getRefUsername() {
-        const user = getCurrentUser();
-        if (user && user.username) return user.username;
+    // Read user from localStorage as primary source for Telegram ID
+    const _slhUser = JSON.parse(localStorage.getItem('slh_user') || '{}');
+    const _userId = _slhUser.id || _slhUser.telegram_id || '';
+
+    function getRefId() {
+        // 1. Try shared.js getCurrentUser
+        if (typeof getCurrentUser === 'function') {
+            const user = getCurrentUser();
+            if (user && user.id) return String(user.id);
+        }
+        // 2. Fallback to localStorage slh_user
+        if (_userId) return String(_userId);
+        // 3. Fallback: manual input (if user typed their telegram ID)
         return document.getElementById('ref-username').value.trim().replace('@', '');
     }
 
     function generateLink() {
-        const username = getRefUsername();
-        if (!username) {
+        const refId = getRefId();
+        if (!refId) {
             showToast(t('common_error'), true);
             return;
         }
-        currentRefLink = `https://t.me/SLH_AIR_bot?start=ref_${username}`;
+        currentRefLink = `https://t.me/SLH_AIR_bot?start=ref_${refId}`;
         const output = document.getElementById('link-output');
         document.getElementById('ref-link-text').textContent = currentRefLink;
         output.classList.add('visible');
-        updateShareLinks(username);
-        renderBotLinks(username);
+        updateShareLinks(refId);
+        renderBotLinks(refId);
     }
 
     function copyRefLink() {
@@ -490,8 +500,8 @@
         }
     }
 
-    function updateShareLinks(username) {
-        const link = `https://t.me/SLH_AIR_bot?start=ref_${username}`;
+    function updateShareLinks(refId) {
+        const link = `https://t.me/SLH_AIR_bot?start=ref_${refId}`;
         const msg = encodeURIComponent(`Join me on SLH Ecosystem and start earning! ${link}`);
 
         document.getElementById('share-tg').href = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join SLH Ecosystem - earn crypto with Telegram bots!')}`;
@@ -499,13 +509,13 @@
         document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
     }
 
-    function renderBotLinks(username) {
+    function renderBotLinks(refId) {
         const container = document.getElementById('bot-links-list');
-        if (!username) {
-            username = getRefUsername() || 'username';
+        if (!refId) {
+            refId = getRefId() || 'your_id';
         }
         container.innerHTML = MAIN_BOTS.map(bot => {
-            const link = `https://t.me/${bot.handle}?start=ref_${username}`;
+            const link = `https://t.me/${bot.handle}?start=ref_${refId}`;
             return `
             <div class="bot-link-row">
                 <span class="bot-link-name">${bot.name}</span>
@@ -532,14 +542,35 @@
     /* ── Init ── */
     initShared({ activePage: 'referral', requireAuth: true, requireRegistered: true, showTicker: true });
 
-    // Prefill if logged in
-    const user = getCurrentUser();
-    if (user && user.username) {
-        document.getElementById('ref-username').value = user.username;
+    // Prefill from getCurrentUser OR localStorage fallback
+    const _initUser = (typeof getCurrentUser === 'function' && getCurrentUser()) || null;
+    const _initId = (_initUser && _initUser.id) ? String(_initUser.id) : (_userId || '');
+    if (_initId) {
+        document.getElementById('ref-username').value = _initId;
         generateLink();
     }
 
-    renderBotLinks(user ? user.username : '');
+    renderBotLinks(_initId);
+
+    // Fetch real referral stats from API
+    if (_initId) {
+        const statsSection = document.getElementById('stats-section');
+        if (statsSection) statsSection.style.display = 'block';
+        fetch('https://slh-api-production.up.railway.app/api/referral/stats/' + _initId)
+            .then(r => r.json())
+            .then(data => {
+                if (data) {
+                    const direct = document.getElementById('stat-direct');
+                    const network = document.getElementById('stat-network');
+                    const earned = document.getElementById('stat-earned');
+                    if (direct) direct.textContent = (data.direct || 0).toLocaleString();
+                    if (network) network.textContent = (data.network || 0).toLocaleString();
+                    if (earned) earned.textContent = (data.earned || 0).toLocaleString() + ' SLH';
+                }
+            })
+            .catch(e => console.warn('[Referral] stats fetch error:', e));
+    }
+    // Also call shared loadStats if available
     loadStats();
     </script>
 <script src="/js/analytics.js"></script>

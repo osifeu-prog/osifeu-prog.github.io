@@ -447,6 +447,18 @@
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
     }
+
+    /* Theme Switcher */
+    #theme-fab{position:fixed;bottom:94px;left:24px;z-index:9997;background:var(--accent,#00e887);color:#000;width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;font-size:20px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+    #theme-panel{position:fixed;bottom:150px;left:24px;z-index:9998;background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,.15);padding:16px;border-radius:12px;display:none;flex-direction:column;gap:6px;max-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+    #theme-panel.open{display:flex}
+    #theme-panel button{background:var(--bg,#0a0a0a);border:1px solid rgba(255,255,255,.1);color:#e8e8f0;padding:10px 14px;cursor:pointer;font-size:12px;text-align:right;font-family:inherit;border-radius:6px;transition:all .2s}
+    #theme-panel button:hover{background:var(--accent,#00e887);color:#000}
+    [data-theme="dark"]{--bg:#0b0e16;--bg2:#111628;--accent:#00b4d8;--text:#e8e8f0;--text2:#8a8aa0;--border:rgba(0,180,216,.2)}
+    [data-theme="light"]{--bg:#f8f9fb;--bg2:#fff;--accent:#0066cc;--text:#1a1a1a;--text2:#555;--border:rgba(0,102,204,.2)}
+    [data-theme="crypto"]{--bg:#0d1117;--bg2:#161b22;--accent:#f7931a;--text:#e8e8f0;--text2:#8a8aa0;--border:rgba(247,147,26,.2)}
+    [data-theme="ocean"]{--bg:#001e3c;--bg2:#002c55;--accent:#00d9ff;--text:#b8e6ff;--text2:#6bb6cc;--border:rgba(0,217,255,.2)}
+    [data-theme="sunset"]{--bg:#1a0a14;--bg2:#251018;--accent:#ff6b6b;--text:#ffe5d9;--text2:#c9a88a;--border:rgba(255,107,107,.2)}
 </style>
 </head>
 <body>
@@ -457,7 +469,7 @@
 <section class="launch-hero">
     <div class="launch-badge">
         <span class="pulse"></span>
-        Live Event · 11 אפריל 2026
+        &#x1F7E2; OPEN · Genesis Pool
     </div>
     <h1>Genesis Launch 🚀</h1>
     <p class="tagline">ההשקה הראשונה של SLH Spark ב-PancakeSwap</p>
@@ -468,6 +480,16 @@
     </p>
 </section>
 
+<!-- Liquidity CTA Banner -->
+<section style="max-width:900px;margin:0 auto 24px;padding:0 24px">
+    <div style="padding:20px 28px;background:linear-gradient(135deg,rgba(0,232,135,0.12),rgba(243,186,47,0.10));border:2px solid var(--accent2);border-radius:16px;text-align:center">
+        <div style="font-size:28px;margin-bottom:8px">&#x1F4A7;</div>
+        <div style="font-size:20px;font-weight:900;color:var(--accent2);margin-bottom:6px">&#x200F;הוסיפו Liquidity ל-Pool!</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:14px">ה-Pool חי ופעיל ב-PancakeSwap. כל תוספת נזילות מחזקת את האקוסיסטם.</div>
+        <a href="https://pancakeswap.finance/add/BNB/0xACb0A09414CEA1C879c67bB7A877E4e19480f022?chain=bsc" target="_blank" rel="noopener" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#000;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.2s">&#x2795; Add Liquidity on PancakeSwap</a>
+    </div>
+</section>
+
 <!-- Progress -->
 <section class="progress-section">
     <div class="progress-card">
@@ -475,7 +497,7 @@
             <div>
                 <div class="progress-label">גויס עד כה</div>
                 <div class="progress-value"><span id="raised-bnb">--</span> <span style="font-size:24px">BNB</span></div>
-                <div class="progress-target">יעד: <span id="target-bnb">0.05</span> BNB (~<span id="target-usd">$30</span>)</div>
+                <div class="progress-target">אין מגבלה על סכום התרומה <span id="target-bnb" style="display:none">100</span><span id="target-usd" style="display:none">$60,000</span></div>
             </div>
             <div class="progress-pct">
                 <div class="progress-label">התקדמות</div>
@@ -501,7 +523,7 @@
                 <div class="l">מחיר SLH</div>
             </div>
             <div class="progress-stat">
-                <div class="v" id="stat-status">LIVE</div>
+                <div class="v" id="stat-status">OPEN</div>
                 <div class="l">סטטוס</div>
             </div>
         </div>
@@ -522,7 +544,7 @@
         <div class="step-card">
             <div class="num">1</div>
             <h3>שלח BNB לארנק החברה</h3>
-            <p>העבר את התרומה שלך (מינימום 0.01 BNB, מקסימום 0.05 BNB) לארנק BSC של SLH Spark. השתמש ב-QR קוד למטה.</p>
+            <p>העבר את התרומה שלך (מינימום 0.01 BNB, ללא מקסימום) לארנק BSC של SLH Spark. השתמש ב-QR קוד למטה.</p>
         </div>
         <div class="step-card">
             <div class="num">2</div>
@@ -557,7 +579,7 @@
         <div style="margin-top:20px;padding:16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:12px;font-size:13px;color:#ef9a9a;text-align:right">
             ⚠️ <strong>חשוב</strong>:<br>
             • רק רשת <strong>BSC (BEP-20)</strong>. לא Ethereum, לא BNB Beacon Chain.<br>
-            • מינימום 0.01 BNB, מקסימום 0.05 BNB לתרומה.<br>
+            • מינימום 0.01 BNB, ללא הגבלת מקסימום.<br>
             • אחרי השליחה, דווח על ה-TX hash למטה כדי לקבל את התגמולים.
         </div>
 
@@ -582,7 +604,7 @@
             </div>
             <div>
                 <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">כמות BNB שנשלחה</label>
-                <input id="contrib-amount" type="number" step="0.001" min="0.01" max="0.05" value="0.05" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
+                <input id="contrib-amount" type="number" step="0.001" min="0.01" placeholder="0.1" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
             </div>
             <div>
                 <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">TX Hash (אופציונלי — עוזר לאימות)</label>
@@ -659,7 +681,7 @@ async function loadLaunchStatus() {
         document.getElementById('progress-fill').style.width = Math.min(data.progress_pct || 0, 100) + '%';
         document.getElementById('stat-contributors').textContent = data.contributors_count || 0;
         document.getElementById('stat-raised-usd').textContent = '$' + raisedUsd.toFixed(2);
-        document.getElementById('stat-status').textContent = (data.status || 'LIVE').toUpperCase();
+        document.getElementById('stat-status').textContent = (data.status === 'FILLED' ? 'OPEN' : (data.status || 'OPEN')).toUpperCase();
 
         // Filter out cancelled contributions
         const active = (data.contributors || []).filter(c => c.status !== 'cancelled');
@@ -791,6 +813,19 @@ function copyShareText() {
 // Init + auto-refresh
 loadLaunchStatus();
 setInterval(loadLaunchStatus, 30000);
+</script>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
+<div id="theme-panel">
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
+</div>
+<script>
+(function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
 </script>
 </body>
 </html>
