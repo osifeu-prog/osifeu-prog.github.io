@@ -173,6 +173,9 @@
         <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
         <a href="#" onclick="showPage('sitemap')">🗺 Site Map</a>
         <a href="#" onclick="showPage('rewards')">🎁 Rewards Admin</a>
+        <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
+        <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
+        <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -531,6 +534,192 @@
                         <li>OFAC/EU sanctions screening</li>
                         <li>Lloyd's insurance policy</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- GUARDIAN / ZUZ PAGE -->
+        <div id="page-guardian" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,0,85,.08),rgba(255,215,0,.04));border:1px solid var(--red);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--red);font-size:18px;margin-bottom:8px">🛡 Guardian — ZUZ Anti-Fraud System</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    ZUZ = "אות קין" · מטבע שלילי לסימון הונאות · auto-ban ב-100 ZUZ · מודיעין חוצה-קבוצות
+                </p>
+                <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+                    <button onclick="loadGuardianStats()" style="background:var(--red);color:#fff;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ REFRESH STATS ]</button>
+                    <button onclick="loadGuardianBlacklist()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ LOAD BLACKLIST ]</button>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi red"><div class="kpi-label">Total Reports</div><div class="kpi-value" id="g-reports">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Flagged Users</div><div class="kpi-value" id="g-flagged">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Banned</div><div class="kpi-value" id="g-banned">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Auto-Banned</div><div class="kpi-value" id="g-auto">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Messages Scanned</div><div class="kpi-value" id="g-scanned">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Messages Flagged</div><div class="kpi-value" id="g-msg-flagged">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Total ZUZ Issued</div><div class="kpi-value" id="g-zuz-total">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Groups Protected</div><div class="kpi-value" id="g-groups">--</div></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🚫 Blacklist <span>Flagged Users</span></h3>
+                <table class="admin-table" id="guardian-blacklist-table">
+                    <thead><tr><th>User ID</th><th>Username</th><th>ZUZ Score</th><th>Reports</th><th>Banned</th><th>Groups</th></tr></thead>
+                    <tbody id="guardian-bl-rows"><tr><td colspan="6" style="text-align:center;color:var(--text2)">Click "Load Blacklist"</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>📝 Manual Report</h3>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
+                        <input type="number" id="gr-user-id" placeholder="Telegram ID" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:140px"></div>
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Severity</label>
+                        <select id="gr-severity" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:110px">
+                            <option value="low">Low (5)</option><option value="medium" selected>Medium (10)</option><option value="high">High (25)</option><option value="critical">Critical (50)</option></select></div>
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Reason</label>
+                        <input type="text" id="gr-reason" placeholder="spam / scam / bot" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:200px"></div>
+                    <button onclick="submitGuardianReport()" style="background:var(--red);color:#fff;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:12px">[ REPORT ]</button>
+                </div>
+                <div id="gr-result" style="margin-top:12px;font-size:11px;color:var(--text2)"></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🔍 Check User</h3>
+                <div style="display:flex;gap:12px;align-items:flex-end">
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
+                        <input type="number" id="gc-user-id" placeholder="Telegram ID" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:160px"></div>
+                    <button onclick="checkGuardianUser()" style="background:var(--cyan);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:12px">[ CHECK ]</button>
+                </div>
+                <div id="gc-result" style="margin-top:12px;font-size:12px;color:var(--text2);white-space:pre-wrap;direction:ltr;text-align:left"></div>
+            </div>
+        </div>
+
+        <!-- OPS CENTER PAGE -->
+        <div id="page-ops" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">📡 Ops Center — System Overview</h2>
+                <p style="font-size:11px;color:var(--text2)">Real-time monitoring · API health · Coverage metrics · Sprint progress</p>
+                <div style="margin-top:8px"><a href="/ops-dashboard.html" target="_blank" style="color:var(--accent);font-size:12px">→ Open full Ops Dashboard in new tab</a></div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">API Latency</div><div class="kpi-value" id="ops-latency">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">API Version</div><div class="kpi-value" id="ops-version">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Endpoints</div><div class="kpi-value" id="ops-endpoints">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">DB Status</div><div class="kpi-value" id="ops-db">--</div></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>📊 Coverage Progress</h3>
+                <div id="ops-coverage" style="font-size:12px"></div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🔗 Quick Links</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+                    <a href="/ops-dashboard.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📡 Ops Dashboard</a>
+                    <a href="https://slh-api-production.up.railway.app/docs" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📖 API Swagger Docs</a>
+                    <a href="https://github.com/osifeu-prog/slh-api" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (API)</a>
+                    <a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (Site)</a>
+                    <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🔗 BSCScan Token</a>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🥞 PancakeSwap Swap</a>
+                    <a href="/daily-blog.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📝 Daily Blog</a>
+                    <a href="/community.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">💬 Community</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEVOPS PAGE -->
+        <div id="page-devops" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,255,65,.04));border:1px solid var(--purple);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--purple);font-size:18px;margin-bottom:8px">⚙️ DevOps — CI/CD &amp; Infrastructure</h2>
+                <p style="font-size:11px;color:var(--text2)">Deployment pipeline · Environment variables · Health checks · Logs</p>
+            </div>
+
+            <div class="admin-section">
+                <h3>🚀 Deployment Pipeline</h3>
+                <table class="admin-table">
+                    <thead><tr><th>Service</th><th>Source</th><th>Branch</th><th>Auto-Deploy</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody>
+                        <tr><td>Website</td><td>GitHub Pages</td><td>main</td><td><span class="badge live">ON</span></td><td><span class="badge live">LIVE</span></td><td><a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank">Repo</a></td></tr>
+                        <tr><td>API</td><td>Railway</td><td>master</td><td><span class="badge pending">CHECK</span></td><td id="devops-api-status"><span class="badge pending">--</span></td><td><a href="https://railway.app" target="_blank">Dashboard</a></td></tr>
+                        <tr><td>Docker (Local)</td><td>docker-compose.yml</td><td>--</td><td>Manual</td><td><span class="badge live">25 services</span></td><td>slh-startup.bat</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🔐 Environment Variables (Railway)</h3>
+                <table class="admin-table">
+                    <thead><tr><th>Variable</th><th>Status</th><th>Priority</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>DATABASE_URL</code></td><td><span class="badge live">SET</span></td><td>--</td><td>PostgreSQL connected</td></tr>
+                        <tr><td><code>REDIS_URL</code></td><td><span class="badge live">SET</span></td><td>--</td><td>Redis connected</td></tr>
+                        <tr><td><code>ENCRYPTION_KEY</code></td><td><span class="badge live">SET</span></td><td>--</td><td>AES-GCM v2</td></tr>
+                        <tr><td><code>JWT_SECRET</code></td><td><span class="badge error">EMPTY</span></td><td>P0</td><td>Auth unreliable without this</td></tr>
+                        <tr><td><code>ADMIN_API_KEYS</code></td><td><span class="badge pending">DEFAULT</span></td><td>P0</td><td>Using 4 hardcoded keys</td></tr>
+                        <tr><td><code>ADMIN_BROADCAST_KEY</code></td><td><span class="badge pending">DEFAULT</span></td><td>P1</td><td>slh-broadcast-2026-change-me</td></tr>
+                        <tr><td><code>BOT_SYNC_SECRET</code></td><td><span class="badge pending">DEFAULT</span></td><td>P1</td><td>Needs override</td></tr>
+                        <tr><td><code>BITQUERY_API_KEY</code></td><td><span class="badge error">DUMMY</span></td><td>P2</td><td>Value: "1123123"</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🏗 Architecture</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Frontend</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">GitHub Pages</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">43 HTML · 7 JS · shared.css<br>Auto-deploy on push to main</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Backend</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">Railway (FastAPI)</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">113 endpoints · Python 3.11<br>Docker · uvicorn · asyncpg</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Database</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">PostgreSQL 15</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">30+ tables · Railway cloud<br>SHA-256 audit chain</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Bots</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">25 Telegram Bots</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">Docker Compose · aiogram 3.x<br>Polling mode (webhook planned)</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Blockchain</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">BSC + TON</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">SLH (BEP-20) · PancakeSwap V2<br>5 tokens: SLH MNH ZVK REP ZUZ</div>
+                    </div>
+                    <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+                        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Security</div>
+                        <div style="font-size:14px;color:var(--text-bright);font-weight:700">Institutional Grade</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">AES-GCM encryption · JWT auth<br>HMAC-SHA256 CEX · Audit chain</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>📋 DevOps Checklist</h3>
+                <div style="font-size:12px;line-height:2">
+                    <div>✅ GitHub Pages auto-deploy (website)</div>
+                    <div>⚠️ Railway auto-deploy (needs verification)</div>
+                    <div>✅ Docker Compose for local bots (25 services)</div>
+                    <div>✅ PostgreSQL 15 + Redis 7</div>
+                    <div>✅ SHA-256 audit hash chain</div>
+                    <div>✅ AES-GCM encryption for CEX keys</div>
+                    <div>⏳ Webhook migration (polling → webhooks)</div>
+                    <div>⏳ CI/CD tests (0% coverage → target 50%)</div>
+                    <div>⏳ Monitoring alerts (Grafana/UptimeRobot)</div>
+                    <div>⏳ Blue/Green deployment</div>
+                    <div>⏳ Database migrations system</div>
+                    <div>⏳ Centralized logging (ELK/Loki)</div>
+                    <div>⏳ Rate limiting on all endpoints</div>
+                    <div>⏳ CDN for static assets</div>
                 </div>
             </div>
         </div>
@@ -1391,6 +1580,9 @@ showPage = function(name){
     if (name === 'audit') loadAuditEntries();
     if (name === 'sitemap') checkAllPages();
     if (name === 'rewards') loadAllUsers();
+    if (name === 'guardian') loadGuardianStats();
+    if (name === 'ops') loadOpsData();
+    if (name === 'devops') checkDevOpsStatus();
 };
 
 // ── Site Map — Page Status Checker ──────────────────────────────
@@ -1534,6 +1726,118 @@ async function manualCredit(){
     }catch(e){
         el.textContent = '❌ ' + e.message;
         el.style.color = 'var(--red)';
+    }
+}
+
+// ── Guardian / ZUZ ──────────────────────────────────────────
+async function loadGuardianStats(){
+    try{
+        const r = await fetch(SLH_API + '/api/guardian/stats');
+        const d = await r.json();
+        document.getElementById('g-reports').textContent = d.total_reports || 0;
+        document.getElementById('g-flagged').textContent = d.total_flagged_users || 0;
+        document.getElementById('g-banned').textContent = d.total_banned || 0;
+        document.getElementById('g-auto').textContent = d.total_auto_banned || 0;
+        document.getElementById('g-scanned').textContent = (d.total_messages_scanned||0).toLocaleString();
+        document.getElementById('g-msg-flagged').textContent = d.total_messages_flagged || 0;
+        document.getElementById('g-zuz-total').textContent = (d.total_zuz_issued||0).toFixed(0);
+        document.getElementById('g-groups').textContent = d.groups_protected || 0;
+    }catch(e){ console.warn('Guardian stats error:', e); }
+}
+
+async function loadGuardianBlacklist(){
+    const tbody = document.getElementById('guardian-bl-rows');
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gold)">Loading...</td></tr>';
+    try{
+        const r = await fetch(SLH_API + '/api/guardian/blacklist?limit=50', {headers:{'X-Admin-Key':getAdminKey()}});
+        const d = await r.json();
+        if(!d.ok||!d.blacklist.length){ tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--accent)">No flagged users yet</td></tr>'; return; }
+        tbody.innerHTML = d.blacklist.map(u => `<tr>
+            <td><code>${u.user_id}</code></td><td>${u.username||'--'}</td>
+            <td style="color:${u.zuz_score>=100?'var(--red)':u.zuz_score>=50?'var(--gold)':'var(--text)'};font-weight:700">${u.zuz_score}</td>
+            <td>${u.reports}</td><td>${u.banned?'<span class="badge error">BANNED</span>':u.auto_banned?'<span class="badge error">AUTO</span>':'<span class="badge live">OK</span>'}</td>
+            <td style="font-size:10px">${(u.groups||[]).join(', ')||'--'}</td></tr>`).join('');
+    }catch(e){ tbody.innerHTML='<tr><td colspan="6" style="color:var(--red)">'+e.message+'</td></tr>'; }
+}
+
+async function submitGuardianReport(){
+    const userId = document.getElementById('gr-user-id').value;
+    const severity = document.getElementById('gr-severity').value;
+    const reason = document.getElementById('gr-reason').value;
+    const el = document.getElementById('gr-result');
+    if(!userId||!reason){ el.textContent='User ID and reason required'; el.style.color='var(--red)'; return; }
+    try{
+        const r = await fetch(SLH_API + '/api/guardian/report', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({reported_user_id:parseInt(userId), severity, reason, reporter_username:'admin'})
+        });
+        const d = await r.json();
+        if(d.ok){
+            el.textContent = `Report #${d.report_id} filed. ${d.zuz_awarded} ZUZ marked. Total: ${d.total_zuz}` + (d.auto_banned?' — USER AUTO-BANNED!':'');
+            el.style.color = d.auto_banned ? 'var(--red)' : 'var(--accent)';
+            loadGuardianStats(); loadGuardianBlacklist();
+        }else{ el.textContent='Error: '+JSON.stringify(d); el.style.color='var(--red)'; }
+    }catch(e){ el.textContent='Error: '+e.message; el.style.color='var(--red)'; }
+}
+
+async function checkGuardianUser(){
+    const userId = document.getElementById('gc-user-id').value;
+    const el = document.getElementById('gc-result');
+    if(!userId){ el.textContent='Enter user ID'; return; }
+    try{
+        const r = await fetch(SLH_API + '/api/guardian/check/' + userId);
+        const d = await r.json();
+        el.textContent = JSON.stringify(d, null, 2);
+        el.style.color = d.safe ? 'var(--accent)' : 'var(--red)';
+    }catch(e){ el.textContent='Error: '+e.message; el.style.color='var(--red)'; }
+}
+
+// ── Ops Center ──────────────────────────────────────────────
+async function loadOpsData(){
+    try{
+        const t0 = Date.now();
+        const r = await fetch(SLH_API + '/api/health');
+        const ms = Date.now()-t0;
+        const d = await r.json();
+        document.getElementById('ops-latency').textContent = ms + 'ms';
+        document.getElementById('ops-version').textContent = 'v' + d.version;
+        document.getElementById('ops-db').textContent = d.db === 'connected' ? 'Connected' : 'Error';
+    }catch(e){}
+    try{
+        const r = await fetch(SLH_API + '/openapi.json');
+        const d = await r.json();
+        document.getElementById('ops-endpoints').textContent = Object.keys(d.paths).length;
+    }catch(e){}
+    // Coverage
+    const el = document.getElementById('ops-coverage');
+    const bars = [
+        {label:'shared.js',pct:91,color:'var(--accent)'},
+        {label:'initShared()',pct:81,color:'var(--accent)'},
+        {label:'Analytics',pct:100,color:'var(--cyan)'},
+        {label:'AI Assistant',pct:100,color:'var(--cyan)'},
+        {label:'Theme Switcher',pct:42,color:'var(--gold)'},
+        {label:'i18n Tags',pct:37,color:'var(--gold)'},
+        {label:'Tasks Done',pct:35,color:'var(--purple)'},
+    ];
+    el.innerHTML = bars.map(b => `
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <div style="width:120px;color:var(--text2);flex-shrink:0">${b.label}</div>
+            <div style="flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden">
+                <div style="width:${b.pct}%;height:100%;background:${b.color};border-radius:4px"></div>
+            </div>
+            <div style="width:40px;text-align:left;color:var(--text2);font-size:11px">${b.pct}%</div>
+        </div>`).join('');
+}
+
+// ── DevOps ──────────────────────────────────────────────────
+async function checkDevOpsStatus(){
+    try{
+        const r = await fetch(SLH_API + '/api/health');
+        const d = await r.json();
+        const el = document.getElementById('devops-api-status');
+        el.innerHTML = d.status==='ok' ? '<span class="badge live">v'+d.version+'</span>' : '<span class="badge error">DOWN</span>';
+    }catch(e){
+        document.getElementById('devops-api-status').innerHTML = '<span class="badge error">UNREACHABLE</span>';
     }
 }
 </script>
