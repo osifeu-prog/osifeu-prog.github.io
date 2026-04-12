@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>שנת היובל — שיקום ישראל דרך אחדות וריפוי | SLH Spark</title>
 <meta name="description" content="שנת היובל: שיקום ישראל דרך אחדות, ריפוי וכלכלה הוגנת. תנועת אחדות, שער הלב, CBT ו-NLP לקירוב לבבות.">
+<meta name="keywords" content="שנת היובל, SLH, אחדות, ריפוי, CBT, NLP, שער הלב, קריפטו, blockchain, Israel">
 <link rel="canonical" href="https://slh-nft.com/jubilee.html">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="שנת היובל — שיקום ישראל דרך אחדות וריפוי">
 <meta property="og:description" content="שנת היובל: כלכלת ריפוי, תנועת אחדות, שער הלב — SLH Spark">
-<meta property="og:image" content="https://slh-api-production.up.railway.app/api/og/healing.png">
+<meta property="og:image" content="https://slh-nft.com/api/og/healing.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://slh-nft.com/jubilee.html">
@@ -21,13 +22,38 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="שנת היובל — שיקום ישראל דרך אחדות וריפוי">
 <meta name="twitter:description" content="שנת היובל: כלכלת ריפוי, תנועת אחדות, שער הלב — SLH Spark">
-<meta name="twitter:image" content="https://slh-api-production.up.railway.app/api/og/healing.png">
+<meta name="twitter:image" content="https://slh-nft.com/api/og/healing.png">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "שנת היובל — שיקום ישראל דרך אחדות וריפוי",
+  "description": "שנת היובל: שיקום ישראל דרך אחדות, ריפוי וכלכלה הוגנת. תנועת אחדות, שער הלב, CBT ו-NLP לקירוב לבבות.",
+  "url": "https://slh-nft.com/jubilee.html",
+  "inLanguage": "he",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "SLH Spark",
+    "url": "https://slh-nft.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SLH Ecosystem",
+    "alternateName": "SPARK IND",
+    "url": "https://slh-nft.com",
+    "logo": "https://slh-nft.com/img/logo.svg"
+  }
+}
+</script>
 
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/shared.css?v=20260411i">
 
 <style>
+    /* ── Variables ──────────────────────────────────────────── */
     :root {
         --bg: #1a1208;
         --bg2: #231a0e;
@@ -44,6 +70,8 @@
         --border: rgba(255, 215, 0, 0.2);
         --border-sage: rgba(124, 179, 66, 0.25);
     }
+
+    /* ── Base ───────────────────────────────────────────────── */
     body {
         background:
             radial-gradient(ellipse at 30% 10%, rgba(255, 215, 0, 0.1), transparent 60%),
@@ -54,29 +82,137 @@
         font-family: 'Assistant', 'Inter', system-ui, sans-serif;
         line-height: 1.8;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
-    /* Hero */
+    /* ── Floating Particles (CSS-only) ─────────────────────── */
+    .particles {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+    .particles span {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 50%;
+        opacity: 0;
+        animation: particleFloat linear infinite;
+    }
+    .particles span:nth-child(1)  { left: 8%;  animation-duration: 18s; animation-delay: 0s;   }
+    .particles span:nth-child(2)  { left: 15%; animation-duration: 22s; animation-delay: 2s;   }
+    .particles span:nth-child(3)  { left: 25%; animation-duration: 16s; animation-delay: 4s;   }
+    .particles span:nth-child(4)  { left: 35%; animation-duration: 24s; animation-delay: 1s;   }
+    .particles span:nth-child(5)  { left: 45%; animation-duration: 20s; animation-delay: 3s;   }
+    .particles span:nth-child(6)  { left: 55%; animation-duration: 17s; animation-delay: 5s;   }
+    .particles span:nth-child(7)  { left: 65%; animation-duration: 23s; animation-delay: 0.5s; }
+    .particles span:nth-child(8)  { left: 75%; animation-duration: 19s; animation-delay: 2.5s; }
+    .particles span:nth-child(9)  { left: 85%; animation-duration: 21s; animation-delay: 4.5s; }
+    .particles span:nth-child(10) { left: 92%; animation-duration: 15s; animation-delay: 1.5s; }
+    .particles span:nth-child(odd)  { width: 2px; height: 2px; background: var(--sage); }
+    .particles span:nth-child(3n)   { width: 4px; height: 4px; background: rgba(255,215,0,0.6); }
+
+    @keyframes particleFloat {
+        0%   { transform: translateY(105vh) scale(0); opacity: 0; }
+        10%  { opacity: 0.5; }
+        50%  { opacity: 0.3; }
+        90%  { opacity: 0.1; }
+        100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* ── Scroll Reveal Animation ───────────────────────────── */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Sticky Section Nav ────────────────────────────────── */
+    .section-nav {
+        position: sticky;
+        top: 60px;
+        z-index: 90;
+        background: rgba(26, 18, 8, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .section-nav::-webkit-scrollbar { display: none; }
+    .section-nav-inner {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        max-width: 1000px;
+        margin: 0 auto;
+        min-width: max-content;
+    }
+    .section-nav a {
+        display: block;
+        padding: 14px 18px;
+        color: var(--text2);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+        transition: color 0.25s, border-color 0.25s;
+    }
+    .section-nav a:hover,
+    .section-nav a.active {
+        color: var(--gold);
+        border-bottom-color: var(--gold);
+    }
+
+    /* ── Hero ──────────────────────────────────────────────── */
     .hero {
+        position: relative;
         max-width: 1200px;
         margin: 0 auto;
         padding: 100px 24px 50px;
         text-align: center;
+        z-index: 1;
     }
     .hero-icon {
         font-size: 80px;
         margin-bottom: 16px;
         display: block;
+        animation: heroFloat 4s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-12px); }
     }
     .hero h1 {
         font-size: clamp(32px, 5.5vw, 58px);
         font-weight: 900;
         background: linear-gradient(135deg, var(--gold), var(--sage), var(--cream));
+        background-size: 200% 200%;
+        animation: gradientShift 6s ease infinite;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         margin-bottom: 16px;
         line-height: 1.3;
+    }
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50%      { background-position: 100% 50%; }
     }
     .hero .tagline {
         font-size: 20px;
@@ -91,12 +227,31 @@
         max-width: 600px;
         margin: 0 auto;
     }
+    .hero-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+        animation: pulseGlow 5s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+        0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+        50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
+    }
 
-    /* Sections */
+    /* ── Sections ──────────────────────────────────────────── */
     .section {
+        position: relative;
         max-width: 900px;
         margin: 0 auto 60px;
         padding: 0 24px;
+        z-index: 1;
     }
     .section-title {
         font-size: 32px;
@@ -107,19 +262,51 @@
     }
     .section-title span {
         background: linear-gradient(135deg, var(--gold), var(--sage));
+        background-size: 200% 200%;
+        animation: gradientShift 6s ease infinite;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
     }
 
-    /* Content cards */
+    /* Decorative divider between sections */
+    .section-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin: 60px auto 50px;
+        max-width: 300px;
+        opacity: 0.4;
+    }
+    .section-divider::before,
+    .section-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .section-divider span {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    /* ── Glass Cards ──────────────────────────────────────── */
     .card {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.04), rgba(124, 179, 66, 0.03));
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(124, 179, 66, 0.03));
         border: 1px solid var(--border);
         border-radius: 24px;
         padding: 40px;
         margin-bottom: 24px;
         position: relative;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(255, 215, 0, 0.08);
+        border-color: rgba(255, 215, 0, 0.35);
     }
     .card h3 {
         font-size: 22px;
@@ -141,7 +328,7 @@
         font-size: 13px;
     }
 
-    /* Pillars grid */
+    /* ── Pillars grid ─────────────────────────────────────── */
     .pillars {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -149,19 +336,28 @@
         margin-top: 24px;
     }
     .pillar {
-        background: var(--bg2);
+        background: rgba(35, 26, 14, 0.7);
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 28px;
         text-align: center;
-        transition: transform 0.2s;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
     .pillar:hover {
-        transform: translateY(-4px);
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(124, 179, 66, 0.1);
+        border-color: var(--border-sage);
     }
     .pillar .icon {
         font-size: 48px;
         margin-bottom: 12px;
+        display: inline-block;
+        transition: transform 0.35s ease;
+    }
+    .pillar:hover .icon {
+        transform: scale(1.15);
     }
     .pillar h3 {
         font-size: 18px;
@@ -175,7 +371,137 @@
         line-height: 1.7;
     }
 
-    /* Token diagram */
+    /* ── Timeline ─────────────────────────────────────────── */
+    .timeline {
+        position: relative;
+        padding: 20px 0;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        right: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, var(--gold), var(--sage), var(--brown));
+        transform: translateX(1px);
+    }
+    .timeline-item {
+        position: relative;
+        width: 45%;
+        margin-bottom: 40px;
+    }
+    .timeline-item:nth-child(odd) {
+        margin-right: 55%;
+        text-align: left;
+        padding-left: 24px;
+    }
+    .timeline-item:nth-child(even) {
+        margin-left: 55%;
+        text-align: right;
+        padding-right: 24px;
+    }
+    .timeline-dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 3px solid var(--gold);
+        top: 8px;
+        z-index: 2;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot {
+        right: -8px;
+        transform: translateX(50%);
+        right: auto;
+        left: -8px;
+        transform: translateX(-50%);
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: auto;
+        right: -8px;
+        transform: translateX(50%);
+    }
+    /* Fix for RTL: recalculate positions */
+    .timeline-item:nth-child(odd) .timeline-dot {
+        left: auto;
+        right: -32px;
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+        right: auto;
+        left: -32px;
+    }
+
+    .timeline-item.status-done .timeline-dot  { border-color: var(--sage); background: var(--sage); box-shadow: 0 0 12px rgba(124,179,66,0.5); }
+    .timeline-item.status-active .timeline-dot { border-color: var(--gold); background: var(--gold); box-shadow: 0 0 16px rgba(255,215,0,0.6); animation: timelinePulse 2s ease-in-out infinite; }
+    .timeline-item.status-future .timeline-dot { border-color: var(--brown); background: transparent; }
+
+    @keyframes timelinePulse {
+        0%, 100% { box-shadow: 0 0 12px rgba(255,215,0,0.4); }
+        50%      { box-shadow: 0 0 24px rgba(255,215,0,0.8); }
+    }
+
+    .timeline-year {
+        font-size: 28px;
+        font-weight: 900;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+    .timeline-item.status-done .timeline-year  { color: var(--sage); }
+    .timeline-item.status-active .timeline-year { background: linear-gradient(135deg, var(--gold), var(--sage)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .timeline-item.status-future .timeline-year { color: var(--brown); }
+
+    .timeline-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--cream);
+        margin-bottom: 6px;
+    }
+    .timeline-desc {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.6;
+    }
+    .timeline-badge {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 3px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    .timeline-item.status-done .timeline-badge  { background: rgba(124,179,66,0.15); color: var(--sage); }
+    .timeline-item.status-active .timeline-badge { background: rgba(255,215,0,0.15); color: var(--gold); }
+    .timeline-item.status-future .timeline-badge { background: rgba(141,110,99,0.2); color: var(--brown); }
+
+    /* Mobile timeline: single column */
+    @media (max-width: 600px) {
+        .timeline::before {
+            right: auto;
+            left: 12px;
+        }
+        .timeline-item,
+        .timeline-item:nth-child(odd),
+        .timeline-item:nth-child(even) {
+            width: calc(100% - 40px);
+            margin-right: 0 !important;
+            margin-left: 40px !important;
+            text-align: right;
+            padding-right: 0;
+            padding-left: 0;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot,
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -34px;
+        }
+    }
+
+    /* ── Token diagram ────────────────────────────────────── */
     .token-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -183,14 +509,20 @@
         margin-top: 24px;
     }
     .token-card {
-        background: var(--bg2);
+        background: rgba(35, 26, 14, 0.6);
         border: 2px solid var(--border);
         border-radius: 20px;
         padding: 24px;
         text-align: center;
-        transition: all 0.2s;
+        transition: all 0.35s ease;
         position: relative;
         overflow: hidden;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    .token-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.3);
     }
     .token-card::before {
         content: '';
@@ -202,12 +534,16 @@
     }
     .token-card.slh { border-color: rgba(255, 215, 0, 0.4); }
     .token-card.slh::before { background: var(--gold); }
+    .token-card.slh:hover { box-shadow: 0 16px 48px rgba(255,215,0,0.12); }
     .token-card.mnh { border-color: rgba(124, 179, 66, 0.4); }
     .token-card.mnh::before { background: var(--sage); }
+    .token-card.mnh:hover { box-shadow: 0 16px 48px rgba(124,179,66,0.12); }
     .token-card.zvk { border-color: rgba(141, 110, 99, 0.5); }
     .token-card.zvk::before { background: var(--brown); }
+    .token-card.zvk:hover { box-shadow: 0 16px 48px rgba(141,110,99,0.12); }
     .token-card.rep { border-color: rgba(255, 183, 77, 0.4); }
     .token-card.rep::before { background: #ffb74d; }
+    .token-card.rep:hover { box-shadow: 0 16px 48px rgba(255,183,77,0.12); }
     .token-card .symbol {
         font-size: 32px;
         font-weight: 900;
@@ -243,13 +579,15 @@
     .token-card.zvk .badge { background: rgba(141, 110, 99, 0.2); color: var(--brown); }
     .token-card.rep .badge { background: rgba(255, 183, 77, 0.15); color: #ffb74d; }
 
-    /* REP preview */
+    /* ── REP preview ──────────────────────────────────────── */
     .rep-preview {
         background: linear-gradient(135deg, rgba(255, 183, 77, 0.08), rgba(255, 215, 0, 0.04));
         border: 2px solid rgba(255, 183, 77, 0.3);
         border-radius: 24px;
         padding: 40px;
         margin-top: 32px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
     .rep-preview h3 {
         font-size: 24px;
@@ -265,11 +603,18 @@
         margin: 24px 0;
     }
     .rep-item {
-        background: var(--bg2);
+        background: rgba(35, 26, 14, 0.7);
         border: 1px solid rgba(255, 183, 77, 0.2);
         border-radius: 12px;
         padding: 20px;
         text-align: center;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .rep-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(255, 183, 77, 0.1);
     }
     .rep-item .rep-icon {
         font-size: 32px;
@@ -296,7 +641,7 @@
         border-top: 1px solid rgba(255, 183, 77, 0.2);
     }
 
-    /* Tier badges */
+    /* ── Tier badges ──────────────────────────────────────── */
     .tier-row {
         display: flex;
         justify-content: center;
@@ -309,13 +654,66 @@
         border-radius: 20px;
         font-size: 13px;
         font-weight: 700;
+        transition: transform 0.2s ease;
+    }
+    .tier:hover {
+        transform: scale(1.08);
     }
     .tier.basic { background: rgba(141, 110, 99, 0.2); color: var(--brown); }
     .tier.active { background: rgba(124, 179, 66, 0.15); color: var(--sage); }
     .tier.senior { background: rgba(255, 215, 0, 0.15); color: var(--gold); }
     .tier.elder { background: rgba(255, 183, 77, 0.2); color: #ffb74d; border: 1px solid rgba(255, 183, 77, 0.4); }
 
-    /* CTA */
+    /* ── Related Pages Grid ───────────────────────────────── */
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+    }
+    .related-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 28px 16px;
+        background: rgba(35, 26, 14, 0.6);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        text-decoration: none;
+        color: var(--text);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .related-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 36px rgba(255, 215, 0, 0.1);
+        border-color: var(--gold);
+    }
+    .related-card .related-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+    .related-card:hover .related-icon {
+        transform: scale(1.15);
+    }
+    .related-card h4 {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--gold);
+        margin-bottom: 4px;
+    }
+    .related-card p {
+        font-size: 12px;
+        color: var(--text2);
+        line-height: 1.5;
+    }
+
+    /* ── CTA ───────────────────────────────────────────────── */
     .cta-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -324,22 +722,30 @@
     }
     .cta-card {
         display: block;
-        background: var(--bg2);
+        background: rgba(35, 26, 14, 0.6);
         border: 2px solid var(--border);
         border-radius: 20px;
         padding: 28px;
         text-decoration: none;
         color: var(--text);
         text-align: center;
-        transition: all 0.2s;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.35s ease;
     }
     .cta-card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-6px) scale(1.02);
         border-color: var(--gold);
+        box-shadow: 0 16px 48px rgba(255, 215, 0, 0.1);
     }
     .cta-card .cta-icon {
         font-size: 40px;
         margin-bottom: 12px;
+        display: inline-block;
+        transition: transform 0.35s ease;
+    }
+    .cta-card:hover .cta-icon {
+        transform: scale(1.15);
     }
     .cta-card h3 {
         font-size: 18px;
@@ -362,6 +768,11 @@
         border-radius: 8px;
         font-size: 13px;
         font-weight: 700;
+        transition: background 0.25s, transform 0.25s;
+    }
+    .cta-card:hover .btn {
+        background: rgba(255, 215, 0, 0.2);
+        transform: scale(1.05);
     }
 
     .cta-bottom {
@@ -371,17 +782,42 @@
         padding: 48px;
         text-align: center;
         margin-top: 40px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+    }
+    .cta-bottom::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,215,0,0.04) 0%, transparent 50%);
+        animation: ctaGlow 8s ease-in-out infinite;
+        pointer-events: none;
+    }
+    @keyframes ctaGlow {
+        0%, 100% { transform: translate(0, 0); }
+        33%      { transform: translate(5%, -5%); }
+        66%      { transform: translate(-5%, 5%); }
     }
     .cta-bottom h2 {
         font-size: 28px;
         font-weight: 900;
-        color: var(--gold);
+        background: linear-gradient(135deg, var(--gold), var(--sage));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         margin-bottom: 12px;
+        position: relative;
     }
     .cta-bottom p {
         font-size: 15px;
         color: var(--text);
         margin-bottom: 24px;
+        position: relative;
     }
     .cta-bottom a {
         display: inline-block;
@@ -393,9 +829,15 @@
         font-weight: 900;
         font-size: 16px;
         margin: 0 8px 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+    }
+    .cta-bottom a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px rgba(255,215,0,0.3);
     }
 
-    /* Arrows connecting tokens */
+    /* ── Arrows connecting tokens ─────────────────────────── */
     .flow-arrows {
         text-align: center;
         font-size: 28px;
@@ -404,21 +846,45 @@
         opacity: 0.5;
     }
 
+    /* ── Responsive ────────────────────────────────────────── */
     @media (max-width: 600px) {
         .hero { padding: 80px 16px 30px; }
         .card { padding: 24px; }
         .rep-preview { padding: 24px; }
         .cta-bottom { padding: 28px; }
         .cta-bottom a { display: block; margin: 8px 0; }
+        .section-nav a { padding: 12px 12px; font-size: 12px; }
+        .related-grid { grid-template-columns: repeat(2, 1fr); }
     }
 </style>
 </head>
 <body>
 
+<!-- Floating particles background -->
+<div class="particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+</div>
+
 <div id="topnav-root"></div>
 
+<!-- ======================== SECTION NAV ======================== -->
+<nav class="section-nav" id="sectionNav">
+    <div class="section-nav-inner">
+        <a href="#hero">שנת היובל</a>
+        <a href="#what-is">מהי?</a>
+        <a href="#journey">המסע</a>
+        <a href="#unity">אחדות</a>
+        <a href="#healing">ריפוי</a>
+        <a href="#tokens">טוקנים</a>
+        <a href="#rep">REP</a>
+        <a href="#join">הצטרפו</a>
+    </div>
+</nav>
+
 <!-- ======================== HERO ======================== -->
-<section class="hero">
+<section class="hero reveal" id="hero">
+    <div class="hero-glow"></div>
     <span class="hero-icon">🕊️</span>
     <h1>שנת היובל — שיקום ישראל דרך אחדות וריפוי</h1>
     <p class="tagline">
@@ -430,11 +896,13 @@
     </p>
 </section>
 
-<!-- ======================== WHAT IS JUBILEE ======================== -->
-<section class="section">
-    <h2 class="section-title">מהי <span>שנת היובל</span>?</h2>
+<div class="section-divider"><span>✦</span></div>
 
-    <div class="card">
+<!-- ======================== WHAT IS JUBILEE ======================== -->
+<section class="section" id="what-is">
+    <h2 class="section-title reveal">מהי <span>שנת היובל</span>?</h2>
+
+    <div class="card reveal">
         <h3>הרעיון המקראי</h3>
         <p>
             בתורה, כל 50 שנה מתרחש <strong>איפוס כלכלי מלא</strong>:
@@ -443,7 +911,7 @@
         </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal reveal-delay-1">
         <h3>הפרשנות המודרנית</h3>
         <p>
             היום אנחנו לא יכולים לחלק אדמות — אבל אנחנו <strong>יכולים ליצור מטבע קהילתי הוגן</strong>.
@@ -452,12 +920,12 @@
         </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal reveal-delay-2">
         <h3>SLH כרכב ליובל</h3>
         <p>
             <strong>SLH Spark</strong> הוא המטבע שמממש את חזון היובל:
             כלכלה הוגנת ללא שחיתות, שבה זמן של מטפל הופך למטבעות שמחולקות לנזקקים.
-            לא עוד מערכת שמתעשרת על חשבון החלשים — אלא מערכת שמרפאת אותם.
+            לא עוד מערכת שמתעשרת על חשבון החלשים — אלא מערכת שמרפאה אותם.
         </p>
         <p class="sub">
             מטבע SLH = מנגנון שחרור חובות מודרני. כל מטבע שנכנס למערכת = שעת טיפול לאדם שזקוק לה.
@@ -465,11 +933,54 @@
     </div>
 </section>
 
-<!-- ======================== UNITY MOVEMENT ======================== -->
-<section class="section">
-    <h2 class="section-title"><span>תנועת אחדות</span> — קירוב לבבות</h2>
+<div class="section-divider"><span>✦</span></div>
 
-    <div class="card">
+<!-- ======================== TIMELINE / JOURNEY ======================== -->
+<section class="section" id="journey">
+    <h2 class="section-title reveal">המסע <span>שלנו</span></h2>
+
+    <div class="timeline">
+        <div class="timeline-item status-done reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2020</div>
+            <div class="timeline-title">הניצוץ הראשון</div>
+            <div class="timeline-desc">הרעיון נולד — חיבור בין ריפוי נפשי לטכנולוגיה. החלום על כלכלה הוגנת שמבוססת על ערכים.</div>
+            <span class="timeline-badge">הושלם</span>
+        </div>
+
+        <div class="timeline-item status-done reveal reveal-delay-1">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2023</div>
+            <div class="timeline-title">גיבוש החזון</div>
+            <div class="timeline-desc">תנועת אחדות, שער הלב, ושילוב CBT + NLP. מפגשים ראשונים, קהילה ראשונה.</div>
+            <span class="timeline-badge">הושלם</span>
+        </div>
+
+        <div class="timeline-item status-done reveal reveal-delay-2">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2025</div>
+            <div class="timeline-title">בניית הבוטים</div>
+            <div class="timeline-desc">25 בוטים בטלגרם עולים לאוויר. תשתית טכנולוגית מלאה — SLH, MNH, ZVK, REP.</div>
+            <span class="timeline-badge">הושלם</span>
+        </div>
+
+        <div class="timeline-item status-active reveal reveal-delay-3">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2026</div>
+            <div class="timeline-title">DEX Launch + Pool LIVE</div>
+            <div class="timeline-desc">Genesis Launch, PancakeSwap Pool, רשת מטפלים פעילה, וכלכלת היובל חיה ונושמת.</div>
+            <span class="timeline-badge">עכשיו!</span>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><span>✦</span></div>
+
+<!-- ======================== UNITY MOVEMENT ======================== -->
+<section class="section" id="unity">
+    <h2 class="section-title reveal"><span>תנועת אחדות</span> — קירוב לבבות</h2>
+
+    <div class="card reveal">
         <p>
             SLH Spark מחובר ל<strong>תנועת אחדות</strong> — תנועה ישראלית שמאמינה
             שהדרך לשיקום החברה עוברת דרך קירוב לבבות.
@@ -478,22 +989,22 @@
     </div>
 
     <div class="pillars">
-        <div class="pillar">
+        <div class="pillar reveal">
             <div class="icon">💜</div>
             <h3>מפגשי קירוב לבבות</h3>
             <p>מפגשים קבועים לשיתוף, הקשבה, וחיבור בין אנשים מכל שכבות החברה.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-1">
             <div class="icon">🧠</div>
             <h3>שער הלב — CBT + NLP</h3>
             <p>טכניקות טיפוליות של CBT ו-NLP שמלמדים במסגרת התנועה. כלים מעשיים לשינוי דפוסי חשיבה.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-2">
             <div class="icon">🌉</div>
             <h3>גשרים בין קהילות</h3>
             <p>חיבור בין חילונים ודתיים, ימין ושמאל, עולים וותיקים. אחדות אמיתית דרך פעולה.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-3">
             <div class="icon">💰</div>
             <h3>SLH — שכבה כלכלית משותפת</h3>
             <p>מטבע SLH כבסיס כלכלי משותף לכל חברי התנועה. כלכלה של ערבות הדדית.</p>
@@ -501,11 +1012,13 @@
     </div>
 </section>
 
-<!-- ======================== HEALING THROUGH TECHNOLOGY ======================== -->
-<section class="section">
-    <h2 class="section-title">ריפוי דרך <span>טכנולוגיה</span></h2>
+<div class="section-divider"><span>✦</span></div>
 
-    <div class="card">
+<!-- ======================== HEALING THROUGH TECHNOLOGY ======================== -->
+<section class="section" id="healing">
+    <h2 class="section-title reveal">ריפוי דרך <span>טכנולוגיה</span></h2>
+
+    <div class="card reveal">
         <p>
             25 בוטים בטלגרם — לא כצעצוע, אלא <strong>ככלי ריפוי קהילתי</strong>.
             כל בוט הוא צומת בנקודת ממשק בין טכנולוגיה, כלכלה, ובריאות הנפש.
@@ -513,22 +1026,22 @@
     </div>
 
     <div class="pillars">
-        <div class="pillar">
+        <div class="pillar reveal">
             <div class="icon">🐣</div>
             <h3>NFTY Tamagotchi</h3>
             <p>חיית מחמד דיגיטלית לבריאות הנפש: תרגילי נשימה, יומן CBT, ומשימות יומיות שמחזקות חוסן נפשי.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-1">
             <div class="icon">💵</div>
             <h3>MNH Stablecoin</h3>
             <p>מטבע יציב צמוד לשקל לתשלום הוגן למטפלים. העברות פנימיות חינם — ללא עמלות בנק.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-2">
             <div class="icon">🎮</div>
             <h3>ZVK — תגמולים</h3>
             <p>מטבע תגמול על פעילות בקהילה: משחקים, אתגרים, הפניות, ושיתוף ידע בין חברים.</p>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal reveal-delay-3">
             <div class="icon">🏛️</div>
             <h3>SLH — ממשל קהילתי</h3>
             <p>הצבעות דמוקרטיות על החלטות קהילתיות. מי שמחזיק SLH = מי שמשפיע על הכיוון.</p>
@@ -536,30 +1049,32 @@
     </div>
 </section>
 
+<div class="section-divider"><span>✦</span></div>
+
 <!-- ======================== TOKEN ECONOMY ======================== -->
-<section class="section">
-    <h2 class="section-title">כלכלת הטוקנים <span>של הריפוי</span></h2>
+<section class="section" id="tokens">
+    <h2 class="section-title reveal">כלכלת הטוקנים <span>של הריפוי</span></h2>
 
     <div class="token-grid">
-        <div class="token-card slh">
+        <div class="token-card slh reveal">
             <div class="symbol">SLH</div>
             <div class="target">יעד: 444 ש"ח</div>
             <div class="role">ממשל + פרימיום + אחסון ערך</div>
             <span class="badge">Store of Value</span>
         </div>
-        <div class="token-card mnh">
+        <div class="token-card mnh reveal reveal-delay-1">
             <div class="symbol">MNH</div>
             <div class="target">צמוד: 1 ש"ח</div>
             <div class="role">תשלומים יומיים + העברות חינם</div>
             <span class="badge">Stablecoin</span>
         </div>
-        <div class="token-card zvk">
+        <div class="token-card zvk reveal reveal-delay-2">
             <div class="symbol">ZVK</div>
             <div class="target">~4.4 ש"ח</div>
             <div class="role">תגמולים + פעילות + משחקים</div>
             <span class="badge">Rewards</span>
         </div>
-        <div class="token-card rep">
+        <div class="token-card rep reveal reveal-delay-3">
             <div class="symbol">REP</div>
             <div class="target">בקרוב</div>
             <div class="role">ציון מוניטין אישי לכל חבר</div>
@@ -567,9 +1082,9 @@
         </div>
     </div>
 
-    <div class="flow-arrows">SLH &larr; MNH &larr; ZVK &larr; REP</div>
+    <div class="flow-arrows reveal">SLH &larr; MNH &larr; ZVK &larr; REP</div>
 
-    <div class="card" style="text-align:center;">
+    <div class="card reveal" style="text-align:center;">
         <p>
             <strong>SLH</strong> הוא השכבה העליונה — ערך לטווח ארוך, ממשל, והצבעות.
             <strong>MNH</strong> הוא מטבע היום-יום — יציב, מהיר, חינם.
@@ -579,11 +1094,13 @@
     </div>
 </section>
 
-<!-- ======================== REP SCORE PREVIEW ======================== -->
-<section class="section">
-    <h2 class="section-title">ציון <span>REP</span> — המוניטין שלך</h2>
+<div class="section-divider"><span>✦</span></div>
 
-    <div class="rep-preview">
+<!-- ======================== REP SCORE PREVIEW ======================== -->
+<section class="section" id="rep">
+    <h2 class="section-title reveal">ציון <span>REP</span> — המוניטין שלך</h2>
+
+    <div class="rep-preview reveal">
         <h3>REP — Personal Reputation Score</h3>
         <p style="text-align:center;color:var(--cream);font-size:15px;margin-bottom:20px;">
             כל חבר בקהילה מקבל ציון REP אישי.
@@ -591,65 +1108,102 @@
         </p>
 
         <div class="rep-list">
-            <div class="rep-item">
+            <div class="rep-item reveal">
                 <div class="rep-icon">🩺</div>
                 <h4>שעות טיפול</h4>
                 <p>כל שעת טיפול שנתת או קיבלת מוסיפה REP לציון שלך.</p>
             </div>
-            <div class="rep-item">
+            <div class="rep-item reveal reveal-delay-1">
                 <div class="rep-icon">🤝</div>
                 <h4>הפניות</h4>
                 <p>הבאת חברים חדשים לקהילה? כל הפניה מוצלחת = REP נוסף.</p>
             </div>
-            <div class="rep-item">
+            <div class="rep-item reveal reveal-delay-2">
                 <div class="rep-icon">🌱</div>
                 <h4>תרומה קהילתית</h4>
                 <p>מפגשים, הרצאות, סדנאות, עזרה לחברים — כל פעולה נספרת.</p>
             </div>
-            <div class="rep-item">
+            <div class="rep-item reveal reveal-delay-3">
                 <div class="rep-icon">⭐</div>
                 <h4>יתרונות REP גבוה</h4>
                 <p>יותר תגמולי ZVK, כוח הצבעה חזק יותר, גישה למסלולים בכירים.</p>
             </div>
         </div>
 
-        <div class="tier-row">
+        <div class="tier-row reveal">
             <span class="tier basic">Basic (0-100)</span>
             <span class="tier active">Active (100-500)</span>
             <span class="tier senior">Senior (500-1000)</span>
             <span class="tier elder">Elder (1000+)</span>
         </div>
 
-        <div class="rep-quote">
+        <div class="rep-quote reveal">
             "ה-REP שלך הוא הקול שלך בקהילה"
         </div>
     </div>
 </section>
 
-<!-- ======================== CALL TO ACTION ======================== -->
+<div class="section-divider"><span>✦</span></div>
+
+<!-- ======================== RELATED PAGES ======================== -->
 <section class="section">
-    <h2 class="section-title">הצטרפו <span>לתנועה</span></h2>
+    <h2 class="section-title reveal">גלו <span>עוד</span></h2>
+
+    <div class="related-grid">
+        <a href="/healing-vision.html" class="related-card reveal">
+            <span class="related-icon">💚</span>
+            <h4>חזון הריפוי</h4>
+            <p>התמונה המלאה של כלכלת הריפוי</p>
+        </a>
+        <a href="/for-therapists.html" class="related-card reveal reveal-delay-1">
+            <span class="related-icon">🩺</span>
+            <h4>למטפלים</h4>
+            <p>הצטרפו לרשת המטפלים של SLH</p>
+        </a>
+        <a href="/launch-event.html" class="related-card reveal reveal-delay-2">
+            <span class="related-icon">🚀</span>
+            <h4>Genesis Launch</h4>
+            <p>אירוע ההשקה וההשקעה</p>
+        </a>
+        <a href="/community.html" class="related-card reveal reveal-delay-3">
+            <span class="related-icon">💜</span>
+            <h4>קהילה</h4>
+            <p>מפגשים, סדנאות, וחיבור</p>
+        </a>
+        <a href="/network.html" class="related-card reveal reveal-delay-4">
+            <span class="related-icon">🌐</span>
+            <h4>מפת הרשת</h4>
+            <p>כל הצמתים והחיבורים באקוסיסטם</p>
+        </a>
+    </div>
+</section>
+
+<div class="section-divider"><span>✦</span></div>
+
+<!-- ======================== CALL TO ACTION ======================== -->
+<section class="section" id="join">
+    <h2 class="section-title reveal">הצטרפו <span>לתנועה</span></h2>
 
     <div class="cta-grid">
-        <a href="/for-therapists.html" class="cta-card">
+        <a href="/for-therapists.html" class="cta-card reveal">
             <div class="cta-icon">🩺</div>
             <h3>אני מטפל/ת</h3>
             <p>הצטרפו לרשת המטפלים של SLH. קבלו תשלום הוגן, עזרו לנזקקים, ובנו מוניטין.</p>
             <span class="btn">להרשמה &larr;</span>
         </a>
-        <a href="/launch-event.html" class="cta-card">
+        <a href="/launch-event.html" class="cta-card reveal reveal-delay-1">
             <div class="cta-icon">💰</div>
             <h3>אני משקיע/ה</h3>
             <p>הצטרפו ל-Genesis Launch. השקעה בכלכלת ריפוי עם תשואה אמיתית וערך חברתי.</p>
             <span class="btn">Genesis Launch &larr;</span>
         </a>
-        <a href="/community.html" class="cta-card">
+        <a href="/community.html" class="cta-card reveal reveal-delay-2">
             <div class="cta-icon">💜</div>
             <h3>אני רוצה להצטרף</h3>
             <p>הצטרפו לקהילה. מפגשים, סדנאות, כלים לבריאות הנפש, וכלכלה הוגנת.</p>
             <span class="btn">לקהילה &larr;</span>
         </a>
-        <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022" class="cta-card" target="_blank" rel="noopener">
+        <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022" class="cta-card reveal reveal-delay-3" target="_blank" rel="noopener">
             <div class="cta-icon">🔄</div>
             <h3>קניית SLH</h3>
             <p>רכשו SLH ב-PancakeSwap. הצטרפו לכלכלת היובל כבעלי מטבע.</p>
@@ -660,7 +1214,7 @@
 
 <!-- Bottom CTA -->
 <section class="section">
-    <div class="cta-bottom">
+    <div class="cta-bottom reveal">
         <h2>שנת היובל מתחילה עכשיו</h2>
         <p>
             אחדות, ריפוי, וכלכלה הוגנת — לא רק חזון, אלא מציאות שנבנית כל יום.
@@ -680,7 +1234,101 @@
 <script src="/js/ai-assistant.js?v=20260411i"></script>
 <script>
 initShared({ activePage: 'jubilee', showBottomNav: true });
+
+/* ── Scroll Reveal (IntersectionObserver) ─────────────────── */
+(function() {
+    var reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(function(el) { obs.observe(el); });
+    } else {
+        /* Fallback: show everything */
+        reveals.forEach(function(el) { el.classList.add('visible'); });
+    }
+})();
+
+/* ── Sticky Nav Active State ──────────────────────────────── */
+(function() {
+    var nav = document.getElementById('sectionNav');
+    if (!nav) return;
+    var links = nav.querySelectorAll('a[href^="#"]');
+    var sections = [];
+
+    links.forEach(function(link) {
+        var id = link.getAttribute('href').slice(1);
+        var sec = document.getElementById(id);
+        if (sec) sections.push({ el: sec, link: link });
+    });
+
+    if (!sections.length) return;
+
+    var onScroll = function() {
+        var scrollY = window.scrollY + 140;
+        var current = null;
+
+        sections.forEach(function(s) {
+            if (s.el.offsetTop <= scrollY) current = s;
+        });
+
+        links.forEach(function(l) { l.classList.remove('active'); });
+        if (current) current.link.classList.add('active');
+    };
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(function() { onScroll(); ticking = false; });
+            ticking = true;
+        }
+    }, { passive: true });
+    onScroll();
+})();
+
+/* ── Smooth Scroll for Nav Links ──────────────────────────── */
+(function() {
+    document.querySelectorAll('.section-nav a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+})();
+
+/* ── Parallax Hero Effect ─────────────────────────────────── */
+(function() {
+    var hero = document.querySelector('.hero');
+    var glow = document.querySelector('.hero-glow');
+    if (!hero || !glow) return;
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                var scrollY = window.scrollY;
+                if (scrollY < 800) {
+                    hero.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+                    hero.style.opacity = Math.max(0, 1 - scrollY / 700);
+                    glow.style.transform = 'translate(-50%, -50%) scale(' + (1 + scrollY * 0.0005) + ')';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+})();
 </script>
 </body>
 </html>
-<!-- deployed Sun Apr 12 12:22:55     2026 -->
