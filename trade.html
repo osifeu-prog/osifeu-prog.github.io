@@ -1043,63 +1043,96 @@
                 </div>
             </div>
 
-            <!-- Section 3: Buy SLH -->
+            <!-- Section 3: SLH Ecosystem Tokens -->
             <div class="trade-section rv" id="buy-section">
                 <div class="section-header">
-                    <i class="fas fa-bolt"></i>
-                    <h2 data-i18n="trade_buy_slh">Buy SLH</h2>
+                    <i class="fas fa-coins"></i>
+                    <h2>SLH Ecosystem Tokens</h2>
                 </div>
-                <div class="buy-slh-price">
-                    <div class="price-label" data-i18n="trade_slh_rate">Current Rate</div>
-                    <div class="price-value">1 SLH = &#8362;444</div>
-                </div>
-                <div class="tier-grid">
-                    <div class="tier-card" onclick="buyTier(0.0001)">
-                        <div class="tier-amount">0.0001 SLH</div>
-                        <div class="tier-price">&#8362;0.0444</div>
+
+                <!-- SLH — LIVE ON DEX -->
+                <div style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(0,232,135,0.06));border:2px solid var(--gold,#ffd700);border-radius:14px;padding:20px;margin-bottom:16px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+                        <div>
+                            <div style="font-size:22px;font-weight:900;color:#ffd700">💎 SLH Spark</div>
+                            <div style="font-size:12px;color:var(--text2,#8a8aa0)">BSC (BEP-20) · PancakeSwap V2 · LIVE</div>
+                        </div>
+                        <div style="text-align:left">
+                            <div style="font-size:24px;font-weight:900;color:#00e887">$0.596</div>
+                            <div style="font-size:11px;color:var(--text2,#8a8aa0)">~₪2.18 · יעד: ₪444</div>
+                        </div>
                     </div>
-                    <div class="tier-card" onclick="buyTier(0.001)">
-                        <div class="tier-amount">0.001 SLH</div>
-                        <div class="tier-price">&#8362;0.444</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px;font-size:11px">
+                        <div style="padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;text-align:center"><strong style="color:var(--text,#e8e8f0)">Supply</strong><br><span style="color:var(--text2,#8a8aa0)">111,186,328</span></div>
+                        <div style="padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;text-align:center"><strong style="color:var(--text,#e8e8f0)">Pool</strong><br><span style="color:var(--text2,#8a8aa0)">0.04 BNB + 40 SLH</span></div>
+                        <div style="padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;text-align:center"><strong style="color:var(--text,#e8e8f0)">Network</strong><br><span style="color:var(--text2,#8a8aa0)">BSC (Chain 56)</span></div>
+                        <div style="padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;text-align:center"><strong style="color:var(--text,#e8e8f0)">Holders</strong><br><span style="color:var(--text2,#8a8aa0)">176+</span></div>
                     </div>
-                    <div class="tier-card" onclick="buyTier(0.01)">
-                        <div class="tier-amount">0.01 SLH</div>
-                        <div class="tier-price">&#8362;4.44</div>
-                    </div>
-                    <div class="tier-card" onclick="buyTier(0.1)">
-                        <div class="tier-amount">0.1 SLH</div>
-                        <div class="tier-price">&#8362;44.4</div>
-                    </div>
-                    <div class="tier-card" onclick="buyTier(1)">
-                        <div class="tier-amount">1 SLH</div>
-                        <div class="tier-price">&#8362;444</div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap">
+                        <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="flex:1;min-width:160px;padding:12px 18px;background:linear-gradient(135deg,#ffd700,#f3ba2f);color:#000;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;text-align:center">🛒 קנה ב-PancakeSwap</a>
+                        <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="padding:12px 18px;background:transparent;border:1px solid #ffd700;color:#ffd700;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;text-align:center">🔍 BSCScan</a>
+                        <a href="/p2p.html" style="padding:12px 18px;background:transparent;border:1px solid #00e887;color:#00e887;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;text-align:center">💳 Buy Crypto</a>
                     </div>
                 </div>
 
-                <!-- Addresses -->
-                <div class="address-row">
-                    <span class="addr-label">BSC</span>
-                    <span class="addr-value" id="bsc-addr">0x_example_bsc_contract_address</span>
-                    <button class="copy-btn" onclick="copyToClipboard(BSC_CONTRACT)" title="Copy">
-                        <i class="fas fa-copy"></i>
-                    </button>
+                <!-- MNH + ZVK + REP -->
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
+                    <div style="background:rgba(0,232,135,0.06);border:1px solid rgba(0,232,135,0.3);border-radius:12px;padding:16px">
+                        <div style="font-size:18px;font-weight:800;color:#00e887;margin-bottom:4px">🪙 MNH</div>
+                        <div style="font-size:12px;color:var(--text2,#8a8aa0);margin-bottom:8px">Stablecoin · צמוד ₪1</div>
+                        <div style="font-size:11px;color:var(--text,#e8e8f0);line-height:1.7">
+                            • העברות <strong>חינם</strong> בתוך הרשת<br>
+                            • תשלום למטפלים + שירותים<br>
+                            • הפקדה ומשיכה בשקלים
+                        </div>
+                    </div>
+                    <div style="background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:16px">
+                        <div style="font-size:18px;font-weight:800;color:#a855f7;margin-bottom:4px">⭐ ZVK</div>
+                        <div style="font-size:12px;color:var(--text2,#8a8aa0);margin-bottom:8px">תגמולים · ~₪4.4</div>
+                        <div style="font-size:11px;color:var(--text,#e8e8f0);line-height:1.7">
+                            • בונוס הצטרפות: 100 ZVK<br>
+                            • הפניות: 10 דורות<br>
+                            • 100 ZVK = 1 SLH
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,107,157,0.06);border:1px solid rgba(255,107,157,0.3);border-radius:12px;padding:16px">
+                        <div style="font-size:18px;font-weight:800;color:#ff6b9d;margin-bottom:4px">🏅 REP</div>
+                        <div style="font-size:12px;color:var(--text2,#8a8aa0);margin-bottom:8px">מוניטין אישי</div>
+                        <div style="font-size:11px;color:var(--text,#e8e8f0);line-height:1.7">
+                            • Basic → Active → Senior → Elder<br>
+                            • נצבר מ: טיפול, הפניות, תרומה<br>
+                            • <a href="/member.html?id=224223270" style="color:#ff6b9d">הכרטיס שלך →</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="address-row">
-                    <span class="addr-label">TON</span>
-                    <span class="addr-value" id="ton-addr">UQBxYz_example_ton_wallet_address</span>
-                    <button class="copy-btn" onclick="copyToClipboard(TON_WALLET)" title="Copy">
-                        <i class="fas fa-copy"></i>
-                    </button>
+
+                <!-- Contract Addresses -->
+                <div style="margin-bottom:14px">
+                    <div class="address-row">
+                        <span class="addr-label">BSC</span>
+                        <span class="addr-value">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</span>
+                        <button class="copy-btn" onclick="copyToClipboard('0xACb0A09414CEA1C879c67bB7A877E4e19480f022')" title="Copy"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="address-row">
+                        <span class="addr-label">TON</span>
+                        <span class="addr-value">UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp</span>
+                        <button class="copy-btn" onclick="copyToClipboard('UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp')" title="Copy"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="address-row">
+                        <span class="addr-label">Pool</span>
+                        <span class="addr-value">0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee</span>
+                        <button class="copy-btn" onclick="copyToClipboard('0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee')" title="Copy"><i class="fas fa-copy"></i></button>
+                    </div>
                 </div>
 
                 <div class="buy-cta">
-                    <a href="https://t.me/SLH_AIR_bot" target="_blank" class="btn btn-gold btn-lg">
-                        <i class="fab fa-telegram-plane"></i>
-                        <span data-i18n="trade_buy_via_bot">Buy via @SLH_AIR_bot</span>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" class="btn btn-gold btn-lg">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Swap SLH on PancakeSwap</span>
                     </a>
-                    <a href="https://t.me/Osif83" target="_blank" class="btn btn-outline btn-lg">
-                        <i class="fas fa-headset"></i>
-                        <span data-i18n="trade_contact">Contact @Osif83</span>
+                    <a href="/p2p.html" class="btn btn-outline btn-lg">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Buy BNB/ETH/BTC</span>
                     </a>
                 </div>
             </div>
