@@ -282,7 +282,7 @@
     const CHECKS = {
         api: [
             { name: 'API Root', url: API + '/api/health', desc: 'FastAPI service responding' },
-            { name: 'Admin Dashboard', url: API + '/api/admin/dashboard', desc: 'Aggregated stats endpoint' },
+            { name: 'Admin Dashboard', url: API + '/api/admin/dashboard', desc: 'Aggregated stats endpoint', auth: true },
             { name: 'User Stats', url: API + '/api/stats', desc: 'Public stats endpoint' },
             { name: 'Prices', url: API + '/api/prices', desc: 'Market prices feed' },
             { name: 'Staking Plans', url: API + '/api/staking/plans', desc: 'Available staking plans' },
@@ -324,10 +324,15 @@
 
     let stats = { pass: 0, warn: 0, fail: 0 };
 
+    // Admin key for authenticated endpoints (from localStorage or default)
+    const HEALTH_ADMIN_KEY = localStorage.getItem('slh_admin_password') || 'slh2026admin';
+
     async function checkEndpoint(check) {
         const start = Date.now();
         try {
-            const r = await fetch(check.url, { cache: 'no-store' });
+            const headers = {};
+            if (check.auth) headers['X-Admin-Key'] = HEALTH_ADMIN_KEY;
+            const r = await fetch(check.url, { cache: 'no-store', headers });
             const ms = Date.now() - start;
             if (!r.ok) return { status: 'fail', detail: 'HTTP ' + r.status + ' — ' + ms + 'ms' };
 
