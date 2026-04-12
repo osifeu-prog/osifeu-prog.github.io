@@ -171,6 +171,8 @@
 
         <div class="sb-section">System</div>
         <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
+        <a href="#" onclick="showPage('sitemap')">🗺 Site Map</a>
+        <a href="#" onclick="showPage('rewards')">🎁 Rewards Admin</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -534,6 +536,192 @@
         </div>
 
         <!-- INFRA PAGE -->
+        <!-- SITE MAP PAGE -->
+        <div id="page-sitemap" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,255,65,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🗺 Site Map — All Pages &amp; Links</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Complete inventory of all 43 ecosystem pages · Status check · Access levels · Quick links
+                </p>
+                <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+                    <button onclick="checkAllPages()" style="background:var(--cyan);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ CHECK ALL PAGES ]</button>
+                    <span id="sitemap-status" style="font-size:11px;color:var(--text2);line-height:32px"></span>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🏠 Core Pages <span>Main Navigation</span></h3>
+                <table class="admin-table" id="sitemap-core">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Home</td><td><a href="/" target="_blank">/</a></td><td>Public</td><td class="page-status" data-url="/">--</td><td><a href="/" target="_blank">Open</a></td></tr>
+                        <tr><td>Dashboard</td><td><a href="/dashboard.html" target="_blank">/dashboard.html</a></td><td>Login</td><td class="page-status" data-url="/dashboard.html">--</td><td><a href="/dashboard.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Trade</td><td><a href="/trade.html" target="_blank">/trade.html</a></td><td>Public</td><td class="page-status" data-url="/trade.html">--</td><td><a href="/trade.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Earn / Staking</td><td><a href="/earn.html" target="_blank">/earn.html</a></td><td>Public</td><td class="page-status" data-url="/earn.html">--</td><td><a href="/earn.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Wallet</td><td><a href="/wallet.html" target="_blank">/wallet.html</a></td><td>Login</td><td class="page-status" data-url="/wallet.html">--</td><td><a href="/wallet.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Bots</td><td><a href="/bots.html" target="_blank">/bots.html</a></td><td>Public</td><td class="page-status" data-url="/bots.html">--</td><td><a href="/bots.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Referral</td><td><a href="/referral.html" target="_blank">/referral.html</a></td><td>Login</td><td class="page-status" data-url="/referral.html">--</td><td><a href="/referral.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Community</td><td><a href="/community.html" target="_blank">/community.html</a></td><td>Public</td><td class="page-status" data-url="/community.html">--</td><td><a href="/community.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Daily Blog</td><td><a href="/daily-blog.html" target="_blank">/daily-blog.html</a></td><td>Public</td><td class="page-status" data-url="/daily-blog.html">--</td><td><a href="/daily-blog.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Guides</td><td><a href="/guides.html" target="_blank">/guides.html</a></td><td>Public</td><td class="page-status" data-url="/guides.html">--</td><td><a href="/guides.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Wallet Guide</td><td><a href="/wallet-guide.html" target="_blank">/wallet-guide.html</a></td><td>Public</td><td class="page-status" data-url="/wallet-guide.html">--</td><td><a href="/wallet-guide.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Blockchain</td><td><a href="/blockchain.html" target="_blank">/blockchain.html</a></td><td>Public</td><td class="page-status" data-url="/blockchain.html">--</td><td><a href="/blockchain.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Network Map</td><td><a href="/network.html" target="_blank">/network.html</a></td><td>Public</td><td class="page-status" data-url="/network.html">--</td><td><a href="/network.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Roadmap</td><td><a href="/roadmap.html" target="_blank">/roadmap.html</a></td><td>Public</td><td class="page-status" data-url="/roadmap.html">--</td><td><a href="/roadmap.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🚀 Feature Pages <span>Not in main nav</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Staking</td><td><a href="/staking.html" target="_blank">/staking.html</a></td><td>Public</td><td class="page-status" data-url="/staking.html">--</td><td><a href="/staking.html" target="_blank">Open</a></td></tr>
+                        <tr><td>P2P Trade</td><td><a href="/p2p.html" target="_blank">/p2p.html</a></td><td>Public</td><td class="page-status" data-url="/p2p.html">--</td><td><a href="/p2p.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Ecosystem Guide</td><td><a href="/ecosystem-guide.html" target="_blank">/ecosystem-guide.html</a></td><td>Public</td><td class="page-status" data-url="/ecosystem-guide.html">--</td><td><a href="/ecosystem-guide.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Whitepaper</td><td><a href="/whitepaper.html" target="_blank">/whitepaper.html</a></td><td>Public</td><td class="page-status" data-url="/whitepaper.html">--</td><td><a href="/whitepaper.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Healing Vision</td><td><a href="/healing-vision.html" target="_blank">/healing-vision.html</a></td><td>Public</td><td class="page-status" data-url="/healing-vision.html">--</td><td><a href="/healing-vision.html" target="_blank">Open</a></td></tr>
+                        <tr><td>21-Day Challenge</td><td><a href="/challenge.html" target="_blank">/challenge.html</a></td><td>Public</td><td class="page-status" data-url="/challenge.html">--</td><td><a href="/challenge.html" target="_blank">Open</a></td></tr>
+                        <tr><td>For Therapists</td><td><a href="/for-therapists.html" target="_blank">/for-therapists.html</a></td><td>Public</td><td class="page-status" data-url="/for-therapists.html">--</td><td><a href="/for-therapists.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Invite</td><td><a href="/invite.html" target="_blank">/invite.html</a></td><td>Public</td><td class="page-status" data-url="/invite.html">--</td><td><a href="/invite.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Member Card</td><td><a href="/member.html" target="_blank">/member.html</a></td><td>Login</td><td class="page-status" data-url="/member.html">--</td><td><a href="/member.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Partner Dashboard</td><td><a href="/partner-dashboard.html" target="_blank">/partner-dashboard.html</a></td><td>Login</td><td class="page-status" data-url="/partner-dashboard.html">--</td><td><a href="/partner-dashboard.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🎯 Launch &amp; Events <span>Campaign pages</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Genesis Launch</td><td><a href="/launch-event.html" target="_blank">/launch-event.html</a></td><td>Public</td><td class="page-status" data-url="/launch-event.html">--</td><td><a href="/launch-event.html" target="_blank">Open</a></td></tr>
+                        <tr><td>DEX Launch</td><td><a href="/dex-launch.html" target="_blank">/dex-launch.html</a></td><td>Public</td><td class="page-status" data-url="/dex-launch.html">--</td><td><a href="/dex-launch.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Partner Invite</td><td><a href="/partner-launch-invite.html" target="_blank">/partner-launch-invite.html</a></td><td>Public</td><td class="page-status" data-url="/partner-launch-invite.html">--</td><td><a href="/partner-launch-invite.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Jubilee (Yovel)</td><td><a href="/jubilee.html" target="_blank">/jubilee.html</a></td><td>Public</td><td class="page-status" data-url="/jubilee.html">--</td><td><a href="/jubilee.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🔒 Admin &amp; Ops <span>Admin-only pages</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Admin Panel</td><td><a href="/admin.html" target="_blank">/admin.html</a></td><td>Admin</td><td class="page-status" data-url="/admin.html">--</td><td><a href="/admin.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Analytics</td><td><a href="/analytics.html" target="_blank">/analytics.html</a></td><td>Admin</td><td class="page-status" data-url="/analytics.html">--</td><td><a href="/analytics.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Broadcast Composer</td><td><a href="/broadcast-composer.html" target="_blank">/broadcast-composer.html</a></td><td>Admin</td><td class="page-status" data-url="/broadcast-composer.html">--</td><td><a href="/broadcast-composer.html" target="_blank">Open</a></td></tr>
+                        <tr><td>System Health</td><td><a href="/system-health.html" target="_blank">/system-health.html</a></td><td>Admin</td><td class="page-status" data-url="/system-health.html">--</td><td><a href="/system-health.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>📋 Reports &amp; Ops <span>Operations dashboards</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Morning Checklist</td><td><a href="/morning-checklist.html" target="_blank">/morning-checklist.html</a></td><td>Admin</td><td class="page-status" data-url="/morning-checklist.html">--</td><td><a href="/morning-checklist.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Morning Handoff</td><td><a href="/morning-handoff.html" target="_blank">/morning-handoff.html</a></td><td>Admin</td><td class="page-status" data-url="/morning-handoff.html">--</td><td><a href="/morning-handoff.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Overnight Report</td><td><a href="/overnight-report.html" target="_blank">/overnight-report.html</a></td><td>Admin</td><td class="page-status" data-url="/overnight-report.html">--</td><td><a href="/overnight-report.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Ops Report 11/4</td><td><a href="/ops-report-20260411.html" target="_blank">/ops-report-20260411.html</a></td><td>Admin</td><td class="page-status" data-url="/ops-report-20260411.html">--</td><td><a href="/ops-report-20260411.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🛠 Utility &amp; Onboarding <span>Tools &amp; Setup</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Onboarding</td><td><a href="/onboarding.html" target="_blank">/onboarding.html</a></td><td>Public</td><td class="page-status" data-url="/onboarding.html">--</td><td><a href="/onboarding.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Getting Started</td><td><a href="/getting-started.html" target="_blank">/getting-started.html</a></td><td>Public</td><td class="page-status" data-url="/getting-started.html">--</td><td><a href="/getting-started.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Referral Card Studio</td><td><a href="/referral-card.html" target="_blank">/referral-card.html</a></td><td>Login</td><td class="page-status" data-url="/referral-card.html">--</td><td><a href="/referral-card.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Token Rotation</td><td><a href="/rotate.html" target="_blank">/rotate.html</a></td><td>Admin</td><td class="page-status" data-url="/rotate.html">--</td><td><a href="/rotate.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Bot QA Test</td><td><a href="/test-bots.html" target="_blank">/test-bots.html</a></td><td>Admin</td><td class="page-status" data-url="/test-bots.html">--</td><td><a href="/test-bots.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>📜 Legal <span>Privacy &amp; Terms</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Privacy Policy</td><td><a href="/privacy.html" target="_blank">/privacy.html</a></td><td>Public</td><td class="page-status" data-url="/privacy.html">--</td><td><a href="/privacy.html" target="_blank">Open</a></td></tr>
+                        <tr><td>Terms of Service</td><td><a href="/terms.html" target="_blank">/terms.html</a></td><td>Public</td><td class="page-status" data-url="/terms.html">--</td><td><a href="/terms.html" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>🌐 External Links <span>API &amp; Services</span></h3>
+                <table class="admin-table">
+                    <thead><tr><th>Service</th><th>URL</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Railway API</td><td><a href="https://slh-api-production.up.railway.app/api/health" target="_blank">slh-api-production.up.railway.app</a></td><td>Backend</td><td id="ext-railway">--</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">Swagger</a></td></tr>
+                        <tr><td>API Docs</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">/docs</a></td><td>Docs</td><td>--</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">Open</a></td></tr>
+                        <tr><td>GitHub (API)</td><td><a href="https://github.com/osifeu-prog/slh-api" target="_blank">osifeu-prog/slh-api</a></td><td>Repo</td><td>--</td><td><a href="https://github.com/osifeu-prog/slh-api" target="_blank">Open</a></td></tr>
+                        <tr><td>GitHub (Site)</td><td><a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank">osifeu-prog.github.io</a></td><td>Repo</td><td>--</td><td><a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank">Open</a></td></tr>
+                        <tr><td>PancakeSwap Pool</td><td><a href="https://pancakeswap.finance/info/v2/pairs/0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee?chain=bsc" target="_blank">SLH/WBNB Pool</a></td><td>DEX</td><td>--</td><td><a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank">Swap</a></td></tr>
+                        <tr><td>BSCScan Token</td><td><a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank">SLH on BSCScan</a></td><td>Explorer</td><td>--</td><td><a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank">Open</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- REWARDS ADMIN PAGE -->
+        <div id="page-rewards" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,255,65,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">🎁 Rewards Admin — Genesis Contributors</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Credit missing ZVK rewards to contributors · View all balances · Manual credit tool
+                </p>
+            </div>
+
+            <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+                <button onclick="creditMissingRewards()" style="background:var(--gold);color:#000;border:none;padding:12px 24px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:13px">[ CREDIT MISSING REWARDS ]</button>
+                <button onclick="loadAllUsers()" style="background:var(--accent);color:#000;border:none;padding:12px 24px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:13px">[ LOAD ALL USERS ]</button>
+            </div>
+
+            <div id="rewards-result" style="display:none;padding:16px;background:var(--bg3);border:1px solid var(--border);margin-bottom:24px;font-size:12px;white-space:pre-wrap;direction:ltr;text-align:left"></div>
+
+            <div class="admin-section">
+                <h3>👥 All Users &amp; Balances</h3>
+                <table class="admin-table" id="all-users-table">
+                    <thead><tr><th>Telegram ID</th><th>Username</th><th>Name</th><th>SLH</th><th>ZVK</th><th>MNH</th><th>REP</th><th>Last Login</th><th>Actions</th></tr></thead>
+                    <tbody id="all-users-rows"><tr><td colspan="9" style="text-align:center;color:var(--text2)">Click "Load All Users" to fetch data</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>✏️ Manual Credit</h3>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+                    <div>
+                        <label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
+                        <input type="number" id="mc-user-id" placeholder="Telegram ID" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:160px">
+                    </div>
+                    <div>
+                        <label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Token</label>
+                        <select id="mc-token" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:100px">
+                            <option>ZVK</option><option>SLH</option><option>MNH</option><option>REP</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Amount</label>
+                        <input type="number" id="mc-amount" placeholder="500" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:120px">
+                    </div>
+                    <div>
+                        <label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Reason</label>
+                        <input type="text" id="mc-reason" placeholder="genesis_reward" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:200px">
+                    </div>
+                    <button onclick="manualCredit()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:12px">[ CREDIT ]</button>
+                </div>
+                <div id="mc-result" style="margin-top:12px;font-size:11px;color:var(--text2)"></div>
+            </div>
+        </div>
+
         <div id="page-infra" style="display:none">
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Docker Containers</div><div class="kpi-value">27</div></div>
@@ -1201,7 +1389,153 @@ showPage = function(name){
     origShowPage(name);
     if (name === 'institutional') loadInstitutionalOverview();
     if (name === 'audit') loadAuditEntries();
+    if (name === 'sitemap') checkAllPages();
+    if (name === 'rewards') loadAllUsers();
 };
+
+// ── Site Map — Page Status Checker ──────────────────────────────
+async function checkAllPages(){
+    const statusEl = document.getElementById('sitemap-status');
+    if(statusEl) statusEl.textContent = 'Checking all pages...';
+    const cells = document.querySelectorAll('.page-status');
+    let ok=0, fail=0;
+    const baseUrl = window.location.origin;
+    for(const cell of cells){
+        const url = cell.dataset.url;
+        if(!url) continue;
+        try{
+            const r = await fetch(baseUrl + url, {method:'HEAD', cache:'no-store'});
+            if(r.ok){
+                cell.innerHTML = '<span class="badge live">OK</span>';
+                ok++;
+            } else {
+                cell.innerHTML = '<span class="badge error">' + r.status + '</span>';
+                fail++;
+            }
+        }catch(e){
+            cell.innerHTML = '<span class="badge error">ERR</span>';
+            fail++;
+        }
+    }
+    // Check Railway API
+    try{
+        const r = await fetch(SLH_API + '/api/health');
+        const d = await r.json();
+        const el = document.getElementById('ext-railway');
+        if(el) el.innerHTML = d.status === 'ok' ? '<span class="badge live">HEALTHY</span>' : '<span class="badge error">DOWN</span>';
+    }catch(e){
+        const el = document.getElementById('ext-railway');
+        if(el) el.innerHTML = '<span class="badge error">UNREACHABLE</span>';
+    }
+    if(statusEl) statusEl.textContent = `Done: ${ok} OK, ${fail} failed out of ${ok+fail} pages`;
+}
+
+// ── Rewards Admin ───────────────────────────────────────────────
+function getAdminKey(){
+    return localStorage.getItem('slh_admin_password') || 'slh2026admin';
+}
+
+async function creditMissingRewards(){
+    const el = document.getElementById('rewards-result');
+    el.style.display = 'block';
+    el.textContent = 'Crediting missing rewards...';
+    el.style.color = 'var(--gold)';
+    try{
+        const r = await fetch(SLH_API + '/api/admin/credit-rewards', {
+            method: 'POST',
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+        if(d.ok){
+            let txt = '✅ ' + d.summary + '\n\n';
+            if(d.credited.length){
+                txt += 'CREDITED:\n';
+                d.credited.forEach(c => txt += `  • ${c.name} (ID:${c.user_id}) → +${c.zvk_credited} ZVK, +${c.rep_credited} REP [${c.match}]\n`);
+            }
+            if(d.already_had.length){
+                txt += '\nALREADY HAD REWARDS:\n';
+                d.already_had.forEach(c => txt += `  • ${c.name} (ID:${c.user_id}) — ZVK balance: ${c.zvk_balance}\n`);
+            }
+            if(d.not_matched.length){
+                txt += '\nNOT MATCHED (no web_user found):\n';
+                d.not_matched.forEach(c => txt += `  • ${c.name} (contribution #${c.contribution_id})\n`);
+            }
+            el.textContent = txt;
+            el.style.color = 'var(--accent)';
+            loadAllUsers();
+        } else {
+            el.textContent = '❌ ' + JSON.stringify(d);
+            el.style.color = 'var(--red)';
+        }
+    }catch(e){
+        el.textContent = '❌ Error: ' + e.message;
+        el.style.color = 'var(--red)';
+    }
+}
+
+async function loadAllUsers(){
+    const tbody = document.getElementById('all-users-rows');
+    if(!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--gold)">Loading...</td></tr>';
+    try{
+        const r = await fetch(SLH_API + '/api/admin/all-users', {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+        if(!d.ok){ tbody.innerHTML = '<tr><td colspan="9" style="color:var(--red)">Error: ' + JSON.stringify(d) + '</td></tr>'; return; }
+        tbody.innerHTML = '';
+        d.users.forEach(u => {
+            const tr = document.createElement('tr');
+            const bal = u.balances || {};
+            const login = u.last_login ? new Date(u.last_login).toLocaleString('he-IL') : '--';
+            tr.innerHTML = `
+                <td><code>${u.telegram_id}</code></td>
+                <td>${u.username || '--'}</td>
+                <td>${u.display_name || u.first_name || '--'}</td>
+                <td style="color:var(--gold)">${(bal.SLH||0).toLocaleString()}</td>
+                <td style="color:var(--cyan)">${(bal.ZVK||0).toLocaleString()}</td>
+                <td style="color:var(--accent)">${(bal.MNH||0).toLocaleString()}</td>
+                <td style="color:var(--purple)">${(bal.REP||0).toLocaleString()}</td>
+                <td style="font-size:10px">${login}</td>
+                <td>
+                    <a href="/member.html?user_id=${u.telegram_id}" target="_blank" style="font-size:10px;margin-left:8px">Card</a>
+                    <a href="javascript:void(0)" onclick="document.getElementById('mc-user-id').value='${u.telegram_id}'" style="font-size:10px;margin-left:8px;color:var(--gold)">Credit</a>
+                </td>`;
+            tbody.appendChild(tr);
+        });
+    }catch(e){
+        tbody.innerHTML = '<tr><td colspan="9" style="color:var(--red)">Error: ' + e.message + '</td></tr>';
+    }
+}
+
+async function manualCredit(){
+    const userId = document.getElementById('mc-user-id').value;
+    const token = document.getElementById('mc-token').value;
+    const amount = document.getElementById('mc-amount').value;
+    const reason = document.getElementById('mc-reason').value || 'manual_admin_credit';
+    const el = document.getElementById('mc-result');
+    if(!userId || !amount){ el.textContent = 'Fill in User ID and Amount'; el.style.color='var(--red)'; return; }
+    el.textContent = 'Crediting...';
+    el.style.color = 'var(--gold)';
+    try{
+        const r = await fetch(SLH_API + `/api/admin/manual-credit?user_id=${userId}&token=${token}&amount=${amount}&reason=${encodeURIComponent(reason)}`, {
+            method: 'POST',
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+        if(d.ok){
+            el.textContent = `✅ Credited ${d.amount} ${d.token} to user ${d.user_id}`;
+            el.style.color = 'var(--accent)';
+            loadAllUsers();
+        } else {
+            el.textContent = '❌ ' + (d.detail || JSON.stringify(d));
+            el.style.color = 'var(--red)';
+        }
+    }catch(e){
+        el.textContent = '❌ ' + e.message;
+        el.style.color = 'var(--red)';
+    }
+}
 </script>
 
 <div id="bottomnav-root"></div>
