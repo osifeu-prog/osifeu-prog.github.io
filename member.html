@@ -871,7 +871,7 @@ function updateOGTags(data) {
     const title = tierCfg.emoji + ' ' + name + ' | ' + nft + ' — SLH Spark Member';
     const desc = tierCfg.label + ' tier member with ' + (data.rep_score || data.rep || 0) + ' REP score';
     const url = getShareUrl();
-    const img = MEMBER_API + '/api/member-card/' + memberId + '.png';
+    const img = MEMBER_API + '/api/member-card/image/' + memberId;
 
     // OG tags
     const setMeta = (id, content) => { const el = document.getElementById(id); if (el) el.content = content; };
@@ -965,14 +965,16 @@ async function loadMemberCard() {
             return;
         }
 
-        memberData = data;
+        // API returns {ok: true, card: {...}} — extract the card object
+        const cardData = data.card || data;
+        memberData = cardData;
 
         // Hide loading, show content
         document.getElementById('loading-state').style.display = 'none';
         const content = document.getElementById('member-content');
         content.style.display = 'flex';
 
-        renderCard(data);
+        renderCard(cardData);
 
     } catch (err) {
         console.error('[MemberCard] Fetch error:', err);
