@@ -1139,22 +1139,114 @@
                 <button class="form-btn" style="width:auto;padding:14px 28px;background:#f5f5f5;color:#2563eb;border:2px solid #2563eb" onclick="setTheme('light');showWelcomeStep(3)">&#x2600; Light</button>
             </div>
         </div>
-        <!-- Step 3: Ready -->
+        <!-- Step 3: Features Guide -->
         <div id="welcome-step-3" class="welcome-step" style="display:none">
-            <div style="font-size:48px;margin-bottom:16px">&#x1F680;</div>
-            <h3 data-i18n="welcome_title">Welcome to SLH!</h3>
-            <p style="color:var(--text2);margin-bottom:24px" data-i18n="welcome_sub">Let's set up your account</p>
-            <div style="text-align:right;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:24px">
-                <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span style="color:var(--text2)" data-i18n="your_referral_link">Your Referral Link</span><span style="color:var(--accent)" id="welcome-ref">-</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span style="color:var(--text2)" data-i18n="share_earn">Share to earn commissions</span></div>
+            <div style="font-size:48px;margin-bottom:16px">📋</div>
+            <h3>מה אפשר לעשות כאן?</h3>
+            <p style="color:var(--text2);margin-bottom:16px;font-size:13px">לחץ על כל נושא כדי ללמוד עליו. אפשר לדלג ולחזור מתי שרוצה.</p>
+            <div style="display:grid;gap:8px;text-align:right;max-width:400px;margin:0 auto">
+                <div onclick="showWelcomeStep(4)" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s">
+                    <span style="font-size:24px">💼</span>
+                    <div><div style="font-weight:700;color:var(--text);font-size:14px">ארנק + יתרות</div><div style="font-size:11px;color:var(--text2)">SLH, ZVK, TON, CEX portfolio</div></div>
+                </div>
+                <div onclick="showWelcomeStep(5)" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s">
+                    <span style="font-size:24px">💎</span>
+                    <div><div style="font-weight:700;color:var(--text);font-size:14px">סטייקינג 65%</div><div style="font-size:11px;color:var(--text2)">נעל TON והרווח תשואה</div></div>
+                </div>
+                <div onclick="showWelcomeStep(6)" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s">
+                    <span style="font-size:24px">🤝</span>
+                    <div><div style="font-weight:700;color:var(--text);font-size:14px">הפניות — 10 דורות</div><div style="font-size:11px;color:var(--text2)">הזמן חברים והרווח עמלות</div></div>
+                </div>
+                <div onclick="showWelcomeStep(7)" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s">
+                    <span style="font-size:24px">🎴</span>
+                    <div><div style="font-weight:700;color:var(--text);font-size:14px">Member Card</div><div style="font-size:11px;color:var(--text2)">כרטיס זהות דיגיטלי + REP</div></div>
+                </div>
+                <div onclick="showWelcomeStep(8)" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s">
+                    <span style="font-size:24px">🛒</span>
+                    <div><div style="font-weight:700;color:var(--text);font-size:14px">קנה SLH</div><div style="font-size:11px;color:var(--text2)">PancakeSwap + P2P + Buy Crypto</div></div>
+                </div>
             </div>
-            <button class="form-btn" onclick="closeWelcome()" data-i18n="start_exploring">Start Exploring →</button>
+            <button class="form-btn" style="margin-top:16px" onclick="closeWelcome()">דלג — אני מכיר →</button>
+        </div>
+        <!-- Step 4: Wallet explainer -->
+        <div id="welcome-step-4" class="welcome-step" style="display:none">
+            <div style="font-size:48px;margin-bottom:12px">💼</div>
+            <h3>ארנק + יתרות</h3>
+            <div style="text-align:right;font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto 16px">
+                <p>באזור <strong style="color:var(--accent)">סקירה</strong> תראה את כל היתרות שלך: SLH, ZVK, TON.</p>
+                <p>באזור <strong style="color:var(--accent)">ארנק</strong> באתר הראשי תוכל לחבר ארנקים חיצוניים (Bybit, Binance) ולראות QR לקבלת כסף.</p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <button class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3)" onclick="showWelcomeStep(3)">← חזרה</button>
+                <button class="form-btn" style="width:auto;padding:10px 20px" onclick="closeWelcome();navigate('overview')">פתח ארנק →</button>
+            </div>
+        </div>
+        <!-- Step 5: Staking -->
+        <div id="welcome-step-5" class="welcome-step" style="display:none">
+            <div style="font-size:48px;margin-bottom:12px">💎</div>
+            <h3>סטייקינג — עד 65% שנתי</h3>
+            <div style="text-align:right;font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto 16px">
+                <p>נעל TON לתקופה של 30-365 ימים → קבל תשואה חודשית (4%-5.4%).</p>
+                <p>ככל שתקופת הנעילה ארוכה יותר → התשואה גבוהה יותר.</p>
+                <p><strong style="color:var(--accent)">מינימום: 1 TON (~$1.44)</strong></p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <button class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3)" onclick="showWelcomeStep(3)">← חזרה</button>
+                <button class="form-btn" style="width:auto;padding:10px 20px" onclick="closeWelcome();navigate('staking')">פתח סטייקינג →</button>
+            </div>
+        </div>
+        <!-- Step 6: Referrals -->
+        <div id="welcome-step-6" class="welcome-step" style="display:none">
+            <div style="font-size:48px;margin-bottom:12px">🤝</div>
+            <h3>הפניות — 10 דורות של עמלות</h3>
+            <div style="text-align:right;font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto 16px">
+                <p>הזמן חברים עם הלינק שלך → קבל <strong style="color:var(--accent)">10%</strong> מכל הפקדה שלהם.</p>
+                <p>גם מי שהם מזמינים → <strong style="color:var(--accent)">5%</strong> מדור 2, ועד 10 דורות!</p>
+                <p>הלינק שלך: <code style="background:var(--card);padding:2px 6px;border-radius:4px;font-size:11px;color:var(--accent)" id="welcome-ref">-</code></p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <button class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3)" onclick="showWelcomeStep(3)">← חזרה</button>
+                <button class="form-btn" style="width:auto;padding:10px 20px" onclick="closeWelcome();navigate('referrals')">פתח הפניות →</button>
+            </div>
+        </div>
+        <!-- Step 7: Member Card -->
+        <div id="welcome-step-7" class="welcome-step" style="display:none">
+            <div style="font-size:48px;margin-bottom:12px">🎴</div>
+            <h3>כרטיס חבר דיגיטלי</h3>
+            <div style="text-align:right;font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto 16px">
+                <p>כל חבר מקבל <strong style="color:var(--accent)">כרטיס זהות דיגיטלי</strong> עם NFT number ייחודי.</p>
+                <p>ככל שאתה פעיל יותר → ה-<strong style="color:var(--accent)">REP Score</strong> שלך עולה → דירוג עולה (Basic → Elder).</p>
+                <p>שתף את הכרטיס שלך עם חברים!</p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <button class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3)" onclick="showWelcomeStep(3)">← חזרה</button>
+                <button class="form-btn" style="width:auto;padding:10px 20px" onclick="closeWelcome();window.open('/member.html?id='+currentUser.id,'_blank')">ראה כרטיס →</button>
+            </div>
+        </div>
+        <!-- Step 8: Buy SLH -->
+        <div id="welcome-step-8" class="welcome-step" style="display:none">
+            <div style="font-size:48px;margin-bottom:12px">🛒</div>
+            <h3>קנה SLH</h3>
+            <div style="text-align:right;font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto 16px">
+                <p>SLH נסחר ב-<strong style="color:var(--accent)">PancakeSwap</strong> (BSC).</p>
+                <p>אפשר גם לקנות BNB/ETH/BTC בכרטיס אשראי דרך <strong style="color:var(--accent)">Buy Crypto</strong>.</p>
+                <p>העברות פנימיות (MNH/ZVK) — <strong style="color:var(--accent)">חינם!</strong></p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                <button class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3)" onclick="showWelcomeStep(3)">← חזרה</button>
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" class="form-btn" style="width:auto;padding:10px 20px;text-decoration:none;text-align:center">🛒 PancakeSwap →</a>
+                <a href="/p2p.html" class="form-btn" style="width:auto;padding:10px 20px;background:var(--bg3);text-decoration:none;text-align:center">💳 Buy Crypto</a>
+            </div>
         </div>
         <!-- Progress dots -->
         <div style="display:flex;justify-content:center;gap:8px;margin-top:24px">
             <div class="welcome-dot" id="dot-1" style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
             <div class="welcome-dot" id="dot-2" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
             <div class="welcome-dot" id="dot-3" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+        </div>
+        <!-- Help button (always visible after wizard) -->
+        <div style="margin-top:16px;text-align:center">
+            <button onclick="showWelcomeStep(3)" style="background:transparent;border:1px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:6px;font-size:11px;cursor:pointer">❓ חזור למדריך</button>
         </div>
     </div>
 </div>
@@ -2595,7 +2687,26 @@ function closeWelcome() {
     document.getElementById('welcome-modal').classList.remove('show');
     localStorage.setItem('slh_welcome_done', '1');
     localStorage.setItem('slh_theme_seen', '1');
+    // Show persistent help button
+    showHelpButton();
 }
+function showHelpButton() {
+    if (document.getElementById('help-fab')) return;
+    const btn = document.createElement('button');
+    btn.id = 'help-fab';
+    btn.innerHTML = '❓';
+    btn.title = 'עזרה — חזור למדריך';
+    btn.style.cssText = 'position:fixed;bottom:160px;left:24px;z-index:9996;width:44px;height:44px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.3);transition:all .2s';
+    btn.onmouseover = function(){ this.style.background='var(--accent)';this.style.color='#000'; };
+    btn.onmouseout = function(){ this.style.background='var(--bg2)';this.style.color='var(--text2)'; };
+    btn.onclick = function(){
+        document.getElementById('welcome-modal').classList.add('show');
+        showWelcomeStep(3);
+    };
+    document.body.appendChild(btn);
+}
+// Show help button if user already completed onboarding
+if (localStorage.getItem('slh_welcome_done') === '1') { document.addEventListener('DOMContentLoaded', showHelpButton); }
 
 // Close modal on overlay click
 document.getElementById('stake-modal').addEventListener('click', function(e) {
