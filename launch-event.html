@@ -661,7 +661,9 @@ async function loadLaunchStatus() {
         document.getElementById('stat-raised-usd').textContent = '$' + raisedUsd.toFixed(2);
         document.getElementById('stat-status').textContent = (data.status || 'LIVE').toUpperCase();
 
-        renderContributors(data.contributors || []);
+        // Filter out cancelled contributions
+        const active = (data.contributors || []).filter(c => c.status !== 'cancelled');
+        renderContributors(active);
     } catch(e) {
         console.warn('[Launch] Status load failed:', e);
         document.getElementById('raised-bnb').textContent = '0';
@@ -686,6 +688,7 @@ function renderContributors(list) {
         const statusBadge = c.status === 'verified' ?
             '<span class="badge-role badge-status-verified">✓ Verified</span>' :
             '<span class="badge-role badge-status-pending">⏳ Pending</span>';
+        const txLink = c.tx_hash ? `<div style="margin-top:4px"><a href="https://bscscan.com/tx/${escapeHtml(c.tx_hash)}" target="_blank" rel="noopener" style="color:var(--accent2);font-size:11px;font-family:monospace;text-decoration:underline">TX: ${escapeHtml(c.tx_hash.slice(0,10))}...${escapeHtml(c.tx_hash.slice(-6))}</a></div>` : '';
         return `
             <div class="contributor-row ${roleClass}">
                 <div class="contributor-info">
@@ -693,6 +696,7 @@ function renderContributors(list) {
                     <div style="min-width:0">
                         <div class="contributor-name">${escapeHtml(c.name)}</div>
                         <div class="contributor-handle">${escapeHtml(c.handle || '')} ${badge} ${statusBadge}</div>
+                        ${txLink}
                     </div>
                 </div>
                 <div class="contributor-amount">

@@ -423,6 +423,7 @@
       transition: width 1.5s ease;
     }
     .plan-btn {
+      display: block;
       width: 100%;
       padding: 12px;
       background: var(--accent);
@@ -433,6 +434,9 @@
       font-weight: 600;
       cursor: pointer;
       transition: all var(--transition);
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
     }
     .plan-btn:hover {
       background: var(--accent2);
@@ -1019,23 +1023,23 @@
       <section class="earn-stats rv">
         <div class="earn-stat-card">
           <div class="stat-icon"><i class="fas fa-lock"></i></div>
-          <div class="stat-value gold" id="stat-tvl">₪44,400</div>
+          <div class="stat-value gold" id="stat-tvl">--</div>
           <div class="stat-label" data-i18n="earn_stat_tvl">Total Value Locked</div>
         </div>
         <div class="earn-stat-card">
           <div class="stat-icon"><i class="fas fa-users"></i></div>
-          <div class="stat-value green" id="stat-stakers">12</div>
+          <div class="stat-value green" id="stat-stakers">--</div>
           <div class="stat-label" data-i18n="earn_stat_stakers">Active Stakers</div>
         </div>
         <div class="earn-stat-card">
           <div class="stat-icon"><i class="fas fa-coins"></i></div>
-          <div class="stat-value" id="stat-paid">₪8,880</div>
+          <div class="stat-value" id="stat-paid">--</div>
           <div class="stat-label" data-i18n="earn_stat_paid">Total Paid Out</div>
         </div>
         <div class="earn-stat-card">
           <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-          <div class="stat-value green" id="stat-max-apy">57%</div>
-          <div class="stat-label" data-i18n="earn_stat_max_apy">Average APY</div>
+          <div class="stat-value green" id="stat-max-apy">65%</div>
+          <div class="stat-label" data-i18n="earn_stat_max_apy">Max APY</div>
         </div>
       </section>
 
@@ -1212,14 +1216,15 @@
         </div>
       </section>
 
-      <!-- 9. Testimonials -->
-      <section class="testimonials-section rv">
-        <div class="section-tag"><i class="fas fa-star"></i> <span data-i18n="earn_testimonials_tag">Testimonials</span></div>
-        <h2 class="section-title" data-i18n="earn_testimonials_title">What Our Stakers Say</h2>
-        <p class="section-sub" data-i18n="earn_testimonials_sub">Real feedback from the SLH staking community.</p>
-        <div class="testimonials-grid" id="testimonials-grid">
-          <!-- Populated by JS -->
-        </div>
+      <!-- 9. Community CTA (replaces former testimonials) -->
+      <section class="testimonials-section rv" style="text-align:center;">
+        <div class="section-tag"><i class="fas fa-users"></i> <span data-i18n="earn_community_tag">Community</span></div>
+        <h2 class="section-title" data-i18n="earn_community_title">Join the SLH Community</h2>
+        <p class="section-sub" data-i18n="earn_community_sub">Connect with other stakers, share strategies, and stay updated.</p>
+        <a href="/community.html" class="earn-cta-btn" style="margin-top:8px;">
+          <i class="fas fa-comments"></i>
+          <span data-i18n="earn_community_btn">See What the Community Says</span>
+        </a>
       </section>
 
       <!-- 10. Security Trust Badges -->
@@ -1279,8 +1284,7 @@
       annualRate: 48,
       minDeposit: 1,
       lockDays: 30,
-      popular: false,
-      fillPercent: 72
+      popular: false
     },
     {
       id: 'quarterly',
@@ -1291,8 +1295,7 @@
       annualRate: 55,
       minDeposit: 5,
       lockDays: 90,
-      popular: false,
-      fillPercent: 58
+      popular: false
     },
     {
       id: 'semi',
@@ -1303,8 +1306,7 @@
       annualRate: 60,
       minDeposit: 10,
       lockDays: 180,
-      popular: true,
-      fillPercent: 85
+      popular: true
     },
     {
       id: 'annual',
@@ -1315,8 +1317,7 @@
       annualRate: 65,
       minDeposit: 25,
       lockDays: 365,
-      popular: false,
-      fillPercent: 41
+      popular: false
     }
   ];
 
@@ -1342,7 +1343,7 @@
       titleKey: 'earn_deal3_title',
       titleFallback: 'Referral Reward',
       descKey: 'earn_deal3_desc',
-      descFallback: 'Earn 50 bonus SLH for every friend who stakes. Unlimited referrals.',
+      descFallback: 'Earn 50 bonus ZVK for every friend who stakes. Unlimited referrals.',
       badge: 'EARN'
     }
   ];
@@ -1374,35 +1375,13 @@
     }
   ];
 
-  const TESTIMONIALS = [
-    {
-      textKey: 'earn_testimonial1',
-      textFallback: 'Invested 10 TON and earned 6.5 TON in a year. The returns are consistent and the dashboard makes tracking easy.',
-      name: 'David K.',
-      handle: '@crypto_investor',
-      avatar: 'DK'
-    },
-    {
-      textKey: 'earn_testimonial2',
-      textFallback: 'The staking plans are simple and transparent. No hidden fees, no surprises. Exactly what I was looking for.',
-      name: 'Sarah M.',
-      handle: '@sarah_tech',
-      avatar: 'SM'
-    },
-    {
-      textKey: 'earn_testimonial3',
-      textFallback: 'Best yield I\'ve found in the Israeli crypto space. The MNH token concept gives me confidence in the stability.',
-      name: 'Avi R.',
-      handle: '@avi_coins',
-      avatar: 'AR'
-    }
-  ];
+  /* Testimonials removed — replaced by community CTA */
 
   const SECURITY_BADGES = [
     {
       icon: 'fa-file-shield',
-      titleKey: 'earn_sec1_title', titleFallback: 'Smart Contract Audited',
-      descKey: 'earn_sec1_desc', descFallback: 'All contracts are audited by third-party security firms.'
+      titleKey: 'earn_sec1_title', titleFallback: 'Full Transparency',
+      descKey: 'earn_sec1_desc', descFallback: 'Every action logged in a SHA-256 audit trail for full accountability.'
     },
     {
       icon: 'fa-key',
@@ -1429,7 +1408,6 @@
     if (!grid) return;
 
     grid.innerHTML = plans.map(p => {
-      const fill = p.fillPercent || Math.floor(Math.random() * 40 + 40);
       return `
       <div class="plan-card ${p.popular ? 'popular' : ''}">
         ${p.popular ? `<span class="popular-badge" data-i18n="earn_popular">${t('earn_popular') || 'Popular'}</span>` : ''}
@@ -1455,27 +1433,10 @@
             <span class="value">${p.lockDays} ${t('earn_days') || 'days'}</span>
           </div>
         </div>
-        <div class="plan-fill-wrap">
-          <div class="plan-fill-label">
-            <span data-i18n="earn_capacity">${t('earn_capacity') || 'Capacity'}</span>
-            <span>${fill}%</span>
-          </div>
-          <div class="plan-fill-bar">
-            <div class="fill" style="width:0%" data-target="${fill}"></div>
-          </div>
-        </div>
-        <button class="plan-btn" onclick="handleStake('${p.id}')" data-i18n="earn_stake_now">${t('earn_stake_now')}</button>
+        <a href="/dashboard.html#staking" class="plan-btn" data-i18n="earn_stake_now">${t('earn_stake_now') || 'Stake Now'}</a>
       </div>`;
     }).join('');
 
-    // Animate fill bars
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        document.querySelectorAll('.plan-fill-bar .fill').forEach(bar => {
-          bar.style.width = bar.dataset.target + '%';
-        });
-      }, 300);
-    });
   }
 
   /* ── Render: Plans Comparison Table ── */
@@ -1641,28 +1602,7 @@
     `).join('');
   }
 
-  /* ── Render: Testimonials ── */
-  function renderTestimonials() {
-    const grid = document.getElementById('testimonials-grid');
-    if (!grid) return;
-
-    grid.innerHTML = TESTIMONIALS.map(tm => `
-      <div class="testimonial-card">
-        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-        <div class="testimonial-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testimonial-text" data-i18n="${tm.textKey}">${t(tm.textKey) || tm.textFallback}</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">${tm.avatar}</div>
-          <div>
-            <div class="testimonial-name">${tm.name}</div>
-            <div class="testimonial-handle">${tm.handle}</div>
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
+  /* Testimonials render removed — section replaced by community CTA */
 
   /* ── Render: Security Badges ── */
   function renderSecurity() {
@@ -1709,14 +1649,7 @@
 
   /* ── Handle Stake Action ── */
   function handleStake(planId) {
-    if (!isLoggedIn()) {
-      showToast(t('earn_login_required') || 'Please log in to stake', true);
-      setTimeout(() => { window.location.href = '/dashboard.html'; }, 1500);
-      return;
-    }
-    // Open Telegram bot with staking command
-    const user = getCurrentUser();
-    window.open(`https://t.me/SLH_AIR_bot?start=stake_${planId}_${user.id}`, '_blank');
+    window.location.href = '/dashboard.html#staking';
   }
 
   /* ── Fetch Plans from API ── */
@@ -1732,8 +1665,7 @@
         annualRate: p.annualRate || p.apy,
         minDeposit: p.minDeposit || p.min,
         lockDays: p.lockDays || p.lock,
-        popular: p.popular || false,
-        fillPercent: p.fillPercent || Math.floor(Math.random() * 40 + 40)
+        popular: p.popular || false
       }));
     }
     renderPlans(activePlans);
@@ -1752,16 +1684,43 @@
     renderPositions(data && Array.isArray(data) ? data : []);
   }
 
-  /* ── Fetch Stats ── */
+  /* ── Fetch Stats from /api/stats ── */
   async function loadStats() {
-    const data = await apiGet('/api/staking/stats');
-    if (data) {
-      if (data.tvl != null) document.getElementById('stat-tvl').textContent = '₪' + formatNumber(data.tvl);
-      if (data.stakers != null) document.getElementById('stat-stakers').textContent = formatNumber(data.stakers);
-      if (data.totalPaid != null) document.getElementById('stat-paid').textContent = '₪' + formatNumber(data.totalPaid);
-      if (data.maxApy != null) document.getElementById('stat-max-apy').textContent = data.maxApy + '%';
+    try {
+      const data = await apiGet('/api/stats');
+      if (data) {
+        // TVL: total_staked_ton converted to ILS (approx TON price)
+        if (data.total_staked_ton != null) {
+          // Fetch TON price for ILS conversion; fallback to showing TON amount
+          let tonPrice = null;
+          try {
+            const priceResp = await fetch('https://slh-api-production.up.railway.app/api/ton-price');
+            const priceData = await priceResp.json();
+            tonPrice = priceData && priceData.ils ? priceData.ils : null;
+          } catch(e) { /* price unavailable */ }
+          if (tonPrice) {
+            const tvlIls = Math.round(data.total_staked_ton * tonPrice);
+            document.getElementById('stat-tvl').textContent = '\u20AA' + formatNumber(tvlIls);
+          } else {
+            document.getElementById('stat-tvl').textContent = formatNumber(data.total_staked_ton) + ' TON';
+          }
+        }
+        // Active stakers: use premium_users as proxy for active stakers
+        if (data.premium_users != null) {
+          document.getElementById('stat-stakers').textContent = formatNumber(data.premium_users);
+        } else if (data.total_users != null) {
+          document.getElementById('stat-stakers').textContent = formatNumber(data.total_users);
+        }
+        // Total paid: use total_deposits_ton if available
+        if (data.total_deposits_ton != null) {
+          document.getElementById('stat-paid').textContent = formatNumber(data.total_deposits_ton) + ' TON';
+        }
+        // Max APY stays at 65% (hardcoded correctly)
+      }
+    } catch(e) {
+      console.warn('Failed to load stats:', e);
+      // Placeholders ("--") remain from HTML
     }
-    // If API returns nothing, defaults already set in HTML
   }
 
   /* ── Init ── */
@@ -1771,7 +1730,6 @@
     // Render static sections
     renderDeals();
     renderFAQ();
-    renderTestimonials();
     renderSecurity();
 
     // Load dynamic data

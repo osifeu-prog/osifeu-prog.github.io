@@ -231,7 +231,7 @@
                 <div style="font-weight:800;color:var(--accent);font-size:14px;margin-bottom:3px" id="dex-status-title">בודק רישום ב-DEX...</div>
                 <div style="font-size:12px;color:var(--text2)" id="dex-status-desc">סריקה דרך Dexscreener API — תשובה תוך שניות</div>
             </div>
-            <a id="dex-status-cta" href="https://pancakeswap.finance/add/BNB/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" rel="noopener" style="padding:10px 18px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#000;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none;display:none">➕ הוסף נזילות</a>
+            <a id="dex-status-cta" href="https://pancakeswap.finance/add/BNB/0xACb0A09414CEA1C879c67bB7A877E4e19480f022?chain=bsc" target="_blank" rel="noopener" style="padding:10px 18px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#000;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none;display:none">➕ הוסף נזילות</a>
         </div>
     </div>
 
@@ -262,7 +262,7 @@
             <code id="slh-contract" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='var(--gold)';setTimeout(()=>this.style.color='var(--green)',1500)">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code>
             <div class="contract-links">
                 <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" class="cta-btn" data-i18n="bsc_view_scan">View on BSCScan</a>
-                <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" class="cta-btn cta-btn-green" data-i18n="bsc_buy">Trade on PancakeSwap</a>
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" class="cta-btn cta-btn-green" data-i18n="bsc_buy">Trade on PancakeSwap</a>
                 <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022#balances" target="_blank" class="cta-btn" style="background:var(--surface);border:1px solid var(--border)" data-i18n="bsc_holders_list">Holders List</a>
             </div>
         </div>
@@ -501,7 +501,7 @@ async function checkDEXListing() {
             if (mcapLabelEl) mcapLabelEl.textContent = 'Market Cap';
             if (ctaEl) {
                 ctaEl.textContent = '📊 View on ' + pair.dexId;
-                ctaEl.href = pair.url || 'https://pancakeswap.finance/swap?outputCurrency=' + SLH_CONTRACT;
+                ctaEl.href = pair.url || 'https://pancakeswap.finance/swap?outputCurrency=' + SLH_CONTRACT + '&chain=bsc';
                 ctaEl.style.display = 'inline-block';
             }
             // Use real DEX price for market cap calculation
@@ -521,7 +521,7 @@ async function checkDEXListing() {
             if (mcapLabelEl) mcapLabelEl.textContent = 'Notional Value (internal)';
             if (ctaEl) {
                 ctaEl.textContent = '➕ צור Pool ב-PancakeSwap';
-                ctaEl.href = 'https://pancakeswap.finance/add/BNB/' + SLH_CONTRACT;
+                ctaEl.href = 'https://pancakeswap.finance/add/BNB/' + SLH_CONTRACT + '?chain=bsc';
                 ctaEl.style.display = 'inline-block';
             }
         }

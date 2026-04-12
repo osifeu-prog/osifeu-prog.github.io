@@ -40,13 +40,125 @@
     return null;
   }
 
+  // ---- No-wallet helper modal ----
+  function _showNoWalletModal() {
+    // Remove previous modal if exists
+    var prev = document.getElementById('slh-nowallet-overlay');
+    if (prev) prev.remove();
+
+    var pageUrl = location.href;
+    var isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+    var overlay = document.createElement('div');
+    overlay.id = 'slh-nowallet-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl;font-family:var(--font,Inter,sans-serif)';
+
+    var box = document.createElement('div');
+    box.style.cssText = 'background:var(--surface,#14142b);border:1px solid var(--border,#1e1e3a);border-radius:var(--radius,12px);max-width:440px;width:100%;padding:28px 24px;position:relative;color:var(--text,#e0e0e0);box-shadow:0 8px 40px rgba(0,0,0,.5)';
+
+    // Close button
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u2715';
+    closeBtn.style.cssText = 'position:absolute;top:12px;left:12px;background:none;border:none;color:var(--text2,#888);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1';
+    closeBtn.onclick = function () { overlay.remove(); };
+
+    // Title
+    var title = document.createElement('h3');
+    title.style.cssText = 'margin:0 0 18px;font-size:18px;font-weight:700;color:var(--accent,#6c5ce7)';
+    title.textContent = '\u05DC\u05D0 \u05D6\u05D5\u05D4\u05D4 \u05D0\u05E8\u05E0\u05E7 Web3?';
+
+    // --- Option 1: Mobile ---
+    var opt1 = document.createElement('div');
+    opt1.style.cssText = 'background:var(--bg3,#111127);border:1px solid var(--border,#1e1e3a);border-radius:8px;padding:14px 16px;margin-bottom:12px';
+    var opt1Title = document.createElement('div');
+    opt1Title.style.cssText = 'font-weight:700;font-size:14px;margin-bottom:6px;color:var(--accent2,#a29bfe)';
+    opt1Title.innerHTML = '\uD83D\uDCF1 \u05DE\u05D4\u05D8\u05DC\u05E4\u05D5\u05DF?';
+    var opt1Desc = document.createElement('div');
+    opt1Desc.style.cssText = 'font-size:13px;line-height:1.5;color:var(--text2,#888);margin-bottom:10px';
+    opt1Desc.textContent = '\u05E4\u05EA\u05D7 \u05D0\u05EA \u05D4\u05DC\u05D9\u05E0\u05E7 \u05D4\u05D6\u05D4 \u05DE\u05EA\u05D5\u05DA \u05D0\u05E4\u05DC\u05D9\u05E7\u05E6\u05D9\u05D9\u05EA MetaMask \u05D0\u05D5 Trust Wallet (\u05DC\u05D0 \u05DE\u05DB\u05E8\u05D5\u05DD \u05E8\u05D2\u05D9\u05DC)';
+    var copyRow = document.createElement('div');
+    copyRow.style.cssText = 'display:flex;gap:8px;align-items:center';
+    var urlBox = document.createElement('input');
+    urlBox.type = 'text';
+    urlBox.readOnly = true;
+    urlBox.value = pageUrl;
+    urlBox.style.cssText = 'flex:1;background:var(--bg,#050510);border:1px solid var(--border2,#2a2a50);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--text,#e0e0e0);direction:ltr;text-align:left;outline:none';
+    var copyBtn = document.createElement('button');
+    copyBtn.innerHTML = '\uD83D\uDCCB \u05D4\u05E2\u05EA\u05E7';
+    copyBtn.style.cssText = 'background:var(--accent,#6c5ce7);color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap';
+    copyBtn.onclick = function () {
+      navigator.clipboard.writeText(pageUrl).then(function () {
+        copyBtn.innerHTML = '\u2713 \u05D4\u05D5\u05E2\u05EA\u05E7!';
+        setTimeout(function () { copyBtn.innerHTML = '\uD83D\uDCCB \u05D4\u05E2\u05EA\u05E7'; }, 2000);
+      }).catch(function () {
+        urlBox.select();
+        document.execCommand('copy');
+        copyBtn.innerHTML = '\u2713 \u05D4\u05D5\u05E2\u05EA\u05E7!';
+        setTimeout(function () { copyBtn.innerHTML = '\uD83D\uDCCB \u05D4\u05E2\u05EA\u05E7'; }, 2000);
+      });
+    };
+    copyRow.appendChild(urlBox);
+    copyRow.appendChild(copyBtn);
+    opt1.appendChild(opt1Title);
+    opt1.appendChild(opt1Desc);
+    opt1.appendChild(copyRow);
+
+    // --- Option 2: Desktop ---
+    var opt2 = document.createElement('div');
+    opt2.style.cssText = 'background:var(--bg3,#111127);border:1px solid var(--border,#1e1e3a);border-radius:8px;padding:14px 16px;margin-bottom:12px';
+    var opt2Title = document.createElement('div');
+    opt2Title.style.cssText = 'font-weight:700;font-size:14px;margin-bottom:6px;color:var(--accent2,#a29bfe)';
+    opt2Title.innerHTML = '\uD83D\uDDA5\uFE0F \u05DE\u05D4\u05DE\u05D7\u05E9\u05D1?';
+    var opt2Desc = document.createElement('div');
+    opt2Desc.style.cssText = 'font-size:13px;line-height:1.5;color:var(--text2,#888);margin-bottom:10px';
+    opt2Desc.textContent = '\u05D4\u05EA\u05E7\u05DF \u05D0\u05EA \u05EA\u05D5\u05E1\u05E3 MetaMask \u05DC\u05D3\u05E4\u05D3\u05E4\u05DF \u05D5\u05EA\u05E8\u05E2\u05E0\u05DF \u05D0\u05EA \u05D4\u05E2\u05DE\u05D5\u05D3';
+    var installLink = document.createElement('a');
+    installLink.href = 'https://metamask.io/download/';
+    installLink.target = '_blank';
+    installLink.rel = 'noopener';
+    installLink.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:rgba(246,133,27,.15);border:1px solid rgba(246,133,27,.35);border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;color:#f6851b;text-decoration:none';
+    installLink.innerHTML = '\uD83E\uDD8A \u05D4\u05EA\u05E7\u05DF MetaMask';
+    opt2.appendChild(opt2Title);
+    opt2.appendChild(opt2Desc);
+    opt2.appendChild(installLink);
+
+    // --- Option 3: No wallet ---
+    var opt3 = document.createElement('div');
+    opt3.style.cssText = 'background:var(--bg3,#111127);border:1px solid var(--border,#1e1e3a);border-radius:8px;padding:14px 16px';
+    var opt3Title = document.createElement('div');
+    opt3Title.style.cssText = 'font-weight:700;font-size:14px;margin-bottom:6px;color:var(--accent2,#a29bfe)';
+    opt3Title.innerHTML = '\u274C \u05DC\u05D0 \u05E8\u05D5\u05E6\u05D4 \u05D0\u05E8\u05E0\u05E7?';
+    var opt3Desc = document.createElement('div');
+    opt3Desc.style.cssText = 'font-size:13px;line-height:1.5;color:var(--text2,#888);margin-bottom:10px';
+    opt3Desc.textContent = '\u05D0\u05E4\u05E9\u05E8 \u05DC\u05D4\u05EA\u05D7\u05D1\u05E8 \u05D2\u05DD \u05E2\u05DD Telegram ID \u05D1\u05DC\u05D1\u05D3';
+    var dashLink = document.createElement('a');
+    dashLink.href = '/dashboard.html';
+    dashLink.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.3);border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--cyan,#00e5ff);text-decoration:none';
+    dashLink.innerHTML = '\uD83D\uDC49 \u05DC\u05D3\u05E9\u05D1\u05D5\u05E8\u05D3 \u05E2\u05DD Telegram';
+    opt3.appendChild(opt3Title);
+    opt3.appendChild(opt3Desc);
+    opt3.appendChild(dashLink);
+
+    box.appendChild(closeBtn);
+    box.appendChild(title);
+    box.appendChild(opt1);
+    box.appendChild(opt2);
+    box.appendChild(opt3);
+    overlay.appendChild(box);
+
+    // Close on overlay background click
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
+    // Close on Escape
+    var escHandler = function (e) { if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', escHandler); } };
+    document.addEventListener('keydown', escHandler);
+
+    document.body.appendChild(overlay);
+  }
+
   // ---- Connect / disconnect ----
   async function connectWallet() {
     if (!window.ethereum) {
-      const msg = (typeof t === 'function' ? t('web3_no_wallet') : null)
-        || 'No Web3 wallet detected. Install MetaMask (desktop) or open this page in Trust Wallet browser (mobile).';
-      if (typeof showToast === 'function') showToast(msg, true);
-      else alert(msg);
+      _showNoWalletModal();
       return null;
     }
     if (!hasEthers()) {
@@ -246,6 +358,32 @@
     }
   }
 
+  // ---- Mobile banner (injected once per page) ----
+  function _showMobileBanner() {
+    if (!(/Mobi|Android|iPhone/i.test(navigator.userAgent))) return;
+    if (window.ethereum) return; // already inside a dapp browser, no need
+    if (document.getElementById('slh-mobile-wallet-banner')) return;
+
+    var banner = document.createElement('div');
+    banner.id = 'slh-mobile-wallet-banner';
+    banner.style.cssText = 'position:fixed;bottom:70px;left:12px;right:12px;z-index:9990;background:linear-gradient(135deg,var(--surface,#14142b),var(--bg3,#111127));border:1px solid var(--accent,#6c5ce7);border-radius:var(--radius,12px);padding:14px 16px;direction:rtl;font-family:var(--font,Inter,sans-serif);box-shadow:0 4px 24px rgba(0,0,0,.5);display:flex;align-items:center;gap:12px';
+
+    var text = document.createElement('div');
+    text.style.cssText = 'flex:1;font-size:13px;line-height:1.5;color:var(--text,#e0e0e0)';
+    text.innerHTML = '\uD83D\uDCF1 <strong>\u05DE\u05D4\u05D8\u05DC\u05E4\u05D5\u05DF?</strong> \u05E4\u05EA\u05D7 \u05D0\u05EA \u05D4\u05DC\u05D9\u05E0\u05E7 \u05D4\u05D6\u05D4 \u05DE\u05EA\u05D5\u05DA Trust Wallet \u05D0\u05D5 MetaMask';
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u2715';
+    closeBtn.style.cssText = 'background:none;border:none;color:var(--text2,#888);font-size:18px;cursor:pointer;padding:2px 6px;flex-shrink:0';
+    closeBtn.onclick = function () { banner.remove(); sessionStorage.setItem('slh_mobile_banner_closed', '1'); };
+
+    if (sessionStorage.getItem('slh_mobile_banner_closed') === '1') return;
+
+    banner.appendChild(text);
+    banner.appendChild(closeBtn);
+    document.body.appendChild(banner);
+  }
+
   // ---- Expose globals ----
   window.SLHWeb3 = {
     connect: connectWallet,
@@ -258,14 +396,17 @@
     getETH: getETHBalance,
     getTON: getTONBalance,
     init: initWeb3UI,
+    showNoWalletHelp: _showNoWalletModal,
+    showMobileBanner: _showMobileBanner,
     SLH_CONTRACT_BSC,
     USDT_CONTRACT_BSC
   };
 
   // Auto-init on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initWeb3UI);
+    document.addEventListener('DOMContentLoaded', function () { initWeb3UI(); _showMobileBanner(); });
   } else {
     initWeb3UI();
+    _showMobileBanner();
   }
 })();
