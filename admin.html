@@ -320,7 +320,7 @@
                 <div class="kpi cyan"><div class="kpi-label">CEX Keys Linked</div><div class="kpi-value" id="inst-cex-keys">--</div></div>
                 <div class="kpi purple"><div class="kpi-label">Total Portfolio (ILS)</div><div class="kpi-value" id="inst-portfolio-ils">--</div></div>
                 <div class="kpi green"><div class="kpi-label">Genesis 49 Remaining</div><div class="kpi-value" id="inst-genesis">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">Encryption</div><div class="kpi-value" style="font-size:13px;color:var(--gold)">XOR+KEY</div><div class="kpi-delta" style="font-size:9px;color:var(--red)">⚠ Upgrade to AES-GCM</div></div>
+                <div class="kpi gold"><div class="kpi-label">Encryption</div><div class="kpi-value" style="font-size:13px;color:var(--accent)">AES-GCM ✓</div><div class="kpi-delta" style="font-size:9px;color:var(--accent)">v2 production-grade</div></div>
                 <div class="kpi cyan"><div class="kpi-label">KYC Provider</div><div class="kpi-value" style="font-size:13px">SUMSUB</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending keys</div></div>
                 <div class="kpi purple"><div class="kpi-label">Custody</div><div class="kpi-value" style="font-size:13px">FIREBLOCKS</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending contract</div></div>
             </div>
@@ -332,7 +332,7 @@
                     <tbody>
                         <tr><td><code>AUDIT_HASH_CHAIN</code></td><td><span class="badge live">LIVE</span></td><td>SHA-256 immutable hash chain (append-only)</td><td>—</td></tr>
                         <tr><td><code>CEX_READ_ONLY</code></td><td><span class="badge live">LIVE</span></td><td>Bybit V5 + Binance V3 READ-ONLY HMAC signed</td><td>—</td></tr>
-                        <tr><td><code>KEY_ENCRYPTION</code></td><td><span class="badge pending">DEV</span></td><td>XOR+key (dev). Upgrade to AES-GCM + KMS for prod.</td><td>Phase-6</td></tr>
+                        <tr><td><code>KEY_ENCRYPTION</code></td><td><span class="badge live">LIVE</span></td><td>AES-GCM v2 with ENCRYPTION_KEY env var (SHA-256 derived 256-bit key)</td><td>✅ Done</td></tr>
                         <tr><td><code>KYC_SUMSUB</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Sumsub webhook + verification endpoints scaffolded</td><td>Awaits keys</td></tr>
                         <tr><td><code>CUSTODY_FIREBLOCKS</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Fireblocks vault integration scaffolded</td><td>Awaits contract</td></tr>
                         <tr><td><code>TRAVEL_RULE</code></td><td><span class="badge pending">PLANNED</span></td><td>FATF Travel Rule compliance flags</td><td>Phase-7</td></tr>
