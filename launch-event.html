@@ -592,30 +592,52 @@
 <!-- Report Contribution -->
 <section class="section" id="report">
     <h2>📝 <span>דווח על תרומה</span></h2>
+
+    <!-- Auto-fill banner for logged-in users -->
+    <div id="contrib-autofill" style="display:none;max-width:600px;margin:0 auto 16px;padding:14px 20px;background:rgba(0,255,65,.06);border:1px solid rgba(0,255,65,.2);border-radius:12px;text-align:center">
+        <span style="font-size:13px;color:var(--accent)">✅ מחובר בתור <strong id="contrib-auto-name"></strong> — השדות מולאו אוטומטית</span>
+    </div>
+
     <div style="max-width:600px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px">
         <div style="display:flex;flex-direction:column;gap:14px">
             <div>
                 <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">שם שלך / חברה</label>
-                <input id="contrib-name" type="text" placeholder="Tzvika" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
+                <input id="contrib-name" type="text" placeholder="למשל: דוד כהן" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
             </div>
             <div>
-                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Telegram handle (אופציונלי)</label>
-                <input id="contrib-handle" type="text" placeholder="@tzvika_slh" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
+                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">הנדל שלך בטלגרם <span style="font-size:10px;opacity:.6">(ממולא אוטומטית אם מחובר)</span></label>
+                <input id="contrib-handle" type="text" placeholder="@username" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
             </div>
             <div>
                 <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">כמות BNB שנשלחה</label>
-                <input id="contrib-amount" type="number" step="0.001" min="0.01" placeholder="0.1" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
+                <div style="display:flex;gap:8px">
+                    <input id="contrib-amount" type="number" step="0.001" min="0.01" placeholder="0.01" style="flex:1;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px">
+                    <div style="display:flex;gap:4px">
+                        <button onclick="document.getElementById('contrib-amount').value='0.01'" style="padding:8px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:8px;font-size:11px;cursor:pointer">0.01</button>
+                        <button onclick="document.getElementById('contrib-amount').value='0.05'" style="padding:8px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:8px;font-size:11px;cursor:pointer">0.05</button>
+                        <button onclick="document.getElementById('contrib-amount').value='0.1'" style="padding:8px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:8px;font-size:11px;cursor:pointer">0.1</button>
+                    </div>
+                </div>
+                <div id="bnb-usd-preview" style="font-size:11px;color:var(--text2);margin-top:4px;text-align:left;direction:ltr"></div>
             </div>
             <div>
-                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">TX Hash (אופציונלי — עוזר לאימות)</label>
+                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">TX Hash <span style="font-size:10px;opacity:.6">(אופציונלי — מזרז את האימות)</span></label>
                 <input id="contrib-tx" type="text" placeholder="0x..." dir="ltr" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:12px;font-family:monospace">
             </div>
             <div>
-                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">כתובת הארנק שלך (אופציונלי)</label>
+                <label style="display:block;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">כתובת הארנק שלך <span style="font-size:10px;opacity:.6">(אופציונלי)</span></label>
                 <input id="contrib-wallet" type="text" placeholder="0x..." dir="ltr" style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:12px;font-family:monospace">
             </div>
             <button onclick="submitContribution()" style="padding:16px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#000;border:none;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px">✅ רשום אותי כ-Genesis Contributor</button>
             <div id="contrib-result" style="display:none;padding:14px;border-radius:8px;font-size:13px"></div>
+
+            <!-- Quick explanation for new users -->
+            <div style="padding:14px;background:var(--bg3);border-radius:10px;font-size:12px;color:var(--text2);line-height:1.8">
+                <strong style="color:var(--accent)">💡 איך זה עובד?</strong><br>
+                1. שלח BNB לכתובת למעלה (מינימום 0.01)<br>
+                2. מלא את הטופס הזה ולחץ "רשום אותי"<br>
+                3. המנהל מאשר → מקבל <strong>500 ZVK + כרטיס חבר NFT + קרדיט Genesis</strong>
+            </div>
         </div>
     </div>
 </section>
@@ -809,6 +831,50 @@ function copyShareText() {
         alert('✅ הטקסט הועתק');
     });
 }
+
+// Auto-fill form from localStorage (logged-in user)
+function autoFillContribForm() {
+    try {
+        const raw = localStorage.getItem('slh_user');
+        if (!raw) return;
+        const user = JSON.parse(raw);
+        const name = user.first_name || user.username || '';
+        const handle = user.username ? ('@' + user.username) : '';
+
+        if (name) {
+            document.getElementById('contrib-name').value = name;
+            document.getElementById('contrib-handle').value = handle;
+            const banner = document.getElementById('contrib-autofill');
+            const nameEl = document.getElementById('contrib-auto-name');
+            if (banner && nameEl) {
+                nameEl.textContent = name;
+                banner.style.display = 'block';
+            }
+        }
+    } catch(e) {}
+}
+autoFillContribForm();
+
+// Live BNB→USD preview
+let bnbPrice = 608;
+async function fetchBnbPrice() {
+    try {
+        const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd');
+        const d = await r.json();
+        if (d.binancecoin && d.binancecoin.usd) bnbPrice = d.binancecoin.usd;
+    } catch(e) {}
+}
+fetchBnbPrice();
+
+document.getElementById('contrib-amount').addEventListener('input', function() {
+    const val = parseFloat(this.value) || 0;
+    const preview = document.getElementById('bnb-usd-preview');
+    if (val > 0) {
+        preview.textContent = `≈ $${(val * bnbPrice).toFixed(2)} USD (1 BNB = $${bnbPrice.toFixed(0)})`;
+    } else {
+        preview.textContent = '';
+    }
+});
 
 // Init + auto-refresh
 loadLaunchStatus();
