@@ -2592,8 +2592,33 @@
     });
 
     /* ── Init ── */
-    document.addEventListener('DOMContentLoaded', () => {
+    // Enrich user data from API (fix "User" display name issue)
+    async function enrichUserFromAPI() {
+        const user = getUser();
+        if (!user || !user.id) return;
+        try {
+            const r = await fetch(API + '/api/user/' + user.id);
+            if (!r.ok) return;
+            const d = await r.json();
+            if (d.user) {
+                // Update localStorage with real data from DB
+                if (d.user.username && d.user.username !== '') user.username = d.user.username;
+                if (d.user.first_name && d.user.first_name !== 'User') user.first_name = d.user.first_name;
+                if (d.user.display_name) user.display_name = d.user.display_name;
+                if (d.user.photo_url) user.photo_url = d.user.photo_url;
+                if (d.user.is_registered) user.is_registered = true;
+                // Fix: ensure username is not empty for posting
+                if (!user.username || user.username === '') {
+                    user.username = user.first_name || user.display_name || 'User_' + user.id;
+                }
+                localStorage.setItem('slh_user', JSON.stringify(user));
+            }
+        } catch(e) { console.warn('[community] enrich error:', e); }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
         initShared({ activePage: 'community', showBottomNav: true });
+        await enrichUserFromAPI(); // Fix user identity before rendering
         renderAuthSection();
         loadPostsFromAPI();
         if (typeof renderDateWidget === 'function') renderDateWidget('community-date-widget');
