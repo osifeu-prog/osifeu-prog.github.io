@@ -1171,6 +1171,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- AI Trading Signals -->
+                <div id="ai-signals" style="margin-top:16px;padding:16px;background:var(--bg3,#111);border:1px solid var(--border);border-radius:12px">
+                    <h3 style="font-size:14px;color:var(--accent);margin-bottom:12px"><i class="fas fa-robot"></i> המלצות AI מבוססות נתונים</h3>
+                    <div id="ai-signal-list" style="font-size:12px;line-height:2;color:var(--text2)">טוען ניתוח...</div>
+                </div>
+
+                <!-- Neural Network Insight -->
+                <div style="margin-top:12px;padding:14px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:10px">
+                    <div style="font-size:11px;color:var(--text2)">
+                        <strong style="color:var(--purple,#a855f7)">🧠 Neural Network Insight:</strong>
+                        <span id="nn-insight">מנתח מגמות שוק...</span>
+                    </div>
+                </div>
+
+                <div style="margin-top:8px;font-size:10px;color:var(--text2);opacity:.6;text-align:center">
+                    ⚠️ אין זו המלצת השקעה. ביצועי עבר אינם ערובה לעתיד. התייעצו עם יועץ מוסמך.
+                </div>
             </div>
 
             <!-- Section 5: Recent Activity -->
@@ -1793,7 +1811,72 @@
         document.getElementById('bar-bull').style.width = bullPct + '%';
         document.getElementById('bar-neutral').style.width = neutralPct + '%';
         document.getElementById('bar-bear').style.width = bearPct + '%';
+
+        // Generate AI Trading Signals
+        generateAISignals(data, avgChange, upCount, downCount);
     }
+
+    function generateAISignals(data, avgChange, upCount, downCount) {
+        const signals = [];
+        const insights = [];
+
+        COINS.forEach(coin => {
+            const d = data[coin.id];
+            if (!d) return;
+            const change24h = d.usd_24h_change || 0;
+            const price = d.usd || 0;
+
+            // Signal logic based on 24h change + Fear & Greed
+            if (change24h < -5) {
+                signals.push(`<div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+                    <span style="color:#00e887;font-weight:700;width:60px">🟢 BUY</span>
+                    <span style="font-weight:700">${coin.name}</span>
+                    <span style="color:#ef4444">${change24h.toFixed(1)}%</span>
+                    <span style="color:var(--text2);font-size:11px">— ירידה חדה = הזדמנות קנייה (contrarian)</span>
+                </div>`);
+            } else if (change24h > 3) {
+                signals.push(`<div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+                    <span style="color:#ffd700;font-weight:700;width:60px">🟡 HOLD</span>
+                    <span style="font-weight:700">${coin.name}</span>
+                    <span style="color:#00e887">+${change24h.toFixed(1)}%</span>
+                    <span style="color:var(--text2);font-size:11px">— עלייה חזקה, המתן לירידה לפני קנייה</span>
+                </div>`);
+            } else if (change24h < -2) {
+                signals.push(`<div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+                    <span style="color:#00b4d8;font-weight:700;width:60px">🔵 WATCH</span>
+                    <span style="font-weight:700">${coin.name}</span>
+                    <span style="color:#ef4444">${change24h.toFixed(1)}%</span>
+                    <span style="color:var(--text2);font-size:11px">— במגמת ירידה, עקוב</span>
+                </div>`);
+            }
+        });
+
+        // SLH special signal
+        signals.unshift(`<div style="display:flex;gap:8px;align-items:center;padding:8px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:8px;margin-bottom:8px">
+            <span style="color:#ffd700;font-weight:700;width:60px">💎 SLH</span>
+            <span style="font-weight:700">SLH Spark</span>
+            <span style="color:var(--text2);font-size:11px">— נזילות חדשה בפול! הוסף LP → קבל 0.25% מכל swap · <a href="/liquidity.html" style="color:var(--accent)">מדריך →</a></span>
+        </div>`);
+
+        const el = document.getElementById('ai-signal-list');
+        if (signals.length) {
+            el.innerHTML = signals.join('');
+        } else {
+            el.innerHTML = '<div style="color:var(--text2)">שוק יציב — אין סיגנלים חזקים כרגע</div>';
+        }
+
+        // Neural Network Insight
+        const fng = parseInt(document.getElementById('fng-value')?.textContent || '50');
+        let nnText = '';
+        if (fng < 20) {
+            nnText = `Fear & Greed Index: ${fng} (Extreme Fear) — היסטורית, זו הזדמנות קנייה. ${upCount} מטבעות עולים, ${downCount} יורדים. ממוצע: ${avgChange.toFixed(2)}%. DCA (קנייה ממוצעת) מומלצת בתקופות כאלה.`;
+        } else if (fng > 80) {
+            nnText = `Fear & Greed Index: ${fng} (Extreme Greed) — היסטורית, זמן טוב למכירה חלקית. שימו stop-loss על פוזיציות.`;
+        } else {
+            nnText = `Fear & Greed Index: ${fng} — שוק ניטרלי. ${upCount} מטבעות עולים, ${downCount} יורדים. ממוצע 24h: ${avgChange.toFixed(2)}%. המשיכו לעקוב אחר מגמות.`;
+        }
+        const nnEl = document.getElementById('nn-insight');
+        if (nnEl) nnEl.textContent = nnText;
 
     /* ── Recent Activity ── */
 
