@@ -39,6 +39,7 @@ const NAV_ITEMS = [
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
   { key: 'network', href: '/network.html', icon: 'fa-project-diagram' },
   { key: 'roadmap', href: '/roadmap.html', icon: 'fa-road' },
+  { key: 'liquidity', href: '/liquidity.html', icon: 'fa-tint' },
   { key: 'challenge', href: '/challenge.html', icon: 'fa-fire' },
   { key: 'healing', href: '/healing-vision.html', icon: 'fa-heart' },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
