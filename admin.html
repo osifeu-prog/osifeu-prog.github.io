@@ -1,10 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SLH Admin | Backoffice</title>
-<meta name="description" content="SLH ecosystem page for trading, wallet, community, AI, and operations.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
     <style>
         :root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--accent:#00ff41;--accent2:#39ff14;--cyan:#00e5ff;--gold:#ffd700;--red:#ff0055;--purple:#a855f7;--text:#00ff41;--text2:#008f11;--text-bright:#39ff14;--card:rgba(0,255,65,.03);--border:rgba(0,255,65,.12);--font:'Space Mono','Courier New',monospace;--radius:0px;--shadow:0 0 20px rgba(0,255,65,.05)}
-        /* Theme overrides â€” controlled by FAB */
+        /* Theme overrides — controlled by FAB */
         [data-theme="dark"]{--bg:#0b0e16;--bg2:#111628;--bg3:#1a2038;--accent:#00b4d8;--accent2:#90e0ef;--cyan:#00e5ff;--gold:#ffd700;--red:#ef4444;--purple:#a855f7;--text:#e8e8f0;--text2:#8a8aa0;--text-bright:#ffffff;--card:rgba(0,180,216,.04);--border:rgba(0,180,216,.2);--font:'Inter',system-ui,sans-serif;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.4)}
         [data-theme="light"]{--bg:#f8f9fb;--bg2:#ffffff;--bg3:#f0f2f7;--accent:#0066cc;--accent2:#0052a3;--cyan:#0077aa;--gold:#b8860b;--red:#c53030;--purple:#7c3aed;--text:#1a1a1a;--text2:#555;--text-bright:#000;--card:rgba(0,102,204,.04);--border:rgba(0,102,204,.2);--font:'Inter',system-ui,sans-serif;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,.08)}
         [data-theme="crypto"]{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--accent:#f7931a;--accent2:#ffb14e;--cyan:#00d4ff;--gold:#ffd700;--red:#ef4444;--purple:#a855f7;--text:#e8e8f0;--text2:#8a8aa0;--text-bright:#fff;--card:rgba(247,147,26,.04);--border:rgba(247,147,26,.2);--font:'Inter',system-ui,sans-serif;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.4)}
@@ -21,7 +20,7 @@
         [data-theme="sunset"]{--bg:#1a0a14;--bg2:#251018;--bg3:#30161f;--accent:#ff6b6b;--accent2:#ffa07a;--cyan:#ffd93d;--gold:#ffb703;--red:#c53030;--purple:#a855f7;--text:#ffe5d9;--text2:#c9a88a;--text-bright:#fff;--card:rgba(255,107,107,.04);--border:rgba(255,107,107,.2);--font:'Inter',system-ui,sans-serif;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.4)}
         /* Hide CRT scan lines in non-terminal themes */
         [data-theme] body::after{display:none !important}
-        /* Theme FAB â€” positioned above the AI FAB to avoid overlap.
+        /* Theme FAB — positioned above the AI FAB to avoid overlap.
            AI FAB is at bottom:24px; left:24px; size 58px, so we sit at bottom:94px. */
         #theme-fab{position:fixed;bottom:94px;left:24px;z-index:99997;background:var(--accent);color:#000;width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;font-size:20px;box-shadow:0 4px 16px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s}
         #theme-fab:hover{transform:scale(1.1)}
@@ -112,12 +111,6 @@
             .kpi-grid{grid-template-columns:repeat(2,1fr)}
         }
     </style>
-<link rel="canonical" href="https://slh-nft.com/admin.html">
-<meta property="og:title" content="SLH - admin">
-<meta property="og:description" content="SLH ecosystem page for trading, wallet, community, AI, and operations.">
-<meta property="og:image" content="https://slh-nft.com/assets/og/admin.png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -127,9 +120,9 @@
 <!-- AUTH GATE -->
 <div id="auth-gate">
     <div class="auth-box">
-        <div style="font-size:40px;margin-bottom:16px">ðŸ”</div>
+        <div style="font-size:40px;margin-bottom:16px">🔐</div>
         <h2>SLH Admin Panel</h2>
-        <p>Backoffice access â€” admin only</p>
+        <p>Backoffice access — admin only</p>
         <input type="password" id="admin-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAuth()">
         <button onclick="checkAuth()">[ LOGIN ]</button>
         <div class="auth-err" id="auth-err">Incorrect password</div>
@@ -141,7 +134,7 @@
     <div class="nav-brand">SLH Admin <span>BACKOFFICE</span></div>
     <div class="nav-links">
         <a href="#" class="active" onclick="showPage('overview')">Overview</a>
-        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">ðŸ› Institutional</a>
+        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Institutional</a>
         <a href="#" onclick="showPage('analytics')">Analytics</a>
         <a href="#" onclick="showPage('bots')">Bots</a>
         <a href="#" onclick="showPage('users')">Users</a>
@@ -158,34 +151,32 @@
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
         <div class="sb-section">Main</div>
-        <a href="#" class="active" onclick="showPage('overview')">ðŸ“Š Overview</a>
-        <a href="#" onclick="showPage('analytics')">ðŸ“ˆ Analytics</a>
-        <a href="#" onclick="showPage('bots')">ðŸ¤– Bot Status</a>
-        <a href="#" onclick="showPage('users')">ðŸ‘¥ Users</a>
-        <a href="#" onclick="showPage('revenue')">ðŸ’° Revenue</a>
+        <a href="#" class="active" onclick="showPage('overview')">📊 Overview</a>
+        <a href="#" onclick="showPage('analytics')">📈 Analytics</a>
+        <a href="#" onclick="showPage('bots')">🤖 Bot Status</a>
+        <a href="#" onclick="showPage('users')">👥 Users</a>
+        <a href="#" onclick="showPage('revenue')">💰 Revenue</a>
 
-        <div class="sb-section">ðŸ› Institutional</div>
-        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">ðŸ› Overview</a>
-        <a href="#" onclick="showPage('audit')">ðŸ“œ Audit Log</a>
-        <a href="#" onclick="showPage('cex')">ðŸ¦ CEX Integrations</a>
-        <a href="#" onclick="showPage('portfolio')">ðŸ’¼ Portfolio</a>
-        <a href="#" onclick="showPage('compliance')">âš–ï¸ Compliance</a>
+        <div class="sb-section">🏛 Institutional</div>
+        <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Overview</a>
+        <a href="#" onclick="showPage('audit')">📜 Audit Log</a>
+        <a href="#" onclick="showPage('cex')">🏦 CEX Integrations</a>
+        <a href="#" onclick="showPage('portfolio')">💼 Portfolio</a>
+        <a href="#" onclick="showPage('compliance')">⚖️ Compliance</a>
 
         <div class="sb-section">Tools</div>
-        <a href="#" onclick="showPage('activity')">ðŸ“‹ Activity Feed</a>
-        <a href="#" onclick="showPage('referrals')">ðŸ”— Referrals</a>
-        <a href="#" onclick="showPage('promos')">ðŸŽ Promotions</a>
+        <a href="#" onclick="showPage('activity')">📋 Activity Feed</a>
+        <a href="#" onclick="showPage('referrals')">🔗 Referrals</a>
+        <a href="#" onclick="showPage('promos')">🎁 Promotions</a>
 
         <div class="sb-section">System</div>
-        <a href="#" onclick="showPage('infra')">ðŸ–¥ Infrastructure</a>
-        <a href="#" onclick="showPage('sitemap')">ðŸ—º Site Map</a>
-        <a href="#" onclick="showPage('rewards')">ðŸŽ Rewards Admin</a>
-        <a href="#" onclick="showPage('guardian')">ðŸ›¡ Guardian / ZUZ</a>
-        <a href="#" onclick="showPage('ops')">ðŸ“¡ Ops Center</a>
-        <a href="#" onclick="showPage('devops')">âš™ï¸ DevOps</a>
-        <a href="#" onclick="showPage('finance')">💰 Finance</a>
-        <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
-        <a href="#" onclick="refreshAll()">ðŸ”„ Refresh Data</a>
+        <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
+        <a href="#" onclick="showPage('sitemap')">🗺 Site Map</a>
+        <a href="#" onclick="showPage('rewards')">🎁 Rewards Admin</a>
+        <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
+        <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
+        <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
+        <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
     <!-- MAIN CONTENT -->
@@ -205,15 +196,15 @@
             </div>
 
             <div class="chart-grid">
-                <div class="chart-box"><h4>ðŸ“ˆ Website Visitors (7 days)</h4><canvas id="chart-visitors"></canvas></div>
-                <div class="chart-box"><h4>ðŸ’° Revenue by Bot</h4><canvas id="chart-revenue"></canvas></div>
-                <div class="chart-box"><h4>ðŸ‘¥ User Growth</h4><canvas id="chart-growth"></canvas></div>
-                <div class="chart-box"><h4>ðŸ”— Top Referrers</h4><canvas id="chart-referrers"></canvas></div>
+                <div class="chart-box"><h4>📈 Website Visitors (7 days)</h4><canvas id="chart-visitors"></canvas></div>
+                <div class="chart-box"><h4>💰 Revenue by Bot</h4><canvas id="chart-revenue"></canvas></div>
+                <div class="chart-box"><h4>👥 User Growth</h4><canvas id="chart-growth"></canvas></div>
+                <div class="chart-box"><h4>🔗 Top Referrers</h4><canvas id="chart-referrers"></canvas></div>
             </div>
 
             <!-- Recent Activity -->
             <div class="admin-section">
-                <h3>ðŸ“‹ Recent Activity <span>Live feed</span></h3>
+                <h3>📋 Recent Activity <span>Live feed</span></h3>
                 <div class="activity-feed" id="activity-feed"></div>
             </div>
         </div>
@@ -227,13 +218,13 @@
                 <div class="kpi purple"><div class="kpi-label">Mobile %</div><div class="kpi-value" id="an-mobile">--</div></div>
             </div>
             <div class="chart-grid">
-                <div class="chart-box"><h4>ðŸŒ Browsers</h4><canvas id="chart-browsers"></canvas></div>
-                <div class="chart-box"><h4>ðŸ“± Devices</h4><canvas id="chart-devices"></canvas></div>
-                <div class="chart-box"><h4>ðŸ“„ Top Pages</h4><canvas id="chart-pages"></canvas></div>
-                <div class="chart-box"><h4>ðŸŒ Languages</h4><canvas id="chart-langs"></canvas></div>
+                <div class="chart-box"><h4>🌐 Browsers</h4><canvas id="chart-browsers"></canvas></div>
+                <div class="chart-box"><h4>📱 Devices</h4><canvas id="chart-devices"></canvas></div>
+                <div class="chart-box"><h4>📄 Top Pages</h4><canvas id="chart-pages"></canvas></div>
+                <div class="chart-box"><h4>🌍 Languages</h4><canvas id="chart-langs"></canvas></div>
             </div>
             <div class="admin-section">
-                <h3>ðŸ“Š Recent Events</h3>
+                <h3>📊 Recent Events</h3>
                 <table class="admin-table" id="analytics-table">
                     <thead><tr><th>Type</th><th>Page</th><th>Browser</th><th>Time</th></tr></thead>
                     <tbody id="analytics-rows"></tbody>
@@ -244,7 +235,7 @@
         <!-- BOTS PAGE -->
         <div id="page-bots" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ¤– Bot Status <span>All ecosystem bots</span></h3>
+                <h3>🤖 Bot Status <span>All ecosystem bots</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Bot</th><th>Username</th><th>Status</th><th>Container</th><th>Service</th></tr></thead>
                     <tbody id="bots-table"></tbody>
@@ -261,7 +252,7 @@
                 <div class="kpi red"><div class="kpi-label">Pending Approvals</div><div class="kpi-value" id="usr-pending">--</div></div>
             </div>
             <div class="admin-section">
-                <h3>ðŸ‘¥ Recent Users</h3>
+                <h3>👥 Recent Users</h3>
                 <table class="admin-table">
                     <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
                     <tbody id="users-table"></tbody>
@@ -278,15 +269,15 @@
                 <div class="kpi purple"><div class="kpi-label">Commissions Owed</div><div class="kpi-value" id="rev-commissions">--</div></div>
             </div>
             <div class="chart-grid">
-                <div class="chart-box"><h4>ðŸ’° Monthly Revenue</h4><canvas id="chart-monthly-rev"></canvas></div>
-                <div class="chart-box"><h4>ðŸ“Š Revenue by Source</h4><canvas id="chart-rev-source"></canvas></div>
+                <div class="chart-box"><h4>💰 Monthly Revenue</h4><canvas id="chart-monthly-rev"></canvas></div>
+                <div class="chart-box"><h4>📊 Revenue by Source</h4><canvas id="chart-rev-source"></canvas></div>
             </div>
         </div>
 
         <!-- ACTIVITY PAGE -->
         <div id="page-activity" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ“‹ Full Activity Log</h3>
+                <h3>📋 Full Activity Log</h3>
                 <div class="activity-feed" id="full-activity-feed" style="max-height:600px"></div>
             </div>
         </div>
@@ -294,7 +285,7 @@
         <!-- REFERRALS PAGE -->
         <div id="page-referrals" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ”— Referral Network <span>Top referrers</span></h3>
+                <h3>🔗 Referral Network <span>Top referrers</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>User</th><th>Referrals</th><th>Converted</th><th>Commission</th></tr></thead>
                     <tbody id="referrals-table"></tbody>
@@ -305,15 +296,15 @@
         <!-- PROMOS PAGE -->
         <div id="page-promos" style="display:none">
             <div class="admin-section">
-                <h3>ðŸŽ Active Promotions</h3>
+                <h3>🎁 Active Promotions</h3>
                 <table class="admin-table">
                     <thead><tr><th>Code</th><th>Title</th><th>Discount</th><th>Uses</th><th>Expires</th><th>Status</th></tr></thead>
                     <tbody>
-                        <tr><td><code>LAUNCH30</code></td><td>Launch Deal â€” 30% OFF</td><td>30%</td><td>0/100</td><td>2026-05-01</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td><code>BUNDLE_ALL</code></td><td>Full Bundle â€” 6 Bots</td><td>199â‚ª</td><td>0/âˆž</td><td>2026-06-01</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td><code>REFER3_FREE</code></td><td>Invite 3 = Free Premium</td><td>100%</td><td>0/âˆž</td><td>2026-12-31</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td><code>STUDENT50</code></td><td>Student Deal â€” 50% OFF</td><td>50%</td><td>0/âˆž</td><td>2026-09-01</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td><code>SECURE_PACK</code></td><td>Security Pack</td><td>99â‚ª</td><td>0/âˆž</td><td>2026-07-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>LAUNCH30</code></td><td>Launch Deal — 30% OFF</td><td>30%</td><td>0/100</td><td>2026-05-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>BUNDLE_ALL</code></td><td>Full Bundle — 6 Bots</td><td>199₪</td><td>0/∞</td><td>2026-06-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>REFER3_FREE</code></td><td>Invite 3 = Free Premium</td><td>100%</td><td>0/∞</td><td>2026-12-31</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>STUDENT50</code></td><td>Student Deal — 50% OFF</td><td>50%</td><td>0/∞</td><td>2026-09-01</td><td><span class="badge live">ACTIVE</span></td></tr>
+                        <tr><td><code>SECURE_PACK</code></td><td>Security Pack</td><td>99₪</td><td>0/∞</td><td>2026-07-01</td><td><span class="badge live">ACTIVE</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -322,9 +313,9 @@
         <!-- INSTITUTIONAL OVERVIEW PAGE -->
         <div id="page-institutional" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,255,65,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">ðŸ› SLH SPARK â€” INSTITUTIONAL GRADE</h2>
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">🏛 SLH SPARK — INSTITUTIONAL GRADE</h2>
                 <p style="font-size:11px;color:var(--text2);line-height:1.6">
-                    Regulator-ready audit trail Â· CEX portfolio consolidation Â· Encrypted key storage Â· HMAC-signed API calls Â· Hash-chained immutable logs
+                    Regulator-ready audit trail · CEX portfolio consolidation · Encrypted key storage · HMAC-signed API calls · Hash-chained immutable logs
                 </p>
             </div>
 
@@ -334,19 +325,19 @@
                 <div class="kpi cyan"><div class="kpi-label">CEX Keys Linked</div><div class="kpi-value" id="inst-cex-keys">--</div></div>
                 <div class="kpi purple"><div class="kpi-label">Total Portfolio (ILS)</div><div class="kpi-value" id="inst-portfolio-ils">--</div></div>
                 <div class="kpi green"><div class="kpi-label">Genesis 49 Remaining</div><div class="kpi-value" id="inst-genesis">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">Encryption</div><div class="kpi-value" style="font-size:13px;color:var(--accent)">AES-GCM âœ“</div><div class="kpi-delta" style="font-size:9px;color:var(--accent)">v2 production-grade</div></div>
+                <div class="kpi gold"><div class="kpi-label">Encryption</div><div class="kpi-value" style="font-size:13px;color:var(--accent)">AES-GCM ✓</div><div class="kpi-delta" style="font-size:9px;color:var(--accent)">v2 production-grade</div></div>
                 <div class="kpi cyan"><div class="kpi-label">KYC Provider</div><div class="kpi-value" style="font-size:13px">SUMSUB</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending keys</div></div>
                 <div class="kpi purple"><div class="kpi-label">Custody</div><div class="kpi-value" style="font-size:13px">FIREBLOCKS</div><div class="kpi-delta" style="font-size:9px;color:var(--gold)">Pending contract</div></div>
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ”’ Compliance Readiness <span>Checklist</span></h3>
+                <h3>🔒 Compliance Readiness <span>Checklist</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Control</th><th>Status</th><th>Description</th><th>Action</th></tr></thead>
                     <tbody>
-                        <tr><td><code>AUDIT_HASH_CHAIN</code></td><td><span class="badge live">LIVE</span></td><td>SHA-256 immutable hash chain (append-only)</td><td>â€”</td></tr>
-                        <tr><td><code>CEX_READ_ONLY</code></td><td><span class="badge live">LIVE</span></td><td>Bybit V5 + Binance V3 READ-ONLY HMAC signed</td><td>â€”</td></tr>
-                        <tr><td><code>KEY_ENCRYPTION</code></td><td><span class="badge live">LIVE</span></td><td>AES-GCM v2 with ENCRYPTION_KEY env var (SHA-256 derived 256-bit key)</td><td>âœ… Done</td></tr>
+                        <tr><td><code>AUDIT_HASH_CHAIN</code></td><td><span class="badge live">LIVE</span></td><td>SHA-256 immutable hash chain (append-only)</td><td>—</td></tr>
+                        <tr><td><code>CEX_READ_ONLY</code></td><td><span class="badge live">LIVE</span></td><td>Bybit V5 + Binance V3 READ-ONLY HMAC signed</td><td>—</td></tr>
+                        <tr><td><code>KEY_ENCRYPTION</code></td><td><span class="badge live">LIVE</span></td><td>AES-GCM v2 with ENCRYPTION_KEY env var (SHA-256 derived 256-bit key)</td><td>✅ Done</td></tr>
                         <tr><td><code>KYC_SUMSUB</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Sumsub webhook + verification endpoints scaffolded</td><td>Awaits keys</td></tr>
                         <tr><td><code>CUSTODY_FIREBLOCKS</code></td><td><span class="badge pending">SCAFFOLD</span></td><td>Fireblocks vault integration scaffolded</td><td>Awaits contract</td></tr>
                         <tr><td><code>TRAVEL_RULE</code></td><td><span class="badge pending">PLANNED</span></td><td>FATF Travel Rule compliance flags</td><td>Phase-7</td></tr>
@@ -357,7 +348,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸŽ¯ Target Returns <span>10 investors Â· 1M+ each</span></h3>
+                <h3>🎯 Target Returns <span>10 investors · 1M+ each</span></h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
                         <div style="font-size:10px;color:var(--text2)">Current Baseline</div>
@@ -386,7 +377,7 @@
         <!-- AUDIT LOG PAGE -->
         <div id="page-audit" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ”’ Hash Chain Verification <span>SHA-256 immutable</span></h3>
+                <h3>🔒 Hash Chain Verification <span>SHA-256 immutable</span></h3>
                 <div id="audit-verify-result" style="padding:16px;background:var(--bg3);border:1px solid var(--border);font-size:12px;margin-bottom:16px">
                     <button onclick="verifyAuditChain()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ VERIFY CHAIN ]</button>
                     <span id="audit-verify-msg" style="margin-right:16px;color:var(--text2)">Click to run full chain verification</span>
@@ -394,7 +385,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“œ Recent Audit Entries <span>Last 100</span></h3>
+                <h3>📜 Recent Audit Entries <span>Last 100</span></h3>
                 <div style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap">
                     <input type="text" id="audit-filter-action" placeholder="Filter by action (e.g. cex.snapshot.bybit)" style="flex:1;min-width:200px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
                     <input type="number" id="audit-filter-user" placeholder="Filter by user_id" style="width:150px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
@@ -410,26 +401,26 @@
         <!-- CEX INTEGRATIONS PAGE -->
         <div id="page-cex" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ¦ CEX Key Management <span>Bybit + Binance READ-ONLY</span></h3>
+                <h3>🏦 CEX Key Management <span>Bybit + Binance READ-ONLY</span></h3>
                 <div style="padding:12px;background:rgba(255,215,0,.05);border:1px solid var(--gold);margin-bottom:16px;font-size:11px">
-                    âš ï¸ <strong style="color:var(--gold)">READ-ONLY ONLY</strong> â€” API keys must have <code>read</code> permission only. NEVER enable <code>trade</code> or <code>withdraw</code>. Keys are encrypted at rest (XOR+env key, upgrade to AES-GCM pending).
+                    ⚠️ <strong style="color:var(--gold)">READ-ONLY ONLY</strong> — API keys must have <code>read</code> permission only. NEVER enable <code>trade</code> or <code>withdraw</code>. Keys are encrypted at rest (XOR+env key, upgrade to AES-GCM pending).
                 </div>
 
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
                     <div>
-                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">âž• Link New Key</h4>
+                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">➕ Link New Key</h4>
                         <input type="number" id="cex-user-id" placeholder="User ID (telegram)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                         <select id="cex-exchange" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                             <option value="bybit">Bybit (UNIFIED)</option>
                             <option value="binance">Binance (SPOT)</option>
                         </select>
-                        <input type="text" id="cex-label" placeholder="Label (e.g. Bybit ×¨××©×™)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="text" id="cex-label" placeholder="Label (e.g. Bybit ראשי)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                         <input type="text" id="cex-key" placeholder="API Key" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                         <input type="password" id="cex-secret" placeholder="API Secret" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                         <button onclick="addCexKey()" style="width:100%;padding:10px;background:var(--accent);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font)">[ LINK KEY ]</button>
                     </div>
                     <div>
-                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">ðŸ” Query Keys</h4>
+                        <h4 style="font-size:12px;color:var(--accent);margin-bottom:8px">🔍 Query Keys</h4>
                         <input type="number" id="cex-query-user-id" placeholder="User ID to query" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
                         <button onclick="queryCexKeys()" style="width:100%;padding:10px;background:var(--cyan);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px">[ LIST KEYS ]</button>
                         <div style="padding:10px;background:var(--bg);border:1px solid var(--border);font-size:10px;color:var(--text2)">
@@ -450,7 +441,7 @@
         <!-- PORTFOLIO PAGE -->
         <div id="page-portfolio" style="display:none">
             <div class="admin-section">
-                <h3>ðŸ’¼ Portfolio Consolidation <span>Latest CEX snapshots</span></h3>
+                <h3>💼 Portfolio Consolidation <span>Latest CEX snapshots</span></h3>
                 <div style="margin-bottom:16px;display:flex;gap:12px;align-items:center">
                     <input type="number" id="portfolio-user-id" placeholder="User ID" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
                     <button onclick="loadPortfolio()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ LOAD PORTFOLIO ]</button>
@@ -469,53 +460,53 @@
         <!-- COMPLIANCE PAGE -->
         <div id="page-compliance" style="display:none">
             <div class="admin-section">
-                <h3>âš–ï¸ Compliance Controls <span>Regulator-ready</span></h3>
+                <h3>⚖️ Compliance Controls <span>Regulator-ready</span></h3>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
-                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">ðŸ“œ Audit Trail</h4>
+                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">📜 Audit Trail</h4>
                         <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
-                            <li>âœ… SHA-256 hash chain</li>
-                            <li>âœ… Append-only (REVOKE UPDATE/DELETE)</li>
-                            <li>âœ… Actor + timestamp + resource</li>
-                            <li>âœ… Risk score field</li>
-                            <li>âœ… Compliance flags array</li>
-                            <li>âœ… USD + native amount tracking</li>
-                            <li>âœ… /verify-chain endpoint for auditors</li>
+                            <li>✅ SHA-256 hash chain</li>
+                            <li>✅ Append-only (REVOKE UPDATE/DELETE)</li>
+                            <li>✅ Actor + timestamp + resource</li>
+                            <li>✅ Risk score field</li>
+                            <li>✅ Compliance flags array</li>
+                            <li>✅ USD + native amount tracking</li>
+                            <li>✅ /verify-chain endpoint for auditors</li>
                         </ul>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
-                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">ðŸ” Key Management</h4>
+                        <h4 style="color:var(--accent);font-size:13px;margin-bottom:12px">🔐 Key Management</h4>
                         <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
-                            <li>âš ï¸ XOR encryption (dev)</li>
-                            <li>âš ï¸ ENCRYPTION_KEY env var</li>
-                            <li>âŒ Hardware KMS (pending)</li>
-                            <li>âŒ Key rotation policy (pending)</li>
-                            <li>âŒ AES-GCM upgrade (pending)</li>
-                            <li>âœ… Masked display only</li>
-                            <li>âœ… Secrets never in logs</li>
+                            <li>⚠️ XOR encryption (dev)</li>
+                            <li>⚠️ ENCRYPTION_KEY env var</li>
+                            <li>❌ Hardware KMS (pending)</li>
+                            <li>❌ Key rotation policy (pending)</li>
+                            <li>❌ AES-GCM upgrade (pending)</li>
+                            <li>✅ Masked display only</li>
+                            <li>✅ Secrets never in logs</li>
                         </ul>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
-                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">ðŸ›‚ KYC (Sumsub)</h4>
+                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">🛂 KYC (Sumsub)</h4>
                         <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
-                            <li>ðŸ“‹ Scaffolding ready</li>
-                            <li>ðŸ“‹ Webhook endpoint scaffolded</li>
-                            <li>ðŸ“‹ Applicant creation endpoint</li>
-                            <li>âŒ API token (pending)</li>
-                            <li>âŒ Level name config</li>
-                            <li>âŒ Webhook secret</li>
+                            <li>📋 Scaffolding ready</li>
+                            <li>📋 Webhook endpoint scaffolded</li>
+                            <li>📋 Applicant creation endpoint</li>
+                            <li>❌ API token (pending)</li>
+                            <li>❌ Level name config</li>
+                            <li>❌ Webhook secret</li>
                             <li><em>Ready-to-plug when credentials provided</em></li>
                         </ul>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border)">
-                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">ðŸ¦ Custody (Fireblocks)</h4>
+                        <h4 style="color:var(--gold);font-size:13px;margin-bottom:12px">🏦 Custody (Fireblocks)</h4>
                         <ul style="font-size:11px;line-height:1.8;color:var(--text2);list-style:none">
-                            <li>ðŸ“‹ Scaffolding ready</li>
-                            <li>ðŸ“‹ Vault creation endpoint</li>
-                            <li>ðŸ“‹ Transaction signing endpoint</li>
-                            <li>âŒ API key (pending)</li>
-                            <li>âŒ Signing key (pending)</li>
-                            <li>âŒ Workspace provisioned</li>
+                            <li>📋 Scaffolding ready</li>
+                            <li>📋 Vault creation endpoint</li>
+                            <li>📋 Transaction signing endpoint</li>
+                            <li>❌ API key (pending)</li>
+                            <li>❌ Signing key (pending)</li>
+                            <li>❌ Workspace provisioned</li>
                             <li><em>Ready-to-plug when credentials provided</em></li>
                         </ul>
                     </div>
@@ -523,9 +514,9 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“‹ Regulator Checklist <span>For audits</span></h3>
+                <h3>📋 Regulator Checklist <span>For audits</span></h3>
                 <div style="font-size:11px;color:var(--text2);line-height:1.8">
-                    <p><strong style="color:var(--accent)">âœ… Ready for inspection:</strong></p>
+                    <p><strong style="color:var(--accent)">✅ Ready for inspection:</strong></p>
                     <ul style="padding-right:20px;margin:8px 0">
                         <li>Immutable audit log with /api/audit/verify-chain endpoint</li>
                         <li>Complete audit trail of all CEX syncs, key operations, user actions</li>
@@ -534,7 +525,7 @@
                         <li>Genesis 49 coupon system with unique redemption tracking</li>
                         <li>User distribution/cashback tracking with tier-based crediting</li>
                     </ul>
-                    <p style="margin-top:12px"><strong style="color:var(--gold)">âš ï¸ Pending before production launch:</strong></p>
+                    <p style="margin-top:12px"><strong style="color:var(--gold)">⚠️ Pending before production launch:</strong></p>
                     <ul style="padding-right:20px;margin:8px 0">
                         <li>AES-GCM encryption for CEX keys + KMS-backed key rotation</li>
                         <li>Sumsub KYC integration (API token + webhook secret needed)</li>
@@ -550,9 +541,9 @@
         <!-- GUARDIAN / ZUZ PAGE -->
         <div id="page-guardian" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(255,0,85,.08),rgba(255,215,0,.04));border:1px solid var(--red);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--red);font-size:18px;margin-bottom:8px">ðŸ›¡ Guardian â€” ZUZ Anti-Fraud System</h2>
+                <h2 style="color:var(--red);font-size:18px;margin-bottom:8px">🛡 Guardian — ZUZ Anti-Fraud System</h2>
                 <p style="font-size:11px;color:var(--text2);line-height:1.6">
-                    ZUZ = "××•×ª ×§×™×Ÿ" Â· ×ž×˜×‘×¢ ×©×œ×™×œ×™ ×œ×¡×™×ž×•×Ÿ ×”×•× ××•×ª Â· auto-ban ×‘-100 ZUZ Â· ×ž×•×“×™×¢×™×Ÿ ×—×•×¦×”-×§×‘×•×¦×•×ª
+                    ZUZ = "אות קין" · מטבע שלילי לסימון הונאות · auto-ban ב-100 ZUZ · מודיעין חוצה-קבוצות
                 </p>
                 <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
                     <button onclick="loadGuardianStats()" style="background:var(--red);color:#fff;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ REFRESH STATS ]</button>
@@ -572,7 +563,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸš« Blacklist <span>Flagged Users</span></h3>
+                <h3>🚫 Blacklist <span>Flagged Users</span></h3>
                 <table class="admin-table" id="guardian-blacklist-table">
                     <thead><tr><th>User ID</th><th>Username</th><th>ZUZ Score</th><th>Reports</th><th>Banned</th><th>Groups</th></tr></thead>
                     <tbody id="guardian-bl-rows"><tr><td colspan="6" style="text-align:center;color:var(--text2)">Click "Load Blacklist"</td></tr></tbody>
@@ -580,7 +571,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“ Manual Report</h3>
+                <h3>📝 Manual Report</h3>
                 <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
                     <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
                         <input type="number" id="gr-user-id" placeholder="Telegram ID" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:140px"></div>
@@ -595,7 +586,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ” Check User</h3>
+                <h3>🔍 Check User</h3>
                 <div style="display:flex;gap:12px;align-items:flex-end">
                     <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
                         <input type="number" id="gc-user-id" placeholder="Telegram ID" style="padding:8px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;width:160px"></div>
@@ -608,9 +599,9 @@
         <!-- OPS CENTER PAGE -->
         <div id="page-ops" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">ðŸ“¡ Ops Center â€” System Overview</h2>
-                <p style="font-size:11px;color:var(--text2)">Real-time monitoring Â· API health Â· Coverage metrics Â· Sprint progress</p>
-                <div style="margin-top:8px"><a href="/ops-dashboard.html" target="_blank" style="color:var(--accent);font-size:12px">â†’ Open full Ops Dashboard in new tab</a></div>
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">📡 Ops Center — System Overview</h2>
+                <p style="font-size:11px;color:var(--text2)">Real-time monitoring · API health · Coverage metrics · Sprint progress</p>
+                <div style="margin-top:8px"><a href="/ops-dashboard.html" target="_blank" style="color:var(--accent);font-size:12px">→ Open full Ops Dashboard in new tab</a></div>
             </div>
 
             <div class="kpi-grid">
@@ -621,144 +612,34 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“Š Coverage Progress</h3>
+                <h3>📊 Coverage Progress</h3>
                 <div id="ops-coverage" style="font-size:12px"></div>
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ”— Quick Links</h3>
+                <h3>🔗 Quick Links</h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-                    <a href="/ops-dashboard.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ“¡ Ops Dashboard</a>
-                    <a href="https://slh-api-production.up.railway.app/docs" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ“– API Swagger Docs</a>
-                    <a href="https://github.com/osifeu-prog/slh-api" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ™ GitHub (API)</a>
-                    <a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ™ GitHub (Site)</a>
-                    <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ”— BSCScan Token</a>
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ¥ž PancakeSwap Swap</a>
-                    <a href="/daily-blog.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ“ Daily Blog</a>
-                    <a href="/community.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">ðŸ’¬ Community</a>
+                    <a href="/ops-dashboard.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📡 Ops Dashboard</a>
+                    <a href="https://slh-api-production.up.railway.app/docs" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📖 API Swagger Docs</a>
+                    <a href="https://github.com/osifeu-prog/slh-api" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (API)</a>
+                    <a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (Site)</a>
+                    <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🔗 BSCScan Token</a>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🥞 PancakeSwap Swap</a>
+                    <a href="/daily-blog.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📝 Daily Blog</a>
+                    <a href="/community.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">💬 Community</a>
                 </div>
-            </div>
-        </div>
-
-        <!-- FINANCE PAGE -->
-        <div id="page-finance" style="display:none">
-            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">💰 Financial Dashboard — Real-Time Economics</h2>
-                <p style="font-size:11px;color:var(--text2)">Token balances · Pool liquidity · Staking positions · Revenue streams</p>
-            </div>
-
-            <div class="kpi-grid">
-                <div class="kpi gold"><div class="kpi-label">Genesis Raised</div><div class="kpi-value" id="fin-raised">--</div><div class="kpi-delta" style="color:var(--text2)" id="fin-raised-usd"></div></div>
-                <div class="kpi green"><div class="kpi-label">Pool Liquidity (BNB)</div><div class="kpi-value" id="fin-pool-bnb">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">SLH On-Chain</div><div class="kpi-value" id="fin-slh-chain">--</div></div>
-                <div class="kpi purple"><div class="kpi-label">SLH Internal (DB)</div><div class="kpi-value" id="fin-slh-db">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">Total ZVK Issued</div><div class="kpi-value" id="fin-zvk">--</div></div>
-                <div class="kpi green"><div class="kpi-label">Contributors</div><div class="kpi-value" id="fin-contribs">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">Staking Positions</div><div class="kpi-value" id="fin-staking">--</div></div>
-                <div class="kpi red"><div class="kpi-label">ZUZ Issued</div><div class="kpi-value" id="fin-zuz">--</div></div>
-            </div>
-
-            <div class="admin-section">
-                <h3>📊 Token Economy Overview</h3>
-                <table class="admin-table">
-                    <thead><tr><th>Token</th><th>Type</th><th>Supply</th><th>In Circulation</th><th>Price</th><th>Status</th></tr></thead>
-                    <tbody>
-                        <tr><td style="color:var(--gold);font-weight:700">SLH</td><td>Premium/Governance</td><td>111,186,328</td><td id="fin-slh-circ">--</td><td>~₪444 / $122</td><td><span class="badge live">LIVE (BSC)</span></td></tr>
-                        <tr><td style="color:var(--accent);font-weight:700">MNH</td><td>Stablecoin (₪1)</td><td>Unlimited</td><td>Internal</td><td>₪1.00</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td style="color:var(--cyan);font-weight:700">ZVK</td><td>Activity Rewards</td><td>Unlimited</td><td id="fin-zvk-circ">--</td><td>~₪4.4</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td style="color:var(--purple);font-weight:700">REP</td><td>Reputation</td><td>N/A</td><td>Scored</td><td>N/A</td><td><span class="badge live">ACTIVE</span></td></tr>
-                        <tr><td style="color:var(--red);font-weight:700">ZUZ</td><td>Risk Signal</td><td>N/A</td><td id="fin-zuz-circ">--</td><td>N/A</td><td><span class="badge live">GUARDIAN</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="admin-section">
-                <h3>💎 Revenue Streams</h3>
-                <table class="admin-table">
-                    <thead><tr><th>Source</th><th>Model</th><th>Current</th><th>Potential</th></tr></thead>
-                    <tbody>
-                        <tr><td>LP Fees (PancakeSwap)</td><td>0.25% per swap</td><td>Active (low volume)</td><td>$100+/month at 1 BNB pool</td></tr>
-                        <tr><td>Staking (9 plans)</td><td>TON/SLH/BNB lock</td><td>1 position (100 SLH)</td><td>Scales with users</td></tr>
-                        <tr><td>Premium Bots</td><td>41-149 ILS / 2-7.5 TON</td><td>25 bots available</td><td>$500+/month at 50 users</td></tr>
-                        <tr><td>Referral Network</td><td>10 generation commissions</td><td>5 referrals</td><td>Viral growth engine</td></tr>
-                        <tr><td>Course Marketplace</td><td>150 ILS per course</td><td>Coming soon</td><td>$1000+/month</td></tr>
-                        <tr><td>Genesis 49</td><td>Free entry → LP + staking</td><td>44 spots remaining</td><td>Community building</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="admin-section">
-                <h3>🏦 Wallet Balances (On-Chain)</h3>
-                <div id="fin-wallets" style="font-size:12px;color:var(--text2)">Loading...</div>
-            </div>
-        </div>
-
-        <!-- TRUST NETWORK PAGE -->
-        <div id="page-trust" style="display:none">
-            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🌐 Global Trust Network — GTN</h2>
-                <p style="font-size:11px;color:var(--text2)">Trust scores · Risk entities · Auto Defense events · Guardian intelligence</p>
-            </div>
-
-            <div class="kpi-grid">
-                <div class="kpi green"><div class="kpi-label">Avg Trust Score</div><div class="kpi-value" id="gtn-trust">100</div></div>
-                <div class="kpi red"><div class="kpi-label">Flagged Entities</div><div class="kpi-value" id="gtn-flagged">0</div></div>
-                <div class="kpi gold"><div class="kpi-label">Defense Events</div><div class="kpi-value" id="gtn-defense">0</div></div>
-                <div class="kpi purple"><div class="kpi-label">Messages Scanned</div><div class="kpi-value" id="gtn-scanned">0</div></div>
-            </div>
-
-            <div class="admin-section">
-                <h3>🛡 Trust = 100 - ZUZ + Evidence Weight</h3>
-                <div style="font-size:12px;color:var(--text2);line-height:2">
-                    <strong style="color:var(--text)">Trust Score Model:</strong><br>
-                    • כל ישות מתחילה עם Trust = 100<br>
-                    • כל report מוריד ZUZ → Trust יורד<br>
-                    • evidence מאומת → מעלה credibility<br>
-                    • ZUZ ≥ 100 → auto-ban + trust = 0<br><br>
-                    <strong style="color:var(--text)">Incentivized Detection:</strong>
-                </div>
-                <table class="admin-table" style="margin-top:12px">
-                    <thead><tr><th>Action</th><th>Reward</th><th>Condition</th></tr></thead>
-                    <tbody>
-                        <tr><td>Valid report submitted</td><td style="color:var(--purple)">+10 XP</td><td>Report approved by admin</td></tr>
-                        <tr><td>Evidence verified</td><td style="color:var(--cyan)">+50 ZVK</td><td>Screenshot/TX proof confirmed</td></tr>
-                        <tr><td>High-value detection</td><td style="color:var(--gold)">+1 SLH bonus</td><td>Scammer with 50+ ZUZ caught</td></tr>
-                        <tr><td>False report penalty</td><td style="color:var(--red)">-20 REP</td><td>Report rejected as false</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="admin-section">
-                <h3>🔥 Auto Defense AI (ADA)</h3>
-                <div style="font-size:12px;color:var(--text2);line-height:2">
-                    <strong style="color:var(--text)">Real-time protection:</strong><br>
-                    • Guardian bot scans messages → risk_score per message<br>
-                    • risk ≥ 25: <span style="color:var(--gold)">MONITOR</span><br>
-                    • risk ≥ 50: <span style="color:var(--gold)">WARN</span> user + flag<br>
-                    • risk ≥ 75: <span style="color:var(--red)">BLOCK</span> message + alert admin<br>
-                    • ZUZ ≥ 100: <span style="color:var(--red)">AUTO-BAN</span> across all groups<br><br>
-                    <strong style="color:var(--accent)">Status:</strong> Active via /api/guardian/scan-message
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <h3>📊 Risk Entities <button class="refresh-btn" onclick="loadTrustEntities()" style="background:var(--cyan);color:#000">Refresh</button></h3>
-                <table class="admin-table" id="trust-entities-table">
-                    <thead><tr><th>Entity</th><th>ZUZ</th><th>Trust</th><th>Reports</th><th>Status</th></tr></thead>
-                    <tbody id="trust-entities-rows"><tr><td colspan="5" style="text-align:center;color:var(--accent)">No flagged entities — system clean</td></tr></tbody>
-                </table>
             </div>
         </div>
 
         <!-- DEVOPS PAGE -->
         <div id="page-devops" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,255,65,.04));border:1px solid var(--purple);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--purple);font-size:18px;margin-bottom:8px">âš™ï¸ DevOps â€” CI/CD &amp; Infrastructure</h2>
-                <p style="font-size:11px;color:var(--text2)">Deployment pipeline Â· Environment variables Â· Health checks Â· Logs</p>
+                <h2 style="color:var(--purple);font-size:18px;margin-bottom:8px">⚙️ DevOps — CI/CD &amp; Infrastructure</h2>
+                <p style="font-size:11px;color:var(--text2)">Deployment pipeline · Environment variables · Health checks · Logs</p>
             </div>
 
             <div class="admin-section">
-                <h3>ðŸš€ Deployment Pipeline</h3>
+                <h3>🚀 Deployment Pipeline</h3>
                 <table class="admin-table">
                     <thead><tr><th>Service</th><th>Source</th><th>Branch</th><th>Auto-Deploy</th><th>Status</th><th>Action</th></tr></thead>
                     <tbody>
@@ -770,7 +651,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ” Environment Variables (Railway)</h3>
+                <h3>🔐 Environment Variables (Railway)</h3>
                 <table class="admin-table">
                     <thead><tr><th>Variable</th><th>Status</th><th>Priority</th><th>Notes</th></tr></thead>
                     <tbody>
@@ -787,58 +668,58 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ— Architecture</h3>
+                <h3>🏗 Architecture</h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Frontend</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">GitHub Pages</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">43 HTML Â· 7 JS Â· shared.css<br>Auto-deploy on push to main</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">43 HTML · 7 JS · shared.css<br>Auto-deploy on push to main</div>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Backend</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">Railway (FastAPI)</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">113 endpoints Â· Python 3.11<br>Docker Â· uvicorn Â· asyncpg</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">113 endpoints · Python 3.11<br>Docker · uvicorn · asyncpg</div>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Database</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">PostgreSQL 15</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">30+ tables Â· Railway cloud<br>SHA-256 audit chain</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">30+ tables · Railway cloud<br>SHA-256 audit chain</div>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Bots</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">25 Telegram Bots</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">Docker Compose Â· aiogram 3.x<br>Polling mode (webhook planned)</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">Docker Compose · aiogram 3.x<br>Polling mode (webhook planned)</div>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Blockchain</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">BSC + TON</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">SLH (BEP-20) Â· PancakeSwap V2<br>5 tokens: SLH MNH ZVK REP ZUZ</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">SLH (BEP-20) · PancakeSwap V2<br>5 tokens: SLH MNH ZVK REP ZUZ</div>
                     </div>
                     <div style="padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
                         <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Security</div>
                         <div style="font-size:14px;color:var(--text-bright);font-weight:700">Institutional Grade</div>
-                        <div style="font-size:11px;color:var(--text2);margin-top:4px">AES-GCM encryption Â· JWT auth<br>HMAC-SHA256 CEX Â· Audit chain</div>
+                        <div style="font-size:11px;color:var(--text2);margin-top:4px">AES-GCM encryption · JWT auth<br>HMAC-SHA256 CEX · Audit chain</div>
                     </div>
                 </div>
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“‹ DevOps Checklist</h3>
+                <h3>📋 DevOps Checklist</h3>
                 <div style="font-size:12px;line-height:2">
-                    <div>âœ… GitHub Pages auto-deploy (website)</div>
-                    <div>âš ï¸ Railway auto-deploy (needs verification)</div>
-                    <div>âœ… Docker Compose for local bots (25 services)</div>
-                    <div>âœ… PostgreSQL 15 + Redis 7</div>
-                    <div>âœ… SHA-256 audit hash chain</div>
-                    <div>âœ… AES-GCM encryption for CEX keys</div>
-                    <div>â³ Webhook migration (polling â†’ webhooks)</div>
-                    <div>â³ CI/CD tests (0% coverage â†’ target 50%)</div>
-                    <div>â³ Monitoring alerts (Grafana/UptimeRobot)</div>
-                    <div>â³ Blue/Green deployment</div>
-                    <div>â³ Database migrations system</div>
-                    <div>â³ Centralized logging (ELK/Loki)</div>
-                    <div>â³ Rate limiting on all endpoints</div>
-                    <div>â³ CDN for static assets</div>
+                    <div>✅ GitHub Pages auto-deploy (website)</div>
+                    <div>⚠️ Railway auto-deploy (needs verification)</div>
+                    <div>✅ Docker Compose for local bots (25 services)</div>
+                    <div>✅ PostgreSQL 15 + Redis 7</div>
+                    <div>✅ SHA-256 audit hash chain</div>
+                    <div>✅ AES-GCM encryption for CEX keys</div>
+                    <div>⏳ Webhook migration (polling → webhooks)</div>
+                    <div>⏳ CI/CD tests (0% coverage → target 50%)</div>
+                    <div>⏳ Monitoring alerts (Grafana/UptimeRobot)</div>
+                    <div>⏳ Blue/Green deployment</div>
+                    <div>⏳ Database migrations system</div>
+                    <div>⏳ Centralized logging (ELK/Loki)</div>
+                    <div>⏳ Rate limiting on all endpoints</div>
+                    <div>⏳ CDN for static assets</div>
                 </div>
             </div>
         </div>
@@ -847,9 +728,9 @@
         <!-- SITE MAP PAGE -->
         <div id="page-sitemap" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,255,65,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">ðŸ—º Site Map â€” All Pages &amp; Links</h2>
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🗺 Site Map — All Pages &amp; Links</h2>
                 <p style="font-size:11px;color:var(--text2);line-height:1.6">
-                    Complete inventory of all 43 ecosystem pages Â· Status check Â· Access levels Â· Quick links
+                    Complete inventory of all 43 ecosystem pages · Status check · Access levels · Quick links
                 </p>
                 <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
                     <button onclick="checkAllPages()" style="background:var(--cyan);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ CHECK ALL PAGES ]</button>
@@ -858,7 +739,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ  Core Pages <span>Main Navigation</span></h3>
+                <h3>🏠 Core Pages <span>Main Navigation</span></h3>
                 <table class="admin-table" id="sitemap-core">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -881,7 +762,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸš€ Feature Pages <span>Not in main nav</span></h3>
+                <h3>🚀 Feature Pages <span>Not in main nav</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -890,7 +771,6 @@
                         <tr><td>Ecosystem Guide</td><td><a href="/ecosystem-guide.html" target="_blank">/ecosystem-guide.html</a></td><td>Public</td><td class="page-status" data-url="/ecosystem-guide.html">--</td><td><a href="/ecosystem-guide.html" target="_blank">Open</a></td></tr>
                         <tr><td>Whitepaper</td><td><a href="/whitepaper.html" target="_blank">/whitepaper.html</a></td><td>Public</td><td class="page-status" data-url="/whitepaper.html">--</td><td><a href="/whitepaper.html" target="_blank">Open</a></td></tr>
                         <tr><td>Healing Vision</td><td><a href="/healing-vision.html" target="_blank">/healing-vision.html</a></td><td>Public</td><td class="page-status" data-url="/healing-vision.html">--</td><td><a href="/healing-vision.html" target="_blank">Open</a></td></tr>
-                        <tr><td>Liquidity & Staking</td><td><a href="/liquidity.html" target="_blank">/liquidity.html</a></td><td>Public</td><td class="page-status" data-url="/liquidity.html">--</td><td><a href="/liquidity.html" target="_blank">Open</a></td></tr>
                         <tr><td>21-Day Challenge</td><td><a href="/challenge.html" target="_blank">/challenge.html</a></td><td>Public</td><td class="page-status" data-url="/challenge.html">--</td><td><a href="/challenge.html" target="_blank">Open</a></td></tr>
                         <tr><td>For Therapists</td><td><a href="/for-therapists.html" target="_blank">/for-therapists.html</a></td><td>Public</td><td class="page-status" data-url="/for-therapists.html">--</td><td><a href="/for-therapists.html" target="_blank">Open</a></td></tr>
                         <tr><td>Invite</td><td><a href="/invite.html" target="_blank">/invite.html</a></td><td>Public</td><td class="page-status" data-url="/invite.html">--</td><td><a href="/invite.html" target="_blank">Open</a></td></tr>
@@ -901,7 +781,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸŽ¯ Launch &amp; Events <span>Campaign pages</span></h3>
+                <h3>🎯 Launch &amp; Events <span>Campaign pages</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -914,7 +794,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ”’ Admin &amp; Ops <span>Admin-only pages</span></h3>
+                <h3>🔒 Admin &amp; Ops <span>Admin-only pages</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -927,7 +807,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“‹ Reports &amp; Ops <span>Operations dashboards</span></h3>
+                <h3>📋 Reports &amp; Ops <span>Operations dashboards</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -940,7 +820,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ›  Utility &amp; Onboarding <span>Tools &amp; Setup</span></h3>
+                <h3>🛠 Utility &amp; Onboarding <span>Tools &amp; Setup</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -954,7 +834,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸ“œ Legal <span>Privacy &amp; Terms</span></h3>
+                <h3>📜 Legal <span>Privacy &amp; Terms</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Page</th><th>URL</th><th>Auth</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -965,7 +845,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>ðŸŒ External Links <span>API &amp; Services</span></h3>
+                <h3>🌐 External Links <span>API &amp; Services</span></h3>
                 <table class="admin-table">
                     <thead><tr><th>Service</th><th>URL</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -983,9 +863,9 @@
         <!-- REWARDS ADMIN PAGE -->
         <div id="page-rewards" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,255,65,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">ðŸŽ Rewards Admin â€” Genesis Contributors</h2>
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">🎁 Rewards Admin — Genesis Contributors</h2>
                 <p style="font-size:11px;color:var(--text2);line-height:1.6">
-                    Credit missing ZVK rewards to contributors Â· View all balances Â· Manual credit tool
+                    Credit missing ZVK rewards to contributors · View all balances · Manual credit tool
                 </p>
             </div>
 
@@ -997,7 +877,7 @@
             <div id="rewards-result" style="display:none;padding:16px;background:var(--bg3);border:1px solid var(--border);margin-bottom:24px;font-size:12px;white-space:pre-wrap;direction:ltr;text-align:left"></div>
 
             <div class="admin-section">
-                <h3>ðŸ‘¥ All Users &amp; Balances</h3>
+                <h3>👥 All Users &amp; Balances</h3>
                 <table class="admin-table" id="all-users-table">
                     <thead><tr><th>Telegram ID</th><th>Username</th><th>Name</th><th>SLH</th><th>ZVK</th><th>MNH</th><th>REP</th><th>Last Login</th><th>Actions</th></tr></thead>
                     <tbody id="all-users-rows"><tr><td colspan="9" style="text-align:center;color:var(--text2)">Click "Load All Users" to fetch data</td></tr></tbody>
@@ -1005,7 +885,7 @@
             </div>
 
             <div class="admin-section">
-                <h3>âœï¸ Manual Credit</h3>
+                <h3>✏️ Manual Credit</h3>
                 <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
                     <div>
                         <label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
@@ -1034,12 +914,12 @@
         <div id="page-infra" style="display:none">
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Docker Containers</div><div class="kpi-value">27</div></div>
-                <div class="kpi cyan"><div class="kpi-label">PostgreSQL</div><div class="kpi-value" style="font-size:16px">Healthy âœ…</div></div>
-                <div class="kpi gold"><div class="kpi-label">Redis</div><div class="kpi-value" style="font-size:16px">Healthy âœ…</div></div>
+                <div class="kpi cyan"><div class="kpi-label">PostgreSQL</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
+                <div class="kpi gold"><div class="kpi-label">Redis</div><div class="kpi-value" style="font-size:16px">Healthy ✅</div></div>
                 <div class="kpi purple"><div class="kpi-label">Railway API</div><div class="kpi-value" id="infra-api-status" style="font-size:16px">Checking...</div><div class="kpi-delta" id="infra-api-ms" style="color:var(--text2);font-size:10px"></div></div>
             </div>
             <div class="admin-section">
-                <h3>ðŸ–¥ Container Status</h3>
+                <h3>🖥 Container Status</h3>
                 <table class="admin-table" id="infra-table">
                     <thead><tr><th>Container</th><th>Image</th><th>Status</th><th>Uptime</th></tr></thead>
                     <tbody id="infra-rows"></tbody>
@@ -1050,11 +930,11 @@
 </div>
 
 <script>
-// â”€â”€ API Config (MUST be before auto-login trigger to avoid TDZ error) â”€â”€
+// ── API Config (MUST be before auto-login trigger to avoid TDZ error) ──
 const SLH_API = 'https://slh-api-production.up.railway.app';
 
-// â”€â”€ Auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Multiple admin passwords â€” share a different one with each partner
+// ── Auth ─────────────────────────────────────────────────────────
+// Multiple admin passwords — share a different one with each partner
 const ADMIN_PASSWORDS = [
     'slh2026admin',        // primary (Osif)
     'slh_admin_2026',      // partner A (underscore variant)
@@ -1078,7 +958,7 @@ function checkAuth(){
 // Auto-login if remembered
 if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
 
-// â”€â”€ Page Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Page Navigation ──────────────────────────────────────────────
 function showPage(name){
     document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
     const el = document.getElementById('page-' + name);
@@ -1090,13 +970,13 @@ function showPage(name){
     });
 }
 
-// â”€â”€ Clock â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Clock ────────────────────────────────────────────────────────
 setInterval(() => {
     const el = document.getElementById('admin-clock');
     if(el) el.textContent = new Date().toLocaleTimeString('he-IL');
 }, 1000);
 
-// â”€â”€ Analytics Data (from localStorage) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Analytics Data (from localStorage) ──────────────────────────
 function getAnalyticsData(){
     try {
         const raw = localStorage.getItem('slh_analytics');
@@ -1104,7 +984,7 @@ function getAnalyticsData(){
     } catch(e){ return []; }
 }
 
-// â”€â”€ API fetching (SLH_API is declared at the top of this script block) â”€
+// ── API fetching (SLH_API is declared at the top of this script block) ─
 // SECURITY: Send X-Admin-Key header on admin endpoints (matches ADMIN_API_KEY env var)
 const ADMIN_API_KEY = localStorage.getItem('slh_admin_password') || 'slh2026admin';
 async function fetchAdminStats() {
@@ -1158,8 +1038,8 @@ async function checkApiHealth() {
 }
 
 function getActivityIcon(type) {
-    const icons = {user:'ðŸ‘¤',payment:'ðŸ’°',referral:'ðŸ”—',bot:'ðŸ¤–',system:'ðŸ–¥ï¸',promo:'ðŸŽ',swap:'ðŸ”„',token:'ðŸ“ˆ',vip:'ðŸ‘‘',website:'ðŸ“Š'};
-    return icons[type] || 'ðŸ“‹';
+    const icons = {user:'👤',payment:'💰',referral:'🔗',bot:'🤖',system:'🖥️',promo:'🎁',swap:'🔄',token:'📈',vip:'👑',website:'📊'};
+    return icons[type] || '📋';
 }
 
 function timeAgo(dateStr) {
@@ -1173,7 +1053,7 @@ function timeAgo(dateStr) {
     return Math.floor(hrs / 24) + 'd ago';
 }
 
-// â”€â”€ Init Dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Init Dashboard ──────────────────────────────────────────────
 function initDashboard(){
     loadKPIs();
     loadCharts();
@@ -1204,13 +1084,13 @@ async function loadKPIs(){
                   || (apiData.stats && typeof apiData.stats.total_users === 'number')
                   || (apiData.dashboard && typeof apiData.dashboard.total_users === 'number');
     console.log('[Admin] apiOk=', apiOk, 'health=', apiData.health, 'stats=', apiData.stats);
-    if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + (apiOk ? ' | API: âœ… connected' : ' | API: âŒ offline');
+    if(luEl) luEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString('he-IL') + (apiOk ? ' | API: ✅ connected' : ' | API: ❌ offline');
 
     // === Overview KPIs (real data priority) ===
     const totalVisitors = an?.total_events || an?.unique_visitors || localAnalytics.length || 0;
     const todayVisitors = an?.today_views || todayLocal.length || 0;
     document.getElementById('kpi-visitors').textContent = totalVisitors || '--';
-    document.getElementById('kpi-visitors-delta').textContent = todayVisitors ? ('â†‘ ' + todayVisitors + ' today') : '';
+    document.getElementById('kpi-visitors-delta').textContent = todayVisitors ? ('↑ ' + todayVisitors + ' today') : '';
 
     const totalUsers = d?.total_users || s?.total_users || 0;
     const premiumUsers = d?.premium_users || s?.premium_users || 0;
@@ -1220,11 +1100,11 @@ async function loadKPIs(){
     const totalReferrals = d?.total_referrals || 0;
 
     document.getElementById('kpi-bot-users').textContent = totalUsers || '--';
-    document.getElementById('kpi-bot-delta').textContent = d ? ('â†‘ ' + todaySignups + ' new today') : (s ? 'â†‘ live' : 'âš ï¸ offline');
+    document.getElementById('kpi-bot-delta').textContent = d ? ('↑ ' + todaySignups + ' new today') : (s ? '↑ live' : '⚠️ offline');
 
     const totalRevenue = totalDeposits + totalStaked;
-    document.getElementById('kpi-revenue').textContent = totalRevenue ? 'â‚ª' + Number(totalRevenue).toLocaleString() : '--';
-    document.getElementById('kpi-rev-delta').textContent = d ? 'â†‘ live data' : '';
+    document.getElementById('kpi-revenue').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
+    document.getElementById('kpi-rev-delta').textContent = d ? '↑ live data' : '';
 
     document.getElementById('kpi-vip').textContent = premiumUsers || '--';
     document.getElementById('kpi-vip-delta').textContent = '';
@@ -1247,10 +1127,10 @@ async function loadKPIs(){
     document.getElementById('usr-pending').textContent = d?.pending_approvals || '0';
 
     // === Revenue page ===
-    document.getElementById('rev-total').textContent = totalRevenue ? 'â‚ª' + Number(totalRevenue).toLocaleString() : '--';
-    document.getElementById('rev-month').textContent = d?.deposits_this_month != null ? 'â‚ª' + Number(d.deposits_this_month).toLocaleString() : '--';
-    document.getElementById('rev-avg').textContent = totalUsers ? 'â‚ª' + Math.round(totalRevenue / totalUsers).toLocaleString() : '--';
-    document.getElementById('rev-commissions').textContent = d?.commissions_total != null ? 'â‚ª' + Number(d.commissions_total).toLocaleString() : '--';
+    document.getElementById('rev-total').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
+    document.getElementById('rev-month').textContent = d?.deposits_this_month != null ? '₪' + Number(d.deposits_this_month).toLocaleString() : '--';
+    document.getElementById('rev-avg').textContent = totalUsers ? '₪' + Math.round(totalRevenue / totalUsers).toLocaleString() : '--';
+    document.getElementById('rev-commissions').textContent = d?.commissions_total != null ? '₪' + Number(d.commissions_total).toLocaleString() : '--';
 }
 
 function loadCharts(){
@@ -1269,7 +1149,7 @@ function loadCharts(){
     new Chart(document.getElementById('chart-visitors'),{type:'line',data:{labels:days,datasets:[{label:'Visitors',data:counts,borderColor:'#00ff41',backgroundColor:'rgba(0,255,65,.1)',fill:true,tension:.4}]},options:chartOpts});
 
     // Revenue by bot
-    new Chart(document.getElementById('chart-revenue'),{type:'bar',data:{labels:['BotShop','Wallet','Factory','Guardian','Academia','Community'],datasets:[{label:'â‚ª',data:[990,632,1490,354,410,452],backgroundColor:['#00ff41','#00e5ff','#ffd700','#ff0055','#a855f7','#39ff14']}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
+    new Chart(document.getElementById('chart-revenue'),{type:'bar',data:{labels:['BotShop','Wallet','Factory','Guardian','Academia','Community'],datasets:[{label:'₪',data:[990,632,1490,354,410,452],backgroundColor:['#00ff41','#00e5ff','#ffd700','#ff0055','#a855f7','#39ff14']}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
 
     // User growth
     new Chart(document.getElementById('chart-growth'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'Users',data:[8,15,28,38],borderColor:'#00e5ff',backgroundColor:'rgba(0,229,255,.1)',fill:true,tension:.4}]},options:chartOpts});
@@ -1296,7 +1176,7 @@ function loadCharts(){
     new Chart(document.getElementById('chart-langs'),{type:'pie',data:{labels:['Hebrew','English','Russian','Arabic','French'],datasets:[{data:[45,30,12,8,5],backgroundColor:['#00ff41','#00e5ff','#ff0055','#ffd700','#a855f7']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
 
     // Revenue charts
-    new Chart(document.getElementById('chart-monthly-rev'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'â‚ª',data:[820,1450,2890,4328],backgroundColor:'#ffd700'}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
+    new Chart(document.getElementById('chart-monthly-rev'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'₪',data:[820,1450,2890,4328],backgroundColor:'#ffd700'}]},options:{...chartOpts,plugins:{legend:{display:false}}}});
 
     new Chart(document.getElementById('chart-rev-source'),{type:'doughnut',data:{labels:['VIP Membership','Bot Premium','Swap Commissions','NFT Royalties','Referral Bonuses'],datasets:[{data:[35,28,18,12,7],backgroundColor:['#ffd700','#00ff41','#00e5ff','#a855f7','#ff0055']}]},options:{responsive:true,plugins:{legend:{labels:{color:'#00ff41',font:{size:10}}}}}});
 }
@@ -1314,7 +1194,7 @@ async function loadActivity(){
             if (Array.isArray(data) && data.length > 0) {
                 activities = data.map(a => ({
                     icon: getActivityIcon(a.type || 'user'),
-                    text: a.description || a.message || `User ${a.username || a.user_id || '#'} â€” ${a.action || 'login'}`,
+                    text: a.description || a.message || `User ${a.username || a.user_id || '#'} — ${a.action || 'login'}`,
                     time: timeAgo(a.created_at || a.last_login || a.timestamp)
                 }));
             }
@@ -1332,7 +1212,7 @@ async function loadActivity(){
                 if (Array.isArray(posts)) {
                     posts.forEach(p => {
                         activities.push({
-                            icon: 'ðŸ’¬',
+                            icon: '💬',
                             text: `${p.username || 'User'}: ${(p.text || '').substring(0, 60)}...`,
                             time: timeAgo(p.created_at)
                         });
@@ -1345,8 +1225,8 @@ async function loadActivity(){
     // Fallback if no API data
     if (activities.length === 0) {
         activities = [
-            {icon:'âš ï¸',text:'API not responding â€” showing cached data',time:'now'},
-            {icon:'ðŸ–¥ï¸',text:'Check Railway deployment status',time:'--'},
+            {icon:'⚠️',text:'API not responding — showing cached data',time:'now'},
+            {icon:'🖥️',text:'Check Railway deployment status',time:'--'},
         ];
     }
 
@@ -1430,11 +1310,11 @@ async function loadInfra(){
         apiStatusEl.style.color = 'var(--gold)';
         const h = await checkApiHealth();
         if (h.ok) {
-            apiStatusEl.textContent = 'Online âœ…';
+            apiStatusEl.textContent = 'Online ✅';
             apiStatusEl.style.color = 'var(--accent)';
             if (apiMsEl) apiMsEl.textContent = h.ms + 'ms response';
         } else {
-            apiStatusEl.textContent = 'Offline âŒ';
+            apiStatusEl.textContent = 'Offline ❌';
             apiStatusEl.style.color = 'var(--red)';
             if (apiMsEl) apiMsEl.textContent = 'unreachable';
         }
@@ -1449,7 +1329,7 @@ async function refreshAll(){
 }
 
 // ============================================================
-// INSTITUTIONAL DASHBOARD â€” Audit, CEX, Portfolio, Compliance
+// INSTITUTIONAL DASHBOARD — Audit, CEX, Portfolio, Compliance
 // ============================================================
 
 async function loadInstitutionalOverview(){
@@ -1461,11 +1341,11 @@ async function loadInstitutionalOverview(){
         const entriesEl = document.getElementById('inst-chain-entries');
         const totalEl = document.getElementById('inst-total-entries');
         if (chain.ok) {
-            statusEl.textContent = chain.total === 0 ? 'EMPTY âœ“' : 'INTACT âœ“';
+            statusEl.textContent = chain.total === 0 ? 'EMPTY ✓' : 'INTACT ✓';
             statusEl.style.color = 'var(--accent)';
             entriesEl.textContent = chain.message || '';
         } else {
-            statusEl.textContent = 'BROKEN âš ';
+            statusEl.textContent = 'BROKEN ⚠';
             statusEl.style.color = 'var(--red)';
             entriesEl.textContent = chain.broken?.length + ' broken entries';
         }
@@ -1484,11 +1364,11 @@ async function loadInstitutionalOverview(){
         if (el) el.textContent = beta.total_remaining ?? '--';
     } catch(e) {}
 
-    // CEX keys count + portfolio â€” defer (needs user_id)
+    // CEX keys count + portfolio — defer (needs user_id)
     const cexEl = document.getElementById('inst-cex-keys');
     const portEl = document.getElementById('inst-portfolio-ils');
-    if (cexEl) cexEl.textContent = 'â€”';
-    if (portEl) portEl.textContent = 'â€”';
+    if (cexEl) cexEl.textContent = '—';
+    if (portEl) portEl.textContent = '—';
 }
 
 async function verifyAuditChain(){
@@ -1499,14 +1379,14 @@ async function verifyAuditChain(){
         const res = await fetch(SLH_API + '/api/audit/verify-chain?limit=10000');
         const data = await res.json();
         if (data.ok) {
-            msgEl.textContent = `âœ… ${data.message} â€” ${data.total} entries scanned`;
+            msgEl.textContent = `✅ ${data.message} — ${data.total} entries scanned`;
             msgEl.style.color = 'var(--accent)';
         } else {
-            msgEl.textContent = `âŒ ${data.message} â€” ${data.broken.length} broken entries`;
+            msgEl.textContent = `❌ ${data.message} — ${data.broken.length} broken entries`;
             msgEl.style.color = 'var(--red)';
         }
     } catch(e) {
-        msgEl.textContent = 'âŒ Verification failed: ' + e.message;
+        msgEl.textContent = '❌ Verification failed: ' + e.message;
         msgEl.style.color = 'var(--red)';
     }
 }
@@ -1528,8 +1408,8 @@ async function loadAuditEntries(){
             return;
         }
         tb.innerHTML = data.entries.map(e => {
-            const amt = e.amount_native ? `${Number(e.amount_native).toLocaleString()} ${e.amount_currency || ''}` : 'â€”';
-            const risk = e.risk_score != null ? e.risk_score : 'â€”';
+            const amt = e.amount_native ? `${Number(e.amount_native).toLocaleString()} ${e.amount_currency || ''}` : '—';
+            const risk = e.risk_score != null ? e.risk_score : '—';
             const riskColor = e.risk_score > 70 ? 'var(--red)' : e.risk_score > 40 ? 'var(--gold)' : 'var(--accent)';
             return `<tr>
                 <td>${e.id}</td>
@@ -1568,16 +1448,16 @@ async function addCexKey(){
         });
         const data = await res.json();
         if (data.ok || data.id || res.ok) {
-            alert(`âœ… Key linked (id=${data.id || '?'})`);
+            alert(`✅ Key linked (id=${data.id || '?'})`);
             document.getElementById('cex-key').value = '';
             document.getElementById('cex-secret').value = '';
             document.getElementById('cex-query-user-id').value = user_id;
             queryCexKeys();
         } else {
-            alert('âŒ ' + (data.detail || data.error || 'Failed'));
+            alert('❌ ' + (data.detail || data.error || 'Failed'));
         }
     } catch(e) {
-        alert('âŒ Error: ' + e.message);
+        alert('❌ Error: ' + e.message);
     }
 }
 
@@ -1623,13 +1503,13 @@ async function syncCexKey(key_id){
         const res = await fetch(SLH_API + '/api/cex/sync/' + key_id, { method: 'POST' });
         const data = await res.json();
         if (data.ok) {
-            alert(`âœ… Synced\nTotal USD: $${data.total_usd?.toFixed(2) || 0}\nAssets: ${data.assets_count || 0}`);
+            alert(`✅ Synced\nTotal USD: $${data.total_usd?.toFixed(2) || 0}\nAssets: ${data.assets_count || 0}`);
             queryCexKeys();
         } else {
-            alert('âŒ ' + (data.error || 'Sync failed'));
+            alert('❌ ' + (data.error || 'Sync failed'));
         }
     } catch(e) {
-        alert('âŒ Error: ' + e.message);
+        alert('❌ Error: ' + e.message);
     }
 }
 
@@ -1639,13 +1519,13 @@ async function deleteCexKey(key_id, user_id){
         const res = await fetch(SLH_API + '/api/cex/keys/' + key_id + '?user_id=' + user_id, { method: 'DELETE' });
         const data = await res.json();
         if (data.ok) {
-            alert('âœ… Deleted');
+            alert('✅ Deleted');
             queryCexKeys();
         } else {
-            alert('âŒ Failed');
+            alert('❌ Failed');
         }
     } catch(e) {
-        alert('âŒ Error: ' + e.message);
+        alert('❌ Error: ' + e.message);
     }
 }
 
@@ -1657,7 +1537,7 @@ async function loadPortfolio(){
         const res = await fetch(SLH_API + '/api/cex/portfolio/' + user_id);
         const data = await res.json();
         document.getElementById('portfolio-total-usd').textContent = '$' + (data.total_usd || 0).toLocaleString();
-        document.getElementById('portfolio-total-ils').textContent = 'â‚ª' + (data.total_ils || 0).toLocaleString();
+        document.getElementById('portfolio-total-ils').textContent = '₪' + (data.total_ils || 0).toLocaleString();
         document.getElementById('portfolio-exchanges').textContent = data.exchanges?.length || 0;
 
         const breakdown = document.getElementById('portfolio-breakdown');
@@ -1671,7 +1551,7 @@ async function loadPortfolio(){
             const entries = Object.entries(balances);
             return `
                 <div class="admin-section">
-                    <h3>ðŸ¦ ${ex.exchange.toUpperCase()} <span>$${(ex.total_usd || 0).toLocaleString()} Â· ${new Date(ex.snapshot_at).toLocaleString('he-IL')}</span></h3>
+                    <h3>🏦 ${ex.exchange.toUpperCase()} <span>$${(ex.total_usd || 0).toLocaleString()} · ${new Date(ex.snapshot_at).toLocaleString('he-IL')}</span></h3>
                     <table class="admin-table">
                         <thead><tr><th>Asset</th><th>Balance</th><th>USD Value</th></tr></thead>
                         <tbody>
@@ -1688,7 +1568,7 @@ async function loadPortfolio(){
             `;
         }).join('');
     } catch(e) {
-        alert('âŒ Error: ' + e.message);
+        alert('❌ Error: ' + e.message);
     }
 }
 
@@ -1703,11 +1583,9 @@ showPage = function(name){
     if (name === 'guardian') loadGuardianStats();
     if (name === 'ops') loadOpsData();
     if (name === 'devops') checkDevOpsStatus();
-    if (name === 'finance') loadFinanceDashboard();
-    if (name === 'trust') loadTrustEntities();
 };
 
-// â”€â”€ Site Map â€” Page Status Checker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Site Map — Page Status Checker ──────────────────────────────
 async function checkAllPages(){
     const statusEl = document.getElementById('sitemap-status');
     if(statusEl) statusEl.textContent = 'Checking all pages...';
@@ -1744,7 +1622,7 @@ async function checkAllPages(){
     if(statusEl) statusEl.textContent = `Done: ${ok} OK, ${fail} failed out of ${ok+fail} pages`;
 }
 
-// â”€â”€ Rewards Admin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Rewards Admin ───────────────────────────────────────────────
 function getAdminKey(){
     return localStorage.getItem('slh_admin_password') || 'slh2026admin';
 }
@@ -1761,28 +1639,28 @@ async function creditMissingRewards(){
         });
         const d = await r.json();
         if(d.ok){
-            let txt = 'âœ… ' + d.summary + '\n\n';
+            let txt = '✅ ' + d.summary + '\n\n';
             if(d.credited.length){
                 txt += 'CREDITED:\n';
-                d.credited.forEach(c => txt += `  â€¢ ${c.name} (ID:${c.user_id}) â†’ +${c.zvk_credited} ZVK, +${c.rep_credited} REP [${c.match}]\n`);
+                d.credited.forEach(c => txt += `  • ${c.name} (ID:${c.user_id}) → +${c.zvk_credited} ZVK, +${c.rep_credited} REP [${c.match}]\n`);
             }
             if(d.already_had.length){
                 txt += '\nALREADY HAD REWARDS:\n';
-                d.already_had.forEach(c => txt += `  â€¢ ${c.name} (ID:${c.user_id}) â€” ZVK balance: ${c.zvk_balance}\n`);
+                d.already_had.forEach(c => txt += `  • ${c.name} (ID:${c.user_id}) — ZVK balance: ${c.zvk_balance}\n`);
             }
             if(d.not_matched.length){
                 txt += '\nNOT MATCHED (no web_user found):\n';
-                d.not_matched.forEach(c => txt += `  â€¢ ${c.name} (contribution #${c.contribution_id})\n`);
+                d.not_matched.forEach(c => txt += `  • ${c.name} (contribution #${c.contribution_id})\n`);
             }
             el.textContent = txt;
             el.style.color = 'var(--accent)';
             loadAllUsers();
         } else {
-            el.textContent = 'âŒ ' + JSON.stringify(d);
+            el.textContent = '❌ ' + JSON.stringify(d);
             el.style.color = 'var(--red)';
         }
     }catch(e){
-        el.textContent = 'âŒ Error: ' + e.message;
+        el.textContent = '❌ Error: ' + e.message;
         el.style.color = 'var(--red)';
     }
 }
@@ -1838,20 +1716,20 @@ async function manualCredit(){
         });
         const d = await r.json();
         if(d.ok){
-            el.textContent = `âœ… Credited ${d.amount} ${d.token} to user ${d.user_id}`;
+            el.textContent = `✅ Credited ${d.amount} ${d.token} to user ${d.user_id}`;
             el.style.color = 'var(--accent)';
             loadAllUsers();
         } else {
-            el.textContent = 'âŒ ' + (d.detail || JSON.stringify(d));
+            el.textContent = '❌ ' + (d.detail || JSON.stringify(d));
             el.style.color = 'var(--red)';
         }
     }catch(e){
-        el.textContent = 'âŒ ' + e.message;
+        el.textContent = '❌ ' + e.message;
         el.style.color = 'var(--red)';
     }
 }
 
-// â”€â”€ Guardian / ZUZ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Guardian / ZUZ ──────────────────────────────────────────
 async function loadGuardianStats(){
     try{
         const r = await fetch(SLH_API + '/api/guardian/stats');
@@ -1895,7 +1773,7 @@ async function submitGuardianReport(){
         });
         const d = await r.json();
         if(d.ok){
-            el.textContent = `Report #${d.report_id} filed. ${d.zuz_awarded} ZUZ marked. Total: ${d.total_zuz}` + (d.auto_banned?' â€” USER AUTO-BANNED!':'');
+            el.textContent = `Report #${d.report_id} filed. ${d.zuz_awarded} ZUZ marked. Total: ${d.total_zuz}` + (d.auto_banned?' — USER AUTO-BANNED!':'');
             el.style.color = d.auto_banned ? 'var(--red)' : 'var(--accent)';
             loadGuardianStats(); loadGuardianBlacklist();
         }else{ el.textContent='Error: '+JSON.stringify(d); el.style.color='var(--red)'; }
@@ -1914,7 +1792,7 @@ async function checkGuardianUser(){
     }catch(e){ el.textContent='Error: '+e.message; el.style.color='var(--red)'; }
 }
 
-// â”€â”€ Ops Center â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Ops Center ──────────────────────────────────────────────
 async function loadOpsData(){
     try{
         const t0 = Date.now();
@@ -1951,7 +1829,7 @@ async function loadOpsData(){
         </div>`).join('');
 }
 
-// â”€â”€ DevOps â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── DevOps ──────────────────────────────────────────────────
 async function checkDevOpsStatus(){
     try{
         const r = await fetch(SLH_API + '/api/health');
@@ -1960,110 +1838,6 @@ async function checkDevOpsStatus(){
         el.innerHTML = d.status==='ok' ? '<span class="badge live">v'+d.version+'</span>' : '<span class="badge error">DOWN</span>';
     }catch(e){
         document.getElementById('devops-api-status').innerHTML = '<span class="badge error">UNREACHABLE</span>';
-    }
-}
-
-// ── Finance Dashboard ───────────────────────────────────────
-async function loadFinanceDashboard(){
-    try{
-        // Launch data
-        const lr = await fetch(SLH_API + '/api/launch/status');
-        const ld = await lr.json();
-        const active = (ld.contributors||[]).filter(c=>c.status!=='cancelled');
-        document.getElementById('fin-raised').textContent = (ld.raised_bnb_verified||0).toFixed(4) + ' BNB';
-        document.getElementById('fin-raised-usd').textContent = '$' + ((ld.raised_bnb_verified||0)*600).toFixed(0);
-        document.getElementById('fin-contribs').textContent = active.length;
-    }catch(e){}
-    try{
-        // Guardian stats
-        const gr = await fetch(SLH_API + '/api/guardian/stats');
-        const gd = await gr.json();
-        document.getElementById('fin-zuz').textContent = (gd.total_zuz_issued||0).toFixed(0);
-        document.getElementById('fin-zuz-circ').textContent = (gd.total_zuz_issued||0).toFixed(0);
-    }catch(e){}
-    try{
-        // All users for token sums
-        const ur = await fetch(SLH_API + '/api/admin/all-users', {headers:{'X-Admin-Key':getAdminKey()}});
-        const ud = await ur.json();
-        if(ud.ok){
-            let totalSLH=0, totalZVK=0, staking=0;
-            ud.users.forEach(u=>{
-                totalSLH += u.balances?.SLH || 0;
-                totalZVK += u.balances?.ZVK || 0;
-            });
-            document.getElementById('fin-slh-db').textContent = totalSLH.toLocaleString();
-            document.getElementById('fin-slh-circ').textContent = totalSLH.toLocaleString();
-            document.getElementById('fin-zvk').textContent = totalZVK.toLocaleString();
-            document.getElementById('fin-zvk-circ').textContent = totalZVK.toLocaleString();
-        }
-    }catch(e){}
-    try{
-        // On-chain BSC balances
-        const bsc = await fetch('https://bsc-dataseed.binance.org/', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:['0xd061de73B06d5E91bfA46b35EfB7B08b16903da4','latest'],id:1})
-        });
-        const bd = await bsc.json();
-        const bnb = parseInt(bd.result,16)/1e18;
-        document.getElementById('fin-pool-bnb').textContent = bnb.toFixed(4);
-        // Wallets display
-        document.getElementById('fin-wallets').innerHTML = `
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-                <div style="padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
-                    <div style="font-size:10px;color:var(--text2)">Genesis Wallet (0xd061...)</div>
-                    <div style="font-size:18px;font-weight:700;color:var(--gold)">${bnb.toFixed(6)} BNB</div>
-                    <div style="font-size:10px;color:var(--text2)">~$${(bnb*600).toFixed(2)}</div>
-                </div>
-                <div style="padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
-                    <div style="font-size:10px;color:var(--text2)">PancakeSwap Pool</div>
-                    <div style="font-size:14px;font-weight:700;color:var(--accent)">SLH/BNB V2</div>
-                    <div style="font-size:10px;color:var(--text2)"><a href="https://pancakeswap.finance/info/v2/pairs/0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee?chain=bsc" target="_blank" style="color:var(--cyan)">View Pool →</a></div>
-                </div>
-                <div style="padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
-                    <div style="font-size:10px;color:var(--text2)">BSCScan Token</div>
-                    <div style="font-size:14px;font-weight:700;color:var(--gold)">SLH (BEP-20)</div>
-                    <div style="font-size:10px;color:var(--text2)"><a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="color:var(--cyan)">View on BSCScan →</a></div>
-                </div>
-            </div>`;
-    }catch(e){}
-    try{
-        // Staking
-        const sr = await fetch(SLH_API + '/api/staking/positions/224223270');
-        const sd = await sr.json();
-        document.getElementById('fin-staking').textContent = (sd.positions||[]).length;
-    }catch(e){}
-}
-
-// ── Trust Network ───────────────────────────────────────────
-async function loadTrustEntities(){
-    try{
-        const gr = await fetch(SLH_API + '/api/guardian/stats');
-        const gd = await gr.json();
-        document.getElementById('gtn-flagged').textContent = gd.total_flagged_users || 0;
-        document.getElementById('gtn-scanned').textContent = (gd.total_messages_scanned||0).toLocaleString();
-        document.getElementById('gtn-defense').textContent = gd.total_banned || 0;
-    }catch(e){}
-    try{
-        const rr = await fetch(SLH_API + '/api/risk/entities');
-        const rd = await rr.json();
-        const tbody = document.getElementById('trust-entities-rows');
-        if(rd.ok && rd.items && rd.items.length > 0){
-            tbody.innerHTML = rd.items.map(e => {
-                const trust = Math.max(0, 100 - e.score_zuz);
-                const cls = trust > 70 ? 'live' : trust > 30 ? 'pending' : 'error';
-                return `<tr>
-                    <td><code>${e.entity_id}</code> ${e.canonical_name||''}</td>
-                    <td style="color:var(--red);font-weight:700">${e.score_zuz}</td>
-                    <td><span class="badge ${cls}">${trust}</span></td>
-                    <td>${e.approved_reports}</td>
-                    <td>${e.eligible_for_publication ? '<span class="badge error">FLAGGED</span>' : '<span class="badge live">OK</span>'}</td>
-                </tr>`;
-            }).join('');
-        } else {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--accent)">No flagged entities — system clean ✅</td></tr>';
-        }
-    }catch(e){
-        document.getElementById('trust-entities-rows').innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--accent)">No flagged entities — system clean ✅</td></tr>';
     }
 }
 </script>
@@ -2078,16 +1852,16 @@ async function loadTrustEntities(){
 </script>
 
 <!-- Theme Switcher FAB -->
-<button id="theme-fab" onclick="toggleAdminThemePanel()" title="×¢×¨×›×ª ×¦×‘×¢×™×">ðŸŽ¨</button>
+<button id="theme-fab" onclick="toggleAdminThemePanel()" title="ערכת צבעים">🎨</button>
 <div id="theme-panel">
-    <div class="title">×¢×¨×›×ª ×¦×‘×¢×™× â€” Admin</div>
-    <button onclick="applyAdminTheme('terminal')">ðŸŸ¢ Terminal (×‘×¨×™×¨×ª ×ž×—×“×œ)</button>
-    <button onclick="applyAdminTheme('dark')">ðŸŒ™ Dark (×ž×§×¦×•×¢×™)</button>
-    <button onclick="applyAdminTheme('light')">â˜€ï¸ Light</button>
-    <button onclick="applyAdminTheme('crypto')">â‚¿ Crypto (×›×ª×•×)</button>
-    <button onclick="applyAdminTheme('cyberpunk')">ðŸ‘¾ Cyberpunk</button>
-    <button onclick="applyAdminTheme('ocean')">ðŸŒŠ Ocean</button>
-    <button onclick="applyAdminTheme('sunset')">ðŸŒ… Sunset</button>
+    <div class="title">ערכת צבעים — Admin</div>
+    <button onclick="applyAdminTheme('terminal')">🟢 Terminal (ברירת מחדל)</button>
+    <button onclick="applyAdminTheme('dark')">🌙 Dark (מקצועי)</button>
+    <button onclick="applyAdminTheme('light')">☀️ Light</button>
+    <button onclick="applyAdminTheme('crypto')">₿ Crypto (כתום)</button>
+    <button onclick="applyAdminTheme('cyberpunk')">👾 Cyberpunk</button>
+    <button onclick="applyAdminTheme('ocean')">🌊 Ocean</button>
+    <button onclick="applyAdminTheme('sunset')">🌅 Sunset</button>
 </div>
 
 <script>
@@ -2124,4 +1898,3 @@ async function loadTrustEntities(){
 <script src="/js/ai-assistant.js?v=20260411i"></script>
 </body>
 </html>
-
