@@ -70,42 +70,80 @@
         <p style="margin-top:12px;color:var(--text)"><strong>מצב נוכחי:</strong> הפרויקט בשלב <strong>Beta מוקדם</strong>. אנחנו בונים בגלוי, בשקיפות מלאה, ומזמינים את הקהילה להיות חלק מהדרך.</p>
     </div>
 
-    <!-- Team -->
+    <!-- Team — Dynamic from API -->
     <div class="card">
-        <h2>👥 הצוות</h2>
-        <div class="team-grid">
+        <h2>👥 הצוות והקהילה</h2>
+        <p style="margin-bottom:16px">הצוות המייסד + כל Genesis Contributors שתרמו ליצירת הפול:</p>
+        <div class="team-grid" id="team-grid">
+            <!-- Filled dynamically from API -->
+        </div>
+        <div style="text-align:center;margin-top:16px">
+            <a href="/launch-event.html" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,var(--accent,#00ff41),#ffd700);color:#000;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none">🚀 הצטרף לצוות</a>
+        </div>
+    </div>
+
+    <script>
+    (async function loadTeam(){
+        const grid = document.getElementById('team-grid');
+        const roles = {
+            'Tzvika': {role: 'שותף מייסד · Genesis Co-Founder', handle: '@tzvika'},
+            'Zohar Shefa Dror': {role: 'Genesis Contributor · QA', handle: ''},
+        };
+
+        // Static founder card
+        grid.innerHTML = `
             <div class="team-card">
-                <div class="avatar">O</div>
+                <div class="avatar" style="background:linear-gradient(135deg,#00ff41,#00b4d8)">O</div>
                 <div class="name">אוסיף קאופמן אונגר</div>
                 <div class="role">מייסד · מפתח ראשי</div>
                 <div style="font-size:11px;color:var(--text2);margin-top:8px">
                     <a href="https://t.me/osifeu_prog" target="_blank">@osifeu_prog</a> ·
                     <a href="https://github.com/osifeu-prog" target="_blank">GitHub</a>
                 </div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">T</div>
-                <div class="name">צביקה</div>
-                <div class="role">שותף מייסד · Genesis Co-Founder</div>
-                <div style="font-size:11px;color:var(--text2);margin-top:8px">
-                    <a href="https://t.me/tzvika" target="_blank">@tzvika</a>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">Z</div>
-                <div class="name">זוהר שפע דרור</div>
-                <div class="role">Genesis Contributor · QA</div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">+</div>
+            </div>`;
+
+        // Load contributors from API
+        try {
+            const r = await fetch('https://slh-api-production.up.railway.app/api/launch/status');
+            const d = await r.json();
+            const active = (d.contributors || []).filter(c => c.status === 'verified');
+            const colors = ['#ffd700','#a855f7','#ff6b9d','#00b4d8','#f3ba2f','#00e887'];
+
+            active.forEach((c, i) => {
+                if (c.name === d.contributors.find(x => x.id === 5)?.name) return; // skip Osif (already shown)
+                const initial = (c.name || '?')[0].toUpperCase();
+                const info = roles[c.name] || {role: 'Genesis Contributor', handle: c.handle || ''};
+                const color = colors[i % colors.length];
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = `
+                    <div class="avatar" style="background:linear-gradient(135deg,${color},${color}88)">${initial}</div>
+                    <div class="name">${c.name}</div>
+                    <div class="role">${info.role} · ${c.amount_bnb} BNB</div>
+                    ${info.handle ? `<div style="font-size:11px;color:var(--text2);margin-top:8px"><a href="https://t.me/${info.handle.replace('@','')}" target="_blank">${info.handle}</a></div>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+
+            // Add "Join" card
+            const joinCard = document.createElement('div');
+            joinCard.className = 'team-card';
+            joinCard.innerHTML = `
+                <div class="avatar" style="background:var(--bg2);border:2px dashed var(--accent)">+</div>
                 <div class="name">אתה?</div>
                 <div class="role">הצטרף כתורם · מפתח · מטפל</div>
-                <div style="font-size:11px;color:var(--text2);margin-top:8px">
-                    <a href="/launch-event.html">הצטרף עכשיו →</a>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div style="font-size:11px;color:var(--text2);margin-top:8px"><a href="/launch-event.html">הצטרף עכשיו →</a></div>
+            `;
+            grid.appendChild(joinCard);
+        } catch(e) {
+            grid.innerHTML += `
+                <div class="team-card"><div class="avatar" style="background:linear-gradient(135deg,#ffd700,#ffd70088)">T</div><div class="name">צביקה</div><div class="role">שותף מייסד · Co-Founder</div></div>
+                <div class="team-card"><div class="avatar" style="background:linear-gradient(135deg,#a855f7,#a855f788)">Z</div><div class="name">זוהר שפע דרור</div><div class="role">Genesis Contributor · QA</div></div>
+                <div class="team-card"><div class="avatar" style="background:var(--bg2);border:2px dashed var(--accent)">+</div><div class="name">אתה?</div><div class="role">הצטרף כתורם</div></div>
+            `;
+        }
+    })();
+    </script>
 
     <!-- Verification -->
     <div class="card">
