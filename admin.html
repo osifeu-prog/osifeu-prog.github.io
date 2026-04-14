@@ -28,6 +28,97 @@ async function loadTrustEntities(){
     document.getElementById('gtn-flagged').textContent=d.total_flagged_users||0;
     document.getElementById('gtn-scanned').textContent=(d.total_messages_scanned||0).toLocaleString();
     document.getElementById('gtn-defense').textContent=d.total_banned||0;}catch(e){}}
+
+// Full User Management
+let allUsersData = [];
+async function loadFullUsers(){
+    const tbody = document.getElementById('full-users-body');
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--gold)">טוען...</td></tr>';
+    try{
+        const r = await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
+        const d = await r.json();
+        if(!d.ok){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">Error</td></tr>';return;}
+        allUsersData = d.users;
+        document.getElementById('usr-total').textContent = d.count;
+        let withZvk=0, withSlh=0, totalZvk=0;
+        d.users.forEach(u=>{
+            if((u.balances?.ZVK||0)>0) withZvk++;
+            if((u.balances?.SLH||0)>0) withSlh++;
+            totalZvk += u.balances?.ZVK||0;
+        });
+        document.getElementById('usr-with-zvk').textContent = withZvk;
+        document.getElementById('usr-with-slh').textContent = withSlh;
+        document.getElementById('usr-total-zvk').textContent = totalZvk.toFixed(0);
+        renderUserTable(d.users);
+    }catch(e){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">'+e.message+'</td></tr>';}
+}
+function renderUserTable(users){
+    const tbody = document.getElementById('full-users-body');
+    tbody.innerHTML = users.map(u=>{
+        const b = u.balances||{};
+        const login = u.last_login ? new Date(u.last_login).toLocaleDateString('he-IL') : '--';
+        const slh = (b.SLH||0);
+        const zvk = (b.ZVK||0);
+        const rep = (b.REP||0);
+        const zuz = (b.ZUZ||0);
+        return '<tr>'+
+            '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
+            '<td style="font-weight:700">'+(u.first_name||'--')+'</td>'+
+            '<td>'+(u.username?'@'+u.username:'--')+'</td>'+
+            '<td style="color:var(--gold)">'+(slh>0?slh.toLocaleString():'0')+'</td>'+
+            '<td style="color:var(--cyan)">'+(zvk>0?zvk:'0')+'</td>'+
+            '<td style="color:var(--purple)">'+(rep>0?rep:'0')+'</td>'+
+            '<td style="color:'+(zuz>0?'var(--red)':'var(--text2)')+'">'+(zuz>0?zuz:'0')+'</td>'+
+            '<td style="font-size:10px">'+login+'</td>'+
+            '<td style="white-space:nowrap">'+
+                '<a href="/member.html?user_id='+u.telegram_id+'" target="_blank" title="Card" style="margin:0 4px">🎴</a>'+
+                '<a href="javascript:void(0)" onclick="document.getElementById('action-uid').value=''+u.telegram_id+''" title="Select" style="margin:0 4px">✏️</a>'+
+                '<a href="https://t.me/'+((u.username)||'')+'" target="_blank" title="Telegram" style="margin:0 4px">'+(u.username?'📱':'')+'</a>'+
+            '</td></tr>';
+    }).join('');
+}
+function filterUsers(){
+    const q = document.getElementById('user-search').value.toLowerCase();
+    if(!q){renderUserTable(allUsersData);return;}
+    const filtered = allUsersData.filter(u=>
+        (u.first_name||'').toLowerCase().includes(q)||
+        (u.username||'').toLowerCase().includes(q)||
+        String(u.telegram_id).includes(q)
+    );
+    renderUserTable(filtered);
+}
+async function executeUserAction(){
+    const uid = document.getElementById('action-uid').value;
+    const action = document.getElementById('action-type').value;
+    const val = document.getElementById('action-value').value;
+    const el = document.getElementById('action-result');
+    if(!uid){el.textContent='Enter user ID';el.style.color='var(--red)';return;}
+    el.textContent='Processing...';el.style.color='var(--gold)';
+    try{
+        if(action==='credit'){
+            const parts = val.split(/\s+/);
+            const token = parts[0]||'ZVK';
+            const amount = parseFloat(parts[1])||10;
+            const r = await fetch(SLH_API+'/api/admin/manual-credit?user_id='+uid+'&token='+token+'&amount='+amount+'&reason=admin_panel',{
+                method:'POST',headers:{'X-Admin-Key':getAdminKey()}});
+            const d = await r.json();
+            el.textContent = d.ok ? 'Credited '+amount+' '+token+' to '+uid : 'Error: '+JSON.stringify(d);
+            el.style.color = d.ok ? 'var(--accent)' : 'var(--red)';
+            loadFullUsers();
+        } else if(action==='card'){
+            window.open('/member.html?user_id='+uid,'_blank');
+            el.textContent='Card opened';el.style.color='var(--accent)';
+        } else if(action==='check'){
+            const r = await fetch(SLH_API+'/api/guardian/check/'+uid);
+            const d = await r.json();
+            el.textContent = JSON.stringify(d,null,2);
+            el.style.color = d.safe ? 'var(--accent)' : 'var(--red)';
+        } else if(action==='message'){
+            el.textContent='Broadcast to single user not yet supported. Use broadcast to all.';
+            el.style.color='var(--gold)';
+        }
+    }catch(e){el.textContent='Error: '+e.message;el.style.color='var(--red)';}
+}
 </script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
@@ -271,16 +362,42 @@ async function loadTrustEntities(){
         <div id="page-users" style="display:none">
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Total Users</div><div class="kpi-value" id="usr-total">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">Premium Users</div><div class="kpi-value" id="usr-premium">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">Today Signups</div><div class="kpi-value" id="usr-today">--</div></div>
-                <div class="kpi red"><div class="kpi-label">Pending Approvals</div><div class="kpi-value" id="usr-pending">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">With ZVK</div><div class="kpi-value" id="usr-with-zvk">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">With SLH</div><div class="kpi-value" id="usr-with-slh">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Total ZVK</div><div class="kpi-value" id="usr-total-zvk">--</div></div>
+            </div>
+            <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap">
+                <button onclick="loadFullUsers()" style="background:var(--accent);color:#000;border:none;padding:10px 20px;font-weight:700;cursor:pointer;font-family:var(--font);border-radius:6px">[ LOAD ALL USERS ]</button>
+                <input type="text" id="user-search" placeholder="חפש לפי שם / ID / username" oninput="filterUsers()" style="flex:1;min-width:200px;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);border-radius:6px">
             </div>
             <div class="admin-section">
-                <h3>👥 Recent Users</h3>
-                <table class="admin-table">
-                    <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
-                    <tbody id="users-table"></tbody>
+                <h3>👥 כל המשתמשים — ניהול מלא</h3>
+                <div style="overflow-x:auto">
+                <table class="admin-table" id="full-users-table">
+                    <thead><tr>
+                        <th>ID</th><th>שם</th><th>Username</th><th>SLH</th><th>ZVK</th><th>REP</th><th>ZUZ</th><th>Login</th><th>פעולות</th>
+                    </tr></thead>
+                    <tbody id="full-users-body"><tr><td colspan="9" style="text-align:center;color:var(--text2)">לחץ "Load All Users"</td></tr></tbody>
                 </table>
+                </div>
+            </div>
+            <div class="admin-section">
+                <h3>✏️ פעולות על משתמש</h3>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
+                        <input type="number" id="action-uid" placeholder="Telegram ID" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:140px;border-radius:4px"></div>
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">פעולה</label>
+                        <select id="action-type" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:160px;border-radius:4px">
+                            <option value="credit">💰 זכה טוקנים</option>
+                            <option value="message">📩 שלח הודעה</option>
+                            <option value="card">🎴 צפה בכרטיס</option>
+                            <option value="check">🛡 בדוק Guardian</option>
+                        </select></div>
+                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Token/Text</label>
+                        <input type="text" id="action-value" placeholder="ZVK / 100 / הודעה..." style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:200px;border-radius:4px"></div>
+                    <button onclick="executeUserAction()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);border-radius:4px">[ בצע ]</button>
+                </div>
+                <div id="action-result" style="margin-top:12px;font-size:12px;color:var(--text2)"></div>
             </div>
         </div>
 
