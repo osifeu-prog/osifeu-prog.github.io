@@ -111,7 +111,7 @@
             </div>
             <div class="form-group">
                 <label>מטבע לקנייה</label>
-                <select id="buy-token" onchange="updateSummary()" style="width:100%;padding:14px 16px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:12px;font-size:15px">
+                <select id="buy-token" onchange="updateSummary();updateBuyLink()" style="width:100%;padding:14px 16px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:12px;font-size:15px">
                     <option value="SLH">💎 SLH (Premium)</option>
                     <option value="ZVK">⭐ ZVK (Rewards)</option>
                     <option value="MNH">🪙 MNH (Stablecoin ₪1)</option>
@@ -269,33 +269,48 @@ function updateSummary() {
 
     document.getElementById('sum-amount').textContent = (symbols[curr] || '') + amount.toLocaleString();
     document.getElementById('sum-bonus').textContent = bonusPct > 0 ? `+${bonusPct}%` : 'None';
-    document.getElementById('sum-slh').textContent = `~${slh.toFixed(4)} SLH`;
+    const buyToken = document.getElementById('buy-token')?.value || 'SLH';
+    const tokenPrices = {SLH: 122, ZVK: 1.2, MNH: 0.27};
+    const tp = tokenPrices[buyToken] || 122;
+    const tokens = amountUSD / tp * (1 + bonusPct / 100);
+    document.getElementById('sum-slh').textContent = '~' + tokens.toFixed(2) + ' ' + buyToken;
     document.getElementById('sum-method').textContent = methods[selectedPayment] || selectedPayment;
 }
 
 function updateBuyLink() {
     const link = document.getElementById('buy-link');
     if (!link) return;
+    const token = document.getElementById('buy-token')?.value || 'SLH';
+    
     const urls = {
         pancakeswap: 'https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc',
         p2p: '/p2p.html',
         genesis: '/launch-event.html#send-bnb',
         bank: 'https://t.me/osifeu_prog'
     };
-    const labels = {
-        pancakeswap: '🥞 רכוש ב-PancakeSwap',
-        p2p: '🤝 עבור ל-P2P Trading',
-        genesis: '💎 הפקד לארנק Genesis',
-        bank: '🏦 צור קשר לרכישה'
-    };
-    link.href = urls[selectedPayment] || urls.pancakeswap;
-    link.textContent = labels[selectedPayment] || labels.pancakeswap;
-    if (selectedPayment === 'p2p' || selectedPayment === 'genesis') {
+    
+    // ZVK/MNH = internal tokens, only P2P
+    if (token !== 'SLH' && selectedPayment === 'pancakeswap') {
+        link.href = '/p2p.html';
         link.removeAttribute('target');
+        link.textContent = '🤝 רכוש ' + token + ' ב-P2P (מטבע פנימי)';
     } else {
-        link.target = '_blank';
+        link.href = urls[selectedPayment] || urls.pancakeswap;
+        if (selectedPayment === 'p2p' || selectedPayment === 'genesis') {
+            link.removeAttribute('target');
+        } else {
+            link.target = '_blank';
+        }
+        const labels = {
+            pancakeswap: '🥞 רכוש ' + token + ' ב-PancakeSwap',
+            p2p: '🤝 רכוש ' + token + ' ב-P2P',
+            genesis: '💎 הפקד לארנק Genesis',
+            bank: '🏦 צור קשר לרכישה'
+        };
+        link.textContent = labels[selectedPayment] || labels.pancakeswap;
     }
 }
+
 
 function handleBuy() {
     const result = document.getElementById('buy-result');
@@ -315,6 +330,7 @@ function handleBuy() {
 }
 
 updateSummary();
+updateBuyLink();
 </script>
 </body>
 </html>
