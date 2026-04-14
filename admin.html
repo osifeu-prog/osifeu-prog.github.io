@@ -144,6 +144,7 @@
         <span id="admin-clock"></span>
         <a href="/dashboard.html" style="color:var(--cyan)">Dashboard</a>
         <a href="/" style="color:var(--text2)">Website</a>
+        <a href="javascript:void(0)" onclick="adminLogout()" style="color:var(--red)">Logout</a>
     </div>
 </nav>
 
@@ -176,6 +177,8 @@
         <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
         <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
         <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
+        <a href="#" onclick="showPage('finance')">💰 Finance</a>
+        <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -255,7 +258,7 @@
                 <h3>👥 Recent Users</h3>
                 <table class="admin-table">
                     <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
-                    <tbody id="users-table"></tbody>
+                    <tbody id="full-users-body"><tr><td colspan="6" style="text-align:center">Click LOAD ALL USERS</td></tr></tbody>
                 </table>
             </div>
         </div>
@@ -724,6 +727,9 @@
             </div>
         </div>
 
+
+        <div id="page-finance" style="display:none"><div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px"><h2 style="color:var(--gold);font-size:18px">💰 Financial Dashboard</h2></div><div class="kpi-grid"><div class="kpi gold"><div class="kpi-label">Genesis</div><div class="kpi-value" id="fin-raised">--</div></div><div class="kpi green"><div class="kpi-label">Pool BNB</div><div class="kpi-value" id="fin-pool-bnb">--</div></div><div class="kpi cyan"><div class="kpi-label">SLH</div><div class="kpi-value" id="fin-slh-db">--</div></div><div class="kpi purple"><div class="kpi-label">ZVK</div><div class="kpi-value" id="fin-zvk">--</div></div></div></div>
+        <div id="page-trust" style="display:none"><div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px"><h2 style="color:var(--cyan);font-size:18px">🌐 Trust Network</h2></div><div class="kpi-grid"><div class="kpi green"><div class="kpi-label">Trust</div><div class="kpi-value" id="gtn-trust">100</div></div><div class="kpi red"><div class="kpi-label">Flagged</div><div class="kpi-value" id="gtn-flagged">0</div></div></div></div>
         <!-- INFRA PAGE -->
         <!-- SITE MAP PAGE -->
         <div id="page-sitemap" style="display:none">
@@ -1579,6 +1585,9 @@ showPage = function(name){
     if (name === 'institutional') loadInstitutionalOverview();
     if (name === 'audit') loadAuditEntries();
     if (name === 'sitemap') checkAllPages();
+    if (name === 'finance') loadFinanceDashboard();
+    if (name === 'trust') loadTrustEntities();
+    if (name === 'users') loadFullUsers();
     if (name === 'rewards') loadAllUsers();
     if (name === 'guardian') loadGuardianStats();
     if (name === 'ops') loadOpsData();
@@ -1840,6 +1849,11 @@ async function checkDevOpsStatus(){
         document.getElementById('devops-api-status').innerHTML = '<span class="badge error">UNREACHABLE</span>';
     }
 }
+
+function adminLogout(){localStorage.removeItem("slh_admin_auth");localStorage.removeItem("slh_admin_password");location.reload();}
+async function loadFinanceDashboard(){try{var r=await fetch(SLH_API+"/api/launch/status");var d=await r.json();document.getElementById("fin-raised").textContent=(d.raised_bnb_verified||0).toFixed(4)+" BNB";}catch(e){}}
+async function loadTrustEntities(){try{var r=await fetch(SLH_API+"/api/guardian/stats");var d=await r.json();document.getElementById("gtn-flagged").textContent=d.total_flagged_users||0;}catch(e){}}
+async function loadFullUsers(){var t=document.getElementById("full-users-body");t.innerHTML="<tr><td colspan=6>Loading...</td></tr>";try{var r=await fetch(SLH_API+"/api/admin/all-users",{headers:{"X-Admin-Key":getAdminKey()}});var d=await r.json();if(!d.ok)return;t.innerHTML=d.users.map(function(u){var b=u.balances||{};return "<tr><td><code>"+u.telegram_id+"</code></td><td>"+(u.username||"--")+"</td><td>"+(u.first_name||"--")+"</td><td>"+(b.SLH||0)+"</td><td>"+(b.ZVK||0)+"</td><td><a href=/member.html?user_id="+u.telegram_id+" target=_blank>Card</a></td></tr>";}).join("");document.getElementById("usr-total").textContent=d.count;}catch(e){t.innerHTML="<tr><td colspan=6>"+e.message+"</td></tr>";}}
 </script>
 
 <div id="bottomnav-root"></div>
