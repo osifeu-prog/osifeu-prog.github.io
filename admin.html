@@ -1150,6 +1150,8 @@ function checkAuth(){
 }
 // Auto-login if remembered
 if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
+// Auto-load users if on users page
+setTimeout(function(){ if(document.getElementById('page-users') && document.getElementById('page-users').style.display !== 'none') loadFullUsers(); }, 1000);
 
 // ── Page Navigation ──────────────────────────────────────────────
 function showPage(name){
