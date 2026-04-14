@@ -119,6 +119,13 @@ async function executeUserAction(){
         }
     }catch(e){el.textContent='Error: '+e.message;el.style.color='var(--red)';}
 }
+
+// Admin Logout
+function adminLogout(){
+    localStorage.removeItem('slh_admin_auth');
+    localStorage.removeItem('slh_admin_password');
+    location.reload();
+}
 </script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
