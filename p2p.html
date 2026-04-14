@@ -1080,17 +1080,17 @@
                 <div class="p2p-section-header">
                     <i class="fas fa-exchange-alt"></i>
                     <h2>P2P Marketplace</h2>
-                    <span class="p2p-coming-badge"><i class="fas fa-clock"></i> Coming Soon</span>
+                    <span style="padding:4px 12px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:12px;font-size:11px;color:var(--accent,#00ff41);font-weight:700">🟢 LIVE</span>
                 </div>
                 <div class="p2p-section-body">
 
-                    <!-- Order Book -->
+                    <!-- Live Order Book from API -->
                     <h3 style="font-size:15px;font-weight:700;margin:0 0 4px;color:var(--text)">
                         <i class="fas fa-list-alt" style="color:var(--accent);margin-left:6px"></i>
-                        הצעות מכירה פעילות (דוגמה)
+                        הצעות מסחר פעילות
                     </h3>
                     <div style="font-size:12px;color:var(--text3);margin-bottom:12px">
-                        כאשר ה-P2P יהיה פעיל, כאן יופיעו הצעות אמיתיות מהקהילה
+                        הצעות אמיתיות מהקהילה · <button onclick="loadP2POrders()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px">🔄 רענן</button>
                     </div>
 
                     <div class="table-wrap">
@@ -1098,95 +1098,51 @@
                             <thead>
                                 <tr>
                                     <th>מוכר</th>
-                                    <th>כמות SLH</th>
-                                    <th>מחיר ליחידה</th>
-                                    <th>שיטת תשלום</th>
+                                    <th>מטבע</th>
+                                    <th>כמות</th>
+                                    <th>מחיר</th>
                                     <th>פעולה</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="p2p-seller">
-                                            <span class="p2p-seller-avatar" style="background:#6c5ce7">A</span>
-                                            <div>
-                                                <div style="font-weight:600">avi_crypto</div>
-                                                <div style="font-size:11px;color:var(--green)">98% positive</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="font-weight:700">250 ZVK</td>
-                                    <td style="direction:ltr;text-align:right">444 ILS</td>
-                                    <td><span style="font-size:12px;padding:4px 10px;background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.3);border-radius:12px;color:#00b4d8">Bit / PayBox</span></td>
-                                    <td><button class="p2p-btn-buy" disabled>Coming Soon</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="p2p-seller">
-                                            <span class="p2p-seller-avatar" style="background:#00cec9">M</span>
-                                            <div>
-                                                <div style="font-weight:600">moshe_slh</div>
-                                                <div style="font-size:11px;color:var(--green)">100% positive</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="font-weight:700">100 SLH</td>
-                                    <td style="direction:ltr;text-align:right">440 ILS</td>
-                                    <td><span style="font-size:12px;padding:4px 10px;background:rgba(0,232,135,0.1);border:1px solid rgba(0,232,135,0.3);border-radius:12px;color:#00e887">MNH Transfer</span></td>
-                                    <td><button class="p2p-btn-buy" disabled>Coming Soon</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="p2p-seller">
-                                            <span class="p2p-seller-avatar" style="background:#ffa502">D</span>
-                                            <div>
-                                                <div style="font-weight:600">dana_trades</div>
-                                                <div style="font-size:11px;color:var(--green)">95% positive</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="font-weight:700">500 SLH</td>
-                                    <td style="direction:ltr;text-align:right">448 ILS</td>
-                                    <td><span style="font-size:12px;padding:4px 10px;background:rgba(243,186,47,0.1);border:1px solid rgba(243,186,47,0.3);border-radius:12px;color:#F0B90B">BNB on BSC</span></td>
-                                    <td><button class="p2p-btn-buy" disabled>Coming Soon</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="p2p-seller">
-                                            <span class="p2p-seller-avatar" style="background:#ff4757">Y</span>
-                                            <div>
-                                                <div style="font-weight:600">yossi_hodl</div>
-                                                <div style="font-size:11px;color:var(--green)">92% positive</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="font-weight:700">1,000 SLH</td>
-                                    <td style="direction:ltr;text-align:right">442 ILS</td>
-                                    <td><span style="font-size:12px;padding:4px 10px;background:rgba(0,152,234,0.1);border:1px solid rgba(0,152,234,0.3);border-radius:12px;color:#0098ea">TON Transfer</span></td>
-                                    <td><button class="p2p-btn-buy" disabled>Coming Soon</button></td>
-                                </tr>
+                            <tbody id="p2p-orders-body">
+                                <tr><td colspan="5" style="text-align:center;color:var(--text3);padding:24px">טוען הצעות...</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- Sell Form (disabled) -->
+                    <!-- Create Order Form (LIVE) -->
                     <div class="p2p-sell-form">
-                        <h3><i class="fas fa-tag" style="color:var(--accent);margin-left:6px"></i> רשום SLH למכירה</h3>
+                        <h3><i class="fas fa-tag" style="color:var(--accent);margin-left:6px"></i> פרסם הצעת מכירה</h3>
                         <div class="p2p-sell-grid">
                             <div class="form-group">
-                                <label>כמות SLH</label>
-                                <input type="number" placeholder="100" disabled>
+                                <label>מטבע</label>
+                                <select id="p2p-token" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px">
+                                    <option value="SLH">SLH</option>
+                                    <option value="ZVK">ZVK</option>
+                                    <option value="MNH">MNH</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>כמות</label>
+                                <input type="number" id="p2p-amount" placeholder="100">
                             </div>
                             <div class="form-group">
                                 <label>מחיר ליחידה (ILS)</label>
-                                <input type="number" placeholder="444" disabled>
+                                <input type="number" id="p2p-price" placeholder="444">
                             </div>
                             <div class="form-group">
                                 <label>שיטת תשלום</label>
-                                <input type="text" placeholder="Bit / MNH / TON" disabled>
+                                <select id="p2p-payment" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px">
+                                    <option>Bit / PayBox</option>
+                                    <option>MNH Transfer (חינם!)</option>
+                                    <option>TON Transfer</option>
+                                    <option>BNB on BSC</option>
+                                    <option>העברה בנקאית</option>
+                                </select>
                             </div>
                         </div>
-                        <button class="p2p-sell-btn" disabled>Coming Soon &mdash; פרסם הצעה</button>
+                        <button class="p2p-sell-btn" onclick="createP2POrder()">📝 פרסם הצעה</button>
+                        <div id="p2p-create-result" style="margin-top:8px;font-size:12px"></div>
                     </div>
 
                     <!-- Note -->
@@ -1262,10 +1218,106 @@
         receivedEl.textContent = '$' + received.toFixed(2);
     }
 
+    /* ── P2P Live Trading ── */
+    const P2P_API = 'https://slh-api-production.up.railway.app';
+
+    function getUser() {
+        try { return JSON.parse(localStorage.getItem('slh_user')); } catch { return null; }
+    }
+
+    async function loadP2POrders() {
+        const tbody = document.getElementById('p2p-orders-body');
+        try {
+            const r = await fetch(P2P_API + '/api/p2p/v2/orders');
+            const d = await r.json();
+            const orders = d.orders || d || [];
+            if (Array.isArray(orders) && orders.length > 0) {
+                tbody.innerHTML = orders.map(o => {
+                    const initial = (o.seller_name || o.user_id || '?').toString().charAt(0).toUpperCase();
+                    const colors = ['#6c5ce7','#00cec9','#ffa502','#ff4757','#00b4d8','#a855f7'];
+                    const color = colors[Math.abs(o.user_id || 0) % colors.length];
+                    return `<tr>
+                        <td><div class="p2p-seller"><span class="p2p-seller-avatar" style="background:${color}">${initial}</span><div><div style="font-weight:600">${o.seller_name || 'User #' + o.user_id}</div></div></div></td>
+                        <td style="font-weight:700">${o.token || 'SLH'}</td>
+                        <td style="font-weight:700">${o.amount || 0}</td>
+                        <td style="direction:ltr;text-align:right">${o.price_ils || o.price || 444} ILS</td>
+                        <td><button class="p2p-btn-buy" onclick="fillOrder(${o.id})">קנה עכשיו</button></td>
+                    </tr>`;
+                }).join('');
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:24px">
+                    <div style="font-size:14px;color:var(--text);margin-bottom:8px">אין הצעות פעילות עדיין</div>
+                    <div style="font-size:12px;color:var(--text3)">היה הראשון לפרסם הצעת מכירה! ⬇️</div>
+                </td></tr>`;
+            }
+        } catch(e) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text3)">
+                אין הצעות פעילות · פרסם הצעה ראשונה!
+            </td></tr>`;
+        }
+    }
+
+    async function createP2POrder() {
+        const user = getUser();
+        if (!user || !user.id) { alert('יש להתחבר קודם דרך @SLH_AIR_bot'); return; }
+        const token = document.getElementById('p2p-token').value;
+        const amount = parseFloat(document.getElementById('p2p-amount').value);
+        const price = parseFloat(document.getElementById('p2p-price').value);
+        const payment = document.getElementById('p2p-payment').value;
+        const result = document.getElementById('p2p-create-result');
+
+        if (!amount || !price) { result.textContent = 'מלא כמות ומחיר'; result.style.color = 'var(--red)'; return; }
+
+        result.textContent = 'שולח...'; result.style.color = 'var(--accent)';
+        try {
+            const r = await fetch(P2P_API + '/api/p2p/v2/create-order', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    user_id: user.id || user.telegram_id,
+                    side: 'sell',
+                    token: token,
+                    amount: amount,
+                    price_ils: price,
+                    payment_method: payment
+                })
+            });
+            const d = await r.json();
+            if (d.id || d.ok) {
+                result.textContent = '✅ הצעה פורסמה! מספר: #' + (d.id || d.order_id);
+                result.style.color = 'var(--accent)';
+                loadP2POrders();
+            } else {
+                result.textContent = '❌ ' + (d.detail || d.error || JSON.stringify(d));
+                result.style.color = 'var(--red)';
+            }
+        } catch(e) {
+            result.textContent = '❌ ' + e.message; result.style.color = 'var(--red)';
+        }
+    }
+
+    async function fillOrder(orderId) {
+        const user = getUser();
+        if (!user || !user.id) { alert('יש להתחבר קודם דרך @SLH_AIR_bot'); return; }
+        if (!confirm('לקנות הצעה זו?')) return;
+        try {
+            const r = await fetch(P2P_API + '/api/p2p/v2/fill-order', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ order_id: orderId, buyer_id: user.id || user.telegram_id })
+            });
+            const d = await r.json();
+            alert(d.ok ? '✅ הצעה נקנתה!' : '❌ ' + (d.detail || d.error || 'שגיאה'));
+            loadP2POrders();
+        } catch(e) { alert('❌ ' + e.message); }
+    }
+
     /* ── Init ── */
     document.addEventListener('DOMContentLoaded', () => {
-        initShared({ activePage: 'trade', showTicker: true, showBottomNav: true });
+        initShared({ activePage: 'p2p', showTicker: true, showBottomNav: true });
         calcGas();
+        loadP2POrders();
+        setInterval(loadP2POrders, 30000);
     });
     </script>
     <script src="/js/analytics.js"></script>
