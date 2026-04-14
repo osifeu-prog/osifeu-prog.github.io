@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLH Spark — Buy SLH Tokens | רכישת מטבעות SLH</title>
+<meta name="description" content="Buy SLH tokens securely. Credit card, crypto, or bank transfer. Genesis pricing available.">
+<link rel="canonical" href="https://slh-nft.com/buy.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Buy SLH Tokens — Genesis Pricing">
+<meta property="og:description" content="Secure your position in SLH Spark. Credit card, crypto, bank transfer.">
+<meta property="og:image" content="https://slh-nft.com/assets/og/launch.png">
+<meta property="og:url" content="https://slh-nft.com/buy.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/shared.css?v=20260414">
+<style>
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg,#0a0a0f);color:var(--text,#e0e0e0);margin:0}
+    .buy-hero{text-align:center;padding:50px 24px 30px;max-width:800px;margin:0 auto}
+    .buy-hero h1{font-size:36px;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#ffd700,#00e887);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .buy-hero .sub{font-size:15px;color:var(--text2,#888);max-width:550px;margin:0 auto;line-height:1.8}
+    .section{max-width:900px;margin:0 auto 24px;padding:0 24px}
+
+    .price-card{background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(0,232,135,.04));border:2px solid var(--gold,#ffd700);border-radius:20px;padding:32px;text-align:center;margin-bottom:24px}
+    .price-card .price{font-size:48px;font-weight:900;color:var(--gold,#ffd700)}
+    .price-card .price-sub{font-size:14px;color:var(--text2);margin-top:4px}
+    .price-card .live-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.3);border-radius:20px;font-size:11px;color:var(--accent,#00ff41);margin-top:12px}
+    .price-card .live-badge .pulse{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+    .buy-form{background:var(--surface,#14142b);border:1px solid var(--border,#1e1e3a);border-radius:20px;padding:32px;margin-bottom:24px}
+    .buy-form h2{font-size:20px;font-weight:800;margin-bottom:20px;color:var(--text)}
+    .form-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .form-group{flex:1;min-width:200px}
+    .form-group label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600}
+    .form-group input,.form-group select{width:100%;padding:14px 16px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:12px;font-size:15px;font-family:inherit}
+    .form-group input:focus,.form-group select:focus{border-color:var(--accent);outline:none}
+
+    .bonus-tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:16px 0}
+    .bonus-tier{padding:12px;background:var(--bg,#0a0a0f);border:1px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:all .2s}
+    .bonus-tier:hover,.bonus-tier.active{border-color:var(--gold);background:rgba(255,215,0,.06)}
+    .bonus-tier .amount{font-size:16px;font-weight:800;color:var(--text)}
+    .bonus-tier .bonus{font-size:12px;color:var(--gold);margin-top:4px}
+
+    .payment-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:20px 0}
+    .pay-method{padding:20px;background:var(--bg);border:2px solid var(--border);border-radius:14px;text-align:center;cursor:pointer;transition:all .2s}
+    .pay-method:hover,.pay-method.selected{border-color:var(--accent);background:rgba(0,255,65,.04)}
+    .pay-method .icon{font-size:28px;margin-bottom:8px}
+    .pay-method .name{font-size:14px;font-weight:700}
+    .pay-method .detail{font-size:11px;color:var(--text2);margin-top:4px}
+
+    .buy-btn{display:block;width:100%;padding:18px;background:linear-gradient(135deg,#ffd700,#00e887);color:#000;font-size:18px;font-weight:900;border:none;border-radius:14px;cursor:pointer;margin-top:20px;font-family:inherit;transition:transform .2s}
+    .buy-btn:hover{transform:translateY(-2px)}
+
+    .summary-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+    .summary-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.05)}
+    .summary-row:last-child{border:none;font-weight:700;color:var(--accent)}
+
+    .trust-strip{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:20px 0;font-size:12px;color:var(--text2)}
+    .trust-item{display:flex;align-items:center;gap:6px}
+
+    .security-note{background:rgba(0,255,65,.04);border:1px solid rgba(0,255,65,.2);border-radius:12px;padding:16px;font-size:12px;color:var(--text2);line-height:1.8;margin:20px 0}
+</style>
+</head>
+<body>
+
+<div id="topnav-root"></div>
+<div id="ticker-root"></div>
+
+<div class="buy-hero">
+    <h1>💎 רכישת מטבעות SLH</h1>
+    <p class="sub">הבטח את מקומך באקוסיסטם של העולם החדש. Genesis pricing זמין לזמן מוגבל.</p>
+</div>
+
+<div class="section">
+    <!-- Live Price -->
+    <div class="price-card">
+        <div class="price" id="slh-price">₪444</div>
+        <div class="price-sub">SLH Spark Token · BSC (BEP-20)</div>
+        <div class="price-sub" id="slh-price-usd">~$122 USD</div>
+        <div class="live-badge"><span class="pulse"></span> LIVE on PancakeSwap</div>
+    </div>
+
+    <!-- Volume Bonus -->
+    <div style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,215,0,.06));border:1px solid rgba(168,85,247,.3);border-radius:16px;padding:20px;text-align:center;margin-bottom:24px">
+        <div style="font-size:20px;margin-bottom:4px">🎉</div>
+        <div style="font-size:16px;font-weight:800;color:var(--purple,#a855f7)">Volume Bonus Program</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:8px">רכישות מעל $100 מקבלות בונוס עד 10%! · Genesis Contributors מקבלים עד 30% בונוס</div>
+    </div>
+
+    <!-- Buy Form -->
+    <div class="buy-form">
+        <h2>💳 פרטי רכישה</h2>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>סכום לרכישה</label>
+                <input type="number" id="buy-amount" value="100" min="10" placeholder="100" oninput="updateSummary()">
+            </div>
+            <div class="form-group">
+                <label>מטבע תשלום</label>
+                <select id="buy-currency" onchange="updateSummary()">
+                    <option value="ILS">ILS (₪)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="BNB">BNB</option>
+                    <option value="USDT">USDT</option>
+                    <option value="TON">TON</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bonus Tiers -->
+        <div style="font-size:13px;color:var(--text2);margin-bottom:8px">🎁 בונוס לפי נפח:</div>
+        <div class="bonus-tiers">
+            <div class="bonus-tier" onclick="setAmount(100)"><div class="amount">$100</div><div class="bonus">+2%</div></div>
+            <div class="bonus-tier" onclick="setAmount(500)"><div class="amount">$500</div><div class="bonus">+3%</div></div>
+            <div class="bonus-tier" onclick="setAmount(1000)"><div class="amount">$1,000</div><div class="bonus">+5%</div></div>
+            <div class="bonus-tier" onclick="setAmount(5000)"><div class="amount">$5,000</div><div class="bonus">+10%</div></div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div style="font-size:13px;color:var(--text2);margin:16px 0 8px">💳 שיטת תשלום:</div>
+        <div class="payment-methods">
+            <div class="pay-method selected" onclick="selectPayment(this,'pancakeswap')">
+                <div class="icon">🥞</div>
+                <div class="name">PancakeSwap</div>
+                <div class="detail">Swap BNB → SLH ישירות</div>
+            </div>
+            <div class="pay-method" onclick="selectPayment(this,'p2p')">
+                <div class="icon">🤝</div>
+                <div class="name">P2P (חינם!)</div>
+                <div class="detail">Bit · PayBox · MNH · TON</div>
+            </div>
+            <div class="pay-method" onclick="selectPayment(this,'genesis')">
+                <div class="icon">💎</div>
+                <div class="name">Genesis Deposit</div>
+                <div class="detail">BNB ישירות לארנק Genesis</div>
+            </div>
+            <div class="pay-method" onclick="selectPayment(this,'bank')">
+                <div class="icon">🏦</div>
+                <div class="name">העברה בנקאית</div>
+                <div class="detail">צור קשר עם @osifeu_prog</div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-card">
+            <div class="summary-row"><span>סכום</span><span id="sum-amount">₪100</span></div>
+            <div class="summary-row"><span>בונוס</span><span id="sum-bonus" style="color:var(--gold)">+2%</span></div>
+            <div class="summary-row"><span>SLH שתקבל</span><span id="sum-slh" style="color:var(--accent)">~0.225 SLH</span></div>
+            <div class="summary-row"><span>שיטת תשלום</span><span id="sum-method">PancakeSwap</span></div>
+        </div>
+
+        <button class="buy-btn" onclick="handleBuy()">🚀 רכוש SLH עכשיו</button>
+        <div id="buy-result" style="margin-top:12px;font-size:13px;text-align:center"></div>
+    </div>
+
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+        <div class="trust-item"><i class="fas fa-lock" style="color:var(--accent)"></i> הצפנה בנקאית</div>
+        <div class="trust-item"><i class="fas fa-shield-alt" style="color:var(--accent)"></i> Smart Contract מאומת</div>
+        <div class="trust-item"><i class="fas fa-link" style="color:var(--accent)"></i> קוד פתוח</div>
+        <div class="trust-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i> PancakeSwap V2</div>
+    </div>
+
+    <!-- Security Note -->
+    <div class="security-note">
+        <strong style="color:var(--accent)">🔐 אבטחה ושקיפות:</strong><br>
+        • כל העסקאות מאובטחות ומתועדות ב-SHA-256 audit chain<br>
+        • הטוקנים יועברו לארנק שלך לאחר אישור<br>
+        • מסחר P2P כולל escrow אוטומטי להגנה על שני הצדדים<br>
+        • <a href="/about.html" style="color:var(--accent)">ראה דף שקיפות מלא →</a>
+    </div>
+
+    <!-- FAQ -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px">
+        <h3 style="color:var(--text);margin-bottom:16px">❓ שאלות נפוצות</h3>
+        <div style="font-size:13px;color:var(--text2);line-height:2">
+            <strong style="color:var(--text)">מה המינימום לרכישה?</strong><br>
+            אין מינימום ב-PancakeSwap (אפילו $0.60). ב-P2P — לפי ההצעה.<br><br>
+            <strong style="color:var(--text)">איך מקבלים את הטוקנים?</strong><br>
+            PancakeSwap: מיידי לארנק MetaMask/Trust Wallet. P2P: escrow אוטומטי. Genesis: תוך 24 שעות.<br><br>
+            <strong style="color:var(--text)">מה ההבדל בין הדרכים?</strong><br>
+            PancakeSwap = מיידי, on-chain. P2P = ישירות מאנשים, חינם על MNH. Genesis = תרומה לפול + status מיוחד.
+        </div>
+    </div>
+
+    <!-- Related -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px">
+        <a href="/liquidity.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
+            <div style="font-size:20px;margin-bottom:6px">💧</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">Add Liquidity</div>
+        </a>
+        <a href="/earn.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
+            <div style="font-size:20px;margin-bottom:6px">📈</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">65% APY Staking</div>
+        </a>
+        <a href="/p2p.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
+            <div style="font-size:20px;margin-bottom:6px">🤝</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">P2P Trading</div>
+        </a>
+        <a href="/about.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
+            <div style="font-size:20px;margin-bottom:6px">🔍</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">About & Trust</div>
+        </a>
+    </div>
+</div>
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260414"></script>
+<script src="/js/shared.js?v=20260414"></script>
+<script>initShared({ activePage: 'trade', showBottomNav: true });</script>
+<script src="/js/analytics.js"></script>
+<script src="/js/ai-assistant.js?v=20260414"></script>
+
+<script>
+const SLH_PRICE_ILS = 444;
+const SLH_PRICE_USD = 122;
+let selectedPayment = 'pancakeswap';
+
+function setAmount(usd) {
+    const curr = document.getElementById('buy-currency').value;
+    document.getElementById('buy-amount').value = curr === 'ILS' ? Math.round(usd * 3.65) : usd;
+    document.querySelectorAll('.bonus-tier').forEach(t => t.classList.remove('active'));
+    event.target.closest('.bonus-tier').classList.add('active');
+    updateSummary();
+}
+
+function selectPayment(el, method) {
+    document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPayment = method;
+    updateSummary();
+}
+
+function updateSummary() {
+    const amount = parseFloat(document.getElementById('buy-amount').value) || 0;
+    const curr = document.getElementById('buy-currency').value;
+    let amountUSD = amount;
+    if (curr === 'ILS') amountUSD = amount / 3.65;
+    else if (curr === 'BNB') amountUSD = amount * 600;
+    else if (curr === 'TON') amountUSD = amount * 1.4;
+
+    let bonusPct = 0;
+    if (amountUSD >= 5000) bonusPct = 10;
+    else if (amountUSD >= 1000) bonusPct = 5;
+    else if (amountUSD >= 500) bonusPct = 3;
+    else if (amountUSD >= 100) bonusPct = 2;
+
+    const slh = (amountUSD / SLH_PRICE_USD) * (1 + bonusPct / 100);
+    const symbols = {ILS: '₪', USD: '$', BNB: 'BNB ', USDT: 'USDT ', TON: 'TON '};
+    const methods = {pancakeswap: 'PancakeSwap', p2p: 'P2P', genesis: 'Genesis Deposit', bank: 'Bank Transfer'};
+
+    document.getElementById('sum-amount').textContent = (symbols[curr] || '') + amount.toLocaleString();
+    document.getElementById('sum-bonus').textContent = bonusPct > 0 ? `+${bonusPct}%` : 'None';
+    document.getElementById('sum-slh').textContent = `~${slh.toFixed(4)} SLH`;
+    document.getElementById('sum-method').textContent = methods[selectedPayment] || selectedPayment;
+}
+
+function handleBuy() {
+    const result = document.getElementById('buy-result');
+    if (selectedPayment === 'pancakeswap') {
+        window.open('https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc', '_blank');
+        result.innerHTML = '<span style="color:var(--accent)">🥞 PancakeSwap נפתח בחלון חדש!</span>';
+    } else if (selectedPayment === 'p2p') {
+        window.location.href = '/p2p.html';
+    } else if (selectedPayment === 'genesis') {
+        result.innerHTML = '<span style="color:var(--gold)">💎 Genesis Wallet:<br><code style="font-size:11px;background:var(--bg);padding:6px 10px;border-radius:6px;display:inline-block;margin-top:6px;direction:ltr">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</code><br>רשת: BSC (BEP-20) · דווח אח"כ ב-<a href="/launch-event.html" style="color:var(--accent)">Launch Event</a></span>';
+    } else {
+        result.innerHTML = '<span style="color:var(--cyan)">🏦 צור קשר: <a href="https://t.me/osifeu_prog" target="_blank" style="color:var(--accent)">@osifeu_prog</a></span>';
+    }
+}
+
+updateSummary();
+</script>
+</body>
+</html>
