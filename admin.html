@@ -7,139 +7,7 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-// Finance
-async function loadFinanceDashboard(){
-    try{const r=await fetch(SLH_API+'/api/launch/status');const d=await r.json();
-    const a=(d.contributors||[]).filter(c=>c.status!=='cancelled');
-    document.getElementById('fin-raised').textContent=(d.raised_bnb_verified||0).toFixed(4)+' BNB';
-    document.getElementById('fin-contribs').textContent=a.length;}catch(e){}
-    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
-    document.getElementById('fin-zuz').textContent=(d.total_zuz_issued||0).toFixed(0);}catch(e){}
-    try{const r=await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
-    const d=await r.json();if(d.ok){let s=0,z=0;d.users.forEach(u=>{s+=u.balances?.SLH||0;z+=u.balances?.ZVK||0;});
-    document.getElementById('fin-slh-db').textContent=s.toLocaleString();
-    document.getElementById('fin-zvk').textContent=z.toLocaleString();}}catch(e){}
-    try{const b=await fetch('https://bsc-dataseed.binance.org/',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:['0xd061de73B06d5E91bfA46b35EfB7B08b16903da4','latest'],id:1})});
-    const d=await b.json();document.getElementById('fin-pool-bnb').textContent=(parseInt(d.result,16)/1e18).toFixed(4);}catch(e){}}
-// Trust
-async function loadTrustEntities(){
-    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
-    document.getElementById('gtn-flagged').textContent=d.total_flagged_users||0;
-    document.getElementById('gtn-scanned').textContent=(d.total_messages_scanned||0).toLocaleString();
-    document.getElementById('gtn-defense').textContent=d.total_banned||0;}catch(e){}}
 
-// Full User Management
-let allUsersData = [];
-async function loadFullUsers(){
-    const tbody = document.getElementById('full-users-body');
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--gold)">טוען...</td></tr>';
-    try{
-        const r = await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
-        const d = await r.json();
-        if(!d.ok){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">Error</td></tr>';return;}
-        allUsersData = d.users;
-        document.getElementById('usr-total').textContent = d.count;
-        let withZvk=0, withSlh=0, totalZvk=0;
-        d.users.forEach(u=>{
-            if((u.balances?.ZVK||0)>0) withZvk++;
-            if((u.balances?.SLH||0)>0) withSlh++;
-            totalZvk += u.balances?.ZVK||0;
-        });
-        document.getElementById('usr-with-zvk').textContent = withZvk;
-        document.getElementById('usr-with-slh').textContent = withSlh;
-        document.getElementById('usr-total-zvk').textContent = totalZvk.toFixed(0);
-        renderUserTable(d.users);
-    }catch(e){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">'+e.message+'</td></tr>';}
-}
-function renderUserTable(users){
-    const tbody = document.getElementById('full-users-body');
-    tbody.innerHTML = users.map(u=>{
-        const b = u.balances||{};
-        const login = u.last_login ? new Date(u.last_login).toLocaleDateString('he-IL') : '--';
-        const slh = (b.SLH||0);
-        const zvk = (b.ZVK||0);
-        const rep = (b.REP||0);
-        const zuz = (b.ZUZ||0);
-        return '<tr>'+
-            '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
-            '<td style="font-weight:700">'+(u.first_name||'--')+'</td>'+
-            '<td>'+(u.username?'@'+u.username:'--')+'</td>'+
-            '<td style="color:var(--gold)">'+(slh>0?slh.toLocaleString():'0')+'</td>'+
-            '<td style="color:var(--cyan)">'+(zvk>0?zvk:'0')+'</td>'+
-            '<td style="color:var(--purple)">'+(rep>0?rep:'0')+'</td>'+
-            '<td style="color:'+(zuz>0?'var(--red)':'var(--text2)')+'">'+(zuz>0?zuz:'0')+'</td>'+
-            '<td style="font-size:10px">'+login+'</td>'+
-            '<td style="white-space:nowrap">'+
-                '<a href="/member.html?user_id='+u.telegram_id+'" target="_blank" title="Card" style="margin:0 4px">🎴</a>'+
-                '<a href="javascript:void(0)" onclick="document.getElementById('action-uid').value=''+u.telegram_id+''" title="Select" style="margin:0 4px">✏️</a>'+
-                '<a href="https://t.me/'+((u.username)||'')+'" target="_blank" title="Telegram" style="margin:0 4px">'+(u.username?'📱':'')+'</a>'+
-            '</td></tr>';
-    }).join('');
-}
-function filterUsers(){
-    const q = document.getElementById('user-search').value.toLowerCase();
-    if(!q){renderUserTable(allUsersData);return;}
-    const filtered = allUsersData.filter(u=>
-        (u.first_name||'').toLowerCase().includes(q)||
-        (u.username||'').toLowerCase().includes(q)||
-        String(u.telegram_id).includes(q)
-    );
-    renderUserTable(filtered);
-}
-async function executeUserAction(){
-    const uid = document.getElementById('action-uid').value;
-    const action = document.getElementById('action-type').value;
-    const val = document.getElementById('action-value').value;
-    const el = document.getElementById('action-result');
-    if(!uid){el.textContent='Enter user ID';el.style.color='var(--red)';return;}
-    el.textContent='Processing...';el.style.color='var(--gold)';
-    try{
-        if(action==='credit'){
-            const parts = val.split(/\s+/);
-            const token = parts[0]||'ZVK';
-            const amount = parseFloat(parts[1])||10;
-            const r = await fetch(SLH_API+'/api/admin/manual-credit?user_id='+uid+'&token='+token+'&amount='+amount+'&reason=admin_panel',{
-                method:'POST',headers:{'X-Admin-Key':getAdminKey()}});
-            const d = await r.json();
-            el.textContent = d.ok ? 'Credited '+amount+' '+token+' to '+uid : 'Error: '+JSON.stringify(d);
-            el.style.color = d.ok ? 'var(--accent)' : 'var(--red)';
-            loadFullUsers();
-        } else if(action==='card'){
-            window.open('/member.html?user_id='+uid,'_blank');
-            el.textContent='Card opened';el.style.color='var(--accent)';
-        } else if(action==='check'){
-            const r = await fetch(SLH_API+'/api/guardian/check/'+uid);
-            const d = await r.json();
-            el.textContent = JSON.stringify(d,null,2);
-            el.style.color = d.safe ? 'var(--accent)' : 'var(--red)';
-        } else if(action==='message'){
-            el.textContent='Broadcast to single user not yet supported. Use broadcast to all.';
-            el.style.color='var(--gold)';
-        }
-    }catch(e){el.textContent='Error: '+e.message;el.style.color='var(--red)';}
-}
-
-// Admin Logout
-function adminLogout(){
-    localStorage.removeItem('slh_admin_auth');
-    localStorage.removeItem('slh_admin_password');
-    location.reload();
-}
-
-// Load admin profile
-async function loadAdminProfile(){
-    try{
-        const r = await fetch(SLH_API+'/api/user/224223270');
-        const d = await r.json();
-        if(d.user){
-            const name = d.user.display_name || d.user.first_name || 'Admin';
-            document.getElementById('admin-name').innerHTML = '👤 '+name+' <span style="color:var(--accent)">· Admin</span>';
-        }
-    }catch(e){}
-}
-loadAdminProfile();
-</script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
     <style>
@@ -2061,6 +1929,140 @@ async function checkDevOpsStatus(){
         document.getElementById('devops-api-status').innerHTML = '<span class="badge error">UNREACHABLE</span>';
     }
 }
+
+// Finance
+async function loadFinanceDashboard(){
+    try{const r=await fetch(SLH_API+'/api/launch/status');const d=await r.json();
+    const a=(d.contributors||[]).filter(c=>c.status!=='cancelled');
+    document.getElementById('fin-raised').textContent=(d.raised_bnb_verified||0).toFixed(4)+' BNB';
+    document.getElementById('fin-contribs').textContent=a.length;}catch(e){}
+    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
+    document.getElementById('fin-zuz').textContent=(d.total_zuz_issued||0).toFixed(0);}catch(e){}
+    try{const r=await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
+    const d=await r.json();if(d.ok){let s=0,z=0;d.users.forEach(u=>{s+=u.balances?.SLH||0;z+=u.balances?.ZVK||0;});
+    document.getElementById('fin-slh-db').textContent=s.toLocaleString();
+    document.getElementById('fin-zvk').textContent=z.toLocaleString();}}catch(e){}
+    try{const b=await fetch('https://bsc-dataseed.binance.org/',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:['0xd061de73B06d5E91bfA46b35EfB7B08b16903da4','latest'],id:1})});
+    const d=await b.json();document.getElementById('fin-pool-bnb').textContent=(parseInt(d.result,16)/1e18).toFixed(4);}catch(e){}}
+// Trust
+async function loadTrustEntities(){
+    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
+    document.getElementById('gtn-flagged').textContent=d.total_flagged_users||0;
+    document.getElementById('gtn-scanned').textContent=(d.total_messages_scanned||0).toLocaleString();
+    document.getElementById('gtn-defense').textContent=d.total_banned||0;}catch(e){}}
+
+// Full User Management
+let allUsersData = [];
+async function loadFullUsers(){
+    const tbody = document.getElementById('full-users-body');
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--gold)">טוען...</td></tr>';
+    try{
+        const r = await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
+        const d = await r.json();
+        if(!d.ok){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">Error</td></tr>';return;}
+        allUsersData = d.users;
+        document.getElementById('usr-total').textContent = d.count;
+        let withZvk=0, withSlh=0, totalZvk=0;
+        d.users.forEach(u=>{
+            if((u.balances?.ZVK||0)>0) withZvk++;
+            if((u.balances?.SLH||0)>0) withSlh++;
+            totalZvk += u.balances?.ZVK||0;
+        });
+        document.getElementById('usr-with-zvk').textContent = withZvk;
+        document.getElementById('usr-with-slh').textContent = withSlh;
+        document.getElementById('usr-total-zvk').textContent = totalZvk.toFixed(0);
+        renderUserTable(d.users);
+    }catch(e){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">'+e.message+'</td></tr>';}
+}
+function renderUserTable(users){
+    const tbody = document.getElementById('full-users-body');
+    tbody.innerHTML = users.map(u=>{
+        const b = u.balances||{};
+        const login = u.last_login ? new Date(u.last_login).toLocaleDateString('he-IL') : '--';
+        const slh = (b.SLH||0);
+        const zvk = (b.ZVK||0);
+        const rep = (b.REP||0);
+        const zuz = (b.ZUZ||0);
+        return '<tr>'+
+            '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
+            '<td style="font-weight:700">'+(u.first_name||'--')+'</td>'+
+            '<td>'+(u.username?'@'+u.username:'--')+'</td>'+
+            '<td style="color:var(--gold)">'+(slh>0?slh.toLocaleString():'0')+'</td>'+
+            '<td style="color:var(--cyan)">'+(zvk>0?zvk:'0')+'</td>'+
+            '<td style="color:var(--purple)">'+(rep>0?rep:'0')+'</td>'+
+            '<td style="color:'+(zuz>0?'var(--red)':'var(--text2)')+'">'+(zuz>0?zuz:'0')+'</td>'+
+            '<td style="font-size:10px">'+login+'</td>'+
+            '<td style="white-space:nowrap">'+
+                '<a href="/member.html?user_id='+u.telegram_id+'" target="_blank" title="Card" style="margin:0 4px">🎴</a>'+
+                '<a href="javascript:void(0)" onclick="document.getElementById('action-uid').value=''+u.telegram_id+''" title="Select" style="margin:0 4px">✏️</a>'+
+                '<a href="https://t.me/'+((u.username)||'')+'" target="_blank" title="Telegram" style="margin:0 4px">'+(u.username?'📱':'')+'</a>'+
+            '</td></tr>';
+    }).join('');
+}
+function filterUsers(){
+    const q = document.getElementById('user-search').value.toLowerCase();
+    if(!q){renderUserTable(allUsersData);return;}
+    const filtered = allUsersData.filter(u=>
+        (u.first_name||'').toLowerCase().includes(q)||
+        (u.username||'').toLowerCase().includes(q)||
+        String(u.telegram_id).includes(q)
+    );
+    renderUserTable(filtered);
+}
+async function executeUserAction(){
+    const uid = document.getElementById('action-uid').value;
+    const action = document.getElementById('action-type').value;
+    const val = document.getElementById('action-value').value;
+    const el = document.getElementById('action-result');
+    if(!uid){el.textContent='Enter user ID';el.style.color='var(--red)';return;}
+    el.textContent='Processing...';el.style.color='var(--gold)';
+    try{
+        if(action==='credit'){
+            const parts = val.split(/\s+/);
+            const token = parts[0]||'ZVK';
+            const amount = parseFloat(parts[1])||10;
+            const r = await fetch(SLH_API+'/api/admin/manual-credit?user_id='+uid+'&token='+token+'&amount='+amount+'&reason=admin_panel',{
+                method:'POST',headers:{'X-Admin-Key':getAdminKey()}});
+            const d = await r.json();
+            el.textContent = d.ok ? 'Credited '+amount+' '+token+' to '+uid : 'Error: '+JSON.stringify(d);
+            el.style.color = d.ok ? 'var(--accent)' : 'var(--red)';
+            loadFullUsers();
+        } else if(action==='card'){
+            window.open('/member.html?user_id='+uid,'_blank');
+            el.textContent='Card opened';el.style.color='var(--accent)';
+        } else if(action==='check'){
+            const r = await fetch(SLH_API+'/api/guardian/check/'+uid);
+            const d = await r.json();
+            el.textContent = JSON.stringify(d,null,2);
+            el.style.color = d.safe ? 'var(--accent)' : 'var(--red)';
+        } else if(action==='message'){
+            el.textContent='Broadcast to single user not yet supported. Use broadcast to all.';
+            el.style.color='var(--gold)';
+        }
+    }catch(e){el.textContent='Error: '+e.message;el.style.color='var(--red)';}
+}
+
+// Admin Logout
+function adminLogout(){
+    localStorage.removeItem('slh_admin_auth');
+    localStorage.removeItem('slh_admin_password');
+    location.reload();
+}
+
+// Load admin profile
+async function loadAdminProfile(){
+    try{
+        const r = await fetch(SLH_API+'/api/user/224223270');
+        const d = await r.json();
+        if(d.user){
+            const name = d.user.display_name || d.user.first_name || 'Admin';
+            document.getElementById('admin-name').innerHTML = '👤 '+name+' <span style="color:var(--accent)">· Admin</span>';
+        }
+    }catch(e){}
+}
+loadAdminProfile();
+
 </script>
 
 <div id="bottomnav-root"></div>
