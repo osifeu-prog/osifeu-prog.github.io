@@ -126,6 +126,19 @@ function adminLogout(){
     localStorage.removeItem('slh_admin_password');
     location.reload();
 }
+
+// Load admin profile
+async function loadAdminProfile(){
+    try{
+        const r = await fetch(SLH_API+'/api/user/224223270');
+        const d = await r.json();
+        if(d.user){
+            const name = d.user.display_name || d.user.first_name || 'Admin';
+            document.getElementById('admin-name').innerHTML = '👤 '+name+' <span style="color:var(--accent)">· Admin</span>';
+        }
+    }catch(e){}
+}
+loadAdminProfile();
 </script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
@@ -252,6 +265,7 @@ function adminLogout(){
 <!-- NAV -->
 <nav class="admin-nav" id="admin-panel" style="display:none">
     <div class="nav-brand">SLH Admin <span>BACKOFFICE</span></div>
+    <div id="admin-profile" style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)"><span id="admin-name">Admin</span></div>
     <div class="nav-links">
         <a href="#" class="active" onclick="showPage('overview')">Overview</a>
         <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Institutional</a>
