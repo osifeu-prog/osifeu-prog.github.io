@@ -2380,11 +2380,26 @@ else {
             id: parseInt(urlUid, 10),
             first_name: urlName,
             username: urlUsername,
-            photo_url: params.get('photo') ? decodeURIComponent(params.get('photo')) : ''
+            photo_url: params.get('photo') ? decodeURIComponent(params.get('photo')) : '',
+            is_registered: false // default, will be fetched from API
         };
-        localStorage.setItem('slh_user', JSON.stringify(currentUser));
-        window.history.replaceState({}, '', window.location.pathname);
-        showApp();
+        // Fetch real is_registered status from API before showing app
+        fetch(`${API}/api/user/${urlUid}`).then(r => r.ok ? r.json() : null).then(data => {
+            if (data && data.user) {
+                currentUser.is_registered = data.user.is_registered || data.user.payment_status === 'approved';
+                currentUser.first_name = data.user.first_name || currentUser.first_name;
+                currentUser.username = data.user.username || currentUser.username;
+                currentUser.photo_url = data.user.photo_url || currentUser.photo_url;
+            }
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+            window.history.replaceState({}, '', window.location.pathname);
+            showApp();
+        }).catch(() => {
+            // API unreachable — show app anyway with what we have
+            localStorage.setItem('slh_user', JSON.stringify(currentUser));
+            window.history.replaceState({}, '', window.location.pathname);
+            showApp();
+        });
     }
 }
 // 3. Fallback to saved session

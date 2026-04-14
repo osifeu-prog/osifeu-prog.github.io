@@ -297,7 +297,7 @@ async function loadKPIs(){
 
     // Users + Dashboard
     try{
-        const key = localStorage.getItem('slh_admin_password')||'slh2026admin';
+        const key = localStorage.getItem('slh_admin_password')||'';
         const r = await fetch(API+'/api/admin/dashboard',{headers:{'X-Admin-Key':key}});
         const d = await r.json();
         document.getElementById('k-users').textContent = d.total_users||'--';

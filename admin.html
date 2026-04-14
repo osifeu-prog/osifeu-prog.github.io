@@ -246,20 +246,68 @@
             </div>
         </div>
 
-        <!-- USERS PAGE -->
+        <!-- USERS PAGE — Full CRM -->
         <div id="page-users" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,255,65,.08),rgba(0,229,255,.04));border:1px solid var(--accent);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--accent);font-size:18px;margin-bottom:8px">👥 User Management CRM</h2>
+                <p style="font-size:11px;color:var(--text2)">Search, filter, credit, and manage all registered users</p>
+            </div>
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Total Users</div><div class="kpi-value" id="usr-total">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">Premium Users</div><div class="kpi-value" id="usr-premium">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">Today Signups</div><div class="kpi-value" id="usr-today">--</div></div>
-                <div class="kpi red"><div class="kpi-label">Pending Approvals</div><div class="kpi-value" id="usr-pending">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Premium</div><div class="kpi-value" id="usr-premium">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Today</div><div class="kpi-value" id="usr-today">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Pending</div><div class="kpi-value" id="usr-pending">--</div></div>
             </div>
+            <!-- Search & Filters -->
+            <div class="admin-section" style="margin-bottom:16px">
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+                    <input type="text" id="crm-search" placeholder="Search by ID, username, or name..." style="flex:1;min-width:200px;padding:8px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px;font-family:var(--font)" oninput="filterCrmUsers()">
+                    <select id="crm-filter-status" style="padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px" onchange="filterCrmUsers()">
+                        <option value="all">All Status</option>
+                        <option value="premium">Premium Only</option>
+                        <option value="free">Free Only</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                    <button class="admin-btn" onclick="loadFullUsers()" style="background:var(--accent);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-size:11px">Refresh</button>
+                </div>
+            </div>
+            <!-- CRM Table -->
             <div class="admin-section">
-                <h3>👥 Recent Users</h3>
-                <table class="admin-table">
-                    <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
-                    <tbody id="full-users-body"><tr><td colspan="6" style="text-align:center">Click LOAD ALL USERS</td></tr></tbody>
-                </table>
+                <div style="overflow-x:auto;max-height:500px;overflow-y:auto">
+                    <table class="admin-table" id="crm-table">
+                        <thead><tr>
+                            <th>ID</th><th>Username</th><th>Name</th><th>SLH</th><th>ZVK</th><th>MNH</th><th>Status</th><th>Joined</th><th>Actions</th>
+                        </tr></thead>
+                        <tbody id="full-users-body"><tr><td colspan="9" style="text-align:center;color:var(--text2)">Loading users...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Quick Actions -->
+            <div class="admin-section" style="margin-top:16px">
+                <h3>Quick Actions</h3>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+                    <div style="flex:1;min-width:280px;background:var(--bg3);padding:14px;border-radius:8px">
+                        <div style="font-size:11px;color:var(--text2);margin-bottom:8px">Credit ZVK to User</div>
+                        <div style="display:flex;gap:8px">
+                            <input type="number" id="credit-uid" placeholder="User ID" style="width:120px;padding:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:11px">
+                            <input type="number" id="credit-amount" placeholder="Amount" value="100" style="width:80px;padding:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:11px">
+                            <select id="credit-token" style="padding:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:11px">
+                                <option value="ZVK">ZVK</option>
+                                <option value="SLH">SLH</option>
+                                <option value="MNH">MNH</option>
+                            </select>
+                            <button onclick="creditUser()" style="background:var(--gold);color:#000;border:none;padding:6px 14px;font-weight:700;cursor:pointer;font-size:11px">Credit</button>
+                        </div>
+                    </div>
+                    <div style="flex:1;min-width:280px;background:var(--bg3);padding:14px;border-radius:8px">
+                        <div style="font-size:11px;color:var(--text2);margin-bottom:8px">Approve / Check User</div>
+                        <div style="display:flex;gap:8px">
+                            <input type="number" id="check-uid" placeholder="User ID" style="width:120px;padding:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:11px">
+                            <button onclick="approveUser()" style="background:var(--accent);color:#000;border:none;padding:6px 14px;font-weight:700;cursor:pointer;font-size:11px">Approve</button>
+                            <button onclick="checkUser()" style="background:var(--cyan);color:#000;border:none;padding:6px 14px;font-weight:700;cursor:pointer;font-size:11px">Check</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -728,8 +776,46 @@
         </div>
 
 
-        <div id="page-finance" style="display:none"><div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px"><h2 style="color:var(--gold);font-size:18px">💰 Financial Dashboard</h2></div><div class="kpi-grid"><div class="kpi gold"><div class="kpi-label">Genesis</div><div class="kpi-value" id="fin-raised">--</div></div><div class="kpi green"><div class="kpi-label">Pool BNB</div><div class="kpi-value" id="fin-pool-bnb">--</div></div><div class="kpi cyan"><div class="kpi-label">SLH</div><div class="kpi-value" id="fin-slh-db">--</div></div><div class="kpi purple"><div class="kpi-label">ZVK</div><div class="kpi-value" id="fin-zvk">--</div></div></div></div>
-        <div id="page-trust" style="display:none"><div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px"><h2 style="color:var(--cyan);font-size:18px">🌐 Trust Network</h2></div><div class="kpi-grid"><div class="kpi green"><div class="kpi-label">Trust</div><div class="kpi-value" id="gtn-trust">100</div></div><div class="kpi red"><div class="kpi-label">Flagged</div><div class="kpi-value" id="gtn-flagged">0</div></div></div></div>
+        <div id="page-finance" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">💰 Financial Dashboard</h2>
+                <p style="font-size:11px;color:var(--text2)">Genesis fund, pool liquidity, token supply, and revenue tracking</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi gold"><div class="kpi-label">Genesis Raised</div><div class="kpi-value" id="fin-raised">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Pool BNB</div><div class="kpi-value" id="fin-pool-bnb">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Total SLH Distributed</div><div class="kpi-value" id="fin-slh-db">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Total ZVK Distributed</div><div class="kpi-value" id="fin-zvk">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Staking TVL</div><div class="kpi-value" id="fin-staking">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Contributors</div><div class="kpi-value" id="fin-contributors">--</div></div>
+            </div>
+            <div class="admin-section" style="margin-top:16px">
+                <h3>Genesis Contributors</h3>
+                <table class="admin-table">
+                    <thead><tr><th>User</th><th>Amount BNB</th><th>Status</th><th>Date</th></tr></thead>
+                    <tbody id="fin-contributors-table"><tr><td colspan="4" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="page-trust" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🌐 Trust Network &amp; Guardian</h2>
+                <p style="font-size:11px;color:var(--text2)">REP reputation scores, ZUZ fraud detection, Guardian reports</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Avg Trust Score</div><div class="kpi-value" id="gtn-trust">100</div></div>
+                <div class="kpi red"><div class="kpi-label">Flagged Users</div><div class="kpi-value" id="gtn-flagged">0</div></div>
+                <div class="kpi gold"><div class="kpi-label">Total Reports</div><div class="kpi-value" id="gtn-reports">0</div></div>
+                <div class="kpi purple"><div class="kpi-label">ZUZ Distributed</div><div class="kpi-value" id="gtn-zuz">0</div></div>
+            </div>
+            <div class="admin-section" style="margin-top:16px">
+                <h3>Guardian Reports</h3>
+                <table class="admin-table">
+                    <thead><tr><th>Reporter</th><th>Target</th><th>Reason</th><th>ZUZ</th><th>Date</th></tr></thead>
+                    <tbody id="gtn-reports-table"><tr><td colspan="5" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
         <!-- INFRA PAGE -->
         <!-- SITE MAP PAGE -->
         <div id="page-sitemap" style="display:none">
@@ -940,18 +1026,14 @@
 const SLH_API = 'https://slh-api-production.up.railway.app';
 
 // ── Auth ─────────────────────────────────────────────────────────
-// Multiple admin passwords — share a different one with each partner
-const ADMIN_PASSWORDS = [
-    'slh2026admin',        // primary (Osif)
-    'slh_admin_2026',      // partner A (underscore variant)
-    'slh-spark-admin',     // partner B
-    'slh-institutional'    // accountant / lawyer
-];
+// Password validated server-side via X-Admin-Key header
+// No passwords stored in client code — user enters once, saved to localStorage
 function checkAuth(){
     const p = document.getElementById('admin-pass').value;
-    if(ADMIN_PASSWORDS.includes(p) || localStorage.getItem('slh_admin_auth') === 'true'){
+    const savedAuth = localStorage.getItem('slh_admin_auth') === 'true';
+    const savedPass = localStorage.getItem('slh_admin_password');
+    if((p && p.length >= 6) || (savedAuth && savedPass)){
         localStorage.setItem('slh_admin_auth','true');
-        // Save the password for API authentication (X-Admin-Key header)
         if (p) localStorage.setItem('slh_admin_password', p);
         document.getElementById('auth-gate').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'flex';
@@ -992,7 +1074,7 @@ function getAnalyticsData(){
 
 // ── API fetching (SLH_API is declared at the top of this script block) ─
 // SECURITY: Send X-Admin-Key header on admin endpoints (matches ADMIN_API_KEY env var)
-const ADMIN_API_KEY = localStorage.getItem('slh_admin_password') || 'slh2026admin';
+const ADMIN_API_KEY = localStorage.getItem('slh_admin_password') || '';
 async function fetchAdminStats() {
     // Safe fetch with timeout per endpoint (5s each)
     const safeJson = async (url, withAuth = false) => {
@@ -1633,7 +1715,7 @@ async function checkAllPages(){
 
 // ── Rewards Admin ───────────────────────────────────────────────
 function getAdminKey(){
-    return localStorage.getItem('slh_admin_password') || 'slh2026admin';
+    return localStorage.getItem('slh_admin_password') || '';
 }
 
 async function creditMissingRewards(){
@@ -1851,9 +1933,138 @@ async function checkDevOpsStatus(){
 }
 
 function adminLogout(){localStorage.removeItem("slh_admin_auth");localStorage.removeItem("slh_admin_password");location.reload();}
-async function loadFinanceDashboard(){try{var r=await fetch(SLH_API+"/api/launch/status");var d=await r.json();document.getElementById("fin-raised").textContent=(d.raised_bnb_verified||0).toFixed(4)+" BNB";}catch(e){}}
-async function loadTrustEntities(){try{var r=await fetch(SLH_API+"/api/guardian/stats");var d=await r.json();document.getElementById("gtn-flagged").textContent=d.total_flagged_users||0;}catch(e){}}
-async function loadFullUsers(){var t=document.getElementById("full-users-body");t.innerHTML="<tr><td colspan=6>Loading...</td></tr>";try{var r=await fetch(SLH_API+"/api/admin/all-users",{headers:{"X-Admin-Key":getAdminKey()}});var d=await r.json();if(!d.ok)return;t.innerHTML=d.users.map(function(u){var b=u.balances||{};return "<tr><td><code>"+u.telegram_id+"</code></td><td>"+(u.username||"--")+"</td><td>"+(u.first_name||"--")+"</td><td>"+(b.SLH||0)+"</td><td>"+(b.ZVK||0)+"</td><td><a href=/member.html?user_id="+u.telegram_id+" target=_blank>Card</a></td></tr>";}).join("");document.getElementById("usr-total").textContent=d.count;}catch(e){t.innerHTML="<tr><td colspan=6>"+e.message+"</td></tr>";}}
+async function loadFinanceDashboard(){
+    try{
+        var r=await fetch(SLH_API+"/api/launch/status");
+        var d=await r.json();
+        document.getElementById("fin-raised").textContent=(d.raised_bnb_verified||0).toFixed(4)+" BNB";
+        var contribs = (d.contributors||[]).filter(function(c){return c.status !== 'cancelled';});
+        document.getElementById("fin-contributors").textContent = contribs.length;
+        var tbody = document.getElementById("fin-contributors-table");
+        if(contribs.length){
+            tbody.innerHTML = contribs.map(function(c){
+                return '<tr><td>'+(c.username||c.user_id)+'</td><td>'+((c.amount_bnb||0).toFixed(4))+'</td><td><span class="badge '+(c.status==='verified'?'live':'warn')+'">'+c.status+'</span></td><td>'+(c.created_at?new Date(c.created_at).toLocaleDateString('he-IL'):'--')+'</td></tr>';
+            }).join('');
+        }
+    }catch(e){console.warn('Finance load error:',e);}
+    // Staking
+    try{
+        var r2=await fetch(SLH_API+"/api/staking/plans");
+        var plans=await r2.json();
+        document.getElementById("fin-staking").textContent = (plans||[]).length + ' plans';
+    }catch(e){}
+    // Tokenomics
+    try{
+        var r3=await fetch(SLH_API+"/api/tokenomics/stats");
+        var ts=await r3.json();
+        if(ts.total_supply) document.getElementById("fin-slh-db").textContent = ts.total_supply.SLH || '--';
+        if(ts.total_supply) document.getElementById("fin-zvk").textContent = ts.total_supply.ZVK || '--';
+    }catch(e){}
+}
+async function loadTrustEntities(){
+    try{
+        var r=await fetch(SLH_API+"/api/guardian/stats");
+        var d=await r.json();
+        document.getElementById("gtn-flagged").textContent=d.total_flagged_users||0;
+        document.getElementById("gtn-reports").textContent=d.total_reports||0;
+        document.getElementById("gtn-zuz").textContent=d.total_zuz_distributed||0;
+    }catch(e){console.warn('Trust load error:',e);}
+    // Load reports
+    try{
+        var r2=await fetch(SLH_API+"/api/guardian/reports",{headers:{"X-Admin-Key":getAdminKey()}});
+        var reports=await r2.json();
+        var tbody=document.getElementById("gtn-reports-table");
+        if(Array.isArray(reports) && reports.length){
+            tbody.innerHTML=reports.slice(0,20).map(function(rp){
+                return '<tr><td>'+(rp.reporter_id||'--')+'</td><td>'+(rp.target_id||'--')+'</td><td>'+(rp.reason||'--')+'</td><td style="color:var(--red)">'+(rp.zuz_amount||0)+'</td><td>'+(rp.created_at?new Date(rp.created_at).toLocaleDateString('he-IL'):'--')+'</td></tr>';
+            }).join('');
+        } else {
+            tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text2)">No reports yet</td></tr>';
+        }
+    }catch(e){}
+}
+var CRM_ALL_USERS = [];
+async function loadFullUsers(){
+    var t=document.getElementById("full-users-body");
+    t.innerHTML='<tr><td colspan="9" style="text-align:center;color:var(--gold)">Loading users...</td></tr>';
+    try{
+        var r=await fetch(SLH_API+"/api/admin/all-users",{headers:{"X-Admin-Key":getAdminKey()}});
+        var d=await r.json();
+        if(!d.ok && !d.users) return;
+        CRM_ALL_USERS = d.users || d || [];
+        if(Array.isArray(d) && !d.users) CRM_ALL_USERS = d;
+        renderCrmTable(CRM_ALL_USERS);
+        document.getElementById("usr-total").textContent = CRM_ALL_USERS.length;
+        // Count premium
+        var premium = CRM_ALL_USERS.filter(function(u){return u.is_premium || u.payment_status === 'approved';}).length;
+        document.getElementById("usr-premium").textContent = premium;
+    }catch(e){
+        t.innerHTML='<tr><td colspan="9" style="color:var(--red)">'+e.message+'</td></tr>';
+    }
+}
+function renderCrmTable(users){
+    var t=document.getElementById("full-users-body");
+    if(!users.length){t.innerHTML='<tr><td colspan="9" style="text-align:center">No users found</td></tr>';return;}
+    t.innerHTML=users.map(function(u){
+        var b=u.balances||{};
+        var isPrem = u.is_premium || u.payment_status === 'approved';
+        var statusBadge = isPrem ? '<span class="badge live">Premium</span>' : '<span class="badge warn">Free</span>';
+        if(u.payment_status === 'pending') statusBadge = '<span class="badge error">Pending</span>';
+        var joined = u.created_at ? new Date(u.created_at).toLocaleDateString('he-IL') : '--';
+        return '<tr>'+
+            '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
+            '<td>'+(u.username ? '@'+u.username : '--')+'</td>'+
+            '<td>'+(u.first_name||'')+(u.last_name?' '+u.last_name:'')+'</td>'+
+            '<td style="font-family:var(--mono);font-size:11px">'+(b.SLH||0)+'</td>'+
+            '<td style="font-family:var(--mono);font-size:11px">'+(b.ZVK||0)+'</td>'+
+            '<td style="font-family:var(--mono);font-size:11px">'+(b.MNH||0)+'</td>'+
+            '<td>'+statusBadge+'</td>'+
+            '<td style="font-size:10px">'+joined+'</td>'+
+            '<td><a href="/member.html?user_id='+u.telegram_id+'" target="_blank" style="font-size:10px">Card</a></td>'+
+            '</tr>';
+    }).join('');
+}
+function filterCrmUsers(){
+    var q = (document.getElementById('crm-search').value||'').toLowerCase();
+    var status = document.getElementById('crm-filter-status').value;
+    var filtered = CRM_ALL_USERS.filter(function(u){
+        var matchQ = !q || String(u.telegram_id).includes(q) || (u.username||'').toLowerCase().includes(q) || (u.first_name||'').toLowerCase().includes(q);
+        var matchS = status === 'all' || (status === 'premium' && (u.is_premium || u.payment_status === 'approved')) || (status === 'free' && !u.is_premium && u.payment_status !== 'approved') || (status === 'pending' && u.payment_status === 'pending');
+        return matchQ && matchS;
+    });
+    renderCrmTable(filtered);
+}
+async function creditUser(){
+    var uid = document.getElementById('credit-uid').value;
+    var amount = document.getElementById('credit-amount').value;
+    var token = document.getElementById('credit-token').value;
+    if(!uid||!amount){alert('Fill in User ID and Amount');return;}
+    try{
+        var r = await fetch(SLH_API+'/api/admin/credit',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},body:JSON.stringify({user_id:parseInt(uid),token:token,amount:parseFloat(amount)})});
+        var d = await r.json();
+        alert(d.ok ? 'Credited '+amount+' '+token+' to '+uid : 'Error: '+(d.detail||d.error||JSON.stringify(d)));
+        loadFullUsers();
+    }catch(e){alert('Error: '+e.message);}
+}
+async function approveUser(){
+    var uid = document.getElementById('check-uid').value;
+    if(!uid){alert('Enter User ID');return;}
+    try{
+        var r = await fetch(SLH_API+'/api/admin/approve/'+uid,{method:'POST',headers:{'X-Admin-Key':getAdminKey()}});
+        var d = await r.json();
+        alert(d.ok ? 'User '+uid+' approved' : JSON.stringify(d));
+        loadFullUsers();
+    }catch(e){alert('Error: '+e.message);}
+}
+async function checkUser(){
+    var uid = document.getElementById('check-uid').value;
+    if(!uid){alert('Enter User ID');return;}
+    try{
+        var r = await fetch(SLH_API+'/api/user/'+uid);
+        var d = await r.json();
+        alert(JSON.stringify(d, null, 2));
+    }catch(e){alert('Error: '+e.message);}
+}
 </script>
 
 <div id="bottomnav-root"></div>

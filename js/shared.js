@@ -45,6 +45,7 @@ const NAV_ITEMS = [
   { key: 'jubilee', href: '/jubilee.html', icon: 'fa-dove' },
   { key: 'p2p', href: '/p2p.html', icon: 'fa-exchange-alt' },
   { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
+  { key: 'control_center', href: '/control-center.html', icon: 'fa-satellite-dish', admin: true },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];
 
