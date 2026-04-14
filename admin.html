@@ -179,6 +179,7 @@
         <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
         <a href="#" onclick="showPage('finance')">💰 Finance</a>
         <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
+        <a href="#" onclick="showPage('bank_transfers')">💳 העברות בנקאיות <span id="bt-pending-badge" style="background:var(--red);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:4px;display:none">0</span></a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -775,6 +776,35 @@
             </div>
         </div>
 
+
+        <!-- BANK TRANSFERS PAGE -->
+        <div id="page-bank_transfers" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(255,215,0,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">💳 העברות בנקאיות — ניהול</h2>
+                <p style="font-size:11px;color:var(--text2)">בקשות העברה בנקאית לצביקה קאופמן (מנכ"ל) · אישור / דחייה · יצירת קבלות</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi gold"><div class="kpi-label">ממתינות</div><div class="kpi-value" id="bt-kpi-pending">--</div></div>
+                <div class="kpi green"><div class="kpi-label">מאושרות</div><div class="kpi-value" id="bt-kpi-approved">--</div></div>
+                <div class="kpi red"><div class="kpi-label">נדחו</div><div class="kpi-value" id="bt-kpi-rejected">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">סה"כ ₪</div><div class="kpi-value" id="bt-kpi-total">--</div></div>
+            </div>
+            <!-- Filter tabs -->
+            <div style="display:flex;gap:8px;margin-bottom:16px">
+                <button class="bt-filter-btn active" onclick="filterBT('all')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(0,255,65,.08);color:var(--accent);cursor:pointer;font-size:11px;font-weight:600">הכל</button>
+                <button class="bt-filter-btn" onclick="filterBT('pending')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--gold);cursor:pointer;font-size:11px">ממתינות</button>
+                <button class="bt-filter-btn" onclick="filterBT('approved')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--accent);cursor:pointer;font-size:11px">מאושרות</button>
+                <button class="bt-filter-btn" onclick="filterBT('rejected')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--red);cursor:pointer;font-size:11px">נדחו</button>
+            </div>
+            <div class="admin-section">
+                <div style="overflow-x:auto;max-height:500px;overflow-y:auto">
+                    <table class="admin-table">
+                        <thead><tr><th>#</th><th>שם</th><th>ת.ז</th><th>סכום ₪</th><th>מהות</th><th>אסמכתא</th><th>טלפון</th><th>תאריך</th><th>סטטוס</th><th>פעולות</th></tr></thead>
+                        <tbody id="bt-table-body"><tr><td colspan="10" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <div id="page-finance" style="display:none">
             <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
@@ -1668,6 +1698,7 @@ showPage = function(name){
     if (name === 'audit') loadAuditEntries();
     if (name === 'sitemap') checkAllPages();
     if (name === 'finance') loadFinanceDashboard();
+    if (name === 'bank_transfers') loadBankTransfers();
     if (name === 'trust') loadTrustEntities();
     if (name === 'users') loadFullUsers();
     if (name === 'rewards') loadAllUsers();
@@ -1933,6 +1964,91 @@ async function checkDevOpsStatus(){
 }
 
 function adminLogout(){localStorage.removeItem("slh_admin_auth");localStorage.removeItem("slh_admin_password");location.reload();}
+
+// ── Bank Transfers Management ────────────────────────────────────
+var BT_ALL = [];
+var BT_FILTER = 'all';
+async function loadBankTransfers(){
+    var tbody = document.getElementById('bt-table-body');
+    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--gold)">Loading...</td></tr>';
+    try{
+        var r = await fetch(SLH_API+'/api/admin/bank-transfers',{headers:{'X-Admin-Key':getAdminKey()}});
+        var d = await r.json();
+        if(!d.ok) return;
+        BT_ALL = d.transfers || [];
+        // KPIs
+        var pending=0,approved=0,rejected=0,totalIls=0;
+        BT_ALL.forEach(function(t){
+            if(t.status==='pending') pending++;
+            else if(t.status==='approved'){approved++; totalIls+=parseFloat(t.amount_ils||0);}
+            else if(t.status==='rejected') rejected++;
+        });
+        document.getElementById('bt-kpi-pending').textContent=pending;
+        document.getElementById('bt-kpi-approved').textContent=approved;
+        document.getElementById('bt-kpi-rejected').textContent=rejected;
+        document.getElementById('bt-kpi-total').textContent='₪'+totalIls.toLocaleString();
+        // Badge
+        var badge=document.getElementById('bt-pending-badge');
+        if(pending>0){badge.style.display='inline';badge.textContent=pending;}
+        else badge.style.display='none';
+        renderBTTable(BT_FILTER==='all'?BT_ALL:BT_ALL.filter(function(t){return t.status===BT_FILTER;}));
+    }catch(e){tbody.innerHTML='<tr><td colspan="10" style="color:var(--red)">'+e.message+'</td></tr>';}
+}
+function filterBT(status){
+    BT_FILTER=status;
+    document.querySelectorAll('.bt-filter-btn').forEach(function(b){b.classList.remove('active');b.style.background='var(--bg3)';});
+    event.target.classList.add('active');event.target.style.background='rgba(0,255,65,.08)';
+    var filtered=status==='all'?BT_ALL:BT_ALL.filter(function(t){return t.status===status;});
+    renderBTTable(filtered);
+}
+function renderBTTable(items){
+    var tbody=document.getElementById('bt-table-body');
+    if(!items.length){tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--text2)">אין רשומות</td></tr>';return;}
+    tbody.innerHTML=items.map(function(t){
+        var statusBadge = t.status==='pending'?'<span class="badge warn">ממתין</span>':
+            t.status==='approved'?'<span class="badge live">מאושר</span>':
+            '<span class="badge error">נדחה</span>';
+        var actions='';
+        if(t.status==='pending'){
+            actions='<button onclick="reviewBT('+t.id+',\'approve\')" style="background:var(--accent);color:#000;border:none;padding:4px 10px;font-size:10px;cursor:pointer;font-weight:700;border-radius:4px;margin-left:4px">אשר</button>'+
+                '<button onclick="reviewBT('+t.id+',\'reject\')" style="background:var(--red);color:#fff;border:none;padding:4px 10px;font-size:10px;cursor:pointer;font-weight:700;border-radius:4px">דחה</button>';
+        }
+        var date=t.transaction_date?new Date(t.transaction_date).toLocaleDateString('he-IL'):'--';
+        return '<tr>'+
+            '<td>'+t.id+'</td>'+
+            '<td><strong>'+t.customer_name+'</strong><br><span style="font-size:10px;color:var(--text2)">'+(t.username?'@'+t.username:t.user_id)+'</span></td>'+
+            '<td style="font-family:monospace;font-size:10px">'+(t.id_number_masked||'***')+'</td>'+
+            '<td style="font-weight:700;color:var(--gold)">₪'+parseFloat(t.amount_ils).toLocaleString()+'</td>'+
+            '<td style="font-size:11px">'+t.transaction_desc+'</td>'+
+            '<td style="font-family:monospace;font-size:10px">'+t.transfer_reference+'</td>'+
+            '<td style="font-size:10px;direction:ltr">'+t.phone+'</td>'+
+            '<td style="font-size:10px">'+date+'</td>'+
+            '<td>'+statusBadge+'</td>'+
+            '<td>'+actions+'</td></tr>';
+    }).join('');
+}
+async function reviewBT(id,action){
+    var reason='';
+    if(action==='reject'){reason=prompt('סיבת דחייה:');if(reason===null)return;}
+    try{
+        var r=await fetch(SLH_API+'/api/admin/bank-transfer/review',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},body:JSON.stringify({transfer_id:id,action:action,reason:reason||null})});
+        var d=await r.json();
+        alert(d.ok?(action==='approve'?'אושר ✅':'נדחה ❌'):'שגיאה: '+JSON.stringify(d));
+        loadBankTransfers();
+    }catch(e){alert('Error: '+e.message);}
+}
+// Auto-load bank transfers count on dashboard init
+(function(){
+    setTimeout(function(){
+        fetch(SLH_API+'/api/admin/bank-transfers?status=pending',{headers:{'X-Admin-Key':getAdminKey()}})
+        .then(function(r){return r.json();}).then(function(d){
+            if(d.ok && d.count>0){
+                var badge=document.getElementById('bt-pending-badge');
+                badge.style.display='inline';badge.textContent=d.count;
+            }
+        }).catch(function(){});
+    },2000);
+})();
 async function loadFinanceDashboard(){
     try{
         var r=await fetch(SLH_API+"/api/launch/status");

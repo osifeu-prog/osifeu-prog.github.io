@@ -151,10 +151,10 @@
                 <div class="name">Genesis Deposit</div>
                 <div class="detail">BNB ישירות לארנק Genesis</div>
             </div>
-            <div class="pay-method" onclick="window.open('https://t.me/osifeu_prog','_blank')" style="cursor:pointer">
+            <div class="pay-method" onclick="openBankTransferModal()" style="cursor:pointer">
                 <div class="icon">🏦</div>
                 <div class="name">העברה בנקאית</div>
-                <div class="detail">צור קשר עם @osifeu_prog</div>
+                <div class="detail">לצביקה קאופמן (מנכ"ל) · 8 שדות חובה</div>
             </div>
             <div class="pay-method" onclick="window.open('https://t.me/osifeu_prog','_blank')" style="cursor:pointer">
                 <div class="icon">📱</div>
@@ -348,6 +348,129 @@ function handleBuy() {
 
 updateSummary();
 updateBuyLink();
+</script>
+
+<!-- Bank Transfer Modal -->
+<div id="bank-transfer-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);overflow-y:auto">
+<div style="max-width:560px;margin:40px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(0,255,65,.2);border-radius:12px;direction:rtl">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h2 style="color:var(--accent,#00ff41);font-size:20px;margin:0">🏦 העברה בנקאית</h2>
+        <button onclick="closeBankTransferModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    </div>
+    <div style="background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);padding:14px;border-radius:8px;margin-bottom:20px;font-size:12px;color:#ffd700">
+        <strong>שלב 1:</strong> העבר את הסכום לחשבון של צביקה קאופמן (מנכ"ל SLH)<br>
+        <strong>שלב 2:</strong> מלא את הטופס הזה עם כל 8 הפרטים<br>
+        <strong>שלב 3:</strong> צביקה יאשר את ההעברה תוך 24 שעות
+    </div>
+    <form id="bank-transfer-form" onsubmit="submitBankTransfer(event)" style="display:flex;flex-direction:column;gap:14px">
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">1. שם הלקוח *</label>
+            <input type="text" id="bt-name" required placeholder="השם המלא כפי שמופיע בחשבון הבנק" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">2. תאריך ביצוע ההעברה *</label>
+            <input type="date" id="bt-date" required style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">3. תעודת זהות *</label>
+            <input type="text" id="bt-id" required pattern="\d{5,9}" maxlength="9" placeholder="9 ספרות" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">4. פרטי חשבון הבנק שלך *</label>
+            <input type="text" id="bt-bank" required placeholder="שם בנק, סניף, מספר חשבון" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">5. סכום בשקלים *</label>
+            <input type="number" id="bt-amount" required min="1" max="1000000" step="0.01" placeholder="₪" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">6. מהות העסקה (מה רכשת?) *</label>
+            <input type="text" id="bt-desc" required placeholder="לדוגמה: רכישת 100 SLH, קורס השקעות..." style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">7. מספר טלפון *</label>
+            <input type="tel" id="bt-phone" required pattern="0[2-9]\d{7,8}" placeholder="0584203384" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+        </div>
+        <div>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">8. אסמכתא של העברה בנקאית *</label>
+            <input type="text" id="bt-ref" required placeholder="מספר אסמכתא מהבנק" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+        </div>
+        <div id="bt-result" style="font-size:12px;min-height:20px"></div>
+        <button type="submit" id="bt-submit-btn" style="padding:14px;background:#00ff41;color:#000;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">שלח בקשת העברה בנקאית</button>
+    </form>
+</div>
+</div>
+
+<script>
+function openBankTransferModal() {
+    document.getElementById('bank-transfer-modal').style.display = 'block';
+    document.getElementById('bt-date').valueAsDate = new Date();
+    // Pre-fill from user profile if available
+    try {
+        const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        if (u.first_name) document.getElementById('bt-name').value = u.first_name + (u.last_name ? ' ' + u.last_name : '');
+    } catch(e) {}
+}
+function closeBankTransferModal() {
+    document.getElementById('bank-transfer-modal').style.display = 'none';
+}
+async function submitBankTransfer(e) {
+    e.preventDefault();
+    const result = document.getElementById('bt-result');
+    const btn = document.getElementById('bt-submit-btn');
+
+    // Get user ID
+    let userId;
+    try {
+        const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        userId = u.id;
+    } catch(e) {}
+    if (!userId) {
+        result.innerHTML = '<span style="color:#ff0055">יש להתחבר קודם דרך טלגרם</span>';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    result.innerHTML = '';
+
+    try {
+        const body = {
+            user_id: userId,
+            customer_name: document.getElementById('bt-name').value.trim(),
+            transaction_date: document.getElementById('bt-date').value,
+            id_number: document.getElementById('bt-id').value.trim().padStart(9, '0'),
+            bank_details: document.getElementById('bt-bank').value.trim(),
+            amount_ils: parseFloat(document.getElementById('bt-amount').value),
+            transaction_desc: document.getElementById('bt-desc').value.trim(),
+            phone: document.getElementById('bt-phone').value.trim(),
+            transfer_reference: document.getElementById('bt-ref').value.trim()
+        };
+        const r = await fetch('https://slh-api-production.up.railway.app/api/bank-transfer/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const d = await r.json();
+        if (d.ok) {
+            result.innerHTML = '<span style="color:#00ff41">✅ ' + d.message + '</span>';
+            btn.textContent = 'נשלח בהצלחה!';
+            btn.style.background = '#39ff14';
+        } else {
+            result.innerHTML = '<span style="color:#ff0055">❌ ' + (d.detail || JSON.stringify(d)) + '</span>';
+            btn.disabled = false;
+            btn.textContent = 'שלח בקשת העברה בנקאית';
+        }
+    } catch(err) {
+        result.innerHTML = '<span style="color:#ff0055">❌ שגיאה: ' + err.message + '</span>';
+        btn.disabled = false;
+        btn.textContent = 'שלח בקשת העברה בנקאית';
+    }
+}
+// Close modal on outside click
+document.getElementById('bank-transfer-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeBankTransferModal();
+});
 </script>
 </body>
 </html>
