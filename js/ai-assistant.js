@@ -492,7 +492,8 @@
     _fab = document.createElement('button');
     _fab.className = 'slh-ai-fab ' + rtlClass;
     _fab.setAttribute('aria-label', _t('title'));
-    _fab.innerHTML = '<i class="fas fa-brain"></i>';
+    _fab.title = 'שיחה עם AI';
+    _fab.innerHTML = '<i class="fas fa-brain"></i><span style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;white-space:nowrap;color:var(--accent,#6c5ce7);font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8)">שיחה עם AI</span>';
     _fab.addEventListener('click', toggle);
     document.body.appendChild(_fab);
 
