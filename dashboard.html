@@ -414,20 +414,25 @@
             </script>
         </div>
 
-        <div class="login-divider" data-i18n="or_enter_id">or enter your Telegram ID</div>
-
-        <input type="text" id="manual-uid" class="login-input" placeholder="Telegram ID or @username" dir="ltr" style="margin-bottom:8px">
-        <button class="login-btn" onclick="manualLogin()" data-i18n="sign_in">Sign In</button>
-
-        <div class="login-hint" style="background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(0,188,212,0.08));border:1px solid rgba(255,140,0,0.3);border-radius:12px;padding:16px;margin-top:14px">
-            <h4 data-i18n="find_id" style="color:var(--accent);margin-bottom:8px">🤖 לא יודעים את ה-ID?</h4>
-            <p data-i18n="find_id_desc" style="font-size:13px;margin-bottom:12px">לחצו על הכפתור למטה — הבוט שלנו יפתח, ישלח לכם את ה-ID, ויעביר אתכם חזרה לאתר אוטומטית.</p>
-            <a href="https://t.me/SLH_AIR_bot?start=get_id" target="_blank" rel="noopener"
-               style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:linear-gradient(135deg,#0088cc,#00bcd4);color:#fff;text-decoration:none;border-radius:10px;font-weight:700;font-size:13px">
-                <i class="fab fa-telegram"></i>
-                <span data-i18n="find_id_btn">קבל ID מהבוט שלנו</span>
+        <!-- PRIMARY: One-click bot login -->
+        <div style="background:linear-gradient(135deg,rgba(0,136,204,0.12),rgba(0,188,212,0.08));border:2px solid #0088cc;border-radius:16px;padding:20px;margin-bottom:14px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#0088cc;margin-bottom:8px">📱 הדרך הקלה ביותר</div>
+            <p style="font-size:13px;color:var(--text2);margin-bottom:12px">לחץ → הבוט ישלח לך לינק אישי → לחץ על הלינק → נכנסת!</p>
+            <a href="https://t.me/SLH_AIR_bot?start=login" target="_blank" rel="noopener"
+               style="display:block;padding:16px;background:linear-gradient(135deg,#0088cc,#00bcd4);color:#fff;text-decoration:none;border-radius:12px;font-weight:800;font-size:16px;margin-bottom:8px">
+                📱 התחבר דרך Telegram
             </a>
+            <div style="font-size:11px;color:var(--text2)">עובד על כל מכשיר · לא צריך לדעת את ה-ID · לחיצה אחת</div>
         </div>
+
+        <!-- SECONDARY: Manual ID (for advanced users) -->
+        <details style="margin-top:8px">
+            <summary style="font-size:12px;color:var(--text2);cursor:pointer;padding:8px">🔧 כניסה ידנית (למתקדמים) — לחץ לפתיחה</summary>
+            <div style="padding:12px 0">
+                <input type="text" id="manual-uid" class="login-input" placeholder="Telegram ID (מספר)" dir="ltr" style="margin-bottom:8px">
+                <button class="login-btn" onclick="manualLogin()">Sign In</button>
+            </div>
+        </details>
     </div>
 
     <div class="login-links" style="flex-wrap:wrap;justify-content:center">
