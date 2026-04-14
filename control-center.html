@@ -301,6 +301,8 @@
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">31 bot tokens exposed</div><div class="sec-desc">All bot tokens were pasted in chat history. Need rotation via @BotFather</div></div></div>
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">Unprotected API endpoints</div><div class="sec-desc">/api/tokenomics/burn, /api/tokenomics/reserves/add — no auth required for destructive operations</div></div></div>
                 <div class="sec-item"><div class="sec-severity medium">P2</div><div><div class="sec-title">Wallet address mismatch</div><div class="sec-desc">Two different addresses in code: 0xd061... (genesis) vs 0xD061... (MetaMask). Need confirmation which is correct</div></div></div>
+                <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">User data exposed without auth</div><div class="sec-desc">GET /api/user/{telegram_id} returns full profile + balances with NO authentication. Anyone with a Telegram ID can see balances.</div></div></div>
+                <div class="sec-item"><div class="sec-severity medium">P2</div><div><div class="sec-title">Swagger /docs publicly accessible</div><div class="sec-desc">Full OpenAPI spec with all 137 routes is browsable by anyone. Consider restricting in production.</div></div></div>
             </div>
         </div>
     </div>
@@ -408,7 +410,7 @@ async function loadActivityFeed() {
     // Get recent audit entries
     try {
         const key = localStorage.getItem('slh_admin_password') || '';
-        const r = await fetch(API + '/api/audit/log?limit=20', { headers: { 'X-Admin-Key': key } });
+        const r = await fetch(API + '/api/audit/recent?limit=20', { headers: { 'X-Admin-Key': key } });
         const d = await r.json();
         if (Array.isArray(d)) {
             d.forEach(e => {
