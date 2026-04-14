@@ -42,6 +42,9 @@ const NAV_ITEMS = [
   { key: 'liquidity', href: '/liquidity.html', icon: 'fa-tint' },
   { key: 'challenge', href: '/challenge.html', icon: 'fa-fire' },
   { key: 'healing', href: '/healing-vision.html', icon: 'fa-heart' },
+  { key: 'jubilee', href: '/jubilee.html', icon: 'fa-dove' },
+  { key: 'p2p', href: '/p2p.html', icon: 'fa-exchange-alt' },
+  { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];
 
