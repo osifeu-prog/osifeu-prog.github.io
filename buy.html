@@ -120,6 +120,9 @@
         </div>
 
         <!-- Bonus Tiers -->
+        <div style="padding:12px;background:rgba(0,232,135,.06);border:1px solid rgba(0,232,135,.2);border-radius:10px;margin-bottom:12px;font-size:12px;color:var(--text2)">
+            💎 <strong style="color:var(--accent)">בונוס!</strong> כל רכישת SLH מעניקה גם <strong>ZVK</strong> בונוס (10% מהסכום) + <strong>REP</strong> points!
+        </div>
         <div style="font-size:13px;color:var(--text2);margin-bottom:8px">🎁 בונוס לפי נפח:</div>
         <div class="bonus-tiers">
             <div class="bonus-tier" onclick="setAmount(100)"><div class="amount">$100</div><div class="bonus">+2%</div></div>
@@ -150,6 +153,16 @@
                 <div class="icon">🏦</div>
                 <div class="name">העברה בנקאית</div>
                 <div class="detail">צור קשר עם @osifeu_prog</div>
+            </div>
+            <div class="pay-method" onclick="selectPayment(this,'bit')">
+                <div class="icon">📱</div>
+                <div class="name">Bit / PayBox</div>
+                <div class="detail">תשלום מהיר בשקלים · ZVK/MNH</div>
+            </div>
+            <div class="pay-method" onclick="selectPayment(this,'telegram')">
+                <div class="icon">📱</div>
+                <div class="name">Telegram Bot</div>
+                <div class="detail">רכישה דרך @SLH_AIR_bot</div>
             </div>
         </div>
 
@@ -286,7 +299,9 @@ function updateBuyLink() {
         pancakeswap: 'https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc',
         p2p: '/p2p.html',
         genesis: '/launch-event.html#send-bnb',
-        bank: 'https://t.me/osifeu_prog'
+        bank: 'https://t.me/osifeu_prog',
+        bit: 'https://t.me/osifeu_prog',
+        telegram: 'https://t.me/SLH_AIR_bot?start=buy'
     };
     
     // ZVK/MNH = internal tokens, only P2P
