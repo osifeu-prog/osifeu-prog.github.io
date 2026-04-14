@@ -6,7 +6,29 @@
     <title>SLH Admin | Backoffice</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon-32.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+// Finance
+async function loadFinanceDashboard(){
+    try{const r=await fetch(SLH_API+'/api/launch/status');const d=await r.json();
+    const a=(d.contributors||[]).filter(c=>c.status!=='cancelled');
+    document.getElementById('fin-raised').textContent=(d.raised_bnb_verified||0).toFixed(4)+' BNB';
+    document.getElementById('fin-contribs').textContent=a.length;}catch(e){}
+    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
+    document.getElementById('fin-zuz').textContent=(d.total_zuz_issued||0).toFixed(0);}catch(e){}
+    try{const r=await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
+    const d=await r.json();if(d.ok){let s=0,z=0;d.users.forEach(u=>{s+=u.balances?.SLH||0;z+=u.balances?.ZVK||0;});
+    document.getElementById('fin-slh-db').textContent=s.toLocaleString();
+    document.getElementById('fin-zvk').textContent=z.toLocaleString();}}catch(e){}
+    try{const b=await fetch('https://bsc-dataseed.binance.org/',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:['0xd061de73B06d5E91bfA46b35EfB7B08b16903da4','latest'],id:1})});
+    const d=await b.json();document.getElementById('fin-pool-bnb').textContent=(parseInt(d.result,16)/1e18).toFixed(4);}catch(e){}}
+// Trust
+async function loadTrustEntities(){
+    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
+    document.getElementById('gtn-flagged').textContent=d.total_flagged_users||0;
+    document.getElementById('gtn-scanned').textContent=(d.total_messages_scanned||0).toLocaleString();
+    document.getElementById('gtn-defense').textContent=d.total_banned||0;}catch(e){}}
+</script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
     <style>
@@ -176,6 +198,8 @@
         <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
         <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
         <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
+        <a href="#" onclick="showPage('finance')">💰 Finance</a>
+        <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -724,6 +748,58 @@
             </div>
         </div>
 
+
+        <!-- FINANCE PAGE -->
+        <div id="page-finance" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">💰 Financial Dashboard</h2>
+                <p style="font-size:11px;color:var(--text2)">Token balances · Pool liquidity · Staking · Revenue</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi gold"><div class="kpi-label">Genesis Raised</div><div class="kpi-value" id="fin-raised">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Pool BNB</div><div class="kpi-value" id="fin-pool-bnb">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">SLH Internal</div><div class="kpi-value" id="fin-slh-db">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Total ZVK</div><div class="kpi-value" id="fin-zvk">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Contributors</div><div class="kpi-value" id="fin-contribs">--</div></div>
+                <div class="kpi red"><div class="kpi-label">ZUZ Issued</div><div class="kpi-value" id="fin-zuz">--</div></div>
+            </div>
+            <div class="admin-section"><h3>📊 5-Token Economy</h3><table class="admin-table"><thead><tr><th>Token</th><th>Type</th><th>Status</th></tr></thead><tbody>
+            <tr><td style="color:var(--gold)">SLH</td><td>Premium/Governance</td><td><span class="badge live">BSC LIVE</span></td></tr>
+            <tr><td style="color:var(--accent)">MNH</td><td>Stablecoin ₪1</td><td><span class="badge live">ACTIVE</span></td></tr>
+            <tr><td style="color:var(--cyan)">ZVK</td><td>Activity Rewards</td><td><span class="badge live">ACTIVE</span></td></tr>
+            <tr><td style="color:var(--purple)">REP</td><td>Reputation</td><td><span class="badge live">ACTIVE</span></td></tr>
+            <tr><td style="color:var(--red)">ZUZ</td><td>Risk Signal</td><td><span class="badge live">GUARDIAN</span></td></tr>
+            </tbody></table></div>
+            <div class="admin-section"><h3>💎 Revenue Streams</h3><table class="admin-table"><thead><tr><th>Source</th><th>Model</th><th>Status</th></tr></thead><tbody>
+            <tr><td>LP Fees</td><td>0.25% per swap</td><td>Active</td></tr>
+            <tr><td>Staking (9 plans)</td><td>TON/SLH/BNB</td><td>Active</td></tr>
+            <tr><td>Premium Bots</td><td>41-149 ILS</td><td>25 bots</td></tr>
+            <tr><td>Referrals</td><td>10 generations</td><td>Active</td></tr>
+            <tr><td>Courses</td><td>150 ILS</td><td>Coming</td></tr>
+            </tbody></table></div>
+        </div>
+        <!-- TRUST NETWORK PAGE -->
+        <div id="page-trust" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🌐 Global Trust Network</h2>
+                <p style="font-size:11px;color:var(--text2)">Trust scores · Risk entities · Auto Defense</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi green"><div class="kpi-label">Avg Trust</div><div class="kpi-value" id="gtn-trust">100</div></div>
+                <div class="kpi red"><div class="kpi-label">Flagged</div><div class="kpi-value" id="gtn-flagged">0</div></div>
+                <div class="kpi gold"><div class="kpi-label">Defense Events</div><div class="kpi-value" id="gtn-defense">0</div></div>
+                <div class="kpi purple"><div class="kpi-label">Scanned</div><div class="kpi-value" id="gtn-scanned">0</div></div>
+            </div>
+            <div class="admin-section"><h3>🛡 Trust Model</h3><table class="admin-table"><thead><tr><th>Action</th><th>Reward</th></tr></thead><tbody>
+            <tr><td>Valid report</td><td style="color:var(--purple)">+10 XP</td></tr>
+            <tr><td>Evidence verified</td><td style="color:var(--cyan)">+50 ZVK</td></tr>
+            <tr><td>High-value detection</td><td style="color:var(--gold)">+1 SLH</td></tr>
+            <tr><td>False report</td><td style="color:var(--red)">-20 REP</td></tr>
+            </tbody></table></div>
+            <div class="admin-section"><h3>📊 Risk Entities</h3>
+            <table class="admin-table"><thead><tr><th>Entity</th><th>ZUZ</th><th>Trust</th><th>Status</th></tr></thead>
+            <tbody id="trust-entities-rows"><tr><td colspan="4" style="text-align:center;color:var(--accent)">System clean ✅</td></tr></tbody></table></div>
+        </div>
         <!-- INFRA PAGE -->
         <!-- SITE MAP PAGE -->
         <div id="page-sitemap" style="display:none">
@@ -1583,6 +1659,8 @@ showPage = function(name){
     if (name === 'guardian') loadGuardianStats();
     if (name === 'ops') loadOpsData();
     if (name === 'devops') checkDevOpsStatus();
+    if (name === 'finance') loadFinanceDashboard();
+    if (name === 'trust') loadTrustEntities();
 };
 
 // ── Site Map — Page Status Checker ──────────────────────────────
