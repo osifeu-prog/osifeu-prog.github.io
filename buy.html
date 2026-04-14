@@ -161,7 +161,10 @@
             <div class="summary-row"><span>שיטת תשלום</span><span id="sum-method">PancakeSwap</span></div>
         </div>
 
-        <button class="buy-btn" onclick="handleBuy()">🚀 רכוש SLH עכשיו</button>
+        <a id="buy-link" href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" class="buy-btn" style="text-decoration:none;text-align:center;display:block">🚀 רכוש SLH עכשיו</a>
+        <div style="text-align:center;margin-top:8px">
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="color:var(--text2);font-size:11px">לא נפתח? לחץ כאן ←</a>
+        </div>
         <div id="buy-result" style="margin-top:12px;font-size:13px;text-align:center"></div>
     </div>
 
@@ -243,6 +246,7 @@ function selectPayment(el, method) {
     el.classList.add('selected');
     selectedPayment = method;
     updateSummary();
+    updateBuyLink();
 }
 
 function updateSummary() {
@@ -267,6 +271,30 @@ function updateSummary() {
     document.getElementById('sum-bonus').textContent = bonusPct > 0 ? `+${bonusPct}%` : 'None';
     document.getElementById('sum-slh').textContent = `~${slh.toFixed(4)} SLH`;
     document.getElementById('sum-method').textContent = methods[selectedPayment] || selectedPayment;
+}
+
+function updateBuyLink() {
+    const link = document.getElementById('buy-link');
+    if (!link) return;
+    const urls = {
+        pancakeswap: 'https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc',
+        p2p: '/p2p.html',
+        genesis: '/launch-event.html#send-bnb',
+        bank: 'https://t.me/osifeu_prog'
+    };
+    const labels = {
+        pancakeswap: '🥞 רכוש ב-PancakeSwap',
+        p2p: '🤝 עבור ל-P2P Trading',
+        genesis: '💎 הפקד לארנק Genesis',
+        bank: '🏦 צור קשר לרכישה'
+    };
+    link.href = urls[selectedPayment] || urls.pancakeswap;
+    link.textContent = labels[selectedPayment] || labels.pancakeswap;
+    if (selectedPayment === 'p2p' || selectedPayment === 'genesis') {
+        link.removeAttribute('target');
+    } else {
+        link.target = '_blank';
+    }
 }
 
 function handleBuy() {
