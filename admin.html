@@ -180,6 +180,7 @@
         <a href="#" onclick="showPage('finance')">💰 Finance</a>
         <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
         <a href="#" onclick="showPage('bank_transfers')">💳 העברות בנקאיות <span id="bt-pending-badge" style="background:var(--red);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:4px;display:none">0</span></a>
+        <a href="#" onclick="showPage('admin_mgmt')">👤 ניהול אדמינים</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -802,6 +803,56 @@
                         <thead><tr><th>#</th><th>שם</th><th>ת.ז</th><th>סכום ₪</th><th>מהות</th><th>אסמכתא</th><th>טלפון</th><th>תאריך</th><th>סטטוס</th><th>פעולות</th></tr></thead>
                         <tbody id="bt-table-body"><tr><td colspan="10" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN MANAGEMENT PAGE -->
+        <div id="page-admin_mgmt" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,255,65,.04));border:1px solid var(--purple);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--purple);font-size:18px;margin-bottom:8px">👤 ניהול אדמינים</h2>
+                <p style="font-size:11px;color:var(--text2)">ניהול משתמשי מערכת · תפקידים: owner, ceo, manager, viewer</p>
+            </div>
+            <!-- Existing admins -->
+            <div class="admin-section" style="margin-bottom:16px">
+                <h3>אדמינים פעילים</h3>
+                <table class="admin-table">
+                    <thead><tr><th>ID</th><th>שם משתמש</th><th>שם תצוגה</th><th>תפקיד</th><th>טלגרם</th><th>התחברות אחרונה</th><th>סטטוס</th></tr></thead>
+                    <tbody id="admins-table-body"><tr><td colspan="7" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
+                </table>
+            </div>
+            <!-- Add new admin -->
+            <div class="admin-section">
+                <h3>הוסף אדמין חדש</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">שם משתמש (login)</label>
+                        <input type="text" id="new-admin-username" placeholder="username" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">סיסמה (8+ תווים)</label>
+                        <input type="password" id="new-admin-password" placeholder="********" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">שם תצוגה</label>
+                        <input type="text" id="new-admin-name" placeholder="Full Name" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">תפקיד</label>
+                        <select id="new-admin-role" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                            <option value="viewer">viewer — צפייה בלבד</option>
+                            <option value="manager">manager — ניהול בסיסי</option>
+                            <option value="ceo">ceo — מנכ"ל (אישור העברות)</option>
+                            <option value="owner">owner — בעלים (גישה מלאה)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Telegram ID (אופציונלי)</label>
+                        <input type="number" id="new-admin-tgid" placeholder="224223270" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div style="display:flex;align-items:flex-end">
+                        <button onclick="createNewAdmin()" style="width:100%;padding:10px;background:var(--purple);color:#fff;border:none;font-weight:700;cursor:pointer;font-size:12px;border-radius:6px">צור אדמין חדש</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1699,6 +1750,7 @@ showPage = function(name){
     if (name === 'sitemap') checkAllPages();
     if (name === 'finance') loadFinanceDashboard();
     if (name === 'bank_transfers') loadBankTransfers();
+    if (name === 'admin_mgmt') loadAdminUsers();
     if (name === 'trust') loadTrustEntities();
     if (name === 'users') loadFullUsers();
     if (name === 'rewards') loadAllUsers();
@@ -2049,6 +2101,42 @@ async function reviewBT(id,action){
         }).catch(function(){});
     },2000);
 })();
+// ── Admin Management ─────────────────────────────────────────────
+async function loadAdminUsers(){
+    var tbody=document.getElementById('admins-table-body');
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gold)">Loading...</td></tr>';
+    try{
+        var r=await fetch(SLH_API+'/api/admin/admins',{headers:{'X-Admin-Key':getAdminKey()}});
+        var d=await r.json();
+        if(!d.ok){tbody.innerHTML='<tr><td colspan="7">'+JSON.stringify(d)+'</td></tr>';return;}
+        tbody.innerHTML=(d.admins||[]).map(function(a){
+            var roleBadge = a.role==='owner'?'<span class="badge" style="background:rgba(168,85,247,.15);color:var(--purple)">owner</span>':
+                a.role==='ceo'?'<span class="badge" style="background:rgba(255,215,0,.15);color:var(--gold)">ceo</span>':
+                a.role==='manager'?'<span class="badge" style="background:rgba(0,229,255,.15);color:var(--cyan)">manager</span>':
+                '<span class="badge" style="background:rgba(255,255,255,.05);color:var(--text2)">viewer</span>';
+            var lastLogin = a.last_login ? new Date(a.last_login).toLocaleString('he-IL') : 'לא התחבר';
+            return '<tr><td>'+a.id+'</td><td><strong>'+a.username+'</strong></td><td>'+a.display_name+'</td><td>'+roleBadge+'</td><td>'+(a.telegram_id||'--')+'</td><td style="font-size:10px">'+lastLogin+'</td><td>'+(a.is_active?'<span class="badge live">פעיל</span>':'<span class="badge error">מושבת</span>')+'</td></tr>';
+        }).join('');
+    }catch(e){tbody.innerHTML='<tr><td colspan="7" style="color:var(--red)">'+e.message+'</td></tr>';}
+}
+async function createNewAdmin(){
+    var username=document.getElementById('new-admin-username').value.trim();
+    var password=document.getElementById('new-admin-password').value;
+    var name=document.getElementById('new-admin-name').value.trim();
+    var role=document.getElementById('new-admin-role').value;
+    var tgid=document.getElementById('new-admin-tgid').value;
+    if(!username||!password||!name){alert('שם משתמש, סיסמה ושם תצוגה חובה');return;}
+    if(password.length<8){alert('סיסמה חייבת להכיל לפחות 8 תווים');return;}
+    try{
+        var body={username:username,password:password,display_name:name,role:role};
+        if(tgid) body.telegram_id=parseInt(tgid);
+        var r=await fetch(SLH_API+'/api/admin/admins/create',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},body:JSON.stringify(body)});
+        var d=await r.json();
+        if(d.ok){alert('אדמין '+username+' נוצר בהצלחה (ID: '+d.admin_id+')');loadAdminUsers();}
+        else alert('שגיאה: '+(d.detail||JSON.stringify(d)));
+    }catch(e){alert('Error: '+e.message);}
+}
+
 async function loadFinanceDashboard(){
     try{
         var r=await fetch(SLH_API+"/api/launch/status");
