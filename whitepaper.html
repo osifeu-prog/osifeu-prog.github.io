@@ -150,12 +150,13 @@
 
     <!-- 4. TOKENOMICS -->
     <h2 id="tokenomics"><span class="num">04</span> <span data-i18n="h_token">Tokenomics</span></h2>
-    <p data-i18n="tok_p1">The ecosystem operates with a dual-token model:</p>
+    <p data-i18n="tok_p1">The ecosystem operates with a multi-token model:</p>
 
     <table data-i18n-html="tok_table">
         <tr><th>Token</th><th>Type</th><th>Purpose</th><th>Supply</th></tr>
         <tr><td><strong>SLH</strong></td><td>BEP-20 (BSC)</td><td>Ecosystem utility token, premium access, governance</td><td>1,000,000,000</td></tr>
         <tr><td><strong>ZVK</strong></td><td>Internal (off-chain)</td><td>Gamification, rewards, micro-payments between bots</td><td>Inflationary (mint/burn)</td></tr>
+        <tr><td><strong>ZUZ</strong></td><td>Internal (off-chain)</td><td>Anti-fraud "Mark of Cain" — negative reputation marker for scammers</td><td>Assigned per report</td></tr>
     </table>
 
     <h3 data-i18n="tok_h_slh">SLH Token Details</h3>
@@ -171,6 +172,15 @@
         <li><strong>Spend:</strong> 1 ZVK per game play, premium features, in-bot purchases</li>
         <li><strong>Convert:</strong> 10 ZVK = 1 TON | 50 ZVK = 4 TON | 100 ZVK = 7 TON</li>
         <li><strong>Burn mechanism:</strong> Game plays burn ZVK, creating deflationary pressure</li>
+    </ul>
+
+    <h3 data-i18n="tok_h_zuz">ZUZ — Anti-Fraud System</h3>
+    <ul data-i18n-html="tok_zuz_list">
+        <li><strong>Purpose:</strong> Negative reputation marker ("Mark of Cain") for scammers and malicious bots</li>
+        <li><strong>Assigned by:</strong> Guardian bot reports — community-driven fraud detection</li>
+        <li><strong>Threshold:</strong> 100 ZUZ = automatic ban across ALL ecosystem groups</li>
+        <li><strong>Intelligence:</strong> Cross-group sharing — a scammer flagged in one group is visible everywhere</li>
+        <li><strong>Not a currency:</strong> ZUZ cannot be traded, bought, or transferred — it is a trust score only</li>
     </ul>
 
     <!-- 5. PRODUCTS -->
@@ -199,7 +209,7 @@
         <tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr>
         <tr><td>Education</td><td>@SLH_Academia_bot</td><td>LIVE</td><td>Courses, airdrop system, leaderboard, referrals</td></tr>
         <tr><td>Games</td><td>@SLH_Game_bot</td><td>BETA</td><td>Slots, dice, basketball, darts with ZVK rewards</td></tr>
-        <tr><td>Security</td><td>@SLH_Guardian_bot</td><td>LIVE</td><td>Group anti-spam, moderation, system health monitoring</td></tr>
+        <tr><td>Security</td><td>@SLH_Guardian_bot</td><td>LIVE</td><td>Group anti-spam, moderation, ZUZ anti-fraud scoring, system health monitoring</td></tr>
         <tr><td>Lottery</td><td>@Chance_Pais_bot</td><td>BETA</td><td>Gambling analytics and tracking (coming soon)</td></tr>
     </table>
 
@@ -367,9 +377,10 @@ he: {
     sol_h_arch:"\u05e2\u05e7\u05e8\u05d5\u05e0\u05d5\u05ea \u05d0\u05e8\u05db\u05d9\u05d8\u05e7\u05d8\u05d5\u05e8\u05d9\u05d9\u05dd",
     sol_stack_h:"\u05de\u05e2\u05e8\u05da \u05d8\u05db\u05e0\u05d5\u05dc\u05d5\u05d2\u05d9",
     h_token:"\u05d8\u05d5\u05e7\u05e0\u05d5\u05de\u05d9\u05e7\u05e1",
-    tok_p1:"\u05d4\u05d0\u05e7\u05d5\u05e1\u05d9\u05e1\u05d8\u05dd \u05e4\u05d5\u05e2\u05dc \u05e2\u05dd \u05de\u05d5\u05d3\u05dc \u05d3\u05d5-\u05d8\u05d5\u05e7\u05e0\u05d9:",
+    tok_p1:"\u05d4\u05d0\u05e7\u05d5\u05e1\u05d9\u05e1\u05d8\u05dd \u05e4\u05d5\u05e2\u05dc \u05e2\u05dd \u05de\u05d5\u05d3\u05dc \u05e8\u05d1-\u05d8\u05d5\u05e7\u05e0\u05d9:",
     tok_h_slh:"\u05e4\u05e8\u05d8\u05d9 \u05d8\u05d5\u05e7\u05df SLH",
     tok_h_zvk:"\u05db\u05dc\u05db\u05dc\u05ea \u05d8\u05d5\u05e7\u05df ZVK",
+    tok_h_zuz:"ZUZ \u2014 \u05de\u05e2\u05e8\u05db\u05ea \u05d0\u05e0\u05d8\u05d9-\u05d4\u05d5\u05e0\u05d0\u05d4",
     h_products:"\u05de\u05d5\u05e6\u05e8\u05d9\u05dd",
     prod_t1:"\u05e9\u05db\u05d1\u05d4 1: \u05de\u05d5\u05e6\u05e8\u05d9\u05dd \u05e4\u05d9\u05e0\u05e0\u05e1\u05d9\u05d9\u05dd \u05de\u05e8\u05db\u05d6\u05d9\u05d9\u05dd",
     prod_t2:"\u05e9\u05db\u05d1\u05d4 2: SaaS \u05d5\u05de\u05e1\u05d7\u05e8",
@@ -430,7 +441,7 @@ en: {
     h_solution:"Solution Architecture",
     sol_p1:"SLH Ecosystem solves these problems by embedding financial services directly inside Telegram, where users already spend their time. Each bot serves a specific function but shares a common database, authentication, and token economy.",
     sol_h_arch:"Architecture Principles",sol_stack_h:"Technical Stack",
-    h_token:"Tokenomics",tok_p1:"The ecosystem operates with a dual-token model:",tok_h_slh:"SLH Token Details",tok_h_zvk:"ZVK Token Economy",
+    h_token:"Tokenomics",tok_p1:"The ecosystem operates with a multi-token model:",tok_h_slh:"SLH Token Details",tok_h_zvk:"ZVK Token Economy",tok_h_zuz:"ZUZ — Anti-Fraud System",
     h_products:"Product Suite",prod_t1:"Tier 1: Core Financial Products",prod_t2:"Tier 2: SaaS & Commerce",prod_t3:"Tier 3: Community & Engagement",
     h_tech:"Technical Infrastructure",tech_p1:"The entire ecosystem runs on Docker Compose with shared PostgreSQL and Redis instances:",tech_h_bc:"Blockchain Integration",
     h_revenue:"Revenue Model",rev_p1:"SLH Ecosystem generates revenue through multiple streams:",
@@ -442,9 +453,10 @@ en: {
     h_team:"Team & Contact",team_p1:"SLH Ecosystem is built by SPARK IND, based in Israel.",
     stat_bots:"Active Bots",stat_coins:"Supported Coins",stat_yield:"Max Annual Yield",stat_auto:"Automated",
     sol_stack_p:"Python (aiogram 3) | PostgreSQL 15 | Redis 7 | Docker Compose | TON API | BSC/web3.py | CoinGecko | STON.fi DEX | Cloudflare | GitHub Pages",
-    tok_table:'<tr><th>Token</th><th>Type</th><th>Purpose</th><th>Supply</th></tr><tr><td><strong>SLH</strong></td><td>BEP-20 (BSC)</td><td>Ecosystem utility token, premium access, governance</td><td>1,000,000,000</td></tr><tr><td><strong>ZVK</strong></td><td>Internal (off-chain)</td><td>Gamification, rewards, micro-payments between bots</td><td>Inflationary (mint/burn)</td></tr>',
+    tok_table:'<tr><th>Token</th><th>Type</th><th>Purpose</th><th>Supply</th></tr><tr><td><strong>SLH</strong></td><td>BEP-20 (BSC)</td><td>Ecosystem utility token, premium access, governance</td><td>1,000,000,000</td></tr><tr><td><strong>ZVK</strong></td><td>Internal (off-chain)</td><td>Gamification, rewards, micro-payments between bots</td><td>Inflationary (mint/burn)</td></tr><tr><td><strong>ZUZ</strong></td><td>Internal (off-chain)</td><td>Anti-fraud "Mark of Cain" — negative reputation marker for scammers</td><td>Assigned per report</td></tr>',
     tok_slh_list:'<li><strong>Contract:</strong> <code>0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code> (BSC Mainnet)</li><li><strong>Standard:</strong> BEP-20 (ERC-20 compatible)</li><li><strong>Use cases:</strong> Premium subscriptions, staking rewards, P2P transfers, cross-bot payments</li>',
     tok_zvk_list:'<li><strong>Earn:</strong> Games (slots, dice, basketball, darts), referrals (+5 ZVK per invite), task completion</li><li><strong>Spend:</strong> 1 ZVK per game play, premium features, in-bot purchases</li><li><strong>Convert:</strong> 10 ZVK = 1 TON | 50 ZVK = 4 TON | 100 ZVK = 7 TON</li><li><strong>Burn mechanism:</strong> Game plays burn ZVK, creating deflationary pressure</li>',
+    tok_zuz_list:'<li><strong>Purpose:</strong> Negative reputation marker ("Mark of Cain") for scammers and malicious bots</li><li><strong>Assigned by:</strong> Guardian bot reports — community-driven fraud detection</li><li><strong>Threshold:</strong> 100 ZUZ = automatic ban across ALL ecosystem groups</li><li><strong>Intelligence:</strong> Cross-group sharing — a scammer flagged in one group is visible everywhere</li><li><strong>Not a currency:</strong> ZUZ cannot be traded, bought, or transferred — it is a trust score only</li>',
     prod_table1:'<tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr><tr><td>Investment House</td><td>@SLH_AIR_bot</td><td>LIVE</td><td>4 deposit plans (4%-5.4% monthly), 12-coin live prices, swap, limit orders, portfolio management, double-entry ledger</td></tr><tr><td>Multi-Chain Wallet</td><td>@SLH_Wallet_bot</td><td>LIVE</td><td>TON + BNB wallet registration, community card, QR sharing</td></tr><tr><td>TON Tools</td><td>@TON_MNH_bot</td><td>LIVE</td><td>Balance checking, transaction tracking, product marketplace, VIP group</td></tr><tr><td>Staking Factory</td><td>@Osifs_Factory_bot</td><td>BETA</td><td>Staking pools for SLH token, yield farming</td></tr>',
     prod_table2:'<tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr><tr><td>Inventory SaaS</td><td>@OsifShop_bot</td><td>LIVE</td><td>Camera barcode scanning (Mini App), stock management, low-stock alerts, CSV export</td></tr><tr><td>NFT Marketplace</td><td>@NIFTI_Publisher_Bot</td><td>LIVE</td><td>Digital asset marketplace with virtual pet companion</td></tr><tr><td>Bot Shop</td><td>@BotShop_bot</td><td>LIVE</td><td>AI market analysis, trading simulation, wallet management</td></tr><tr><td>Campaign SaaS</td><td>@SLH_Campaign_bot</td><td>LIVE</td><td>CRM, surveys, broadcasts, activist management</td></tr>',
     prod_table3:'<tr><th>Product</th><th>Bot</th><th>Status</th><th>Description</th></tr><tr><td>Education</td><td>@SLH_Academia_bot</td><td>LIVE</td><td>Courses, airdrop system, leaderboard, referrals</td></tr><tr><td>Games</td><td>@SLH_Game_bot</td><td>BETA</td><td>Slots, dice, basketball, darts with ZVK rewards</td></tr><tr><td>Security</td><td>@SLH_Guardian_bot</td><td>LIVE</td><td>Group anti-spam, moderation, system health monitoring</td></tr><tr><td>Lottery</td><td>@Chance_Pais_bot</td><td>BETA</td><td>Gambling analytics and tracking (coming soon)</td></tr>',
