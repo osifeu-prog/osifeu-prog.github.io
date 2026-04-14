@@ -333,11 +333,21 @@
       });
     }
 
-    // Auto-reconnect if previously authorized
+    // Auto-reconnect if previously authorized — fully re-initialize provider
     const saved = localStorage.getItem('slh_web3_addr');
     if (saved && window.ethereum && hasEthers()) {
-      web3Address = saved;
-      showConnected(saved);
+      try {
+        web3Provider = new ethers.BrowserProvider(window.ethereum);
+        web3Address = saved;
+        showConnected(saved);
+        // Silently try to get signer (won't prompt if already authorized)
+        web3Provider.getSigner().then(s => { web3Signer = s; }).catch(() => {});
+        log('auto-reconnected', saved);
+      } catch(e) {
+        log('auto-reconnect failed', e);
+        web3Address = saved;
+        showConnected(saved);
+      }
     }
 
     // Listen for account switch
