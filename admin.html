@@ -1151,6 +1151,8 @@ function checkAuth(){
         document.getElementById('admin-panel').style.display = 'flex';
         document.getElementById('admin-body').style.display = 'flex';
         initDashboard();
+        // Pre-load users table
+        setTimeout(function(){ if(typeof loadFullUsers==='function') loadFullUsers(); }, 500);
     } else {
         document.getElementById('auth-err').style.display = 'block';
     }
