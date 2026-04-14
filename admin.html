@@ -124,10 +124,7 @@
         <div style="font-size:40px;margin-bottom:16px">🔐</div>
         <h2>SLH Admin Panel</h2>
         <p>Backoffice access — admin only</p>
-        <div style="position:relative">
-            <input type="password" id="admin-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAuth()" style="padding-left:40px">
-            <button type="button" onclick="var p=document.getElementById('admin-pass');p.type=p.type==='password'?'text':'password';this.textContent=p.type==='password'?'👁':'🙈'" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:var(--text2)">👁</button>
-        </div>
+        <input type="text" id="admin-pass" placeholder="הכנס סיסמה" onkeydown="if(event.key==='Enter')checkAuth()" style="direction:ltr">
         <button onclick="checkAuth()">[ LOGIN ]</button>
         <div class="auth-err" id="auth-err">Incorrect password</div>
     </div>
