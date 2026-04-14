@@ -7,7 +7,6 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css?v=20260411i">
     <style>
@@ -124,7 +123,7 @@
         <div style="font-size:40px;margin-bottom:16px">🔐</div>
         <h2>SLH Admin Panel</h2>
         <p>Backoffice access — admin only</p>
-        <input type="text" id="admin-pass" placeholder="הכנס סיסמה" onkeydown="if(event.key==='Enter')checkAuth()" style="direction:ltr">
+        <input type="password" id="admin-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAuth()">
         <button onclick="checkAuth()">[ LOGIN ]</button>
         <div class="auth-err" id="auth-err">Incorrect password</div>
     </div>
@@ -133,7 +132,6 @@
 <!-- NAV -->
 <nav class="admin-nav" id="admin-panel" style="display:none">
     <div class="nav-brand">SLH Admin <span>BACKOFFICE</span></div>
-    <div id="admin-profile" style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)"><span id="admin-name">Admin</span></div>
     <div class="nav-links">
         <a href="#" class="active" onclick="showPage('overview')">Overview</a>
         <a href="#" onclick="showPage('institutional')" style="color:var(--gold)">🏛 Institutional</a>
@@ -178,8 +176,6 @@
         <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
         <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
         <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
-        <a href="#" onclick="showPage('finance')">💰 Finance</a>
-        <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
         <a href="#" onclick="refreshAll()">🔄 Refresh Data</a>
     </aside>
 
@@ -251,42 +247,16 @@
         <div id="page-users" style="display:none">
             <div class="kpi-grid">
                 <div class="kpi green"><div class="kpi-label">Total Users</div><div class="kpi-value" id="usr-total">--</div></div>
-                <div class="kpi gold"><div class="kpi-label">With ZVK</div><div class="kpi-value" id="usr-with-zvk">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">With SLH</div><div class="kpi-value" id="usr-with-slh">--</div></div>
-                <div class="kpi purple"><div class="kpi-label">Total ZVK</div><div class="kpi-value" id="usr-total-zvk">--</div></div>
-            </div>
-            <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap">
-                <button onclick="loadFullUsers()" style="background:var(--accent);color:#000;border:none;padding:10px 20px;font-weight:700;cursor:pointer;font-family:var(--font);border-radius:6px">[ LOAD ALL USERS ]</button>
-                <input type="text" id="user-search" placeholder="חפש לפי שם / ID / username" oninput="filterUsers()" style="flex:1;min-width:200px;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);border-radius:6px">
+                <div class="kpi gold"><div class="kpi-label">Premium Users</div><div class="kpi-value" id="usr-premium">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Today Signups</div><div class="kpi-value" id="usr-today">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Pending Approvals</div><div class="kpi-value" id="usr-pending">--</div></div>
             </div>
             <div class="admin-section">
-                <h3>👥 כל המשתמשים — ניהול מלא</h3>
-                <div style="overflow-x:auto">
-                <table class="admin-table" id="full-users-table">
-                    <thead><tr>
-                        <th>ID</th><th>שם</th><th>Username</th><th>SLH</th><th>ZVK</th><th>REP</th><th>ZUZ</th><th>Login</th><th>פעולות</th>
-                    </tr></thead>
-                    <tbody id="full-users-body"><tr><td colspan="9" style="text-align:center;color:var(--text2)">לחץ "Load All Users"</td></tr></tbody>
+                <h3>👥 Recent Users</h3>
+                <table class="admin-table">
+                    <thead><tr><th>User ID</th><th>Username</th><th>Bot</th><th>Status</th><th>Amount</th><th>Date</th></tr></thead>
+                    <tbody id="users-table"></tbody>
                 </table>
-                </div>
-            </div>
-            <div class="admin-section">
-                <h3>✏️ פעולות על משתמש</h3>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
-                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">User ID</label>
-                        <input type="number" id="action-uid" placeholder="Telegram ID" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:140px;border-radius:4px"></div>
-                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">פעולה</label>
-                        <select id="action-type" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:160px;border-radius:4px">
-                            <option value="credit">💰 זכה טוקנים</option>
-                            <option value="message">📩 שלח הודעה</option>
-                            <option value="card">🎴 צפה בכרטיס</option>
-                            <option value="check">🛡 בדוק Guardian</option>
-                        </select></div>
-                    <div><label style="font-size:10px;color:var(--text2);display:block;margin-bottom:4px">Token/Text</label>
-                        <input type="text" id="action-value" placeholder="ZVK / 100 / הודעה..." style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);width:200px;border-radius:4px"></div>
-                    <button onclick="executeUserAction()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font);border-radius:4px">[ בצע ]</button>
-                </div>
-                <div id="action-result" style="margin-top:12px;font-size:12px;color:var(--text2)"></div>
             </div>
         </div>
 
@@ -754,58 +724,6 @@
             </div>
         </div>
 
-
-        <!-- FINANCE PAGE -->
-        <div id="page-finance" style="display:none">
-            <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--gold);font-size:18px;margin-bottom:8px">💰 Financial Dashboard</h2>
-                <p style="font-size:11px;color:var(--text2)">Token balances · Pool liquidity · Staking · Revenue</p>
-            </div>
-            <div class="kpi-grid">
-                <div class="kpi gold"><div class="kpi-label">Genesis Raised</div><div class="kpi-value" id="fin-raised">--</div></div>
-                <div class="kpi green"><div class="kpi-label">Pool BNB</div><div class="kpi-value" id="fin-pool-bnb">--</div></div>
-                <div class="kpi cyan"><div class="kpi-label">SLH Internal</div><div class="kpi-value" id="fin-slh-db">--</div></div>
-                <div class="kpi purple"><div class="kpi-label">Total ZVK</div><div class="kpi-value" id="fin-zvk">--</div></div>
-                <div class="kpi green"><div class="kpi-label">Contributors</div><div class="kpi-value" id="fin-contribs">--</div></div>
-                <div class="kpi red"><div class="kpi-label">ZUZ Issued</div><div class="kpi-value" id="fin-zuz">--</div></div>
-            </div>
-            <div class="admin-section"><h3>📊 5-Token Economy</h3><table class="admin-table"><thead><tr><th>Token</th><th>Type</th><th>Status</th></tr></thead><tbody>
-            <tr><td style="color:var(--gold)">SLH</td><td>Premium/Governance</td><td><span class="badge live">BSC LIVE</span></td></tr>
-            <tr><td style="color:var(--accent)">MNH</td><td>Stablecoin ₪1</td><td><span class="badge live">ACTIVE</span></td></tr>
-            <tr><td style="color:var(--cyan)">ZVK</td><td>Activity Rewards</td><td><span class="badge live">ACTIVE</span></td></tr>
-            <tr><td style="color:var(--purple)">REP</td><td>Reputation</td><td><span class="badge live">ACTIVE</span></td></tr>
-            <tr><td style="color:var(--red)">ZUZ</td><td>Risk Signal</td><td><span class="badge live">GUARDIAN</span></td></tr>
-            </tbody></table></div>
-            <div class="admin-section"><h3>💎 Revenue Streams</h3><table class="admin-table"><thead><tr><th>Source</th><th>Model</th><th>Status</th></tr></thead><tbody>
-            <tr><td>LP Fees</td><td>0.25% per swap</td><td>Active</td></tr>
-            <tr><td>Staking (9 plans)</td><td>TON/SLH/BNB</td><td>Active</td></tr>
-            <tr><td>Premium Bots</td><td>41-149 ILS</td><td>25 bots</td></tr>
-            <tr><td>Referrals</td><td>10 generations</td><td>Active</td></tr>
-            <tr><td>Courses</td><td>150 ILS</td><td>Coming</td></tr>
-            </tbody></table></div>
-        </div>
-        <!-- TRUST NETWORK PAGE -->
-        <div id="page-trust" style="display:none">
-            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
-                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">🌐 Global Trust Network</h2>
-                <p style="font-size:11px;color:var(--text2)">Trust scores · Risk entities · Auto Defense</p>
-            </div>
-            <div class="kpi-grid">
-                <div class="kpi green"><div class="kpi-label">Avg Trust</div><div class="kpi-value" id="gtn-trust">100</div></div>
-                <div class="kpi red"><div class="kpi-label">Flagged</div><div class="kpi-value" id="gtn-flagged">0</div></div>
-                <div class="kpi gold"><div class="kpi-label">Defense Events</div><div class="kpi-value" id="gtn-defense">0</div></div>
-                <div class="kpi purple"><div class="kpi-label">Scanned</div><div class="kpi-value" id="gtn-scanned">0</div></div>
-            </div>
-            <div class="admin-section"><h3>🛡 Trust Model</h3><table class="admin-table"><thead><tr><th>Action</th><th>Reward</th></tr></thead><tbody>
-            <tr><td>Valid report</td><td style="color:var(--purple)">+10 XP</td></tr>
-            <tr><td>Evidence verified</td><td style="color:var(--cyan)">+50 ZVK</td></tr>
-            <tr><td>High-value detection</td><td style="color:var(--gold)">+1 SLH</td></tr>
-            <tr><td>False report</td><td style="color:var(--red)">-20 REP</td></tr>
-            </tbody></table></div>
-            <div class="admin-section"><h3>📊 Risk Entities</h3>
-            <table class="admin-table"><thead><tr><th>Entity</th><th>ZUZ</th><th>Trust</th><th>Status</th></tr></thead>
-            <tbody id="trust-entities-rows"><tr><td colspan="4" style="text-align:center;color:var(--accent)">System clean ✅</td></tr></tbody></table></div>
-        </div>
         <!-- INFRA PAGE -->
         <!-- SITE MAP PAGE -->
         <div id="page-sitemap" style="display:none">
@@ -1033,16 +951,12 @@ function checkAuth(){
         document.getElementById('admin-panel').style.display = 'flex';
         document.getElementById('admin-body').style.display = 'flex';
         initDashboard();
-        // Pre-load users table
-        setTimeout(function(){ if(typeof loadFullUsers==='function') loadFullUsers(); }, 500);
     } else {
         document.getElementById('auth-err').style.display = 'block';
     }
 }
 // Auto-login if remembered
 if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
-// Auto-load users if on users page
-setTimeout(function(){ if(document.getElementById('page-users') && document.getElementById('page-users').style.display !== 'none') loadFullUsers(); }, 1000);
 
 // ── Page Navigation ──────────────────────────────────────────────
 function showPage(name){
@@ -1669,9 +1583,6 @@ showPage = function(name){
     if (name === 'guardian') loadGuardianStats();
     if (name === 'ops') loadOpsData();
     if (name === 'devops') checkDevOpsStatus();
-    if (name === 'finance') loadFinanceDashboard();
-    if (name === 'users') loadFullUsers();
-    if (name === 'trust') loadTrustEntities();
 };
 
 // ── Site Map — Page Status Checker ──────────────────────────────
@@ -1929,140 +1840,6 @@ async function checkDevOpsStatus(){
         document.getElementById('devops-api-status').innerHTML = '<span class="badge error">UNREACHABLE</span>';
     }
 }
-
-// Finance
-async function loadFinanceDashboard(){
-    try{const r=await fetch(SLH_API+'/api/launch/status');const d=await r.json();
-    const a=(d.contributors||[]).filter(c=>c.status!=='cancelled');
-    document.getElementById('fin-raised').textContent=(d.raised_bnb_verified||0).toFixed(4)+' BNB';
-    document.getElementById('fin-contribs').textContent=a.length;}catch(e){}
-    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
-    document.getElementById('fin-zuz').textContent=(d.total_zuz_issued||0).toFixed(0);}catch(e){}
-    try{const r=await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
-    const d=await r.json();if(d.ok){let s=0,z=0;d.users.forEach(u=>{s+=u.balances?.SLH||0;z+=u.balances?.ZVK||0;});
-    document.getElementById('fin-slh-db').textContent=s.toLocaleString();
-    document.getElementById('fin-zvk').textContent=z.toLocaleString();}}catch(e){}
-    try{const b=await fetch('https://bsc-dataseed.binance.org/',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:['0xd061de73B06d5E91bfA46b35EfB7B08b16903da4','latest'],id:1})});
-    const d=await b.json();document.getElementById('fin-pool-bnb').textContent=(parseInt(d.result,16)/1e18).toFixed(4);}catch(e){}}
-// Trust
-async function loadTrustEntities(){
-    try{const r=await fetch(SLH_API+'/api/guardian/stats');const d=await r.json();
-    document.getElementById('gtn-flagged').textContent=d.total_flagged_users||0;
-    document.getElementById('gtn-scanned').textContent=(d.total_messages_scanned||0).toLocaleString();
-    document.getElementById('gtn-defense').textContent=d.total_banned||0;}catch(e){}}
-
-// Full User Management
-let allUsersData = [];
-async function loadFullUsers(){
-    const tbody = document.getElementById('full-users-body');
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--gold)">טוען...</td></tr>';
-    try{
-        const r = await fetch(SLH_API+'/api/admin/all-users',{headers:{'X-Admin-Key':getAdminKey()}});
-        const d = await r.json();
-        if(!d.ok){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">Error</td></tr>';return;}
-        allUsersData = d.users;
-        document.getElementById('usr-total').textContent = d.count;
-        let withZvk=0, withSlh=0, totalZvk=0;
-        d.users.forEach(u=>{
-            if((u.balances?.ZVK||0)>0) withZvk++;
-            if((u.balances?.SLH||0)>0) withSlh++;
-            totalZvk += u.balances?.ZVK||0;
-        });
-        document.getElementById('usr-with-zvk').textContent = withZvk;
-        document.getElementById('usr-with-slh').textContent = withSlh;
-        document.getElementById('usr-total-zvk').textContent = totalZvk.toFixed(0);
-        renderUserTable(d.users);
-    }catch(e){tbody.innerHTML='<tr><td colspan="9" style="color:var(--red)">'+e.message+'</td></tr>';}
-}
-function renderUserTable(users){
-    const tbody = document.getElementById('full-users-body');
-    tbody.innerHTML = users.map(u=>{
-        const b = u.balances||{};
-        const login = u.last_login ? new Date(u.last_login).toLocaleDateString('he-IL') : '--';
-        const slh = (b.SLH||0);
-        const zvk = (b.ZVK||0);
-        const rep = (b.REP||0);
-        const zuz = (b.ZUZ||0);
-        return '<tr>'+
-            '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
-            '<td style="font-weight:700">'+(u.first_name||'--')+'</td>'+
-            '<td>'+(u.username?'@'+u.username:'--')+'</td>'+
-            '<td style="color:var(--gold)">'+(slh>0?slh.toLocaleString():'0')+'</td>'+
-            '<td style="color:var(--cyan)">'+(zvk>0?zvk:'0')+'</td>'+
-            '<td style="color:var(--purple)">'+(rep>0?rep:'0')+'</td>'+
-            '<td style="color:'+(zuz>0?'var(--red)':'var(--text2)')+'">'+(zuz>0?zuz:'0')+'</td>'+
-            '<td style="font-size:10px">'+login+'</td>'+
-            '<td style="white-space:nowrap">'+
-                '<a href="/member.html?user_id='+u.telegram_id+'" target="_blank" title="Card" style="margin:0 4px">🎴</a>'+
-                '<a href="javascript:void(0)" onclick="document.getElementById('action-uid').value=''+u.telegram_id+''" title="Select" style="margin:0 4px">✏️</a>'+
-                '<a href="https://t.me/'+((u.username)||'')+'" target="_blank" title="Telegram" style="margin:0 4px">'+(u.username?'📱':'')+'</a>'+
-            '</td></tr>';
-    }).join('');
-}
-function filterUsers(){
-    const q = document.getElementById('user-search').value.toLowerCase();
-    if(!q){renderUserTable(allUsersData);return;}
-    const filtered = allUsersData.filter(u=>
-        (u.first_name||'').toLowerCase().includes(q)||
-        (u.username||'').toLowerCase().includes(q)||
-        String(u.telegram_id).includes(q)
-    );
-    renderUserTable(filtered);
-}
-async function executeUserAction(){
-    const uid = document.getElementById('action-uid').value;
-    const action = document.getElementById('action-type').value;
-    const val = document.getElementById('action-value').value;
-    const el = document.getElementById('action-result');
-    if(!uid){el.textContent='Enter user ID';el.style.color='var(--red)';return;}
-    el.textContent='Processing...';el.style.color='var(--gold)';
-    try{
-        if(action==='credit'){
-            const parts = val.split(/\s+/);
-            const token = parts[0]||'ZVK';
-            const amount = parseFloat(parts[1])||10;
-            const r = await fetch(SLH_API+'/api/admin/manual-credit?user_id='+uid+'&token='+token+'&amount='+amount+'&reason=admin_panel',{
-                method:'POST',headers:{'X-Admin-Key':getAdminKey()}});
-            const d = await r.json();
-            el.textContent = d.ok ? 'Credited '+amount+' '+token+' to '+uid : 'Error: '+JSON.stringify(d);
-            el.style.color = d.ok ? 'var(--accent)' : 'var(--red)';
-            loadFullUsers();
-        } else if(action==='card'){
-            window.open('/member.html?user_id='+uid,'_blank');
-            el.textContent='Card opened';el.style.color='var(--accent)';
-        } else if(action==='check'){
-            const r = await fetch(SLH_API+'/api/guardian/check/'+uid);
-            const d = await r.json();
-            el.textContent = JSON.stringify(d,null,2);
-            el.style.color = d.safe ? 'var(--accent)' : 'var(--red)';
-        } else if(action==='message'){
-            el.textContent='Broadcast to single user not yet supported. Use broadcast to all.';
-            el.style.color='var(--gold)';
-        }
-    }catch(e){el.textContent='Error: '+e.message;el.style.color='var(--red)';}
-}
-
-// Admin Logout
-function adminLogout(){
-    localStorage.removeItem('slh_admin_auth');
-    localStorage.removeItem('slh_admin_password');
-    location.reload();
-}
-
-// Load admin profile
-async function loadAdminProfile(){
-    try{
-        const r = await fetch(SLH_API+'/api/user/224223270');
-        const d = await r.json();
-        if(d.user){
-            const name = d.user.display_name || d.user.first_name || 'Admin';
-            document.getElementById('admin-name').innerHTML = '👤 '+name+' <span style="color:var(--accent)">· Admin</span>';
-        }
-    }catch(e){}
-}
-loadAdminProfile();
-
 </script>
 
 <div id="bottomnav-root"></div>
