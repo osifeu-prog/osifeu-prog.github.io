@@ -134,32 +134,34 @@
         <!-- Payment Methods -->
         <div style="font-size:13px;color:var(--text2);margin:16px 0 8px">💳 שיטת תשלום:</div>
         <div class="payment-methods">
-            <div class="pay-method selected" onclick="selectPayment(this,'pancakeswap')">
+            <div class="pay-method selected" onclick="selectPayment(this,'pancakeswap')" style="cursor:pointer">
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
                 <div class="icon">🥞</div>
                 <div class="name">PancakeSwap</div>
                 <div class="detail">Swap BNB → SLH ישירות</div>
+                </a>
             </div>
-            <div class="pay-method" onclick="selectPayment(this,'p2p')">
+            <div class="pay-method" onclick="window.location.href='/p2p.html'" style="cursor:pointer">
                 <div class="icon">🤝</div>
                 <div class="name">P2P (חינם!)</div>
                 <div class="detail">Bit · PayBox · MNH · TON</div>
             </div>
-            <div class="pay-method" onclick="selectPayment(this,'genesis')">
+            <div class="pay-method" onclick="window.location.href='/launch-event.html#send-bnb'" style="cursor:pointer">
                 <div class="icon">💎</div>
                 <div class="name">Genesis Deposit</div>
                 <div class="detail">BNB ישירות לארנק Genesis</div>
             </div>
-            <div class="pay-method" onclick="selectPayment(this,'bank')">
+            <div class="pay-method" onclick="window.open('https://t.me/osifeu_prog','_blank')" style="cursor:pointer">
                 <div class="icon">🏦</div>
                 <div class="name">העברה בנקאית</div>
                 <div class="detail">צור קשר עם @osifeu_prog</div>
             </div>
-            <div class="pay-method" onclick="selectPayment(this,'bit')">
+            <div class="pay-method" onclick="window.open('https://t.me/osifeu_prog','_blank')" style="cursor:pointer">
                 <div class="icon">📱</div>
                 <div class="name">Bit / PayBox</div>
                 <div class="detail">תשלום מהיר בשקלים · ZVK/MNH</div>
             </div>
-            <div class="pay-method" onclick="selectPayment(this,'telegram')">
+            <div class="pay-method" onclick="window.open('https://t.me/SLH_AIR_bot?start=buy','_blank')" style="cursor:pointer">
                 <div class="icon">📱</div>
                 <div class="name">Telegram Bot</div>
                 <div class="detail">רכישה דרך @SLH_AIR_bot</div>
