@@ -19,6 +19,7 @@ const T = {
     nav_challenge: 'אתגר 21 יום',
     nav_healing: 'חזון הריפוי',
     nav_jubilee: 'שנת היובל',
+    nav_kosher_wallet: '🕊️ ארנק כשר',
     nav_p2p: 'P2P מסחר',
     nav_about: 'אודות',
     nav_community: 'קהילה',

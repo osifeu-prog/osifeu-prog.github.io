@@ -43,6 +43,7 @@ const NAV_ITEMS = [
   { key: 'challenge', href: '/challenge.html', icon: 'fa-fire' },
   { key: 'healing', href: '/healing-vision.html', icon: 'fa-heart' },
   { key: 'jubilee', href: '/jubilee.html', icon: 'fa-dove' },
+  { key: 'kosher_wallet', href: '/kosher-wallet.html', icon: 'fa-shield-alt' },
   { key: 'p2p', href: '/p2p.html', icon: 'fa-exchange-alt' },
   { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
   { key: 'control_center', href: '/control-center.html', icon: 'fa-satellite-dish', admin: true },
