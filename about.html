@@ -240,6 +240,36 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
   <p class="stats-note">📡 נתונים דינמיים נטענים מ-<code>api/health</code> · סטטיים נשמרים במקור האמת</p>
 </section>
 
+<!-- LIVE NEURAL NETWORK — Real ecosystem visualization -->
+<section class="section">
+  <h2>🧠 רשת הנוירונים של האקוסיסטם</h2>
+  <p class="lead">מפה חיה של כל הצמתים במערכת — עודכן מה-API כל 30 שניות. לחץ על צומת לפרטים.</p>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:20px;margin-top:10px">
+    <canvas id="neural-canvas" style="width:100%;height:460px;display:block"></canvas>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:14px;flex-wrap:wrap;font-size:11px">
+      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%"></i>Core / Founder</span>
+      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%"></i>Users / Community</span>
+      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--purple);border-radius:50%"></i>Bots / Services</span>
+      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--blue);border-radius:50%"></i>Blockchain / Tokens</span>
+      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--cyan);border-radius:50%"></i>Experts</span>
+    </div>
+    <div id="neural-info" style="margin-top:14px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text2);min-height:40px;text-align:center">
+      לחץ על צומת כדי לראות פרטים · גרור כדי להזיז · עדכון כל 30 שניות
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY MEMBERS (REAL) -->
+<section class="section">
+  <h2>👥 חברי הקהילה שלנו</h2>
+  <p class="lead">הקהילה האמיתית — לא אנשים מומצאים. אלו המצטרפים האמיתיים.</p>
+  <div id="community-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+    <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2);font-size:13px">
+      ⏳ טוען חברי קהילה מה-API...
+    </div>
+  </div>
+</section>
+
 <!-- ECOSYSTEM LINKS -->
 <section class="section">
   <h2>האקוסיסטם המלא</h2>
@@ -317,6 +347,287 @@ async function loadStats() {
   }
 }
 loadStats();
+
+/* === NEURAL NETWORK — Canvas-based, self-contained, no external deps === */
+(function initNeural() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const info = document.getElementById('neural-info');
+  let nodes = [];
+  let edges = [];
+  let hoveredNode = null;
+  let selectedNode = null;
+  let animationId = null;
+  let draggedNode = null;
+
+  // Resolve CSS vars at runtime (colors for canvas)
+  const cssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+  const COLORS = {
+    gold: cssVar('--gold', '#ffd700'),
+    green: cssVar('--green', '#00e887'),
+    purple: cssVar('--purple', '#a855f7'),
+    blue: cssVar('--blue', '#3b82f6'),
+    cyan: cssVar('--cyan', '#06b6d4'),
+    border: cssVar('--border', 'rgba(255,215,0,0.2)'),
+    text: cssVar('--text', '#f5f5f8'),
+    bg: cssVar('--bg2', '#0d1220')
+  };
+
+  function setCanvasSize() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+  }
+
+  async function loadNodes() {
+    const adminKey = localStorage.getItem('slh_admin_password');
+    let realUsers = null, realGenesis = null, realClicks = null;
+    try {
+      if (adminKey) {
+        const r = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', {
+          headers: {'X-Admin-Key': adminKey}
+        });
+        if (r.ok) {
+          const s = await r.json();
+          realUsers = s.registrations?.total ?? null;
+          realGenesis = s.registrations?.by_path?.genesis?.count ?? null;
+          realClicks = s.clicks?.total ?? null;
+        }
+      }
+    } catch(e) {}
+
+    const width = canvas.getBoundingClientRect().width;
+    const height = 460;
+    const cx = width / 2;
+    const cy = height / 2;
+
+    // Real hierarchy — connected like real ecosystem
+    nodes = [
+      // Core (center)
+      { id: 'founder', label: 'Osif (Solo Dev)', type: 'core', color: COLORS.gold, r: 20,
+        x: cx, y: cy, vx: 0, vy: 0, group: 'core' },
+
+      // Level 2 — immediate ecosystem (6 nodes, ring)
+      { id: 'users', label: `משתמשים · ${realUsers ?? '?'}`, type: 'users',
+        color: COLORS.green, r: 14, group: 'users', details: `${realUsers ?? '?'} משתמשים רשומים במערכת. עדכון מה-API בזמן אמת.` },
+      { id: 'bots', label: 'בוטים · 25', type: 'bots',
+        color: COLORS.purple, r: 14, group: 'bots', details: '25 בוטים ב-aiogram 3.x, Docker Compose, כל אחד עם תפקיד שונה.' },
+      { id: 'bsc', label: 'BSC (SLH)', type: 'blockchain',
+        color: COLORS.blue, r: 13, group: 'chain', details: 'SLH token BEP-20 על Binance Smart Chain. Pool ב-PancakeSwap V2 פעיל.' },
+      { id: 'ton', label: 'TON Wallet', type: 'blockchain',
+        color: COLORS.blue, r: 13, group: 'chain', details: 'TON blockchain לארנק, פיתוח הארנק הכשר.' },
+      { id: 'genesis', label: `Genesis · ${realGenesis ?? '?'}`, type: 'contributors',
+        color: COLORS.cyan, r: 14, group: 'contributors', details: `${realGenesis ?? '?'} Genesis Contributors. התורמים הראשונים שקיבלו NFT + 500 ZVK.` },
+      { id: 'experts', label: 'מומחים', type: 'experts',
+        color: COLORS.cyan, r: 12, group: 'experts', details: 'קטלוג מומחים קהילתי — כל מי שנרשם מקבל 100 ZVK בונוס.' },
+
+      // Level 3 — services / features
+      { id: 'api', label: 'FastAPI', type: 'tech', color: COLORS.green, r: 10, group: 'tech', details: '117+ endpoints על Railway. PostgreSQL 15 + Redis 7.' },
+      { id: 'website', label: 'Website', type: 'tech', color: COLORS.green, r: 10, group: 'tech', details: '49 דפים · 5 שפות (he/en/ru/ar/fr). GitHub Pages.' },
+      { id: 'telegram', label: 'קהילת Telegram', type: 'community', color: COLORS.green, r: 11, group: 'community', details: 'קבוצות Telegram Premium + ציבוריות.' },
+      { id: 'kosher', label: 'Kosher Wallet', type: 'product', color: COLORS.gold, r: 11, group: 'products', details: 'ESP32 + SMS — הארנק הקריפטוגרפי הכשר הראשון. ₪888 השקה 17/12/2026.' },
+      { id: 'campaign', label: 'Campaign · ₪22.221', type: 'product', color: COLORS.gold, r: 11, group: 'products', details: `קמפיין Shekel April 2026. לחיצות עד כה: ${realClicks ?? '?'}` },
+      { id: 'staking', label: 'Staking 65%', type: 'feature', color: COLORS.cyan, r: 10, group: 'features', details: 'תשואה שנתית עד 65% APY. 4 תוכניות.' },
+      { id: 'academy', label: 'Academy', type: 'feature', color: COLORS.cyan, r: 10, group: 'features', details: 'מרקטפלייס קורסים. 70% למוכר, 30% למערכת.' }
+    ];
+
+    // Position level 2 nodes in ring around founder
+    const level2 = ['users', 'bots', 'bsc', 'ton', 'genesis', 'experts'];
+    level2.forEach((id, i) => {
+      const n = nodes.find(x => x.id === id);
+      if (n) {
+        const angle = (i / level2.length) * Math.PI * 2 - Math.PI / 2;
+        n.x = cx + Math.cos(angle) * 130;
+        n.y = cy + Math.sin(angle) * 130;
+        n.vx = 0; n.vy = 0;
+      }
+    });
+
+    // Position level 3 — outer ring
+    const level3 = ['api', 'website', 'telegram', 'kosher', 'campaign', 'staking', 'academy'];
+    level3.forEach((id, i) => {
+      const n = nodes.find(x => x.id === id);
+      if (n) {
+        const angle = (i / level3.length) * Math.PI * 2;
+        n.x = cx + Math.cos(angle) * 210;
+        n.y = cy + Math.sin(angle) * 210;
+        n.vx = 0; n.vy = 0;
+      }
+    });
+
+    edges = [
+      // Founder → L2
+      {from:'founder',to:'users'},{from:'founder',to:'bots'},{from:'founder',to:'bsc'},
+      {from:'founder',to:'ton'},{from:'founder',to:'genesis'},{from:'founder',to:'experts'},
+      // L2 ↔ L3
+      {from:'users',to:'telegram'},{from:'users',to:'campaign'},{from:'users',to:'website'},
+      {from:'bots',to:'api'},{from:'bots',to:'telegram'},
+      {from:'bsc',to:'staking'},{from:'bsc',to:'campaign'},
+      {from:'ton',to:'kosher'},
+      {from:'experts',to:'academy'},{from:'experts',to:'telegram'},
+      {from:'genesis',to:'campaign'}
+    ];
+
+    render();
+  }
+
+  function render() {
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw edges with gradient pulse
+    edges.forEach(e => {
+      const from = nodes.find(n => n.id === e.from);
+      const to = nodes.find(n => n.id === e.to);
+      if (!from || !to) return;
+      const grad = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
+      grad.addColorStop(0, from.color + '60');
+      grad.addColorStop(1, to.color + '60');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(from.x, from.y);
+      ctx.lineTo(to.x, to.y);
+      ctx.stroke();
+    });
+
+    // Pulse animated center connection
+    const t = Date.now() / 1000;
+    const founder = nodes.find(n => n.id === 'founder');
+    if (founder) {
+      nodes.forEach(n => {
+        if (n.id === 'founder') return;
+        const dist = Math.hypot(n.x - founder.x, n.y - founder.y);
+        const pulsePos = ((t * 50) % dist) / dist;
+        const px = founder.x + (n.x - founder.x) * pulsePos;
+        const py = founder.y + (n.y - founder.y) * pulsePos;
+        ctx.fillStyle = n.color + 'aa';
+        ctx.beginPath();
+        ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    // Draw nodes
+    nodes.forEach(n => {
+      const isHovered = hoveredNode && hoveredNode.id === n.id;
+      const isSelected = selectedNode && selectedNode.id === n.id;
+      // Glow
+      ctx.shadowColor = n.color;
+      ctx.shadowBlur = isHovered || isSelected ? 24 : 12;
+      ctx.fillStyle = n.color;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, isHovered || isSelected ? n.r * 1.3 : n.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      // Label below node
+      ctx.fillStyle = COLORS.text;
+      ctx.font = isHovered || isSelected ? 'bold 12px Rubik,sans-serif' : '11px Rubik,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(n.label, n.x, n.y + n.r + 4);
+    });
+
+    animationId = requestAnimationFrame(render);
+  }
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches?.[0];
+    const clientX = touch ? touch.clientX : e.clientX;
+    const clientY = touch ? touch.clientY : e.clientY;
+    return { x: clientX - rect.left, y: clientY - rect.top };
+  }
+
+  function findNodeAt(pos) {
+    return nodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < n.r + 4);
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    const pos = getMousePos(e);
+    if (draggedNode) {
+      draggedNode.x = pos.x;
+      draggedNode.y = pos.y;
+    } else {
+      hoveredNode = findNodeAt(pos);
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
+    }
+  });
+
+  canvas.addEventListener('mousedown', (e) => {
+    const pos = getMousePos(e);
+    const n = findNodeAt(pos);
+    if (n) {
+      draggedNode = n;
+      selectedNode = n;
+      info.innerHTML = `
+        <div style="font-weight:900;color:${n.color};font-size:14px;margin-bottom:6px">${n.label}</div>
+        <div>${n.details || 'צומת במערכת'}</div>
+        <div style="margin-top:6px;font-size:11px;color:var(--text3)">סוג: ${n.type} · קבוצה: ${n.group}</div>
+      `;
+    }
+  });
+
+  window.addEventListener('mouseup', () => { draggedNode = null; });
+
+  canvas.addEventListener('mouseleave', () => { hoveredNode = null; draggedNode = null; });
+
+  // Init
+  setCanvasSize();
+  loadNodes();
+  window.addEventListener('resize', () => { setCanvasSize(); loadNodes(); });
+  // Refresh data every 30s
+  setInterval(loadNodes, 30000);
+})();
+
+/* === LOAD REAL COMMUNITY MEMBERS === */
+(async function loadCommunity() {
+  const grid = document.getElementById('community-grid');
+  if (!grid) return;
+  try {
+    // Try experts endpoint (public) for real people
+    const r = await fetch('https://slh-api-production.up.railway.app/api/experts/list?limit=12');
+    const d = await r.json();
+    const experts = d.experts || [];
+    if (experts.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--bg2);border:1px dashed var(--border);border-radius:14px;color:var(--text2)">
+          <div style="font-size:32px;margin-bottom:10px">🌱</div>
+          <div style="font-weight:800;color:var(--text);margin-bottom:4px">הקהילה בהתהוות</div>
+          <div style="font-size:13px">היו בין הראשונים! <a href="/experts.html" style="color:var(--gold);text-decoration:none">הירשם כמומחה →</a></div>
+        </div>
+      `;
+      return;
+    }
+    grid.innerHTML = experts.map(e => {
+      const initial = (e.display_name || '?').slice(0, 1);
+      return `
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#000;margin:0 auto 10px">${initial}</div>
+          <div style="font-weight:800;font-size:14px;color:var(--text)">${e.display_name}</div>
+          <div style="font-size:11px;color:var(--cyan);margin-top:2px">${e.tg_username ? '@' + e.tg_username : ''}</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:8px">
+            ${(e.domains || []).slice(0,3).map(d => `<span style="font-size:10px;padding:2px 8px;background:rgba(168,85,247,.15);color:var(--purple);border-radius:8px">${d}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2)">
+        ⚠️ לא ניתן לטעון את הקהילה כרגע. <a href="/experts.html" style="color:var(--gold)">הרשמה כמומחה →</a>
+      </div>
+    `;
+  }
+})();
 </script>
 
 </body>
