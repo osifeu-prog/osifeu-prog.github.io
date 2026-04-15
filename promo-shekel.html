@@ -1701,6 +1701,52 @@ html, body, .why-card, .path-card, .pay-method-card,
   </div>
 </section>
 
+<!-- ANSWER TO PUBLISHED POST: "What if dollar drops below 3 ILS?" -->
+<section class="section" style="max-width:1100px;margin:0 auto 60px;padding:0 20px">
+  <div style="background:linear-gradient(135deg,rgba(255,68,68,.08),rgba(255,215,0,.04));border:2px solid var(--red);border-radius:24px;padding:32px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red))"></div>
+    <div style="display:inline-block;padding:6px 16px;background:var(--red);color:#fff;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">🔥 שאלת הזהב מהפוסט שלנו</div>
+    <h2 style="font-size:28px;font-weight:900;margin:0 0 18px;color:var(--text)">מה יקרה אם הדולר ירד מתחת ל-3 שקל לדולר?</h2>
+
+    <div style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:20px">
+      <p><strong>תרחיש שכבר קורה.</strong> השקל היום כבר ב-3.03 לדולר (אפריל 2026). אם נחצה את הקו הסימבולי של 3.00 — זה מה שצפוי לקרות:</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px">
+      <div style="background:var(--bg);border-right:4px solid var(--green);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📈</div>
+        <div style="font-weight:900;color:var(--green);margin-bottom:6px">ייצוא הייטק יסבול</div>
+        <p style="font-size:13px;color:var(--text2);margin:0;line-height:1.7">חברות ההייטק מקבלות ב-$ — שקל חזק = פחות הכנסות. בנק ישראל יידחק להוריד ריבית.</p>
+      </div>
+      <div style="background:var(--bg);border-right:4px solid var(--gold);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">💰</div>
+        <div style="font-weight:900;color:var(--gold);margin-bottom:6px">לקוח ישראלי = מנצח גדול</div>
+        <p style="font-size:13px;color:var(--text2);margin:0;line-height:1.7">כל ₪100 קונה ~33% יותר מוצרים מחו"ל מאשר לפני שנה. קריפטו (דולרי) זול ב-12%+ עבורך.</p>
+      </div>
+      <div style="background:var(--bg);border-right:4px solid var(--purple);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">⚖️</div>
+        <div style="font-weight:900;color:var(--purple);margin-bottom:6px">תיקון יבוא</div>
+        <p style="font-size:13px;color:var(--text2);margin:0;line-height:1.7">בנק ישראל יתערב לחזק את הדולר (קניית $) — אבל זמני. השוק חוזר ל-איזון תוך 3-6 חודשים.</p>
+      </div>
+      <div style="background:var(--bg);border-right:4px solid var(--cyan);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🎯</div>
+        <div style="font-weight:900;color:var(--cyan);margin-bottom:6px">חלון ההזדמנות שלך</div>
+        <p style="font-size:13px;color:var(--text2);margin:0;line-height:1.7">זה הזמן הכי טוב מאז 2022 לקנות נכסים דולריים — קריפטו, ETF, מניות חו"ל. בעוד שנה תסתכל אחורה ותגיד "וואו".</p>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(0,232,135,.08),rgba(255,215,0,.04));border:1px solid var(--green);border-radius:16px;padding:20px;text-align:center">
+      <div style="font-size:14px;color:var(--text);margin-bottom:14px;line-height:1.8">
+        💡 <strong>הסיכום שלנו:</strong> השקל החזק זמני. הפוטנציאל של SLH ו-קריפטו ארוך טווח.
+        <strong>₪22.221 היום</strong> = הזדמנות פעם בעשור להיכנס במחיר נמוך, עם תשואה אפשרית של 65% APY בסטייקינג.
+      </div>
+      <a href="#paths" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--green));color:#000;border-radius:14px;font-weight:900;font-size:15px;text-decoration:none;box-shadow:0 10px 30px rgba(255,215,0,.3)">
+        ↑ בחר נתיב עכשיו ↑
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="faq-section">
   <h2 data-i18n="faq_title">שאלות נפוצות</h2>
@@ -2016,8 +2062,9 @@ document.querySelectorAll('.faq-item').forEach(item => {
 /* === Live FX fetch + Chart with currency switcher === */
 let currentFXCurrency = 'USD';
 const FX_CURRENCY_SYMBOLS = { USD: '$', EUR: '€', GBP: '£', JPY: '¥', CHF: 'Fr', BTC: '₿' };
+/* Current real rates (April 2026): 1 USD = 3.00 ILS = 0.333 USD per ILS */
 const FX_FALLBACKS = {
-  USD: [0.26, 0.265, 0.27, 0.275, 0.272, 0.28, 0.285, 0.29, 0.295, 0.30, 0.305, 0.31, 0.315, 0.32, 0.325, 0.33, 0.333, 0.33],
+  USD: [0.265, 0.27, 0.275, 0.28, 0.285, 0.29, 0.295, 0.30, 0.305, 0.31, 0.315, 0.32, 0.325, 0.33, 0.331, 0.332, 0.333, 0.333],
   EUR: [0.24, 0.245, 0.25, 0.252, 0.255, 0.258, 0.26, 0.262, 0.265, 0.27, 0.272, 0.275, 0.28, 0.282, 0.285, 0.29, 0.295, 0.30],
   GBP: [0.21, 0.213, 0.215, 0.218, 0.22, 0.222, 0.225, 0.228, 0.23, 0.232, 0.234, 0.236, 0.24, 0.245, 0.25, 0.255, 0.258, 0.26],
   JPY: [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
@@ -2043,8 +2090,24 @@ async function loadFX() {
   const fmt = d => d.toISOString().slice(0,10);
 
   try {
-    const r = await fetch(`https://api.exchangerate.host/timeseries?start_date=${fmt(past)}&end_date=${fmt(today)}&base=ILS&symbols=${cur === 'BTC' ? 'USD' : cur}`);
-    const data = await r.json();
+    // Try Frankfurter API first (free, reliable, no key)
+    let r, data;
+    try {
+      r = await fetch(`https://api.frankfurter.dev/v1/${fmt(past)}..${fmt(today)}?base=ILS&symbols=${cur === 'BTC' ? 'USD' : cur}`);
+      const fr = await r.json();
+      if (fr.rates) {
+        // Convert frankfurter shape to exchangerate.host shape
+        data = { rates: {} };
+        for (const date in fr.rates) {
+          data.rates[date] = fr.rates[date];
+        }
+      }
+    } catch(e) { console.log('frankfurter failed, trying exchangerate.host'); }
+
+    if (!data || !data.rates) {
+      r = await fetch(`https://api.exchangerate.host/timeseries?start_date=${fmt(past)}&end_date=${fmt(today)}&base=ILS&symbols=${cur === 'BTC' ? 'USD' : cur}`);
+      data = await r.json();
+    }
     if (data && data.rates) {
       const entries = Object.entries(data.rates).sort();
       const sampled = entries.filter((_, i) => i % 4 === 0);
@@ -2350,6 +2413,37 @@ function trackPath(pathType) {
   } catch(e) {}
 }
 window.trackPath = trackPath;
+
+/* === AUTO PAGE-VIEW TRACKING (CRITICAL — was missing!) === */
+(function trackPageView() {
+  try {
+    const urlParams = new URLSearchParams(location.search);
+    const fbclid = urlParams.get('fbclid');
+    const utm_source = urlParams.get('utm_source');
+    const referrer = document.referrer;
+
+    let source = 'direct';
+    if (fbclid) source = 'facebook';
+    else if (utm_source) source = utm_source;
+    else if (referrer.includes('t.me') || referrer.includes('telegram')) source = 'telegram';
+    else if (referrer.includes('whatsapp') || referrer.includes('wa.me')) source = 'whatsapp';
+    else if (referrer.includes('instagram')) source = 'instagram';
+    else if (referrer.includes('youtube')) source = 'youtube';
+    else if (referrer) source = new URL(referrer).hostname;
+
+    fetch('https://slh-api-production.up.railway.app/api/campaign/click', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        campaign_id: 'shekel_april26',
+        path_type: 'pageview',  // marks it as page-view, not button click
+        lang: currentLang || (document.documentElement.lang || 'he'),
+        ref_code: urlParams.get('ref') || null,
+        source: source
+      })
+    }).catch(() => {});
+  } catch(e) {}
+})();
 
 /* Track conversion event */
 document.querySelectorAll('[href*="SLH_community_bot"]').forEach(a => {
