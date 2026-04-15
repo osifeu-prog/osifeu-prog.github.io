@@ -173,6 +173,76 @@ function toggleDomain(btn, domain){
 }
 
 let cachedExperts = [];
+let cachedDomains = [];
+
+async function loadDomains(){
+  try {
+    const r = await fetch(`${API}/api/experts/domains`);
+    const d = await r.json();
+    cachedDomains = d.approved || [];
+    renderDomainChips();
+    renderDomainButtons();
+  } catch(e) {
+    console.log('[experts] domains API not ready, using defaults');
+  }
+}
+
+function renderDomainChips(){
+  // Re-render top filter chips from backend
+  const filtersContainer = document.querySelector('.filters');
+  if(!filtersContainer || cachedDomains.length === 0) return;
+  const existing = filtersContainer.querySelectorAll('.chip');
+  existing.forEach((c, i) => { if(i > 0) c.remove(); }); // keep first "הכל"
+  cachedDomains.forEach(d => {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.dataset.domain = d.slug;
+    btn.textContent = `${d.emoji || ''} ${d.name_he || d.slug}`.trim();
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filters .chip').forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = d.slug;
+      renderExperts();
+    });
+    filtersContainer.appendChild(btn);
+  });
+}
+
+function renderDomainButtons(){
+  // In register form — show all domains dynamically
+  const regContainer = document.getElementById('reg-domains');
+  if(!regContainer || cachedDomains.length === 0) return;
+  regContainer.innerHTML = cachedDomains.map(d => `
+    <button type="button" class="chip" onclick="toggleDomain(this,'${d.slug}')">${d.emoji || ''} ${d.name_he || d.slug}</button>
+  `).join('') + `
+    <button type="button" class="chip" style="border-color:var(--green);color:var(--green)" onclick="proposeDomain()">+ הצע תחום חדש</button>
+  `;
+}
+
+async function proposeDomain(){
+  const name = prompt('שם התחום בעברית:');
+  if(!name) return;
+  const emoji = prompt('אימוג\'י (אחד):') || '🎯';
+  const slug = name.toLowerCase().replace(/[^\w]/g, '_').slice(0,20);
+  try {
+    const r = await fetch(`${API}/api/experts/domains/propose`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        action: 'add', slug, name_he: name, name_en: name, emoji,
+        category: 'other', proposer_user_id: 0
+      })
+    });
+    const d = await r.json();
+    if(d.ok){
+      showToast(`✅ התחום הוצע! דרוש 10 הצבעות בעד לאישור`);
+    } else {
+      alert(d.detail || 'נכשל');
+    }
+  } catch(e) {
+    alert('❌ ' + e.message);
+  }
+}
+
 async function loadExperts(){
   try {
     const r = await fetch(`${API}/api/experts/list?limit=50`);
@@ -316,7 +386,30 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
+loadDomains();
 loadExperts();
+
+/* Show rewards info banner on page load */
+(() => {
+  const rewardsInfo = document.createElement('div');
+  rewardsInfo.style.cssText = 'max-width:1200px;margin:20px auto;padding:0 20px';
+  rewardsInfo.innerHTML = `
+    <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center">
+      <div style="font-size:11px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">💰 מנגנון תגמולים</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:10px">מומחים מקבלים ZVK על כל פעולה קהילתית</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:12px">
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">הצטרפות: <b style="color:var(--gold)">100 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">אימות: <b style="color:var(--gold)">500 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">ייעוץ ראשון: <b style="color:var(--gold)">+150 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">כל ייעוץ: <b style="color:var(--gold)">200 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">5 כוכבים: <b style="color:var(--gold)">25 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">הצבעה: <b style="color:var(--gold)">5 ZVK</b></span>
+      </div>
+    </div>
+  `;
+  const filtersEl = document.querySelector('.filters');
+  if(filtersEl && filtersEl.parentNode) filtersEl.parentNode.insertBefore(rewardsInfo, filtersEl.nextSibling);
+})();
 </script>
 
 </body>

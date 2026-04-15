@@ -3,243 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Spark — About & Transparency | אודות ושקיפות</title>
-<meta name="description" content="SLH Spark team, mission, smart contract verification, security audits, and full transparency. Open source, Israeli-built.">
-<link rel="canonical" href="https://slh-nft.com/about.html">
+<title>אודות SLH Spark — שקיפות מלאה | פרויקט ישראלי פתוח</title>
+<meta name="description" content="SLH Spark — אקוסיסטם קריפטו ישראלי בפיתוח סולו. Python + aiogram + FastAPI + BSC. שקיפות מלאה, קוד פתוח, ערכי ליבה חזקים.">
+<meta name="author" content="Osif Kaufman Ungar">
+
+<meta property="fb:app_id" content="0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SLH Spark — About & Transparency">
-<meta property="og:description" content="Meet the team, verify the smart contract, review security audits. 100% transparent.">
-<meta property="og:image" content="https://slh-nft.com/assets/og/default.png">
+<meta property="og:site_name" content="SLH Spark">
 <meta property="og:url" content="https://slh-nft.com/about.html">
+<meta property="og:title" content="אודות SLH Spark — שקיפות מלאה">
+<meta property="og:description" content="אקוסיסטם קריפטו ישראלי בפיתוח סולו · 25 בוטים · 5 טוקנים · קוד פתוח · שקיפות מלאה">
+<meta property="og:image" content="https://slh-nft.com/assets/og/about.png">
+<meta property="og:image:secure_url" content="https://slh-nft.com/assets/og/about.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="אודות SLH Spark">
+<meta name="twitter:image" content="https://slh-nft.com/assets/og/about.png">
+
+<link rel="canonical" href="https://slh-nft.com/about.html">
 <link rel="icon" type="image/png" href="/favicon-32.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/shared.css?v=20260413">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/css/shared.css?v=20260415">
+
 <style>
-    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg,#0a0a0f);color:var(--text,#e0e0e0);margin:0}
-    .hero{text-align:center;padding:60px 24px 40px;max-width:800px;margin:0 auto}
-    .hero h1{font-size:32px;font-weight:900;margin-bottom:12px}
-    .hero .sub{font-size:15px;color:var(--text2,#888);max-width:600px;margin:0 auto;line-height:1.8}
-    .section{max-width:900px;margin:0 auto 24px;padding:0 24px}
-    .card{background:var(--surface,#14142b);border:1px solid var(--border,#1e1e3a);border-radius:16px;padding:28px;margin-bottom:20px}
-    .card h2{font-size:20px;font-weight:800;margin-bottom:16px;color:var(--accent,#00ff41)}
-    .card p,.card li{font-size:14px;line-height:1.8;color:var(--text2,#888)}
-    .card ul{padding-right:20px}
-    .card li{margin-bottom:8px}
-    .card strong{color:var(--text,#e0e0e0)}
-    .card a{color:var(--accent,#00ff41)}
-    .verify-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:16px 0}
-    .verify-card{background:var(--bg2,#111127);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
-    .verify-card .icon{font-size:32px;margin-bottom:8px}
-    .verify-card .title{font-size:14px;font-weight:700;margin-bottom:4px}
-    .verify-card .desc{font-size:12px;color:var(--text2)}
-    .verify-card a{display:inline-block;margin-top:8px;padding:6px 14px;background:var(--accent);color:#000;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none}
-    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0}
-    .team-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
-    .team-card .avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ffd700);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;margin:0 auto 12px;color:#000}
-    .team-card .name{font-size:15px;font-weight:700}
-    .team-card .role{font-size:12px;color:var(--text2);margin-top:4px}
-    .disclaimer{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:20px;font-size:12px;color:var(--text2);line-height:1.8;margin:20px 0}
-    .disclaimer strong{color:#ffd700}
+:root{--bg:#050810;--bg2:#0d1220;--bg3:#151a2e;--gold:#ffd700;--gold2:#f3ba2f;--green:#00e887;--red:#ff4444;--purple:#a855f7;--blue:#3b82f6;--cyan:#06b6d4;--text:#f5f5f8;--text2:#9ba0b5;--text3:#5a6078;--border:rgba(255,215,0,.2)}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Rubik',sans-serif;margin:0;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 10%,rgba(255,215,0,.08),transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(0,232,135,.06),transparent 50%)}
+
+.hero{max-width:1100px;margin:0 auto;padding:70px 20px 30px;text-align:center}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(0,232,135,.1));border:1px solid var(--gold);border-radius:30px;font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:24px}
+.hero h1{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:1.1;margin:0 0 18px;background:linear-gradient(135deg,var(--gold),var(--green),var(--text));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:clamp(16px,2.2vw,20px);color:var(--text);max-width:720px;margin:0 auto 16px;font-weight:500}
+.hero .sub{font-size:14px;color:var(--text2);max-width:620px;margin:0 auto}
+
+.section{max-width:1100px;margin:0 auto 50px;padding:0 20px}
+.section h2{font-size:clamp(24px,4vw,36px);font-weight:900;margin:0 0 14px;text-align:center;background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.section p.lead{text-align:center;font-size:15px;color:var(--text2);max-width:700px;margin:0 auto 30px}
+
+/* Mission/Vision */
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.mv-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;transition:all .25s}
+.mv-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.mv-card .ico{width:60px;height:60px;background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(0,232,135,.1));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--gold);margin-bottom:18px}
+.mv-card h3{font-size:20px;font-weight:900;margin:0 0 12px;color:var(--text)}
+.mv-card p{font-size:14px;color:var(--text2);margin:0;line-height:1.8}
+
+/* Values */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.value{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center;transition:all .2s}
+.value:hover{border-color:var(--gold);transform:translateY(-3px)}
+.value .ico{font-size:36px;color:var(--gold);margin-bottom:12px}
+.value h4{font-size:15px;font-weight:900;margin:0 0 8px;color:var(--text)}
+.value p{font-size:13px;color:var(--text2);margin:0;line-height:1.7}
+
+/* Tech stack */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tech{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
+.tech .ico{font-size:28px;color:var(--gold);flex-shrink:0;width:44px;text-align:center}
+.tech .body .name{font-weight:800;color:var(--text);font-size:14px;font-family:'JetBrains Mono',monospace}
+.tech .body .desc{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* Founder */
+.founder-card{max-width:480px;margin:0 auto;background:var(--bg2);border:2px solid var(--gold);border-radius:24px;padding:36px;text-align:center;box-shadow:0 20px 60px rgba(255,215,0,.15)}
+.founder-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:#000;margin:0 auto 20px;border:4px solid var(--bg)}
+.founder-card h3{font-size:26px;font-weight:900;margin:0 0 6px;color:var(--text)}
+.founder-card .handle{font-size:14px;color:var(--cyan);margin-bottom:14px}
+.founder-card .role{font-size:14px;color:var(--gold);font-weight:700;margin-bottom:16px}
+.founder-card .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.founder-card .tag{padding:4px 12px;background:rgba(255,215,0,.15);color:var(--gold);border-radius:12px;font-size:12px;font-weight:700}
+.founder-card .socials{display:flex;gap:12px;justify-content:center}
+.founder-card .socials a{width:44px;height:44px;border-radius:12px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);font-size:18px;text-decoration:none;transition:all .2s}
+.founder-card .socials a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
+.stat .ico{font-size:28px;color:var(--gold);margin-bottom:10px}
+.stat .num{font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:'JetBrains Mono',monospace}
+.stat .lbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:8px}
+.stats-note{text-align:center;font-size:12px;color:var(--text3);margin-top:20px;font-style:italic}
+
+/* Ecosystem grid */
+.eco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.eco-item{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s;text-align:center}
+.eco-item:hover{border-color:var(--gold);transform:translateY(-3px)}
+.eco-item i{font-size:26px;color:var(--gold)}
+.eco-item .name{font-weight:800;font-size:13px}
+.eco-item .desc{font-size:11px;color:var(--text2)}
+
+/* CTA */
+.cta{text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);border-radius:24px;margin-top:40px}
+.cta h2{margin:0 0 16px}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.btn-cta{padding:14px 28px;border-radius:14px;font-weight:900;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-cta.primary{background:linear-gradient(135deg,var(--gold),var(--green));color:#000}
+.btn-cta.secondary{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
+.btn-cta:hover{transform:translateY(-2px)}
+
+@media (max-width:640px){.hero{padding:40px 16px 20px}.mv-grid,.values-grid,.tech-grid,.eco-grid,.stats-grid{gap:12px}}
 </style>
 </head>
 <body>
 
-<div id="topnav-root"></div>
-<div id="ticker-root"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">
+    <i class="fas fa-shield-alt"></i>
+    שקיפות מלאה · קוד פתוח · פיתוח סולו
+  </div>
+  <h1>אודות SLH Spark</h1>
+  <p class="lead">אקוסיסטם קריפטו ישראלי בפיתוח סולו — הכל כאן אמיתי.</p>
+  <p class="sub">
+    אנחנו לא עוד סטארט-אפ עם 20 עובדים וקפה חינם. אנחנו <strong>מפתח יחיד</strong> שבונה 25 בוטים, אתר ב-5 שפות, 5 טוקנים, ואקוסיסטם שלם.
+    <strong>אמיתי. פתוח. בלי חלומות באוויר.</strong>
+  </p>
+</section>
 
-<div class="hero">
-    <h1>🔍 אודות SLH Spark — שקיפות מלאה</h1>
-    <p class="sub">
-        אנחנו מאמינים בשקיפות מוחלטת. הנה כל מה שצריך לדעת על הפרויקט, הצוות, הטכנולוגיה, והביטחון.
+<!-- MISSION / VISION -->
+<section class="section">
+  <div class="mv-grid">
+    <div class="mv-card">
+      <div class="ico"><i class="fas fa-bullseye"></i></div>
+      <h3>המשימה</h3>
+      <p>
+        ליצור את האקוסיסטם הראשון בישראל שמשלב קריפטו, AI ובוטים —
+        בעברית פשוטה, עם גישה לכל מי שרוצה להיות חלק. <strong>שקיפות 100%</strong> בכל החלטה, בכל טוקן, בכל שורת קוד.
+      </p>
+    </div>
+    <div class="mv-card">
+      <div class="ico"><i class="fas fa-eye"></i></div>
+      <h3>החזון</h3>
+      <p>
+        עולם שבו הקהילה היא הבעלים. כל משתמש שולט בנתונים שלו, מרוויח מהשתתפותו,
+        ומקבל גישה לכלים חכמים <strong>בלי לוותר על פרטיות או אמון</strong>.
+        כולל "שנת יובל" דיגיטלית — כלכלה מחזורית הוגנת.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section">
+  <h2>ערכי הליבה שלנו</h2>
+  <div class="values-grid">
+    <div class="value">
+      <div class="ico"><i class="fas fa-lock-open"></i></div>
+      <h4>שקיפות מלאה</h4>
+      <p>כל ה-API פתוח לבדיקה. כל Contract ב-BSC. כל commit ב-GitHub.</p>
+    </div>
+    <div class="value">
+      <div class="ico"><i class="fas fa-users"></i></div>
+      <h4>קהילה תחילה</h4>
+      <p>מומחים, שותפים, Genesis Contributors — הקהילה היא השותפה האמיתית.</p>
+    </div>
+    <div class="value">
+      <div class="ico"><i class="fas fa-shield-alt"></i></div>
+      <h4>אבטחה אמיתית</h4>
+      <p>SHA-256 audit chain · 2FA · אין סיסמאות hardcoded · X-Admin-Key header.</p>
+    </div>
+    <div class="value">
+      <div class="ico"><i class="fas fa-globe"></i></div>
+      <h4>נגישות גלובלית</h4>
+      <p>5 שפות (עברית, אנגלית, רוסית, ערבית, צרפתית). RTL+LTR מלא.</p>
+    </div>
+    <div class="value">
+      <div class="ico"><i class="fas fa-balance-scale"></i></div>
+      <h4>הוגנות כלכלית</h4>
+      <p>70% למוכר / 30% למערכת. אפילייט 20% ZVK + 10% SLH. שקוף ופורסם.</p>
+    </div>
+    <div class="value">
+      <div class="ico"><i class="fas fa-star-of-david"></i></div>
+      <h4>מחויבות לישראל</h4>
+      <p>בנוי בישראל לישראלים. עברית UI. כולל פתרון לציבור החרדי (ארנק כשר).</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section">
+  <h2>הטכנולוגיה שבנינו</h2>
+  <p class="lead">בחירות הטכנולוגיה נעשו ע"פ יציבות, קהילה פעילה, וביצועים. כל הרכיבים בפרוד עובדים.</p>
+  <div class="tech-grid">
+    <div class="tech"><div class="ico"><i class="fas fa-bolt"></i></div><div class="body"><div class="name">FastAPI + Railway</div><div class="desc">Python backend · 117+ endpoints · auto-scale</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-database"></i></div><div class="body"><div class="name">PostgreSQL 15 + Redis 7</div><div class="desc">30+ tables · sessions · caching</div></div></div>
+    <div class="tech"><div class="ico"><i class="fab fa-telegram"></i></div><div class="body"><div class="name">aiogram 3.x</div><div class="desc">25 Telegram bots · Docker Compose</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-cube"></i></div><div class="body"><div class="name">BSC BEP-20 (SLH)</div><div class="desc">PancakeSwap V2 pool · live trading</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-gem"></i></div><div class="body"><div class="name">TON Blockchain</div><div class="desc">Payment integration · kosher wallet</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-robot"></i></div><div class="body"><div class="name">Anthropic Claude API</div><div class="desc">AI Assistant (in-page widget)</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-globe"></i></div><div class="body"><div class="name">GitHub Pages</div><div class="desc">49+ HTML pages · 5 languages</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-microchip"></i></div><div class="body"><div class="name">ESP32 (In Dev)</div><div class="desc">Kosher hardware wallet · SMS bridge</div></div></div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="section">
+  <h2>המייסד והמפתח</h2>
+  <div class="founder-card">
+    <div class="founder-avatar">O</div>
+    <h3>Osif Kaufman Ungar</h3>
+    <div class="handle">@osifeu_prog · Telegram ID: 224223270</div>
+    <div class="role">מייסד · מפתח ראשי · Solo Dev</div>
+    <div class="tags">
+      <span class="tag">Full-stack</span>
+      <span class="tag">Python</span>
+      <span class="tag">Blockchain</span>
+      <span class="tag">AI</span>
+      <span class="tag">DevOps</span>
+    </div>
+    <div class="socials">
+      <a href="https://github.com/osifeu-prog" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://t.me/osifeu_prog" target="_blank" rel="noopener" title="Telegram"><i class="fab fa-telegram"></i></a>
+      <a href="tel:+972584203384" title="Phone"><i class="fas fa-phone"></i></a>
+      <a href="https://slh-nft.com/experts.html" title="Expert Profile"><i class="fas fa-user-graduate"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE STATS -->
+<section class="section">
+  <h2>נתונים חיים</h2>
+  <p class="lead">הכל נשלף מה-API בזמן אמת. אין מספרים מזויפים. אם משהו לא טעון — יוצג "—".</p>
+  <div class="stats-grid">
+    <div class="stat"><div class="ico"><i class="fas fa-users"></i></div><div class="num" id="s-users">—</div><div class="lbl">משתמשים רשומים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-hand-holding-usd"></i></div><div class="num" id="s-genesis">—</div><div class="lbl">Genesis Contributors</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-robot"></i></div><div class="num">25</div><div class="lbl">בוטים פעילים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-file-code"></i></div><div class="num">49</div><div class="lbl">דפי אתר</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-coins"></i></div><div class="num">5</div><div class="lbl">טוקנים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-language"></i></div><div class="num">5</div><div class="lbl">שפות</div></div>
+  </div>
+  <p class="stats-note">📡 נתונים דינמיים נטענים מ-<code>api/health</code> · סטטיים נשמרים במקור האמת</p>
+</section>
+
+<!-- ECOSYSTEM LINKS -->
+<section class="section">
+  <h2>האקוסיסטם המלא</h2>
+  <div class="eco-grid">
+    <a href="/dashboard.html" class="eco-item"><i class="fas fa-tachometer-alt"></i><div class="name">Dashboard</div><div class="desc">לוח בקרה אישי</div></a>
+    <a href="/wallet.html" class="eco-item"><i class="fas fa-wallet"></i><div class="name">Wallet</div><div class="desc">ארנק רב-נכסים</div></a>
+    <a href="/staking.html" class="eco-item"><i class="fas fa-chart-line"></i><div class="name">Staking</div><div class="desc">65% APY</div></a>
+    <a href="/bots.html" class="eco-item"><i class="fas fa-robot"></i><div class="name">Bots</div><div class="desc">25 בוטים</div></a>
+    <a href="/community.html" class="eco-item"><i class="fas fa-users"></i><div class="name">Community</div><div class="desc">קהילה</div></a>
+    <a href="/experts.html" class="eco-item"><i class="fas fa-user-graduate"></i><div class="name">Experts</div><div class="desc">מומחי קהילה</div></a>
+    <a href="/jubilee.html" class="eco-item"><i class="fas fa-dove"></i><div class="name">Jubilee</div><div class="desc">שנת היובל</div></a>
+    <a href="/kosher-wallet.html" class="eco-item"><i class="fas fa-star-of-david"></i><div class="name">Kosher Wallet</div><div class="desc">ארנק כשר</div></a>
+    <a href="/promo-shekel.html" class="eco-item"><i class="fas fa-fire"></i><div class="name">Promo</div><div class="desc">מבצע 48ש</div></a>
+    <a href="/whitepaper.html" class="eco-item"><i class="fas fa-file-alt"></i><div class="name">Whitepaper</div><div class="desc">מסמך טכני</div></a>
+    <a href="/roadmap.html" class="eco-item"><i class="fas fa-route"></i><div class="name">Roadmap</div><div class="desc">מפת דרכים</div></a>
+    <a href="/blockchain.html" class="eco-item"><i class="fas fa-cube"></i><div class="name">Blockchain</div><div class="desc">Explorer</div></a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="cta">
+    <h2>רוצים להיות חלק?</h2>
+    <p style="font-size:15px;color:var(--text2);max-width:600px;margin:0 auto">
+      הצטרפו כקונה, שותף, Genesis Contributor או סתם חבר קהילה. <strong>אפס חיכוך.</strong>
     </p>
-</div>
-
-<div class="section">
-    <!-- Mission -->
-    <div class="card">
-        <h2>🎯 המשימה שלנו</h2>
-        <p>SLH Spark הוא <strong>אקוסיסטם דיגיטלי ישראלי</strong> שנולד ב-2023 מתוך חזון של <strong>קרן סלה ללא גבולות לרפואה שלמה</strong>. המטרה: ליצור כלכלה דיגיטלית הוגנת שבה:</p>
-        <ul>
-            <li><strong>מטפלים מקבלים תגמול הוגן</strong> על שעות עבודתם</li>
-            <li><strong>נזקקים מקבלים סיוע</strong> — מטבעות דיגיטליים לטיפול חינם</li>
-            <li><strong>הקהילה מנהלת את עצמה</strong> — בשקיפות, בלי מתווכים</li>
-            <li><strong>כל עסקה מתועדת</strong> ב-blockchain — לא ניתן לזייף</li>
-        </ul>
-        <p style="margin-top:12px;color:var(--text)"><strong>מצב נוכחי:</strong> הפרויקט בשלב <strong>Beta מוקדם</strong>. אנחנו בונים בגלוי, בשקיפות מלאה, ומזמינים את הקהילה להיות חלק מהדרך.</p>
+    <div class="cta-buttons">
+      <a href="/promo-shekel.html" class="btn-cta primary">
+        <i class="fas fa-fire"></i> קמפיין השקה ₪22.221
+      </a>
+      <a href="/dashboard.html" class="btn-cta secondary">
+        <i class="fas fa-tachometer-alt"></i> לוח בקרה
+      </a>
+      <a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" class="btn-cta secondary">
+        <i class="fab fa-telegram"></i> בוט טלגרם
+      </a>
     </div>
+  </div>
+</section>
 
-    <!-- Team — Dynamic from API -->
-    <div class="card">
-        <h2>👥 הצוות והקהילה</h2>
-        <p style="margin-bottom:16px">הצוות המייסד + כל Genesis Contributors שתרמו ליצירת הפול:</p>
-        <div class="team-grid" id="team-grid">
-            <!-- Filled dynamically from API -->
-        </div>
-        <div style="text-align:center;margin-top:16px">
-            <a href="/launch-event.html" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,var(--accent,#00ff41),#ffd700);color:#000;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none">🚀 הצטרף לצוות</a>
-        </div>
-    </div>
-
-    <script>
-    (async function loadTeam(){
-        const grid = document.getElementById('team-grid');
-        const roles = {
-            'Tzvika': {role: 'שותף מייסד · Genesis Co-Founder', handle: '@tzvika'},
-            'Zohar Shefa Dror': {role: 'Genesis Contributor · QA', handle: ''},
-        };
-
-        // Static founder card
-        grid.innerHTML = `
-            <div class="team-card">
-                <div class="avatar" style="background:linear-gradient(135deg,#00ff41,#00b4d8)">O</div>
-                <div class="name">אוסיף קאופמן אונגר</div>
-                <div class="role">מייסד · מפתח ראשי</div>
-                <div style="font-size:11px;color:var(--text2);margin-top:8px">
-                    <a href="https://t.me/osifeu_prog" target="_blank">@osifeu_prog</a> ·
-                    <a href="https://github.com/osifeu-prog" target="_blank">GitHub</a>
-                </div>
-            </div>`;
-
-        // Load contributors from API
-        try {
-            const r = await fetch('https://slh-api-production.up.railway.app/api/launch/status');
-            const d = await r.json();
-            const active = (d.contributors || []).filter(c => c.status === 'verified');
-            const colors = ['#ffd700','#a855f7','#ff6b9d','#00b4d8','#f3ba2f','#00e887'];
-
-            active.forEach((c, i) => {
-                if (c.name === d.contributors.find(x => x.id === 5)?.name) return; // skip Osif (already shown)
-                const initial = (c.name || '?')[0].toUpperCase();
-                const info = roles[c.name] || {role: 'Genesis Contributor', handle: c.handle || ''};
-                const color = colors[i % colors.length];
-                const card = document.createElement('div');
-                card.className = 'team-card';
-                card.innerHTML = `
-                    <div class="avatar" style="background:linear-gradient(135deg,${color},${color}88)">${initial}</div>
-                    <div class="name">${c.name}</div>
-                    <div class="role">${info.role} · ${c.amount_bnb} BNB</div>
-                    ${info.handle ? `<div style="font-size:11px;color:var(--text2);margin-top:8px"><a href="https://t.me/${info.handle.replace('@','')}" target="_blank">${info.handle}</a></div>` : ''}
-                `;
-                grid.appendChild(card);
-            });
-
-            // Add "Join" card
-            const joinCard = document.createElement('div');
-            joinCard.className = 'team-card';
-            joinCard.innerHTML = `
-                <div class="avatar" style="background:var(--bg2);border:2px dashed var(--accent)">+</div>
-                <div class="name">אתה?</div>
-                <div class="role">הצטרף כתורם · מפתח · מטפל</div>
-                <div style="font-size:11px;color:var(--text2);margin-top:8px"><a href="/launch-event.html">הצטרף עכשיו →</a></div>
-            `;
-            grid.appendChild(joinCard);
-        } catch(e) {
-            grid.innerHTML += `
-                <div class="team-card"><div class="avatar" style="background:linear-gradient(135deg,#ffd700,#ffd70088)">T</div><div class="name">צביקה</div><div class="role">שותף מייסד · Co-Founder</div></div>
-                <div class="team-card"><div class="avatar" style="background:linear-gradient(135deg,#a855f7,#a855f788)">Z</div><div class="name">זוהר שפע דרור</div><div class="role">Genesis Contributor · QA</div></div>
-                <div class="team-card"><div class="avatar" style="background:var(--bg2);border:2px dashed var(--accent)">+</div><div class="name">אתה?</div><div class="role">הצטרף כתורם</div></div>
-            `;
-        }
-    })();
-    </script>
-
-    <!-- Verification -->
-    <div class="card">
-        <h2>✅ אימות עצמאי — בדוק בעצמך</h2>
-        <p>אל תאמין לנו — <strong>בדוק הכל בעצמך</strong>. כל הקוד פתוח, כל העסקאות ב-blockchain, כל הנתונים שקופים:</p>
-        <div class="verify-grid">
-            <div class="verify-card">
-                <div class="icon">📜</div>
-                <div class="title">Smart Contract</div>
-                <div class="desc">SLH Token (BEP-20) מאומת ב-BSCScan</div>
-                <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" rel="noopener">בדוק ב-BSCScan →</a>
-            </div>
-            <div class="verify-card">
-                <div class="icon">🥞</div>
-                <div class="title">PancakeSwap Pool</div>
-                <div class="desc">SLH/BNB Pool חי ב-PancakeSwap V2</div>
-                <a href="https://pancakeswap.finance/info/v2/pairs/0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee?chain=bsc" target="_blank" rel="noopener">ראה Pool →</a>
-            </div>
-            <div class="verify-card">
-                <div class="icon">💻</div>
-                <div class="title">קוד פתוח</div>
-                <div class="desc">100% open source ב-GitHub</div>
-                <a href="https://github.com/osifeu-prog" target="_blank" rel="noopener">GitHub →</a>
-            </div>
-            <div class="verify-card">
-                <div class="icon">🔒</div>
-                <div class="title">Audit Trail</div>
-                <div class="desc">SHA-256 hash chain — כל פעולה מתועדת</div>
-                <a href="https://slh-api-production.up.railway.app/api/audit/verify-chain" target="_blank" rel="noopener">בדוק Chain →</a>
-            </div>
-            <div class="verify-card">
-                <div class="icon">📡</div>
-                <div class="title">API תקין</div>
-                <div class="desc">114 endpoints, health check חי</div>
-                <a href="https://slh-api-production.up.railway.app/docs" target="_blank" rel="noopener">API Docs →</a>
-            </div>
-            <div class="verify-card">
-                <div class="icon">🛡️</div>
-                <div class="title">Guardian ZUZ</div>
-                <div class="desc">מערכת anti-fraud פנימית</div>
-                <a href="/healing-vision.html">למד עוד →</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Security -->
-    <div class="card">
-        <h2>🔐 אבטחה</h2>
-        <ul>
-            <li><strong>הקוד שלנו לא מבקש seed phrase</strong> — אף פעם, בשום מקום</li>
-            <li><strong>Web3 integration = read-only</strong> — אנחנו רק קוראים יתרות, לא שולחים עסקאות מהארנק שלך</li>
-            <li><strong>אין approve ללא הגבלה</strong> — ב-PancakeSwap אתה מאשר רק את הסכום הספציפי</li>
-            <li><strong>SHA-256 audit chain</strong> — כל פעולה פיננסית מתועדת ב-hash chain שלא ניתן לזייף</li>
-            <li><strong>AES-GCM encryption</strong> — מפתחות CEX מוצפנים ב-production-grade encryption</li>
-            <li><strong>MetaMask "Malicious Token" warning</strong> — זה נורמלי לכל טוקן חדש. ברגע שנרשם ב-CoinGecko + Trust Wallet, האזהרה תיעלם</li>
-        </ul>
-    </div>
-
-    <!-- Economics -->
-    <div class="card">
-        <h2>💰 מודל כלכלי — מאיפה הרווחים?</h2>
-        <p>שאלה לגיטימית: "איך אפשר להבטיח 65% APY?" התשובה:</p>
-        <ul>
-            <li><strong>Staking rewards</strong> — מגיעים מעמלות מסחר (0.25% מכל swap ב-PancakeSwap), לא מ"כסף חדש"</li>
-            <li><strong>Referral commissions</strong> — 10 דורות, ממומנים מעמלות הפלטפורמה</li>
-            <li><strong>Premium subscriptions</strong> — גישה לבוטים מתקדמים (41-149 ILS)</li>
-            <li><strong>Course marketplace</strong> — קורסים ומדריכים (בקרוב)</li>
-            <li><strong>LP fees</strong> — Liquidity Providers מקבלים 0.25% מכל swap</li>
-        </ul>
-        <div class="disclaimer">
-            <strong>⚠️ גילוי נאות:</strong> SLH Spark בשלב Beta מוקדם. הטוקן SLH חדש ועם נזילות נמוכה.
-            כל השקעה בקריפטו כרוכה בסיכון. אל תשקיע כסף שאתה לא יכול להרשות לעצמך להפסיד.
-            אחוזי התשואה (APY) הם יעדים ולא הבטחות. התשואה בפועל תלויה בנפח המסחר, בגודל הפול, ובתנאי השוק.
-            אנחנו לא יועצים פיננסיים. התייעץ עם מומחה לפני כל השקעה.
-        </div>
-    </div>
-
-    <!-- Contact -->
-    <div class="card" style="text-align:center">
-        <h2>📬 צור קשר</h2>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:16px 0">
-            <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="padding:12px 24px;background:#0088cc;color:#fff;border-radius:10px;text-decoration:none;font-weight:700">📱 Telegram Bot</a>
-            <a href="https://t.me/osifeu_prog" target="_blank" rel="noopener" style="padding:12px 24px;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:10px;text-decoration:none;font-weight:700">💬 Founder</a>
-            <a href="https://github.com/osifeu-prog" target="_blank" rel="noopener" style="padding:12px 24px;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:10px;text-decoration:none;font-weight:700">💻 GitHub</a>
-            <a href="mailto:kaufmanungar@gmail.com" style="padding:12px 24px;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:10px;text-decoration:none;font-weight:700">📧 Email</a>
-        </div>
-    </div>
-</div>
-
-<div id="bottomnav-root"></div>
-<div id="footer-root"></div>
-
-<script src="/js/translations.js?v=20260413"></script>
-<script src="/js/shared.js?v=20260413"></script>
-<script>initShared({ activePage: 'home', showBottomNav: true });</script>
+<div id="topnav-root"></div>
+<script src="/js/shared.js?v=20260415"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260413"></script>
+<script src="/js/ai-assistant.js?v=20260415"></script>
+
+<script>
+// Load real live stats — no fake numbers, "—" on error
+async function loadStats() {
+  try {
+    const r = await fetch('https://slh-api-production.up.railway.app/api/health');
+    const health = await r.json();
+    if (health.status !== 'ok') return;
+    // Try campaign stats if admin key available
+    const adminKey = localStorage.getItem('slh_admin_password');
+    if (adminKey) {
+      try {
+        const r2 = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', {
+          headers: {'X-Admin-Key': adminKey}
+        });
+        if (r2.ok) {
+          const stats = await r2.json();
+          const usersEl = document.getElementById('s-users');
+          const genesisEl = document.getElementById('s-genesis');
+          if (usersEl && stats.registrations?.total !== undefined) {
+            usersEl.textContent = stats.registrations.total;
+          }
+          if (genesisEl && stats.registrations?.by_path?.genesis?.count !== undefined) {
+            genesisEl.textContent = stats.registrations.by_path.genesis.count;
+          }
+        }
+      } catch (e) {}
+    }
+  } catch (e) {
+    console.log('[about] API not reachable, keeping "—"');
+  }
+}
+loadStats();
+</script>
+
 </body>
 </html>
