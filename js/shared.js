@@ -51,6 +51,10 @@ const NAV_ITEMS = [
   { key: 'promo_shekel', href: '/promo-shekel.html', icon: 'fa-fire', admin: true },
   { key: 'mass_gift', href: '/mass-gift.html', icon: 'fa-gift', admin: true },
   { key: 'bot_registry', href: '/bot-registry.html', icon: 'fa-robot', admin: true },
+  { key: 'guardian_diag', href: '/guardian-diag.html', icon: 'fa-shield-virus', admin: true },
+  { key: 'live_stats', href: '/live-stats.html', icon: 'fa-chart-line', admin: true },
+  { key: 'experts', href: '/experts.html', icon: 'fa-user-graduate' },
+  { key: 'bug_report', href: '/bug-report.html', icon: 'fa-bug' },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];
 

@@ -554,13 +554,28 @@
     const actions = [
       { key: 'quick_market' },
       { key: 'quick_coin' },
-      { key: 'quick_explain' }
+      { key: 'quick_explain' },
+      { key: 'quick_bug', label: '🐛 דווח באג', action: 'bug' },
+      { key: 'quick_expert', label: '🎓 מצא מומחה', action: 'expert' }
     ];
-    _quickWrap.innerHTML = actions.map(a =>
-      `<button class="slh-ai-quick-btn" data-msg="${_t(a.key)}">${_t(a.key)}</button>`
-    ).join('');
+    _quickWrap.innerHTML = actions.map(a => {
+      const txt = a.label || _t(a.key);
+      const dataAttr = a.action ? `data-action="${a.action}"` : `data-msg="${txt}"`;
+      return `<button class="slh-ai-quick-btn" ${dataAttr}>${txt}</button>`;
+    }).join('');
     _quickWrap.querySelectorAll('.slh-ai-quick-btn').forEach(btn => {
       btn.addEventListener('click', function () {
+        const action = this.getAttribute('data-action');
+        if (action === 'bug') {
+          // Open bug-report.html with current page pre-filled
+          const fromPage = encodeURIComponent(location.pathname);
+          window.open('/bug-report.html?from=' + fromPage, '_blank');
+          return;
+        }
+        if (action === 'expert') {
+          window.open('/experts.html', '_blank');
+          return;
+        }
         const msg = this.getAttribute('data-msg');
         _inputEl.value = msg;
         sendMessage();
