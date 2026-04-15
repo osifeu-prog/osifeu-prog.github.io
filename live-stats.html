@@ -151,11 +151,175 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
       <div id="insights" style="font-size:13px;color:var(--text);line-height:1.9"></div>
     </div>
   </div>
+
+  <!-- EXPORT SECTION -->
+  <div class="section">
+    <div class="card">
+      <h2>📤 ייצוא דוחות</h2>
+      <p style="font-size:13px;color:var(--text2);margin:0 0 14px">הורד את כל הנתונים לקובץ — לבדיקה, גיבוי, שיתוף, או ניתוח.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="action-btn" onclick="exportJSON()">
+          <i class="fas fa-file-code"></i> ייצוא JSON
+        </button>
+        <button class="action-btn secondary" onclick="exportCSV()">
+          <i class="fas fa-file-csv"></i> ייצוא CSV (טבלה)
+        </button>
+        <button class="action-btn secondary" onclick="exportTXT()">
+          <i class="fas fa-file-alt"></i> ייצוא TXT (דוח קריא)
+        </button>
+        <button class="action-btn secondary" onclick="window.print()">
+          <i class="fas fa-print"></i> הדפסה / PDF
+        </button>
+      </div>
+      <div id="export-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
+    </div>
+  </div>
+
+  <div id="hebrew-date-footer" style="text-align:center;padding:20px;color:var(--text3);font-size:13px;border-top:1px solid var(--border);margin-top:40px"></div>
 </div>
 
 <script>
 const API = 'https://slh-api-production.up.railway.app';
 const CAMPAIGN = 'shekel_april26';
+
+/* === Hebrew date helper === */
+function hebrewDate() {
+  try {
+    const now = new Date();
+    const hebrew = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(now);
+    const greg = new Intl.DateTimeFormat('he-IL', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(now);
+    const time = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return `📅 ${hebrew} · ${greg} · ${time}`;
+  } catch(e) {
+    return new Date().toLocaleString('he-IL');
+  }
+}
+function updateHebrewDate() {
+  const el = document.getElementById('hebrew-date-footer');
+  if(el) el.textContent = hebrewDate();
+}
+setInterval(updateHebrewDate, 1000);
+document.addEventListener('DOMContentLoaded', updateHebrewDate);
+
+/* === Export functions === */
+let lastStats = null;
+let lastBugs = null;
+
+async function fetchAllData() {
+  const adminKey = localStorage.getItem('slh_admin_password');
+  const headers = {'X-Admin-Key': adminKey};
+  const [stats, bugs] = await Promise.all([
+    fetch(`${API}/api/campaign/stats/${CAMPAIGN}`, {headers}).then(r => r.json()).catch(() => null),
+    fetch(`${API}/api/admin/bugs/list?limit=50`, {headers}).then(r => r.json()).catch(() => null),
+  ]);
+  return {
+    exported_at: new Date().toISOString(),
+    hebrew_date: hebrewDate(),
+    campaign: stats,
+    bugs: bugs,
+    page_url: location.href
+  };
+}
+
+function download(filename, content, mime) {
+  const blob = new Blob([content], {type: mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  const el = document.getElementById('export-status');
+  if(el) el.textContent = `✅ הורד: ${filename} · ${new Date().toLocaleTimeString('he-IL')}`;
+}
+
+async function exportJSON() {
+  document.getElementById('export-status').textContent = '⏳ טוען...';
+  const data = await fetchAllData();
+  const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0,19);
+  download(`slh_report_${ts}.json`, JSON.stringify(data, null, 2), 'application/json');
+}
+
+async function exportCSV() {
+  document.getElementById('export-status').textContent = '⏳ טוען...';
+  const data = await fetchAllData();
+  const stats = data.campaign || {};
+  const rows = [
+    ['SLH Campaign Report', data.hebrew_date],
+    [],
+    ['Metric', 'Value'],
+    ['Campaign ID', stats.campaign_id || '-'],
+    ['Total Clicks', stats.clicks?.total || 0],
+    ['Total Registrations', stats.registrations?.total || 0],
+    ['Paid', stats.registrations?.paid || 0],
+    ['Revenue (ILS)', stats.registrations?.revenue || 0],
+    ['Conversion Rate', ((stats.conversion_rate || 0) * 100).toFixed(2) + '%'],
+    [],
+    ['Clicks by Path', ''],
+    ...Object.entries(stats.clicks?.by_path || {}).map(([k,v]) => [k, v]),
+    [],
+    ['Clicks by Language', ''],
+    ...Object.entries(stats.clicks?.by_lang || {}).map(([k,v]) => [k, v]),
+    [],
+    ['Top Affiliates', ''],
+    ['Name', 'Code', 'Referrals', 'ZVK Earned'],
+    ...(stats.top_affiliates || []).map(a => [a.name, a.code, a.referrals, a.zvk_earned]),
+  ];
+  // Excel-friendly UTF-8 BOM
+  const csv = '\ufeff' + rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0,19);
+  download(`slh_report_${ts}.csv`, csv, 'text/csv;charset=utf-8');
+}
+
+async function exportTXT() {
+  document.getElementById('export-status').textContent = '⏳ טוען...';
+  const data = await fetchAllData();
+  const stats = data.campaign || {};
+  const bugs = data.bugs || {};
+  const lines = [
+    '═══════════════════════════════════════════',
+    '📊 SLH Spark — דוח קמפיין',
+    '═══════════════════════════════════════════',
+    data.hebrew_date,
+    '',
+    `🎯 Campaign: ${stats.campaign_id || '-'}`,
+    '',
+    '━━━ סטטיסטיקה כללית ━━━',
+    `📊 סה"כ לחיצות: ${stats.clicks?.total || 0}`,
+    `📝 הרשמות: ${stats.registrations?.total || 0}`,
+    `💰 שילמו: ${stats.registrations?.paid || 0}`,
+    `💵 הכנסה: ₪${stats.registrations?.revenue || 0}`,
+    `📈 שיעור המרה: ${((stats.conversion_rate || 0) * 100).toFixed(2)}%`,
+    '',
+    '━━━ לחיצות לפי נתיב ━━━',
+    ...Object.entries(stats.clicks?.by_path || {}).map(([k,v]) => `  ${k}: ${v}`),
+    '',
+    '━━━ לחיצות לפי שפה ━━━',
+    ...Object.entries(stats.clicks?.by_lang || {}).map(([k,v]) => `  ${k}: ${v}`),
+    '',
+    '━━━ שותפים מובילים ━━━',
+    ...(stats.top_affiliates || []).map(a => `  ${a.name} (${a.code}): ${a.referrals} הפניות · ${a.zvk_earned} ZVK`),
+    '',
+    '━━━ באגים ━━━',
+    `  סה"כ: ${bugs.stats?.total || 0}`,
+    `  חדשים: ${bugs.stats?.new || 0}`,
+    `  בטיפול: ${bugs.stats?.in_progress || 0}`,
+    `  נפתרו: ${bugs.stats?.resolved || 0}`,
+    `  קריטיים: ${bugs.stats?.critical || 0}`,
+    '',
+    '═══════════════════════════════════════════',
+    `הופק: ${data.exported_at}`,
+    'SLH Spark · slh-nft.com',
+  ];
+  const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0,19);
+  download(`slh_report_${ts}.txt`, lines.join('\n'), 'text/plain;charset=utf-8');
+}
 
 function checkAuth(){
   const p = localStorage.getItem('slh_admin_password');
