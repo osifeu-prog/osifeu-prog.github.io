@@ -31,6 +31,8 @@ const T = {
     nav_admin: 'ניהול',
     nav_project_map: 'מפת הפרויקט',
     nav_control_center: 'מרכז בקרה',
+    nav_promo_shekel: '🔥 קמפיין ש"ח',
+    nav_mass_gift: '🎁 מתנות מרוכזות',
     nav_more: 'עוד',
     nav_login: 'התחברות',
     nav_logout: 'התנתקות',

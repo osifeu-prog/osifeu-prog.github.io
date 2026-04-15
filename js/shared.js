@@ -47,6 +47,8 @@ const NAV_ITEMS = [
   { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
   { key: 'control_center', href: '/control-center.html', icon: 'fa-satellite-dish', admin: true },
   { key: 'project_map', href: '/project-map.html', icon: 'fa-sitemap', admin: true },
+  { key: 'promo_shekel', href: '/promo-shekel.html', icon: 'fa-fire', admin: true },
+  { key: 'mass_gift', href: '/mass-gift.html', icon: 'fa-gift', admin: true },
   { key: 'dashboard', href: '/dashboard.html', icon: 'fa-tachometer-alt', auth: true }
 ];
 

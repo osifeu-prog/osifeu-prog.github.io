@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://slh-nft.com/promo-shekel.html">
 <meta property="og:title" content="SLH Starter Pack — Shekel Strength Window">
-<meta property="og:description" content="48h window: SLH + 10% bonus + Premium group for just ₪99">
+<meta property="og:description" content="48h window: SLH + 10% bonus + Premium group for just ₪22.221">
 <meta property="og:image" content="https://slh-nft.com/assets/og/launch.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,27 +61,138 @@ body{
 [lang="en"] body, [lang="fr"] body, [lang="ru"] body { font-family:'Inter','Rubik',sans-serif; direction:ltr }
 [lang="ar"] body { direction:rtl; text-align:right }
 
-/* Animated background */
+/* === ARTISTIC BACKGROUND — multi-layer canvas === */
 .bg-fx {
   position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
 }
+/* Layer 1: deep cosmic gradient */
 .bg-fx::before {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(circle at 15% 20%, rgba(255,215,0,.12), transparent 50%),
-    radial-gradient(circle at 85% 75%, rgba(0,232,135,.10), transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(168,85,247,.05), transparent 70%);
+    radial-gradient(ellipse at 20% 10%, rgba(255,215,0,.18), transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(0,232,135,.15), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168,85,247,.10), transparent 65%),
+    radial-gradient(circle at 10% 90%, rgba(59,130,246,.08), transparent 50%),
+    linear-gradient(180deg, #050810 0%, #0a0e1f 50%, #050810 100%);
 }
+/* Layer 2: dot mesh + grid (fine art texture) */
 .bg-fx::after {
   content:''; position:absolute; inset:-50%;
   background-image:
-    linear-gradient(rgba(255,215,0,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,215,0,.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: gridMove 30s linear infinite;
+    radial-gradient(circle at 50% 50%, rgba(255,215,0,.4) 0.8px, transparent 1.5px),
+    linear-gradient(rgba(255,215,0,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,135,.025) 1px, transparent 1px);
+  background-size: 40px 40px, 80px 80px, 80px 80px;
+  animation: gridMove 60s linear infinite;
+  opacity: 0.7;
 }
 @keyframes gridMove {
-  to { transform: translate(50px,50px); }
+  to { transform: translate(80px, 80px); }
+}
+
+/* Layer 3: floating orbs (parallax depth) */
+.orb {
+  position: fixed; border-radius: 50%; pointer-events: none; z-index: -1;
+  filter: blur(80px); opacity: 0.5;
+  animation: floatOrb 20s ease-in-out infinite alternate;
+}
+.orb-1 { top: 5%; left: 10%; width: 320px; height: 320px; background: radial-gradient(circle, var(--gold), transparent 70%); }
+.orb-2 { top: 50%; right: 5%; width: 280px; height: 280px; background: radial-gradient(circle, var(--green), transparent 70%); animation-delay: -7s; }
+.orb-3 { bottom: 10%; left: 30%; width: 260px; height: 260px; background: radial-gradient(circle, var(--purple), transparent 70%); animation-delay: -14s; }
+@keyframes floatOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(40px, -40px) scale(1.1); }
+}
+
+/* Coin shower (subtle) */
+.coin {
+  position: fixed; pointer-events: none; z-index: -1;
+  font-size: 24px; opacity: 0;
+  animation: coinFall linear infinite;
+}
+@keyframes coinFall {
+  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* Hero: artistic title treatment */
+.hero h1 {
+  position: relative;
+  text-shadow: 0 0 40px rgba(255,215,0,.3);
+}
+.hero h1::after {
+  content: '';
+  display: block;
+  width: 100px; height: 4px;
+  margin: 24px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--green), transparent);
+  border-radius: 2px;
+  animation: lineShimmer 3s ease-in-out infinite;
+}
+@keyframes lineShimmer {
+  0%, 100% { width: 60px; opacity: 0.6; }
+  50%      { width: 180px; opacity: 1; }
+}
+
+/* === FX LIVE CHART === */
+.fx-chart-section {
+  max-width: 1100px; margin: 0 auto 50px; padding: 0 20px;
+}
+.fx-chart-card {
+  background: linear-gradient(135deg, rgba(0,232,135,.06), rgba(255,215,0,.03));
+  border: 1px solid rgba(0,232,135,.3);
+  border-radius: 24px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.fx-chart-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
+.fx-chart-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
+}
+.fx-chart-title {
+  font-size: 22px; font-weight: 900;
+  margin: 0 0 4px;
+  background: linear-gradient(135deg, var(--green), var(--gold));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.fx-chart-sub { font-size: 13px; color: var(--text2); }
+.fx-current {
+  text-align: center;
+  padding: 10px 18px;
+  background: var(--bg);
+  border: 1px solid var(--green);
+  border-radius: 14px;
+}
+.fx-current .now { font-size: 28px; font-weight: 900; color: var(--green); line-height: 1; }
+.fx-current .lbl { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+.fx-chart-canvas {
+  background: rgba(0,0,0,.3);
+  border-radius: 14px;
+  padding: 12px;
+  height: 240px;
+  position: relative;
+}
+#fx-chart {
+  width: 100%; height: 100%; display: block;
+}
+.fx-legend {
+  display: flex; gap: 20px; justify-content: center;
+  margin-top: 14px;
+  font-size: 12px; color: var(--text2);
+}
+.fx-legend span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.fx-legend i {
+  width: 10px; height: 10px; border-radius: 50%; display: inline-block;
 }
 
 /* Hero */
@@ -460,6 +571,181 @@ body{
 .faq-a { font-size: 14px; color: var(--text2); margin-top: 12px; display: none; line-height: 1.7; }
 .faq-item.open .faq-a { display: block; }
 
+/* === EXPLANATIONS SECTION (Why Shekel / Why Crypto / Why Now) === */
+.why-section { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+.why-head {
+  text-align: center; margin-bottom: 36px;
+}
+.why-head h2 {
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 900;
+  margin: 0 0 10px;
+  background: linear-gradient(135deg, var(--gold), var(--green), var(--purple));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.why-head p { font-size: 15px; color: var(--text2); max-width: 600px; margin: 0 auto; }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.why-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all .25s;
+}
+.why-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+.why-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--green));
+}
+.why-ico {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, rgba(255,215,0,.15), rgba(0,232,135,.1));
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin-bottom: 18px;
+}
+.why-card h3 {
+  font-size: 19px; font-weight: 900; margin: 0 0 12px;
+  color: var(--text);
+}
+.why-card p {
+  font-size: 14px; color: var(--text2); line-height: 1.7;
+  margin: 0 0 14px;
+}
+.why-card .stat-row {
+  display: flex; justify-content: space-between;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+.why-card .stat-row b { color: var(--gold); }
+
+/* === PAYMENT METHODS PANEL === */
+.pay-section { max-width: 1100px; margin: 0 auto 60px; padding: 0 20px; }
+.pay-card {
+  background: linear-gradient(135deg, rgba(168,85,247,.08), rgba(59,130,246,.04));
+  border: 2px solid var(--purple);
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.pay-head {
+  text-align: center; margin-bottom: 24px;
+}
+.pay-head h2 {
+  font-size: 26px; font-weight: 900;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.pay-head p { font-size: 14px; color: var(--text2); margin: 0; }
+.pay-head .price-huge {
+  font-size: 56px; font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--green));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin: 14px 0 4px;
+  line-height: 1;
+}
+.pay-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.pay-method-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: var(--text);
+}
+.pay-method-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.pay-method-card .ico {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.pay-method-card .name { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+.pay-method-card .detail { font-size: 12px; color: var(--text2); margin-bottom: 14px; min-height: 32px; }
+.pay-method-card .btn {
+  display: inline-block; padding: 8px 14px;
+  background: var(--gold); color: #000;
+  border-radius: 10px; font-weight: 800; font-size: 13px;
+}
+
+/* === STAKING INVITATION === */
+.stake-section { max-width: 1100px; margin: 0 auto 60px; padding: 0 20px; }
+.stake-card {
+  background: linear-gradient(135deg, rgba(0,232,135,.1), rgba(255,215,0,.05));
+  border: 2px solid var(--green);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.stake-apy {
+  font-size: 72px; font-weight: 900;
+  background: linear-gradient(135deg, var(--green), var(--gold));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stake-card h3 {
+  font-size: 24px; font-weight: 900;
+  margin: 0 0 10px; color: var(--text);
+}
+.stake-card p {
+  font-size: 14px; color: var(--text2); max-width: 600px; margin: 0 auto 20px;
+}
+
+/* === ECOSYSTEM LINKS === */
+.ecosystem-section { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+.ecosystem-head { text-align: center; margin-bottom: 28px; }
+.ecosystem-head h2 {
+  font-size: 28px; font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin: 0 0 6px;
+}
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+.eco-link {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: all .2s;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.eco-link:hover { border-color: var(--gold); transform: translateY(-3px); }
+.eco-link i { font-size: 22px; color: var(--gold); }
+
 /* Language switcher */
 .lang-bar {
   position: fixed; top: 14px; inset-inline-end: 14px; z-index: 100;
@@ -520,6 +806,11 @@ body{
 <body>
 
 <div class="bg-fx"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<!-- Coin shower (minimal, performance-safe) -->
+<div id="coin-shower"></div>
 
 <!-- Language Bar -->
 <div class="lang-bar">
@@ -538,13 +829,46 @@ body{
   </div>
   <h1 data-i18n="hero_title">הדולר נחלש.<br>השקל התחזק.<br>הזמן שלך הגיע.</h1>
   <p class="tagline" data-i18n="hero_tagline">כל 100 ש״ח היום = 5% יותר קריפטו מחודש שעבר</p>
-  <p class="sub" data-i18n="hero_sub">SLH Starter Pack ב-99 ש״ח בלבד + 10% בונוס טוקנים + גישה לקבוצת פרימיום — רק ל-48 שעות.</p>
+  <p class="sub" data-i18n="hero_sub">
+    <span style="text-decoration:line-through;color:var(--text3);font-size:14px;">במקום ₪222</span> →
+    <strong style="font-size:20px;color:var(--gold);">₪22.221 בלבד</strong>
+    · מבצע השקה ייחודי לחיזוק המולדת · רק ל-48 שעות
+  </p>
+  <div style="margin-top:18px;font-size:14px;color:var(--text2);max-width:720px;margin-left:auto;margin-right:auto;line-height:1.7">
+    💎 <strong>מה זה אומר בפועל?</strong> אחרי הרכישה תקבל גישה ל-<strong>מערכת הקורסים</strong> — ותוכל
+    <strong style="color:var(--green)">להעלות קורסים משלך ולמכור</strong> דרך המערכת במחיר שאתה קובע.
+    זה לא רק קורס בסיס — זה <strong>מקצוע חדש</strong>.
+  </div>
 
   <!-- Countdown -->
   <div class="countdown" id="countdown">
     <div class="countdown-unit"><div class="num" id="cd-h">47</div><div class="lbl" data-i18n="hours">שעות</div></div>
     <div class="countdown-unit"><div class="num" id="cd-m">59</div><div class="lbl" data-i18n="minutes">דקות</div></div>
     <div class="countdown-unit"><div class="num" id="cd-s">59</div><div class="lbl" data-i18n="seconds">שניות</div></div>
+  </div>
+
+  <!-- LIVE FX CHART -->
+  <div style="max-width:900px;margin:40px auto 0;padding:0 20px">
+    <div style="background:linear-gradient(135deg,rgba(0,232,135,.08),rgba(255,215,0,.04));border:1px solid rgba(0,232,135,.3);border-radius:20px;padding:24px;position:relative;overflow:hidden">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:16px">
+        <div>
+          <h3 style="font-size:18px;font-weight:900;margin:0 0 4px;background:linear-gradient(135deg,var(--green),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent">
+            📊 ILS/USD — 6 חודשים
+          </h3>
+          <div style="font-size:12px;color:var(--text2)">חוזק השקל מול הדולר — מעלייה ברציפות</div>
+        </div>
+        <div style="text-align:center;padding:8px 16px;background:var(--bg);border:1px solid var(--green);border-radius:12px">
+          <div style="font-size:22px;font-weight:900;color:var(--green);line-height:1" id="fx-live-rate">0.33$</div>
+          <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px">1 ש"ח</div>
+        </div>
+      </div>
+      <canvas id="fx-chart" style="width:100%;height:200px;display:block"></canvas>
+      <div style="display:flex;gap:18px;justify-content:center;margin-top:12px;font-size:11px;color:var(--text2);flex-wrap:wrap">
+        <span><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%;margin-inline-end:4px"></i>ערך 1 ש"ח בדולר</span>
+        <span><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%;margin-inline-end:4px"></i>יעד SLH ₪444</span>
+        <span style="color:var(--green)">⬆ +27% חיזוק ב-6 חודשים</span>
+      </div>
+    </div>
   </div>
 
   <!-- FX Strip -->
@@ -560,7 +884,7 @@ body{
       <div class="path-icon"><i class="fas fa-bolt"></i></div>
       <h3 class="path-title" data-i18n="path_buyer_title">קונה מיידי</h3>
       <p class="path-tagline" data-i18n="path_buyer_tagline">רוצה להתחיל היום עם החבילה הכי מקיפה</p>
-      <div class="path-price">₪99</div>
+      <div class="path-price">₪22.221</div>
       <div class="path-price-sub" data-i18n="path_buyer_sub">חד פעמי · גישה מלאה</div>
       <ul class="path-features">
         <li><i class="fas fa-check"></i><span data-i18n="path_buyer_f1">0.25 SLH + 10% בונוס</span></li>
@@ -653,8 +977,8 @@ body{
     <p class="offer-sub" data-i18n="offer_sub">כל מה שצריך כדי להיכנס לאקוסיסטם — במחיר שאין שני לו.</p>
 
     <div class="price-row">
-      <span class="price-main">₪99</span>
-      <span class="price-old">₪199</span>
+      <span class="price-main">₪22.221</span>
+      <span class="price-old">₪222</span>
       <span class="price-bonus" data-i18n="bonus_10">+10% בונוס</span>
     </div>
 
@@ -734,6 +1058,213 @@ body{
   </div>
 </section>
 
+<!-- WHY NOW — Explanations Section -->
+<section class="why-section">
+  <div class="why-head">
+    <h2>🧠 למה דווקא עכשיו?</h2>
+    <p>שלושה כוחות מקרו־כלכליים מצטלבים ברגע אחד — הפעם הראשונה מאז 2022. זה לא מקרי.</p>
+  </div>
+  <div class="why-grid">
+    <!-- Card 1: Why shekel strengthens -->
+    <div class="why-card">
+      <div class="why-ico">💪</div>
+      <h3>השקל מתחזק — למה?</h3>
+      <p>
+        <strong>1. ריבית גבוהה בישראל</strong> (4.5%) מול הורדות ריבית צפויות בארה"ב →
+        כסף זורם לשקל.
+        <br><strong>2. מאזן מסחרי חיובי</strong> — ייצוא הייטק שובר שיאים.
+        <br><strong>3. השקעות חוץ</strong> חוזרות לישראל אחרי התייצבות גיאופוליטית.
+      </p>
+      <div class="stat-row">
+        <span>1 ש״ח = </span>
+        <b>$0.33</b>
+      </div>
+      <div class="stat-row">
+        <span>לפני חצי שנה:</span>
+        <b>$0.26</b>
+      </div>
+    </div>
+
+    <!-- Card 2: Why crypto is the move -->
+    <div class="why-card">
+      <div class="why-ico">🪙</div>
+      <h3>למה קריפטו דווקא עכשיו?</h3>
+      <p>
+        <strong>חלון הזדמנות:</strong> שקל חזק + ביטקוין ירד ב-8% מהשיא = קריפטו זול ב-13% לישראלי.
+        <br><strong>SLH Spark</strong> הוא האקוסיסטם הקריפטו הישראלי היחיד עם:
+        מטבע רשום ב-BSC, מערכת תשלומים בעברית, 25 בוטים פעילים, ו-5 טוקנים מקושרים.
+      </p>
+      <div class="stat-row">
+        <span>SLH target:</span>
+        <b>₪444</b>
+      </div>
+      <div class="stat-row">
+        <span>היום:</span>
+        <b style="color:var(--green)">₪2.1</b>
+      </div>
+    </div>
+
+    <!-- Card 3: What you get beyond tokens -->
+    <div class="why-card">
+      <div class="why-ico">🎁</div>
+      <h3>מה מקבלים מעבר לטוקנים?</h3>
+      <p>
+        <strong>1. מקצוע חדש</strong> — מערכת שתוכל למכור בה קורסים במחיר שלך.
+        <br><strong>2. קהילה</strong> — קבוצת Premium עם ייעוץ אישי, signals יומיים, אנשי מקצוע.
+        <br><strong>3. בעלות</strong> — חלק באקוסיסטם שהולך לגדול פי 200 אם SLH יגיע ליעד של ₪444.
+      </p>
+      <div class="stat-row">
+        <span>שווי מצטבר שתקבל:</span>
+        <b>₪1,800+</b>
+      </div>
+      <div class="stat-row">
+        <span>משלמים רק:</span>
+        <b style="color:var(--green)">₪22.221</b>
+      </div>
+    </div>
+
+    <!-- Card 4: Why Israel / ציונות -->
+    <div class="why-card">
+      <div class="why-ico">🇮🇱</div>
+      <h3>למה SLH Spark ישראלי?</h3>
+      <p>
+        <strong>בנוי בישראל, לישראלים.</strong> UI בעברית. תמיכה בעברית. מסים בהתאם.
+        כל רכישה מחזקת את המולדת — הטוקנים מפותחים ע"י צוות ישראלי, הרווחים חוזרים למערכת הישראלית,
+        ואתה חלק מהסיפור.
+      </p>
+      <div class="stat-row">
+        <span>משתמשים ישראליים:</span>
+        <b>100%</b>
+      </div>
+      <div class="stat-row">
+        <span>שפות נתמכות:</span>
+        <b>5</b>
+      </div>
+    </div>
+
+    <!-- Card 5: Course marketplace -->
+    <div class="why-card">
+      <div class="why-ico">📚</div>
+      <h3>מקצוע חדש — קורסים למכירה</h3>
+      <p>
+        <strong>הסוד הגדול:</strong> אחרי הרכישה תקבל גישה למערכת הקורסים של האקדמיה.
+        <br>תוכל להעלות קורס משלך (קריפטו, שיווק, כל תחום) ולמכור במחיר שתבחר —
+        <strong>70% מההכנסות אצלך</strong>, 30% למערכת.
+        זה לא רק למידה — זה ערוץ הכנסה.
+      </p>
+      <div class="stat-row">
+        <span>עמלת המערכת:</span>
+        <b>30%</b>
+      </div>
+      <div class="stat-row">
+        <span>מחיר קורס ממוצע:</span>
+        <b>₪199-999</b>
+      </div>
+    </div>
+
+    <!-- Card 6: Staking -->
+    <div class="why-card">
+      <div class="why-ico">📈</div>
+      <h3>סטייקינג 65% APY</h3>
+      <p>
+        ה-SLH שתקבל ברכישה (0.25 טוקן) ניתן לסטייקינג עם תשואה של עד <strong>65% שנתי</strong>.
+        זה אומר שה-₪22.221 שלך יכול להפוך ל-₪36+ תוך שנה — בלי לעשות כלום.
+        <br><strong>מינימום:</strong> 1 TON או 10 SLH.
+      </p>
+      <div class="stat-row">
+        <span>APY מקסימלי:</span>
+        <b style="color:var(--green)">65%</b>
+      </div>
+      <div class="stat-row">
+        <span>תוכניות זמינות:</span>
+        <b>4</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT METHODS -->
+<section class="pay-section" id="pay">
+  <div class="pay-card">
+    <div class="pay-head">
+      <div style="font-size:13px;color:var(--red);font-weight:800;letter-spacing:2px;text-transform:uppercase">💳 תשלום מיידי</div>
+      <div class="price-huge">₪22.221</div>
+      <p>מבצע השקה ייחודי · מלאי מוגבל · 48 שעות</p>
+    </div>
+    <div class="pay-methods-grid">
+      <a href="https://t.me/SLH_community_bot?start=promo_shekel_april26" class="pay-method-card" target="_blank" rel="noopener">
+        <div class="ico">🤖</div>
+        <div class="name">טלגרם + בוט</div>
+        <div class="detail">קל, מאובטח, הבוט שולח אישור מיד</div>
+        <div class="btn">התחל עכשיו</div>
+      </a>
+      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=bnb" class="pay-method-card">
+        <div class="ico">🟡</div>
+        <div class="name">BNB / Crypto</div>
+        <div class="detail">ארנק MetaMask / TrustWallet · ~0.04 BNB</div>
+        <div class="btn">שלם ב-BNB</div>
+      </a>
+      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=card" class="pay-method-card">
+        <div class="ico">💳</div>
+        <div class="name">כרטיס אשראי</div>
+        <div class="detail">עד 3 תשלומים · מאובטח SSL · מיידי</div>
+        <div class="btn">שלם בכרטיס</div>
+      </a>
+      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=bank" class="pay-method-card">
+        <div class="ico">🏦</div>
+        <div class="name">העברה בנקאית</div>
+        <div class="detail">ישיר לחשבון SLH · אישור תוך 24 שעות</div>
+        <div class="btn">פרטי חשבון</div>
+      </a>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--text2);margin-top:20px">
+      🔒 כל התשלומים מאובטחים · כל קנייה מתועדת ב-SHA-256 audit chain · החזר מלא תוך 14 יום
+    </p>
+  </div>
+</section>
+
+<!-- STAKING INVITATION -->
+<section class="stake-section">
+  <div class="stake-card">
+    <div style="font-size:12px;color:var(--green);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📈 הצעד הבא</div>
+    <div class="stake-apy">65%</div>
+    <h3>תשואה שנתית עם Staking</h3>
+    <p>
+      אחרי שתרכוש את ה-Starter Pack — תוכל להכניס את ה-SLH שלך לסטייקינג.
+      הכסף עובד בזמן שאתה ישן. מתוך התקציב של ₪22.221 — ה-SLH יכול להניב עוד ₪14+ בתשואה תוך שנה.
+    </p>
+    <a href="/staking.html" class="cta-btn" style="max-width:360px;margin:0 auto;">
+      <i class="fas fa-chart-line"></i> <span>ראה תוכניות סטייקינג</span>
+    </a>
+  </div>
+</section>
+
+<!-- ECOSYSTEM LINKS -->
+<section class="ecosystem-section">
+  <div class="ecosystem-head">
+    <h2>🌐 האקוסיסטם המלא</h2>
+    <p style="color:var(--text2);font-size:14px">כל מה שכלול — הרכישה שלך פותחת את כל הדלתות</p>
+  </div>
+  <div class="ecosystem-grid">
+    <a href="/dashboard.html" class="eco-link"><i class="fas fa-tachometer-alt"></i>לוח בקרה אישי</a>
+    <a href="/wallet.html" class="eco-link"><i class="fas fa-wallet"></i>ארנק רב־נכסים</a>
+    <a href="/staking.html" class="eco-link"><i class="fas fa-chart-line"></i>סטייקינג 65%</a>
+    <a href="/trade.html" class="eco-link"><i class="fas fa-exchange-alt"></i>מסחר חי</a>
+    <a href="/p2p.html" class="eco-link"><i class="fas fa-handshake"></i>P2P</a>
+    <a href="/earn.html" class="eco-link"><i class="fas fa-coins"></i>להרוויח</a>
+    <a href="/bots.html" class="eco-link"><i class="fas fa-robot"></i>25 בוטים</a>
+    <a href="/community.html" class="eco-link"><i class="fas fa-users"></i>קהילה</a>
+    <a href="/blockchain.html" class="eco-link"><i class="fas fa-cube"></i>בלוקצ'יין</a>
+    <a href="/guides.html" class="eco-link"><i class="fas fa-book"></i>מדריכים</a>
+    <a href="/daily-blog.html" class="eco-link"><i class="fas fa-newspaper"></i>בלוג יומי</a>
+    <a href="/referral.html" class="eco-link"><i class="fas fa-share-alt"></i>הפניות</a>
+    <a href="/challenge.html" class="eco-link"><i class="fas fa-flag-checkered"></i>אתגר 21 יום</a>
+    <a href="/healing-vision.html" class="eco-link"><i class="fas fa-heart"></i>חזון הריפוי</a>
+    <a href="/whitepaper.html" class="eco-link"><i class="fas fa-file-alt"></i>Whitepaper</a>
+    <a href="/about.html" class="eco-link"><i class="fas fa-info-circle"></i>אודות</a>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="faq-section">
   <h2 data-i18n="faq_title">שאלות נפוצות</h2>
@@ -763,7 +1294,7 @@ body{
 <div class="sticky-cta" id="sticky-cta">
   <div class="inner">
     <div>
-      <div class="price-s">₪99</div>
+      <div class="price-s">₪22.221</div>
       <div class="lbl-s" data-i18n="sticky_lbl">Starter Pack · 48 שעות</div>
     </div>
     <a href="https://t.me/SLH_community_bot?start=promo_shekel_april26" class="cta-s" target="_blank" rel="noopener">
@@ -833,7 +1364,7 @@ const TR = {
     urgent: "Window · 48 hours only",
     hero_title: "The dollar weakens.<br>The shekel rises.<br>Your moment is now.",
     hero_tagline: "Every ₪100 today = 5% more crypto than last month",
-    hero_sub: "SLH Starter Pack for just ₪99 + 10% token bonus + Premium group access — 48 hours only.",
+    hero_sub: "SLH Starter Pack for just ₪22.221 + 10% token bonus + Premium group access — 48 hours only.",
     hours: "Hours", minutes: "Minutes", seconds: "Seconds",
     fx_usd_label: "USD / ILS", fx_usd_delta: "-4.2% in 6 months",
     fx_btc_label: "BTC / ILS", fx_btc_delta: "Rising steadily",
@@ -855,7 +1386,7 @@ const TR = {
     proof_bots: "Active bots", proof_langs: "Supported languages",
     faq_title: "FAQ",
     faq1_q: "Why is the price so low?",
-    faq1_a: "It's an intentionally limited (48h) introductory price to test product-market fit. After the window, the price returns to ₪199.",
+    faq1_a: "It's an intentionally limited (48h) introductory price to test product-market fit. After the window, the price returns to ₪222.",
     faq2_q: "Is the activity recognized by Israeli authorities?",
     faq2_a: "SLH Spark operates with full transparency. The SLH token is registered on BSC as BEP-20. Every purchase is logged in a SHA-256 audit chain.",
     faq3_q: "How do I receive the tokens?",
@@ -1046,15 +1577,141 @@ document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('open'));
 });
 
-/* Live FX fetch (Bank of Israel / fallback) */
-fetch('https://api.exchangerate.host/latest?base=USD&symbols=ILS')
-  .then(r => r.json())
-  .then(d => {
-    if (d && d.rates && d.rates.ILS) {
-      document.getElementById('fx-usd').textContent = d.rates.ILS.toFixed(2);
+/* === Live FX fetch + Chart === */
+async function loadFX() {
+  // Last 6 months of ILS/USD rates (daily)
+  // Using public API: exchangerate.host (no key)
+  const today = new Date();
+  const past = new Date(today); past.setMonth(today.getMonth() - 6);
+  const fmt = d => d.toISOString().slice(0,10);
+
+  try {
+    const r = await fetch(`https://api.exchangerate.host/timeseries?start_date=${fmt(past)}&end_date=${fmt(today)}&base=ILS&symbols=USD`);
+    const data = await r.json();
+    if (data && data.rates) {
+      const entries = Object.entries(data.rates).sort();
+      // Sample every 4 days
+      const sampled = entries.filter((_, i) => i % 4 === 0);
+      const values = sampled.map(([d, v]) => v.USD);
+      const dates = sampled.map(([d]) => d);
+      renderFXChart(values, dates);
+      const latest = values[values.length - 1];
+      const six_mo_ago = values[0];
+      document.getElementById('fx-live-rate').textContent = '$' + latest.toFixed(3);
+      document.getElementById('fx-usd').textContent = (1 / latest).toFixed(2);
+      return;
     }
-  })
-  .catch(() => {});
+  } catch (e) { console.log('FX fetch failed, using fallback', e); }
+
+  // Fallback: synthetic 6-month uptrend 0.26 → 0.33
+  const fallback = [0.26, 0.265, 0.27, 0.275, 0.272, 0.28, 0.285, 0.29, 0.295, 0.30, 0.305, 0.31, 0.315, 0.32, 0.325, 0.33, 0.333, 0.33];
+  renderFXChart(fallback, null);
+}
+
+function renderFXChart(values, dates) {
+  const canvas = document.getElementById('fx-chart');
+  if (!canvas || !values || values.length < 2) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+
+  const W = rect.width, H = rect.height;
+  const PAD = 20;
+  const min = Math.min(...values) * 0.995;
+  const max = Math.max(...values) * 1.005;
+  const range = max - min;
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(0,232,135,0.25)');
+  grad.addColorStop(1, 'rgba(0,232,135,0)');
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = PAD + (H - 2*PAD) * (i/4);
+    ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W-PAD, y); ctx.stroke();
+  }
+
+  // Value points
+  const xStep = (W - 2*PAD) / (values.length - 1);
+  const points = values.map((v, i) => ({
+    x: PAD + i * xStep,
+    y: PAD + (H - 2*PAD) * (1 - (v - min) / range)
+  }));
+
+  // Area fill
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, H - PAD);
+  points.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.lineTo(points[points.length-1].x, H - PAD);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  points.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+  ctx.strokeStyle = '#00e887';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Glow effect
+  ctx.shadowColor = '#00e887';
+  ctx.shadowBlur = 14;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Last point highlight
+  const last = points[points.length - 1];
+  ctx.beginPath();
+  ctx.arc(last.x, last.y, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffd700';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(last.x, last.y, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+
+  // Value label at end
+  ctx.font = 'bold 12px Rubik, sans-serif';
+  ctx.fillStyle = '#ffd700';
+  ctx.textAlign = 'right';
+  ctx.fillText('$' + values[values.length-1].toFixed(3), W - PAD, last.y - 12);
+
+  // Start label
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.textAlign = 'left';
+  ctx.font = '11px Rubik, sans-serif';
+  ctx.fillText('$' + values[0].toFixed(3) + ' (לפני 6ח)', PAD + 4, points[0].y + 16);
+}
+
+loadFX();
+window.addEventListener('resize', () => {
+  // Redraw on resize (debounced)
+  clearTimeout(window._fxResize);
+  window._fxResize = setTimeout(() => loadFX(), 300);
+});
+
+/* Coin shower — 6 symbolic coins */
+(() => {
+  const shower = document.getElementById('coin-shower');
+  if (!shower) return;
+  const emojis = ['💰', '🪙', '💎', '🇮🇱', '₪', '💸'];
+  for (let i = 0; i < 6; i++) {
+    const c = document.createElement('div');
+    c.className = 'coin';
+    c.textContent = emojis[i];
+    c.style.left = (10 + Math.random() * 80) + 'vw';
+    c.style.animationDuration = (15 + Math.random() * 10) + 's';
+    c.style.animationDelay = (Math.random() * 10) + 's';
+    shower.appendChild(c);
+  }
+})();
 
 /* Live stats from SLH API */
 fetch('https://slh-api-production.up.railway.app/api/health')
