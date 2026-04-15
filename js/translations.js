@@ -29,6 +29,8 @@ const T = {
     nav_courses: 'קורסים',
     nav_whitepaper: 'נייר לבן',
     nav_admin: 'ניהול',
+    nav_project_map: 'מפת הפרויקט',
+    nav_control_center: 'מרכז בקרה',
     nav_more: 'עוד',
     nav_login: 'התחברות',
     nav_logout: 'התנתקות',
