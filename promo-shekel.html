@@ -104,17 +104,20 @@ body{
   to   { transform: translate(40px, -40px) scale(1.1); }
 }
 
-/* Coin shower (subtle) */
+/* Coin shower — RISING UP (money goes up!) with theme color sync */
 .coin {
   position: fixed; pointer-events: none; z-index: -1;
   font-size: 24px; opacity: 0;
-  animation: coinFall linear infinite;
+  bottom: -10vh;
+  animation: coinRise linear infinite;
+  filter: drop-shadow(0 0 8px var(--gold));
 }
-@keyframes coinFall {
-  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-  10%  { opacity: 0.4; }
+@keyframes coinRise {
+  0%   { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 0; }
+  10%  { opacity: 0.5; }
+  50%  { transform: translateY(-50vh) rotate(180deg) scale(1); opacity: 0.6; }
   90%  { opacity: 0.4; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  100% { transform: translateY(-115vh) rotate(540deg) scale(1.2); opacity: 0; }
 }
 
 /* Hero: artistic title treatment */
@@ -241,10 +244,160 @@ body{
   max-width: 600px; margin: 0 auto 32px;
 }
 
-/* Countdown */
+/* === RIVER FULL-SCREEN ANIMATION === */
+.river {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  overflow: hidden;
+}
+.river::before {
+  content: '';
+  position: absolute;
+  width: 200%; height: 100%;
+  top: 0; left: -50%;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 232, 135, 0.04) 20%,
+      rgba(255, 215, 0, 0.06) 50%,
+      rgba(0, 232, 135, 0.04) 80%,
+      transparent 100%
+    );
+  animation: flowRight 15s linear infinite;
+}
+.river::after {
+  content: '';
+  position: absolute;
+  width: 200%; height: 100%;
+  bottom: 0; left: -50%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 60px,
+    rgba(0, 232, 135, 0.02) 60px 62px,
+    transparent 62px 120px,
+    rgba(255, 215, 0, 0.02) 120px 122px
+  );
+  animation: flowLeft 40s linear infinite;
+}
+@keyframes flowRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0%); }
+}
+@keyframes flowLeft {
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-50%); }
+}
+
+/* River particles (shekel → dollar flow) */
+.river-particle {
+  position: fixed; z-index: -1;
+  font-size: 20px; opacity: 0;
+  pointer-events: none;
+  animation: flowParticle linear infinite;
+}
+@keyframes flowParticle {
+  0%   { transform: translate(-5vw, 0) scale(0.8); opacity: 0; }
+  10%  { opacity: 0.35; }
+  90%  { opacity: 0.35; }
+  100% { transform: translate(110vw, -20px) scale(1.2); opacity: 0; }
+}
+
+/* === THEME SYSTEM === */
+[data-theme="light"] {
+  --bg: #f5f5f8 !important;
+  --bg2: #ffffff !important;
+  --bg3: #e9ecef !important;
+  --text: #050810 !important;
+  --text2: #4a5568 !important;
+  --text3: #718096 !important;
+  --border: rgba(0,0,0,.15) !important;
+}
+[data-theme="contrast"] {
+  --bg: #000 !important;
+  --bg2: #0a0a0a !important;
+  --text: #fff !important;
+  --gold: #ffff00 !important;
+  --green: #00ff00 !important;
+  --border: rgba(255,255,255,.3) !important;
+}
+[data-theme="royal"] {
+  --bg: #1a0033 !important;
+  --bg2: #2d0066 !important;
+  --bg3: #4a0099 !important;
+  --gold: #ffdf00 !important;
+  --green: #00ffbb !important;
+  --purple: #ff00ff !important;
+}
+[data-theme="sunset"] {
+  --bg: #1a0a00 !important;
+  --bg2: #331a00 !important;
+  --bg3: #663300 !important;
+  --gold: #ff8c00 !important;
+  --green: #ff4500 !important;
+  --purple: #ff1493 !important;
+}
+
+.theme-menu {
+  position: fixed; top: 14px; inset-inline-start: 14px; z-index: 100;
+  display: flex; flex-direction: column; gap: 6px;
+  background: rgba(13,18,32,.9);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+}
+.theme-menu.collapsed .theme-items { display: none; }
+.theme-toggle {
+  display: flex; align-items: center; gap: 8px;
+  background: transparent; border: none; color: var(--text);
+  padding: 6px 10px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; border-radius: 8px;
+  font-family: inherit;
+}
+.theme-items {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.theme-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: transparent; border: 1px solid transparent; color: var(--text2);
+  padding: 8px 12px;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; border-radius: 8px;
+  font-family: inherit;
+  text-align: start;
+}
+.theme-btn:hover { background: rgba(255,215,0,.1); color: var(--text); }
+.theme-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+.theme-btn .swatch {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+}
+
+/* Custom color picker */
+.theme-custom {
+  display: none;
+  flex-direction: column; gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+.theme-menu.show-custom .theme-custom { display: flex; }
+.color-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text2);
+}
+.color-row label { min-width: 60px; }
+.color-row input[type="color"] {
+  width: 36px; height: 28px;
+  border: 1px solid var(--border); border-radius: 6px;
+  cursor: pointer; background: transparent;
+}
+
+/* Countdown — LTR order even in RTL layout */
 .countdown {
   display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
   margin: 24px 0 40px;
+  direction: ltr;  /* Force LTR: hours:minutes:seconds */
 }
 .countdown-unit {
   background: var(--bg2);
@@ -806,11 +959,71 @@ body{
 <body>
 
 <div class="bg-fx"></div>
+<div class="river"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
-<!-- Coin shower (minimal, performance-safe) -->
+<!-- Coin shower + river particles -->
 <div id="coin-shower"></div>
+<div id="river-particles"></div>
+
+<!-- THEME MENU (fixed, top-start) -->
+<div class="theme-menu collapsed" id="theme-menu">
+  <button class="theme-toggle" onclick="toggleThemeMenu()">
+    <i class="fas fa-palette"></i> <span>ערכת נושא</span>
+  </button>
+  <div class="theme-items">
+    <button class="theme-btn active" data-theme="default" onclick="applyTheme('default')">
+      <span class="swatch" style="background:linear-gradient(135deg,#050810,#ffd700)"></span>
+      <span>כהה (ברירת מחדל)</span>
+    </button>
+    <button class="theme-btn" data-theme="light" onclick="applyTheme('light')">
+      <span class="swatch" style="background:linear-gradient(135deg,#f5f5f8,#ffd700)"></span>
+      <span>בהיר</span>
+    </button>
+    <button class="theme-btn" data-theme="contrast" onclick="applyTheme('contrast')">
+      <span class="swatch" style="background:linear-gradient(135deg,#000,#ffff00)"></span>
+      <span>ניגודיות גבוהה</span>
+    </button>
+    <button class="theme-btn" data-theme="royal" onclick="applyTheme('royal')">
+      <span class="swatch" style="background:linear-gradient(135deg,#1a0033,#ff00ff)"></span>
+      <span>מלכותי</span>
+    </button>
+    <button class="theme-btn" data-theme="sunset" onclick="applyTheme('sunset')">
+      <span class="swatch" style="background:linear-gradient(135deg,#1a0a00,#ff8c00)"></span>
+      <span>שקיעה</span>
+    </button>
+    <button class="theme-btn" onclick="toggleCustom()">
+      <span class="swatch" style="background:conic-gradient(red,yellow,green,cyan,blue,magenta,red)"></span>
+      <span>התאמה אישית</span>
+    </button>
+  </div>
+  <div class="theme-custom">
+    <div class="color-row">
+      <label>רקע</label>
+      <input type="color" id="c-bg" value="#050810" onchange="setCustomColor('--bg', this.value)">
+    </div>
+    <div class="color-row">
+      <label>טקסט</label>
+      <input type="color" id="c-text" value="#f5f5f8" onchange="setCustomColor('--text', this.value)">
+    </div>
+    <div class="color-row">
+      <label>זהב</label>
+      <input type="color" id="c-gold" value="#ffd700" onchange="setCustomColor('--gold', this.value)">
+    </div>
+    <div class="color-row">
+      <label>ירוק</label>
+      <input type="color" id="c-green" value="#00e887" onchange="setCustomColor('--green', this.value)">
+    </div>
+    <div class="color-row">
+      <label>סגול</label>
+      <input type="color" id="c-purple" value="#a855f7" onchange="setCustomColor('--purple', this.value)">
+    </div>
+    <button class="theme-btn" style="margin-top:4px" onclick="resetCustom()">
+      <i class="fas fa-undo"></i> איפוס לברירת מחדל
+    </button>
+  </div>
+</div>
 
 <!-- Language Bar -->
 <div class="lang-bar">
@@ -847,26 +1060,45 @@ body{
     <div class="countdown-unit"><div class="num" id="cd-s">59</div><div class="lbl" data-i18n="seconds">שניות</div></div>
   </div>
 
-  <!-- LIVE FX CHART -->
+  <!-- LIVE FX CHART with currency selector -->
   <div style="max-width:900px;margin:40px auto 0;padding:0 20px">
     <div style="background:linear-gradient(135deg,rgba(0,232,135,.08),rgba(255,215,0,.04));border:1px solid rgba(0,232,135,.3);border-radius:20px;padding:24px;position:relative;overflow:hidden">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:16px">
         <div>
           <h3 style="font-size:18px;font-weight:900;margin:0 0 4px;background:linear-gradient(135deg,var(--green),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent">
-            📊 ILS/USD — 6 חודשים
+            📊 חוזק השקל בעולם — 6 חודשים
           </h3>
-          <div style="font-size:12px;color:var(--text2)">חוזק השקל מול הדולר — מעלייה ברציפות</div>
+          <div style="font-size:12px;color:var(--text2)">השוואה: ככל שהקו עולה — השקל חזק יותר מול המטבע. כשהוא יורד — השקל נחלש.</div>
         </div>
         <div style="text-align:center;padding:8px 16px;background:var(--bg);border:1px solid var(--green);border-radius:12px">
           <div style="font-size:22px;font-weight:900;color:var(--green);line-height:1" id="fx-live-rate">0.33$</div>
-          <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px">1 ש"ח</div>
+          <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px">ערך 1 ש"ח</div>
         </div>
       </div>
+
+      <!-- Currency selector -->
+      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;justify-content:center" id="fx-currency-tabs">
+        <button class="fx-tab active" data-cur="USD" onclick="switchFXCurrency('USD')" style="padding:6px 14px;background:var(--gold);color:#000;border:none;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">🇺🇸 דולר USD</button>
+        <button class="fx-tab" data-cur="EUR" onclick="switchFXCurrency('EUR')" style="padding:6px 14px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">🇪🇺 יורו EUR</button>
+        <button class="fx-tab" data-cur="GBP" onclick="switchFXCurrency('GBP')" style="padding:6px 14px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">🇬🇧 פאונד GBP</button>
+        <button class="fx-tab" data-cur="JPY" onclick="switchFXCurrency('JPY')" style="padding:6px 14px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">🇯🇵 יין JPY</button>
+        <button class="fx-tab" data-cur="CHF" onclick="switchFXCurrency('CHF')" style="padding:6px 14px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">🇨🇭 פרנק CHF</button>
+        <button class="fx-tab" data-cur="BTC" onclick="switchFXCurrency('BTC')" style="padding:6px 14px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit">₿ ביטקוין</button>
+      </div>
+
       <canvas id="fx-chart" style="width:100%;height:200px;display:block"></canvas>
       <div style="display:flex;gap:18px;justify-content:center;margin-top:12px;font-size:11px;color:var(--text2);flex-wrap:wrap">
-        <span><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%;margin-inline-end:4px"></i>ערך 1 ש"ח בדולר</span>
-        <span><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%;margin-inline-end:4px"></i>יעד SLH ₪444</span>
-        <span style="color:var(--green)">⬆ +27% חיזוק ב-6 חודשים</span>
+        <span><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%;margin-inline-end:4px"></i>שער כעת</span>
+        <span><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%;margin-inline-end:4px"></i>שיא תקופה</span>
+        <span style="color:var(--green)" id="fx-delta-label">⬆ +27% חיזוק ב-6 חודשים</span>
+      </div>
+
+      <!-- Educational tooltip -->
+      <div style="margin-top:18px;padding:14px;background:rgba(0,232,135,.05);border-right:3px solid var(--green);border-radius:10px;font-size:13px;color:var(--text2);line-height:1.7">
+        💡 <strong style="color:var(--text)">איך לקרוא את הגרף?</strong>
+        <br>אם הקו <strong style="color:var(--green)">עולה</strong> — השקל מתחזק (כוח קנייה גדל בחו"ל).
+        <br>אם הקו <strong style="color:var(--red)">יורד</strong> — השקל נחלש (יקר יותר לקנות מחו"ל).
+        <br>בחר מטבע אחר למעלה כדי להבין בהשוואה — לפעמים השקל חזק מול אחד אבל חלש מול אחר.
       </div>
     </div>
   </div>
@@ -1058,6 +1290,94 @@ body{
   </div>
 </section>
 
+<!-- EDUCATIONAL SECTION — Fiat vs Crypto in simple terms -->
+<section class="why-section" style="margin-bottom:30px">
+  <div class="why-head">
+    <h2>📚 הבנה פשוטה: למה זה משנה?</h2>
+    <p>מסביר הכל בעברית פשוטה — בלי מונחים מקצועיים. אם הבנת את זה — הבנת מספיק.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(59,130,246,.02));border-color:rgba(59,130,246,.3)">
+      <div class="why-ico" style="background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(59,130,246,.05));color:var(--blue)">💵</div>
+      <h3>מה זה כסף "פיאט"?</h3>
+      <p>
+        <strong>פיאט = כסף של ממשלה</strong> (שקל, דולר, יורו).
+        ערכו לא מובטח בזהב, אלא ב<strong>אמון</strong> במדינה.
+        אם הבנק המרכזי מדפיס יותר — הערך נשחק (אינפלציה).
+        <br><br>
+        <strong>זה הסיבה שהדולר נחלש לפעמים</strong> — ארה"ב מדפיסה כסף לטיפול בחובות, וכל דולר שווה קצת פחות.
+      </p>
+    </div>
+
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,215,0,.02));border-color:rgba(255,215,0,.3)">
+      <div class="why-ico" style="color:var(--gold)">🪙</div>
+      <h3>מה זה קריפטו / טוקנים?</h3>
+      <p>
+        <strong>קריפטו = כסף של תוכנה</strong> (Bitcoin, Ethereum, SLH).
+        אין ממשלה שמדפיסה — יש <strong>חוק מתמטי</strong> שקובע כמה יהיה.
+        <br><br>
+        <strong>למה זה חזק?</strong> כי הכמות מוגבלת. אם יש ביקוש — הערך עולה.
+        זה כמו זהב, אבל דיגיטלי וגלובלי.
+      </p>
+    </div>
+
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(168,85,247,.02));border-color:rgba(168,85,247,.3)">
+      <div class="why-ico" style="color:var(--purple)">⚖️</div>
+      <h3>למה השקל מנצח את הדולר?</h3>
+      <p>
+        <strong>3 סיבות פשוטות:</strong>
+        <br>1. <strong>ריבית בישראל גבוהה</strong> (4.5%) → משקיעים מעדיפים שקל.
+        <br>2. <strong>ייצוא הייטק חזק</strong> → דולרים זורמים לישראל ומוחלפים לשקל.
+        <br>3. <strong>ארה"ב מורידה ריבית</strong> → דולר פחות אטרקטיבי.
+      </p>
+    </div>
+
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(0,232,135,.06),rgba(0,232,135,.02));border-color:rgba(0,232,135,.3)">
+      <div class="why-ico" style="color:var(--green)">🎯</div>
+      <h3>למה דווקא עכשיו לקנות קריפטו?</h3>
+      <p>
+        כאשר השקל חזק, <strong>אותם 100 ש"ח קונים יותר קריפטו</strong>.
+        זה כמו לקנות בחו"ל בסיילים.
+        <br><br>
+        השקל בשיא של חצי שנה. ההיסטוריה מראה שזה לא נשאר ככה לעד.
+        <strong>מי שקונה היום — נהנה מהכוח של השקל.</strong>
+      </p>
+    </div>
+
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(255,68,68,.06),rgba(255,68,68,.02));border-color:rgba(255,68,68,.3)">
+      <div class="why-ico" style="color:var(--red)">⚠️</div>
+      <h3>איזה סיכונים יש?</h3>
+      <p>
+        <strong>נהיה ישרים:</strong> קריפטו תנודתי. הערך יכול לעלות 50% או לרדת 50% בחודש.
+        <br><br>
+        <strong>איך מנהלים סיכון?</strong> משקיעים רק מה שאתה מוכן להפסיד.
+        מתחילים <strong>קטן</strong> (כמו ב-22 ש"ח), לומדים, מגדילים בהדרגה.
+      </p>
+    </div>
+
+    <div class="why-card" style="background:linear-gradient(135deg,rgba(6,182,212,.06),rgba(6,182,212,.02));border-color:rgba(6,182,212,.3)">
+      <div class="why-ico" style="color:var(--cyan)">🇮🇱</div>
+      <h3>למה דווקא SLH ולא ביטקוין?</h3>
+      <p>
+        <strong>SLH הוא טוקן ישראלי</strong> שמלוּוה במערכת שלמה:
+        25 בוטים, אקדמיה, קהילה, תמיכה בעברית.
+        <br><br>
+        ביטקוין = להחזיק. SLH = <strong>להשתתף באקוסיסטם</strong>:
+        להרוויח מסטייקינג, ממכירת קורסים, מעמלות אפילייט, מנגנון מובנה לצמיחה.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:30px;text-align:center;padding:20px;background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);border-radius:16px">
+    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:8px">💡 השורה התחתונה</div>
+    <p style="font-size:14px;color:var(--text);max-width:700px;margin:0 auto;line-height:1.7">
+      <strong>השקל חזק היום</strong> = הזדמנות לקנות קריפטו במחיר טוב יותר.
+      <strong>SLH זה לא רק טוקן</strong> — זו דלת לאקוסיסטם שלם.
+      <strong>ב-22.221 ש"ח</strong> אתה לא מסכן הרבה — אבל יכול להרוויח הרבה.
+    </p>
+  </div>
+</section>
+
 <!-- WHY NOW — Explanations Section -->
 <section class="why-section">
   <div class="why-head">
@@ -1191,34 +1511,50 @@ body{
       <div class="price-huge">₪22.221</div>
       <p>מבצע השקה ייחודי · מלאי מוגבל · 48 שעות</p>
     </div>
-    <div class="pay-methods-grid">
-      <a href="https://t.me/SLH_community_bot?start=promo_shekel_april26" class="pay-method-card" target="_blank" rel="noopener">
-        <div class="ico">🤖</div>
-        <div class="name">טלגרם + בוט</div>
-        <div class="detail">קל, מאובטח, הבוט שולח אישור מיד</div>
-        <div class="btn">התחל עכשיו</div>
+    <div class="pay-methods-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <!-- METHOD 1: TELEGRAM (RECOMMENDED) -->
+      <a href="https://t.me/SLH_community_bot?start=promo_shekel_april26" class="pay-method-card" target="_blank" rel="noopener" style="border:2px solid var(--green);background:linear-gradient(135deg,rgba(0,232,135,.1),rgba(255,215,0,.05));position:relative">
+        <div style="position:absolute;top:-10px;inset-inline-end:14px;background:var(--green);color:#000;font-size:10px;font-weight:900;padding:3px 10px;border-radius:10px;text-transform:uppercase">🌟 מומלץ</div>
+        <div class="ico" style="font-size:42px">🤖</div>
+        <div class="name" style="font-size:18px">טלגרם — הכי קל</div>
+        <div class="detail" style="min-height:auto">פתח את הבוט · בחר נתיב · התשלום נעשה בתוך הצ'אט · הבוט שולח לך את כל ההטבות מיד</div>
+        <div class="btn" style="background:var(--green)">פתח בוט עכשיו</div>
       </a>
-      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=bnb" class="pay-method-card">
-        <div class="ico">🟡</div>
-        <div class="name">BNB / Crypto</div>
-        <div class="detail">ארנק MetaMask / TrustWallet · ~0.04 BNB</div>
-        <div class="btn">שלם ב-BNB</div>
+
+      <!-- METHOD 2: TON WALLET -->
+      <a href="/wallet-guide.html?coin=ton&amount=22.221" class="pay-method-card" style="border:1px solid var(--blue);background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(0,232,135,.04))">
+        <div class="ico" style="font-size:42px">💎</div>
+        <div class="name" style="font-size:18px">ארנק TON</div>
+        <div class="detail" style="min-height:auto">העברה ישירה לארנק TON של המערכת · מקבל אישור תוך דקה</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px;padding:6px 8px;background:var(--bg);border-radius:6px;direction:ltr">UQCr743g...EvXdGvp</div>
+        <div class="btn" style="background:var(--blue);color:#fff">מדריך ארנק TON</div>
       </a>
-      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=card" class="pay-method-card">
-        <div class="ico">💳</div>
-        <div class="name">כרטיס אשראי</div>
-        <div class="detail">עד 3 תשלומים · מאובטח SSL · מיידי</div>
-        <div class="btn">שלם בכרטיס</div>
-      </a>
-      <a href="/buy.html?campaign=shekel_april26&amount=22.221&method=bank" class="pay-method-card">
-        <div class="ico">🏦</div>
-        <div class="name">העברה בנקאית</div>
-        <div class="detail">ישיר לחשבון SLH · אישור תוך 24 שעות</div>
-        <div class="btn">פרטי חשבון</div>
+
+      <!-- METHOD 3: BNB / CRYPTO -->
+      <a href="/wallet-guide.html?coin=bnb&amount=22.221" class="pay-method-card" style="border:1px solid var(--gold)">
+        <div class="ico" style="font-size:42px">🟡</div>
+        <div class="name" style="font-size:18px">BNB / Crypto</div>
+        <div class="detail" style="min-height:auto">למי שכבר יש ארנק MetaMask או TrustWallet · ~0.04 BNB</div>
+        <div class="btn">מדריך BNB</div>
       </a>
     </div>
+
+    <!-- Help links for newcomers -->
+    <div style="margin-top:24px;padding:18px;background:var(--bg);border:1px dashed var(--border);border-radius:14px">
+      <div style="font-size:13px;color:var(--text);font-weight:800;margin-bottom:10px;text-align:center">
+        🤔 חדש בקריפטו? אל תדאג — כל המדריכים בעברית פשוטה
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <a href="/wallet-guide.html" style="padding:8px 14px;background:var(--bg2);border:1px solid var(--border);color:var(--text);text-decoration:none;border-radius:10px;font-size:12px;font-weight:700">📖 מדריך פתיחת ארנק (5 דקות)</a>
+        <a href="/getting-started.html" style="padding:8px 14px;background:var(--bg2);border:1px solid var(--border);color:var(--text);text-decoration:none;border-radius:10px;font-size:12px;font-weight:700">🚀 איך מתחילים — מאפס</a>
+        <a href="/guides.html" style="padding:8px 14px;background:var(--bg2);border:1px solid var(--border);color:var(--text);text-decoration:none;border-radius:10px;font-size:12px;font-weight:700">📚 כל המדריכים</a>
+        <a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" style="padding:8px 14px;background:var(--green);color:#000;text-decoration:none;border-radius:10px;font-size:12px;font-weight:800">💬 שאל בבוט (תמיכה אישית)</a>
+      </div>
+    </div>
+
     <p style="text-align:center;font-size:12px;color:var(--text2);margin-top:20px">
       🔒 כל התשלומים מאובטחים · כל קנייה מתועדת ב-SHA-256 audit chain · החזר מלא תוך 14 יום
+      <br><span style="color:var(--text3)">לעת עתה תשלומי כרטיסי אשראי/Bit/PayBox עדיין לא זמינים — הם בפיתוח</span>
     </p>
   </div>
 </section>
@@ -1577,36 +1913,78 @@ document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('open'));
 });
 
-/* === Live FX fetch + Chart === */
+/* === Live FX fetch + Chart with currency switcher === */
+let currentFXCurrency = 'USD';
+const FX_CURRENCY_SYMBOLS = { USD: '$', EUR: '€', GBP: '£', JPY: '¥', CHF: 'Fr', BTC: '₿' };
+const FX_FALLBACKS = {
+  USD: [0.26, 0.265, 0.27, 0.275, 0.272, 0.28, 0.285, 0.29, 0.295, 0.30, 0.305, 0.31, 0.315, 0.32, 0.325, 0.33, 0.333, 0.33],
+  EUR: [0.24, 0.245, 0.25, 0.252, 0.255, 0.258, 0.26, 0.262, 0.265, 0.27, 0.272, 0.275, 0.28, 0.282, 0.285, 0.29, 0.295, 0.30],
+  GBP: [0.21, 0.213, 0.215, 0.218, 0.22, 0.222, 0.225, 0.228, 0.23, 0.232, 0.234, 0.236, 0.24, 0.245, 0.25, 0.255, 0.258, 0.26],
+  JPY: [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
+  CHF: [0.235, 0.238, 0.24, 0.243, 0.245, 0.247, 0.25, 0.252, 0.254, 0.256, 0.258, 0.26, 0.262, 0.264, 0.266, 0.268, 0.27, 0.275],
+  BTC: [0.0000038, 0.000004, 0.0000042, 0.0000044, 0.0000046, 0.0000045, 0.0000044, 0.0000043, 0.0000042, 0.0000041, 0.000004, 0.0000039, 0.0000038, 0.0000037, 0.0000036, 0.0000037, 0.0000038, 0.0000039]
+};
+
+async function switchFXCurrency(cur) {
+  currentFXCurrency = cur;
+  document.querySelectorAll('.fx-tab').forEach(t => {
+    const isActive = t.dataset.cur === cur;
+    t.style.background = isActive ? 'var(--gold)' : 'var(--bg2)';
+    t.style.color = isActive ? '#000' : 'var(--text2)';
+    t.style.border = isActive ? 'none' : '1px solid var(--border)';
+  });
+  await loadFX();
+}
+
 async function loadFX() {
-  // Last 6 months of ILS/USD rates (daily)
-  // Using public API: exchangerate.host (no key)
+  const cur = currentFXCurrency;
   const today = new Date();
   const past = new Date(today); past.setMonth(today.getMonth() - 6);
   const fmt = d => d.toISOString().slice(0,10);
 
   try {
-    const r = await fetch(`https://api.exchangerate.host/timeseries?start_date=${fmt(past)}&end_date=${fmt(today)}&base=ILS&symbols=USD`);
+    const r = await fetch(`https://api.exchangerate.host/timeseries?start_date=${fmt(past)}&end_date=${fmt(today)}&base=ILS&symbols=${cur === 'BTC' ? 'USD' : cur}`);
     const data = await r.json();
     if (data && data.rates) {
       const entries = Object.entries(data.rates).sort();
-      // Sample every 4 days
       const sampled = entries.filter((_, i) => i % 4 === 0);
-      const values = sampled.map(([d, v]) => v.USD);
-      const dates = sampled.map(([d]) => d);
-      renderFXChart(values, dates);
-      const latest = values[values.length - 1];
-      const six_mo_ago = values[0];
-      document.getElementById('fx-live-rate').textContent = '$' + latest.toFixed(3);
-      document.getElementById('fx-usd').textContent = (1 / latest).toFixed(2);
+      const targetSym = cur === 'BTC' ? 'USD' : cur;
+      const values = sampled.map(([d, v]) => v[targetSym]);
+
+      if (cur === 'BTC') {
+        // For BTC: convert ILS->USD->BTC using fixed BTC price ~$67000
+        const btcPrice = 67000;
+        const btcValues = values.map(v => v / btcPrice);
+        renderFXChart(btcValues, null);
+        const latest = btcValues[btcValues.length - 1];
+        document.getElementById('fx-live-rate').textContent = (latest * 1e8).toFixed(0) + ' sat';
+      } else {
+        renderFXChart(values, null);
+        const latest = values[values.length - 1];
+        const sym = FX_CURRENCY_SYMBOLS[cur] || '';
+        document.getElementById('fx-live-rate').textContent = sym + latest.toFixed(3);
+        if (cur === 'USD') document.getElementById('fx-usd').textContent = (1 / latest).toFixed(2);
+        const start = values[0];
+        const change = ((latest - start) / start * 100).toFixed(1);
+        const lbl = document.getElementById('fx-delta-label');
+        if (lbl) {
+          const isUp = change > 0;
+          lbl.textContent = (isUp ? '⬆ +' : '⬇ ') + change + '% ב-6 חודשים';
+          lbl.style.color = isUp ? 'var(--green)' : 'var(--red)';
+        }
+      }
       return;
     }
   } catch (e) { console.log('FX fetch failed, using fallback', e); }
 
-  // Fallback: synthetic 6-month uptrend 0.26 → 0.33
-  const fallback = [0.26, 0.265, 0.27, 0.275, 0.272, 0.28, 0.285, 0.29, 0.295, 0.30, 0.305, 0.31, 0.315, 0.32, 0.325, 0.33, 0.333, 0.33];
-  renderFXChart(fallback, null);
+  // Fallback
+  const values = FX_FALLBACKS[cur] || FX_FALLBACKS.USD;
+  renderFXChart(values, null);
+  const latest = values[values.length - 1];
+  const sym = FX_CURRENCY_SYMBOLS[cur] || '';
+  document.getElementById('fx-live-rate').textContent = cur === 'BTC' ? (latest * 1e8).toFixed(0) + ' sat' : sym + latest.toFixed(3);
 }
+window.switchFXCurrency = switchFXCurrency;
 
 function renderFXChart(values, dates) {
   const canvas = document.getElementById('fx-chart');
@@ -1711,6 +2089,82 @@ window.addEventListener('resize', () => {
     c.style.animationDelay = (Math.random() * 10) + 's';
     shower.appendChild(c);
   }
+})();
+
+/* River particles — shekel signs flowing horizontally across full screen */
+(() => {
+  const river = document.getElementById('river-particles');
+  if (!river) return;
+  const symbols = ['₪', '💰', '$', '📈', '⚡', '✨', '🪙', '💎'];
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'river-particle';
+    p.textContent = symbols[i % symbols.length];
+    p.style.top = (5 + Math.random() * 90) + 'vh';
+    p.style.animationDuration = (18 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    p.style.fontSize = (16 + Math.random() * 18) + 'px';
+    river.appendChild(p);
+  }
+})();
+
+/* === THEME SYSTEM === */
+function applyTheme(name) {
+  if (name === 'default') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', name);
+  }
+  document.querySelectorAll('.theme-btn[data-theme]').forEach(b =>
+    b.classList.toggle('active', b.dataset.theme === name));
+  try { localStorage.setItem('slh_promo_theme', name); } catch(e) {}
+  // Clear any custom overrides
+  ['--bg', '--text', '--gold', '--green', '--purple'].forEach(v =>
+    document.documentElement.style.removeProperty(v));
+  // Hide custom panel
+  document.getElementById('theme-menu').classList.remove('show-custom');
+}
+
+function setCustomColor(prop, value) {
+  document.documentElement.style.setProperty(prop, value);
+  // Mark custom as "in use"
+  document.querySelectorAll('.theme-btn[data-theme]').forEach(b => b.classList.remove('active'));
+  try {
+    const custom = JSON.parse(localStorage.getItem('slh_promo_custom') || '{}');
+    custom[prop] = value;
+    localStorage.setItem('slh_promo_custom', JSON.stringify(custom));
+  } catch(e) {}
+}
+
+function toggleCustom() {
+  document.getElementById('theme-menu').classList.toggle('show-custom');
+}
+
+function resetCustom() {
+  ['--bg', '--text', '--gold', '--green', '--purple'].forEach(v =>
+    document.documentElement.style.removeProperty(v));
+  try { localStorage.removeItem('slh_promo_custom'); } catch(e) {}
+  applyTheme('default');
+}
+
+function toggleThemeMenu() {
+  document.getElementById('theme-menu').classList.toggle('collapsed');
+}
+
+/* Restore saved theme on load */
+(() => {
+  try {
+    const saved = localStorage.getItem('slh_promo_theme');
+    if (saved && saved !== 'default') {
+      applyTheme(saved);
+    }
+    const custom = JSON.parse(localStorage.getItem('slh_promo_custom') || '{}');
+    Object.entries(custom).forEach(([prop, val]) => {
+      document.documentElement.style.setProperty(prop, val);
+      const input = document.querySelector(`[data-prop="${prop}"]`);
+      if (input) input.value = val;
+    });
+  } catch(e) {}
 })();
 
 /* Live stats from SLH API */
