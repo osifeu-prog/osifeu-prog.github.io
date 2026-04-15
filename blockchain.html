@@ -484,8 +484,12 @@
 // SLH BLOCKCHAIN EXPLORER — BSC + TON
 // ============================================================
 const SLH_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
+const PANCAKE_POOL = '0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee';
+const GENESIS_WALLET = '0xd061de73B06d5E91bfA46b35EfB7B08b16903da4';
 const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 const BSCSCAN_API = 'https://api.bscscan.com/api';
+const SLH_API = 'https://slh-api-production.up.railway.app';
+const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 const TON_WALLET = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
 const TON_API = 'https://toncenter.com/api/v2';
 
@@ -495,6 +499,11 @@ const USD_ILS_RATE = 3.65;
 const SLH_PRICE_USD = SLH_PRICE_ILS / USD_ILS_RATE;
 
 let totalSupplyCache = 0;
+let bnbPriceUsd = 0;
+let bnbPriceIls = 0;
+let slhApiStats = null;
+let slhTokenomics = null;
+let poolLiquidity = null;
 
 function shortAddr(a) { return a ? a.slice(0,6)+'...'+a.slice(-4) : '--'; }
 function timeAgo(ts) {
@@ -749,6 +758,124 @@ async function fetchHolderCount() {
     } catch(e) {
         const hEl = document.getElementById('bsc-holders');
         if(hEl) hEl.textContent = '176';
+    }
+}
+
+// ════════════════════════════════════════
+// BNB Price from CoinGecko
+// ════════════════════════════════════════
+async function fetchBNBPrice() {
+    try {
+        const r = await fetch(COINGECKO_API + '/simple/price?ids=binancecoin&vs_currencies=usd,ils');
+        const d = await r.json();
+        bnbPriceUsd = d?.binancecoin?.usd || 0;
+        bnbPriceIls = d?.binancecoin?.ils || 0;
+    } catch(e) {
+        console.log('[CoinGecko] BNB price error:', e);
+    }
+}
+
+// ════════════════════════════════════════
+// SLH API: stats + tokenomics
+// ════════════════════════════════════════
+async function fetchSLHApiStats() {
+    try {
+        const [statsRes, tokenRes] = await Promise.allSettled([
+            fetch(SLH_API + '/api/stats').then(r => r.json()),
+            fetch(SLH_API + '/api/tokenomics/stats').then(r => r.json())
+        ]);
+        if (statsRes.status === 'fulfilled') slhApiStats = statsRes.value;
+        if (tokenRes.status === 'fulfilled') slhTokenomics = tokenRes.value;
+    } catch(e) {
+        console.log('[SLH API] stats error:', e);
+    }
+}
+
+// ════════════════════════════════════════
+// PancakeSwap Pool: Fetch reserves via RPC
+// ════════════════════════════════════════
+async function fetchPoolLiquidity() {
+    try {
+        // getReserves() selector: 0x0902f1ac
+        const resHex = await rpcCall({ method: 'eth_call', params: [{ to: PANCAKE_POOL, data: '0x0902f1ac' }, 'latest'] });
+        if (resHex && resHex !== '0x' && resHex.length >= 130) {
+            // Decode: reserve0 (32 bytes) + reserve1 (32 bytes) + blockTimestampLast (32 bytes)
+            const reserve0Hex = '0x' + resHex.slice(2, 66);
+            const reserve1Hex = '0x' + resHex.slice(66, 130);
+            const reserve0 = Number(BigInt(reserve0Hex));
+            const reserve1 = Number(BigInt(reserve1Hex));
+
+            // Determine which is SLH and which is BNB (check token0)
+            const token0Hex = await rpcCall({ method: 'eth_call', params: [{ to: PANCAKE_POOL, data: '0x0dfe1681' }, 'latest'] });
+            const token0Addr = token0Hex ? ('0x' + token0Hex.slice(26)).toLowerCase() : '';
+            const slhAddr = SLH_CONTRACT.toLowerCase();
+
+            let bnbReserve, slhReserve;
+            if (token0Addr === slhAddr) {
+                slhReserve = reserve0 / 1e15; // SLH has 15 decimals
+                bnbReserve = reserve1 / 1e18;  // BNB has 18 decimals
+            } else {
+                bnbReserve = reserve0 / 1e18;
+                slhReserve = reserve1 / 1e15;
+            }
+
+            const liquidityBnb = bnbReserve * 2; // Total = 2x one side
+            const liquidityUsd = liquidityBnb * (bnbPriceUsd || 600);
+            poolLiquidity = {
+                bnbReserve: bnbReserve,
+                slhReserve: slhReserve,
+                totalBnb: liquidityBnb,
+                totalUsd: liquidityUsd,
+                slhPriceInBnb: bnbReserve / (slhReserve || 1)
+            };
+        }
+    } catch(e) {
+        console.log('[Pool] reserves error:', e);
+    }
+}
+
+// ════════════════════════════════════════
+// Update all KPI cards with real data
+// ════════════════════════════════════════
+function updateKPICards() {
+    // BNB Price as 4th KPI card — repurpose bsc-mcap
+    const mcapEl = document.getElementById('bsc-mcap');
+    const mcapLabel = document.getElementById('bsc-mcap-label');
+
+    if (poolLiquidity && poolLiquidity.totalUsd > 0) {
+        if (mcapEl) {
+            const liq = poolLiquidity.totalUsd;
+            mcapEl.textContent = liq > 1000 ? '$' + fmtNum(liq / 1000, 1) + 'K' : '$' + fmtNum(liq, 0);
+        }
+        if (mcapLabel) mcapLabel.textContent = 'Pool Liquidity';
+    } else if (bnbPriceUsd > 0) {
+        if (mcapEl) mcapEl.textContent = '$' + fmtNum(bnbPriceUsd, 2);
+        if (mcapLabel) mcapLabel.textContent = 'BNB Price';
+    }
+
+    // If we got SLH API tokenomics, update supply
+    if (slhTokenomics) {
+        const supEl = document.getElementById('bsc-supply');
+        if (supEl && slhTokenomics.total_supply) {
+            supEl.textContent = fmtNum(parseFloat(slhTokenomics.total_supply), 0);
+        }
+        // Update holders from tokenomics if available
+        if (slhTokenomics.holders) {
+            const hEl = document.getElementById('bsc-holders');
+            if (hEl) hEl.textContent = parseInt(slhTokenomics.holders).toLocaleString();
+        }
+    }
+
+    // Compute SLH price from pool reserves if available
+    if (poolLiquidity && poolLiquidity.slhPriceInBnb > 0 && bnbPriceUsd > 0) {
+        const realSLHPrice = poolLiquidity.slhPriceInBnb * bnbPriceUsd;
+        const priceEl = document.getElementById('bsc-price');
+        if (priceEl && !dexListed) {
+            const priceIls = realSLHPrice * (bnbPriceIls / bnbPriceUsd || 3.65);
+            priceEl.innerHTML = '$' + fmtNum(realSLHPrice, 4) + ' <small style="color:var(--gold);font-size:12px">₪' + fmtNum(priceIls, 2) + '</small>';
+            const priceLabelEl = document.getElementById('bsc-price-label');
+            if (priceLabelEl) priceLabelEl.textContent = 'SLH Pool Price';
+        }
     }
 }
 

@@ -172,7 +172,7 @@
             <div class="kpi b"><i class="fas fa-robot kpi-icon"></i><div class="kpi-label">Bots Running</div><div class="kpi-val" id="k-bots">25</div><div class="kpi-sub">Docker Compose</div></div>
             <div class="kpi o"><i class="fas fa-coins kpi-icon"></i><div class="kpi-label">Genesis Raised</div><div class="kpi-val" id="k-raised">...</div><div class="kpi-sub" id="k-raised-sub"></div></div>
             <div class="kpi g"><i class="fas fa-link kpi-icon"></i><div class="kpi-label">Audit Chain</div><div class="kpi-val" id="k-audit">...</div><div class="kpi-sub" id="k-audit-sub"></div></div>
-            <div class="kpi r"><i class="fas fa-shield-alt kpi-icon"></i><div class="kpi-label">Security Issues</div><div class="kpi-val" id="k-sec">5</div><div class="kpi-sub">P0: 2 critical</div></div>
+            <div class="kpi r"><i class="fas fa-shield-alt kpi-icon"></i><div class="kpi-label">Security Issues</div><div class="kpi-val" id="k-sec">3</div><div class="kpi-sub">P0: 1 fixed, 2 remaining</div></div>
         </div>
 
         <div class="two-col">
@@ -296,7 +296,7 @@
         <div class="cc-card">
             <h2>Security Audit <span class="badge badge-err" id="sec-badge">5 Issues</span></h2>
             <div id="security-list">
-                <div class="sec-item"><div class="sec-severity critical">P0</div><div><div class="sec-title">Admin passwords in public HTML</div><div class="sec-desc">broadcast-composer.html, ecosystem-guide.html contain hardcoded admin passwords (slh2026admin, slh_admin_2026)</div></div></div>
+                <div class="sec-item"><div class="sec-severity critical" style="background:rgba(0,255,65,.15);color:var(--accent)">FIXED</div><div><div class="sec-title" style="text-decoration:line-through">Admin passwords in public HTML</div><div class="sec-desc">Session 12: Removed ADMIN_PASSWORDS array, deleted admin-test.html bypass, multi-admin system with hashed passwords deployed</div></div></div>
                 <div class="sec-item"><div class="sec-severity critical">P0</div><div><div class="sec-title">Railway env vars missing</div><div class="sec-desc">JWT_SECRET is empty, ADMIN_API_KEYS using defaults — auth is broken</div></div></div>
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">31 bot tokens exposed</div><div class="sec-desc">All bot tokens were pasted in chat history. Need rotation via @BotFather</div></div></div>
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">Unprotected API endpoints</div><div class="sec-desc">/api/tokenomics/burn, /api/tokenomics/reserves/add — no auth required for destructive operations</div></div></div>
