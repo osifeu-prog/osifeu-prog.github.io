@@ -33,6 +33,7 @@ const T = {
     nav_control_center: 'מרכז בקרה',
     nav_promo_shekel: '🔥 קמפיין ש"ח',
     nav_mass_gift: '🎁 מתנות מרוכזות',
+    nav_bot_registry: '🤖 רישום בוטים',
     nav_more: 'עוד',
     nav_login: 'התחברות',
     nav_logout: 'התנתקות',
