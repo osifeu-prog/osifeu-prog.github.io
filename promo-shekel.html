@@ -8,12 +8,16 @@
 <link rel="canonical" href="https://slh-nft.com/promo-shekel.html">
 
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="SLH Spark">
 <meta property="og:url" content="https://slh-nft.com/promo-shekel.html">
-<meta property="og:title" content="SLH Starter Pack — Shekel Strength Window">
-<meta property="og:description" content="48h window: SLH + 10% bonus + Premium group for just ₪22.221">
+<meta property="og:title" content="🔥 SLH Starter Pack ₪22.221 — דולר חלש, שקל חזק | 48 שעות בלבד">
+<meta property="og:description" content="חלון הזדמנות 48 שעות: 0.25 SLH + 1,000 ZVK + Premium Group + קורס בסיס. רק ב-22.221 ש״ח (במקום ₪222) · 4 נתיבים: קונה / שותף / Genesis / קהילה.">
 <meta property="og:image" content="https://slh-nft.com/assets/og/launch.png">
+<meta property="og:image:secure_url" content="https://slh-nft.com/assets/og/launch.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SLH Spark — דולר חלש, שקל חזק. הזדמנות 48 שעות.">
 <meta property="og:locale" content="he_IL">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
@@ -21,8 +25,16 @@
 <meta property="og:locale:alternate" content="fr_FR">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SLH Starter Pack — 48h Shekel Window">
+<meta name="twitter:site" content="@SLH_Spark">
+<meta name="twitter:title" content="🔥 SLH Starter Pack ₪22.221 — Shekel Strength Window">
+<meta name="twitter:description" content="48h opportunity: SLH + ZVK + Premium Group + Course. Just ₪22.221.">
 <meta name="twitter:image" content="https://slh-nft.com/assets/og/launch.png">
+<meta name="twitter:image:alt" content="SLH Spark — Strong Shekel Window">
+
+<!-- WhatsApp / Telegram / LinkedIn use OG -->
+<meta itemprop="image" content="https://slh-nft.com/assets/og/launch.png">
+<meta itemprop="name" content="SLH Starter Pack — דולר חלש שקל חזק">
+<meta itemprop="description" content="חלון הזדמנות 48 שעות · ₪22.221 בלבד">
 
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -104,20 +116,40 @@ body{
   to   { transform: translate(40px, -40px) scale(1.1); }
 }
 
-/* Coin shower — RISING UP (money goes up!) with theme color sync */
+/* Coin shower — RISING UP with size variety */
 .coin {
   position: fixed; pointer-events: none; z-index: -1;
-  font-size: 24px; opacity: 0;
+  opacity: 0;
   bottom: -10vh;
   animation: coinRise linear infinite;
-  filter: drop-shadow(0 0 8px var(--gold));
+  filter: drop-shadow(0 0 8px currentColor);
+  will-change: transform, opacity;
 }
+.coin.tiny    { font-size: 14px; opacity: 0.25; }
+.coin.small   { font-size: 20px; opacity: 0.4; }
+.coin.medium  { font-size: 28px; opacity: 0.5; }
+.coin.large   { font-size: 38px; opacity: 0.55; }
+.coin.huge    { font-size: 52px; opacity: 0.4; }
+.coin.gold-glow   { color: var(--gold); }
+.coin.green-glow  { color: var(--green); }
+.coin.blue-glow   { color: var(--blue); }
+.coin.purple-glow { color: var(--purple); }
 @keyframes coinRise {
-  0%   { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 0; }
-  10%  { opacity: 0.5; }
-  50%  { transform: translateY(-50vh) rotate(180deg) scale(1); opacity: 0.6; }
-  90%  { opacity: 0.4; }
-  100% { transform: translateY(-115vh) rotate(540deg) scale(1.2); opacity: 0; }
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); }
+  25%  { transform: translateY(-30vh) translateX(15px) rotate(90deg); }
+  50%  { transform: translateY(-55vh) translateX(-10px) rotate(180deg); }
+  75%  { transform: translateY(-85vh) translateX(20px) rotate(360deg); }
+  100% { transform: translateY(-120vh) translateX(0) rotate(540deg); }
+}
+@keyframes coinRiseFast {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  20% { opacity: var(--coin-opacity, 0.4); }
+  100% { transform: translateY(-130vh) rotate(720deg); opacity: 0; }
+}
+@keyframes coinFloat {
+  0% { transform: translateY(0) translateX(0) rotate(0); opacity: 0; }
+  10%, 90% { opacity: var(--coin-opacity, 0.4); }
+  100% { transform: translateY(-115vh) translateX(calc(var(--drift,0) * 1px)) rotate(360deg); opacity: 0; }
 }
 
 /* Hero: artistic title treatment */
@@ -301,39 +333,106 @@ body{
   100% { transform: translate(110vw, -20px) scale(1.2); opacity: 0; }
 }
 
-/* === THEME SYSTEM === */
-[data-theme="light"] {
-  --bg: #f5f5f8 !important;
+/* === THEME SYSTEM v2 — comprehensive variable overrides === */
+html[data-theme="light"] {
+  --bg: #f8f9fb !important;
   --bg2: #ffffff !important;
-  --bg3: #e9ecef !important;
-  --text: #050810 !important;
+  --bg3: #eef0f4 !important;
+  --gold: #b8860b !important;
+  --gold2: #cd9b1d !important;
+  --green: #008f56 !important;
+  --green2: #00a866 !important;
+  --red: #d63333 !important;
+  --purple: #6b42c8 !important;
+  --blue: #2563eb !important;
+  --text: #0a0e1a !important;
   --text2: #4a5568 !important;
   --text3: #718096 !important;
-  --border: rgba(0,0,0,.15) !important;
+  --border: rgba(184,134,11,.3) !important;
+  --glow-gold: 0 0 30px rgba(184,134,11,.25) !important;
+  --glow-green: 0 0 30px rgba(0,143,86,.20) !important;
 }
-[data-theme="contrast"] {
+html[data-theme="light"] body {
+  background: linear-gradient(180deg, #f8f9fb, #eef0f4 100%) !important;
+}
+html[data-theme="light"] .bg-fx::before {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(184,134,11,.10), transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(0,143,86,.08), transparent 50%),
+    linear-gradient(180deg, #f8f9fb 0%, #eef0f4 100%) !important;
+}
+html[data-theme="light"] .river::before {
+  background: linear-gradient(90deg, transparent, rgba(184,134,11,.08) 50%, transparent) !important;
+}
+
+html[data-theme="contrast"] {
   --bg: #000 !important;
   --bg2: #0a0a0a !important;
+  --bg3: #111 !important;
   --text: #fff !important;
+  --text2: #ddd !important;
+  --text3: #aaa !important;
   --gold: #ffff00 !important;
+  --gold2: #ffea00 !important;
   --green: #00ff00 !important;
-  --border: rgba(255,255,255,.3) !important;
+  --green2: #00ee00 !important;
+  --purple: #ff00ff !important;
+  --blue: #00ffff !important;
+  --red: #ff0044 !important;
+  --border: rgba(255,255,255,.4) !important;
 }
-[data-theme="royal"] {
+html[data-theme="contrast"] .bg-fx::before {
+  background: #000 !important;
+}
+
+html[data-theme="royal"] {
   --bg: #1a0033 !important;
   --bg2: #2d0066 !important;
   --bg3: #4a0099 !important;
   --gold: #ffdf00 !important;
+  --gold2: #ffd700 !important;
   --green: #00ffbb !important;
+  --green2: #00ddaa !important;
   --purple: #ff00ff !important;
+  --blue: #6644ff !important;
+  --text: #fff !important;
+  --text2: #d4baff !important;
+  --border: rgba(255,223,0,.3) !important;
 }
-[data-theme="sunset"] {
+html[data-theme="royal"] .bg-fx::before {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,0,255,.20), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(255,223,0,.15), transparent 50%),
+    linear-gradient(180deg, #1a0033 0%, #2d0066 50%, #1a0033 100%) !important;
+}
+
+html[data-theme="sunset"] {
   --bg: #1a0a00 !important;
   --bg2: #331a00 !important;
   --bg3: #663300 !important;
   --gold: #ff8c00 !important;
+  --gold2: #ffaa00 !important;
   --green: #ff4500 !important;
+  --green2: #ff6600 !important;
   --purple: #ff1493 !important;
+  --blue: #ff5500 !important;
+  --red: #cc0000 !important;
+  --text: #fff5e6 !important;
+  --text2: #ffcc99 !important;
+  --border: rgba(255,140,0,.3) !important;
+}
+html[data-theme="sunset"] .bg-fx::before {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,140,0,.20), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(255,69,0,.15), transparent 50%),
+    linear-gradient(180deg, #1a0a00 0%, #331a00 50%, #1a0a00 100%) !important;
+}
+
+/* Theme transition smooth */
+html, body, .why-card, .path-card, .pay-method-card,
+.offer-card, .pay-card, .stake-card, .preorder-card,
+.eco-link, .faq-item, .countdown-unit, .fx-card {
+  transition: background-color .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease;
 }
 
 .theme-menu {
@@ -2075,20 +2174,73 @@ window.addEventListener('resize', () => {
   window._fxResize = setTimeout(() => loadFX(), 300);
 });
 
-/* Coin shower — 6 symbolic coins */
+/* === DIVERSE COIN SHOWER — sizes, colors, paths, emojis === */
 (() => {
   const shower = document.getElementById('coin-shower');
   if (!shower) return;
-  const emojis = ['💰', '🪙', '💎', '🇮🇱', '₪', '💸'];
-  for (let i = 0; i < 6; i++) {
+
+  // Rich emoji mix: money, israeli, crypto, growth
+  const emojiSets = {
+    common:  ['💰', '🪙', '💎', '₪', '💸', '$', '📈'],
+    israeli: ['🇮🇱', '✡️', '🕊️'],
+    crypto:  ['₿', '⚡', '🔷', '🟡'],
+    growth:  ['🌱', '🌿', '✨', '🌟', '🚀', '🎯']
+  };
+  const allEmojis = [...emojiSets.common, ...emojiSets.common, ...emojiSets.crypto, ...emojiSets.israeli, ...emojiSets.growth];
+
+  const sizes  = ['tiny', 'small', 'medium', 'large', 'huge'];
+  const colors = ['gold-glow', 'green-glow', 'gold-glow', 'blue-glow', 'gold-glow', 'purple-glow'];
+  const anims  = ['coinRise', 'coinFloat', 'coinRiseFast'];
+
+  function spawn() {
     const c = document.createElement('div');
-    c.className = 'coin';
-    c.textContent = emojis[i];
-    c.style.left = (10 + Math.random() * 80) + 'vw';
-    c.style.animationDuration = (15 + Math.random() * 10) + 's';
-    c.style.animationDelay = (Math.random() * 10) + 's';
+    const sizeClass = sizes[Math.floor(Math.random() * sizes.length)];
+    const colorClass = colors[Math.floor(Math.random() * colors.length)];
+    c.className = `coin ${sizeClass} ${colorClass}`;
+    c.textContent = allEmojis[Math.floor(Math.random() * allEmojis.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    const dur = 12 + Math.random() * 22;
+    const anim = anims[Math.floor(Math.random() * anims.length)];
+    c.style.animation = `${anim} ${dur}s linear`;
+    c.style.setProperty('--drift', (Math.random() * 200 - 100));
     shower.appendChild(c);
+    // Remove after animation completes
+    setTimeout(() => c.remove(), dur * 1000 + 200);
   }
+
+  // Initial burst — 18 staggered
+  for (let i = 0; i < 18; i++) {
+    setTimeout(spawn, i * 700 + Math.random() * 400);
+  }
+
+  // Continuous spawn — every 1.2-2.8 seconds, paused if tab hidden
+  let spawnInterval;
+  function startSpawning() {
+    if (spawnInterval) return;
+    spawnInterval = setInterval(() => {
+      if (!document.hidden) spawn();
+    }, 1500 + Math.random() * 1300);
+  }
+  function stopSpawning() {
+    if (spawnInterval) { clearInterval(spawnInterval); spawnInterval = null; }
+  }
+  startSpawning();
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stopSpawning() : startSpawning();
+  });
+
+  // Adapt to scroll position — more coins when in offer/payment sections
+  let lastScrollSpawn = 0;
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - lastScrollSpawn < 800) return;
+    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    // Burst more in the paying section (60-80% scroll)
+    if (scrolled > 0.55 && scrolled < 0.85 && Math.random() > 0.4) {
+      spawn();
+      lastScrollSpawn = now;
+    }
+  });
 })();
 
 /* River particles — shekel signs flowing horizontally across full screen */
