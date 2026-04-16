@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אודות SLH Spark — שקיפות מלאה | פרויקט ישראלי פתוח</title>
+<title data-i18n="about_title">אודות SLH Spark — שקיפות מלאה | פרויקט ישראלי פתוח</title>
 <meta name="description" content="SLH Spark — אקוסיסטם קריפטו ישראלי בצוות עצמאי. Python + aiogram + FastAPI + BSC. שקיפות מלאה, קוד פתוח, ערכי ליבה חזקים.">
 <meta name="author" content="Osif Ungar">
 <meta name="keywords" content="SLH Spark, slhalpa, SLH token, BSC BEP-20, SLH crypto Israel, קריפטו ישראלי, SLH ecosystem, אקוסיסטם קריפטו">
@@ -32,48 +32,34 @@
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="/css/shared.css?v=20260415">
+<link rel="stylesheet" href="/css/shared.css?v=20260416">
 
 <style>
-:root{--bg:#050810;--bg2:#0d1220;--bg3:#151a2e;--gold:#ffd700;--gold2:#f3ba2f;--green:#00e887;--red:#ff4444;--purple:#a855f7;--blue:#3b82f6;--cyan:#06b6d4;--text:#f5f5f8;--text2:#9ba0b5;--text3:#5a6078;--border:rgba(255,215,0,.2)}
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Rubik',sans-serif;margin:0;min-height:100vh;line-height:1.7}
-body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 10%,rgba(255,215,0,.08),transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(0,232,135,.06),transparent 50%)}
-
 .hero{max-width:1100px;margin:0 auto;padding:70px 20px 30px;text-align:center}
-.hero .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(0,232,135,.1));border:1px solid var(--gold);border-radius:30px;font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:24px}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg, rgba(255,215,0,.15), rgba(0,232,135,.1));border:1px solid var(--gold);border-radius:30px;font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:24px}
 .hero h1{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:1.1;margin:0 0 18px;background:linear-gradient(135deg,var(--gold),var(--green),var(--text));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .lead{font-size:clamp(16px,2.2vw,20px);color:var(--text);max-width:720px;margin:0 auto 16px;font-weight:500}
 .hero .sub{font-size:14px;color:var(--text2);max-width:620px;margin:0 auto}
-
 .section{max-width:1100px;margin:0 auto 50px;padding:0 20px}
 .section h2{font-size:clamp(24px,4vw,36px);font-weight:900;margin:0 0 14px;text-align:center;background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
 .section p.lead{text-align:center;font-size:15px;color:var(--text2);max-width:700px;margin:0 auto 30px}
-
-/* Mission/Vision */
 .mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
 .mv-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;transition:all .25s}
 .mv-card:hover{border-color:var(--gold);transform:translateY(-3px)}
 .mv-card .ico{width:60px;height:60px;background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(0,232,135,.1));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--gold);margin-bottom:18px}
 .mv-card h3{font-size:20px;font-weight:900;margin:0 0 12px;color:var(--text)}
 .mv-card p{font-size:14px;color:var(--text2);margin:0;line-height:1.8}
-
-/* Values */
 .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
 .value{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center;transition:all .2s}
 .value:hover{border-color:var(--gold);transform:translateY(-3px)}
 .value .ico{font-size:36px;color:var(--gold);margin-bottom:12px}
 .value h4{font-size:15px;font-weight:900;margin:0 0 8px;color:var(--text)}
 .value p{font-size:13px;color:var(--text2);margin:0;line-height:1.7}
-
-/* Tech stack */
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .tech{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
 .tech .ico{font-size:28px;color:var(--gold);flex-shrink:0;width:44px;text-align:center}
 .tech .body .name{font-weight:800;color:var(--text);font-size:14px;font-family:'JetBrains Mono',monospace}
 .tech .body .desc{font-size:11px;color:var(--text2);margin-top:2px}
-
-/* Founder */
 .founder-card{max-width:480px;margin:0 auto;background:var(--bg2);border:2px solid var(--gold);border-radius:24px;padding:36px;text-align:center;box-shadow:0 20px 60px rgba(255,215,0,.15)}
 .founder-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:#000;margin:0 auto 20px;border:4px solid var(--bg)}
 .founder-card h3{font-size:26px;font-weight:900;margin:0 0 6px;color:var(--text)}
@@ -84,24 +70,18 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .founder-card .socials{display:flex;gap:12px;justify-content:center}
 .founder-card .socials a{width:44px;height:44px;border-radius:12px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);font-size:18px;text-decoration:none;transition:all .2s}
 .founder-card .socials a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-
-/* Stats */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .stat{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
 .stat .ico{font-size:28px;color:var(--gold);margin-bottom:10px}
 .stat .num{font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:'JetBrains Mono',monospace}
 .stat .lbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:8px}
 .stats-note{text-align:center;font-size:12px;color:var(--text3);margin-top:20px;font-style:italic}
-
-/* Ecosystem grid */
 .eco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
 .eco-item{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s;text-align:center}
 .eco-item:hover{border-color:var(--gold);transform:translateY(-3px)}
 .eco-item i{font-size:26px;color:var(--gold)}
 .eco-item .name{font-weight:800;font-size:13px}
 .eco-item .desc{font-size:11px;color:var(--text2)}
-
-/* CTA */
 .cta{text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);border-radius:24px;margin-top:40px}
 .cta h2{margin:0 0 16px}
 .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
@@ -109,25 +89,18 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .btn-cta.primary{background:linear-gradient(135deg,var(--gold),var(--green));color:#000}
 .btn-cta.secondary{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
 .btn-cta:hover{transform:translateY(-2px)}
-
 @media (max-width:640px){.hero{padding:40px 16px 20px}.mv-grid,.values-grid,.tech-grid,.eco-grid,.stats-grid{gap:12px}}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<nav id="topnav-root"></nav>
+
 <section class="hero">
-  <div class="badge">
-    <i class="fas fa-shield-alt"></i>
-    שקיפות מלאה · קוד פתוח · צוות עצמאי
-  </div>
-  <h1>אודות SLH Spark</h1>
-  <p class="lead">אקוסיסטם קריפטו ישראלי בפיתוח עצמאי — הכל כאן אמיתי.</p>
-  <p class="sub">
-    צוות קטן ומחויב — Osif Ungar (מייסד) + Kaufman (שותף) — בונים אקוסיסטם שלם:
-    25 בוטים, אתר ב-5 שפות, 5 טוקנים, וקהילה שגדלה. <strong>אמיתי. פתוח. בלי חלומות באוויר.</strong>
-  </p>
-  <!-- Brand ID for AI crawlers + blockchain disambiguation -->
+  <div class="badge"><i class="fas fa-shield-alt"></i> <span data-i18n="about_badge">שקיפות מלאה · קוד פתוח · צוות עצמאי</span></div>
+  <h1 data-i18n="about_title_main">אודות SLH Spark</h1>
+  <p class="lead" data-i18n="about_lead">אקוסיסטם קריפטו ישראלי בפיתוח עצמאי — הכל כאן אמיתי.</p>
+  <p class="sub" data-i18n="about_sub">צוות קטן ומחויב — Osif Ungar (מייסד) + Kaufman (שותף) — בונים אקוסיסטם שלם: 25 בוטים, אתר ב-5 שפות, 5 טוקנים, וקהילה שגדלה. <strong>אמיתי. פתוח. בלי חלומות באוויר.</strong></p>
   <div style="margin-top:24px;padding:14px 20px;background:var(--bg2);border:1px dashed var(--gold);border-radius:12px;max-width:680px;margin-inline:auto;font-family:'JetBrains Mono',monospace">
     <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Project ID · For AI / Search / Disambiguation</div>
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;font-size:12px">
@@ -140,509 +113,295 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
   </div>
 </section>
 
-<!-- MISSION / VISION -->
 <section class="section">
   <div class="mv-grid">
-    <div class="mv-card">
-      <div class="ico"><i class="fas fa-bullseye"></i></div>
-      <h3>המשימה</h3>
-      <p>
-        ליצור את האקוסיסטם הראשון בישראל שמשלב קריפטו, AI ובוטים —
-        בעברית פשוטה, עם גישה לכל מי שרוצה להיות חלק. <strong>שקיפות 100%</strong> בכל החלטה, בכל טוקן, בכל שורת קוד.
-      </p>
-    </div>
-    <div class="mv-card">
-      <div class="ico"><i class="fas fa-eye"></i></div>
-      <h3>החזון</h3>
-      <p>
-        עולם שבו הקהילה היא הבעלים. כל משתמש שולט בנתונים שלו, מרוויח מהשתתפותו,
-        ומקבל גישה לכלים חכמים <strong>בלי לוותר על פרטיות או אמון</strong>.
-        כולל "שנת יובל" דיגיטלית — כלכלה מחזורית הוגנת.
-      </p>
-    </div>
+    <div class="mv-card"><div class="ico"><i class="fas fa-bullseye"></i></div><h3 data-i18n="mission_title">המשימה</h3><p data-i18n="mission_text">ליצור את האקוסיסטם הראשון בישראל שמשלב קריפטו, AI ובוטים — בעברית פשוטה, עם גישה לכל מי שרוצה להיות חלק. <strong>שקיפות 100%</strong> בכל החלטה, בכל טוקן, בכל שורת קוד.</p></div>
+    <div class="mv-card"><div class="ico"><i class="fas fa-eye"></i></div><h3 data-i18n="vision_title">החזון</h3><p data-i18n="vision_text">עולם שבו הקהילה היא הבעלים. כל משתמש שולט בנתונים שלו, מרוויח מהשתתפותו, ומקבל גישה לכלים חכמים <strong>בלי לוותר על פרטיות או אמון</strong>. כולל "שנת יובל" דיגיטלית — כלכלה מחזורית הוגנת.</p></div>
   </div>
 </section>
 
-<!-- VALUES -->
 <section class="section">
-  <h2>ערכי הליבה שלנו</h2>
+  <h2 data-i18n="values_title">ערכי הליבה שלנו</h2>
   <div class="values-grid">
-    <div class="value">
-      <div class="ico"><i class="fas fa-lock-open"></i></div>
-      <h4>שקיפות מלאה</h4>
-      <p>כל ה-API פתוח לבדיקה. כל Contract ב-BSC. כל commit ב-GitHub.</p>
-    </div>
-    <div class="value">
-      <div class="ico"><i class="fas fa-users"></i></div>
-      <h4>קהילה תחילה</h4>
-      <p>מומחים, שותפים, Genesis Contributors — הקהילה היא השותפה האמיתית.</p>
-    </div>
-    <div class="value">
-      <div class="ico"><i class="fas fa-shield-alt"></i></div>
-      <h4>אבטחה אמיתית</h4>
-      <p>SHA-256 audit chain · 2FA · אין סיסמאות hardcoded · X-Admin-Key header.</p>
-    </div>
-    <div class="value">
-      <div class="ico"><i class="fas fa-globe"></i></div>
-      <h4>נגישות גלובלית</h4>
-      <p>5 שפות (עברית, אנגלית, רוסית, ערבית, צרפתית). RTL+LTR מלא.</p>
-    </div>
-    <div class="value">
-      <div class="ico"><i class="fas fa-balance-scale"></i></div>
-      <h4>הוגנות כלכלית</h4>
-      <p>70% למוכר / 30% למערכת. אפילייט 20% ZVK + 10% SLH. שקוף ופורסם.</p>
-    </div>
-    <div class="value">
-      <div class="ico"><i class="fas fa-star-of-david"></i></div>
-      <h4>מחויבות לישראל</h4>
-      <p>בנוי בישראל לישראלים. עברית UI. כולל פתרון לציבור החרדי (ארנק כשר).</p>
-    </div>
+    <div class="value"><div class="ico"><i class="fas fa-lock-open"></i></div><h4 data-i18n="value1_title">שקיפות מלאה</h4><p data-i18n="value1_text">כל ה-API פתוח לבדיקה. כל Contract ב-BSC. כל commit ב-GitHub.</p></div>
+    <div class="value"><div class="ico"><i class="fas fa-users"></i></div><h4 data-i18n="value2_title">קהילה תחילה</h4><p data-i18n="value2_text">מומחים, שותפים, Genesis Contributors — הקהילה היא השותפה האמיתית.</p></div>
+    <div class="value"><div class="ico"><i class="fas fa-shield-alt"></i></div><h4 data-i18n="value3_title">אבטחה אמיתית</h4><p data-i18n="value3_text">SHA-256 audit chain · 2FA · אין סיסמאות hardcoded · X-Admin-Key header.</p></div>
+    <div class="value"><div class="ico"><i class="fas fa-globe"></i></div><h4 data-i18n="value4_title">נגישות גלובלית</h4><p data-i18n="value4_text">5 שפות (עברית, אנגלית, רוסית, ערבית, צרפתית). RTL+LTR מלא.</p></div>
+    <div class="value"><div class="ico"><i class="fas fa-balance-scale"></i></div><h4 data-i18n="value5_title">הוגנות כלכלית</h4><p data-i18n="value5_text">70% למוכר / 30% למערכת. אפילייט 20% ZVK + 10% SLH. שקוף ופורסם.</p></div>
+    <div class="value"><div class="ico"><i class="fas fa-star-of-david"></i></div><h4 data-i18n="value6_title">מחויבות לישראל</h4><p data-i18n="value6_text">בנוי בישראל לישראלים. עברית UI. כולל פתרון לציבור החרדי (ארנק כשר).</p></div>
   </div>
 </section>
 
-<!-- TECHNOLOGY -->
 <section class="section">
-  <h2>הטכנולוגיה שבנינו</h2>
-  <p class="lead">בחירות הטכנולוגיה נעשו ע"פ יציבות, קהילה פעילה, וביצועים. כל הרכיבים בפרוד עובדים.</p>
+  <h2 data-i18n="tech_title">הטכנולוגיה שבנינו</h2>
+  <p class="lead" data-i18n="tech_lead">בחירות הטכנולוגיה נעשו ע"פ יציבות, קהילה פעילה, וביצועים. כל הרכיבים בפרוד עובדים.</p>
   <div class="tech-grid">
-    <div class="tech"><div class="ico"><i class="fas fa-bolt"></i></div><div class="body"><div class="name">FastAPI + Railway</div><div class="desc">Python backend · 117+ endpoints · auto-scale</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-database"></i></div><div class="body"><div class="name">PostgreSQL 15 + Redis 7</div><div class="desc">30+ tables · sessions · caching</div></div></div>
-    <div class="tech"><div class="ico"><i class="fab fa-telegram"></i></div><div class="body"><div class="name">aiogram 3.x</div><div class="desc">25 Telegram bots · Docker Compose</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-cube"></i></div><div class="body"><div class="name">BSC BEP-20 (SLH)</div><div class="desc">PancakeSwap V2 pool · live trading</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-gem"></i></div><div class="body"><div class="name">TON Blockchain</div><div class="desc">Payment integration · kosher wallet</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-robot"></i></div><div class="body"><div class="name">Anthropic Claude API</div><div class="desc">AI Assistant (in-page widget)</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-globe"></i></div><div class="body"><div class="name">GitHub Pages</div><div class="desc">49+ HTML pages · 5 languages</div></div></div>
-    <div class="tech"><div class="ico"><i class="fas fa-microchip"></i></div><div class="body"><div class="name">ESP32 (In Dev)</div><div class="desc">Kosher hardware wallet · SMS bridge</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-bolt"></i></div><div class="body"><div class="name">FastAPI + Railway</div><div class="desc" data-i18n="tech_fastapi_desc">Python backend · 117+ endpoints · auto-scale</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-database"></i></div><div class="body"><div class="name">PostgreSQL 15 + Redis 7</div><div class="desc" data-i18n="tech_db_desc">30+ tables · sessions · caching</div></div></div>
+    <div class="tech"><div class="ico"><i class="fab fa-telegram"></i></div><div class="body"><div class="name">aiogram 3.x</div><div class="desc" data-i18n="tech_aiogram_desc">25 Telegram bots · Docker Compose</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-cube"></i></div><div class="body"><div class="name">BSC BEP-20 (SLH)</div><div class="desc" data-i18n="tech_bsc_desc">PancakeSwap V2 pool · live trading</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-gem"></i></div><div class="body"><div class="name">TON Blockchain</div><div class="desc" data-i18n="tech_ton_desc">Payment integration · kosher wallet</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-robot"></i></div><div class="body"><div class="name">Anthropic Claude API</div><div class="desc" data-i18n="tech_claude_desc">AI Assistant (in-page widget)</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-globe"></i></div><div class="body"><div class="name">GitHub Pages</div><div class="desc" data-i18n="tech_gh_desc">49+ HTML pages · 5 languages</div></div></div>
+    <div class="tech"><div class="ico"><i class="fas fa-microchip"></i></div><div class="body"><div class="name">ESP32 (In Dev)</div><div class="desc" data-i18n="tech_esp_desc">Kosher hardware wallet · SMS bridge</div></div></div>
   </div>
 </section>
 
-<!-- FOUNDER -->
 <section class="section">
-  <h2>הצוות מאחורי SLH</h2>
+  <h2 data-i18n="team_title">הצוות מאחורי SLH</h2>
   <div class="founder-card">
     <div class="founder-avatar">O</div>
     <h3>Osif Ungar</h3>
     <div class="handle">@osifeu_prog · Telegram ID: 224223270</div>
-    <div class="role">מייסד · מפתח ראשי</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:14px">+ Kaufman (שותף עסקי)</div>
-    <div class="tags">
-      <span class="tag">Full-stack</span>
-      <span class="tag">Python</span>
-      <span class="tag">Blockchain</span>
-      <span class="tag">AI</span>
-      <span class="tag">DevOps</span>
-    </div>
-    <div class="socials">
-      <a href="https://github.com/osifeu-prog" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://t.me/osifeu_prog" target="_blank" rel="noopener" title="Telegram"><i class="fab fa-telegram"></i></a>
-      <a href="tel:+972584203384" title="Phone"><i class="fas fa-phone"></i></a>
-      <a href="https://slh-nft.com/experts.html" title="Expert Profile"><i class="fas fa-user-graduate"></i></a>
-    </div>
+    <div class="role" data-i18n="founder_role">מייסד · מפתח ראשי</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:14px" data-i18n="partner_note">+ Kaufman (שותף עסקי)</div>
+    <div class="tags"><span class="tag">Full-stack</span><span class="tag">Python</span><span class="tag">Blockchain</span><span class="tag">AI</span><span class="tag">DevOps</span></div>
+    <div class="socials"><a href="https://github.com/osifeu-prog" target="_blank"><i class="fab fa-github"></i></a><a href="https://t.me/osifeu_prog" target="_blank"><i class="fab fa-telegram"></i></a><a href="tel:+972584203384"><i class="fas fa-phone"></i></a><a href="https://slh-nft.com/experts.html"><i class="fas fa-user-graduate"></i></a></div>
   </div>
 </section>
 
-<!-- LIVE STATS -->
 <section class="section">
-  <h2>נתונים חיים</h2>
-  <p class="lead">הכל נשלף מה-API בזמן אמת. אין מספרים מזויפים. אם משהו לא טעון — יוצג "—".</p>
+  <h2 data-i18n="live_stats_title">נתונים חיים</h2>
+  <p class="lead" data-i18n="live_stats_lead">הכל נשלף מה-API בזמן אמת. אין מספרים מזויפים. אם משהו לא טעון — יוצג "—".</p>
   <div class="stats-grid">
-    <div class="stat"><div class="ico"><i class="fas fa-users"></i></div><div class="num" id="s-users">—</div><div class="lbl">משתמשים רשומים</div></div>
-    <div class="stat"><div class="ico"><i class="fas fa-hand-holding-usd"></i></div><div class="num" id="s-genesis">—</div><div class="lbl">Genesis Contributors</div></div>
-    <div class="stat"><div class="ico"><i class="fas fa-robot"></i></div><div class="num">25</div><div class="lbl">בוטים פעילים</div></div>
-    <div class="stat"><div class="ico"><i class="fas fa-file-code"></i></div><div class="num">49</div><div class="lbl">דפי אתר</div></div>
-    <div class="stat"><div class="ico"><i class="fas fa-coins"></i></div><div class="num">5</div><div class="lbl">טוקנים</div></div>
-    <div class="stat"><div class="ico"><i class="fas fa-language"></i></div><div class="num">5</div><div class="lbl">שפות</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-users"></i></div><div class="num" id="s-users">—</div><div class="lbl" data-i18n="stat_users_label">משתמשים רשומים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-hand-holding-usd"></i></div><div class="num" id="s-genesis">—</div><div class="lbl" data-i18n="stat_genesis_label">Genesis Contributors</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-robot"></i></div><div class="num">25</div><div class="lbl" data-i18n="stat_bots_label">בוטים פעילים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-file-code"></i></div><div class="num">49</div><div class="lbl" data-i18n="stat_pages_label">דפי אתר</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-coins"></i></div><div class="num">5</div><div class="lbl" data-i18n="stat_tokens_label">טוקנים</div></div>
+    <div class="stat"><div class="ico"><i class="fas fa-language"></i></div><div class="num">5</div><div class="lbl" data-i18n="stat_langs_label">שפות</div></div>
   </div>
   <p class="stats-note">📡 נתונים דינמיים נטענים מ-<code>api/health</code> · סטטיים נשמרים במקור האמת</p>
 </section>
 
-<!-- LIVE NEURAL NETWORK — Real ecosystem visualization -->
 <section class="section">
-  <h2>🧠 רשת הנוירונים של האקוסיסטם</h2>
-  <p class="lead">מפה חיה של כל הצמתים במערכת — עודכן מה-API כל 30 שניות. לחץ על צומת לפרטים.</p>
+  <h2 data-i18n="neural_title">🧠 רשת הנוירונים של האקוסיסטם</h2>
+  <p class="lead" data-i18n="neural_lead">מפה חיה של כל הצמתים במערכת — עודכן מה-API כל 30 שניות. לחץ על צומת לפרטים.</p>
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:20px;margin-top:10px">
     <canvas id="neural-canvas" style="width:100%;height:460px;display:block"></canvas>
     <div style="display:flex;gap:14px;justify-content:center;margin-top:14px;flex-wrap:wrap;font-size:11px">
-      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%"></i>Core / Founder</span>
-      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%"></i>Users / Community</span>
-      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--purple);border-radius:50%"></i>Bots / Services</span>
-      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--blue);border-radius:50%"></i>Blockchain / Tokens</span>
-      <span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:10px;height:10px;background:var(--cyan);border-radius:50%"></i>Experts</span>
+      <span><i style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:50%"></i>Core / Founder</span>
+      <span><i style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%"></i>Users / Community</span>
+      <span><i style="display:inline-block;width:10px;height:10px;background:var(--purple);border-radius:50%"></i>Bots / Services</span>
+      <span><i style="display:inline-block;width:10px;height:10px;background:var(--blue);border-radius:50%"></i>Blockchain / Tokens</span>
+      <span><i style="display:inline-block;width:10px;height:10px;background:var(--cyan);border-radius:50%"></i>Experts</span>
     </div>
-    <div id="neural-info" style="margin-top:14px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text2);min-height:40px;text-align:center">
-      לחץ על צומת כדי לראות פרטים · גרור כדי להזיז · עדכון כל 30 שניות
-    </div>
+    <div id="neural-info" style="margin-top:14px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text2);min-height:40px;text-align:center"><span data-i18n="neural_click_hint">לחץ על צומת כדי לראות פרטים · גרור כדי להזיז · עדכון כל 30 שניות</span></div>
   </div>
 </section>
 
-<!-- COMMUNITY MEMBERS (REAL) -->
 <section class="section">
-  <h2>👥 חברי הקהילה שלנו</h2>
-  <p class="lead">הקהילה האמיתית — לא אנשים מומצאים. אלו המצטרפים האמיתיים.</p>
-  <div id="community-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
-    <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2);font-size:13px">
-      ⏳ טוען חברי קהילה מה-API...
-    </div>
-  </div>
+  <h2 data-i18n="community_title">👥 חברי הקהילה שלנו</h2>
+  <p class="lead" data-i18n="community_lead">הקהילה האמיתית — לא אנשים מומצאים. אלו המצטרפים האמיתיים.</p>
+  <div id="community-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px"><div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2);font-size:13px">⏳ <span data-i18n="loading_community">טוען חברי קהילה מה-API...</span></div></div>
 </section>
 
-<!-- ECOSYSTEM LINKS -->
 <section class="section">
-  <h2>האקוסיסטם המלא</h2>
+  <h2 data-i18n="ecosystem_title">האקוסיסטם המלא</h2>
   <div class="eco-grid">
-    <a href="/dashboard.html" class="eco-item"><i class="fas fa-tachometer-alt"></i><div class="name">Dashboard</div><div class="desc">לוח בקרה אישי</div></a>
-    <a href="/wallet.html" class="eco-item"><i class="fas fa-wallet"></i><div class="name">Wallet</div><div class="desc">ארנק רב-נכסים</div></a>
-    <a href="/staking.html" class="eco-item"><i class="fas fa-chart-line"></i><div class="name">Staking</div><div class="desc">65% APY</div></a>
-    <a href="/bots.html" class="eco-item"><i class="fas fa-robot"></i><div class="name">Bots</div><div class="desc">25 בוטים</div></a>
-    <a href="/community.html" class="eco-item"><i class="fas fa-users"></i><div class="name">Community</div><div class="desc">קהילה</div></a>
-    <a href="/experts.html" class="eco-item"><i class="fas fa-user-graduate"></i><div class="name">Experts</div><div class="desc">מומחי קהילה</div></a>
-    <a href="/jubilee.html" class="eco-item"><i class="fas fa-dove"></i><div class="name">Jubilee</div><div class="desc">שנת היובל</div></a>
-    <a href="/kosher-wallet.html" class="eco-item"><i class="fas fa-star-of-david"></i><div class="name">Kosher Wallet</div><div class="desc">ארנק כשר</div></a>
-    <a href="/promo-shekel.html" class="eco-item"><i class="fas fa-fire"></i><div class="name">Promo</div><div class="desc">מבצע 48ש</div></a>
-    <a href="/whitepaper.html" class="eco-item"><i class="fas fa-file-alt"></i><div class="name">Whitepaper</div><div class="desc">מסמך טכני</div></a>
-    <a href="/roadmap.html" class="eco-item"><i class="fas fa-route"></i><div class="name">Roadmap</div><div class="desc">מפת דרכים</div></a>
-    <a href="/blockchain.html" class="eco-item"><i class="fas fa-cube"></i><div class="name">Blockchain</div><div class="desc">Explorer</div></a>
+    <a href="/dashboard.html" class="eco-item"><i class="fas fa-tachometer-alt"></i><div class="name" data-i18n="nav_dashboard">Dashboard</div><div class="desc" data-i18n="desc_dashboard">לוח בקרה אישי</div></a>
+    <a href="/wallet.html" class="eco-item"><i class="fas fa-wallet"></i><div class="name" data-i18n="nav_wallet">Wallet</div><div class="desc" data-i18n="desc_wallet">ארנק רב-נכסים</div></a>
+    <a href="/staking.html" class="eco-item"><i class="fas fa-chart-line"></i><div class="name" data-i18n="nav_staking">Staking</div><div class="desc" data-i18n="desc_staking">65% APY</div></a>
+    <a href="/bots.html" class="eco-item"><i class="fas fa-robot"></i><div class="name" data-i18n="nav_bots">Bots</div><div class="desc" data-i18n="desc_bots">25 בוטים</div></a>
+    <a href="/community.html" class="eco-item"><i class="fas fa-users"></i><div class="name" data-i18n="nav_community">Community</div><div class="desc" data-i18n="desc_community">קהילה</div></a>
+    <a href="/experts.html" class="eco-item"><i class="fas fa-user-graduate"></i><div class="name" data-i18n="nav_experts">Experts</div><div class="desc" data-i18n="desc_experts">מומחי קהילה</div></a>
+    <a href="/jubilee.html" class="eco-item"><i class="fas fa-dove"></i><div class="name" data-i18n="nav_jubilee">Jubilee</div><div class="desc" data-i18n="desc_jubilee">שנת היובל</div></a>
+    <a href="/kosher-wallet.html" class="eco-item"><i class="fas fa-star-of-david"></i><div class="name" data-i18n="nav_kosher">Kosher Wallet</div><div class="desc" data-i18n="desc_kosher">ארנק כשר</div></a>
+    <a href="/promo-shekel.html" class="eco-item"><i class="fas fa-fire"></i><div class="name" data-i18n="nav_promo">Promo</div><div class="desc" data-i18n="desc_promo">מבצע 48ש</div></a>
+    <a href="/whitepaper.html" class="eco-item"><i class="fas fa-file-alt"></i><div class="name" data-i18n="nav_whitepaper">Whitepaper</div><div class="desc" data-i18n="desc_whitepaper">מסמך טכני</div></a>
+    <a href="/roadmap.html" class="eco-item"><i class="fas fa-route"></i><div class="name" data-i18n="nav_roadmap">Roadmap</div><div class="desc" data-i18n="desc_roadmap">מפת דרכים</div></a>
+    <a href="/blockchain.html" class="eco-item"><i class="fas fa-cube"></i><div class="name" data-i18n="nav_blockchain">Blockchain</div><div class="desc" data-i18n="desc_blockchain">Explorer</div></a>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="section">
-  <div class="cta">
-    <h2>רוצים להיות חלק?</h2>
-    <p style="font-size:15px;color:var(--text2);max-width:600px;margin:0 auto">
-      הצטרפו כקונה, שותף, Genesis Contributor או סתם חבר קהילה. <strong>אפס חיכוך.</strong>
-    </p>
-    <div class="cta-buttons">
-      <a href="/promo-shekel.html" class="btn-cta primary">
-        <i class="fas fa-fire"></i> קמפיין השקה ₪22.221
-      </a>
-      <a href="/dashboard.html" class="btn-cta secondary">
-        <i class="fas fa-tachometer-alt"></i> לוח בקרה
-      </a>
-      <a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" class="btn-cta secondary">
-        <i class="fab fa-telegram"></i> בוט טלגרם
-      </a>
-    </div>
-  </div>
-</section>
+<section class="section"><div class="cta"><h2 data-i18n="cta_title">רוצים להיות חלק?</h2><p style="font-size:15px;color:var(--text2);max-width:600px;margin:0 auto" data-i18n="cta_text">הצטרפו כקונה, שותף, Genesis Contributor או סתם חבר קהילה. <strong>אפס חיכוך.</strong></p><div class="cta-buttons"><a href="/promo-shekel.html" class="btn-cta primary"><i class="fas fa-fire"></i> <span data-i18n="cta_btn_promo">קמפיין השקה 22.221</span></a><a href="/dashboard.html" class="btn-cta secondary"><i class="fas fa-tachometer-alt"></i> <span data-i18n="cta_btn_dashboard">לוח בקרה</span></a><a href="https://t.me/SLH_community_bot" target="_blank" class="btn-cta secondary"><i class="fab fa-telegram"></i> <span data-i18n="cta_btn_telegram">בוט טלגרם</span></a></div></div></section>
 
-<div id="topnav-root"></div>
-<script src="/js/shared.js?v=20260415"></script>
+<script src="/js/shared.js?v=20260416"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260415"></script>
+<script src="/js/ai-assistant.js?v=20260416"></script>
 
 <script>
-// Load real live stats — no fake numbers, "—" on error
+// הרחבת תרגומים
+(function extendTranslations() {
+  if (typeof window.T === 'undefined') { console.warn('translations.js not loaded'); return; }
+  const missing = {
+    he: {
+      about_title:'אודות SLH Spark — שקיפות מלאה | פרויקט ישראלי פתוח', about_badge:'שקיפות מלאה · קוד פתוח · צוות עצמאי',
+      about_title_main:'אודות SLH Spark', about_lead:'אקוסיסטם קריפטו ישראלי בפיתוח עצמאי — הכל כאן אמיתי.',
+      about_sub:'צוות קטן ומחויב — Osif Ungar (מייסד) + Kaufman (שותף) — בונים אקוסיסטם שלם: 25 בוטים, אתר ב-5 שפות, 5 טוקנים, וקהילה שגדלה. אמיתי. פתוח. בלי חלומות באוויר.',
+      mission_title:'המשימה', mission_text:'ליצור את האקוסיסטם הראשון בישראל שמשלב קריפטו, AI ובוטים — בעברית פשוטה, עם גישה לכל מי שרוצה להיות חלק. שקיפות 100% בכל החלטה, בכל טוקן, בכל שורת קוד.',
+      vision_title:'החזון', vision_text:'עולם שבו הקהילה היא הבעלים. כל משתמש שולט בנתונים שלו, מרוויח מהשתתפותו, ומקבל גישה לכלים חכמים בלי לוותר על פרטיות או אמון. כולל "שנת יובל" דיגיטלית — כלכלה מחזורית הוגנת.',
+      values_title:'ערכי הליבה שלנו', value1_title:'שקיפות מלאה', value1_text:'כל ה-API פתוח לבדיקה. כל Contract ב-BSC. כל commit ב-GitHub.',
+      value2_title:'קהילה תחילה', value2_text:'מומחים, שותפים, Genesis Contributors — הקהילה היא השותפה האמיתית.',
+      value3_title:'אבטחה אמיתית', value3_text:'SHA-256 audit chain · 2FA · אין סיסמאות hardcoded · X-Admin-Key header.',
+      value4_title:'נגישות גלובלית', value4_text:'5 שפות (עברית, אנגלית, רוסית, ערבית, צרפתית). RTL+LTR מלא.',
+      value5_title:'הוגנות כלכלית', value5_text:'70% למוכר / 30% למערכת. אפילייט 20% ZVK + 10% SLH. שקוף ופורסם.',
+      value6_title:'מחויבות לישראל', value6_text:'בנוי בישראל לישראלים. עברית UI. כולל פתרון לציבור החרדי (ארנק כשר).',
+      tech_title:'הטכנולוגיה שבנינו', tech_lead:'בחירות הטכנולוגיה נעשו ע"פ יציבות, קהילה פעילה, וביצועים. כל הרכיבים בפרוד עובדים.',
+      tech_fastapi_desc:'Python backend · 117+ endpoints · auto-scale', tech_db_desc:'30+ tables · sessions · caching',
+      tech_aiogram_desc:'25 Telegram bots · Docker Compose', tech_bsc_desc:'PancakeSwap V2 pool · live trading',
+      tech_ton_desc:'Payment integration · kosher wallet', tech_claude_desc:'AI Assistant (in-page widget)',
+      tech_gh_desc:'49+ HTML pages · 5 languages', tech_esp_desc:'Kosher hardware wallet · SMS bridge',
+      team_title:'הצוות מאחורי SLH', founder_role:'מייסד · מפתח ראשי', partner_note:'+ Kaufman (שותף עסקי)',
+      live_stats_title:'נתונים חיים', live_stats_lead:'הכל נשלף מה-API בזמן אמת. אין מספרים מזויפים. אם משהו לא טעון — יוצג "—".',
+      stat_users_label:'משתמשים רשומים', stat_genesis_label:'Genesis Contributors', stat_bots_label:'בוטים פעילים',
+      stat_pages_label:'דפי אתר', stat_tokens_label:'טוקנים', stat_langs_label:'שפות',
+      neural_title:'🧠 רשת הנוירונים של האקוסיסטם', neural_lead:'מפה חיה של כל הצמתים במערכת — עודכן מה-API כל 30 שניות. לחץ על צומת לפרטים.',
+      neural_click_hint:'לחץ על צומת כדי לראות פרטים · גרור כדי להזיז · עדכון כל 30 שניות',
+      community_title:'👥 חברי הקהילה שלנו', community_lead:'הקהילה האמיתית — לא אנשים מומצאים. אלו המצטרפים האמיתיים.',
+      loading_community:'טוען חברי קהילה מה-API...', ecosystem_title:'האקוסיסטם המלא',
+      nav_dashboard:'Dashboard', desc_dashboard:'לוח בקרה אישי', nav_wallet:'Wallet', desc_wallet:'ארנק רב-נכסים',
+      nav_staking:'Staking', desc_staking:'65% APY', nav_bots:'Bots', desc_bots:'25 בוטים',
+      nav_community:'Community', desc_community:'קהילה', nav_experts:'Experts', desc_experts:'מומחי קהילה',
+      nav_jubilee:'Jubilee', desc_jubilee:'שנת היובל', nav_kosher:'Kosher Wallet', desc_kosher:'ארנק כשר',
+      nav_promo:'Promo', desc_promo:'מבצע 48ש', nav_whitepaper:'Whitepaper', desc_whitepaper:'מסמך טכני',
+      nav_roadmap:'Roadmap', desc_roadmap:'מפת דרכים', nav_blockchain:'Blockchain', desc_blockchain:'Explorer',
+      cta_title:'רוצים להיות חלק?', cta_text:'הצטרפו כקונה, שותף, Genesis Contributor או סתם חבר קהילה. אפס חיכוך.',
+      cta_btn_promo:'קמפיין השקה 22.221', cta_btn_dashboard:'לוח בקרה', cta_btn_telegram:'בוט טלגרם'
+    },
+    en: {
+      about_title:'About SLH Spark — Full Transparency', about_badge:'Full transparency · Open source · Independent team',
+      about_title_main:'About SLH Spark', about_lead:'An independent Israeli crypto ecosystem — everything here is real.',
+      about_sub:'A small committed team — Osif Ungar (founder) + Kaufman (partner) — building a complete ecosystem: 25 bots, 5-language website, 5 tokens, and a growing community. Real. Open. No empty promises.',
+      mission_title:'Mission', mission_text:'To create Israel\'s first ecosystem combining crypto, AI and bots — in plain Hebrew, accessible to anyone who wants to be part of it. 100% transparency in every decision, every token, every line of code.',
+      vision_title:'Vision', vision_text:'A world where the community is the owner. Every user controls their data, earns from participation, and gets access to smart tools without giving up privacy or trust. Including a digital "Jubilee year" — a fair circular economy.',
+      values_title:'Our Core Values', value1_title:'Full Transparency', value1_text:'All APIs open for inspection. Every contract on BSC. Every commit on GitHub.',
+      value2_title:'Community First', value2_text:'Experts, partners, Genesis Contributors — the community is the real partner.',
+      value3_title:'Real Security', value3_text:'SHA-256 audit chain · 2FA · No hardcoded passwords · X-Admin-Key header.',
+      value4_title:'Global Accessibility', value4_text:'5 languages (Hebrew, English, Russian, Arabic, French). Full RTL+LTR support.',
+      value5_title:'Economic Fairness', value5_text:'70% seller / 30% system. Affiliate 20% ZVK + 10% SLH. Transparent and published.',
+      value6_title:'Commitment to Israel', value6_text:'Built in Israel for Israelis. Hebrew UI. Includes solution for ultra-Orthodox (kosher wallet).',
+      tech_title:'Our Technology', tech_lead:'Technology choices based on stability, active community, and performance. All components in production.',
+      tech_fastapi_desc:'Python backend · 117+ endpoints · auto-scale', tech_db_desc:'30+ tables · sessions · caching',
+      tech_aiogram_desc:'25 Telegram bots · Docker Compose', tech_bsc_desc:'PancakeSwap V2 pool · live trading',
+      tech_ton_desc:'Payment integration · kosher wallet', tech_claude_desc:'AI Assistant (in-page widget)',
+      tech_gh_desc:'49+ HTML pages · 5 languages', tech_esp_desc:'Kosher hardware wallet · SMS bridge',
+      team_title:'The Team Behind SLH', founder_role:'Founder · Lead Developer', partner_note:'+ Kaufman (Business Partner)',
+      live_stats_title:'Live Stats', live_stats_lead:'All pulled from the API in real time. No fake numbers. If something doesn\'t load — "—" is shown.',
+      stat_users_label:'Registered Users', stat_genesis_label:'Genesis Contributors', stat_bots_label:'Active Bots',
+      stat_pages_label:'Website Pages', stat_tokens_label:'Tokens', stat_langs_label:'Languages',
+      neural_title:'🧠 Ecosystem Neural Network', neural_lead:'Live map of all system nodes — updated from API every 30 seconds. Click a node for details.',
+      neural_click_hint:'Click a node for details · Drag to move · Updates every 30s',
+      community_title:'👥 Our Community Members', community_lead:'The real community — not made-up people. These are actual joiners.',
+      loading_community:'Loading community members from API...', ecosystem_title:'Full Ecosystem',
+      nav_dashboard:'Dashboard', desc_dashboard:'Personal control panel', nav_wallet:'Wallet', desc_wallet:'Multi-asset wallet',
+      nav_staking:'Staking', desc_staking:'65% APY', nav_bots:'Bots', desc_bots:'25 bots',
+      nav_community:'Community', desc_community:'Community', nav_experts:'Experts', desc_experts:'Community experts',
+      nav_jubilee:'Jubilee', desc_jubilee:'Jubilee year', nav_kosher:'Kosher Wallet', desc_kosher:'Kosher wallet',
+      nav_promo:'Promo', desc_promo:'48h promo', nav_whitepaper:'Whitepaper', desc_whitepaper:'Technical document',
+      nav_roadmap:'Roadmap', desc_roadmap:'Roadmap', nav_blockchain:'Blockchain', desc_blockchain:'Explorer',
+      cta_title:'Want to be part?', cta_text:'Join as a buyer, partner, Genesis Contributor, or just a community member. Zero friction.',
+      cta_btn_promo:'Launch Campaign 22.221', cta_btn_dashboard:'Dashboard', cta_btn_telegram:'Telegram Bot'
+    }
+  };
+  for (const lang in missing) { if (!window.T[lang]) window.T[lang] = {}; Object.assign(window.T[lang], missing[lang]); }
+})();
+
+// אתחול
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.initNavigation) window.initNavigation();
+  if (window.applyTheme) window.applyTheme();
+  if (window.applyTranslations) window.applyTranslations();
+  if (window.trackPageView) window.trackPageView('/about.html');
+});
+
+// סטטיסטיקות
 async function loadStats() {
   try {
     const r = await fetch('https://slh-api-production.up.railway.app/api/health');
-    const health = await r.json();
-    if (health.status !== 'ok') return;
-    // Try campaign stats if admin key available
+    if (!r.ok) return;
     const adminKey = localStorage.getItem('slh_admin_password');
     if (adminKey) {
-      try {
-        const r2 = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', {
-          headers: {'X-Admin-Key': adminKey}
-        });
-        if (r2.ok) {
-          const stats = await r2.json();
-          const usersEl = document.getElementById('s-users');
-          const genesisEl = document.getElementById('s-genesis');
-          if (usersEl && stats.registrations?.total !== undefined) {
-            usersEl.textContent = stats.registrations.total;
-          }
-          if (genesisEl && stats.registrations?.by_path?.genesis?.count !== undefined) {
-            genesisEl.textContent = stats.registrations.by_path.genesis.count;
-          }
-        }
-      } catch (e) {}
+      const r2 = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', { headers: {'X-Admin-Key': adminKey} });
+      if (r2.ok) {
+        const stats = await r2.json();
+        const u = document.getElementById('s-users');
+        const g = document.getElementById('s-genesis');
+        if (u && stats.registrations?.total) u.textContent = stats.registrations.total;
+        if (g && stats.registrations?.by_path?.genesis?.count) g.textContent = stats.registrations.by_path.genesis.count;
+      }
     }
-  } catch (e) {
-    console.log('[about] API not reachable, keeping "—"');
-  }
+  } catch(e) {}
 }
 loadStats();
 
-/* === NEURAL NETWORK — Canvas-based, self-contained, no external deps === */
+// ========== רשת נוירונים (מהמקור שלך) ==========
 (function initNeural() {
   const canvas = document.getElementById('neural-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const info = document.getElementById('neural-info');
-  let nodes = [];
-  let edges = [];
-  let hoveredNode = null;
-  let selectedNode = null;
-  let animationId = null;
-  let draggedNode = null;
-
-  // Resolve CSS vars at runtime (colors for canvas)
-  const cssVar = (name, fallback) => {
-    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    return v || fallback;
-  };
-  const COLORS = {
-    gold: cssVar('--gold', '#ffd700'),
-    green: cssVar('--green', '#00e887'),
-    purple: cssVar('--purple', '#a855f7'),
-    blue: cssVar('--blue', '#3b82f6'),
-    cyan: cssVar('--cyan', '#06b6d4'),
-    border: cssVar('--border', 'rgba(255,215,0,0.2)'),
-    text: cssVar('--text', '#f5f5f8'),
-    bg: cssVar('--bg2', '#0d1220')
-  };
-
-  function setCanvasSize() {
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.scale(dpr, dpr);
-  }
-
+  let nodes = [], edges = [], hoveredNode = null, selectedNode = null, draggedNode = null, animationId = null;
+  const cssVar = (n, f) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || f;
+  const COLORS = { gold: cssVar('--gold','#ffd700'), green: cssVar('--green','#00e887'), purple: cssVar('--purple','#a855f7'), blue: cssVar('--blue','#3b82f6'), cyan: cssVar('--cyan','#06b6d4'), border: cssVar('--border','rgba(255,215,0,0.2)'), text: cssVar('--text','#f5f5f8'), bg: cssVar('--bg2','#0d1220') };
+  function setCanvasSize() { const dpr = window.devicePixelRatio||1, rect = canvas.getBoundingClientRect(); canvas.width = rect.width*dpr; canvas.height = rect.height*dpr; ctx.scale(dpr,dpr); }
   async function loadNodes() {
-    const adminKey = localStorage.getItem('slh_admin_password');
-    let realUsers = null, realGenesis = null, realClicks = null;
+    let realUsers=null, realGenesis=null, realClicks=null;
     try {
+      const adminKey = localStorage.getItem('slh_admin_password');
       if (adminKey) {
-        const r = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', {
-          headers: {'X-Admin-Key': adminKey}
-        });
-        if (r.ok) {
-          const s = await r.json();
-          realUsers = s.registrations?.total ?? null;
-          realGenesis = s.registrations?.by_path?.genesis?.count ?? null;
-          realClicks = s.clicks?.total ?? null;
-        }
+        const r = await fetch('https://slh-api-production.up.railway.app/api/campaign/stats/shekel_april26', { headers:{'X-Admin-Key':adminKey} });
+        if (r.ok) { const s = await r.json(); realUsers = s.registrations?.total; realGenesis = s.registrations?.by_path?.genesis?.count; realClicks = s.clicks?.total; }
       }
     } catch(e) {}
-
-    const width = canvas.getBoundingClientRect().width;
-    const height = 460;
-    const cx = width / 2;
-    const cy = height / 2;
-
-    // Real hierarchy — connected like real ecosystem
+    const width = canvas.getBoundingClientRect().width, height = 460, cx = width/2, cy = height/2;
     nodes = [
-      // Core (center)
-      { id: 'founder', label: 'Osif (Founder)', type: 'core', color: COLORS.gold, r: 20,
-        x: cx, y: cy, vx: 0, vy: 0, group: 'core' },
-
-      // Level 2 — immediate ecosystem (6 nodes, ring)
-      { id: 'users', label: `משתמשים · ${realUsers ?? '?'}`, type: 'users',
-        color: COLORS.green, r: 14, group: 'users', details: `${realUsers ?? '?'} משתמשים רשומים במערכת. עדכון מה-API בזמן אמת.` },
-      { id: 'bots', label: 'בוטים · 25', type: 'bots',
-        color: COLORS.purple, r: 14, group: 'bots', details: '25 בוטים ב-aiogram 3.x, Docker Compose, כל אחד עם תפקיד שונה.' },
-      { id: 'bsc', label: 'BSC (SLH)', type: 'blockchain',
-        color: COLORS.blue, r: 13, group: 'chain', details: 'SLH token BEP-20 על Binance Smart Chain. Pool ב-PancakeSwap V2 פעיל.' },
-      { id: 'ton', label: 'TON Wallet', type: 'blockchain',
-        color: COLORS.blue, r: 13, group: 'chain', details: 'TON blockchain לארנק, פיתוח הארנק הכשר.' },
-      { id: 'genesis', label: `Genesis · ${realGenesis ?? '?'}`, type: 'contributors',
-        color: COLORS.cyan, r: 14, group: 'contributors', details: `${realGenesis ?? '?'} Genesis Contributors. התורמים הראשונים שקיבלו NFT + 500 ZVK.` },
-      { id: 'experts', label: 'מומחים', type: 'experts',
-        color: COLORS.cyan, r: 12, group: 'experts', details: 'קטלוג מומחים קהילתי — כל מי שנרשם מקבל 100 ZVK בונוס.' },
-
-      // Level 3 — services / features
-      { id: 'api', label: 'FastAPI', type: 'tech', color: COLORS.green, r: 10, group: 'tech', details: '117+ endpoints על Railway. PostgreSQL 15 + Redis 7.' },
-      { id: 'website', label: 'Website', type: 'tech', color: COLORS.green, r: 10, group: 'tech', details: '49 דפים · 5 שפות (he/en/ru/ar/fr). GitHub Pages.' },
-      { id: 'telegram', label: 'קהילת Telegram', type: 'community', color: COLORS.green, r: 11, group: 'community', details: 'קבוצות Telegram Premium + ציבוריות.' },
-      { id: 'kosher', label: 'Kosher Wallet', type: 'product', color: COLORS.gold, r: 11, group: 'products', details: 'ESP32 + SMS — הארנק הקריפטוגרפי הכשר הראשון. ₪888 השקה 17/12/2026.' },
-      { id: 'campaign', label: 'Campaign · ₪22.221', type: 'product', color: COLORS.gold, r: 11, group: 'products', details: `קמפיין Shekel April 2026. לחיצות עד כה: ${realClicks ?? '?'}` },
-      { id: 'staking', label: 'Staking 65%', type: 'feature', color: COLORS.cyan, r: 10, group: 'features', details: 'תשואה שנתית עד 65% APY. 4 תוכניות.' },
-      { id: 'academy', label: 'Academy', type: 'feature', color: COLORS.cyan, r: 10, group: 'features', details: 'מרקטפלייס קורסים. 70% למוכר, 30% למערכת.' }
+      { id:'founder', label:'Osif (Founder)', type:'core', color:COLORS.gold, r:20, x:cx, y:cy, vx:0, vy:0, group:'core' },
+      { id:'users', label:`משתמשים · ${realUsers??'?'}`, type:'users', color:COLORS.green, r:14, group:'users', details:`${realUsers??'?'} משתמשים רשומים.` },
+      { id:'bots', label:'בוטים · 25', type:'bots', color:COLORS.purple, r:14, group:'bots', details:'25 בוטים aiogram.' },
+      { id:'bsc', label:'BSC (SLH)', type:'blockchain', color:COLORS.blue, r:13, group:'chain', details:'SLH BEP-20 PancakeSwap.' },
+      { id:'ton', label:'TON Wallet', type:'blockchain', color:COLORS.blue, r:13, group:'chain', details:'TON לארנק כשר.' },
+      { id:'genesis', label:`Genesis · ${realGenesis??'?'}`, type:'contributors', color:COLORS.cyan, r:14, group:'contributors', details:`${realGenesis??'?'} Genesis Contributors.` },
+      { id:'experts', label:'מומחים', type:'experts', color:COLORS.cyan, r:12, group:'experts', details:'קטלוג מומחים.' },
+      { id:'api', label:'FastAPI', type:'tech', color:COLORS.green, r:10, group:'tech', details:'117+ endpoints.' },
+      { id:'website', label:'Website', type:'tech', color:COLORS.green, r:10, group:'tech', details:'49 דפים · 5 שפות.' },
+      { id:'telegram', label:'קהילת Telegram', type:'community', color:COLORS.green, r:11, group:'community', details:'קבוצות Telegram.' },
+      { id:'kosher', label:'Kosher Wallet', type:'product', color:COLORS.gold, r:11, group:'products', details:'ארנק כשר.' },
+      { id:'campaign', label:`Campaign · 22.221`, type:'product', color:COLORS.gold, r:11, group:'products', details:`לחיצות: ${realClicks??'?'}` },
+      { id:'staking', label:'Staking 65%', type:'feature', color:COLORS.cyan, r:10, group:'features', details:'תשואה 65% APY.' },
+      { id:'academy', label:'Academy', type:'feature', color:COLORS.cyan, r:10, group:'features', details:'מרקטפלייס קורסים.' }
     ];
-
-    // Position level 2 nodes in ring around founder
-    const level2 = ['users', 'bots', 'bsc', 'ton', 'genesis', 'experts'];
-    level2.forEach((id, i) => {
-      const n = nodes.find(x => x.id === id);
-      if (n) {
-        const angle = (i / level2.length) * Math.PI * 2 - Math.PI / 2;
-        n.x = cx + Math.cos(angle) * 130;
-        n.y = cy + Math.sin(angle) * 130;
-        n.vx = 0; n.vy = 0;
-      }
-    });
-
-    // Position level 3 — outer ring
-    const level3 = ['api', 'website', 'telegram', 'kosher', 'campaign', 'staking', 'academy'];
-    level3.forEach((id, i) => {
-      const n = nodes.find(x => x.id === id);
-      if (n) {
-        const angle = (i / level3.length) * Math.PI * 2;
-        n.x = cx + Math.cos(angle) * 210;
-        n.y = cy + Math.sin(angle) * 210;
-        n.vx = 0; n.vy = 0;
-      }
-    });
-
+    const level2 = ['users','bots','bsc','ton','genesis','experts'];
+    level2.forEach((id,i)=>{ let n=nodes.find(x=>x.id===id); if(n){ let a=(i/level2.length)*Math.PI*2-Math.PI/2; n.x=cx+Math.cos(a)*130; n.y=cy+Math.sin(a)*130; n.vx=0; n.vy=0; } });
+    const level3 = ['api','website','telegram','kosher','campaign','staking','academy'];
+    level3.forEach((id,i)=>{ let n=nodes.find(x=>x.id===id); if(n){ let a=(i/level3.length)*Math.PI*2; n.x=cx+Math.cos(a)*210; n.y=cy+Math.sin(a)*210; n.vx=0; n.vy=0; } });
     edges = [
-      // Founder → L2
-      {from:'founder',to:'users'},{from:'founder',to:'bots'},{from:'founder',to:'bsc'},
-      {from:'founder',to:'ton'},{from:'founder',to:'genesis'},{from:'founder',to:'experts'},
-      // L2 ↔ L3
-      {from:'users',to:'telegram'},{from:'users',to:'campaign'},{from:'users',to:'website'},
-      {from:'bots',to:'api'},{from:'bots',to:'telegram'},
-      {from:'bsc',to:'staking'},{from:'bsc',to:'campaign'},
-      {from:'ton',to:'kosher'},
-      {from:'experts',to:'academy'},{from:'experts',to:'telegram'},
-      {from:'genesis',to:'campaign'}
+      {from:'founder',to:'users'},{from:'founder',to:'bots'},{from:'founder',to:'bsc'},{from:'founder',to:'ton'},
+      {from:'founder',to:'genesis'},{from:'founder',to:'experts'},{from:'users',to:'telegram'},{from:'users',to:'campaign'},
+      {from:'users',to:'website'},{from:'bots',to:'api'},{from:'bots',to:'telegram'},{from:'bsc',to:'staking'},
+      {from:'bsc',to:'campaign'},{from:'ton',to:'kosher'},{from:'experts',to:'academy'},{from:'experts',to:'telegram'},{from:'genesis',to:'campaign'}
     ];
-
     render();
   }
-
   function render() {
-    const rect = canvas.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw edges with gradient pulse
-    edges.forEach(e => {
-      const from = nodes.find(n => n.id === e.from);
-      const to = nodes.find(n => n.id === e.to);
-      if (!from || !to) return;
-      const grad = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
-      grad.addColorStop(0, from.color + '60');
-      grad.addColorStop(1, to.color + '60');
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(from.x, from.y);
-      ctx.lineTo(to.x, to.y);
-      ctx.stroke();
-    });
-
-    // Pulse animated center connection
-    const t = Date.now() / 1000;
-    const founder = nodes.find(n => n.id === 'founder');
-    if (founder) {
-      nodes.forEach(n => {
-        if (n.id === 'founder') return;
-        const dist = Math.hypot(n.x - founder.x, n.y - founder.y);
-        const pulsePos = ((t * 50) % dist) / dist;
-        const px = founder.x + (n.x - founder.x) * pulsePos;
-        const py = founder.y + (n.y - founder.y) * pulsePos;
-        ctx.fillStyle = n.color + 'aa';
-        ctx.beginPath();
-        ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-
-    // Draw nodes
-    nodes.forEach(n => {
-      const isHovered = hoveredNode && hoveredNode.id === n.id;
-      const isSelected = selectedNode && selectedNode.id === n.id;
-      // Glow
-      ctx.shadowColor = n.color;
-      ctx.shadowBlur = isHovered || isSelected ? 24 : 12;
-      ctx.fillStyle = n.color;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, isHovered || isSelected ? n.r * 1.3 : n.r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-      // Label below node
-      ctx.fillStyle = COLORS.text;
-      ctx.font = isHovered || isSelected ? 'bold 12px Rubik,sans-serif' : '11px Rubik,sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      ctx.fillText(n.label, n.x, n.y + n.r + 4);
-    });
-
+    const rect = canvas.getBoundingClientRect(), w = rect.width, h = rect.height;
+    ctx.clearRect(0,0,w,h);
+    edges.forEach(e=>{ let f=nodes.find(n=>n.id===e.from), t=nodes.find(n=>n.id===e.to); if(f&&t){ let g=ctx.createLinearGradient(f.x,f.y,t.x,t.y); g.addColorStop(0,f.color+'60'); g.addColorStop(1,t.color+'60'); ctx.strokeStyle=g; ctx.lineWidth=1.2; ctx.beginPath(); ctx.moveTo(f.x,f.y); ctx.lineTo(t.x,t.y); ctx.stroke(); } });
+    const t=Date.now()/1000, founder=nodes.find(n=>n.id==='founder');
+    if(founder) nodes.forEach(n=>{ if(n.id!=='founder'){ let d=Math.hypot(n.x-founder.x,n.y-founder.y), p=((t*50)%d)/d, px=founder.x+(n.x-founder.x)*p, py=founder.y+(n.y-founder.y)*p; ctx.fillStyle=n.color+'aa'; ctx.beginPath(); ctx.arc(px,py,2.5,0,Math.PI*2); ctx.fill(); } });
+    nodes.forEach(n=>{ let isHover=hoveredNode&&hoveredNode.id===n.id, isSel=selectedNode&&selectedNode.id===n.id; ctx.shadowColor=n.color; ctx.shadowBlur=isHover||isSel?24:12; ctx.fillStyle=n.color; ctx.beginPath(); ctx.arc(n.x,n.y,(isHover||isSel)?n.r*1.3:n.r,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0; ctx.fillStyle=COLORS.text; ctx.font=(isHover||isSel)?'bold 12px Rubik,sans-serif':'11px Rubik,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='top'; ctx.fillText(n.label,n.x,n.y+n.r+4); });
     animationId = requestAnimationFrame(render);
   }
-
-  function getMousePos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const touch = e.touches?.[0];
-    const clientX = touch ? touch.clientX : e.clientX;
-    const clientY = touch ? touch.clientY : e.clientY;
-    return { x: clientX - rect.left, y: clientY - rect.top };
-  }
-
-  function findNodeAt(pos) {
-    return nodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < n.r + 4);
-  }
-
-  canvas.addEventListener('mousemove', (e) => {
-    const pos = getMousePos(e);
-    if (draggedNode) {
-      draggedNode.x = pos.x;
-      draggedNode.y = pos.y;
-    } else {
-      hoveredNode = findNodeAt(pos);
-      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
-    }
-  });
-
-  canvas.addEventListener('mousedown', (e) => {
-    const pos = getMousePos(e);
-    const n = findNodeAt(pos);
-    if (n) {
-      draggedNode = n;
-      selectedNode = n;
-      info.innerHTML = `
-        <div style="font-weight:900;color:${n.color};font-size:14px;margin-bottom:6px">${n.label}</div>
-        <div>${n.details || 'צומת במערכת'}</div>
-        <div style="margin-top:6px;font-size:11px;color:var(--text3)">סוג: ${n.type} · קבוצה: ${n.group}</div>
-      `;
-    }
-  });
-
-  window.addEventListener('mouseup', () => { draggedNode = null; });
-
-  canvas.addEventListener('mouseleave', () => { hoveredNode = null; draggedNode = null; });
-
-  // Init
-  setCanvasSize();
-  loadNodes();
-  window.addEventListener('resize', () => { setCanvasSize(); loadNodes(); });
-  // Refresh data every 30s
-  setInterval(loadNodes, 30000);
+  function getMousePos(e){ let rect=canvas.getBoundingClientRect(), touch=e.touches?.[0]; return { x:(touch?touch.clientX:e.clientX)-rect.left, y:(touch?touch.clientY:e.clientY)-rect.top }; }
+  function findNodeAt(pos){ return nodes.find(n=>Math.hypot(n.x-pos.x,n.y-pos.y)<n.r+4); }
+  canvas.addEventListener('mousemove',(e)=>{ let pos=getMousePos(e); if(draggedNode){ draggedNode.x=pos.x; draggedNode.y=pos.y; } else { hoveredNode=findNodeAt(pos); canvas.style.cursor=hoveredNode?'pointer':'default'; } });
+  canvas.addEventListener('mousedown',(e)=>{ let pos=getMousePos(e), n=findNodeAt(pos); if(n){ draggedNode=n; selectedNode=n; info.innerHTML=`<div style="font-weight:900;color:${n.color}">${n.label}</div><div>${n.details||'צומת במערכת'}</div><div style="margin-top:6px;font-size:11px">סוג: ${n.type} · קבוצה: ${n.group}</div>`; } });
+  window.addEventListener('mouseup',()=>{ draggedNode=null; });
+  canvas.addEventListener('mouseleave',()=>{ hoveredNode=null; draggedNode=null; });
+  setCanvasSize(); loadNodes(); window.addEventListener('resize',()=>{ setCanvasSize(); loadNodes(); }); setInterval(loadNodes,30000);
 })();
 
-/* === LOAD REAL COMMUNITY MEMBERS === */
+// ========== טעינת קהילה (מהמקור שלך) ==========
 (async function loadCommunity() {
   const grid = document.getElementById('community-grid');
   if (!grid) return;
   try {
-    // Try experts endpoint (public) for real people
     const r = await fetch('https://slh-api-production.up.railway.app/api/experts/list?limit=12');
     const d = await r.json();
     const experts = d.experts || [];
-    if (experts.length === 0) {
-      grid.innerHTML = `
-        <div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--bg2);border:1px dashed var(--border);border-radius:14px;color:var(--text2)">
-          <div style="font-size:32px;margin-bottom:10px">🌱</div>
-          <div style="font-weight:800;color:var(--text);margin-bottom:4px">הקהילה בהתהוות</div>
-          <div style="font-size:13px">היו בין הראשונים! <a href="/experts.html" style="color:var(--gold);text-decoration:none">הירשם כמומחה →</a></div>
-        </div>
-      `;
-      return;
-    }
-    grid.innerHTML = experts.map(e => {
-      const initial = (e.display_name || '?').slice(0, 1);
-      return `
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#000;margin:0 auto 10px">${initial}</div>
-          <div style="font-weight:800;font-size:14px;color:var(--text)">${e.display_name}</div>
-          <div style="font-size:11px;color:var(--cyan);margin-top:2px">${e.tg_username ? '@' + e.tg_username : ''}</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:8px">
-            ${(e.domains || []).slice(0,3).map(d => `<span style="font-size:10px;padding:2px 8px;background:rgba(168,85,247,.15);color:var(--purple);border-radius:8px">${d}</span>`).join('')}
-          </div>
-        </div>
-      `;
-    }).join('');
-  } catch(e) {
-    grid.innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2)">
-        ⚠️ לא ניתן לטעון את הקהילה כרגע. <a href="/experts.html" style="color:var(--gold)">הרשמה כמומחה →</a>
-      </div>
-    `;
-  }
+    if (experts.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--bg2);border:1px dashed var(--border);border-radius:14px;color:var(--text2)"><div style="font-size:32px;margin-bottom:10px">🌱</div><div style="font-weight:800;color:var(--text);margin-bottom:4px">הקהילה בהתהוות</div><div style="font-size:13px">היו בין הראשונים! <a href="/experts.html" style="color:var(--gold);text-decoration:none">הירשם כמומחה →</a></div></div>'; return; }
+    grid.innerHTML = experts.map(e => { const initial = (e.display_name || '?').slice(0,1); return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'"><div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#000;margin:0 auto 10px">${initial}</div><div style="font-weight:800;font-size:14px;color:var(--text)">${e.display_name}</div><div style="font-size:11px;color:var(--cyan);margin-top:2px">${e.tg_username ? '@'+e.tg_username : ''}</div><div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:8px">${(e.domains||[]).slice(0,3).map(d=>`<span style="font-size:10px;padding:2px 8px;background:rgba(168,85,247,.15);color:var(--purple);border-radius:8px">${d}</span>`).join('')}</div></div>`; }).join('');
+  } catch(e) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text2)">⚠️ לא ניתן לטעון את הקהילה כרגע. <a href="/experts.html" style="color:var(--gold)">הרשמה כמומחה →</a></div>'; }
 })();
 </script>
 
