@@ -1174,3 +1174,135 @@ function saveCookieConsent(choice) {
   if (el) el.style.animation = 'ck-slide .3s ease reverse forwards';
   setTimeout(() => { if (el) el.remove(); }, 300);
 }
+
+// ===== SLH BUG REPORTER (auto-capture + floating button) =====
+(function() {
+  if (window.__SLH_BUG_INIT__) return;
+  window.__SLH_BUG_INIT__ = true;
+
+  const API = (window.SLH_API_URL) || 'https://slh-api-production.up.railway.app';
+  const CAPTURE_WINDOW_MS = 60000; // dedupe identical errors within 60s
+  const recentErrors = new Map();
+
+  function getUserId() {
+    try {
+      const u = JSON.parse(localStorage.getItem('slh_user') || 'null');
+      return u && u.telegram_id ? Number(u.telegram_id) : null;
+    } catch { return null; }
+  }
+  function getUserName() {
+    try {
+      const u = JSON.parse(localStorage.getItem('slh_user') || 'null');
+      return u ? (u.name || u.first_name || u.username || '') : '';
+    } catch { return ''; }
+  }
+
+  async function sendBugReport(payload) {
+    try {
+      const body = Object.assign({
+        page_url: location.href,
+        reporter_user_id: getUserId(),
+        reporter_name: getUserName()
+      }, payload);
+      await fetch(API + '/api/bugs/report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        keepalive: true
+      });
+    } catch (e) { /* swallow */ }
+  }
+
+  function dedupeKey(title, description) {
+    return (title + '::' + (description || '').slice(0, 200));
+  }
+  function shouldReport(title, description) {
+    const k = dedupeKey(title, description);
+    const now = Date.now();
+    const last = recentErrors.get(k);
+    if (last && (now - last) < CAPTURE_WINDOW_MS) return false;
+    recentErrors.set(k, now);
+    if (recentErrors.size > 50) {
+      const cutoff = now - CAPTURE_WINDOW_MS;
+      for (const [key, ts] of recentErrors) if (ts < cutoff) recentErrors.delete(key);
+    }
+    return true;
+  }
+
+  // Auto-capture JS errors
+  window.addEventListener('error', function(ev) {
+    const msg = ev.message || 'Unknown error';
+    const src = (ev.filename || '').split('/').pop() + ':' + (ev.lineno || 0);
+    const title = '[AUTO] ' + msg.slice(0, 120);
+    const desc = `מקור: ${src}\nטיפוס: JS Error\nUA: ${navigator.userAgent}\n\nStack:\n${(ev.error && ev.error.stack) || '(ללא stack)'}`;
+    if (!shouldReport(title, desc)) return;
+    sendBugReport({ title, description: desc, severity: 'medium', category: 'functional' });
+  });
+
+  // Auto-capture unhandled promise rejections
+  window.addEventListener('unhandledrejection', function(ev) {
+    const reason = ev.reason;
+    const msg = (reason && (reason.message || String(reason))) || 'Unhandled rejection';
+    const title = '[AUTO] Promise: ' + msg.slice(0, 110);
+    const desc = `טיפוס: Unhandled Promise Rejection\nUA: ${navigator.userAgent}\n\nStack:\n${(reason && reason.stack) || String(reason)}`;
+    if (!shouldReport(title, desc)) return;
+    sendBugReport({ title, description: desc, severity: 'medium', category: 'functional' });
+  });
+
+  // Capture 500s from fetch (wrap fetch once)
+  const origFetch = window.fetch;
+  if (origFetch && !window.__SLH_FETCH_WRAPPED__) {
+    window.__SLH_FETCH_WRAPPED__ = true;
+    window.fetch = async function(input, init) {
+      const url = typeof input === 'string' ? input : (input && input.url) || '';
+      try {
+        const res = await origFetch(input, init);
+        if (res.status >= 500 && url.includes('slh-api')) {
+          const title = `[AUTO] API ${res.status} ${new URL(url, location.href).pathname}`;
+          const desc = `API שגה עם ${res.status}\nURL: ${url}\nUA: ${navigator.userAgent}`;
+          if (shouldReport(title, desc)) {
+            sendBugReport({ title, description: desc, severity: 'high', category: 'functional' });
+          }
+        }
+        return res;
+      } catch (err) {
+        throw err;
+      }
+    };
+  }
+
+  // Floating bug button (skip on bug-report & admin-bugs pages)
+  function mountFab() {
+    if (/\/(bug-report|admin-bugs|admin)\.html/.test(location.pathname)) return;
+    if (document.getElementById('slh-bug-fab')) return;
+    const btn = document.createElement('button');
+    btn.id = 'slh-bug-fab';
+    btn.setAttribute('aria-label', 'דווח על באג');
+    btn.title = 'דווח על באג / תקלה';
+    btn.innerHTML = '<i class="fas fa-bug"></i>';
+    btn.style.cssText = [
+      'position:fixed', 'bottom:20px', 'left:20px', 'z-index:99998',
+      'width:48px', 'height:48px', 'border-radius:50%', 'border:none',
+      'background:linear-gradient(135deg,#ff4444,#ff9800)',
+      'color:#fff', 'font-size:18px', 'cursor:pointer',
+      'box-shadow:0 6px 20px rgba(255,68,68,.4)',
+      'display:flex', 'align-items:center', 'justify-content:center',
+      'transition:transform .2s, box-shadow .2s'
+    ].join(';');
+    btn.addEventListener('mouseenter', () => { btn.style.transform = 'scale(1.1)'; });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = 'scale(1)'; });
+    btn.addEventListener('click', () => {
+      const url = `/bug-report.html?from=${encodeURIComponent(location.href)}&title=${encodeURIComponent('בעיה ב-' + (document.title || location.pathname))}`;
+      window.open(url, '_blank', 'noopener');
+    });
+    document.body.appendChild(btn);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountFab);
+  } else {
+    mountFab();
+  }
+
+  // Public API for manual reports
+  window.slhReportBug = sendBugReport;
+})();
