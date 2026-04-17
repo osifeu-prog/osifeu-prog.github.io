@@ -165,31 +165,39 @@ tr:hover td{background:rgba(0,255,65,.02)}
 
 📐 הארכיטקטורה בקצרה
    • API:     FastAPI on Railway — https://slh-api-production.up.railway.app
-             164 endpoints, ~10K lines in main.py
+             225+ endpoints, ~10K lines in main.py (v1.0.0)
              GitHub: osifeu-prog/slh-api (master → auto-deploy)
-   • Website: 68 HTML pages — https://slh-nft.com
+   • Website: 79 HTML pages + 15 blog posts — https://slh-nft.com
              GitHub: osifeu-prog/osifeu-prog.github.io (main → GH Pages)
    • Bots:    25 Telegram bots in Docker Compose (aiogram 3.x)
-             Currently: ledger LIVE, 6 collision/stopped
+             @G4meb0t_bot_bot (dating) — NEW 2026-04-17 evening
+             ledger, nfty, device-registry + 19 more LIVE
    • DB:      PostgreSQL 15 + Redis 7 on Railway
    • Chain:   SLH on BSC (BEP-20, contract 0xACb0A094...8f022)
              PancakeSwap V2 pool live
 
-💰 5 טוקנים
+💰 6 טוקנים
    SLH — premium/governance (₪444 target)
    MNH — stable (₪1 peg, internal)
    ZVK — activity rewards (~₪4.4, internal)
    REP — reputation (0-1000+)
    ZUZ — anti-fraud (ban@100)
+   AIC — AI credits (~$0.001, NEW 2026-04-17)
 
-🚦 המצב עכשיו (live data)
-   • 18 users, 9 premium, 10 TON staked
+🚦 המצב עכשיו (live data — 30s refresh at top of page)
+   • 18+ users, 9+ premium, 10 TON staked (live from API)
    • 0.082 BNB raised (Genesis)
-   • ledger-bot: LIVE
-   • /api/device/register: LIVE (TON+phone→signing token)
-   • /api/payment/ton/auto-verify: NEW today
-   • /api/payment/bsc/auto-verify: NEW today
-   • /api/payment/external/record: NEW today (Stripe/PayBox/Bit/PayPal/iCount/Cardcom/Meshulam)
+   • 6 tracks orchestrated at 67% avg (Payments 95%, Social 75%, AIC 80%)
+   • ledger-bot + nfty-bot + 20 more: LIVE
+   • /api/device/register: LIVE
+   • /api/payment/ton/auto-verify: LIVE (tolerance 0.00002 BNB, auto-verify from public RPC)
+   • /api/payment/bsc/auto-verify: LIVE
+   • /api/payment/external/record: LIVE (10 providers: Stripe/PayBox/Bit/PayPal/iCount/Cardcom/Meshulam/GrowClub/manual_bank/ton_direct/bsc_direct)
+   • /api/dating/* : 8 endpoints LIVE (Interest-overlap matching, 18+ gate)
+   • /api/sudoku/* : 8 endpoints LIVE (daily puzzle, AIC rewards)
+   • /api/ai/chat-metered: LIVE (AIC burn + 5 AIC welcome)
+   • /api/broadcast/* : 5 networks (TG+Discord+Twitter+LinkedIn+FB)
+   • /api/community/rss: LIVE (RSS 2.0 feed)
 
 🔑 קבצים שחובה לקרוא לפני עבודה
    1. https://github.com/osifeu-prog/slh-api/blob/master/CLAUDE.md

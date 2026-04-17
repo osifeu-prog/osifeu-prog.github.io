@@ -100,9 +100,10 @@
         <div class="kpi-card green"><div class="kpi-label">API Status</div><div class="kpi-val" id="k-api">--</div><div class="kpi-sub" id="k-api-ms"></div></div>
         <div class="kpi-card cyan"><div class="kpi-label">Total Users</div><div class="kpi-val" id="k-users">--</div><div class="kpi-sub" id="k-users-sub"></div></div>
         <div class="kpi-card gold"><div class="kpi-label">API Endpoints</div><div class="kpi-val" id="k-endpoints">--</div><div class="kpi-sub">production</div></div>
-        <div class="kpi-card purple"><div class="kpi-label">HTML Pages</div><div class="kpi-val">43</div><div class="kpi-sub">all live</div></div>
-        <div class="kpi-card green"><div class="kpi-label">Bots</div><div class="kpi-val">25</div><div class="kpi-sub">Docker services</div></div>
-        <div class="kpi-card cyan"><div class="kpi-label">DB Tables</div><div class="kpi-val">30+</div><div class="kpi-sub">PostgreSQL 15</div></div>
+        <div class="kpi-card purple"><div class="kpi-label">HTML Pages</div><div class="kpi-val">79</div><div class="kpi-sub">+ 15 blog posts</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Bots</div><div class="kpi-val">25</div><div class="kpi-sub">+ @G4meb0t (new)</div></div>
+        <div class="kpi-card cyan"><div class="kpi-label">DB Tables</div><div class="kpi-val">40+</div><div class="kpi-sub">PostgreSQL 15</div></div>
+        <div class="kpi-card purple"><div class="kpi-label">Tokens</div><div class="kpi-val">6</div><div class="kpi-sub">SLH·MNH·ZVK·REP·ZUZ·AIC</div></div>
         <div class="kpi-card gold"><div class="kpi-label">Genesis Raised</div><div class="kpi-val" id="k-raised">--</div><div class="kpi-sub" id="k-raised-sub"></div></div>
         <div class="kpi-card red"><div class="kpi-label">Audit Chain</div><div class="kpi-val" id="k-audit">--</div><div class="kpi-sub" id="k-audit-sub"></div></div>
     </div>
@@ -133,29 +134,36 @@
         <div class="ops-section">
             <h2>Critical Tasks <span class="badge badge-warn" id="tasks-badge">--</span></h2>
             <div id="tasks-list">
-                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">Remove admin passwords from HTML</div><span class="task-tag tag-critical">SEC</span></div>
-                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">Set Railway env vars (JWT_SECRET, ADMIN_API_KEYS)</div><span class="task-tag tag-blocked">BLOCKED</span></div>
-                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">Fix .env exposure (31 bot tokens)</div><span class="task-tag tag-critical">SEC</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Credit missing ZVK to 3 contributors</div><span class="task-tag tag-pending">PENDING</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Webhook migration (polling → webhooks)</div><span class="task-tag tag-pending">INFRA</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">P2P marketplace LIVE!</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">i18n on 27 pages</div><span class="task-tag tag-pending">i18n</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Theme switcher on 25 pages</div><span class="task-tag tag-pending">UI</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Set /commands for 12 bots</div><span class="task-tag tag-pending">BOTS</span></div>
-                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">LP Lock on Mudra</div><span class="task-tag tag-pending">GROWTH</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">PancakeSwap Pool created</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Genesis Launch live</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Member Card NFT system</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">REP reputation system</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">21-Day Challenge page</div><span class="task-tag tag-done">DONE</span></div>
-                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Site Map + Rewards Admin</div><span class="task-tag tag-done">DONE</span></div>
+                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">TX hash for Osif's BSC transfer → receipt #SLH-20260417-000001</div><span class="task-tag tag-done">DONE</span></div>
+                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">SILENT_MODE=1 + N8N_PASSWORD in Railway</div><span class="task-tag tag-blocked">BLOCKED</span></div>
+                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">Rotate 30 remaining bot tokens (1 rotated today: GAME_BOT)</div><span class="task-tag tag-critical">SEC</span></div>
+                <div class="task-item"><div class="task-icon">🔴</div><div class="task-text">AIC first mint via admin-tokens.html (supply=0)</div><span class="task-tag tag-blocked">BLOCKED</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">ESP32 CYD screen colorTest confirmation</div><span class="task-tag tag-blocked">BLOCKED</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">@G4meb0t_bot_bot deploy path decision</div><span class="task-tag tag-pending">PENDING</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">docker-compose.yml regression decision (58 vs 445 lines)</div><span class="task-tag tag-pending">PENDING</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">BotFather /setcommands for 12+ bots</div><span class="task-tag tag-pending">BOTS</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Theme switcher on 25 remaining pages</div><span class="task-tag tag-pending">UI</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">i18n on 27 remaining pages</div><span class="task-tag tag-pending">i18n</span></div>
+                <div class="task-item"><div class="task-icon">🟡</div><div class="task-text">Payment /status endpoint fix deploy (Railway pending)</div><span class="task-tag tag-pending">INFRA</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">AIC (6th token) + /api/ai/chat-metered</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Payment auto-verify TON+BSC (10 providers)</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Dating API 8 endpoints + @G4meb0t_bot_bot</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Sudoku 8 endpoints + frontend + leaderboard</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Verified Experts + admin approval flow</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Broadcast to 5 networks + RSS feed</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Community reactions + threaded replies + presence</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Design System v1.0 + unified nav + skeletons</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Blog: 15 posts + sitemap 50 URLs</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">nfty-bot → @slhniffty auto-broadcast on approve</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">Device onboarding + bug debug system</div><span class="task-tag tag-done">DONE 17.4</span></div>
+                <div class="task-item"><div class="task-icon">✅</div><div class="task-text">First receipt issued: SLH-20260417-000001 (Osif)</div><span class="task-tag tag-done">DONE 17.4</span></div>
             </div>
         </div>
     </div>
 
     <!-- PAGE STATUS -->
     <div class="ops-section">
-        <h2>All 43 Pages — Live Status <button class="refresh-btn" onclick="checkPages()">Check All</button></h2>
+        <h2>All 79 Pages — Live Status <button class="refresh-btn" onclick="checkPages()">Check All</button></h2>
         <table class="ops-table" id="pages-table">
             <thead><tr><th>Page</th><th>Status</th><th>Nav</th><th>Theme</th><th>i18n</th><th>Analytics</th><th>AI</th></tr></thead>
             <tbody id="pages-body"></tbody>
