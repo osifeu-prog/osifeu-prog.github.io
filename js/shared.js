@@ -1023,6 +1023,10 @@ function initShared(options = {}) {
   renderBetaBanner();
   renderBugReportFAB();
 
+  // Auto-inject slh-flip.js + upgrade version marker (for /upgrade-tracker.html to detect)
+  injectSLHVersionMeta();
+  injectSLHFlipLib();
+
   // Capture referral from URL
   captureReferral();
 
@@ -1089,6 +1093,27 @@ function initShared(options = {}) {
     m.href = '/manifest.json';
     document.head.appendChild(m);
   }
+}
+
+
+/* ===== SLH FLIP/SCRAMBLE INJECTION ===== */
+
+function injectSLHVersionMeta() {
+  // Skip if page already has its own meta
+  if (document.querySelector('meta[name="slh-version"]')) return;
+  const m = document.createElement('meta');
+  m.name = 'slh-version';
+  m.content = 'v1.0-flip';
+  document.head.appendChild(m);
+}
+
+function injectSLHFlipLib() {
+  if (document.querySelector('script[src*="slh-flip.js"]')) return;
+  if (window.SLHFlip) return;
+  const s = document.createElement('script');
+  s.src = '/js/slh-flip.js?v=20260417';
+  s.defer = true;
+  document.head.appendChild(s);
 }
 
 
