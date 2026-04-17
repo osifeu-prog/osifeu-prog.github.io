@@ -2233,11 +2233,21 @@
                         ${commentsCount > 0 ? `<span onclick="toggleComments(${post.id})">${commentsCount} תגובות</span>` : ''}
                     </div>
                 </div>
-                <div class="post-actions">
-                    <button class="post-action-btn ${liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
-                        <i class="${liked ? 'fas' : 'far'} fa-heart"></i>
-                        <span>${liked ? 'אהבתי' : 'לייק'}</span>
-                    </button>
+                <div class="post-actions" data-post-id="${post.id}">
+                    <div class="reactions-wrap" style="position:relative;display:inline-block">
+                        <button class="post-action-btn react-toggle ${liked ? 'liked' : ''}" data-post-id="${post.id}">
+                            <i class="${liked ? 'fas' : 'far'} fa-heart"></i>
+                            <span>${liked ? 'אהבתי' : 'הגב'}</span>
+                        </button>
+                        <div class="react-picker" id="picker-${post.id}" style="display:none;position:absolute;bottom:100%;right:0;background:var(--surface,#14142b);border:1px solid var(--border,#1e1e3a);border-radius:32px;padding:6px 10px;box-shadow:0 4px 20px rgba(0,0,0,.4);z-index:20;white-space:nowrap">
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="like" title="לייק">👍</button>
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="love" title="אהבתי">❤️</button>
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="laugh" title="מצחיק">😂</button>
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="wow" title="וואו">😮</button>
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="sad" title="עצוב">😢</button>
+                            <button class="react-emoji" data-post-id="${post.id}" data-type="angry" title="כועס">😡</button>
+                        </div>
+                    </div>
                     <button class="post-action-btn ${openCommentsSet.has(post.id) ? 'comment-active' : ''}" onclick="toggleComments(${post.id})">
                         <i class="far fa-comment"></i>
                         <span>תגובה</span>
