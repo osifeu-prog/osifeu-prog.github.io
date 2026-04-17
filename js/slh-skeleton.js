@@ -110,7 +110,49 @@
       });
   }
 
-  const api = { apply, reveal, track, createSkeleton };
+  const originalContentMap = new WeakMap();
+
+  function show(container, type = 'text', opts = {}) {
+    if (!container) return;
+    if (!originalContentMap.has(container)) {
+      originalContentMap.set(container, container.innerHTML);
+    }
+    const sk = createSkeleton(type, opts);
+    container.innerHTML = '';
+    container.appendChild(sk);
+    container.setAttribute('data-skeleton-applied', 'true');
+    container.setAttribute('aria-busy', 'true');
+  }
+
+  function hide(container) {
+    if (!container) return;
+    if (originalContentMap.has(container)) {
+      container.innerHTML = originalContentMap.get(container);
+      originalContentMap.delete(container);
+    } else {
+      const wrap = container.querySelector('.slh-skeleton-wrap');
+      if (wrap) wrap.remove();
+    }
+    container.removeAttribute('aria-busy');
+    container.removeAttribute('data-skeleton-applied');
+  }
+
+  async function withSkeleton(target, fetchFn, type = 'card', opts = {}) {
+    const container = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!container) throw new Error('SLHSkeleton: target not found');
+    show(container, type, opts);
+    try {
+      return await fetchFn();
+    } finally {
+      hide(container);
+    }
+  }
+
+  async function fetchJson(target, url, fetchOptions = {}, type = 'card') {
+    return withSkeleton(target, () => fetch(url, fetchOptions).then(r => r.json()), type);
+  }
+
+  const api = { apply, reveal, track, createSkeleton, show, hide, withSkeleton, fetchJson };
   w.SLHSkeleton = api;
 
   if (document.readyState === 'loading') {
