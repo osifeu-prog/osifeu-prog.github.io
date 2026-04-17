@@ -1653,19 +1653,45 @@
     async function loadPostsFromAPI() {
         isLoading = true;
         renderLoadingState();
-        const data = await apiGet(`/api/community/posts?category=${currentFilter}&limit=50`);
-        isLoading = false;
-        if (data && data.posts && data.posts.length > 0) {
-            posts = data.posts;
-        } else {
-            // Use demo posts filtered by category
-            posts = currentFilter === 'all'
-              ? DEMO_POSTS
-              : DEMO_POSTS.filter(p => p.category === currentFilter);
+        try {
+            const data = await apiGet(`/api/community/posts?category=${currentFilter}&limit=50`);
+            isLoading = false;
+            if (data && data.posts && data.posts.length > 0) {
+                posts = data.posts;
+            } else {
+                posts = currentFilter === 'all'
+                  ? DEMO_POSTS
+                  : DEMO_POSTS.filter(p => p.category === currentFilter);
+            }
+            try {
+                renderFeed();
+            } catch (renderErr) {
+                console.error('[community] renderFeed failed:', renderErr);
+                const feed = document.getElementById('posts-feed');
+                if (feed) {
+                    feed.innerHTML = `<div class="empty-state" style="padding:40px 20px;text-align:center">
+                        <i class="fas fa-triangle-exclamation" style="color:#ffd700;font-size:32px"></i>
+                        <p style="margin-top:12px;color:#ff4444">שגיאה בהצגת הפיד: ${renderErr.message}</p>
+                        <p style="margin-top:8px;font-size:12px;color:#8a8aa0">${posts.length} פוסטים נטענו אבל לא הצליחו להציג</p>
+                        <button onclick="loadPostsFromAPI()" style="margin-top:14px;padding:10px 20px;background:#00ff41;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer">נסה שוב</button>
+                    </div>`;
+                }
+            }
+            loadStats();
+            updateTrendingCategories();
+        } catch (e) {
+            isLoading = false;
+            console.error('[community] loadPostsFromAPI error:', e);
+            const feed = document.getElementById('posts-feed');
+            if (feed) {
+                feed.innerHTML = `<div class="empty-state" style="padding:40px 20px;text-align:center">
+                    <i class="fas fa-wifi-slash" style="color:#ff4444;font-size:32px"></i>
+                    <p style="margin-top:12px;color:#ff4444">לא הצלחנו להתחבר ל-API</p>
+                    <p style="margin-top:8px;font-size:12px;color:#8a8aa0">${e.message}</p>
+                    <button onclick="loadPostsFromAPI()" style="margin-top:14px;padding:10px 20px;background:#00ff41;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer">נסה שוב</button>
+                </div>`;
+            }
         }
-        renderFeed();
-        loadStats();
-        updateTrendingCategories();
     }
 
     async function loadStats() {
