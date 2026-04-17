@@ -414,16 +414,18 @@ function renderStep3() {
     document.getElementById('ton-addr').textContent = tonAddress;
     const deeplink = `ton://transfer/${tonAddress}?amount=${Math.round(amt * 1e9)}&text=SLH-${state.product.id}`;
     document.getElementById('ton-deeplink').href = deeplink;
-    // QR
+    // QR contains the PLAIN ADDRESS (same as shown below) so any wallet can scan.
+    // The Tonkeeper button uses the deeplink separately (pre-fills amount).
     document.getElementById('ton-qr').innerHTML = '';
-    new QRCode(document.getElementById('ton-qr'), { text: deeplink, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+    new QRCode(document.getElementById('ton-qr'), { text: tonAddress, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
   }
   if (state.method === 'bnb') {
     const amt = state.product.bnb;
     document.getElementById('bnb-amount').textContent = amt + ' BNB';
-    const uri = `ethereum:${BSC_ADDR}@56?value=${Math.round(amt * 1e18)}`;
+    // QR contains the PLAIN ADDRESS so MetaMask/Trust/any wallet scans correctly.
+    // The "MetaMask" button handles the tx data (amount + network) directly via eth_sendTransaction.
     document.getElementById('bnb-qr').innerHTML = '';
-    new QRCode(document.getElementById('bnb-qr'), { text: uri, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+    new QRCode(document.getElementById('bnb-qr'), { text: BSC_ADDR, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
   }
   if (state.method === 'bank') {
     document.getElementById('bank-amount').textContent = state.product.ils.toLocaleString('he-IL') + ' ₪';
