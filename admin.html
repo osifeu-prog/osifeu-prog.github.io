@@ -2195,6 +2195,10 @@ async function loadFullUsers(){
     try{
         var r=await fetch(SLH_API+"/api/admin/all-users",{headers:{"X-Admin-Key":getAdminKey()}});
         var d=await r.json();
+        if(!r.ok){
+          t.innerHTML='<tr><td colspan="9" style="color:var(--red);padding:20px;text-align:center">❌ '+(d.detail||r.status)+' — ודא שאתה מחובר עם admin key חוקי (Railway → Variables → ADMIN_API_KEYS)<br><button onclick="document.querySelector(\'#login-pwd\').focus();localStorage.removeItem(\'slh_admin_password\');location.reload()" style="margin-top:10px;padding:8px 16px;background:var(--gold);color:#000;border:none;border-radius:6px;cursor:pointer;font-weight:700">🔑 התחבר מחדש</button></td></tr>';
+          return;
+        }
         if(!d.ok && !d.users) return;
         CRM_ALL_USERS = d.users || d || [];
         if(Array.isArray(d) && !d.users) CRM_ALL_USERS = d;

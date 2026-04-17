@@ -126,8 +126,27 @@ body::before{content:'';position:fixed;inset:0;background:
 
 .alert-warn{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:12px;color:var(--gold);line-height:1.7}
 </style>
+<style>
+/* BETA banner + bug FAB (standalone — pay.html doesn't use shared.js) */
+.slh-beta-banner{position:sticky;top:0;z-index:9998;background:linear-gradient(90deg,#ff9900,#ffd700,#00ff41);color:#000;font-weight:700;font-size:12px;padding:6px 14px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.slh-beta-banner a{color:#000;text-decoration:underline;font-weight:800}
+.slh-beta-banner button{background:rgba(0,0,0,.15);color:#000;border:none;padding:3px 10px;border-radius:12px;font-size:11px;cursor:pointer;font-weight:700}
+.slh-bug-fab{position:fixed;bottom:20px;left:20px;z-index:9999;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff4444,#ff9900);display:grid;place-items:center;font-size:24px;text-decoration:none;box-shadow:0 4px 20px rgba(255,68,68,.4);transition:transform .2s;animation:bugPulse 3s infinite}
+.slh-bug-fab:hover{transform:scale(1.1)}
+@keyframes bugPulse{0%,100%{box-shadow:0 4px 20px rgba(255,68,68,.4)}50%{box-shadow:0 4px 30px rgba(255,153,0,.6)}}
+@media(max-width:600px){.slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
+</style>
 </head>
 <body>
+
+<div class="slh-beta-banner" id="betaBanner">
+  <span>🚧 <b>BETA · גרסת ניסוי</b></span>
+  <span style="opacity:.85">אם משהו לא עובד —</span>
+  <a href="/bug-report.html">🐛 דווח באג</a>
+  <button onclick="localStorage.setItem('slh_beta_dismissed','1');document.getElementById('betaBanner').remove()">הבנתי ✕</button>
+</div>
+<a href="/bug-report.html" class="slh-bug-fab" title="דווח באג / הצעת שיפור">🐛</a>
+<script>if(localStorage.getItem('slh_beta_dismissed')==='1'){document.getElementById('betaBanner').remove();}</script>
 
 <div class="wrap">
 
@@ -149,6 +168,13 @@ body::before{content:'';position:fixed;inset:0;background:
     <h2><span class="num">1</span>מה לרכוש?</h2>
     <p class="desc">בחר את החבילה שמתאימה לך. תוכל תמיד לשדרג בהמשך.</p>
     <div class="products">
+      <div class="product" data-id="test_min" data-amount-ils="1" data-amount-ton="0.01" data-amount-bnb="0.0005" style="border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.04)">
+        <div class="left">
+          <div class="icon">🧪</div>
+          <div><div class="name">בדיקת Flow (מינימום)</div><div class="desc-sm" style="color:var(--gold)">0.01 TON / 0.0005 BNB · test tx · ~$0.02</div></div>
+        </div>
+        <div class="price" style="color:var(--gold)">₪1</div>
+      </div>
       <div class="product" data-id="premium" data-amount-ils="41" data-amount-ton="1" data-amount-bnb="0.01">
         <div class="left">
           <div class="icon">⭐</div>
