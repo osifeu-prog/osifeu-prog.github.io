@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLH · תשלום · מאובטח וברור</title>
+<meta name="description" content="שלם ל-SLH בצעדים פשוטים. TON, BNB, או העברה בנקאית. QR, אימות אוטומטי, Premium תוך 30 שניות.">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --bg:#05080f; --bg2:#0c1018; --bg3:#141924; --bg4:#1a2030;
+  --accent:#00ff41; --cyan:#00e5ff; --gold:#ffd700;
+  --ton:#0088cc; --bnb:#f3ba2f; --ils:#ff9900;
+  --red:#ff0055; --purple:#a855f7;
+  --text:#f5f5f8; --text2:#9ba0b5; --text3:#5a6078;
+  --border2:rgba(255,255,255,.08);
+  --font:'Rubik',system-ui,sans-serif; --mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;padding-bottom:40px}
+a{color:var(--accent);text-decoration:none}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(1000px 500px at 20% -5%, rgba(0,136,204,.08), transparent 60%),
+  radial-gradient(800px 500px at 90% 40%, rgba(243,186,47,.05), transparent 60%);
+  pointer-events:none;z-index:0}
+
+.wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:20px 16px}
+
+/* Header */
+.hdr{text-align:center;padding:16px 0 22px}
+.hdr h1{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.hdr .sub{color:var(--text2);font-size:14px}
+.hdr .beta{display:inline-block;padding:3px 10px;background:rgba(255,215,0,.1);color:var(--gold);border:1px solid rgba(255,215,0,.3);border-radius:12px;font-size:10px;font-weight:700;margin-top:8px}
+
+/* Progress dots */
+.progress{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
+.p-dot{width:36px;height:4px;background:var(--bg4);border-radius:2px;transition:.3s}
+.p-dot.done{background:var(--accent)}
+.p-dot.active{background:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.5)}
+
+/* Step card */
+.step{background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:18px;padding:24px;margin-bottom:18px;display:none}
+.step.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.step h2{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.step h2 .num{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--cyan));color:#000;border-radius:50%;display:grid;place-items:center;font-size:16px;font-weight:900}
+.step .desc{color:var(--text2);font-size:14px;margin-bottom:18px}
+
+/* Product options */
+.products{display:grid;gap:10px}
+.product{padding:16px;background:var(--bg);border:2px solid var(--border2);border-radius:12px;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center}
+.product:hover{border-color:var(--cyan);transform:translateY(-1px)}
+.product.selected{border-color:var(--accent);background:rgba(0,255,65,.05)}
+.product .left{display:flex;align-items:center;gap:12px}
+.product .icon{font-size:28px}
+.product .name{font-size:16px;font-weight:800}
+.product .desc-sm{font-size:12px;color:var(--text2);margin-top:2px}
+.product .price{font-size:20px;font-weight:900;font-family:var(--mono);color:var(--gold)}
+.product.selected .price{color:var(--accent)}
+
+/* Payment methods */
+.methods{display:grid;gap:10px;margin-top:12px}
+.method{padding:16px;background:var(--bg);border:2px solid var(--border2);border-radius:12px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:14px;text-align:right}
+.method:hover{transform:translateY(-1px)}
+.method.selected{background:rgba(0,255,65,.04)}
+.method.ton.selected{border-color:var(--ton);box-shadow:0 0 20px rgba(0,136,204,.15)}
+.method.bnb.selected{border-color:var(--bnb);box-shadow:0 0 20px rgba(243,186,47,.15)}
+.method.ils.selected{border-color:var(--ils);box-shadow:0 0 20px rgba(255,153,0,.15)}
+.method .icon{font-size:32px;width:56px;height:56px;border-radius:14px;display:grid;place-items:center;flex-shrink:0}
+.method.ton .icon{background:rgba(0,136,204,.15);color:var(--ton)}
+.method.bnb .icon{background:rgba(243,186,47,.15);color:var(--bnb)}
+.method.ils .icon{background:rgba(255,153,0,.15);color:var(--ils)}
+.method .info{flex:1}
+.method .name{font-size:16px;font-weight:800;margin-bottom:3px}
+.method .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px}
+.tag-fast{background:rgba(0,255,65,.1);color:var(--accent)}
+.tag-instant{background:rgba(0,229,255,.1);color:var(--cyan)}
+.tag-24h{background:rgba(255,215,0,.1);color:var(--gold)}
+.method .detail{font-size:12px;color:var(--text2)}
+
+/* QR block */
+.qr-block{background:var(--bg);border:1px solid var(--border2);border-radius:14px;padding:20px;margin-top:14px;text-align:center}
+.qr-block .qr-wrap{display:inline-block;padding:12px;background:#fff;border-radius:10px;margin-bottom:14px}
+.qr-block .qr-wrap img,.qr-block .qr-wrap canvas{display:block;width:180px;height:180px}
+.qr-block .amount-big{font-size:32px;font-weight:900;color:var(--gold);font-family:var(--mono);margin:10px 0}
+.qr-block .address{padding:12px;background:var(--bg3);border-radius:8px;font-family:var(--mono);font-size:11px;word-break:break-all;color:var(--cyan);margin:10px 0;direction:ltr;text-align:left}
+.qr-block .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.qr-block .actions button,.qr-block .actions a{flex:1;padding:12px;border-radius:10px;border:none;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;text-decoration:none;text-align:center;min-width:120px}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#00c832);color:#000}
+.btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.btn-ton{background:linear-gradient(135deg,var(--ton),#0065a0);color:#fff}
+.btn-bnb{background:linear-gradient(135deg,var(--bnb),#ff9900);color:#000}
+
+/* Instructions */
+.instructions{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:16px;margin-top:14px;font-size:13px;line-height:1.9}
+.instructions strong{color:var(--cyan)}
+.instructions ol{padding-right:20px;margin:8px 0}
+.instructions li{margin-bottom:6px}
+
+/* Verify form */
+.verify-form{margin-top:18px}
+.verify-form label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600}
+.verify-form input{width:100%;padding:14px;background:var(--bg);border:1px solid var(--border2);color:var(--text);border-radius:10px;font-family:var(--mono);font-size:13px;margin-bottom:10px;direction:ltr;text-align:left}
+.verify-form input:focus{border-color:var(--accent);outline:none}
+
+/* Status */
+.status-box{padding:16px;border-radius:12px;margin-top:14px;font-size:14px;text-align:center;display:none}
+.status-box.show{display:block;animation:fadeIn .3s}
+.status-box.success{background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.3);color:var(--accent)}
+.status-box.error{background:rgba(255,0,85,.08);border:1px solid rgba(255,0,85,.3);color:var(--red)}
+.status-box.loading{background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.25);color:var(--cyan)}
+
+/* Buttons */
+.btn-next{display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),var(--cyan));color:#000;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-top:16px;font-family:inherit;transition:.2s}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,255,65,.3)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-back{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);padding:10px 20px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;margin-top:10px;width:100%}
+.btn-back:hover{color:var(--text)}
+
+/* Trust strip */
+.trust{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:20px 0;font-size:11px;color:var(--text3)}
+.trust span{display:inline-flex;align-items:center;gap:5px}
+
+.alert-warn{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:12px;color:var(--gold);line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hdr">
+    <h1>💳 תשלום · שלב אחד בזמן</h1>
+    <p class="sub">בטוח, אוטומטי, ברור. Premium תוך 30 שניות.</p>
+    <span class="beta">🚧 BETA · גרסת ניסוי</span>
+  </header>
+
+  <div class="progress">
+    <div class="p-dot active" id="dot-1"></div>
+    <div class="p-dot" id="dot-2"></div>
+    <div class="p-dot" id="dot-3"></div>
+    <div class="p-dot" id="dot-4"></div>
+  </div>
+
+  <!-- STEP 1: Product -->
+  <div class="step active" id="step-1">
+    <h2><span class="num">1</span>מה לרכוש?</h2>
+    <p class="desc">בחר את החבילה שמתאימה לך. תוכל תמיד לשדרג בהמשך.</p>
+    <div class="products">
+      <div class="product" data-id="premium" data-amount-ils="41" data-amount-ton="1" data-amount-bnb="0.01">
+        <div class="left">
+          <div class="icon">⭐</div>
+          <div><div class="name">Premium Access</div><div class="desc-sm">גישה מלאה לכל הבוטים + פיד · 30 יום</div></div>
+        </div>
+        <div class="price">₪41</div>
+      </div>
+      <div class="product" data-id="slh_1" data-amount-ils="444" data-amount-ton="3" data-amount-bnb="0.06">
+        <div class="left">
+          <div class="icon">💎</div>
+          <div><div class="name">1 SLH Token</div><div class="desc-sm">מטבע הליבה · לטווח ארוך</div></div>
+        </div>
+        <div class="price">₪444</div>
+      </div>
+      <div class="product" data-id="slh_5" data-amount-ils="2200" data-amount-ton="15" data-amount-bnb="0.3">
+        <div class="left">
+          <div class="icon">💎</div>
+          <div><div class="name">5 SLH Tokens</div><div class="desc-sm">5% הנחה · +2 ZVK בונוס</div></div>
+        </div>
+        <div class="price">₪2,200</div>
+      </div>
+      <div class="product" data-id="zvk_100" data-amount-ils="440" data-amount-ton="3" data-amount-bnb="0.06">
+        <div class="left">
+          <div class="icon">🎁</div>
+          <div><div class="name">100 ZVK</div><div class="desc-sm">טוקן פעילות · להחזרים ותגמולים</div></div>
+        </div>
+        <div class="price">₪440</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next-1" disabled onclick="goStep(2)">הבא → בחר שיטת תשלום</button>
+  </div>
+
+  <!-- STEP 2: Method -->
+  <div class="step" id="step-2">
+    <h2><span class="num">2</span>איך לשלם?</h2>
+    <p class="desc">שלוש אפשרויות. הכי מהיר: TON (30 שניות). הכי איטי: בנק (24 שעות).</p>
+    <div class="methods">
+      <div class="method ton" data-method="ton">
+        <div class="icon">💎</div>
+        <div class="info">
+          <div class="name">TON <span class="tag tag-instant">מיידי</span></div>
+          <div class="detail">Tonkeeper, Wallet, Binance. אוטומטי · 30 שניות · ללא עמלות מערכת</div>
+        </div>
+      </div>
+      <div class="method bnb" data-method="bnb">
+        <div class="icon">🟡</div>
+        <div class="info">
+          <div class="name">BNB (BSC) <span class="tag tag-instant">מיידי</span></div>
+          <div class="detail">MetaMask, Trust, Binance. אוטומטי · 30 שניות</div>
+        </div>
+      </div>
+      <div class="method ils" data-method="bank">
+        <div class="icon">🏦</div>
+        <div class="info">
+          <div class="name">העברה בנקאית <span class="tag tag-24h">24 שעות</span></div>
+          <div class="detail">לחשבון של צביקה קאופמן. אישור ידני · 24 שעות · עבור פיאט</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-next" id="next-2" disabled onclick="goStep(3)">הבא → הוראות תשלום</button>
+    <button class="btn-back" onclick="goStep(1)">← חזור לבחירת חבילה</button>
+  </div>
+
+  <!-- STEP 3: Instructions + QR -->
+  <div class="step" id="step-3">
+    <h2><span class="num">3</span>שלח את התשלום</h2>
+    <p class="desc" id="step3-desc">סרוק את ה-QR עם הארנק שלך או העתק את הכתובת.</p>
+
+    <!-- TON block -->
+    <div class="qr-block" id="ton-block" style="display:none">
+      <div class="qr-wrap"><div id="ton-qr"></div></div>
+      <div class="amount-big" id="ton-amount">-- TON</div>
+      <div style="color:var(--text2);font-size:12px">שלח למה הכתובת הזו:</div>
+      <div class="address" id="ton-addr">טוען...</div>
+      <div class="actions">
+        <button class="btn-primary" onclick="copyAddr('ton-addr')">📋 העתק כתובת</button>
+        <a class="btn-ton" id="ton-deeplink" target="_blank">💎 פתח Tonkeeper</a>
+      </div>
+      <div class="alert-warn">
+        ⚠️ <strong>Binance:</strong> בחר רשת <b>TON</b>, השאר Memo ריק. מינימום משיכה ~0.5-1 TON.
+      </div>
+    </div>
+
+    <!-- BNB block -->
+    <div class="qr-block" id="bnb-block" style="display:none">
+      <div class="qr-wrap"><div id="bnb-qr"></div></div>
+      <div class="amount-big" id="bnb-amount">-- BNB</div>
+      <div style="color:var(--text2);font-size:12px">שלח לכתובת Genesis (BSC):</div>
+      <div class="address">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</div>
+      <div class="actions">
+        <button class="btn-primary" onclick="copyAddr('bnb-static')">📋 העתק כתובת</button>
+        <button class="btn-bnb" onclick="metamaskSend()">🦊 MetaMask</button>
+      </div>
+      <div id="bnb-static" style="display:none">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</div>
+      <div class="alert-warn">
+        ⚠️ <strong>רשת:</strong> BNB Smart Chain (BEP-20). <b>לא</b> Ethereum. <b>לא</b> BEP-2.
+      </div>
+    </div>
+
+    <!-- Bank block -->
+    <div class="qr-block" id="bank-block" style="display:none">
+      <div style="font-size:18px;font-weight:800;color:var(--ils);margin-bottom:12px">🏦 פרטי חשבון לזיכוי</div>
+      <div style="text-align:right;background:var(--bg3);padding:16px;border-radius:10px;line-height:2;font-size:14px">
+        <b>המוטב:</b> קאופמן צביקה<br>
+        <b>בנק:</b> לאומי (10)<br>
+        <b>סניף:</b> הרצליה (948)<br>
+        <b>חשבון:</b> 738009<br>
+        <b>סכום:</b> <span id="bank-amount" style="color:var(--accent);font-weight:800">-- ₪</span>
+      </div>
+      <div class="instructions">
+        <strong>אחרי ההעברה:</strong>
+        <ol>
+          <li>פתח את <a href="/buy.html" onclick="event.preventDefault();openBankForm()">טופס ההעברה הבנקאית</a></li>
+          <li>מלא 8 שדות (שם, ת.ז., אסמכתא, וכו')</li>
+          <li>שלח — צביקה יאשר תוך 24 שעות</li>
+        </ol>
+      </div>
+    </div>
+
+    <button class="btn-next" id="next-3" onclick="goStep(4)">הבא → אמת תשלום</button>
+    <button class="btn-back" onclick="goStep(2)">← חזור לשיטת תשלום</button>
+  </div>
+
+  <!-- STEP 4: Verify -->
+  <div class="step" id="step-4">
+    <h2><span class="num">4</span>אמת את התשלום</h2>
+    <p class="desc">הדבק את ה-TX hash מהארנק שלך. המערכת תאמת אוטומטית ב-30 שניות.</p>
+
+    <div class="verify-form" id="verify-crypto" style="display:none">
+      <label>TX hash (מהארנק / Binance):</label>
+      <input type="text" id="tx-hash" placeholder="הדבק TX hash כאן">
+      <label>User ID שלך (Telegram):</label>
+      <input type="number" id="verify-uid" placeholder="לדוגמה: 224223270">
+      <button class="btn-next" onclick="verifyPayment()" id="verify-btn">🔐 אמת והפעל</button>
+    </div>
+
+    <div class="verify-form" id="verify-bank" style="display:none">
+      <div class="instructions">
+        <strong>העברה בנקאית:</strong> אין צורך באימות כאן.
+        העבר ב-<a href="/buy.html" onclick="event.preventDefault();openBankForm()">טופס ההעברה הבנקאית</a> → צביקה מאשר ידנית.
+      </div>
+      <a href="/buy.html" class="btn-next" style="text-decoration:none;display:block;text-align:center">📝 עבור לטופס העברה</a>
+    </div>
+
+    <div class="status-box" id="status"></div>
+
+    <button class="btn-back" onclick="goStep(3)">← חזור להוראות</button>
+  </div>
+
+  <!-- Trust -->
+  <div class="trust">
+    <span><i class="fas fa-lock" style="color:var(--accent)"></i> SSL 256-bit</span>
+    <span><i class="fas fa-shield-alt" style="color:var(--accent)"></i> audit chain</span>
+    <span><i class="fas fa-check-circle" style="color:var(--accent)"></i> on-chain verified</span>
+    <span><i class="fas fa-undo" style="color:var(--accent)"></i> החזר 14 יום</span>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <a href="/mission-control.html" style="color:var(--text2);font-size:12px">🎛 status של המערכת</a> ·
+    <a href="/admin.html" style="color:var(--text2);font-size:12px">👑 אדמין</a> ·
+    <a href="https://t.me/osifeu_prog" style="color:var(--text2);font-size:12px">💬 צור קשר</a>
+  </div>
+
+</div>
+
+<script>
+const API = 'https://slh-api-production.up.railway.app';
+const TON_ADDR_FALLBACK = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
+const BSC_ADDR = '0xd061de73B06d5E91bfA46b35EfB7B08b16903da4';
+let tonAddress = TON_ADDR_FALLBACK;
+let state = { product: null, method: null, amount: null };
+
+// Load TON address from API
+(async () => {
+  try {
+    const r = await fetch(API + '/api/payment/config');
+    const d = await r.json();
+    if (d.ton_address) tonAddress = d.ton_address;
+  } catch(e) {}
+})();
+
+// Prefill user_id
+try {
+  const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+  if (u.id) document.getElementById('verify-uid').value = u.id;
+} catch(e) {}
+
+// Step 1 — pick product
+document.querySelectorAll('.product').forEach(el => {
+  el.onclick = () => {
+    document.querySelectorAll('.product').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    state.product = {
+      id: el.dataset.id,
+      name: el.querySelector('.name').textContent,
+      ils: parseFloat(el.dataset.amountIls),
+      ton: parseFloat(el.dataset.amountTon),
+      bnb: parseFloat(el.dataset.amountBnb),
+    };
+    document.getElementById('next-1').disabled = false;
+  };
+});
+
+// Step 2 — pick method
+document.querySelectorAll('.method').forEach(el => {
+  el.onclick = () => {
+    document.querySelectorAll('.method').forEach(m => m.classList.remove('selected'));
+    el.classList.add('selected');
+    state.method = el.dataset.method;
+    document.getElementById('next-2').disabled = false;
+  };
+});
+
+// Navigation
+function goStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  for (let i = 1; i <= 4; i++) {
+    const d = document.getElementById('dot-' + i);
+    d.classList.remove('active', 'done');
+    if (i < n) d.classList.add('done');
+    else if (i === n) d.classList.add('active');
+  }
+  if (n === 3) renderStep3();
+  if (n === 4) renderStep4();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderStep3() {
+  document.getElementById('ton-block').style.display = state.method === 'ton' ? 'block' : 'none';
+  document.getElementById('bnb-block').style.display = state.method === 'bnb' ? 'block' : 'none';
+  document.getElementById('bank-block').style.display = state.method === 'bank' ? 'block' : 'none';
+
+  if (state.method === 'ton') {
+    const amt = state.product.ton;
+    document.getElementById('ton-amount').textContent = amt + ' TON';
+    document.getElementById('ton-addr').textContent = tonAddress;
+    const deeplink = `ton://transfer/${tonAddress}?amount=${Math.round(amt * 1e9)}&text=SLH-${state.product.id}`;
+    document.getElementById('ton-deeplink').href = deeplink;
+    // QR
+    document.getElementById('ton-qr').innerHTML = '';
+    new QRCode(document.getElementById('ton-qr'), { text: deeplink, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+  }
+  if (state.method === 'bnb') {
+    const amt = state.product.bnb;
+    document.getElementById('bnb-amount').textContent = amt + ' BNB';
+    const uri = `ethereum:${BSC_ADDR}@56?value=${Math.round(amt * 1e18)}`;
+    document.getElementById('bnb-qr').innerHTML = '';
+    new QRCode(document.getElementById('bnb-qr'), { text: uri, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+  }
+  if (state.method === 'bank') {
+    document.getElementById('bank-amount').textContent = state.product.ils.toLocaleString('he-IL') + ' ₪';
+  }
+}
+
+function renderStep4() {
+  document.getElementById('verify-crypto').style.display = (state.method === 'ton' || state.method === 'bnb') ? 'block' : 'none';
+  document.getElementById('verify-bank').style.display = state.method === 'bank' ? 'block' : 'none';
+  document.getElementById('tx-hash').placeholder = state.method === 'ton' ? 'TON TX hash (64+ hex)' : 'BSC TX hash (0x + 64 hex)';
+}
+
+function copyAddr(elId) {
+  const text = elId === 'bnb-static' ? BSC_ADDR : document.getElementById(elId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✅ הועתק!';
+    setTimeout(() => btn.innerHTML = orig, 2000);
+  });
+}
+
+async function metamaskSend() {
+  if (!window.ethereum) {
+    alert('MetaMask לא מותקן. התקן מ-metamask.io או השתמש ב-Trust Wallet');
+    return;
+  }
+  try {
+    const accs = await window.ethereum.request({method: 'eth_requestAccounts'});
+    try {
+      await window.ethereum.request({method: 'wallet_switchEthereumChain', params: [{chainId: '0x38'}]});
+    } catch(e) {
+      if (e.code === 4902) {
+        await window.ethereum.request({method: 'wallet_addEthereumChain', params: [{
+          chainId: '0x38', chainName: 'BSC',
+          rpcUrls: ['https://bsc-dataseed.binance.org'],
+          nativeCurrency: {name: 'BNB', symbol: 'BNB', decimals: 18}
+        }]});
+      }
+    }
+    const valueWei = '0x' + BigInt(Math.round(state.product.bnb * 1e18)).toString(16);
+    const txHash = await window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [{from: accs[0], to: BSC_ADDR, value: valueWei}]
+    });
+    document.getElementById('tx-hash').value = txHash;
+    alert('✅ TX נשלח!\nנשמר אוטומטית בשדה. עכשיו עבור לשלב 4 ולחץ "אמת".');
+    goStep(4);
+  } catch(e) { alert('שגיאה: ' + (e.message || e.code)); }
+}
+
+async function verifyPayment() {
+  const btn = document.getElementById('verify-btn');
+  const status = document.getElementById('status');
+  const tx = document.getElementById('tx-hash').value.trim();
+  const uid = parseInt(document.getElementById('verify-uid').value, 10);
+  if (!tx || !uid) {
+    status.className = 'status-box show error';
+    status.innerHTML = '❌ חסר TX hash או User ID';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = '⏳ מאמת...';
+  status.className = 'status-box show loading';
+  status.innerHTML = '⏳ בודק ב-' + (state.method === 'ton' ? 'toncenter' : 'bscscan') + '... (30 שניות)';
+
+  const endpoint = state.method === 'ton'
+    ? '/api/payment/ton/auto-verify'
+    : '/api/payment/bsc/auto-verify';
+  const body = { user_id: uid, tx_hash: tx, bot_name: 'ecosystem' };
+  if (state.method === 'ton') body.expected_amount_ton = state.product.ton;
+  if (state.method === 'bnb') body.expected_min_bnb = state.product.bnb;
+
+  try {
+    const r = await fetch(API + endpoint, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail);
+    const amtTxt = state.method === 'ton' ? `${d.amount_ton} TON` : `${d.amount_bnb} BNB`;
+    status.className = 'status-box show success';
+    const receipt = d.receipt ? `<div style="margin-top:8px;font-family:monospace;font-size:12px">קבלה: ${d.receipt.receipt_number}</div>` : '';
+    status.innerHTML = `
+      <div style="font-size:24px;margin-bottom:6px">✅</div>
+      <div style="font-size:18px;font-weight:900">Premium פעיל!</div>
+      <div>אומת: ${amtTxt}</div>
+      ${receipt}
+      <a href="/dashboard.html" style="display:inline-block;margin-top:14px;padding:10px 24px;background:var(--accent);color:#000;border-radius:8px;font-weight:800;text-decoration:none">🎛 עבור לדשבורד</a>
+    `;
+    btn.textContent = '✅ הופעל';
+  } catch(e) {
+    status.className = 'status-box show error';
+    status.innerHTML = '❌ ' + e.message + '<br><small style="margin-top:8px;display:block">אם זה זה עתה שלחת — חכה 30 שניות ונסה שוב. TX לא מופיע מיד.</small>';
+    btn.disabled = false;
+    btn.textContent = '🔐 אמת והפעל';
+  }
+}
+
+function openBankForm() { window.location.href = '/buy.html#bank-form'; }
+</script>
+
+</body>
+</html>
