@@ -230,5 +230,6 @@ function formatDate(d){ try { return new Date(d).toLocaleString('he-IL'); } catc
 function shortUrl(u){ try { return new URL(u).pathname; } catch { return (u||'').slice(0,50); } }
 function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 </script>
+<script src="/js/ai-assistant.js"></script>
 </body>
 </html>
