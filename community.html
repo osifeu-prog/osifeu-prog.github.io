@@ -2246,7 +2246,7 @@
                         <i class="fas fa-share"></i>
                         <span>שיתוף</span>
                     </button>
-                    <button class="post-action-btn" onclick="messagePrivately('${escHtml(post.username)}', ${post.telegram_id ? `'${post.telegram_id}'` : 'null'})" title="שלח הודעה פרטית בטלגרם">
+                    <button class="post-action-btn dm-btn" data-username="${escHtml(post.username || '')}" data-tgid="${escHtml((post.telegram_id || '').toString())}" title="שלח הודעה פרטית בטלגרם">
                         <i class="fa-brands fa-telegram" style="color:#26a5e4"></i>
                         <span>DM</span>
                     </button>
@@ -2259,6 +2259,15 @@
                 </div>
             </div>`;
     }
+
+    /* ── DM button delegation (safe — no inline JS that breaks on special chars) ── */
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.dm-btn');
+        if (!btn) return;
+        const username = btn.dataset.username || '';
+        const tgid = btn.dataset.tgid || '';
+        messagePrivately(username, tgid);
+    });
 
     /* ── Private message (Telegram deep-link) ── */
     function messagePrivately(username, telegramId) {
