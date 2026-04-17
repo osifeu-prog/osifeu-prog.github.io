@@ -356,8 +356,19 @@ async function submitRegister(){
     email: document.getElementById('reg-email').value.trim(),
     bio: document.getElementById('reg-bio').value.trim(),
     domains: selectedDomains,
-    languages: ['he']
+    languages: ['he'],
+    // Proof-of-expertise
+    linkedin_url: document.getElementById('reg-linkedin')?.value.trim() || null,
+    website_url: document.getElementById('reg-website')?.value.trim() || null,
+    youtube_url: document.getElementById('reg-youtube')?.value.trim() || null,
+    credentials: document.getElementById('reg-credentials')?.value.trim() || null,
+    years_experience: parseInt(document.getElementById('reg-years')?.value, 10) || null
   };
+  // Attach user_id if logged in
+  try {
+    const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+    if (u.id) body.user_id = u.id;
+  } catch(e) {}
   if(!body.display_name){ alert('נא הזן שם'); return; }
   if(body.domains.length === 0){ alert('נא בחר לפחות תחום אחד'); return; }
   try {
