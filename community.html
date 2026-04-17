@@ -2021,8 +2021,29 @@
     }
     async function handleNewPost() {
         const user = getUser();
-        if (!user || !user.is_registered) {
-            window.location.href = '/dashboard.html#register';
+        if (!user || !user.username) {
+            alert('עליך להתחבר כדי לפרסם');
+            window.location.href = '/dashboard.html';
+            return;
+        }
+        // If localStorage is missing is_registered, re-check against the API
+        // (stale cache sometimes shows logged-in user as not registered)
+        if (!user.is_registered && user.id) {
+            try {
+                const r = await fetch(API + '/api/user/' + user.id);
+                if (r.ok) {
+                    const d = await r.json();
+                    if (d.user && d.user.is_registered) {
+                        user.is_registered = true;
+                        localStorage.setItem('slh_user', JSON.stringify(user));
+                    }
+                }
+            } catch(e) {}
+        }
+        if (!user.is_registered) {
+            if (confirm('כדי לפרסם צריך להשלים הרשמה. לעבור עכשיו לדף ההרשמה?')) {
+                window.location.href = '/dashboard.html#register';
+            }
             return;
         }
         const textarea = document.getElementById('new-post-text');
