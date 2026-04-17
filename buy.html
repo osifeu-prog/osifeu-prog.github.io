@@ -151,20 +151,25 @@
                 <div class="name">Genesis Deposit</div>
                 <div class="detail">BNB ישירות לארנק Genesis</div>
             </div>
+            <div class="pay-method" onclick="openTonPayModal()" style="cursor:pointer">
+                <div class="icon">💎</div>
+                <div class="name">TON Direct</div>
+                <div class="detail">Tonkeeper / Wallet · אימות אוטומטי ב-30ש</div>
+            </div>
+            <div class="pay-method" onclick="openBscPayModal()" style="cursor:pointer">
+                <div class="icon">🟡</div>
+                <div class="name">BNB Direct</div>
+                <div class="detail">MetaMask / Trust · BSC · אימות אוטומטי</div>
+            </div>
             <div class="pay-method" onclick="openBankTransferModal()" style="cursor:pointer">
                 <div class="icon">🏦</div>
                 <div class="name">העברה בנקאית</div>
                 <div class="detail">לצביקה קאופמן (מנכ"ל) · 8 שדות חובה</div>
             </div>
-            <div class="pay-method" onclick="window.open('https://t.me/osifeu_prog','_blank')" style="cursor:pointer">
-                <div class="icon">📱</div>
-                <div class="name">Bit / PayBox</div>
-                <div class="detail">תשלום מהיר בשקלים · ZVK/MNH</div>
-            </div>
             <div class="pay-method" onclick="window.open('https://t.me/SLH_AIR_bot?start=buy','_blank')" style="cursor:pointer">
                 <div class="icon">📱</div>
                 <div class="name">Telegram Bot</div>
-                <div class="detail">רכישה דרך @SLH_AIR_bot</div>
+                <div class="detail">רכישה דרך @SLH_AIR_bot · /buy</div>
             </div>
         </div>
 
@@ -468,6 +473,190 @@ async function verifyPayment(){
         btn.textContent = '🔐 אמת תשלום והפעל Premium';
     }
 }
+</script>
+
+<!-- TON Direct Payment Modal -->
+<div id="ton-pay-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);overflow-y:auto">
+<div style="max-width:540px;margin:30px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(38,165,228,.3);border-radius:14px;direction:rtl">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="color:#26a5e4;font-size:20px;margin:0">💎 תשלום ב-TON</h2>
+        <button onclick="closeTonPayModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    </div>
+    <div style="background:rgba(38,165,228,.08);border:1px solid rgba(38,165,228,.25);padding:14px;border-radius:10px;margin-bottom:16px;font-size:13px;color:#e0e0f0;line-height:1.8">
+        <strong style="color:#26a5e4">שלב 1:</strong> שלח TON לכתובת הבאה:<br>
+        <div style="margin:10px 0;padding:12px;background:rgba(0,0,0,.4);border-radius:8px;font-family:monospace;font-size:12px;color:#00ff41;direction:ltr;text-align:center;word-break:break-all" id="ton-address-display">טוען...</div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+            <button onclick="copyTonAddress()" style="flex:1;padding:10px;background:#26a5e4;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">📋 העתק כתובת</button>
+            <a id="ton-deeplink" href="#" target="_blank" style="flex:1;padding:10px;background:#00c832;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;text-align:center;text-decoration:none">💎 פתח Tonkeeper</a>
+        </div>
+        <strong style="color:#26a5e4">שלב 2:</strong> אחרי ששלחת, העתק את ה-TX hash מהארנק והדבק למטה<br>
+        <strong style="color:#26a5e4">שלב 3:</strong> לחץ "אמת" → אישור אוטומטי תוך 30 שניות
+    </div>
+    <input type="text" id="ton-tx-hash" placeholder="TX hash (מהארנק)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr">
+    <input type="number" id="ton-user-id" placeholder="User ID שלך (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
+    <button onclick="verifyTonPayment()" id="ton-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#26a5e4,#00ff41);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">🔐 אמת והפעל Premium</button>
+    <div id="ton-verify-result" style="margin-top:12px;font-size:13px;text-align:center;min-height:20px"></div>
+</div>
+</div>
+
+<!-- BSC Direct Payment Modal -->
+<div id="bsc-pay-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);overflow-y:auto">
+<div style="max-width:540px;margin:30px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(243,186,47,.3);border-radius:14px;direction:rtl">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="color:#f3ba2f;font-size:20px;margin:0">🟡 תשלום ב-BNB (BSC)</h2>
+        <button onclick="closeBscPayModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    </div>
+    <div style="background:rgba(243,186,47,.08);border:1px solid rgba(243,186,47,.25);padding:14px;border-radius:10px;margin-bottom:16px;font-size:13px;color:#e0e0f0;line-height:1.8">
+        <strong style="color:#f3ba2f">שלב 1:</strong> שלח BNB לכתובת Genesis:<br>
+        <div style="margin:10px 0;padding:12px;background:rgba(0,0,0,.4);border-radius:8px;font-family:monospace;font-size:11px;color:#f3ba2f;direction:ltr;text-align:center;word-break:break-all">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+            <button onclick="copyBscAddress()" style="flex:1;padding:10px;background:#f3ba2f;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">📋 העתק כתובת</button>
+            <button onclick="connectMetaMask()" style="flex:1;padding:10px;background:#ff9900;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">🦊 MetaMask</button>
+        </div>
+        <div style="font-size:11px;color:#ffd700;margin-bottom:4px">💡 מינימום: 0.05 BNB (~₪180)</div>
+        <strong style="color:#f3ba2f">שלב 2:</strong> העתק TX hash מ-MetaMask/Trust<br>
+        <strong style="color:#f3ba2f">שלב 3:</strong> אמת והפעל Premium ב-30ש
+    </div>
+    <input type="text" id="bsc-tx-hash" placeholder="TX hash (0x...)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr">
+    <input type="number" id="bsc-user-id" placeholder="User ID שלך (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
+    <button onclick="verifyBscPayment()" id="bsc-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#f3ba2f,#ff9900);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">🔐 אמת והפעל Premium</button>
+    <div id="bsc-verify-result" style="margin-top:12px;font-size:13px;text-align:center;min-height:20px"></div>
+</div>
+</div>
+
+<script>
+const TON_ADDR_FALLBACK = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
+const BSC_ADDR = '0xd061de73B06d5E91bfA46b35EfB7B08b16903da4';
+let loadedTonAddr = null;
+
+async function loadTonAddr() {
+    try {
+        const r = await fetch('https://slh-api-production.up.railway.app/api/payment/config');
+        const d = await r.json();
+        loadedTonAddr = d.ton_address || TON_ADDR_FALLBACK;
+    } catch(e) { loadedTonAddr = TON_ADDR_FALLBACK; }
+    const el = document.getElementById('ton-address-display');
+    if (el) el.textContent = loadedTonAddr;
+    const dl = document.getElementById('ton-deeplink');
+    if (dl) dl.href = 'ton://transfer/' + loadedTonAddr + '?amount=1500000000&text=SLH%20premium';
+}
+
+function openTonPayModal() {
+    loadTonAddr();
+    document.getElementById('ton-pay-modal').style.display = 'block';
+    try {
+        const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        if (u.id) document.getElementById('ton-user-id').value = u.id;
+    } catch(e) {}
+}
+function closeTonPayModal() { document.getElementById('ton-pay-modal').style.display = 'none'; }
+
+function openBscPayModal() {
+    document.getElementById('bsc-pay-modal').style.display = 'block';
+    try {
+        const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+        if (u.id) document.getElementById('bsc-user-id').value = u.id;
+    } catch(e) {}
+}
+function closeBscPayModal() { document.getElementById('bsc-pay-modal').style.display = 'none'; }
+
+function copyTonAddress() {
+    if (!loadedTonAddr) return;
+    navigator.clipboard.writeText(loadedTonAddr).then(() => alert('✅ כתובת TON הועתקה'));
+}
+function copyBscAddress() {
+    navigator.clipboard.writeText(BSC_ADDR).then(() => alert('✅ כתובת BSC Genesis הועתקה'));
+}
+
+async function connectMetaMask() {
+    if (!window.ethereum) {
+        alert('אין MetaMask מותקן. התקן מ-metamask.io או השתמש ב-Trust Wallet');
+        return;
+    }
+    try {
+        const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+        const from = accounts[0];
+        // Switch to BSC
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{chainId: '0x38'}]
+            });
+        } catch(e) {
+            if (e.code === 4902) {
+                await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [{
+                        chainId: '0x38',
+                        chainName: 'BSC',
+                        rpcUrls: ['https://bsc-dataseed.binance.org'],
+                        nativeCurrency: {name: 'BNB', symbol: 'BNB', decimals: 18}
+                    }]
+                });
+            }
+        }
+        // Send TX
+        const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [{
+                from: from,
+                to: BSC_ADDR,
+                value: '0xb1a2bc2ec50000' // 0.05 BNB in hex wei
+            }]
+        });
+        document.getElementById('bsc-tx-hash').value = txHash;
+        alert('✅ TX נשלח! עכשיו לחץ "אמת" למטה');
+    } catch(e) {
+        alert('שגיאה: ' + (e.message || e.code));
+    }
+}
+
+async function verifyTonPayment() {
+    const btn = document.getElementById('ton-verify-btn');
+    const res = document.getElementById('ton-verify-result');
+    const tx = document.getElementById('ton-tx-hash').value.trim();
+    const uid = parseInt(document.getElementById('ton-user-id').value, 10);
+    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash או User ID</span>'; return; }
+    btn.disabled = true; btn.textContent = '⏳ מאמת ב-toncenter...';
+    try {
+        const r = await fetch('https://slh-api-production.up.railway.app/api/payment/ton/auto-verify', {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({user_id: uid, tx_hash: tx, bot_name: 'ecosystem'})
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail);
+        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">✅ אומת! ' + d.amount_ton + ' TON · Premium פעיל</div>';
+        btn.textContent = '✅ הופעל';
+    } catch(e) {
+        res.innerHTML = '<div style="color:#ff4444;padding:10px">❌ ' + e.message + '</div>';
+        btn.disabled = false; btn.textContent = '🔐 אמת והפעל Premium';
+    }
+}
+
+async function verifyBscPayment() {
+    const btn = document.getElementById('bsc-verify-btn');
+    const res = document.getElementById('bsc-verify-result');
+    const tx = document.getElementById('bsc-tx-hash').value.trim();
+    const uid = parseInt(document.getElementById('bsc-user-id').value, 10);
+    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash או User ID</span>'; return; }
+    btn.disabled = true; btn.textContent = '⏳ מאמת ב-bscscan...';
+    try {
+        const r = await fetch('https://slh-api-production.up.railway.app/api/payment/bsc/auto-verify', {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({user_id: uid, tx_hash: tx, bot_name: 'ecosystem'})
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail);
+        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">✅ אומת! ' + d.amount_bnb + ' BNB · Premium פעיל</div>';
+        btn.textContent = '✅ הופעל';
+    } catch(e) {
+        res.innerHTML = '<div style="color:#ff4444;padding:10px">❌ ' + e.message + '</div>';
+        btn.disabled = false; btn.textContent = '🔐 אמת והפעל Premium';
+    }
+}
+
+document.getElementById('ton-pay-modal').addEventListener('click', e => { if (e.target.id === 'ton-pay-modal') closeTonPayModal(); });
+document.getElementById('bsc-pay-modal').addEventListener('click', e => { if (e.target.id === 'bsc-pay-modal') closeBscPayModal(); });
 </script>
 
 <!-- Bank Transfer Modal -->
