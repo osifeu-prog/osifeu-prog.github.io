@@ -2246,6 +2246,10 @@
                         <i class="fas fa-share"></i>
                         <span>שיתוף</span>
                     </button>
+                    <button class="post-action-btn" onclick="messagePrivately('${escHtml(post.username)}', ${post.telegram_id ? `'${post.telegram_id}'` : 'null'})" title="שלח הודעה פרטית בטלגרם">
+                        <i class="fa-brands fa-telegram" style="color:#26a5e4"></i>
+                        <span>DM</span>
+                    </button>
                 </div>
                 <div class="comments-section ${openCommentsSet.has(post.id) ? 'open' : ''}" id="comments-${post.id}">
                     <div class="comments-list">
@@ -2254,6 +2258,51 @@
                     ${commentInputHtml}
                 </div>
             </div>`;
+    }
+
+    /* ── Private message (Telegram deep-link) ── */
+    function messagePrivately(username, telegramId) {
+        const me = getUser();
+        if (!me) {
+            alert('עליך להתחבר כדי לשלוח הודעה פרטית');
+            window.location.href = '/dashboard.html';
+            return;
+        }
+        if (username === me.username) {
+            alert('זה אתה! 😊');
+            return;
+        }
+        // Prefer direct Telegram ID if available (opens chat by user_id)
+        // Fallback: use username as @handle
+        const cleanHandle = (username || '').replace(/^@/, '').trim();
+        let tgUrl;
+        if (telegramId && !isNaN(telegramId)) {
+            tgUrl = `tg://user?id=${telegramId}`;
+        } else if (cleanHandle) {
+            tgUrl = `https://t.me/${cleanHandle}`;
+        } else {
+            alert('לא ניתן לשלוח הודעה — חסרים פרטי יצירת קשר');
+            return;
+        }
+        // Show option modal: public reply vs private TG
+        const choice = confirm(
+            `שלח הודעה פרטית ל-${username} בטלגרם?\n\n` +
+            `✅ OK = פתח צ'אט פרטי בטלגרם\n` +
+            `❌ ביטול = הוסף תגובה פומבית לפוסט הזה`
+        );
+        if (choice) {
+            window.open(tgUrl, '_blank');
+        } else {
+            // Scroll to comment input of this post
+            const post = posts.find(p => p.username === username);
+            if (post) {
+                toggleComments(post.id);
+                setTimeout(() => {
+                    const input = document.getElementById('comment-input-' + post.id);
+                    if (input) input.focus();
+                }, 300);
+            }
+        }
     }
 
     function sharePost(postId) {
