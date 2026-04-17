@@ -219,14 +219,17 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
     <!-- Admin mint -->
     <div class="card c6">
       <h2><i class="fa fa-plus-circle"></i>Mint AIC (Admin)</h2>
-      <div class="row">
-        <input class="ipt" id="mintUserId" placeholder="user_id" type="number">
-        <input class="ipt" id="mintAmount" placeholder="amount" type="number" step="0.0001">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;background:rgba(255,215,0,.08);padding:10px;border-radius:8px;border-right:3px solid var(--gold)">
+        💡 <b>הסבר:</b> יצירת AIC חדש למשתמש. ה-user_id הוא Telegram ID (לדוגמה 224223270 = Osif). ה-amount הוא כמות AIC (1 AIC ≈ $0.001). ה-reserve USD הוא <b>אופציונלי</b> — אם נשאר ריק, לא מתווסף כלום לרזרבה.
       </div>
-      <div class="row" style="margin-top:8px">
-        <input class="ipt" id="mintReserve" placeholder="reserve USD (optional)" type="number" step="0.01">
-        <input class="ipt" id="mintNote" placeholder="note (e.g., 'seed funding')">
-      </div>
+      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">Telegram User ID (מי יקבל)</label>
+      <input class="ipt" id="mintUserId" placeholder="224223270" type="number">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">כמות AIC להנפיק (כל 1000 AIC ≈ 1 SLH)</label>
+      <input class="ipt" id="mintAmount" placeholder="100" type="number" step="0.0001">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">Reserve USD — אופציונלי (השאר ריק אם לא מוסיפים כסף לרזרבה עכשיו)</label>
+      <input class="ipt" id="mintReserve" placeholder="0.10" type="number" step="0.01">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">הערה (למה?)</label>
+      <input class="ipt" id="mintNote" placeholder="seed funding · מתנה · פיצוי">
       <button class="btn" onclick="mintAic()" style="margin-top:10px;width:100%"><i class="fa fa-coins"></i> Mint AIC</button>
       <div id="mintResult" class="status" style="display:none"></div>
     </div>
@@ -234,17 +237,19 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
     <!-- Reserve -->
     <div class="card c6">
       <h2><i class="fa fa-vault"></i>Reserve (USD backing)</h2>
-      <div class="row">
-        <input class="ipt" id="resAmount" placeholder="USD amount" type="number" step="0.01">
-        <select class="ipt" id="resSource">
-          <option value="stripe_purchase">Stripe purchase</option>
-          <option value="slh_swap">SLH swap</option>
-          <option value="admin_injection">Admin injection</option>
-        </select>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;background:rgba(0,229,255,.08);padding:10px;border-radius:8px;border-right:3px solid var(--cyan)">
+        🏦 <b>הסבר:</b> הרזרבה היא <b>USD אמיתי</b> שיש ל-treasury כדי לגבות את ה-AIC. אם יש 100 AIC במחזור ו-$0.10 ברזרבה → כל AIC שווה $0.001. <b>אזהרה:</b> הזן דולרים אמיתיים שיש לך — לא מספר סתם. הזנה שגויה מנפחת את השוויות המצוטטת של AIC.
       </div>
-      <div class="row" style="margin-top:8px">
-        <input class="ipt" id="resNote" placeholder="note">
-      </div>
+      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">USD שתוסיף לרזרבה (דולרים אמיתיים)</label>
+      <input class="ipt" id="resAmount" placeholder="10.00" type="number" step="0.01">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">מקור</label>
+      <select class="ipt" id="resSource">
+        <option value="stripe_purchase">Stripe purchase (משתמש שילם בכרטיס)</option>
+        <option value="slh_swap">SLH swap (המרה מ-SLH ל-AIC)</option>
+        <option value="admin_injection">Admin injection (הוספה ידנית מה-treasury)</option>
+      </select>
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">הערה</label>
+      <input class="ipt" id="resNote" placeholder="למשל: הכנסה מהמכירה של 5 NFT היום">
       <button class="btn warn" onclick="addReserve()" style="margin-top:10px;width:100%"><i class="fa fa-plus"></i> Add to Reserve</button>
       <div id="reserveList" style="margin-top:12px;font-size:11px;color:var(--text2);font-family:var(--mono)">טוען...</div>
     </div>
@@ -272,8 +277,8 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
       <button class="copy-btn" onclick="copyPrompt()" id="copyBtn"><i class="fa fa-copy"></i> העתק פרומפט מלא</button>
       <div class="prompt-box" id="promptBox">טוען פרומפט מ-GitHub...</div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <a class="btn sec" href="https://raw.githubusercontent.com/osifeu-prog/slh-api/master/ops/MASTER_EXECUTOR_AGENT_PROMPT.md" target="_blank"><i class="fa-brands fa-github"></i> Raw GitHub</a>
-        <a class="btn sec" href="https://github.com/osifeu-prog/slh-api/blob/master/ops/MASTER_EXECUTOR_AGENT_PROMPT.md" target="_blank"><i class="fa fa-edit"></i> Edit</a>
+        <a class="btn sec" href="/prompts/MASTER_EXECUTOR_AGENT_PROMPT.md" target="_blank"><i class="fa fa-file-lines"></i> Raw (public copy)</a>
+        <a class="btn sec" href="/prompts/" target="_blank"><i class="fa fa-folder-open"></i> All 9 prompts</a>
         <a class="btn sec" href="/agent-brief.html" target="_blank"><i class="fa fa-robot"></i> Agent Brief (short)</a>
       </div>
     </div>
@@ -311,7 +316,7 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 
 <script>
 const API = 'https://slh-api-production.up.railway.app';
-const PROMPT_URL = 'https://raw.githubusercontent.com/osifeu-prog/slh-api/master/ops/MASTER_EXECUTOR_AGENT_PROMPT.md';
+const PROMPT_URL = '/prompts/MASTER_EXECUTOR_AGENT_PROMPT.md';
 let ADMIN_KEY = localStorage.getItem('slh_admin_password') || '';
 
 function getKey(){ return ADMIN_KEY; }
