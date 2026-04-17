@@ -1483,6 +1483,20 @@
                 </div>
             </div>
 
+            <!-- Top Sudoku Solvers (weekly) -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-puzzle-piece" style="color:#a855f7"></i> <span>🧩 Top Sudoku השבוע</span></h3>
+                <div id="top-sudoku" style="font-size:13px;color:var(--text2)">טוען...</div>
+                <a href="/sudoku.html" style="display:block;margin-top:10px;padding:8px;background:rgba(168,85,247,.1);color:#a855f7;border:1px solid rgba(168,85,247,.3);border-radius:8px;text-align:center;font-size:12px;font-weight:700;text-decoration:none">שחק עכשיו →</a>
+            </div>
+
+            <!-- AIC Economy -->
+            <div class="sidebar-card">
+                <h3><i class="fas fa-brain" style="color:#ffd700"></i> <span>🧠 AIC Economy</span></h3>
+                <div id="aic-widget" style="font-size:12px;color:var(--text2);line-height:1.8">טוען...</div>
+                <a href="/admin-tokens.html" style="display:block;margin-top:10px;padding:8px;background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.3);border-radius:8px;text-align:center;font-size:12px;font-weight:700;text-decoration:none">Admin →</a>
+            </div>
+
             <!-- Top Members -->
             <div class="sidebar-card">
                 <h3><i class="fas fa-trophy"></i> <span data-i18n="community_top_members">חברים מובילים</span></h3>
@@ -1733,6 +1747,45 @@
             const coverOnline = document.getElementById('cover-online');
             if (coverOnline) coverOnline.textContent = onlineCount;
         }
+    }
+
+    /* ── Top Sudoku weekly ── */
+    async function loadTopSudoku() {
+        const el = document.getElementById('top-sudoku');
+        if (!el) return;
+        try {
+            const r = await fetch(API + '/api/sudoku/leaderboard?period=weekly&limit=5');
+            if (!r.ok) throw new Error(r.status);
+            const d = await r.json();
+            const lds = d.leaders || [];
+            if (lds.length === 0) {
+                el.innerHTML = '<div style="color:var(--text3);font-size:12px;text-align:center;padding:10px">אין פותרים השבוע — היה הראשון!</div>';
+                return;
+            }
+            el.innerHTML = lds.map((l, i) => {
+                const medal = ['🥇','🥈','🥉','4','5'][i] || (i+1);
+                return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border2);font-size:12px"><span><b>${medal}</b> user #${l.user_id}</span><span style="color:#a855f7">${l.solves}×</span></div>`;
+            }).join('');
+        } catch(e) {
+            el.innerHTML = '<div style="color:var(--text3);font-size:12px">אין נתונים</div>';
+        }
+    }
+
+    /* ── AIC widget ── */
+    async function loadAicWidget() {
+        const el = document.getElementById('aic-widget');
+        if (!el) return;
+        try {
+            const r = await fetch(API + '/api/aic/stats');
+            if (!r.ok) throw new Error(r.status);
+            const d = await r.json();
+            el.innerHTML = `
+                <div>💎 Supply: <b style="color:#ffd700">${(d.total_supply||0).toFixed(1)}</b></div>
+                <div>👛 Wallets: <b style="color:#ffd700">${d.wallets_count||0}</b></div>
+                <div>📈 24h earn: <b style="color:var(--accent)">${(d.earned_24h||0).toFixed(1)}</b></div>
+                <div>📉 24h spent: <b style="color:var(--red)">${(d.spent_24h||0).toFixed(1)}</b></div>
+            `;
+        } catch(e) { el.innerHTML = '<div style="color:var(--text3)">אין נתונים</div>'; }
     }
 
     /* ── Trending Categories (count posts per category) ── */
@@ -2864,10 +2917,14 @@
         await enrichUserFromAPI(); // Fix user identity before rendering
         renderAuthSection();
         loadPostsFromAPI();
+        loadTopSudoku();
+        loadAicWidget();
         if (typeof renderDateWidget === 'function') renderDateWidget('community-date-widget');
 
         // Auto-refresh posts every 45s
         setInterval(loadPostsFromAPI, 45000);
+        setInterval(loadTopSudoku, 120000);  // 2min
+        setInterval(loadAicWidget, 60000);   // 1min
     });
     </script>
 <script src="/js/analytics.js"></script>
