@@ -117,11 +117,33 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
     </div>
     <label>תיאור קצר (50-200 תווים)</label>
     <textarea id="reg-bio" placeholder="ספר על הניסיון והידע שלך..."></textarea>
-    <button class="cta" style="width:100%" onclick="submitRegister()">
-      <i class="fas fa-paper-plane"></i> שלח הרשמה
+
+    <!-- Proof-of-expertise section (required: at least one) -->
+    <div style="margin-top:18px;padding:14px;background:rgba(0,255,65,.04);border:1px solid rgba(0,255,65,.2);border-radius:10px">
+      <div style="font-size:13px;font-weight:800;color:var(--accent,#00ff41);margin-bottom:4px">🔒 הוכחת מומחיות (חובה לפחות אחת)</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:12px">כדי לוודא איכות הקהילה — אימות אדמין ידני. אישור תוך 24-48 שעות.</div>
+
+      <label style="font-size:11px">LinkedIn URL</label>
+      <input type="url" id="reg-linkedin" placeholder="https://linkedin.com/in/your-profile">
+
+      <label style="font-size:11px">אתר אישי / פורטפוליו</label>
+      <input type="url" id="reg-website" placeholder="https://yoursite.com">
+
+      <label style="font-size:11px">YouTube / סרטון הרצאה</label>
+      <input type="url" id="reg-youtube" placeholder="https://youtube.com/watch?v=...">
+
+      <label style="font-size:11px">שנות ניסיון</label>
+      <input type="number" id="reg-years" placeholder="לדוגמה: 10" min="0" max="60">
+
+      <label style="font-size:11px">תעודות / הסמכות (חופשי)</label>
+      <textarea id="reg-credentials" placeholder="לדוגמה: PhD בפסיכולוגיה קלינית · מנצח תזמורת סימפונית · 500+ סדנאות יוגה" style="min-height:60px"></textarea>
+    </div>
+
+    <button class="cta" style="width:100%;margin-top:14px" onclick="submitRegister()">
+      <i class="fas fa-paper-plane"></i> שלח הרשמה לאימות
     </button>
     <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:10px">
-      פרופילים יאומתו ויפורסמו תוך 48 שעות
+      🎁 בונוס 100 ZVK להרשמה · אימות תוך 24-48 שעות · תגמול נוסף אחרי אישור
     </div>
   </div>
 </div>
