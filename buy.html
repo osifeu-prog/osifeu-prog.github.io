@@ -181,6 +181,46 @@
             <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="color:var(--text2);font-size:11px">לא נפתח? לחץ כאן ←</a>
         </div>
         <div id="buy-result" style="margin-top:12px;font-size:13px;text-align:center"></div>
+
+        <!-- ═══ Auto-verify payment section ═══ -->
+        <div style="margin-top:30px;padding:24px;background:linear-gradient(135deg,rgba(0,255,65,.06),rgba(0,229,255,.04));border:1px solid rgba(0,255,65,.3);border-radius:16px">
+            <h3 style="color:var(--accent,#00ff41);margin:0 0 10px;font-size:18px">⚡ כבר שילמת? אמת עכשיו — Premium תוך 30 שניות</h3>
+            <div style="color:var(--text2);font-size:13px;margin-bottom:18px">
+                הדבק את ה-TX hash שלך מהארנק (PancakeSwap, Tonkeeper, MetaMask) ונאמת אוטומטית על הבלוקצ'יין. לא מחכים 24 שעות.
+            </div>
+
+            <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+                <button onclick="setVerifyNet('bsc')" id="net-bsc" class="net-btn net-active">🟡 BNB / PancakeSwap</button>
+                <button onclick="setVerifyNet('ton')" id="net-ton" class="net-btn">💎 TON</button>
+            </div>
+
+            <input type="text" id="verify-txhash" placeholder="TX hash (0x... או TON hash)"
+                style="width:100%;padding:14px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:10px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr;text-align:left">
+
+            <input type="number" id="verify-userid" placeholder="User ID שלך (Telegram ID)"
+                style="width:100%;padding:14px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:10px;font-size:14px;margin-bottom:14px;direction:ltr;text-align:right">
+
+            <button onclick="verifyPayment()" id="verify-btn"
+                style="width:100%;padding:14px;background:linear-gradient(135deg,#00ff41,#00e5ff);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">
+                🔐 אמת תשלום והפעל Premium
+            </button>
+
+            <div id="verify-result" style="margin-top:14px;font-size:13px;text-align:center;min-height:20px"></div>
+
+            <div style="margin-top:14px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.7">
+                💡 <b>איך זה עובד:</b><br>
+                1. שילמת דרך PancakeSwap / Tonkeeper / ארנק אחר<br>
+                2. העתק את ה-TX hash (מהקבלה של הארנק)<br>
+                3. הדבק כאן + ה-User ID שלך → Premium מופעל מיד + קבלה דיגיטלית
+            </div>
+
+            <style>
+              .net-btn{padding:10px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text2);border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;transition:.15s}
+              .net-btn:hover{border-color:var(--accent,#00ff41);color:var(--text)}
+              .net-btn.net-active{background:rgba(0,255,65,.08);color:var(--accent,#00ff41);border-color:var(--accent,#00ff41)}
+            </style>
+        </div>
+
     </div>
 
     <!-- Trust Strip -->
@@ -348,6 +388,86 @@ function handleBuy() {
 
 updateSummary();
 updateBuyLink();
+
+// ═══════ Auto-verify logic ═══════
+let verifyNet = 'bsc';
+function setVerifyNet(net){
+    verifyNet = net;
+    document.getElementById('net-bsc').classList.toggle('net-active', net==='bsc');
+    document.getElementById('net-ton').classList.toggle('net-active', net==='ton');
+    const ph = net === 'ton'
+        ? 'TON tx hash (64+ hex characters, no 0x)'
+        : 'BSC tx hash (0x + 64 hex characters)';
+    document.getElementById('verify-txhash').placeholder = ph;
+}
+
+// Pre-fill user ID from localStorage if logged in
+try {
+    const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
+    if (u.id) document.getElementById('verify-userid').value = u.id;
+} catch(e) {}
+
+async function verifyPayment(){
+    const btn = document.getElementById('verify-btn');
+    const result = document.getElementById('verify-result');
+    const tx = document.getElementById('verify-txhash').value.trim();
+    const uid = parseInt(document.getElementById('verify-userid').value, 10);
+
+    if (!tx) { result.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash</span>'; return; }
+    if (!uid) { result.innerHTML = '<span style="color:#ff4444">❌ חסר User ID</span>'; return; }
+    if (verifyNet === 'bsc' && (!tx.startsWith('0x') || tx.length !== 66)) {
+        result.innerHTML = '<span style="color:#ff4444">❌ BSC hash צריך להיות 0x + 64 תווים</span>';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '⏳ מאמת על הבלוקצ\'יין...';
+    result.innerHTML = '<span style="color:var(--text2)">מחכה לתשובה מ-' + (verifyNet === 'ton' ? 'toncenter' : 'bscscan') + '...</span>';
+
+    const endpoint = verifyNet === 'ton'
+        ? 'https://slh-api-production.up.railway.app/api/payment/ton/auto-verify'
+        : 'https://slh-api-production.up.railway.app/api/payment/bsc/auto-verify';
+
+    try {
+        const r = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: uid, tx_hash: tx, bot_name: 'ecosystem', plan_key: 'premium' })
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail || 'Verification failed');
+
+        const amt = verifyNet === 'ton' ? `${d.amount_ton} TON` : `${d.amount_bnb} BNB`;
+        const receiptHtml = d.receipt
+            ? `<div style="margin-top:8px;padding:10px;background:rgba(0,255,65,.08);border-radius:8px;font-family:monospace;font-size:11px">
+                📄 קבלה דיגיטלית: <b>${d.receipt.receipt_number}</b><br>
+                <span style="color:var(--text2)">${new Date(d.receipt.issued_at).toLocaleString('he-IL')}</span>
+              </div>`
+            : '';
+        const alreadyHtml = d.already_processed
+            ? '<div style="color:var(--gold);margin-top:6px">ℹ️ העסקה כבר עובדה — Premium פעיל מקודם</div>'
+            : '';
+
+        result.innerHTML = `
+            <div style="padding:16px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:10px">
+                <div style="font-size:18px;font-weight:900;color:#00ff41;margin-bottom:6px">✅ Premium הופעל!</div>
+                <div style="color:var(--text)">אומת על הבלוקצ'יין: <b>${amt}</b></div>
+                ${alreadyHtml}
+                ${receiptHtml}
+                <div style="margin-top:14px">
+                    <a href="/dashboard.html" style="display:inline-block;padding:10px 20px;background:#00ff41;color:#000;border-radius:8px;font-weight:700;text-decoration:none">🎛 עבור לדשבורד</a>
+                </div>
+            </div>
+        `;
+        btn.textContent = '✅ הופעל בהצלחה';
+        btn.style.background = 'rgba(0,255,65,.2)';
+        btn.disabled = true;
+    } catch(err) {
+        result.innerHTML = `<div style="padding:12px;background:rgba(255,68,68,.1);border:1px solid #ff4444;border-radius:8px;color:#ff4444">❌ ${err.message}</div>`;
+        btn.disabled = false;
+        btn.textContent = '🔐 אמת תשלום והפעל Premium';
+    }
+}
 </script>
 
 <!-- Bank Transfer Modal -->
