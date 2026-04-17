@@ -357,6 +357,63 @@ function stopThemeCycle() {
 }
 
 
+/* ===== 5b. BETA BANNER + BUG REPORT FAB (visible on every page) ===== */
+
+function renderBetaBanner() {
+  // Insert once per page
+  if (document.getElementById('slh-beta-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'slh-beta-banner';
+  const dismissed = localStorage.getItem('slh_beta_dismissed') === '1';
+  if (dismissed) return;
+  banner.innerHTML = `
+    <style>
+      #slh-beta-banner{
+        position:sticky;top:0;z-index:9998;width:100%;
+        background:linear-gradient(90deg,#ff9900,#ffd700,#00ff41);
+        color:#000;font-family:inherit;font-weight:700;font-size:12px;
+        padding:6px 14px;display:flex;align-items:center;justify-content:center;
+        gap:10px;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.25)
+      }
+      #slh-beta-banner a{color:#000;text-decoration:underline;font-weight:800}
+      #slh-beta-banner button{background:rgba(0,0,0,.15);color:#000;border:none;
+        padding:3px 10px;border-radius:12px;font-size:11px;cursor:pointer;font-weight:700}
+      #slh-beta-banner button:hover{background:rgba(0,0,0,.3)}
+    </style>
+    <span>🚧 <b>BETA · גרסת ניסוי</b></span>
+    <span style="opacity:.85">אנחנו עדיין בונים. אם משהו לא עובד —</span>
+    <a href="/bug-report.html">🐛 דווח באג</a>
+    <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">הבנתי ✕</button>
+  `;
+  document.body.insertBefore(banner, document.body.firstChild);
+}
+
+function renderBugReportFAB() {
+  if (document.getElementById('slh-bug-fab')) return;
+  const fab = document.createElement('a');
+  fab.id = 'slh-bug-fab';
+  fab.href = '/bug-report.html';
+  fab.title = 'דווח באג / הצעת שיפור';
+  fab.innerHTML = `
+    <style>
+      #slh-bug-fab{
+        position:fixed;bottom:20px;left:20px;z-index:9999;
+        width:52px;height:52px;border-radius:50%;
+        background:linear-gradient(135deg,#ff4444,#ff9900);
+        display:grid;place-items:center;font-size:24px;
+        text-decoration:none;box-shadow:0 4px 20px rgba(255,68,68,.4);
+        transition:transform .2s,box-shadow .2s;animation:bugPulse 3s infinite
+      }
+      #slh-bug-fab:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(255,68,68,.6)}
+      @keyframes bugPulse{0%,100%{box-shadow:0 4px 20px rgba(255,68,68,.4)}50%{box-shadow:0 4px 30px rgba(255,153,0,.6)}}
+      @media (max-width:600px){#slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
+    </style>
+    🐛
+  `;
+  document.body.appendChild(fab);
+}
+
+
 /* ===== 6. NAVIGATION RENDERER ===== */
 
 function renderTopNav(activePage) {
@@ -961,6 +1018,10 @@ function initShared(options = {}) {
     showTicker = true,
     showBottomNav = false
   } = options;
+
+  // BETA banner + floating bug-report button (always visible across the site)
+  renderBetaBanner();
+  renderBugReportFAB();
 
   // Capture referral from URL
   captureReferral();
