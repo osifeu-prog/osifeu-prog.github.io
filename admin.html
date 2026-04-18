@@ -171,6 +171,7 @@
         <a href="#" onclick="showPage('promos')">🎁 Promotions</a>
         <a href="#" onclick="showPage('whatsapp')">📱 WhatsApp</a>
         <a href="#" onclick="showPage('wellness')">🧘 Wellness</a>
+        <a href="#" onclick="showPage('threat-intel')" style="color:var(--red)">🔍 Threat Intelligence</a>
 
         <div class="sb-section">System</div>
         <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
@@ -1381,6 +1382,102 @@
                 </table>
             </div>
         </div>
+
+        <!-- THREAT INTELLIGENCE PAGE -->
+        <div id="page-threat-intel" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(255,0,85,.08),rgba(255,100,0,.04));border:1px solid var(--red);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--red);font-size:18px;margin-bottom:8px">🔍 Threat Intelligence Hub</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Decentralized fraud detection · Arkham Intelligence integration · Community verification · Reputation scoring · Network analysis
+                </p>
+            </div>
+
+            <div class="kpi-grid" style="margin-bottom:24px">
+                <div class="kpi red"><div class="kpi-label">Threat Checks Today</div><div class="kpi-value" id="threat-checks">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Reports Submitted</div><div class="kpi-value" id="threat-reports">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Verified Reports</div><div class="kpi-value" id="threat-verified">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Top Detectives</div><div class="kpi-value" id="threat-detectives">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Avg Threat Score</div><div class="kpi-value" id="threat-avg-score">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Network Connections</div><div class="kpi-value" id="threat-connections">--</div></div>
+            </div>
+
+            <!-- Threat Score Checker -->
+            <div class="admin-section">
+                <h3>🔎 Check Threat Score <span>Wallet/Phone/User query</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="text" id="threat-wallet" placeholder="Wallet Address (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <input type="text" id="threat-phone" placeholder="Phone Number (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <button onclick="checkThreatScore()" style="width:100%;padding:8px;background:var(--cyan);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ CHECK ]</button>
+                    </div>
+                </div>
+                <div id="threat-result" style="padding:12px;background:var(--bg3);border:1px solid var(--border);font-size:11px;display:none;color:var(--text2)">Results will appear here...</div>
+            </div>
+
+            <!-- Submit Fraud Report -->
+            <div class="admin-section">
+                <h3>📢 Submit Fraud Report <span>Community verification</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="number" id="report-user-id" placeholder="Your User ID" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="text" id="report-target-phone" placeholder="Target Phone (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="text" id="report-target-wallet" placeholder="Target Wallet (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <select id="report-type" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                            <option value="scam">Scam</option>
+                            <option value="stolen_funds">Stolen Funds</option>
+                            <option value="sanctioned">Sanctioned</option>
+                            <option value="identity_theft">Identity Theft</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div style="display:flex;gap:8px">
+                            <input type="number" id="report-severity" min="1" max="10" value="5" placeholder="Severity (1-10)" style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                        </div>
+                    </div>
+                </div>
+                <textarea id="report-evidence" placeholder="Evidence & Description" style="width:100%;height:80px;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:12px"></textarea>
+                <div style="display:flex;gap:12px">
+                    <input type="text" id="report-url" placeholder="Evidence URL (optional)" style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <button onclick="submitFraudReport()" style="padding:8px 16px;background:var(--red);color:#fff;border:none;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ SUBMIT REPORT ]</button>
+                </div>
+            </div>
+
+            <!-- Fraud Leaderboard -->
+            <div class="admin-section">
+                <h3>🏆 Fraud Detective Leaderboard <span>Top reporters by accuracy</span></h3>
+                <table class="admin-table" id="threat-leaderboard">
+                    <thead><tr><th>Rank</th><th>User</th><th>Accurate Reports</th><th>Total Reports</th><th>Accuracy %</th><th>Level</th><th>Reputation Tokens</th></tr></thead>
+                    <tbody id="threat-lb-rows"><tr><td colspan="7" style="text-align:center;color:var(--text2)">Loading leaderboard...</td></tr></tbody>
+                </table>
+            </div>
+
+            <!-- Threat Network -->
+            <div class="admin-section">
+                <h3>🔗 Fraud Connection Network <span>Relationship analysis</span></h3>
+                <div style="display:flex;gap:12px;margin-bottom:16px">
+                    <input type="text" id="network-phone" placeholder="Query by phone..." style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <button onclick="loadThreatNetwork()" style="padding:8px 16px;background:var(--cyan);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--font);font-size:11px">[ ANALYZE ]</button>
+                </div>
+                <table class="admin-table" id="threat-network">
+                    <thead><tr><th>Source</th><th>Target</th><th>Type</th><th>Confidence</th><th>Evidence Count</th></tr></thead>
+                    <tbody id="threat-net-rows"><tr><td colspan="5" style="text-align:center;color:var(--text2)">Enter a phone number to view connections</td></tr></tbody>
+                </table>
+            </div>
+
+            <!-- Recent Reports -->
+            <div class="admin-section">
+                <h3>📋 Recent Fraud Reports <span>Last 20 submissions</span></h3>
+                <table class="admin-table" id="threat-reports-table">
+                    <thead><tr><th>ID</th><th>Reporter</th><th>Target</th><th>Type</th><th>Severity</th><th>Status</th><th>Time</th></tr></thead>
+                    <tbody id="threat-reports-rows"><tr><td colspan="7" style="text-align:center;color:var(--text2)">Loading reports...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
     </main>
 </div>
 
@@ -1423,6 +1520,8 @@ function showPage(name){
     if(name === 'whatsapp') ensureWhatsAppLoaded();
     // Load Wellness data if viewing that page
     if(name === 'wellness') ensureWellnessLoaded();
+    // Load Threat Intelligence data if viewing that page
+    if(name === 'threat-intel') ensureThreatIntelLoaded();
 }
 
 // ── Clock ────────────────────────────────────────────────────────
@@ -2724,6 +2823,200 @@ function ensureWhatsAppLoaded(){
     if(!_waLoadedOnce){
         waRefreshContacts();
         _waLoadedOnce = true;
+    }
+}
+
+// ============================================================
+// THREAT INTELLIGENCE FUNCTIONS
+// ============================================================
+
+async function checkThreatScore(){
+    const wallet = document.getElementById('threat-wallet').value.trim();
+    const phone = document.getElementById('threat-phone').value.trim();
+
+    if(!wallet && !phone){
+        alert('Enter wallet or phone number');
+        return;
+    }
+
+    try {
+        const params = new URLSearchParams();
+        if(wallet) params.append('wallet', wallet);
+        if(phone) params.append('phone', phone);
+
+        const r = await fetch(SLH_API + '/api/threat/check-score?' + params, {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+
+        if(r.ok){
+            const res = document.getElementById('threat-result');
+            res.innerHTML = `
+                <strong>Threat Score Result:</strong><br>
+                Wallet: ${d.wallet_address || 'N/A'}<br>
+                Phone: ${d.phone_number || 'N/A'}<br>
+                <span style="color:var(--red);font-weight:700">Arkham Score: ${d.arkham_threat_score || 0}/100</span><br>
+                Community Reports: ${d.community_reports || 0}<br>
+                Verified: ${d.verified_reports || 0}<br>
+                <span style="color:var(--accent);font-weight:700">Combined Score: ${d.combined_threat_score || 0}/100</span><br>
+                Flagged: ${d.is_flagged ? '🚩 YES - ' + d.flag_reason : '✅ No'}<br>
+                Last Updated: ${d.updated_at || '--'}
+            `;
+            res.style.display = 'block';
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch(e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function submitFraudReport(){
+    const userId = parseInt(document.getElementById('report-user-id').value);
+    const targetPhone = document.getElementById('report-target-phone').value.trim();
+    const targetWallet = document.getElementById('report-target-wallet').value.trim();
+    const fraudType = document.getElementById('report-type').value;
+    const severity = parseInt(document.getElementById('report-severity').value) || 5;
+    const evidence = document.getElementById('report-evidence').value.trim();
+    const evidenceUrl = document.getElementById('report-url').value.trim();
+
+    if(!userId || (!targetPhone && !targetWallet)){
+        alert('Enter your user ID and target phone/wallet');
+        return;
+    }
+
+    if(!evidence){
+        alert('Describe the fraud evidence');
+        return;
+    }
+
+    try {
+        const r = await fetch(SLH_API + '/api/threat/report-fraud', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Admin-Key': getAdminKey()},
+            body: JSON.stringify({
+                reporter_user_id: userId,
+                target_phone: targetPhone || null,
+                target_wallet: targetWallet || null,
+                fraud_type: fraudType,
+                severity: severity,
+                evidence_description: evidence,
+                evidence_url: evidenceUrl || null
+            })
+        });
+        const d = await r.json();
+
+        if(r.ok){
+            alert('✅ Report submitted! ID: ' + d.report_id);
+            document.getElementById('report-user-id').value = '';
+            document.getElementById('report-target-phone').value = '';
+            document.getElementById('report-target-wallet').value = '';
+            document.getElementById('report-evidence').value = '';
+            document.getElementById('report-url').value = '';
+            loadThreatReports();
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch(e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function loadThreatLeaderboard(){
+    try {
+        const r = await fetch(SLH_API + '/api/threat/leaderboard?limit=20', {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+
+        if(r.ok){
+            const rows = document.getElementById('threat-lb-rows');
+            rows.innerHTML = d.leaderboard.map((user, i) => `
+                <tr>
+                    <td>${user.rank}</td>
+                    <td>${user.username}</td>
+                    <td>${user.accurate_reports}</td>
+                    <td>${user.total_reports}</td>
+                    <td>${(user.accuracy_score * 100).toFixed(1)}%</td>
+                    <td><span class="badge live">${user.reputation_level}</span></td>
+                    <td>${user.rep_tokens_earned.toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+    } catch(e) {
+        console.error('Error loading leaderboard:', e);
+    }
+}
+
+async function loadThreatNetwork(){
+    const phone = document.getElementById('network-phone').value.trim();
+
+    if(!phone){
+        alert('Enter a phone number to query');
+        return;
+    }
+
+    try {
+        const r = await fetch(SLH_API + '/api/threat/network?phone=' + encodeURIComponent(phone), {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+
+        if(r.ok){
+            const rows = document.getElementById('threat-net-rows');
+            if(d.connections_count === 0){
+                rows.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text2)">No connections found</td></tr>';
+            } else {
+                rows.innerHTML = d.connections.map(conn => `
+                    <tr>
+                        <td>${conn.source_phone || conn.source_wallet || 'User ' + conn.source_user_id}</td>
+                        <td>${conn.target_phone || conn.target_wallet || 'User ' + conn.target_user_id}</td>
+                        <td>${conn.connection_type}</td>
+                        <td>${(conn.confidence * 100).toFixed(0)}%</td>
+                        <td>${conn.evidence_count}</td>
+                    </tr>
+                `).join('');
+            }
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch(e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function loadThreatReports(){
+    try {
+        const r = await fetch(SLH_API + '/api/threat/reports?limit=20', {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const d = await r.json();
+
+        if(r.ok && d.reports){
+            const rows = document.getElementById('threat-reports-rows');
+            rows.innerHTML = d.reports.map(report => `
+                <tr>
+                    <td>${report.id}</td>
+                    <td>${report.reporter_user_id}</td>
+                    <td>${report.target_phone || report.target_wallet || '--'}</td>
+                    <td>${report.fraud_type}</td>
+                    <td>${report.severity}/10</td>
+                    <td><span class="badge ${report.status === 'confirmed' ? 'live' : report.status === 'submitted' ? 'pending' : 'error'}">${report.status}</span></td>
+                    <td>${new Date(report.created_at).toLocaleString('he-IL')}</td>
+                </tr>
+            `).join('');
+        }
+    } catch(e) {
+        console.error('Error loading reports:', e);
+    }
+}
+
+var _threatLoadedOnce = false;
+function ensureThreatIntelLoaded(){
+    if(!_threatLoadedOnce){
+        loadThreatLeaderboard();
+        loadThreatReports();
+        _threatLoadedOnce = true;
     }
 }
 </script>
