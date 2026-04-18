@@ -72,6 +72,58 @@ ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
         <i class="fas fa-rocket"></i> מתחיל עכשיו
       </a>
     </div>
+
+    <!-- Telegram Login Widget -->
+    <div id="tg-login-box" style="margin-top:28px;padding:18px;background:rgba(54,174,248,.06);border:1px solid rgba(54,174,248,.25);border-radius:14px;max-width:520px;margin-left:auto;margin-right:auto">
+      <div style="font-weight:800;font-size:14px;margin-bottom:8px;color:#36aef8"><i class="fab fa-telegram"></i> התחברות מהירה עם טלגרם</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">לחץ על הכפתור הרשמי של טלגרם למטה. אנחנו מקבלים רק את ה-ID, שם משתמש ותמונה. <b>לא סיסמה ולא מספר טלפון.</b></div>
+      <div id="tg-login-widget" style="display:flex;justify-content:center;min-height:44px"></div>
+      <noscript><div style="color:#ff9999;font-size:12px">דרוש JavaScript. אפשרות חלופית: <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8">/start בבוט</a></div></noscript>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">
+        חלופה: פקודת <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8" target="_blank" rel="noopener"><code>/start</code> בבוט</a>
+      </div>
+    </div>
+    <script async src="https://telegram.org/js/telegram-widget.js?22"
+            data-telegram-login="SLH_AIR_bot"
+            data-size="large"
+            data-radius="10"
+            data-onauth="onTelegramAuth(user)"
+            data-request-access="write"></script>
+    <script>
+      function onTelegramAuth(user) {
+        if (!user || !user.id) { alert('לא התקבלו נתונים מטלגרם'); return; }
+        // Persist locally immediately so UX doesn't depend on API
+        try {
+          localStorage.setItem('slh_user', JSON.stringify({
+            id: user.id,
+            username: user.username || '',
+            first_name: user.first_name || '',
+            photo_url: user.photo_url || '',
+          }));
+        } catch (e) {}
+        // Verify/register with backend (HMAC check lives in /api/auth/telegram)
+        fetch('https://slh-api-production.up.railway.app/api/auth/telegram', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(user),
+        }).then(r => r.json()).then(d => {
+          if (d && d.token) try { localStorage.setItem('slh_jwt', d.token); } catch (e) {}
+          window.location.href = '/dashboard.html';
+        }).catch(() => {
+          // Even if API fails, user is logged-in locally; go to dashboard
+          window.location.href = '/dashboard.html';
+        });
+      }
+      // Move the widget into our styled container once it injects itself
+      (function moveWidget(){
+        const tries = [50, 200, 500, 1200, 2500];
+        tries.forEach(ms => setTimeout(() => {
+          const iframe = document.querySelector('iframe[src*="oauth.telegram.org"]');
+          const dest = document.getElementById('tg-login-widget');
+          if (iframe && dest && !dest.contains(iframe)) dest.appendChild(iframe);
+        }, ms));
+      })();
+    </script>
   </div>
 
   <div class="grid">
