@@ -246,9 +246,9 @@ body::before{content:'';position:fixed;inset:0;background:
     <!-- TON block -->
     <div class="qr-block" id="ton-block" style="display:none">
       <div class="qr-wrap"><div id="ton-qr"></div></div>
-      <div class="amount-big" id="ton-amount">-- TON</div>
+      <div class="amount-big" id="ton-amount">בחר מוצר קודם</div>
       <div style="color:var(--text2);font-size:12px">שלח למה הכתובת הזו:</div>
-      <div class="address" id="ton-addr">טוען...</div>
+      <div class="address" id="ton-addr">UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp</div>
       <div class="actions">
         <button class="btn-primary" onclick="copyAddr('ton-addr')">📋 העתק כתובת</button>
         <a class="btn-ton" id="ton-deeplink" target="_blank">💎 פתח Tonkeeper</a>
@@ -261,7 +261,7 @@ body::before{content:'';position:fixed;inset:0;background:
     <!-- BNB block -->
     <div class="qr-block" id="bnb-block" style="display:none">
       <div class="qr-wrap"><div id="bnb-qr"></div></div>
-      <div class="amount-big" id="bnb-amount">-- BNB</div>
+      <div class="amount-big" id="bnb-amount">בחר מוצר קודם</div>
       <div style="color:var(--text2);font-size:12px">שלח לכתובת Genesis (BSC):</div>
       <div class="address">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</div>
       <div class="actions">
@@ -282,7 +282,7 @@ body::before{content:'';position:fixed;inset:0;background:
         <b>בנק:</b> לאומי (10)<br>
         <b>סניף:</b> הרצליה (948)<br>
         <b>חשבון:</b> 738009<br>
-        <b>סכום:</b> <span id="bank-amount" style="color:var(--accent);font-weight:800">-- ₪</span>
+        <b>סכום:</b> <span id="bank-amount" style="color:var(--accent);font-weight:800">יוצג לפי המוצר שנבחר</span>
       </div>
       <div class="instructions">
         <strong>אחרי ההעברה:</strong>
@@ -345,7 +345,57 @@ const API = 'https://slh-api-production.up.railway.app';
 const TON_ADDR_FALLBACK = 'UQCr743gEr_nqV_0SBkSp3CtYS_15R3LDLBvLmKeEv7XdGvp';
 const BSC_ADDR = '0xd061de73B06d5E91bfA46b35EfB7B08b16903da4';
 let tonAddress = TON_ADDR_FALLBACK;
-let state = { product: null, method: null, amount: null };
+let state = { product: null, method: null, amount: null, marketplace: null };
+
+// Marketplace mode — if ?product_id= is in URL, treat as NFT/course purchase
+(function detectMarketplaceMode() {
+  const p = new URLSearchParams(location.search);
+  const pid = p.get('product_id');
+  if (!pid) return;
+  const price = parseFloat(p.get('price') || '0');
+  const currency = (p.get('currency') || 'ILS').toUpperCase();
+  const title = p.get('title') || `פריט #${pid}`;
+  const sellerId = parseInt(p.get('seller_id') || '0');
+  const buyerId = parseInt(p.get('buyer_id') || localStorage.getItem('slh_tg_id') || '0');
+
+  state.marketplace = { product_id: pid, title, price, currency, seller_id: sellerId, buyer_id: buyerId };
+
+  // Convert marketplace price to ILS/TON/BNB equivalents for the product row
+  const rate = {
+    ILS: { ils: price, ton: price / 5.1, bnb: price / 2340.65 },
+    USD: { ils: price * 3.65, ton: price * 0.71, bnb: price * 0.00156 },
+    SLH: { ils: price * 444, ton: price * 87, bnb: price * 0.19 },
+    TON: { ils: price * 5.1, ton: price, bnb: price / 458 },
+    BNB: { ils: price * 2340.65, ton: price * 458, bnb: price },
+    AIC: { ils: price * 0.00365, ton: price * 0.0007, bnb: price * 0.0000015 },
+  }[currency] || { ils: price, ton: price / 5.1, bnb: price / 2340.65 };
+
+  state.product = {
+    id: `mkt_${pid}`,
+    name: title,
+    ils: rate.ils,
+    ton: rate.ton,
+    bnb: rate.bnb,
+    _marketplace: true,
+  };
+
+  // Inject a banner in step 1 showing what's being bought
+  const step1 = document.getElementById('step-1');
+  if (step1) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(0,229,255,.08));border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:16px;margin-bottom:20px;text-align:center';
+    banner.innerHTML = `
+      <div style="font-size:11px;color:#9ba0b5;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">🎨 Marketplace purchase</div>
+      <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:6px">${title}</div>
+      <div style="font-size:14px;color:#a855f7">${price} ${currency} · ~${rate.ils.toFixed(0)} ₪ · ~${rate.ton.toFixed(3)} TON · ~${rate.bnb.toFixed(4)} BNB</div>
+      <div style="font-size:12px;color:#5a6078;margin-top:8px">מוכר: <a href="/shop.html?user=${sellerId}" style="color:#00e5ff">#${sellerId}</a></div>
+    `;
+    step1.insertBefore(banner, step1.firstChild);
+    // Hide default product selector since marketplace has its own
+    document.querySelectorAll('.product').forEach(el => el.style.display = 'none');
+    document.getElementById('next-1').disabled = false;
+  }
+})();
 
 // Load TON address from API
 (async () => {
@@ -507,12 +557,43 @@ async function verifyPayment() {
     const amtTxt = state.method === 'ton' ? `${d.amount_ton} TON` : `${d.amount_bnb} BNB`;
     status.className = 'status-box show success';
     const receipt = d.receipt ? `<div style="margin-top:8px;font-family:monospace;font-size:12px">קבלה: ${d.receipt.receipt_number}</div>` : '';
+
+    // If marketplace purchase — record the sale + update seller's XP
+    let mktInfo = '';
+    if (state.marketplace && state.marketplace.product_id) {
+      try {
+        const mktResp = await fetch(API + '/api/creator/purchase/complete', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            item_id: parseInt(state.marketplace.product_id),
+            buyer_id: state.marketplace.buyer_id || uid,
+            amount_paid: state.method === 'ton' ? d.amount_ton : d.amount_bnb,
+            currency: state.method === 'ton' ? 'TON' : 'BNB',
+            receipt_number: d.receipt?.receipt_number,
+            tx_hash: tx,
+          })
+        });
+        const md = await mktResp.json();
+        if (md.ok) {
+          mktInfo = `<div style="margin-top:10px;padding:10px;background:rgba(168,85,247,.08);border-radius:8px;font-size:13px">
+            🎨 רכישת פריט ${md.item_title || state.marketplace.title} הושלמה.<br>
+            XP של המוכר עודכן: <strong style="color:#00ff41">${md.seller_new_xp_display || md.seller_new_xp || '—'}</strong>
+          </div>`;
+        }
+      } catch (e) { console.warn('marketplace record failed:', e); }
+    }
+
     status.innerHTML = `
       <div style="font-size:24px;margin-bottom:6px">✅</div>
-      <div style="font-size:18px;font-weight:900">Premium פעיל!</div>
+      <div style="font-size:18px;font-weight:900">${state.marketplace ? 'רכישה הושלמה!' : 'Premium פעיל!'}</div>
       <div>אומת: ${amtTxt}</div>
       ${receipt}
-      <a href="/dashboard.html" style="display:inline-block;margin-top:14px;padding:10px 24px;background:var(--accent);color:#000;border-radius:8px;font-weight:800;text-decoration:none">🎛 עבור לדשבורד</a>
+      ${mktInfo}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px">
+        <a href="/dashboard.html" style="padding:10px 20px;background:var(--accent);color:#000;border-radius:8px;font-weight:800;text-decoration:none">🎛 דשבורד</a>
+        <a href="/gallery.html" style="padding:10px 20px;background:rgba(255,255,255,0.1);color:var(--text);border-radius:8px;font-weight:700;text-decoration:none">🎨 גלריה</a>
+        <a href="/receipts.html" style="padding:10px 20px;background:rgba(255,255,255,0.1);color:var(--text);border-radius:8px;font-weight:700;text-decoration:none">🧾 קבלות</a>
+      </div>
     `;
     btn.textContent = '✅ הופעל';
   } catch(e) {
