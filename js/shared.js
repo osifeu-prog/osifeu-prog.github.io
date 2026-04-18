@@ -1027,6 +1027,10 @@ function initShared(options = {}) {
   injectSLHVersionMeta();
   injectSLHFlipLib();
 
+  // PWA registration + install prompt
+  registerSLHServiceWorker();
+  setupPWAInstallPrompt();
+
   // Capture referral from URL
   captureReferral();
 
@@ -1114,6 +1118,68 @@ function injectSLHFlipLib() {
   s.src = '/js/slh-flip.js?v=20260417';
   s.defer = true;
   document.head.appendChild(s);
+}
+
+/* ===== PWA SERVICE WORKER ===== */
+
+function registerSLHServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  // Register sw.js in the background — don't block page load
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('[SLH SW] registered, scope:', reg.scope);
+        // Check for updates every 30 minutes
+        setInterval(() => reg.update(), 30 * 60 * 1000);
+      })
+      .catch(err => console.warn('[SLH SW] registration failed:', err));
+  });
+}
+
+/* ===== PWA INSTALL PROMPT ===== */
+
+let _deferredInstallPrompt = null;
+
+function setupPWAInstallPrompt() {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    _deferredInstallPrompt = e;
+    // Show a subtle install button after 30s of engagement
+    setTimeout(showPWAInstallBanner, 30000);
+  });
+  window.addEventListener('appinstalled', () => {
+    localStorage.setItem('slh_pwa_installed', '1');
+    _deferredInstallPrompt = null;
+  });
+}
+
+function showPWAInstallBanner() {
+  if (!_deferredInstallPrompt) return;
+  if (localStorage.getItem('slh_pwa_install_dismissed')) return;
+  if (localStorage.getItem('slh_pwa_installed')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'slh-pwa-banner';
+  banner.style.cssText = 'position:fixed;bottom:16px;inset-inline-end:16px;background:linear-gradient(135deg,#00ff41,#00e5ff);color:#000;padding:14px 18px;border-radius:14px;box-shadow:0 8px 24px rgba(0,255,65,.3);z-index:9997;max-width:320px;font-family:system-ui,sans-serif';
+  banner.innerHTML = `
+    <div style="font-weight:700;margin-bottom:6px">📱 התקן את SLH Spark</div>
+    <div style="font-size:12px;margin-bottom:10px;opacity:.85">מסך ראשי, Offline, פחות רעש.</div>
+    <button id="slh-pwa-install" style="background:#000;color:#00ff41;border:none;padding:6px 14px;border-radius:8px;font-weight:700;cursor:pointer;margin-inline-end:6px">התקן</button>
+    <button id="slh-pwa-dismiss" style="background:transparent;color:#000;border:1px solid rgba(0,0,0,.2);padding:6px 14px;border-radius:8px;cursor:pointer">לא עכשיו</button>
+  `;
+  document.body.appendChild(banner);
+  document.getElementById('slh-pwa-install').onclick = async () => {
+    if (_deferredInstallPrompt) {
+      _deferredInstallPrompt.prompt();
+      await _deferredInstallPrompt.userChoice;
+      _deferredInstallPrompt = null;
+    }
+    banner.remove();
+  };
+  document.getElementById('slh-pwa-dismiss').onclick = () => {
+    localStorage.setItem('slh_pwa_install_dismissed', '1');
+    banner.remove();
+  };
 }
 
 
