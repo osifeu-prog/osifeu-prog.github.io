@@ -1031,6 +1031,9 @@ function initShared(options = {}) {
   registerSLHServiceWorker();
   setupPWAInstallPrompt();
 
+  // SLH Index widget — loads async, doesn't block
+  renderSLHIndexWidget();
+
   // Capture referral from URL
   captureReferral();
 
@@ -1118,6 +1121,53 @@ function injectSLHFlipLib() {
   s.src = '/js/slh-flip.js?v=20260417';
   s.defer = true;
   document.head.appendChild(s);
+}
+
+/* ===== SLH INDEX WIDGET ===== */
+
+async function renderSLHIndexWidget() {
+  // Skip if widget already present or page opted out
+  if (document.getElementById('slh-index-widget')) return;
+  if (document.querySelector('meta[name="slh-index"][content="off"]')) return;
+
+  // Don't render on every page — only if page has #slh-index-slot OR is a main public page
+  const slot = document.getElementById('slh-index-slot');
+  const mainPages = ['/', '/index.html', '/about.html', '/whitepaper.html', '/buy.html', '/community.html', '/gallery.html'];
+  const shouldAuto = mainPages.includes(location.pathname);
+  if (!slot && !shouldAuto) return;
+
+  let data;
+  try {
+    const r = await fetch(`${API_BASE}/api/creator/slh-index`);
+    if (!r.ok) return;
+    data = await r.json();
+  } catch (e) { return; }
+
+  const idx = data.slh_index;
+  const trend = data.trend || 'flat';
+  const count = data.users_included || 0;
+
+  const arrow = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+  const color = trend === 'up' ? '#00ff41' : trend === 'down' ? '#ff4444' : '#9ba0b5';
+  const label = idx === null ? 'N/A' : `${idx.toFixed(2)}×`;
+
+  const html = `
+    <a href="/alpha-progress.html" id="slh-index-widget" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:50px;color:#fff;text-decoration:none;font-size:12px;font-family:'JetBrains Mono',monospace;cursor:pointer;backdrop-filter:blur(10px)" title="SLH Index · מדד ROI של הקהילה · ${count} משתמשים">
+      <span style="color:#9ba0b5">SLH Index</span>
+      <strong style="color:${color}">${label}</strong>
+      <span style="color:${color}">${arrow}</span>
+    </a>
+  `;
+
+  if (slot) {
+    slot.innerHTML = html;
+  } else {
+    // Floating position — bottom-end, respecting existing bug FAB + beta banner
+    const fl = document.createElement('div');
+    fl.style.cssText = 'position:fixed;bottom:84px;inset-inline-start:16px;z-index:9996';
+    fl.innerHTML = html;
+    document.body.appendChild(fl);
+  }
 }
 
 /* ===== PWA SERVICE WORKER ===== */
