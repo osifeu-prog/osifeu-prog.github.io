@@ -169,6 +169,8 @@
         <a href="#" onclick="showPage('activity')">📋 Activity Feed</a>
         <a href="#" onclick="showPage('referrals')">🔗 Referrals</a>
         <a href="#" onclick="showPage('promos')">🎁 Promotions</a>
+        <a href="#" onclick="showPage('whatsapp')">📱 WhatsApp</a>
+        <a href="#" onclick="showPage('wellness')">🧘 Wellness</a>
 
         <div class="sb-section">System</div>
         <a href="#" onclick="showPage('infra')">🖥 Infrastructure</a>
@@ -360,6 +362,130 @@
                         <tr><td><code>STUDENT50</code></td><td>Student Deal — 50% OFF</td><td>50%</td><td>0/∞</td><td>2026-09-01</td><td><span class="badge live">ACTIVE</span></td></tr>
                         <tr><td><code>SECURE_PACK</code></td><td>Security Pack</td><td>99₪</td><td>0/∞</td><td>2026-07-01</td><td><span class="badge live">ACTIVE</span></td></tr>
                     </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- WHATSAPP PAGE -->
+        <div id="page-whatsapp" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(52,211,153,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">📱 WhatsApp Integration</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Contact management · Fraud detection · Twilio gateway · ZUZ penalty integration · Broadcast messaging
+                </p>
+            </div>
+
+            <div class="kpi-grid" style="margin-bottom:24px">
+                <div class="kpi cyan"><div class="kpi-label">Total Contacts</div><div class="kpi-value" id="wa-total-contacts">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Invited</div><div class="kpi-value" id="wa-invited">--</div></div>
+                <div class="kpi red"><div class="kpi-label">Fraud Flagged</div><div class="kpi-value" id="wa-fraud-count">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Broadcasts Sent</div><div class="kpi-value" id="wa-broadcasts">--</div></div>
+            </div>
+
+            <!-- Contact Upload Section -->
+            <div class="admin-section">
+                <h3>📤 Upload Contacts <span>CSV import</span></h3>
+                <div style="display:flex;gap:12px;margin-bottom:16px">
+                    <input type="file" id="wa-csv-upload" accept=".csv" style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    <button onclick="waUploadContacts()" style="background:var(--accent);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ UPLOAD ]</button>
+                </div>
+                <div id="wa-upload-status" style="font-size:11px;color:var(--text2);padding:10px;background:var(--bg3);border:1px solid var(--border);display:none"></div>
+                <p style="font-size:10px;color:var(--text2);margin-top:12px"><strong>CSV Format:</strong> <code>phone,name</code><br>Example: <code>972501234567,John Doe</code></p>
+            </div>
+
+            <!-- Manual Contact Add -->
+            <div class="admin-section">
+                <h3>➕ Add Single Contact <span>Manual entry</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="text" id="wa-phone" placeholder="Phone (972...)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <input type="text" id="wa-name" placeholder="Name (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div style="display:flex;align-items:flex-end">
+                        <button onclick="waAddContact()" style="width:100%;background:var(--cyan);color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;font-family:var(--font)">[ ADD CONTACT ]</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Invite -->
+            <div class="admin-section">
+                <h3>💬 Send Invite <span>Manual dispatch</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="text" id="wa-invite-phone" placeholder="Phone number" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <select id="wa-invite-type" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                            <option value="website">Website</option>
+                            <option value="bot">Bot</option>
+                            <option value="course">Course</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button onclick="waSendInvite()" style="width:100%;background:var(--accent);color:#000;border:none;padding:8px;font-weight:700;cursor:pointer;font-family:var(--font)">[ SEND ]</button>
+                    </div>
+                </div>
+                <textarea id="wa-custom-msg" placeholder="Custom message (optional - leave empty for default)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;height:60px"></textarea>
+            </div>
+
+            <!-- Mark Fraud -->
+            <div class="admin-section">
+                <h3>🚩 Mark as Fraud <span>ZUZ penalty applied</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="text" id="wa-fraud-phone" placeholder="Phone number" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <select id="wa-fraud-type" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                            <option value="spam">Spam</option>
+                            <option value="scam">Scam</option>
+                            <option value="identity_theft">Identity Theft</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="number" id="wa-severity" min="1" max="10" value="5" placeholder="Severity 1-10" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                    </div>
+                    <div>
+                        <button onclick="waMarkFraud()" style="width:100%;background:var(--red);color:#fff;border:none;padding:8px;font-weight:700;cursor:pointer;font-family:var(--font)">[ FLAG ]</button>
+                    </div>
+                </div>
+                <input type="text" id="wa-proof-url" placeholder="Proof URL (optional)" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+            </div>
+
+            <!-- Broadcast Message -->
+            <div class="admin-section">
+                <h3>📢 Broadcast Message <span>To segment</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <div>
+                        <input type="text" id="wa-broadcast-title" placeholder="Broadcast title" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;margin-bottom:8px">
+                        <select id="wa-broadcast-segment" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                            <option value="all">All Contacts</option>
+                            <option value="interested">Interested (Invited)</option>
+                            <option value="not_invited">Not Yet Invited</option>
+                        </select>
+                    </div>
+                    <div style="display:flex;align-items:flex-end">
+                        <button onclick="waBroadcast()" style="width:100%;background:var(--gold);color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;font-family:var(--font)">[ BROADCAST ]</button>
+                    </div>
+                </div>
+                <textarea id="wa-broadcast-msg" placeholder="Message text" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;height:80px"></textarea>
+            </div>
+
+            <!-- Contacts List -->
+            <div class="admin-section">
+                <h3>📋 Contact List <span id="wa-contact-count">Loading...</span></h3>
+                <div style="margin-bottom:12px;display:flex;gap:12px">
+                    <select id="wa-filter-status" style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="invited">Invited</option>
+                    </select>
+                    <button onclick="waRefreshContacts()" style="background:var(--accent);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-family:var(--font)">[ REFRESH ]</button>
+                </div>
+                <table class="admin-table" id="wa-contacts-table">
+                    <thead><tr><th>Phone</th><th>Name</th><th>Status</th><th>Invited</th><th>Source</th><th>Fraud Flag</th></tr></thead>
+                    <tbody id="wa-contacts-rows"><tr><td colspan="6" style="text-align:center;color:var(--text2)">Loading...</td></tr></tbody>
                 </table>
             </div>
         </div>
@@ -1100,6 +1226,161 @@
                 </table>
             </div>
         </div>
+
+        <!-- WELLNESS PAGE -->
+        <div id="page-wellness" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(165,142,251,.08),rgba(139,92,246,.04));border:1px solid var(--purple);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--purple);font-size:18px;margin-bottom:8px">🧘 Wellness System</h2>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6">
+                    Course management · Task scheduling · Broadcast scheduling · Token rewards
+                </p>
+            </div>
+
+            <div class="kpi-grid" style="margin-bottom:24px">
+                <div class="kpi purple"><div class="kpi-label">Published Courses</div><div class="kpi-value" id="wellness-courses-count">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Active Tasks</div><div class="kpi-value" id="wellness-tasks-count">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Active Schedules</div><div class="kpi-value" id="wellness-schedules-count">--</div></div>
+                <div class="kpi green"><div class="kpi-label">Users in Progress</div><div class="kpi-value" id="wellness-users-count">--</div></div>
+            </div>
+
+            <!-- Course Upload Section -->
+            <div class="admin-section">
+                <h3>📚 Upload Course <span>Create new wellness course</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <input type="text" id="courseTitle" placeholder="Course Title" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <select id="courseCategory" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                        <option value="meditation">🧘 Meditation</option>
+                        <option value="fitness">💪 Fitness</option>
+                        <option value="nutrition">🥗 Nutrition</option>
+                        <option value="wellness">🌟 General Wellness</option>
+                    </select>
+                </div>
+                <textarea id="courseDesc" placeholder="Description" style="width:100%;height:80px;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;margin-bottom:12px"></textarea>
+                <textarea id="courseContent" placeholder="Course Content (HTML/Markdown)" style="width:100%;height:120px;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;margin-bottom:12px"></textarea>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                    <select id="difficulty" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    <input type="number" id="duration" placeholder="Duration (min)" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="number" id="priceZvk" placeholder="Price in ZVK" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="text" id="videoUrl" placeholder="Video URL (optional)" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                </div>
+                <button onclick="uploadCourse()" style="padding:10px 20px;background:var(--purple);color:white;border:none;font-weight:bold;cursor:pointer;font-family:var(--font)">📤 Upload Course</button>
+            </div>
+
+            <!-- Task Creation Section -->
+            <div class="admin-section">
+                <h3>✨ Create Task <span>Add wellness activity</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <input type="text" id="taskTitle" placeholder="Task Title" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <select id="taskType" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                        <option value="meditation">🧘 Meditation</option>
+                        <option value="exercise">💪 Exercise</option>
+                        <option value="nutrition">🥗 Nutrition</option>
+                        <option value="affirmation">💫 Affirmation</option>
+                    </select>
+                </div>
+                <textarea id="taskDesc" placeholder="Task Description" style="width:100%;height:80px;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;margin-bottom:12px"></textarea>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+                    <input type="number" id="taskDuration" placeholder="Duration (min)" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="number" id="rewardZvk" placeholder="Reward ZVK" value="5" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="number" id="rewardRep" placeholder="Reward REP" value="10" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="number" id="rewardSlh" placeholder="Reward SLH" value="0.1" step="0.01" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                </div>
+                <button onclick="createTask()" style="padding:10px 20px;background:var(--cyan);color:black;border:none;font-weight:bold;cursor:pointer;font-family:var(--font)">➕ Create Task</button>
+            </div>
+
+            <!-- Schedule Task Section -->
+            <div class="admin-section">
+                <h3>⏰ Schedule Task <span>Set up recurring broadcasts</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <input type="text" id="scheduleName" placeholder="Schedule Name" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <select id="scheduleType" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="custom">Custom (Cron)</option>
+                    </select>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                    <input type="text" id="cronExpr" placeholder="Cron expression (0 8 * * * = 8am daily)" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                    <input type="time" id="broadcastTime" placeholder="Broadcast Time" style="padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                </div>
+                <div style="margin-bottom:16px">
+                    <label style="font-size:11px;color:var(--text2);margin-bottom:8px;display:block">Select Tasks</label>
+                    <select id="taskSelect" multiple style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;min-height:100px"></select>
+                </div>
+                <button onclick="scheduleTask()" style="padding:10px 20px;background:var(--gold);color:black;border:none;font-weight:bold;cursor:pointer;font-family:var(--font)">📅 Create Schedule</button>
+            </div>
+
+            <!-- Broadcast Now Section -->
+            <div class="admin-section">
+                <h3>📢 Broadcast Now <span>Send to all users immediately</span></h3>
+                <div style="display:flex;gap:12px;align-items:flex-end">
+                    <div style="flex:1">
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:6px">Select Task</label>
+                        <select id="broadcastTask" style="width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px">
+                            <option value="">-- Select Task --</option>
+                        </select>
+                    </div>
+                    <button onclick="broadcastNow()" style="padding:10px 20px;background:var(--red);color:white;border:none;font-weight:bold;cursor:pointer;font-family:var(--font)">🚀 Broadcast</button>
+                </div>
+            </div>
+
+            <!-- Courses List -->
+            <div class="admin-section">
+                <h3>📚 Published Courses <span id="wellness-course-count">0 courses</span></h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Difficulty</th>
+                            <th>Duration</th>
+                            <th>Price (ZVK)</th>
+                            <th>Students</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coursesTable"></tbody>
+                </table>
+            </div>
+
+            <!-- Active Schedules -->
+            <div class="admin-section">
+                <h3>⏰ Active Schedules <span id="wellness-schedule-count">0 schedules</span></h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Next Run</th>
+                            <th>Tasks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedulesTable"></tbody>
+                </table>
+            </div>
+
+            <!-- User Progress -->
+            <div class="admin-section">
+                <h3>👥 User Progress <span id="wellness-progress-count">0 users</span></h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Completed</th>
+                            <th>Streak</th>
+                            <th>Total ZVK</th>
+                            <th>Total REP</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="progressTable"></tbody>
+                </table>
+            </div>
+        </div>
     </main>
 </div>
 
@@ -1138,6 +1419,10 @@ function showPage(name){
     document.querySelectorAll('.nav-links a, .admin-sidebar a').forEach(a => {
         if(a.getAttribute('onclick') && a.getAttribute('onclick').includes(name)) a.classList.add('active');
     });
+    // Load WhatsApp data if viewing that page
+    if(name === 'whatsapp') ensureWhatsAppLoaded();
+    // Load Wellness data if viewing that page
+    if(name === 'wellness') ensureWellnessLoaded();
 }
 
 // ── Clock ────────────────────────────────────────────────────────
@@ -2274,6 +2559,173 @@ async function checkUser(){
         alert(JSON.stringify(d, null, 2));
     }catch(e){alert('Error: '+e.message);}
 }
+
+// ============================================================
+// WHATSAPP FUNCTIONS
+// ============================================================
+
+async function waRefreshContacts(){
+    var status = document.getElementById('wa-filter-status').value;
+    try{
+        var url = SLH_API+'/api/whatsapp/contacts?limit=100&offset=0';
+        if(status) url += '&status='+status;
+        var r = await fetch(url, {headers:{'X-Admin-Key':getAdminKey()}});
+        var d = await r.json();
+        if(!d.contacts){alert('Error: '+JSON.stringify(d));return;}
+
+        var html = d.contacts.map(function(c){
+            var fraud = c.fraud_flag ? '⚠️ '+c.fraud_flag : '—';
+            var invited = c.invited_at ? new Date(c.invited_at).toLocaleDateString('he-IL') : '—';
+            return '<tr><td style="font-family:var(--mono);font-size:10px">'+c.phone_number+'</td><td>'+c.name+'</td><td><span class="badge '+(c.invitation_status==='invited'?'live':'pending')+'">'+c.invitation_status+'</span></td><td>'+invited+'</td><td>'+c.contact_source+'</td><td>'+fraud+'</td></tr>';
+        }).join('');
+
+        document.getElementById('wa-contacts-rows').innerHTML = html || '<tr><td colspan="6" style="text-align:center;color:var(--text2)">No contacts</td></tr>';
+        document.getElementById('wa-contact-count').textContent = d.count + ' contacts';
+    }catch(e){alert('Error: '+e.message);}
+}
+
+async function waAddContact(){
+    var phone = document.getElementById('wa-phone').value.trim();
+    var name = document.getElementById('wa-name').value.trim() || null;
+    if(!phone){alert('Enter phone number');return;}
+
+    try{
+        var r = await fetch(SLH_API+'/api/whatsapp/contact-add', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({phone_number:phone,name:name,contact_source:'admin'})
+        });
+        var d = await r.json();
+        if(r.ok){
+            alert('Contact added: '+d.phone_number);
+            document.getElementById('wa-phone').value = '';
+            document.getElementById('wa-name').value = '';
+            waRefreshContacts();
+        } else {
+            alert('Error: '+(d.detail||JSON.stringify(d)));
+        }
+    }catch(e){alert('Error: '+e.message);}
+}
+
+async function waUploadContacts(){
+    var file = document.getElementById('wa-csv-upload').files[0];
+    if(!file){alert('Select a CSV file');return;}
+
+    try{
+        var text = await file.text();
+        var lines = text.split('\n').slice(1).filter(function(l){return l.trim();});
+        var contacts = lines.map(function(line){
+            var parts = line.split(',');
+            return {phone:parts[0].trim(), name:(parts[1]||'').trim()};
+        }).filter(function(c){return c.phone;});
+
+        if(contacts.length === 0){alert('No valid contacts in file');return;}
+
+        var statusEl = document.getElementById('wa-upload-status');
+        statusEl.style.display = 'block';
+        statusEl.textContent = 'Uploading '+contacts.length+' contacts...';
+
+        var r = await fetch(SLH_API+'/api/whatsapp/contact-bulk-import', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({contacts:contacts})
+        });
+        var d = await r.json();
+        statusEl.textContent = 'Imported: '+d.imported+' | Success: '+d.success+' | Failed: '+d.failed;
+        if(d.errors && d.errors.length > 0){
+            statusEl.textContent += ' | First error: '+JSON.stringify(d.errors[0]);
+        }
+        waRefreshContacts();
+    }catch(e){alert('Error: '+e.message);}
+}
+
+async function waSendInvite(){
+    var phone = document.getElementById('wa-invite-phone').value.trim();
+    var type = document.getElementById('wa-invite-type').value;
+    var msg = document.getElementById('wa-custom-msg').value.trim() || null;
+    if(!phone){alert('Enter phone number');return;}
+
+    try{
+        var r = await fetch(SLH_API+'/api/whatsapp/send-invite', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({phone_number:phone,invite_type:type,message:msg})
+        });
+        var d = await r.json();
+        if(r.ok){
+            alert('Invite sent to '+phone+' (Status: '+d.status+')');
+            document.getElementById('wa-invite-phone').value = '';
+            document.getElementById('wa-custom-msg').value = '';
+            waRefreshContacts();
+        } else {
+            alert('Error: '+(d.detail||JSON.stringify(d)));
+        }
+    }catch(e){alert('Error: '+e.message);}
+}
+
+async function waMarkFraud(){
+    var phone = document.getElementById('wa-fraud-phone').value.trim();
+    var type = document.getElementById('wa-fraud-type').value;
+    var severity = parseInt(document.getElementById('wa-severity').value) || 5;
+    var proof = document.getElementById('wa-proof-url').value.trim() || null;
+
+    if(!phone){alert('Enter phone number');return;}
+    if(severity < 1 || severity > 10){alert('Severity must be 1-10');return;}
+
+    try{
+        var r = await fetch(SLH_API+'/api/whatsapp/mark-fraud', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({phone_number:phone,fraud_type:type,severity:severity,proof_url:proof})
+        });
+        var d = await r.json();
+        if(r.ok){
+            alert('Fraud flagged! ZUZ penalty: '+d.zuz_penalty);
+            document.getElementById('wa-fraud-phone').value = '';
+            document.getElementById('wa-proof-url').value = '';
+            document.getElementById('wa-severity').value = '5';
+            waRefreshContacts();
+        } else {
+            alert('Error: '+(d.detail||JSON.stringify(d)));
+        }
+    }catch(e){alert('Error: '+e.message);}
+}
+
+async function waBroadcast(){
+    var title = document.getElementById('wa-broadcast-title').value.trim();
+    var msg = document.getElementById('wa-broadcast-msg').value.trim();
+    var segment = document.getElementById('wa-broadcast-segment').value;
+
+    if(!title || !msg){alert('Fill in title and message');return;}
+    if(msg.length < 5){alert('Message too short');return;}
+
+    if(!confirm('Broadcast to '+segment+' contacts?')) return;
+
+    try{
+        var r = await fetch(SLH_API+'/api/whatsapp/broadcast-message', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({title:title,message:msg,target_segment:segment})
+        });
+        var d = await r.json();
+        if(r.ok){
+            alert('Broadcast sent! Recipients: '+d.total_recipients+' | Sent: '+d.successfully_sent+' | Failed: '+d.failed);
+            document.getElementById('wa-broadcast-title').value = '';
+            document.getElementById('wa-broadcast-msg').value = '';
+        } else {
+            alert('Error: '+(d.detail||JSON.stringify(d)));
+        }
+    }catch(e){alert('Error: '+e.message);}
+}
+
+// Load contacts on page switch
+var _waLoadedOnce = false;
+function ensureWhatsAppLoaded(){
+    if(!_waLoadedOnce){
+        waRefreshContacts();
+        _waLoadedOnce = true;
+    }
+}
 </script>
 
 <div id="bottomnav-root"></div>
@@ -2326,6 +2778,238 @@ async function checkUser(){
             panel.classList.remove('open');
         }
     });
+
+// ============================================================
+// WELLNESS FUNCTIONS
+// ============================================================
+
+async function uploadCourse() {
+    const title = document.getElementById('courseTitle').value.trim();
+    const desc = document.getElementById('courseDesc').value.trim();
+    const content = document.getElementById('courseContent').value.trim();
+    const category = document.getElementById('courseCategory').value;
+    const difficulty = document.getElementById('difficulty').value;
+    const duration = parseInt(document.getElementById('duration').value) || 0;
+    const price = parseInt(document.getElementById('priceZvk').value) || 0;
+    const video = document.getElementById('videoUrl').value.trim();
+
+    if (!title || !desc || !content) {
+        alert('Fill in title, description, and content');
+        return;
+    }
+
+    try {
+        const r = await fetch(SLH_API + '/api/wellness/course-upload', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Admin-Key': getAdminKey()},
+            body: JSON.stringify({
+                course_title: title,
+                course_description: desc,
+                course_content: content,
+                category: category,
+                difficulty: difficulty,
+                duration_minutes: duration,
+                price_zvk: price,
+                video_url: video
+            })
+        });
+        const d = await r.json();
+        if (r.ok) {
+            alert('Course created! ID: ' + d.course_id);
+            document.getElementById('courseTitle').value = '';
+            document.getElementById('courseDesc').value = '';
+            document.getElementById('courseContent').value = '';
+            document.getElementById('videoUrl').value = '';
+            refreshWellnessData();
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function createTask() {
+    const title = document.getElementById('taskTitle').value.trim();
+    const type = document.getElementById('taskType').value;
+    const desc = document.getElementById('taskDesc').value.trim();
+    const duration = parseInt(document.getElementById('taskDuration').value) || 0;
+    const zvk = parseInt(document.getElementById('rewardZvk').value) || 5;
+    const rep = parseInt(document.getElementById('rewardRep').value) || 10;
+    const slh = parseFloat(document.getElementById('rewardSlh').value) || 0.1;
+
+    if (!title || !desc) {
+        alert('Fill in title and description');
+        return;
+    }
+
+    try {
+        const r = await fetch(SLH_API + '/api/wellness/task-create', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Admin-Key': getAdminKey()},
+            body: JSON.stringify({
+                title: title,
+                task_type: type,
+                description: desc,
+                duration_minutes: duration,
+                reward_zvk: zvk,
+                reward_rep: rep,
+                reward_slh: slh
+            })
+        });
+        const d = await r.json();
+        if (r.ok) {
+            alert('Task created! ID: ' + d.task_id);
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDesc').value = '';
+            document.getElementById('taskDuration').value = '';
+            refreshWellnessData();
+            loadTaskOptions();
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function scheduleTask() {
+    const name = document.getElementById('scheduleName').value.trim();
+    const type = document.getElementById('scheduleType').value;
+    const cron = document.getElementById('cronExpr').value.trim() || '0 8 * * *';
+    const time = document.getElementById('broadcastTime').value;
+    const selected = Array.from(document.getElementById('taskSelect').selectedOptions).map(o => parseInt(o.value));
+
+    if (!name || selected.length === 0 || !time) {
+        alert('Fill in schedule name, select tasks, and set broadcast time');
+        return;
+    }
+
+    try {
+        const r = await fetch(SLH_API + '/api/wellness/schedule-task', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Admin-Key': getAdminKey()},
+            body: JSON.stringify({
+                schedule_name: name,
+                schedule_type: type,
+                cron_expression: cron,
+                task_ids: selected,
+                broadcast_time: time,
+                enabled: true
+            })
+        });
+        const d = await r.json();
+        if (r.ok) {
+            alert('Schedule created! Next run: ' + new Date(d.next_run).toLocaleString('he-IL'));
+            document.getElementById('scheduleName').value = '';
+            document.getElementById('broadcastTime').value = '';
+            document.getElementById('taskSelect').selectedIndex = -1;
+            refreshWellnessData();
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function broadcastNow() {
+    const taskId = document.getElementById('broadcastTask').value;
+    if (!taskId) {
+        alert('Select a task');
+        return;
+    }
+
+    if (!confirm('Broadcast this task to all users now?')) return;
+
+    try {
+        const r = await fetch(SLH_API + '/api/wellness/broadcast-task', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Admin-Key': getAdminKey()},
+            body: JSON.stringify({task_id: parseInt(taskId), force_now: true})
+        });
+        const d = await r.json();
+        if (r.ok) {
+            alert('Broadcast completed!\nRecipients: ' + d.recipients + '\nSent: ' + d.sent + '\nFailed: ' + d.failed);
+            refreshWellnessData();
+        } else {
+            alert('Error: ' + (d.detail || JSON.stringify(d)));
+        }
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+async function loadTaskOptions() {
+    try {
+        const r = await fetch(SLH_API + '/api/wellness/tasks');
+        const d = await r.json();
+        const select = document.getElementById('taskSelect');
+        const bcast = document.getElementById('broadcastTask');
+
+        select.innerHTML = '';
+        bcast.innerHTML = '<option value="">-- Select Task --</option>';
+
+        if (d.tasks && Array.isArray(d.tasks)) {
+            d.tasks.forEach(t => {
+                const opt1 = document.createElement('option');
+                opt1.value = t.id;
+                opt1.textContent = t.title + ' (' + t.type + ')';
+                select.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = t.id;
+                opt2.textContent = t.title + ' (' + t.type + ')';
+                bcast.appendChild(opt2);
+            });
+        }
+    } catch (e) {
+        console.error('Error loading tasks:', e.message);
+    }
+}
+
+async function refreshWellnessData() {
+    try {
+        // Load courses
+        const coursesR = await fetch(SLH_API + '/api/wellness/courses');
+        const coursesD = await coursesR.json();
+        if (coursesD.courses && Array.isArray(coursesD.courses)) {
+            document.getElementById('wellness-courses-count').textContent = coursesD.courses.length;
+            document.getElementById('wellness-course-count').textContent = coursesD.courses.length + ' courses';
+
+            const html = coursesD.courses.map(c =>
+                '<tr><td>' + c.title + '</td><td>' + c.category + '</td><td>' + c.difficulty + '</td><td>' + c.duration_minutes + ' min</td><td>' + c.price_zvk + '</td><td>' + (c.student_count || 0) + '</td></tr>'
+            ).join('');
+            document.getElementById('coursesTable').innerHTML = html || '<tr><td colspan="6" style="text-align:center;color:var(--text2)">No courses</td></tr>';
+        }
+
+        // Load schedules
+        const schedR = await fetch(SLH_API + '/api/wellness/schedules', {
+            headers: {'X-Admin-Key': getAdminKey()}
+        });
+        const schedD = await schedR.json();
+        if (schedD.schedules && Array.isArray(schedD.schedules)) {
+            document.getElementById('wellness-schedules-count').textContent = schedD.schedules.length;
+            document.getElementById('wellness-schedule-count').textContent = schedD.schedules.length + ' schedules';
+
+            const html = schedD.schedules.map(s => {
+                const nextRun = s.next_run ? new Date(s.next_run).toLocaleString('he-IL') : '--';
+                const taskCount = s.task_ids ? JSON.parse(s.task_ids).length : 0;
+                return '<tr><td>' + s.name + '</td><td>' + s.type + '</td><td>' + nextRun + '</td><td>' + taskCount + ' tasks</td><td><span class="badge ' + (s.enabled ? 'live' : 'pending') + '">' + (s.enabled ? 'Active' : 'Disabled') + '</span></td></tr>';
+            }).join('');
+            document.getElementById('schedulesTable').innerHTML = html || '<tr><td colspan="5" style="text-align:center;color:var(--text2)">No schedules</td></tr>';
+        }
+
+    } catch (e) {
+        console.error('Error refreshing wellness data:', e.message);
+    }
+}
+
+// Initialize wellness on page switch
+function ensureWellnessLoaded() {
+    loadTaskOptions();
+    refreshWellnessData();
+}
 </script>
 
 <script src="/js/analytics.js"></script>
