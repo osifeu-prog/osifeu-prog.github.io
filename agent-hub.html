@@ -34,6 +34,10 @@ a:hover{text-decoration:underline}
 .hdr h1{font-size:32px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
 .hdr .sub{color:var(--text2);font-size:14px;margin-bottom:10px}
 .hdr .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:100px;font-size:11px;font-weight:700;color:var(--purple)}
+.hdr .status-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;margin-inline-start:8px;transition:.2s}
+.hdr .status-pill.ok{background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);color:var(--green)}
+.hdr .status-pill.local{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:var(--yellow)}
+.hdr .status-pill.err{background:rgba(255,0,85,.1);border:1px solid rgba(255,0,85,.3);color:var(--red)}
 
 /* Layout */
 .layout{display:grid;grid-template-columns:340px 1fr;gap:20px;margin-top:20px}
@@ -83,6 +87,7 @@ a:hover{text-decoration:underline}
 .msg.grok{border-inline-start-color:var(--orange)}
 .msg.osif{border-inline-start-color:var(--yellow)}
 .msg.system{border-inline-start-color:var(--red)}
+.msg.agent{border-inline-start-color:var(--purple)}
 .msg.other{border-inline-start-color:var(--text3)}
 
 .msg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap}
@@ -94,6 +99,7 @@ a:hover{text-decoration:underline}
 .src-badge.grok{background:rgba(255,153,0,.1);color:var(--orange)}
 .src-badge.osif{background:rgba(255,215,0,.1);color:var(--yellow)}
 .src-badge.system{background:rgba(255,0,85,.1);color:var(--red)}
+.src-badge.agent{background:rgba(168,85,247,.1);color:var(--purple)}
 .src-badge.other{background:var(--bg);color:var(--text2);border:1px solid var(--border)}
 
 .priority-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -143,7 +149,8 @@ a:hover{text-decoration:underline}
   <header class="hdr">
     <h1>🛰 Agent Hub</h1>
     <p class="sub">ICQ של סוכני AI · תיאום מטלות · מניעת כפילויות</p>
-    <span class="badge"><i class="fas fa-link"></i> מקומי (localStorage) · פרטי · אין שרת</span>
+    <span class="badge"><i class="fas fa-link"></i> v2 · API + גיבוי מקומי</span>
+    <span class="status-pill local" id="api-status" title="בודק חיבור ל-API...">🟡 מקומי</span>
   </header>
 
   <div class="layout">
@@ -170,21 +177,20 @@ a:hover{text-decoration:underline}
 
         <label>מקור</label>
         <select id="source">
-          <option value="claude">🟢 Claude</option>
-          <option value="copilot">🔵 Copilot</option>
-          <option value="gemini">🟣 Gemini</option>
-          <option value="grok">🟠 Grok</option>
-          <option value="osif">🟡 Osif (אני)</option>
-          <option value="system">🔴 System</option>
-          <option value="other">⚪ אחר</option>
+          <option value="Claude">🟢 Claude</option>
+          <option value="Copilot">🔵 Copilot</option>
+          <option value="Gemini">🟣 Gemini</option>
+          <option value="Grok">🟠 Grok</option>
+          <option value="Osif">🟡 Osif (אני)</option>
+          <option value="Agent">🤖 Agent</option>
         </select>
 
         <label>עדיפות</label>
         <div class="chip-row" id="priority-chips">
           <span class="chip active" data-priority="info">ℹ️ Info</span>
-          <span class="chip" data-priority="p2">🔵 P2</span>
-          <span class="chip" data-priority="p1">🟡 P1</span>
-          <span class="chip" data-priority="p0">🔴 P0</span>
+          <span class="chip" data-priority="P2">🔵 P2</span>
+          <span class="chip" data-priority="P1">🟡 P1</span>
+          <span class="chip" data-priority="P0">🔴 P0</span>
         </div>
 
         <label>נושא (אופציונלי)</label>
@@ -199,8 +205,8 @@ a:hover{text-decoration:underline}
         </div>
 
         <div style="margin-top:10px;font-size:11px;color:var(--text3);line-height:1.6">
-          💡 ההודעות נשמרות ב-<code>localStorage</code> של הדפדפן.<br>
-          משותף לכל הכרטיסיות שלך. לא יוצא מהמכשיר.
+          💡 <b>v2:</b> הודעות נשמרות בשרת (משותף בין מכשירים).<br>
+          אם השרת מנותק — ההודעה נשמרת ב-<code>localStorage</code> ותסתנכרן אוטומטית.
         </div>
       </div>
 
@@ -215,7 +221,10 @@ a:hover{text-decoration:underline}
           <button class="btn btn-secondary" onclick="copyLatestToClipboard()" style="flex:1">📋 העתק אחרונים (5)</button>
         </div>
         <div class="btn-row">
-          <button class="btn btn-danger" onclick="clearAll()" style="flex:1">🗑 מחק הכל</button>
+          <button class="btn btn-secondary" onclick="syncLocalToAPI()" style="flex:1;border-color:rgba(0,229,255,.3);color:var(--cyan)">📤 סנכרן ל-API</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-danger" onclick="clearAll()" style="flex:1">🗑 מחק מקומי</button>
         </div>
       </div>
     </aside>
@@ -223,22 +232,21 @@ a:hover{text-decoration:underline}
     <!-- RIGHT: Timeline -->
     <main>
       <div class="filter-bar">
-        <input type="text" id="search" placeholder="🔍 חפש בהודעות..." oninput="renderTimeline()">
-        <select id="filter-source" onchange="renderTimeline()">
+        <input type="text" id="search" placeholder="🔍 חפש בהודעות..." oninput="scheduleReload()">
+        <select id="filter-source" onchange="reloadFromAPI()">
           <option value="">כל המקורות</option>
-          <option value="claude">Claude</option>
-          <option value="copilot">Copilot</option>
-          <option value="gemini">Gemini</option>
-          <option value="grok">Grok</option>
-          <option value="osif">Osif</option>
-          <option value="system">System</option>
-          <option value="other">אחר</option>
+          <option value="Claude">Claude</option>
+          <option value="Copilot">Copilot</option>
+          <option value="Gemini">Gemini</option>
+          <option value="Grok">Grok</option>
+          <option value="Osif">Osif</option>
+          <option value="Agent">Agent</option>
         </select>
-        <select id="filter-priority" onchange="renderTimeline()">
+        <select id="filter-priority" onchange="reloadFromAPI()">
           <option value="">כל העדיפויות</option>
-          <option value="p0">P0 דחוף</option>
-          <option value="p1">P1 חשוב</option>
-          <option value="p2">P2 נורמלי</option>
+          <option value="P0">P0 דחוף</option>
+          <option value="P1">P1 חשוב</option>
+          <option value="P2">P2 נורמלי</option>
           <option value="info">Info</option>
         </select>
       </div>
@@ -248,8 +256,8 @@ a:hover{text-decoration:underline}
         <div class="timeline" id="timeline">
           <div class="empty">
             <div class="emoji">🌀</div>
-            <h3>עדיין לא הודבקו הודעות</h3>
-            <p>הדבק תגובה מסוכן אחר מצד שמאל כדי להתחיל</p>
+            <h3>טוען...</h3>
+            <p>מושך הודעות מהשרת</p>
           </div>
         </div>
       </div>
@@ -259,7 +267,7 @@ a:hover{text-decoration:underline}
 
   <!-- Footer -->
   <footer class="foot">
-    <div>Agent Hub v1.0 · Private · Browser-only · localStorage-based</div>
+    <div>Agent Hub v2.0 · API-backed · localStorage fallback</div>
     <div style="margin-top:8px">
       <a href="/">בית</a>
       <a href="/status.html">📡 סטטוס</a>
@@ -271,23 +279,108 @@ a:hover{text-decoration:underline}
 </div>
 
 <script>
-const STORAGE_KEY = 'slh_agent_hub_messages_v1';
-let currentPriority = 'info';
+// ============================================================
+// CONFIG — change API_BASE here if the server moves.
+// ============================================================
+const API_BASE = 'https://slh-api-production.up.railway.app';
+const API_PREFIX = '/api/agent-hub';
+const STORAGE_KEY = 'slh_agent_hub_messages_v1';   // legacy local cache (kept for backwards compat)
+const CACHE_KEY   = 'slh_agent_hub_cache_v2';      // new: server-shaped cache
+const STATS_CACHE_KEY = 'slh_agent_hub_stats_v2';
+const REQUEST_TIMEOUT_MS = 6000;
 
-// Load from localStorage
-function loadMessages() {
+let currentPriority = 'info';
+let apiOnline = null;   // null = unknown, true = ok, false = degraded
+let _reloadTimer = null;
+
+// ============================================================
+// STATUS PILL
+// ============================================================
+function setStatus(state) {
+  const pill = document.getElementById('api-status');
+  if (!pill) return;
+  pill.classList.remove('ok', 'local', 'err');
+  if (state === 'ok')        { pill.classList.add('ok');    pill.textContent = '🟢 מחובר'; pill.title = 'מחובר ל-API — הודעות מסונכרנות בין מכשירים'; apiOnline = true; }
+  else if (state === 'local'){ pill.classList.add('local'); pill.textContent = '🟡 מקומי'; pill.title = 'השרת לא זמין — משתמש ב-localStorage'; apiOnline = false; }
+  else                       { pill.classList.add('err');   pill.textContent = '🔴 שגיאה'; pill.title = 'שגיאה בחיבור לשרת'; apiOnline = false; }
+}
+
+// ============================================================
+// FETCH HELPER — with timeout + graceful fallback
+// ============================================================
+async function apiFetch(path, options = {}) {
+  const ctrl = new AbortController();
+  const to = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const res = await fetch(API_BASE + API_PREFIX + path, {
+      ...options,
+      signal: ctrl.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(options.headers || {}),
+      },
+    });
+    clearTimeout(to);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status}: ${body.slice(0, 200)}`);
+    }
+    return await res.json();
+  } catch (e) {
+    clearTimeout(to);
+    throw e;
+  }
+}
+
+// ============================================================
+// LOCAL CACHE HELPERS
+// ============================================================
+function loadLocalMessages() {
+  // New cache first (server-shaped)
+  try {
+    const v2 = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (Array.isArray(v2) && v2.length) return v2;
+  } catch(e) {}
+  // Legacy fallback (old client-side shape)
+  try {
+    const legacy = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    return legacy.map(normalizeLegacy);
   } catch(e) {
     return [];
   }
 }
 
-function saveMessages(arr) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+function normalizeLegacy(m) {
+  // Legacy shape had lowercase source + priority + timestamp (iso)
+  const srcMap = { claude:'Claude', copilot:'Copilot', gemini:'Gemini', grok:'Grok', osif:'Osif', system:'Agent', other:'Agent' };
+  const priMap = { p0:'P0', p1:'P1', p2:'P2', info:'info' };
+  return {
+    id: m.id,
+    source: srcMap[(m.source||'').toLowerCase()] || 'Agent',
+    priority: priMap[(m.priority||'').toLowerCase()] || 'info',
+    topic: m.topic || null,
+    content: m.content || '',
+    agent_id: m.agent_id || null,
+    created_at: m.created_at || m.timestamp || new Date().toISOString(),
+    _local: true,
+  };
 }
 
-// Priority chip selection
+function saveLocalCache(messages) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(messages.slice(0, 500)));
+  } catch(e) { /* storage full — ignore */ }
+}
+
+function pushLocalMessage(msg) {
+  const arr = loadLocalMessages();
+  arr.unshift({ ...msg, _local: true });
+  saveLocalCache(arr);
+}
+
+// ============================================================
+// PRIORITY CHIP SELECTION
+// ============================================================
 document.getElementById('priority-chips').addEventListener('click', (e) => {
   const chip = e.target.closest('.chip');
   if (!chip) return;
@@ -296,118 +389,163 @@ document.getElementById('priority-chips').addEventListener('click', (e) => {
   currentPriority = chip.dataset.priority;
 });
 
-// Add new message
-function addMessage() {
+// ============================================================
+// ADD MESSAGE — API first, localStorage fallback
+// ============================================================
+async function addMessage() {
   const source = document.getElementById('source').value;
   const topic = document.getElementById('topic').value.trim();
   const content = document.getElementById('content').value.trim();
   if (!content) {
-    toast('⚠️ תוכן ריק', 'err');
+    toast('⚠️ תוכן ריק');
     return;
   }
-  const messages = loadMessages();
-  messages.unshift({
-    id: Date.now() + '-' + Math.random().toString(36).slice(2,8),
-    source, topic, priority: currentPriority, content,
-    timestamp: new Date().toISOString(),
-    length: content.length
+  if (content.length > 10000) {
+    toast('⚠️ תוכן ארוך מדי (מעל 10KB)');
+    return;
+  }
+
+  const payload = {
+    source, priority: currentPriority,
+    topic: topic || null,
+    content,
+    agent_id: null,
+  };
+
+  // Try API first
+  try {
+    const res = await apiFetch('/message', { method:'POST', body: JSON.stringify(payload) });
+    setStatus('ok');
+    // Also cache locally for offline reading
+    pushLocalMessage({
+      id: res.id, source, priority: currentPriority,
+      topic: topic || null, content,
+      agent_id: null, created_at: res.created_at || new Date().toISOString(),
+      _local: false,
+    });
+    document.getElementById('content').value = '';
+    document.getElementById('topic').value = '';
+    toast('✅ נשמר בשרת');
+    await reloadFromAPI();
+    return;
+  } catch (e) {
+    console.warn('API post failed, falling back to localStorage', e);
+    setStatus('local');
+  }
+
+  // Fallback: store locally with a synthetic id so we can retry later
+  pushLocalMessage({
+    id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+    source, priority: currentPriority,
+    topic: topic || null, content,
+    agent_id: null, created_at: new Date().toISOString(),
+    _local: true,
   });
-  // Limit to last 500 messages to prevent localStorage bloat
-  const trimmed = messages.slice(0, 500);
-  saveMessages(trimmed);
   document.getElementById('content').value = '';
   document.getElementById('topic').value = '';
-  renderAll();
-  toast('✅ נשמר');
+  toast('💾 נשמר מקומית (שרת מנותק)');
+  renderFromCache();
 }
 
-// Toggle message expanded
-function toggleExpand(id) {
-  const el = document.querySelector(`[data-id="${id}"] .msg-body`);
-  if (el) el.classList.toggle('expanded');
+// ============================================================
+// LOAD FEED — API first, cache fallback
+// ============================================================
+function scheduleReload() {
+  clearTimeout(_reloadTimer);
+  _reloadTimer = setTimeout(reloadFromAPI, 300);
 }
 
-// Delete message
-function deleteMessage(id) {
-  if (!confirm('למחוק הודעה זו?')) return;
-  const messages = loadMessages().filter(m => m.id !== id);
-  saveMessages(messages);
-  renderAll();
-  toast('🗑 נמחק');
-}
-
-// Copy single message
-function copyMessage(id) {
-  const msg = loadMessages().find(m => m.id === id);
-  if (!msg) return;
-  const text = `[${msg.source.toUpperCase()}] ${msg.topic ? msg.topic + ' · ' : ''}${new Date(msg.timestamp).toLocaleString('he-IL')}\n\n${msg.content}`;
-  navigator.clipboard.writeText(text).then(() => toast('📋 הועתק'));
-}
-
-// Copy last N to clipboard for relay
-function copyLatestToClipboard() {
-  const msgs = loadMessages().slice(0, 5);
-  if (!msgs.length) { toast('⚠️ אין הודעות'); return; }
-  const text = msgs.reverse().map(m =>
-    `### [${m.source.toUpperCase()}] ${m.topic || ''} · ${new Date(m.timestamp).toLocaleString('he-IL')}\n${m.content}`
-  ).join('\n\n---\n\n');
-  navigator.clipboard.writeText(text).then(() => toast('📋 5 האחרונות הועתקו'));
-}
-
-// Export JSON
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(loadMessages(), null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `agent-hub-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('📥 יצוא JSON');
-}
-
-// Export Markdown
-function exportMarkdown() {
-  const msgs = loadMessages();
-  const md = '# SLH Agent Hub Export\n\n' +
-    `Exported: ${new Date().toLocaleString('he-IL')}\nTotal: ${msgs.length}\n\n---\n\n` +
-    msgs.map(m =>
-      `## [${m.source.toUpperCase()}] ${m.topic || '(no topic)'} · ${m.priority.toUpperCase()}\n\n**${new Date(m.timestamp).toLocaleString('he-IL')}**\n\n${m.content}\n`
-    ).join('\n---\n\n');
-  const blob = new Blob([md], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `agent-hub-${new Date().toISOString().slice(0,10)}.md`;
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('📄 יצוא MD');
-}
-
-// Clear all
-function clearAll() {
-  if (!confirm('למחוק את כל ההודעות? אי-אפשר לבטל.')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  renderAll();
-  toast('🗑 הכל נמחק');
-}
-
-// Render timeline with filters
-function renderTimeline() {
-  const search = document.getElementById('search').value.toLowerCase();
+async function reloadFromAPI() {
   const fSource = document.getElementById('filter-source').value;
   const fPriority = document.getElementById('filter-priority').value;
-  const messages = loadMessages().filter(m => {
+  const search = document.getElementById('search').value.trim();
+
+  const params = new URLSearchParams({ limit: '100', offset: '0' });
+  if (fSource) params.set('source', fSource);
+  if (fPriority) params.set('priority', fPriority);
+  if (search) params.set('search', search);
+
+  try {
+    const data = await apiFetch('/messages?' + params.toString());
+    const messages = data.messages || [];
+    setStatus('ok');
+    saveLocalCache(messages);
+    renderTimeline(messages);
+    await reloadStats();
+    return;
+  } catch (e) {
+    console.warn('API load failed, using cache', e);
+    setStatus('local');
+  }
+
+  renderFromCache();
+}
+
+function renderFromCache() {
+  const fSource = document.getElementById('filter-source').value;
+  const fPriority = document.getElementById('filter-priority').value;
+  const search = document.getElementById('search').value.toLowerCase();
+  const messages = loadLocalMessages().filter(m => {
     if (fSource && m.source !== fSource) return false;
     if (fPriority && m.priority !== fPriority) return false;
-    if (search && !(m.content.toLowerCase().includes(search) || (m.topic || '').toLowerCase().includes(search))) return false;
+    if (search && !((m.content || '').toLowerCase().includes(search) || (m.topic || '').toLowerCase().includes(search))) return false;
     return true;
   });
+  renderTimeline(messages);
+  renderStatsFromCache();
+}
 
+// ============================================================
+// STATS — API first
+// ============================================================
+async function reloadStats() {
+  try {
+    const stats = await apiFetch('/stats');
+    try { localStorage.setItem(STATS_CACHE_KEY, JSON.stringify(stats)); } catch(e) {}
+    applyStats(stats);
+  } catch (e) {
+    renderStatsFromCache();
+  }
+}
+
+function renderStatsFromCache() {
+  // Prefer last cached server stats
+  try {
+    const cached = JSON.parse(localStorage.getItem(STATS_CACHE_KEY) || 'null');
+    if (cached) { applyStats(cached); return; }
+  } catch(e) {}
+  // Derive from local messages
+  const msgs = loadLocalMessages();
+  const by_source = {};
+  msgs.forEach(m => { by_source[m.source] = (by_source[m.source] || 0) + 1; });
+  applyStats({
+    total: msgs.length,
+    by_source,
+    last_message_at: msgs[0] ? msgs[0].created_at : null,
+  });
+}
+
+function applyStats(stats) {
+  document.getElementById('stat-count').textContent = stats.total || 0;
+  const bs = stats.by_source || {};
+  document.getElementById('stat-claude').textContent  = bs.Claude  || 0;
+  document.getElementById('stat-copilot').textContent = bs.Copilot || 0;
+  document.getElementById('stat-gemini').textContent  = bs.Gemini  || 0;
+  document.getElementById('stat-grok').textContent    = bs.Grok    || 0;
+  const last = stats.last_message_at;
+  document.getElementById('last-update').textContent = last
+    ? new Date(last).toLocaleString('he-IL')
+    : '—';
+}
+
+// ============================================================
+// RENDER TIMELINE
+// ============================================================
+function renderTimeline(messages) {
   const container = document.getElementById('timeline');
   document.getElementById('timeline-count').textContent = messages.length;
 
-  if (messages.length === 0) {
+  if (!messages.length) {
     container.innerHTML = `<div class="empty">
       <div class="emoji">🌀</div>
       <h3>לא נמצאו הודעות</h3>
@@ -416,20 +554,26 @@ function renderTimeline() {
     return;
   }
 
+  const srcEmojiMap = { Claude:'🟢', Copilot:'🔵', Gemini:'🟣', Grok:'🟠', Osif:'🟡', Agent:'🤖' };
+
   container.innerHTML = messages.map(m => {
-    const srcEmoji = {claude:'🟢',copilot:'🔵',gemini:'🟣',grok:'🟠',osif:'🟡',system:'🔴',other:'⚪'}[m.source] || '⚪';
-    const d = new Date(m.timestamp);
-    const timeStr = d.toLocaleString('he-IL', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
-    const escaped = m.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const srcEmoji = srcEmojiMap[m.source] || '⚪';
+    const srcClass = (m.source || 'agent').toLowerCase();
+    const d = new Date(m.created_at);
+    const timeStr = isNaN(d) ? '--' : d.toLocaleString('he-IL', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+    const escaped = (m.content || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const priClass = (m.priority || 'info').toLowerCase();
+    const localFlag = m._local ? '<span class="topic-tag" style="background:rgba(255,215,0,.1);color:var(--yellow);border-color:rgba(255,215,0,.3)">📴 מקומי</span>' : '';
     return `
-      <div class="msg ${m.source}" data-id="${m.id}">
+      <div class="msg ${srcClass}" data-id="${m.id}">
         <div class="msg-head">
           <div class="msg-left">
-            <span class="src-badge ${m.source}">${srcEmoji} ${m.source}</span>
-            <span class="priority-dot ${m.priority}" title="${m.priority}"></span>
+            <span class="src-badge ${srcClass}">${srcEmoji} ${m.source || '?'}</span>
+            <span class="priority-dot ${priClass}" title="${m.priority}"></span>
             ${m.topic ? `<span class="topic-tag">📌 ${m.topic}</span>` : ''}
+            ${localFlag}
           </div>
-          <span class="time">${timeStr} · ${m.length || m.content.length} תווים</span>
+          <span class="time">${timeStr} · ${(m.content || '').length} תווים</span>
         </div>
         <div class="msg-body" onclick="toggleExpand('${m.id}')">${escaped}</div>
         <div class="msg-actions">
@@ -442,28 +586,162 @@ function renderTimeline() {
   }).join('');
 }
 
-// Render stats
-function renderStats() {
-  const messages = loadMessages();
-  document.getElementById('stat-count').textContent = messages.length;
-  ['claude','copilot','gemini','grok'].forEach(src => {
-    const el = document.getElementById('stat-' + src);
-    if (el) el.textContent = messages.filter(m => m.source === src).length;
-  });
-  if (messages.length > 0) {
-    const last = new Date(messages[0].timestamp);
-    document.getElementById('last-update').textContent = last.toLocaleString('he-IL');
-  } else {
-    document.getElementById('last-update').textContent = '—';
+// ============================================================
+// MESSAGE ACTIONS
+// ============================================================
+function toggleExpand(id) {
+  const el = document.querySelector(`[data-id="${id}"] .msg-body`);
+  if (el) el.classList.toggle('expanded');
+}
+
+function copyMessage(id) {
+  const msg = loadLocalMessages().find(m => String(m.id) === String(id));
+  if (!msg) return;
+  const d = new Date(msg.created_at);
+  const text = `[${(msg.source || '').toUpperCase()}] ${msg.topic ? msg.topic + ' · ' : ''}${d.toLocaleString('he-IL')}\n\n${msg.content || ''}`;
+  navigator.clipboard.writeText(text).then(() => toast('📋 הועתק'));
+}
+
+async function deleteMessage(id) {
+  if (!confirm('למחוק הודעה זו? מחיקת הודעה בשרת דורשת מפתח אדמין.')) return;
+
+  // Local-only messages: remove from cache directly
+  if (String(id).startsWith('local-')) {
+    const arr = loadLocalMessages().filter(m => String(m.id) !== String(id));
+    saveLocalCache(arr);
+    toast('🗑 נמחק מקומית');
+    renderFromCache();
+    return;
+  }
+
+  const adminKey = (localStorage.getItem('slh_admin_password') || '').trim();
+  if (!adminKey) {
+    toast('⚠️ לא נמצא מפתח אדמין (התחבר קודם ב-/admin.html)');
+    return;
+  }
+  try {
+    const res = await fetch(API_BASE + API_PREFIX + '/message/' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'X-Admin-Key': adminKey },
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status} ${body.slice(0, 120)}`);
+    }
+    toast('🗑 נמחק');
+    // Remove from local cache too
+    const arr = loadLocalMessages().filter(m => String(m.id) !== String(id));
+    saveLocalCache(arr);
+    await reloadFromAPI();
+  } catch (e) {
+    console.error(e);
+    toast('❌ מחיקה נכשלה: ' + (e.message || 'שגיאה'));
   }
 }
 
-function renderAll() {
-  renderStats();
-  renderTimeline();
+// ============================================================
+// SYNC LOCAL → API (bulk import)
+// ============================================================
+async function syncLocalToAPI() {
+  const messages = loadLocalMessages().filter(m => m._local || String(m.id).startsWith('local-'));
+  if (!messages.length) {
+    // Fall back: sync the legacy STORAGE_KEY dump if present
+    const legacy = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e){ return []; } })();
+    if (!legacy.length) { toast('ℹ️ אין הודעות מקומיות לסנכרון'); return; }
+    messages.push(...legacy.map(normalizeLegacy));
+  }
+
+  const adminKey = (localStorage.getItem('slh_admin_password') || '').trim();
+  if (!adminKey) {
+    toast('⚠️ צריך מפתח אדמין (התחבר ב-/admin.html)');
+    return;
+  }
+
+  // Normalize to server shape
+  const payload = {
+    messages: messages.map(m => ({
+      source: m.source,
+      priority: m.priority,
+      topic: m.topic || null,
+      content: m.content || '',
+      agent_id: m.agent_id || null,
+    })),
+  };
+
+  try {
+    const res = await fetch(API_BASE + API_PREFIX + '/bulk-import', {
+      method:'POST',
+      headers: { 'Content-Type':'application/json', 'X-Admin-Key': adminKey },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status} ${body.slice(0, 120)}`);
+    }
+    const data = await res.json();
+    toast(`📤 יובאו ${data.imported || 0} (דילוגים: ${data.skipped || 0})`);
+    // Clear legacy dump on success, keep only synced server-shape cache
+    localStorage.removeItem(STORAGE_KEY);
+    await reloadFromAPI();
+  } catch (e) {
+    console.error(e);
+    toast('❌ סנכרון נכשל: ' + (e.message || 'שגיאה'));
+  }
 }
 
-// Toast notifications
+// ============================================================
+// EXPORT / IMPORT (local cache)
+// ============================================================
+function exportJSON() {
+  const messages = loadLocalMessages();
+  const blob = new Blob([JSON.stringify(messages, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `agent-hub-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('📥 יצוא JSON');
+}
+
+function exportMarkdown() {
+  const msgs = loadLocalMessages();
+  const md = '# SLH Agent Hub Export\n\n' +
+    `Exported: ${new Date().toLocaleString('he-IL')}\nTotal: ${msgs.length}\n\n---\n\n` +
+    msgs.map(m =>
+      `## [${(m.source || '').toUpperCase()}] ${m.topic || '(no topic)'} · ${(m.priority || '').toUpperCase()}\n\n**${new Date(m.created_at).toLocaleString('he-IL')}**\n\n${m.content || ''}\n`
+    ).join('\n---\n\n');
+  const blob = new Blob([md], { type:'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `agent-hub-${new Date().toISOString().slice(0,10)}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('📄 יצוא MD');
+}
+
+function copyLatestToClipboard() {
+  const msgs = loadLocalMessages().slice(0, 5);
+  if (!msgs.length) { toast('⚠️ אין הודעות'); return; }
+  const text = msgs.reverse().map(m =>
+    `### [${(m.source || '').toUpperCase()}] ${m.topic || ''} · ${new Date(m.created_at).toLocaleString('he-IL')}\n${m.content || ''}`
+  ).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(() => toast('📋 5 האחרונות הועתקו'));
+}
+
+function clearAll() {
+  if (!confirm('למחוק את המטמון המקומי? (לא משפיע על השרת)')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(CACHE_KEY);
+  localStorage.removeItem(STATS_CACHE_KEY);
+  toast('🗑 מטמון מקומי נוקה');
+  reloadFromAPI();
+}
+
+// ============================================================
+// TOAST
+// ============================================================
 function toast(msg) {
   const t = document.createElement('div');
   t.className = 'toast';
@@ -472,7 +750,9 @@ function toast(msg) {
   setTimeout(() => t.remove(), 2200);
 }
 
-// Keyboard shortcut: Ctrl+Enter to save
+// ============================================================
+// KEYBOARD SHORTCUT + STORAGE SYNC
+// ============================================================
 document.getElementById('content').addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
     e.preventDefault();
@@ -480,13 +760,17 @@ document.getElementById('content').addEventListener('keydown', (e) => {
   }
 });
 
-// Initial render
-renderAll();
-
-// Listen for storage changes from other tabs
 window.addEventListener('storage', (e) => {
-  if (e.key === STORAGE_KEY) renderAll();
+  if (e.key === CACHE_KEY || e.key === STORAGE_KEY) renderFromCache();
 });
+
+// ============================================================
+// BOOT
+// ============================================================
+setStatus('local');
+reloadFromAPI();
+// Refresh every 30s when the tab is visible
+setInterval(() => { if (!document.hidden) reloadFromAPI(); }, 30000);
 </script>
 
 </body>
