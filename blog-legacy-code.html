@@ -586,6 +586,51 @@ AI.1: "בוא נשנה את הפרמטרים של המחשבה הזו.
 
 </article>
 
+<!-- Full Site Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>📰 בלוג</h5>
+      <ul>
+        <li><a href="/blog.html">כל המאמרים</a></li>
+        <li><a href="/blog-legacy-code.html">🧠 Legacy Code</a></li>
+        <li><a href="/daily-blog.html">בלוג יומי</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>💼 מוצרים</h5>
+      <ul>
+        <li><a href="/promo-shekel.html">Starter Pack ₪22.221</a></li>
+        <li><a href="/kosher-wallet.html">Kosher Wallet ₪888</a></li>
+        <li><a href="/staking.html">Staking 65%</a></li>
+        <li><a href="/experts.html">Experts Network</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>🤝 קהילה</h5>
+      <ul>
+        <li><a href="/community.html">קהילה</a></li>
+        <li><a href="/about.html">אודות</a></li>
+        <li><a href="/bug-report.html">דווח באג</a></li>
+        <li><a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener">בוט טלגרם</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>📊 מערכת</h5>
+      <ul>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="/investment-tracker.html">פקדונות</a></li>
+        <li><a href="/whitepaper.html">Whitepaper</a></li>
+        <li><a href="/roadmap.html">Roadmap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    🟢 Live · <span id="hebrew-date-footer"></span><br>
+    © 2026 SLH Spark · slhalpa · Build v0.6-blog-system · <a href="/terms.html" style="color:var(--text3)">תנאי שימוש</a> · <a href="/privacy.html" style="color:var(--text3)">פרטיות</a>
+  </div>
+</footer>
+
 <div id="hebrew-date"></div>
 
 <script src="/js/shared.js?v=20260416"></script>
@@ -622,7 +667,9 @@ function updateHebDate(){
     const now = new Date();
     const heb = new Intl.DateTimeFormat('he-IL-u-ca-hebrew',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
     const greg = new Intl.DateTimeFormat('he-IL',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
-    document.getElementById('hebrew-date').textContent = `📅 ${heb} · ${greg} · ${now.toLocaleTimeString('he-IL')}`;
+    const txt = `📅 ${heb} · ${greg} · ${now.toLocaleTimeString('he-IL')}`;
+    const el = document.getElementById('hebrew-date'); if(el) el.textContent = txt;
+    const el2 = document.getElementById('hebrew-date-footer'); if(el2) el2.textContent = txt;
   }catch(e){}
 }
 setInterval(updateHebDate, 1000);

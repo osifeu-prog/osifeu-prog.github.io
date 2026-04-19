@@ -33,7 +33,7 @@ const NAV_ITEMS = [
   { key: 'bots', href: '/bots.html', icon: 'fa-robot' },
   { key: 'referral', href: '/referral.html', icon: 'fa-users', auth: true },
   { key: 'community', href: '/community.html', icon: 'fa-comments' },
-  { key: 'blog', href: '/daily-blog.html', icon: 'fa-newspaper' },
+  { key: 'blog', href: '/blog.html', icon: 'fa-newspaper' },
   { key: 'guides', href: '/guides.html', icon: 'fa-book' },
   { key: 'wallet_guide', href: '/wallet-guide.html', icon: 'fa-graduation-cap' },
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
@@ -621,7 +621,8 @@ function renderFooter() {
           <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
             <li><a href="/community.html" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_community', 'פורום')}</a></li>
             <li><a href="/community.html#marketplace" style="color:var(--text2);text-decoration:none;font-size:13px">🏪 ${t('nav_marketplace', 'חנות קהילתית')}</a></li>
-            <li><a href="/daily-blog.html" style="color:var(--text2);text-decoration:none;font-size:13px">📰 ${t('nav_blog', 'בלוג יומי')}</a></li>
+            <li><a href="/blog.html" style="color:var(--text2);text-decoration:none;font-size:13px">📰 ${t('nav_blog', 'בלוג')}</a></li>
+            <li><a href="/blog-legacy-code.html" style="color:var(--text2);text-decoration:none;font-size:13px">🧠 ${t('nav_blog_legacy', 'Legacy Code')}</a></li>
             <li><a href="/invite.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎁 ${t('nav_invite', 'הזמן חברים')}</a></li>
             <li><a href="/referral.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤝 ${t('nav_referral', 'הפניות')}</a></li>
           </ul>
