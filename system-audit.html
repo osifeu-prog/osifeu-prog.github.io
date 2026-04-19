@@ -211,6 +211,33 @@ a:hover{text-decoration:underline}
     </div>
   </section>
 
+  <!-- ESP32 -->
+  <section class="section">
+    <h2><i class="fas fa-microchip" style="color:var(--yellow)"></i> ESP32 · בקרה מקומית <span class="tag tag-partial" id="esp32-tag">לא מוגדר</span></h2>
+    <div class="grid">
+      <div class="card">
+        <div class="label">סטטוס</div>
+        <div class="value" id="esp32-configured"><span class="skel">___</span></div>
+        <div class="hint">ESP32_BRIDGE_URL</div>
+      </div>
+      <div class="card">
+        <div class="label">נראה לאחרונה</div>
+        <div class="value small" id="esp32-last-seen"><span class="skel">___</span></div>
+        <div class="hint">devices.last_seen · esp32</div>
+      </div>
+      <div class="card">
+        <div class="label">כתובת IP</div>
+        <div class="value small" id="esp32-ip"><span class="skel">___</span></div>
+        <div class="hint">מ-bridge או מה-devices</div>
+      </div>
+      <div class="card">
+        <div class="label">סיבה / הערה</div>
+        <div class="value small muted" id="esp32-reason"><span class="skel">___</span></div>
+        <div class="hint">מצב חיבור לסטאק המקומי</div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="foot">
     <div>ביקורת חיה · נתונים ישירות מ-<code style="color:var(--cyan)">/api/system/audit</code></div>
@@ -371,6 +398,15 @@ async function loadAudit(){
     errCls = err === 0 ? 'ok' : (err < 10 ? 'warn' : 'err');
   }
   setText('errors-last-hour', fmtNum(err), errCls);
+
+  // ESP32
+  const esp = d.esp32 || {};
+  setText('esp32-configured', esp.configured ? 'מחובר' : 'לא מוגדר', esp.configured ? 'ok' : 'muted');
+  setText('esp32-last-seen', esp.last_seen ? new Date(esp.last_seen).toLocaleString('he-IL') : '—', esp.last_seen ? 'ok' : 'muted');
+  setText('esp32-ip', esp.ip || '—', esp.ip ? 'ok' : 'muted');
+  setText('esp32-reason', esp.reason || 'OK', esp.reason ? 'muted' : 'ok');
+  const tag = document.getElementById('esp32-tag');
+  if (tag) { tag.textContent = esp.configured ? 'מחובר' : 'לא מוגדר'; tag.className = 'tag ' + (esp.configured ? 'tag-live' : 'tag-partial'); }
 }
 
 // Initial load + auto-refresh
