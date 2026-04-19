@@ -1723,13 +1723,13 @@
     }
 
     async function loadStats() {
-        const data = await apiGet('/api/community/stats') || { total_posts: posts.length || 7, posts_today: 3, active_today: 47, total_users: 176 };
+        const data = await apiGet('/api/community/stats') || { total_posts: '—', posts_today: '—', active_today: '—', total_users: '—' };
         if (data) {
             const el = document.getElementById('total-posts');
-            if (el) el.textContent = (data.total_posts || 0).toLocaleString('he-IL');
+            if (el) el.textContent = (typeof data.total_posts === 'number') ? data.total_posts.toLocaleString('he-IL') : '—';
 
             const pt = document.getElementById('posts-today');
-            if (pt) pt.textContent = data.posts_today || 0;
+            if (pt) pt.textContent = (data.posts_today ?? '—');
 
             const at = document.getElementById('active-today');
             if (at) at.textContent = data.active_today || 0;

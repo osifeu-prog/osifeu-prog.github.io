@@ -753,11 +753,11 @@ async function fetchHolderCount() {
         if(countRes?.result && !isNaN(parseInt(countRes.result))) {
             if(hEl) hEl.textContent = parseInt(countRes.result).toLocaleString();
         } else if(hEl) {
-            hEl.textContent = '176';
+            hEl.textContent = '—';
         }
     } catch(e) {
         const hEl = document.getElementById('bsc-holders');
-        if(hEl) hEl.textContent = '176';
+        if(hEl) hEl.textContent = '—';
     }
 }
 
