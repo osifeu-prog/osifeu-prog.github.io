@@ -983,6 +983,38 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ═══════════ Admin key rotation (system X-Admin-Key) ═══════════ -->
+            <div class="admin-section" style="border-color:var(--red);margin-top:16px">
+                <h3 style="color:var(--red)">🔑 שינוי ססמת מערכת (X-Admin-Key)</h3>
+                <p style="font-size:11px;color:var(--text2);margin:8px 0 16px">
+                    הסיסמה הזו נשלחת בכותרת <code style="color:var(--accent)">X-Admin-Key</code> לכל קריאה מנהלית.
+                    שינוי כאן מוסיף מפתח חדש לטבלת <code>admin_secrets</code> ומבטל את הקודם — תקף מיידית, ללא deploy.
+                    מפתחות ENV של Railway ממשיכים לעבוד (מיועד לשינוי מלא: הסר מ-Railway בנפרד).
+                </p>
+                <div id="key-status-box" style="padding:10px;background:var(--bg3);border:1px dashed var(--border);margin-bottom:12px;font-size:11px;color:var(--text2)">
+                    סטטוס: טוען...
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">סיסמה חדשה (12+ תווים, 2+ קטגוריות)</label>
+                        <input type="password" id="new-admin-key" placeholder="ss9kP2mXr8LvNq..." style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">אימות סיסמה</label>
+                        <input type="password" id="new-admin-key-confirm" placeholder="שוב..." style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div>
+                        <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">תווית (אופציונלי)</label>
+                        <input type="text" id="new-admin-key-label" placeholder="rotated-20260420" maxlength="80" style="width:100%;padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                    </div>
+                    <div style="display:flex;align-items:flex-end;gap:8px">
+                        <button onclick="generateRandomAdminKey()" style="flex:1;padding:10px;background:var(--bg3);color:var(--text);border:1px solid var(--border);cursor:pointer;font-size:12px;border-radius:6px" title="הפקת סיסמה אקראית חזקה">🎲 הפק</button>
+                        <button onclick="rotateAdminKey()" style="flex:2;padding:10px;background:var(--red);color:#fff;border:none;font-weight:700;cursor:pointer;font-size:12px;border-radius:6px">🔄 רוטציה עכשיו</button>
+                    </div>
+                </div>
+                <div id="rotate-result" style="margin-top:12px;font-size:11px;display:none;padding:10px;border-radius:4px"></div>
+            </div>
         </div>
 
         <div id="page-finance" style="display:none">
@@ -2135,7 +2167,7 @@ showPage = function(name){
     if (name === 'sitemap') checkAllPages();
     if (name === 'finance') loadFinanceDashboard();
     if (name === 'bank_transfers') loadBankTransfers();
-    if (name === 'admin_mgmt') loadAdminUsers();
+    if (name === 'admin_mgmt') { loadAdminUsers(); loadKeyStatus(); }
     if (name === 'trust') loadTrustEntities();
     if (name === 'users') loadFullUsers();
     if (name === 'rewards') loadAllUsers();
@@ -2520,6 +2552,66 @@ async function createNewAdmin(){
         if(d.ok){alert('אדמין '+username+' נוצר בהצלחה (ID: '+d.admin_id+')');loadAdminUsers();}
         else alert('שגיאה: '+(d.detail||JSON.stringify(d)));
     }catch(e){alert('Error: '+e.message);}
+}
+
+// ═══════════ Admin Key Rotation (X-Admin-Key) ═══════════
+async function loadKeyStatus(){
+    var box=document.getElementById('key-status-box');
+    if(!box) return;
+    try{
+        var r=await fetch(SLH_API+'/api/admin/key-status',{headers:{'X-Admin-Key':getAdminKey()}});
+        if(!r.ok){box.innerHTML='<span style="color:var(--red)">⚠️ לא מחובר — וודא שאתה מחובר עם סיסמה תקינה</span>';return;}
+        var d=await r.json();
+        var active=d.active_key?('<b>מפתח DB פעיל:</b> '+d.active_key.label+' · נוצר: '+new Date(d.active_key.created_at).toLocaleString('he-IL')):'<span style="color:var(--text2)">אין מפתח DB פעיל — משתמש במפתחות ENV של Railway בלבד</span>';
+        var last=d.last_rotation_at?('רוטציה אחרונה: '+new Date(d.last_rotation_at).toLocaleString('he-IL')):'לא בוצעה רוטציה מעולם';
+        box.innerHTML=active+' · סה"כ מפתחות: '+d.total_keys_ever+' · '+last+' · cache: '+d.cached_in_memory;
+    }catch(e){box.innerHTML='<span style="color:var(--red)">שגיאה: '+e.message+'</span>';}
+}
+
+function generateRandomAdminKey(){
+    var chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
+    var out=''; var arr=new Uint32Array(24); crypto.getRandomValues(arr);
+    for(var i=0;i<arr.length;i++) out+=chars[arr[i]%chars.length];
+    document.getElementById('new-admin-key').value=out;
+    document.getElementById('new-admin-key-confirm').value=out;
+    // Briefly show it so user can copy
+    document.getElementById('new-admin-key').type='text';
+    setTimeout(function(){document.getElementById('new-admin-key').type='password';}, 8000);
+    var res=document.getElementById('rotate-result');
+    res.style.display='block';
+    res.style.background='var(--bg3)'; res.style.color='var(--accent)';
+    res.innerHTML='🎲 סיסמה נוצרה (גלויה 8 שניות) — <b>העתק אותה עכשיו לפני הרוטציה</b>. לאחר רוטציה תצטרך להיכנס מחדש איתה.';
+}
+
+async function rotateAdminKey(){
+    var newKey=document.getElementById('new-admin-key').value.trim();
+    var confirm=document.getElementById('new-admin-key-confirm').value.trim();
+    var label=document.getElementById('new-admin-key-label').value.trim()||('rotated-'+new Date().toISOString().slice(0,10));
+    var res=document.getElementById('rotate-result');
+    res.style.display='block';
+    if(newKey!==confirm){res.style.background='rgba(255,0,85,.1)';res.style.color='var(--red)';res.innerHTML='❌ שתי הסיסמאות לא תואמות';return;}
+    if(newKey.length<12){res.style.background='rgba(255,0,85,.1)';res.style.color='var(--red)';res.innerHTML='❌ סיסמה חייבת להיות 12+ תווים';return;}
+    if(!window.confirm('לרוטץ' + "'" + ' את סיסמת המערכת? הפעלה שלך תנותק ותצטרך להיכנס מחדש עם הסיסמה החדשה.')) return;
+    res.style.background='var(--bg3)';res.style.color='var(--text2)';res.innerHTML='⏳ מבצע רוטציה...';
+    try{
+        var r=await fetch(SLH_API+'/api/admin/rotate-key',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()},
+            body:JSON.stringify({new_key:newKey,label:label})
+        });
+        var d=await r.json();
+        if(!r.ok){res.style.background='rgba(255,0,85,.1)';res.style.color='var(--red)';res.innerHTML='❌ שגיאה: '+(d.detail||JSON.stringify(d));return;}
+        res.style.background='rgba(57,255,20,.08)';res.style.color='var(--accent)';
+        res.innerHTML='✅ ססמה עודכנה (id='+d.id+', label='+d.label+'). מעדכן localStorage ומרענן...';
+        // Update localStorage with new key so future requests work
+        localStorage.setItem('slh_admin_password', newKey);
+        // Clear fields
+        document.getElementById('new-admin-key').value='';
+        document.getElementById('new-admin-key-confirm').value='';
+        document.getElementById('new-admin-key-label').value='';
+        // Reload key status after brief pause
+        setTimeout(function(){loadKeyStatus();loadKeyStatus();}, 1500);
+    }catch(e){res.style.background='rgba(255,0,85,.1)';res.style.color='var(--red)';res.innerHTML='❌ שגיאה: '+e.message;}
 }
 
 async function loadFinanceDashboard(){
