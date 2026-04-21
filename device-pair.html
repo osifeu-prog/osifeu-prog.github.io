@@ -31,11 +31,17 @@
 </div>
 
 <section class="step active" id="step-phone">
+  <div class="card" id="mac-manual-card" style="display:none">
+    <label for="manual-mac">MAC של המכשיר (12 תווים, ללא נקודתיים)</label>
+    <input type="text" id="manual-mac" placeholder="A1B2C3D4E5F6" maxlength="12" style="font-family:monospace;text-transform:uppercase">
+    <div class="muted" style="margin-top:6px">אם פתחת את הדף מהמחשב, הזן ידנית את ה-MAC שמופיע על מסך המכשיר בעת ה-boot, או השאר ריק ליצירת device_id אקראי לבדיקה.</div>
+    <button id="btn-set-mac" style="margin-top:10px;background:#334071">✔️ קבע מכשיר</button>
+  </div>
   <div class="card">
-    <label for="phone">טלפון לקבלת קוד (Telegram או SMS)</label>
+    <label for="phone">טלפון לקבלת קוד</label>
     <input type="tel" id="phone" placeholder="0501234567" autocomplete="tel">
     <button id="btn-send-code">📩 שלח קוד</button>
-    <div class="muted" style="margin-top:10px">הקוד יישלח לטלגרם אם הטלפון מקושר, אחרת כ-SMS.</div>
+    <div class="muted" style="margin-top:10px">הקוד יישלח לטלגרם אם הטלפון מקושר לחשבון SLH. אם לא — יופיע כאן קוד לבדיקה (SMS עדיין לא מחובר לספק).</div>
   </div>
 </section>
 
@@ -75,16 +81,42 @@ function setStatus(msg, cls) {
   el.className = cls ? ('muted ' + cls) : 'muted';
 }
 
-const rawMac = (qs('mac') || '').toUpperCase().replace(/[^A-F0-9]/g, '');
-const deviceId = rawMac ? `esp32-${rawMac}` : '';
-document.getElementById('mac').textContent = rawMac || '(חסר MAC בכתובת)';
+let rawMac = (qs('mac') || '').toUpperCase().replace(/[^A-F0-9]/g, '');
+let deviceId = rawMac ? `esp32-${rawMac}` : '';
+
+function updateMacDisplay() {
+  document.getElementById('mac').textContent = rawMac || '(הזן ידנית למטה)';
+}
+updateMacDisplay();
 
 if (!rawMac) {
-  setStatus('⚠️ פתח את הדף ע"י סריקת ה-QR מהמכשיר.', 'err');
-  document.getElementById('btn-send-code').disabled = true;
+  setStatus('ℹ️ פתוח מהמחשב — הזן MAC ידנית או השאר ריק לבדיקה.');
+  document.getElementById('mac-manual-card').style.display = 'block';
 }
 
+document.getElementById('btn-set-mac').addEventListener('click', () => {
+  const typed = document.getElementById('manual-mac').value.toUpperCase().replace(/[^A-F0-9]/g, '');
+  if (typed.length === 12) {
+    rawMac = typed;
+  } else if (typed.length === 0) {
+    // generate a random test MAC so user can pair a "virtual" device
+    rawMac = Array.from({length: 12}, () => '0123456789ABCDEF'[Math.floor(Math.random() * 16)]).join('');
+    setStatus('🎲 נוצר MAC אקראי לבדיקה: ' + rawMac, 'ok');
+  } else {
+    setStatus('MAC חייב להיות 12 תווים (או ריק ליצירה אקראית)', 'err');
+    return;
+  }
+  deviceId = `esp32-${rawMac}`;
+  updateMacDisplay();
+  document.getElementById('mac-manual-card').style.display = 'none';
+  setStatus('מכשיר נקבע: ' + deviceId + ' — עכשיו הזן טלפון', 'ok');
+});
+
 document.getElementById('btn-send-code').addEventListener('click', async () => {
+  if (!deviceId) {
+    setStatus('❌ קודם קבע מכשיר (MAC) למעלה', 'err');
+    return;
+  }
   const phone = document.getElementById('phone').value.trim();
   if (!phone || phone.length < 9) {
     setStatus('מספר טלפון לא תקין', 'err');
@@ -102,7 +134,13 @@ document.getElementById('btn-send-code').addEventListener('click', async () => {
       setStatus('שגיאה: ' + (data.detail || r.statusText), 'err');
       return;
     }
-    setStatus(data.delivery === 'telegram' ? '✉️ קוד נשלח לטלגרם' : '📱 קוד נשלח ב-SMS', 'ok');
+    if (data.delivery === 'telegram') {
+      setStatus('✉️ קוד נשלח לטלגרם שלך', 'ok');
+    } else if (data._dev_code) {
+      setStatus('ℹ️ SMS עדיין לא מחובר. הקוד מוצג לבדיקה (תוקף 5 דק\'): ' + data._dev_code, 'ok');
+    } else {
+      setStatus('📱 קוד נשלח', 'ok');
+    }
     setStep('step-code');
     if (data._dev_code) {
       // Dev helper: pre-fill code if SMS isn't configured
