@@ -328,8 +328,8 @@
           <div class="stat-label" data-i18n="landing_stat_coins">Coins</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">65%</div>
-          <div class="stat-label" data-i18n="landing_stat_apy">Max APY</div>
+          <div class="stat-num">Dynamic</div>
+          <div class="stat-label" data-i18n="landing_stat_apy">Revenue Share</div>
         </div>
         <div class="stat-item">
           <div class="stat-num">24/7</div>
@@ -367,8 +367,8 @@
   <section style="max-width:900px;margin:0 auto 24px;padding:0 24px">
     <div style="background:var(--surface,#14142b);border:1px solid var(--border,#1e1e3a);border-radius:16px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;text-align:center">
       <div>
-        <div style="font-size:32px;font-weight:800;color:var(--accent,#00ff41)">65%</div>
-        <div style="font-size:12px;color:var(--text2,#888)">APY שנתי מקסימלי</div>
+        <div style="font-size:32px;font-weight:800;color:var(--accent,#00ff41)">Dynamic</div>
+        <div style="font-size:12px;color:var(--text2,#888)">Revenue Share Pool</div>
       </div>
       <div>
         <div style="font-size:32px;font-weight:800;color:var(--cyan,#00e5ff)">4</div>
@@ -629,7 +629,7 @@
   <script>
     // Featured bots for ecosystem preview
     const FEATURED_BOTS = [
-      { name: 'SLH Investment House', desc: 'השקעות, סטייקינג, תשואות 65%', icon: 'fa-bolt', link: 'https://t.me/SLH_AIR_bot' },
+      { name: 'SLH Investment House', desc: 'השקעות, Revenue Share Pool, למידה כלכלית', icon: 'fa-bolt', link: 'https://t.me/SLH_AIR_bot' },
       { name: 'Guardian Security', desc: 'אבטחת קבוצות ואנטי-ספאם', icon: 'fa-shield-alt', link: 'https://t.me/Grdian_bot' },
       { name: 'SLH Academy', desc: 'חינוך, קורסים ו-VIP', icon: 'fa-graduation-cap', link: 'https://t.me/SLH_Academia_bot' },
       { name: 'BotShop', desc: 'שוק בוטים מוכנים למכירה', icon: 'fa-store', link: 'https://t.me/Buy_My_Shop_bot' },
@@ -707,17 +707,19 @@
       const p = funnelData.period;
 
       // Portfolio recommendations based on answers
+      // Yields are derived from Revenue Share Pool (see /academy/course-1-dynamic-yield.html)
+      // Not promised. See /risk.html.
       const plans = {
-        '500':  { name: 'תיק התחלתי',  monthly: '₪300–500', yieldRange: '8–15%' },
-        '1000': { name: 'תיק צמיחה',   monthly: '₪500–1,000', yieldRange: '15–25%' },
-        '5000': { name: 'תיק מתקדם',   monthly: '₪1,000–5,000', yieldRange: '25–40%' },
-        '5000+':{ name: 'תיק פרימיום',  monthly: '₪5,000+', yieldRange: '40–65%' }
+        '500':  { name: 'תיק התחלתי',  monthly: '₪300–500', yieldRange: 'Revenue Share (variable)' },
+        '1000': { name: 'תיק צמיחה',   monthly: '₪500–1,000', yieldRange: 'Revenue Share (variable)' },
+        '5000': { name: 'תיק מתקדם',   monthly: '₪1,000–5,000', yieldRange: 'Revenue Share (variable)' },
+        '5000+':{ name: 'תיק פרימיום',  monthly: '₪5,000+', yieldRange: 'Revenue Share (variable) + Pro course' }
       };
       const periods = {
-        '3m':  { label: 'עד 3 חודשים — טווח קצר', staking: 'Basic (30 יום, 8% APY)' },
-        '6m':  { label: '3–6 חודשים — טווח בינוני', staking: 'Standard (90 יום, 15% APY)' },
-        '12m': { label: '6–12 חודשים — טווח ארוך', staking: 'Premium (180 יום, 25% APY)' },
-        '12m+':{ label: 'שנה+ — טווח אסטרטגי', staking: 'Diamond (365 יום, 40% APY)' }
+        '3m':  { label: 'עד 3 חודשים — טווח קצר', staking: 'Dynamic Yield · Tier 1' },
+        '6m':  { label: '3–6 חודשים — טווח בינוני', staking: 'Dynamic Yield · Tier 2' },
+        '12m': { label: '6–12 חודשים — טווח ארוך', staking: 'Dynamic Yield · Tier 3' },
+        '12m+':{ label: 'שנה+ — טווח אסטרטגי', staking: 'Dynamic Yield · Tier 4 (higher k allocation)' }
       };
 
       const plan = plans[a] || plans['500'];

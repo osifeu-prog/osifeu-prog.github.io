@@ -631,7 +631,8 @@ function renderFooter() {
           <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">💎 ${t('footer_products', 'מוצרים')}</h4>
           <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
             <li><a href="/bots.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤖 ${t('nav_bots', '20+ בוטים')}</a></li>
-            <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 ${t('nav_staking', 'סטייקינג 65%')}</a></li>
+            <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 ${t('nav_staking', 'Staking · Revenue Share')}</a></li>
+            <li><a href="/academy/course-1-dynamic-yield.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎓 ${t('nav_course_1', 'קורס #1 — Dynamic Yield')}</a></li>
             <li><a href="/blockchain.html" style="color:var(--text2);text-decoration:none;font-size:13px">⛓️ ${t('nav_blockchain', "בלוקצ'יין")}</a></li>
             <li><a href="/analytics.html" style="color:var(--text2);text-decoration:none;font-size:13px">📊 ${t('nav_analytics', 'אנליטיקה')}</a></li>
             <li><a href="/whitepaper.html" style="color:var(--text2);text-decoration:none;font-size:13px">📜 ${t('nav_whitepaper', 'ספר לבן')}</a></li>
@@ -667,6 +668,17 @@ function renderFooter() {
           &copy; ${year} SLH Spark. <span data-i18n="footer_rights">${t('footer_rights', 'כל הזכויות שמורות')}</span>
         </div>
         <div class="footer-powered" data-i18n="footer_powered" style="font-size:11px;color:var(--text3);margin-top:4px">${t('footer_powered', 'מופעל על ידי SLH Spark · SPARK IND')}</div>
+        <div class="footer-legal-disclaimer" style="max-width:900px;margin:18px auto 0;padding:14px 18px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.2);border-radius:10px;font-size:11px;color:var(--text2);line-height:1.7;text-align:start">
+          <strong style="color:var(--gold,#ffd700)">⚠️ גילוי סיכון:</strong>
+          SLH Spark היא אקוסיסטם קריפטו בשלבים מוקדמים (Pre-launch).
+          <strong>Dynamic Yield</strong> הוא מנגנון חלוקת הכנסות פרו-רטה, <em>לא מוצר פיננסי מובטח</em>.
+          חלוקות עבר אינן מבטיחות חלוקות עתיד. APY הנגזר משתנה לפי ביצועי המערכת.
+          Circuit Breakers אוטומטיים יכולים לעצור חלוקות, להגביל משיכות, או להקפיא הפקדות להגנה על המערכת.
+          <strong>אין זה ייעוץ השקעות.</strong>
+          <a href="/risk.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">גילוי סיכון מלא</a> ·
+          <a href="/terms.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">תנאי שימוש</a> ·
+          <a href="/academy/course-1-dynamic-yield.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">למד את המודל (קורס חינמי)</a>
+        </div>
       </div>
     </footer>`;
 
