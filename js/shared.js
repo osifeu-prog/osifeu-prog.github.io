@@ -413,6 +413,69 @@ function renderBugReportFAB() {
   document.body.appendChild(fab);
 }
 
+// Site Map FAB — persistent link to the full sitemap + network visualization
+function renderSiteMapFAB() {
+  if (document.getElementById('slh-map-fab')) return;
+  const fab = document.createElement('div');
+  fab.id = 'slh-map-fab-wrap';
+  fab.innerHTML = `
+    <style>
+      #slh-map-fab-wrap{position:fixed;bottom:20px;left:82px;z-index:9998}
+      #slh-map-fab{
+        width:52px;height:52px;border-radius:50%;
+        background:linear-gradient(135deg,#a855f7,#06b6d4);
+        display:grid;place-items:center;font-size:22px;color:#fff;
+        text-decoration:none;box-shadow:0 4px 20px rgba(168,85,247,.4);
+        transition:transform .2s,box-shadow .2s;cursor:pointer
+      }
+      #slh-map-fab:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(6,182,212,.6)}
+      #slh-map-menu{
+        position:absolute;bottom:60px;left:0;
+        background:var(--bg2,#0d1220);border:1px solid var(--border,rgba(168,85,247,.25));
+        border-radius:14px;padding:8px;min-width:220px;
+        box-shadow:0 10px 40px rgba(0,0,0,.5);display:none
+      }
+      #slh-map-menu.open{display:block}
+      #slh-map-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;
+        color:var(--text,#f5f5f8);text-decoration:none;border-radius:8px;font-size:13px;
+        font-weight:600;font-family:'Rubik',sans-serif}
+      #slh-map-menu a:hover{background:rgba(168,85,247,.1)}
+      #slh-map-menu .divider{height:1px;background:var(--border,rgba(168,85,247,.25));margin:4px 8px}
+      #slh-map-menu .label{font-size:10px;color:var(--text2,#9ba0b5);padding:6px 14px 2px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+      @media (max-width:600px){
+        #slh-map-fab-wrap{bottom:80px;left:76px}
+        #slh-map-fab{width:46px;height:46px;font-size:20px}
+        #slh-map-menu{min-width:200px}
+      }
+    </style>
+    <div id="slh-map-fab" title="Site Map · Neural Network · Reality" onclick="document.getElementById('slh-map-menu').classList.toggle('open')">🗺️</div>
+    <div id="slh-map-menu">
+      <div class="label">Navigate the Ecosystem</div>
+      <a href="/network.html">🧠 Neural Network Map</a>
+      <a href="/project-map.html">🗺️ Full Project Map</a>
+      <a href="/status.html">📊 System Status</a>
+      <div class="divider"></div>
+      <div class="label">Transparency</div>
+      <a href="/admin/reality.html">🎯 Reality Dashboard</a>
+      <a href="/performance.html">🔬 Research Lab</a>
+      <a href="/blockchain.html">⛓️ Blockchain + Arkham</a>
+      <div class="divider"></div>
+      <div class="label">Learn</div>
+      <a href="/academy/course-1-dynamic-yield.html">🎓 Course #1</a>
+      <a href="/risk.html">⚠️ Risk Disclosure</a>
+    </div>
+  `;
+  document.body.appendChild(fab);
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('slh-map-menu');
+    const fabBtn = document.getElementById('slh-map-fab');
+    if (menu && !menu.contains(e.target) && e.target !== fabBtn) {
+      menu.classList.remove('open');
+    }
+  });
+}
+
 
 /* ===== 6. NAVIGATION RENDERER ===== */
 
@@ -1034,9 +1097,10 @@ function initShared(options = {}) {
     showBottomNav = false
   } = options;
 
-  // BETA banner + floating bug-report button (always visible across the site)
+  // BETA banner + floating bug-report + site-map FABs (always visible across the site)
   renderBetaBanner();
   renderBugReportFAB();
+  renderSiteMapFAB();
 
   // Auto-inject slh-flip.js + upgrade version marker (for /upgrade-tracker.html to detect)
   injectSLHVersionMeta();
