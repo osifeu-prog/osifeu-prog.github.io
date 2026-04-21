@@ -179,7 +179,8 @@
         <a href="#" onclick="showPage('rewards')">🎁 Rewards Admin</a>
         <a href="#" onclick="showPage('guardian')">🛡 Guardian / ZUZ</a>
         <a href="#" onclick="showPage('ops')">📡 Ops Center</a>
-        <a href="/chain-status.html" target="_blank">⛓ Chain Status</a>
+        <a href="#" onclick="showPage('events')">📟 Events</a>
+        <a href="/chain-status.html" target="_blank">⛓ Chain Status ↗</a>
         <a href="#" onclick="showPage('devops')">⚙️ DevOps</a>
         <a href="#" onclick="showPage('finance')">💰 Finance</a>
         <a href="#" onclick="showPage('trust')">🌐 Trust Network</a>
@@ -809,6 +810,56 @@
                     <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🥞 PancakeSwap Swap</a>
                     <a href="/daily-blog.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📝 Daily Blog</a>
                     <a href="/community.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">💬 Community</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENTS PAGE -->
+        <div id="page-events" style="display:none">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,255,65,.04));border:1px solid var(--cyan);padding:20px;margin-bottom:24px">
+                <h2 style="color:var(--cyan);font-size:18px;margin-bottom:8px">📟 Event Stream — live chain events</h2>
+                <p style="font-size:11px;color:var(--text2)">device heartbeats · payments · stake · broadcast · admin actions — from <code style="color:var(--accent)">/api/admin/events</code></p>
+            </div>
+
+            <div class="kpi-grid" id="ev-kpi-grid">
+                <div class="kpi green"><div class="kpi-label">24h total</div><div class="kpi-value" id="ev-total-24h">--</div></div>
+                <div class="kpi cyan"><div class="kpi-label">Shown</div><div class="kpi-value" id="ev-shown">--</div></div>
+                <div class="kpi gold"><div class="kpi-label">Types (24h)</div><div class="kpi-value" id="ev-types-count">--</div></div>
+                <div class="kpi purple"><div class="kpi-label">Last seen</div><div class="kpi-value" id="ev-last-seen" style="font-size:12px">--</div></div>
+            </div>
+
+            <div class="admin-section" style="margin-bottom:16px">
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+                    <label style="font-size:11px;color:var(--text2)">Type filter:</label>
+                    <input type="text" id="ev-filter-type" placeholder="e.g. device_heartbeat, payment_settled" style="flex:1;min-width:200px;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px;font-family:var(--font)">
+                    <label style="font-size:11px;color:var(--text2)">Limit:</label>
+                    <select id="ev-filter-limit" style="padding:8px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px">
+                        <option value="20">20</option>
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                    </select>
+                    <label style="font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px">
+                        <input type="checkbox" id="ev-autorefresh" checked> Auto 15s
+                    </label>
+                    <button class="admin-btn" onclick="loadEvents()" style="background:var(--accent);color:#000;border:none;padding:8px 16px;font-weight:700;cursor:pointer;font-size:11px">Refresh</button>
+                </div>
+            </div>
+
+            <div class="admin-section" style="margin-bottom:16px">
+                <h3>📊 24h by type</h3>
+                <div id="ev-by-type" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:11px">
+                    <span style="color:var(--text2)">Loading...</span>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🕐 Recent events <span id="ev-refresh-stamp">--</span></h3>
+                <div style="overflow-x:auto;max-height:600px;overflow-y:auto">
+                    <table class="admin-table" id="ev-table">
+                        <thead><tr><th>ID</th><th>Type</th><th>When</th><th>Payload</th></tr></thead>
+                        <tbody id="ev-tbody"><tr><td colspan="4" style="text-align:center;color:var(--text2)">Click Refresh or switch tab to load...</td></tr></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -1555,6 +1606,82 @@ function showPage(name){
     if(name === 'wellness') ensureWellnessLoaded();
     // Load Threat Intelligence data if viewing that page
     if(name === 'threat-intel') ensureThreatIntelLoaded();
+    // Load Events data if viewing that page
+    if(name === 'events') ensureEventsLoaded();
+}
+
+// ── Events tab — reads /api/admin/events ─────────────────────────
+let _evTimer = null;
+let _evLoaded = false;
+function ensureEventsLoaded(){
+    if(!_evLoaded){ loadEvents(); _evLoaded = true; }
+    // (re)start auto-refresh if checkbox on
+    if(_evTimer){ clearInterval(_evTimer); _evTimer = null; }
+    const chk = document.getElementById('ev-autorefresh');
+    if(chk && chk.checked){
+        _evTimer = setInterval(() => {
+            // stop if user left the events tab
+            const pg = document.getElementById('page-events');
+            if(!pg || pg.style.display === 'none'){ clearInterval(_evTimer); _evTimer = null; return; }
+            loadEvents();
+        }, 15000);
+    }
+}
+function _evShort(iso){
+    if(!iso) return '—';
+    try { return new Date(iso).toLocaleString('he-IL', {hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'2-digit'}); }
+    catch(e){ return iso; }
+}
+async function loadEvents(){
+    const typeFilter = (document.getElementById('ev-filter-type')?.value || '').trim();
+    const limit = parseInt(document.getElementById('ev-filter-limit')?.value || '50', 10);
+    const url = new URL(SLH_API + '/api/admin/events');
+    url.searchParams.set('limit', limit);
+    if(typeFilter) url.searchParams.set('types', typeFilter);
+    const tbody = document.getElementById('ev-tbody');
+    try {
+        const r = await fetch(url, {headers:{'X-Admin-Key': getAdminKey()}, cache:'no-store'});
+        if(!r.ok){
+            tbody.innerHTML = `<tr><td colspan="4" style="color:var(--red);text-align:center">HTTP ${r.status} — check admin key in localStorage</td></tr>`;
+            return;
+        }
+        const data = await r.json();
+        const events = Array.isArray(data.events) ? data.events : [];
+        const by = data.events_24h_by_type || {};
+        const total24h = Object.values(by).reduce((a,b) => a + b, 0);
+
+        document.getElementById('ev-total-24h').textContent = total24h;
+        document.getElementById('ev-shown').textContent = events.length;
+        document.getElementById('ev-types-count').textContent = Object.keys(by).length;
+        document.getElementById('ev-last-seen').textContent = events[0] ? _evShort(events[0].created_at) : '—';
+
+        const byDiv = document.getElementById('ev-by-type');
+        byDiv.innerHTML = Object.keys(by).length === 0 ?
+            '<span style="color:var(--text2)">No events in last 24h</span>' :
+            Object.entries(by).sort((a,b) => b[1] - a[1]).map(([t,n]) =>
+                `<span style="padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:12px"><code style="color:var(--accent)">${t}</code> · <strong>${n}</strong></span>`
+            ).join('');
+
+        tbody.innerHTML = events.length === 0 ?
+            `<tr><td colspan="4" style="text-align:center;color:var(--text2)">No events yet</td></tr>` :
+            events.map(e => {
+                const p = e.payload || {};
+                const snippet = Object.entries(p).slice(0, 4).map(([k,v]) =>
+                    `${k}=${String(v).slice(0, 50)}`
+                ).join(', ');
+                return `<tr>
+                    <td><code style="color:var(--text2)">${e.id}</code></td>
+                    <td><code style="color:var(--accent)">${e.type}</code></td>
+                    <td style="white-space:nowrap">${_evShort(e.created_at)}</td>
+                    <td style="font-size:11px;color:var(--text2)">${snippet || '—'}</td>
+                </tr>`;
+            }).join('');
+
+        document.getElementById('ev-refresh-stamp').textContent =
+            '· updated ' + new Date().toLocaleTimeString('he-IL');
+    } catch(err){
+        tbody.innerHTML = `<tr><td colspan="4" style="color:var(--red);text-align:center">Error: ${err.message}</td></tr>`;
+    }
 }
 
 // ── Clock ────────────────────────────────────────────────────────
