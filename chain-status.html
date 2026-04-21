@@ -195,9 +195,34 @@ async function refresh() {
     setDot('dot-staking', 'err');
   }
 
-  // Events — we don't have a public endpoint yet. Show a placeholder.
-  document.getElementById('tbl-events').innerHTML =
-    `<tr><td colspan="4" class="caption">[placeholder] קרא מה-event_log ב-DB — endpoint /api/admin/events TBD.</td></tr>`;
+  // Events (admin) — reads from event_log via the new /api/admin/events endpoint
+  const events = await fetchJSON(`${API}/api/admin/events?limit=20`);
+  if (events.ok && Array.isArray(events.body?.events)) {
+    const tbody = document.getElementById('tbl-events');
+    tbody.innerHTML = events.body.events.length === 0 ?
+      `<tr><td colspan="4" class="caption">אין events עדיין — המתן להודעת payment / stake / device</td></tr>` :
+      events.body.events.map(e => {
+        const p = e.payload || {};
+        const snippet = Object.entries(p).slice(0, 3).map(([k, v]) => `${k}=${String(v).slice(0, 40)}`).join(', ');
+        return `
+          <tr>
+            <td>${e.id}</td>
+            <td style="color:#7ab4ff;font-family:monospace">${e.type}</td>
+            <td>${isoToShort(e.created_at)}</td>
+            <td style="font-size:11px;color:#9db0d4">${snippet}</td>
+          </tr>`;
+      }).join('');
+    // Update ledger card with 24h by-type breakdown (override earlier heuristic)
+    const by = events.body.events_24h_by_type || {};
+    const total24h = Object.values(by).reduce((a, b) => a + b, 0);
+    if (total24h > 0) {
+      document.getElementById('stat-ledger').textContent = `${total24h} events/24h`;
+      setDot('dot-ledger', 'ok');
+    }
+  } else {
+    document.getElementById('tbl-events').innerHTML =
+      `<tr><td colspan="4" class="err-text">${events.status} — צריך admin key ב-localStorage</td></tr>`;
+  }
 
   document.getElementById('refresh-hint').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL');
 }
