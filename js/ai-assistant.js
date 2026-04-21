@@ -101,8 +101,8 @@
     he: {
       market: 'שוק הקריפטו דינמי. מחיר SLH: ₪444 ($121.64). עקבו אחרי המחירים בזמן אמת בעמוד המסחר שלנו. ⚠️ אין זו המלצת השקעה.',
       coin: 'SLH Token הוא הטוקן המרכזי שלנו ברשת BSC. יש גם MNH — המטבע היציב שלנו הצמוד לשקל. בנוסף יש לנו 12 טוקנים נוספים באקוסיסטם. ⚠️ אין זו המלצת השקעה.',
-      explain: 'SLH Spark הוא אקוסיסטם קריפטו ישראלי עם 20+ בוטים בטלגרם, אתר מסחר, סטייקינג עד 65% תשואה שנתית, מערכת הפניות, ארנק דיגיטלי ועוד. הצטרפו אלינו!',
-      staking: 'אנחנו מציעים תוכניות סטייקינג ל-30/60/90/180 ימים עם תשואה שנתית של עד 65%. ככל שהתקופה ארוכה יותר, התשואה גבוהה יותר.',
+      explain: 'SLH Spark הוא אקוסיסטם קריפטו ישראלי עם 20+ בוטים בטלגרם, אתר מסחר, סטייקינג עם תשואה דינמית מחלוקת הכנסות, מערכת הפניות, ארנק דיגיטלי ועוד. הצטרפו אלינו!',
+      staking: 'אנחנו מציעים תוכניות סטייקינג ל-30/60/90/180 ימים עם תשואה דינמית מחלוקת הכנסות של האקוסיסטם. ככל שהתקופה ארוכה יותר, החלק שלכם גדול יותר.',
       wallet: 'הארנק שלנו תומך ב-BSC ו-TON. אפשר לשלוח, לקבל, להפקיד ולעשות סטייקינג ישירות מהאתר.',
       referral: 'מערכת ההפניות שלנו מאפשרת להרוויח עמלות על כל חבר שמצטרף דרככם. יש 5 רמות ובונוסים מיוחדים.',
       default: 'אני עוזר ה-AI של SLH Spark. כרגע אני עובד במצב לא מקוון — אבל אני יכול לעזור עם שאלות בסיסיות על האקוסיסטם, סטייקינג, ארנק והפניות. נסו לשאול!'
@@ -110,8 +110,8 @@
     en: {
       market: 'The crypto market is dynamic. SLH price: ₪444 ($121.64). Track real-time prices on our Trade page. ⚠️ Not financial advice.',
       coin: 'SLH Token is our main token on BSC. We also have MNH — our stablecoin pegged to ILS. Plus 12 more tokens in the ecosystem. ⚠️ Not financial advice.',
-      explain: 'SLH Spark is an Israeli crypto ecosystem with 20+ Telegram bots, a trading website, staking up to 65% APY, referral system, digital wallet and more. Join us!',
-      staking: 'We offer staking plans for 30/60/90/180 days with up to 65% annual yield. Longer lock periods mean higher rewards.',
+      explain: 'SLH Spark is an Israeli crypto ecosystem with 20+ Telegram bots, a trading website, Dynamic Revenue-Share staking, a referral system, digital wallet and more. Join us!',
+      staking: 'We offer staking plans for 30/60/90/180 days with Dynamic Revenue-Share yield — rewards scale with ecosystem revenue. Longer lock periods mean a larger share.',
       wallet: 'Our wallet supports BSC and TON networks. You can send, receive, deposit and stake directly from the website.',
       referral: 'Our referral system lets you earn commissions on every friend who joins through your link. 5 levels with special bonuses.',
       default: 'I\'m the SLH Spark AI assistant. Currently in offline mode — but I can help with basic questions about the ecosystem, staking, wallet and referrals. Try asking!'
@@ -119,8 +119,8 @@
     ru: {
       market: 'Крипторынок динамичен. Цена SLH: ₪444 ($121.64). Следите за ценами в реальном времени на странице торговли. ⚠️ Не является финансовой рекомендацией.',
       coin: 'SLH Token — наш основной токен на BSC. Также есть MNH — стейблкоин, привязанный к шекелю. Плюс 12 токенов в экосистеме. ⚠️ Не является финансовой рекомендацией.',
-      explain: 'SLH Spark — израильская крипто-экосистема: 20+ ботов в Telegram, торговый сайт, стейкинг до 65% годовых, реферальная система, цифровой кошелёк.',
-      staking: 'Планы стейкинга: 30/60/90/180 дней с доходностью до 65% годовых. Чем дольше период — тем выше награда.',
+      explain: 'SLH Spark — израильская крипто-экосистема: 20+ ботов в Telegram, торговый сайт, стейкинг с динамической доходностью от выручки, реферальная система, цифровой кошелёк.',
+      staking: 'Планы стейкинга: 30/60/90/180 дней с динамической доходностью от выручки экосистемы. Чем дольше период — тем больше ваша доля.',
       wallet: 'Наш кошелёк поддерживает BSC и TON. Отправка, получение, депозит и стейкинг — прямо с сайта.',
       referral: 'Реферальная система позволяет зарабатывать комиссию за каждого приглашённого друга. 5 уровней с бонусами.',
       default: 'Я AI помощник SLH Spark. Сейчас работаю в офлайн-режиме, но могу ответить на базовые вопросы об экосистеме.'
@@ -128,13 +128,13 @@
     ar: {
       market: 'سوق الكريبتو ديناميكي. سعر SLH: ₪444 ($121.64). تابعوا الأسعار في صفحة التداول. ⚠️ ليست نصيحة استثمارية.',
       coin: 'SLH Token هو الرمز الرئيسي على شبكة BSC. لدينا أيضاً MNH المستقر. بالإضافة إلى 12 رمزاً آخر. ⚠️ ليست نصيحة استثمارية.',
-      explain: 'SLH Spark هو نظام كريبتو إسرائيلي يضم 20+ بوت تيليجرام، موقع تداول، ستيكينج حتى 65% عائد سنوي، نظام إحالة ومحفظة رقمية.',
+      explain: 'SLH Spark هو نظام كريبتو إسرائيلي يضم 20+ بوت تيليجرام، موقع تداول، ستيكينج بعائد ديناميكي من إيرادات النظام، نظام إحالة ومحفظة رقمية.',
       default: 'أنا مساعد SLH الذكي. أعمل حالياً بدون اتصال — لكن يمكنني المساعدة بأسئلة أساسية عن النظام.'
     },
     fr: {
       market: 'Le marché crypto est dynamique. Prix SLH : ₪444 ($121.64). Suivez les prix en temps réel sur notre page Trading. ⚠️ Pas un conseil financier.',
       coin: 'SLH Token est notre jeton principal sur BSC. Nous avons aussi MNH — notre stablecoin indexé au shekel. Plus 12 autres jetons. ⚠️ Pas un conseil financier.',
-      explain: 'SLH Spark est un écosystème crypto israélien : 20+ bots Telegram, site de trading, staking jusqu\'à 65% APY, système de parrainage et portefeuille numérique.',
+      explain: 'SLH Spark est un écosystème crypto israélien : 20+ bots Telegram, site de trading, staking à rendement dynamique partagé sur les revenus, système de parrainage et portefeuille numérique.',
       default: 'Je suis l\'assistant IA de SLH Spark. En mode hors ligne — mais je peux répondre aux questions de base sur l\'écosystème.'
     }
   };
