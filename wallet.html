@@ -516,7 +516,16 @@
                         <span class="amount" id="w3-usdt">—</span>
                     </div>
                 </div>
-                <button id="btn-disconnect-wallet" class="btn-web3-disconnect" data-i18n="web3_disconnect">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px">
+                    <button id="btn-web3-refresh" class="btn-web3-connect" style="padding:6px 14px;font-size:12px" onclick="if(window.__slh_web3_last&&window.__slh_web3_last.address){renderWeb3Balances(window.__slh_web3_last.address);document.getElementById('web3-last-updated').textContent='רענון: '+new Date().toLocaleTimeString('he-IL')}">
+                        🔄 רענן יתרות
+                    </button>
+                    <a id="web3-bscscan-link" href="#" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent);text-decoration:none;padding:6px 14px;border:1px solid var(--accent);border-radius:6px">
+                        🔍 הצג ארנק ב-BSCScan
+                    </a>
+                    <span id="web3-last-updated" style="font-size:11px;color:var(--text2);margin-right:auto"></span>
+                </div>
+                <button id="btn-disconnect-wallet" class="btn-web3-disconnect" data-i18n="web3_disconnect" style="margin-top:8px">
                     ✕ נתק ארנק
                 </button>
             </div>
@@ -1191,6 +1200,21 @@
     if (typeof renderWalletConnectButtons === 'function') {
       renderWalletConnectButtons('wallet-connect-section');
     }
+
+    // Update BSCScan link + timestamp whenever web3 balances render
+    (function hookWeb3Updates(){
+      const updateExtras = () => {
+        const last = window.__slh_web3_last;
+        if (!last || !last.address) return;
+        const bscLink = document.getElementById('web3-bscscan-link');
+        if (bscLink) bscLink.href = `https://bscscan.com/address/${last.address}`;
+        const ts = document.getElementById('web3-last-updated');
+        if (ts) ts.textContent = 'עודכן: ' + new Date(last.at).toLocaleTimeString('he-IL');
+      };
+      // Poll every 5s — __slh_web3_last is set by renderWeb3Balances
+      setInterval(updateExtras, 5000);
+      updateExtras();
+    })();
 
     // ============================================================
     // EXTERNAL WALLETS — Bybit / Binance / Bitget / OKX / Self

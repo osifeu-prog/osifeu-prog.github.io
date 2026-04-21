@@ -166,6 +166,21 @@
         </div>
     </div>
 
+    <!-- EVENTS (live ring-buffer from /api/admin/events) -->
+    <div class="ops-section">
+        <h2>Event Stream (24h) <button class="refresh-btn" onclick="loadEvents()">Refresh</button> <a href="/chain-status.html" style="margin-right:8px;color:var(--accent);font-size:11px">→ Full view</a></h2>
+        <div id="events-summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px">
+            <div class="kpi-card green"><div class="kpi-label">Events (total)</div><div class="kpi-val" id="ev-total">--</div><div class="kpi-sub" id="ev-total-sub">all-time</div></div>
+            <div class="kpi-card cyan"><div class="kpi-label">Events (24h)</div><div class="kpi-val" id="ev-24h">--</div><div class="kpi-sub" id="ev-24h-sub">last 24h</div></div>
+            <div class="kpi-card gold"><div class="kpi-label">Event Types</div><div class="kpi-val" id="ev-types">--</div><div class="kpi-sub">distinct in 24h</div></div>
+            <div class="kpi-card purple"><div class="kpi-label">Latest Event</div><div class="kpi-val" id="ev-latest" style="font-size:14px">--</div><div class="kpi-sub" id="ev-latest-time">--</div></div>
+        </div>
+        <div id="ev-breakdown" style="font-size:12px;color:var(--text2)">
+            <span style="color:var(--text2)">Paste your admin key once:</span>
+            <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:10px">localStorage.setItem('slh_admin_password','&lt;your-key&gt;')</code>
+        </div>
+    </div>
+
     <!-- PAGE STATUS -->
     <div class="ops-section">
         <h2>All 79 Pages — Live Status <button class="refresh-btn" onclick="checkPages()">Check All</button></h2>
@@ -387,7 +402,58 @@ async function checkEndpoints(){
 // Init
 renderPages();
 loadKPIs();
+async function loadEvents(){
+    const el = document.getElementById('ev-breakdown');
+    const key = localStorage.getItem('slh_admin_password')||'';
+    if(!key){
+        el.innerHTML = '<span style="color:var(--gold)">⚠ No admin key in localStorage — paste one: </span><code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:10px">localStorage.setItem(\'slh_admin_password\',\'your-key\')</code>';
+        return;
+    }
+    try{
+        const r = await fetch(API+'/api/admin/events?limit=1',{headers:{'X-Admin-Key':key}});
+        if(r.status === 403){
+            el.innerHTML = '<span style="color:var(--red)">✗ 403 — admin key rejected by server. Re-paste correct key in localStorage.</span>';
+            return;
+        }
+        const d = await r.json();
+        document.getElementById('ev-total').textContent = d.total_events ?? '--';
+        const byType = d.events_24h_by_type || {};
+        const types = Object.keys(byType);
+        const sum24h = types.reduce((a,k)=>a+byType[k],0);
+        document.getElementById('ev-24h').textContent = sum24h;
+        document.getElementById('ev-types').textContent = types.length;
+        const latest = (d.events||[])[0];
+        if(latest){
+            document.getElementById('ev-latest').textContent = latest.event_type;
+            const ts = new Date(latest.created_at);
+            document.getElementById('ev-latest-time').textContent = ts.toLocaleString('he-IL');
+        } else {
+            document.getElementById('ev-latest').textContent = '—';
+            document.getElementById('ev-latest-time').textContent = 'no events yet';
+        }
+        // Breakdown bar
+        if(types.length){
+            const max = Math.max(...types.map(k=>byType[k]));
+            const bars = types.sort((a,b)=>byType[b]-byType[a]).slice(0,8).map(k=>{
+                const pct = (byType[k]/max*100).toFixed(0);
+                return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px">
+                    <span style="flex-basis:180px;flex-shrink:0;color:var(--text2)">${k}</span>
+                    <div style="flex:1;background:var(--bg3);height:14px;border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:var(--accent)"></div></div>
+                    <span style="flex-basis:40px;text-align:right;color:var(--text-bright)">${byType[k]}</span>
+                </div>`;
+            }).join('');
+            el.innerHTML = '<div style="margin-top:8px">'+bars+'</div>';
+        } else {
+            el.innerHTML = '<span style="color:var(--text2)">No events in the last 24h.</span>';
+        }
+    }catch(e){
+        el.innerHTML = `<span style="color:var(--red)">✗ fetch failed: ${e.message}</span>`;
+    }
+}
+
 setInterval(loadKPIs, 30000);
+setInterval(loadEvents, 30000);
+loadEvents();
 </script>
 </body>
 </html>
