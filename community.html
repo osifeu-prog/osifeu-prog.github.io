@@ -1426,7 +1426,7 @@
                 </div>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_online_now">מחוברים עכשיו</span>
-                    <span class="stat-value"><span class="online-dot"></span><span id="sidebar-online">47</span></span>
+                    <span class="stat-value"><span class="online-dot"></span><span id="sidebar-online">--</span></span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label" data-i18n="community_posts_today">פוסטים היום</span>
@@ -1742,8 +1742,8 @@
             const stm = document.getElementById('sidebar-total-members');
             if (stm) stm.textContent = (data.total_users || 0).toLocaleString('he-IL');
 
-            // Online count (use active_today or fallback)
-            const onlineCount = data.active_today || 47;
+            // Online count — truth only, no phantom fallback (per CLAUDE.md: never fake data)
+            const onlineCount = data.active_today ?? 0;
             const online = document.getElementById('sidebar-online');
             if (online) online.textContent = onlineCount;
             const coverOnline = document.getElementById('cover-online');
