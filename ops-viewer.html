@@ -283,8 +283,9 @@
 </button>
 
 <script>
-// GitHub raw base — slh-api repo, master branch, ops/ folder
-const RAW_BASE = 'https://raw.githubusercontent.com/osifeu-prog/slh-api/master/ops/';
+// Local ops folder (mirrored from slh-api repo on each commit)
+const RAW_BASE = '/ops/';
+// GitHub blob URL (kept as fallback "view on GitHub" button — repo may be private)
 const GH_BASE = 'https://github.com/osifeu-prog/slh-api/blob/master/ops/';
 
 function getQueryParam(name) {
