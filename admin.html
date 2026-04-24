@@ -1687,10 +1687,40 @@ async function loadEvents(){
     }
 }
 
-// ── Clock ────────────────────────────────────────────────────────
+// ── Clock (local + UTC for sync verification) ────────────────────
+let _serverTimeOffsetMs = null;  // populated from /api/health, if available
+async function _calibrateClock() {
+    try {
+        const t0 = Date.now();
+        const r = await fetch('https://slh-api-production.up.railway.app/api/health', {cache: 'no-store'});
+        const t1 = Date.now();
+        const serverDate = r.headers.get('date');
+        if (serverDate) {
+            const serverMs = new Date(serverDate).getTime();
+            const rtt = (t1 - t0) / 2;
+            _serverTimeOffsetMs = serverMs + rtt - t1;
+        }
+    } catch(e) { /* offline — fall back to local */ }
+}
+_calibrateClock();
+setInterval(_calibrateClock, 5 * 60 * 1000);  // recalibrate every 5min
+
 setInterval(() => {
     const el = document.getElementById('admin-clock');
-    if(el) el.textContent = new Date().toLocaleTimeString('he-IL');
+    if(!el) return;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('he-IL', {day:'2-digit', month:'2-digit', year:'2-digit'});
+    const timeStr = now.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    let syncBadge = '';
+    if (_serverTimeOffsetMs !== null) {
+        const delta = Math.abs(_serverTimeOffsetMs);
+        if (delta < 2000) syncBadge = ' ✅';
+        else if (delta < 30000) syncBadge = ' ⚠️ ' + Math.round(_serverTimeOffsetMs/1000) + 's';
+        else syncBadge = ' ❌ DRIFT ' + Math.round(_serverTimeOffsetMs/1000) + 's';
+    }
+    el.textContent = `${dateStr} ${timeStr} (${tz})${syncBadge}`;
+    el.title = 'Browser local time + timezone. Badge shows drift vs Railway API server.';
 }, 1000);
 
 // ── Analytics Data (from localStorage) ──────────────────────────
