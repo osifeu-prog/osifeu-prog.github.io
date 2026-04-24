@@ -86,17 +86,17 @@
 
   <!-- CTAs -->
   <div class="cta-stack">
-    <a href="#" id="cta-whatsapp" class="btn btn-primary">
-      <i class="fa-brands fa-whatsapp" style="font-size:22px"></i>
-      דברו איתי בוואטסאפ · 20 דקות Zoom חינם
+    <a href="/creator-intake.html" id="cta-intake" class="btn btn-primary">
+      <i class="fa-regular fa-pen-to-square" style="font-size:20px"></i>
+      התחילי כאן · 5 שאלות · 3 דקות
     </a>
-    <a href="#" id="cta-details" class="btn btn-secondary">
-      <i class="fa-regular fa-file-pdf"></i>
-      קבלו את ה-PDF המלא של החבילה
+    <a href="#" id="cta-whatsapp" class="btn btn-secondary">
+      <i class="fa-brands fa-whatsapp" style="font-size:22px"></i>
+      או דברו איתי ישירות בוואטסאפ
     </a>
   </div>
   <div class="mini-note">
-    💡 <strong>אין לחץ.</strong> שיחה ראשונה ללא התחייבות — רק להכיר את הפרוייקט שלך ולראות אם מתאים.
+    💡 <strong>אין לחץ.</strong> הטופס פותח וואטסאפ עם כל התשובות שלך — את לוחצת "שלח", אני קורא ומחזיר תוך שעה.
   </div>
 
   <!-- BENEFITS -->
@@ -196,7 +196,18 @@
 
   onCta('cta-whatsapp',   'pay_creator_cta_whatsapp_top');
   onCta('cta-whatsapp-2', 'pay_creator_cta_whatsapp_bottom');
-  onCta('cta-details',    'pay_creator_cta_details');
+
+  // Intake form link — preserve UTM / uid for attribution
+  const intakeEl = document.getElementById('cta-intake');
+  if (intakeEl) {
+    const qs = new URLSearchParams({ uid: UID, src: SRC, campaign: CAMPAIGN }).toString();
+    intakeEl.href = '/creator-intake.html?' + qs;
+    intakeEl.addEventListener('click', () => {
+      if (window.SLH_Analytics) {
+        window.SLH_Analytics.trackEvent('pay_creator_cta_intake', { uid: UID, src: SRC, campaign: CAMPAIGN });
+      }
+    });
+  }
 </script>
 
 </body>
