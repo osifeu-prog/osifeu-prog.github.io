@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funnel Dashboard · SLH Spark Admin</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shared.css?v=20260424">
+<style>
+  body { font-family:'Inter',system-ui,sans-serif; background:var(--bg,#0a0a0f); color:var(--text,#e0e0e0); margin:0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px; }
+  h1 { font-size: 26px; margin: 0 0 6px; background:linear-gradient(135deg,#ffd700,#00e887); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sub { font-size: 13px; color: var(--text2,#9a9aa8); margin-bottom: 24px; }
+  .auth-notice { padding:16px; background:rgba(255,71,87,.08); border:1px solid rgba(255,71,87,.3); border-radius:12px; margin-bottom:20px; font-size:13px; display:none; }
+  .auth-notice.show { display:block; }
+  .auth-notice code { background:rgba(0,0,0,.3); padding:2px 6px; border-radius:4px; font-size:12px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:12px; margin-bottom:22px; }
+  .card { padding:18px 20px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:14px; }
+  .card .lbl { font-size:12px; color:var(--text2,#9a9aa8); margin-bottom:4px; }
+  .card .num { font-size:28px; font-weight:800; }
+  .card .num.accent { color:#00e887; }
+  .card .num.warn   { color:#ffd700; }
+  .card .num.dim    { color:var(--text2,#9a9aa8); }
+  .card .sub { font-size:11px; margin-top:4px; color:var(--text2,#9a9aa8); }
+
+  .section { margin-top:32px; }
+  .section h2 { font-size:17px; font-weight:800; margin:0 0 12px; }
+
+  .funnel { display:flex; flex-direction:column; gap:2px; max-width:500px; }
+  .funnel-step { display:flex; align-items:center; gap:14px; padding:12px 16px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.08); border-radius:10px; }
+  .funnel-step .count { flex:0 0 70px; font-size:20px; font-weight:900; color:#00e887; }
+  .funnel-step .label { flex:1; font-size:14px; }
+  .funnel-step .pct { flex:0 0 60px; text-align:left; font-size:12px; color:var(--text2,#9a9aa8); }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:right; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06); }
+  th { font-weight:700; color:var(--text2,#9a9aa8); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  .empty { padding:30px; text-align:center; color:var(--text2,#9a9aa8); font-size:13px; }
+
+  .refresh { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; background:rgba(0,232,135,.08); border:1px solid rgba(0,232,135,.3); border-radius:20px; font-size:12px; color:#00e887; cursor:pointer; margin-bottom:14px; }
+  .refresh:hover { background:rgba(0,232,135,.12); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <h1>Funnel Dashboard</h1>
+  <p class="sub">מעקב conversion על דפי הנחיתה של SLH Spark. כל הנתונים חיים מ-<code>visitor_events</code> ב-Railway DB.</p>
+
+  <button class="refresh" onclick="loadAll()">↻ רענן</button>
+  <span id="last-updated" style="font-size:12px;color:var(--text2,#9a9aa8);margin-inline-start:10px"></span>
+
+  <div class="auth-notice" id="auth-notice">
+    <strong>נדרש admin key.</strong> פתח F12 → Console והדבק:<br>
+    <code>localStorage.setItem('slh_admin_password', '&lt;your admin key&gt;'); location.reload();</code>
+  </div>
+
+  <!-- KPI cards -->
+  <div class="grid" id="kpi-grid">
+    <div class="card"><div class="lbl">Total events</div><div class="num accent" id="kpi-events">--</div><div class="sub">בכל המערכת</div></div>
+    <div class="card"><div class="lbl">Unique visitors</div><div class="num accent" id="kpi-visitors">--</div></div>
+    <div class="card"><div class="lbl">CTA clicks</div><div class="num warn" id="kpi-ctas">--</div><div class="sub">WhatsApp / Intake / Details</div></div>
+    <div class="card"><div class="lbl">Intake submissions</div><div class="num warn" id="kpi-submits">--</div><div class="sub">Creator-package form</div></div>
+  </div>
+
+  <!-- Funnel -->
+  <div class="section">
+    <h2>🛤️ Creator Package Funnel</h2>
+    <div class="funnel">
+      <div class="funnel-step"><div class="count" id="f-view">--</div><div class="label">צפייה בדף /pay-creator-package</div><div class="pct" id="f-view-pct">—</div></div>
+      <div class="funnel-step"><div class="count" id="f-intake">--</div><div class="label">מעבר ל-/creator-intake</div><div class="pct" id="f-intake-pct">—</div></div>
+      <div class="funnel-step"><div class="count" id="f-submit">--</div><div class="label">שליחת הטופס → WhatsApp</div><div class="pct" id="f-submit-pct">—</div></div>
+      <div class="funnel-step"><div class="count" id="f-zoom">--</div><div class="label">Zoom booked (manual entry)</div><div class="pct" id="f-zoom-pct">—</div></div>
+      <div class="funnel-step"><div class="count" id="f-pay">--</div><div class="label">💰 Payment received (manual)</div><div class="pct" id="f-pay-pct">—</div></div>
+    </div>
+  </div>
+
+  <!-- By campaign -->
+  <div class="section">
+    <h2>📢 By campaign</h2>
+    <table id="by-campaign">
+      <thead><tr><th>Campaign</th><th>Views</th><th>CTA clicks</th><th>CTR %</th></tr></thead>
+      <tbody><tr><td class="empty" colspan="4">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- By source -->
+  <div class="section">
+    <h2>📡 By source (src=)</h2>
+    <table id="by-source">
+      <thead><tr><th>Source</th><th>Events</th><th>Unique visitors</th></tr></thead>
+      <tbody><tr><td class="empty" colspan="3">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- Recent events -->
+  <div class="section">
+    <h2>📥 Recent events (last 50)</h2>
+    <table id="recent-events">
+      <thead><tr><th>Time</th><th>Event</th><th>uid</th><th>src</th><th>Campaign</th></tr></thead>
+      <tbody><tr><td class="empty" colspan="5">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+const API = 'https://slh-api-production.up.railway.app';
+const AUTH_KEY = 'slh_admin_password';
+
+function getAdminKey() {
+  return localStorage.getItem(AUTH_KEY) || '';
+}
+
+async function apiGet(path) {
+  const key = getAdminKey();
+  if (!key) {
+    document.getElementById('auth-notice').classList.add('show');
+    return null;
+  }
+  try {
+    const r = await fetch(API + path, { headers: { 'X-Admin-Key': key } });
+    if (r.status === 403) {
+      document.getElementById('auth-notice').classList.add('show');
+      return null;
+    }
+    if (r.status === 404) {
+      return { _status: 404 };  // endpoint not yet deployed
+    }
+    return await r.json();
+  } catch (e) {
+    console.warn('apiGet failed:', path, e);
+    return null;
+  }
+}
+
+function fmtInt(n) {
+  if (n === null || n === undefined) return '--';
+  return n.toLocaleString('he-IL');
+}
+
+function fmtPct(num, den) {
+  if (!den || den === 0) return '—';
+  return ((num / den) * 100).toFixed(1) + '%';
+}
+
+async function loadAll() {
+  const now = new Date().toLocaleString('he-IL');
+  document.getElementById('last-updated').textContent = '→ ' + now;
+
+  // Try to load events. If endpoint doesn't exist, display friendly empty state.
+  const events = await apiGet('/api/admin/events?limit=500');
+
+  if (!events) {
+    // auth issue already surfaced
+    return;
+  }
+  if (events._status === 404) {
+    document.querySelector('#recent-events tbody').innerHTML =
+      '<tr><td class="empty" colspan="5">Endpoint <code>/api/admin/events</code> לא פרוס עדיין. ' +
+      'ימתין עד שה-Railway redeploy יצליח.</td></tr>';
+    document.getElementById('kpi-events').textContent = '—';
+    document.getElementById('kpi-visitors').textContent = '—';
+    document.getElementById('kpi-ctas').textContent = '—';
+    document.getElementById('kpi-submits').textContent = '—';
+    return;
+  }
+
+  const rows = Array.isArray(events) ? events : (events.events || events.rows || []);
+  processEvents(rows);
+}
+
+function processEvents(rows) {
+  // KPIs
+  document.getElementById('kpi-events').textContent = fmtInt(rows.length);
+
+  const uniqueVisitors = new Set(rows.map(r => r.visitor_id || r.uid || '').filter(Boolean));
+  document.getElementById('kpi-visitors').textContent = fmtInt(uniqueVisitors.size);
+
+  const ctas = rows.filter(r => /_cta_/.test(r.event_name || r.name || ''));
+  document.getElementById('kpi-ctas').textContent = fmtInt(ctas.length);
+
+  const submits = rows.filter(r => (r.event_name || r.name || '').includes('intake_submit'));
+  document.getElementById('kpi-submits').textContent = fmtInt(submits.length);
+
+  // Funnel
+  const creatorViews  = rows.filter(r => (r.event_name || '').includes('pay_creator_package_view')).length;
+  const intakeOpens   = rows.filter(r => (r.event_name || '').includes('pay_creator_cta_intake') || (r.event_name || '').includes('creator_intake_view')).length;
+  const intakeSubmits = rows.filter(r => (r.event_name || '').includes('creator_intake_submit')).length;
+
+  document.getElementById('f-view').textContent   = fmtInt(creatorViews);
+  document.getElementById('f-intake').textContent = fmtInt(intakeOpens);
+  document.getElementById('f-submit').textContent = fmtInt(intakeSubmits);
+  document.getElementById('f-zoom').textContent   = '0';  // manual entry for now
+  document.getElementById('f-pay').textContent    = '0';  // manual entry for now
+
+  document.getElementById('f-view-pct').textContent   = '100%';
+  document.getElementById('f-intake-pct').textContent = fmtPct(intakeOpens, creatorViews);
+  document.getElementById('f-submit-pct').textContent = fmtPct(intakeSubmits, creatorViews);
+
+  // By campaign
+  const byCampaign = {};
+  for (const r of rows) {
+    const c = (r.meta && r.meta.campaign) || r.campaign || '—';
+    byCampaign[c] = byCampaign[c] || { views: 0, ctas: 0 };
+    if ((r.event_name || '').includes('_view'))   byCampaign[c].views++;
+    if ((r.event_name || '').includes('_cta_'))   byCampaign[c].ctas++;
+  }
+  const cRows = Object.entries(byCampaign).sort((a,b) => b[1].views - a[1].views);
+  const cbody = document.querySelector('#by-campaign tbody');
+  cbody.innerHTML = cRows.length
+    ? cRows.map(([c, v]) => `<tr><td>${c}</td><td>${fmtInt(v.views)}</td><td>${fmtInt(v.ctas)}</td><td>${fmtPct(v.ctas, v.views)}</td></tr>`).join('')
+    : '<tr><td class="empty" colspan="4">אין קמפיינים עם נתונים</td></tr>';
+
+  // By source
+  const bySrc = {};
+  for (const r of rows) {
+    const s = (r.meta && r.meta.src) || r.src || '—';
+    bySrc[s] = bySrc[s] || { total: 0, visitors: new Set() };
+    bySrc[s].total++;
+    if (r.visitor_id) bySrc[s].visitors.add(r.visitor_id);
+  }
+  const sbody = document.querySelector('#by-source tbody');
+  sbody.innerHTML = Object.entries(bySrc).length
+    ? Object.entries(bySrc).sort((a,b) => b[1].total - a[1].total).map(([s, v]) => `<tr><td>${s}</td><td>${fmtInt(v.total)}</td><td>${fmtInt(v.visitors.size)}</td></tr>`).join('')
+    : '<tr><td class="empty" colspan="3">אין מקורות</td></tr>';
+
+  // Recent events
+  const rbody = document.querySelector('#recent-events tbody');
+  rbody.innerHTML = rows.length
+    ? rows.slice(0, 50).map(r => {
+        const t = r.created_at ? new Date(r.created_at).toLocaleString('he-IL') : '—';
+        const e = r.event_name || r.name || '—';
+        const uid = (r.meta && r.meta.uid) || r.uid || '—';
+        const src = (r.meta && r.meta.src) || r.src || '—';
+        const cmp = (r.meta && r.meta.campaign) || r.campaign || '—';
+        return `<tr><td>${t}</td><td><code>${e}</code></td><td>${uid}</td><td>${src}</td><td>${cmp}</td></tr>`;
+      }).join('')
+    : '<tr><td class="empty" colspan="5">אין אירועים עדיין. שלח hit ראשון דרך דף funnel כדי לראות.</td></tr>';
+}
+
+loadAll();
+</script>
+
+</body>
+</html>
