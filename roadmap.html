@@ -605,6 +605,14 @@
           { status: 'upcoming', cat: 'infra',
             title: { he: 'PWA + התראות בזמן אמת', en: 'PWA + Real-Time Notifications', ru: 'PWA + уведомления в реальном времени', ar: 'PWA + إشعارات فورية', fr: 'PWA + Notifications en temps réel' },
             desc: { he: 'אפליקציה מותקנת, service worker, push notifications', en: 'Installable app, service worker, push notifications', ru: 'Устанавливаемое приложение, service worker, push-уведомления', ar: 'تطبيق قابل للتثبيت، إشعارات push', fr: 'App installable, service worker, notifications push' }
+          },
+          { status: 'upcoming', cat: 'voice',
+            title: { he: 'SLH Voice — POC מרכזייה חכמה', en: 'SLH Voice — Smart IVR POC', ru: 'SLH Voice — POC умной IVR', ar: 'SLH Voice — نموذج IVR ذكي', fr: 'SLH Voice — POC IVR intelligent' },
+            desc: { he: 'POC מרכזייה עם AI intent recognition, חיבור ל-Twilio/Plivo, דקות ראשונות. ראה ops/VOICE_STACK_COMPETITIVE_20260424.md', en: 'IVR POC with AI intent recognition, Twilio/Plivo backend, first minutes. See ops/VOICE_STACK_COMPETITIVE_20260424.md', ru: 'POC IVR с AI-распознаванием намерений на Twilio/Plivo', ar: 'نموذج IVR مع التعرف على النوايا بالذكاء الاصطناعي', fr: 'POC IVR avec reconnaissance d\'intention IA' }
+          },
+          { status: 'upcoming', cat: 'swarm',
+            title: { he: 'SLH Swarm — POC ESP32 mesh', en: 'SLH Swarm — ESP32 Mesh POC', ru: 'SLH Swarm — POC сеть ESP32', ar: 'SLH Swarm — نموذج شبكة ESP32', fr: 'SLH Swarm — POC maillage ESP32' },
+            desc: { he: '3 יחידות ESP32 + טלפון relay + Anchor endpoint. Blueprint: ops/SWARM_V1_BLUEPRINT_20260424.md', en: '3 ESP32 units + phone relay + Anchor endpoint. Blueprint: ops/SWARM_V1_BLUEPRINT_20260424.md', ru: '3 модуля ESP32 + телефон-ретранслятор + Anchor endpoint', ar: '3 وحدات ESP32 + هاتف relay + Anchor endpoint', fr: '3 unités ESP32 + téléphone relais + endpoint Anchor' }
           }
         ]
       },
@@ -626,6 +634,18 @@
           { status: 'future', cat: 'infra',
             title: { he: 'Multi-Chain + DEX', en: 'Multi-Chain + DEX', ru: 'Мультичейн + DEX', ar: 'متعدد السلاسل + DEX', fr: 'Multi-Chain + DEX' },
             desc: { he: 'תמיכה ב-Ethereum, Solana, TON — בורסה מבוזרת משלנו', en: 'Support for Ethereum, Solana, TON — our own DEX', ru: 'Поддержка Ethereum, Solana, TON — собственная DEX', ar: 'دعم Ethereum, Solana, TON — بورصة لامركزية خاصة', fr: 'Support Ethereum, Solana, TON — notre propre DEX' }
+          },
+          { status: 'future', cat: 'voice',
+            title: { he: 'SLH Voice — Launch מסחרי', en: 'SLH Voice — Commercial Launch', ru: 'SLH Voice — коммерческий запуск', ar: 'SLH Voice — الإطلاق التجاري', fr: 'SLH Voice — Lancement commercial' },
+            desc: { he: 'B2B SaaS מלא: Free/Pro/Business/Enterprise, no-code IVR builder, 5 שפות ניטיביות, תשלום hybrid ILS+SLH', en: 'Full B2B SaaS: Free/Pro/Business/Enterprise tiers, no-code IVR builder, 5 native languages, hybrid ILS+SLH billing', ru: 'Полный B2B SaaS с no-code builder и 5 языками', ar: 'SaaS كامل مع منشئ IVR بدون كود و5 لغات', fr: 'SaaS B2B complet avec builder no-code et 5 langues' }
+          },
+          { status: 'future', cat: 'swarm',
+            title: { he: 'SLH Swarm — DePIN Economy', en: 'SLH Swarm — DePIN Economy', ru: 'SLH Swarm — экономика DePIN', ar: 'SLH Swarm — اقتصاد DePIN', fr: 'SLH Swarm — Économie DePIN' },
+            desc: { he: 'רשת ESP32 מבוזרת עם Proof-of-Location, ZVK rewards על heartbeat, multi-hop בקהילות ללא WiFi, marketplace scanning', en: 'Decentralized ESP32 network with Proof-of-Location, ZVK rewards per heartbeat, multi-hop mesh in offline communities', ru: 'Распределённая сеть ESP32 с Proof-of-Location и наградами ZVK', ar: 'شبكة ESP32 لامركزية مع Proof-of-Location ومكافآت ZVK', fr: 'Réseau ESP32 décentralisé avec Proof-of-Location et récompenses ZVK' }
+          },
+          { status: 'future', cat: 'swarm',
+            title: { he: 'Kosher Wallet — ייצור המוני', en: 'Kosher Wallet — Mass Production', ru: 'Kosher Wallet — массовое производство', ar: 'Kosher Wallet — إنتاج شامل', fr: 'Kosher Wallet — Production de masse' },
+            desc: { he: 'PCB ייעודי + secure element ATECC608A, enclosure, 100 יחידות ראשונות ב-₪888. אבן דרך 17.12.2026', en: 'Dedicated PCB + ATECC608A secure element, enclosure, first 100 units at ₪888. Milestone Dec 17, 2026', ru: 'Специальная плата + защитный элемент, первые 100 штук', ar: 'لوحة مخصصة + عنصر آمن، أول 100 وحدة', fr: 'PCB dédié + élément sécurisé, 100 premières unités' }
           }
         ]
       }
@@ -646,7 +666,9 @@
       bots: { he: 'בוטים', en: 'Bots', ru: 'Боты', ar: 'بوتات', fr: 'Bots' },
       finance: { he: 'פיננסים', en: 'Finance', ru: 'Финансы', ar: 'مالية', fr: 'Finance' },
       social: { he: 'קהילה', en: 'Social', ru: 'Соцсети', ar: 'اجتماعي', fr: 'Social' },
-      ai: { he: 'AI', en: 'AI', ru: 'AI', ar: 'AI', fr: 'IA' }
+      ai: { he: 'AI', en: 'AI', ru: 'AI', ar: 'AI', fr: 'IA' },
+      voice: { he: '📞 Voice', en: '📞 Voice', ru: '📞 Voice', ar: '📞 Voice', fr: '📞 Voice' },
+      swarm: { he: '🛰️ Swarm', en: '🛰️ Swarm', ru: '🛰️ Swarm', ar: '🛰️ Swarm', fr: '🛰️ Swarm' }
     };
 
     // Count stats

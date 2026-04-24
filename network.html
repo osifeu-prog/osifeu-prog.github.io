@@ -206,6 +206,12 @@
     <button class="filter-btn active" data-filter="bot">
       <span class="dot hex" style="background:var(--green)"></span> <span data-i18n="net_filter_bots">בוטים</span>
     </button>
+    <button class="filter-btn active" data-filter="voice" title="Phase 2 Vision — SLH Voice">
+      <span class="dot circle" style="background:#5ba3ff"></span> <span data-i18n="net_filter_voice">Voice 🚧</span>
+    </button>
+    <button class="filter-btn active" data-filter="swarm" title="Phase 2 Vision — SLH Swarm">
+      <span class="dot hex" style="background:#a855f7"></span> <span data-i18n="net_filter_swarm">Swarm 🚧</span>
+    </button>
     <div class="search-box">
       <i class="fas fa-search"></i>
       <input type="text" id="node-search" placeholder="חפש צומת..." data-i18n-placeholder="net_search_placeholder">
@@ -222,6 +228,8 @@
         <div class="legend-item"><div class="legend-icon square" style="background:#6c5ce7"></div><span data-i18n="net_legend_groups">קבוצות</span></div>
         <div class="legend-item"><div class="legend-icon diamond" style="background:#ffd32a"></div><span data-i18n="net_legend_topics">נושאים</span></div>
         <div class="legend-item"><div class="legend-icon hexagon" style="background:#00cec9"></div><span data-i18n="net_legend_bots">בוטים</span></div>
+        <div class="legend-item"><div class="legend-icon circle" style="background:#5ba3ff"></div><span data-i18n="net_legend_voice">Voice (Phase 2) 🚧</span></div>
+        <div class="legend-item"><div class="legend-icon hexagon" style="background:#a855f7"></div><span data-i18n="net_legend_swarm">Swarm (Phase 2) 🚧</span></div>
       </div>
     </div>
 
@@ -350,7 +358,7 @@
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js?v=20260421a"></script>
 <script src="/js/translations.js?v=20260421a"></script>
-<script src="/js/shared.js?v=20260421a"></script>
+<script src="/js/shared.js?v=20260424a"></script>
 <script>
 initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
 </script>
@@ -364,9 +372,11 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     user:  '#00b4d8',
     group: '#6c5ce7',
     topic: '#ffd32a',
-    bot:   '#00cec9'
+    bot:   '#00cec9',
+    voice: '#5ba3ff',  /* Phase 2 — SLH Voice (IVR) */
+    swarm: '#a855f7'   /* Phase 2 — SLH Swarm (ESP32 devices) */
   };
-  const NODE_SIZES = { user: 8, group: 14, topic: 12, bot: 13 };
+  const NODE_SIZES = { user: 8, group: 14, topic: 12, bot: 13, voice: 11, swarm: 10 };
 
   const users = [
     'יוסי','דנה','אבי','שרה','מוחמד','אנה','עומר','נועה','אילן','ליאור',
@@ -404,7 +414,25 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     {id:'b_signal', name:'Signal', type:'bot'}
   ];
 
-  const allNodes = [...users,...groups,...topics,...bots];
+  /* Phase 2 Vision — SLH Voice (IVR) subsystem */
+  const voiceNodes = [
+    {id:'v_ivr',      name:'IVR Engine',       type:'voice', phase:'planned'},
+    {id:'v_intent',   name:'AI Intent',        type:'voice', phase:'planned'},
+    {id:'v_tts',      name:'Hebrew TTS/STT',   type:'voice', phase:'planned'},
+    {id:'v_wa',       name:'WhatsApp Relay',   type:'voice', phase:'planned'},
+    {id:'v_sip',      name:'SIP Trunk (3rd)',  type:'voice', phase:'planned'}
+  ];
+
+  /* Phase 2/3 Vision — SLH Swarm (ESP32 mesh) subsystem */
+  const swarmNodes = [
+    {id:'s_esp_mesh',  name:'ESP32 Mesh',       type:'swarm', phase:'planned'},
+    {id:'s_relay',     name:'Phone Relay',      type:'swarm', phase:'planned'},
+    {id:'s_anchor',    name:'Anchor API',       type:'swarm', phase:'planned'},
+    {id:'s_kwallet',   name:'Kosher Wallet',    type:'swarm', phase:'pre-sale'},
+    {id:'s_depin',     name:'DePIN Loop',       type:'swarm', phase:'future'}
+  ];
+
+  const allNodes = [...users,...groups,...topics,...bots,...voiceNodes,...swarmNodes];
 
   /* Generate connections */
   const connections = [];
@@ -444,6 +472,28 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     const b = users[Math.floor(Math.random()*users.length)];
     if(a.id!==b.id) addConn(a.id,b.id);
   }
+
+  /* Voice subsystem — internal wiring */
+  addConn('v_ivr','v_intent');
+  addConn('v_ivr','v_tts');
+  addConn('v_ivr','v_sip');
+  addConn('v_ivr','v_wa');
+  /* Voice connects to existing infra: Academia bot, Ambassador bot, P2P topic */
+  addConn('v_ivr','b_ambassador');
+  addConn('v_ivr','b_academia');
+  addConn('v_intent','t_p2p');
+
+  /* Swarm subsystem — internal wiring */
+  addConn('s_esp_mesh','s_relay');
+  addConn('s_relay','s_anchor');
+  addConn('s_kwallet','s_esp_mesh');
+  addConn('s_kwallet','s_anchor');
+  addConn('s_depin','s_anchor');
+  /* Swarm connects to existing infra: Guardian (security), staking topic, SLH Air bot */
+  addConn('s_anchor','b_guardian');
+  addConn('s_kwallet','t_staking');
+  addConn('s_relay','b_air');
+  addConn('s_depin','t_blockchain');
 
   /* ══════════════════════════════════════════════
      STATS
@@ -517,7 +567,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
 
   const sorted = [...allNodes].sort((a,b)=>connCounts[b.id]-connCounts[a.id]).slice(0,10);
   const tbody = document.getElementById('top-nodes-body');
-  const typeLabels = {user:'משתמש',group:'קבוצה',topic:'נושא',bot:'בוט'};
+  const typeLabels = {user:'משתמש',group:'קבוצה',topic:'נושא',bot:'בוט',voice:'Voice (Phase 2)',swarm:'Swarm (Phase 2)'};
   sorted.forEach((n,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `<td class="rank">${i+1}</td>
@@ -784,6 +834,42 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
         }
         ctx.closePath();
         ctx.fill();
+      } else if(n.type === 'voice'){
+        /* Phase 2 — Circle with inner ring (phone icon metaphor) */
+        const s = size;
+        ctx.beginPath();
+        ctx.arc(nd.x, nd.y, s, 0, Math.PI*2);
+        ctx.fill();
+        /* Inner dashed ring to indicate "planned" */
+        ctx.save();
+        ctx.strokeStyle = '#050510';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.arc(nd.x, nd.y, s*0.55, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.restore();
+      } else if(n.type === 'swarm'){
+        /* Phase 2 — Triangle (antenna/beacon metaphor) */
+        const s = size * 1.1;
+        ctx.beginPath();
+        ctx.moveTo(nd.x, nd.y - s);
+        ctx.lineTo(nd.x + s*0.9, nd.y + s*0.6);
+        ctx.lineTo(nd.x - s*0.9, nd.y + s*0.6);
+        ctx.closePath();
+        ctx.fill();
+        /* Inner dashed triangle to indicate "planned" */
+        ctx.save();
+        ctx.strokeStyle = '#050510';
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.moveTo(nd.x, nd.y - s*0.5);
+        ctx.lineTo(nd.x + s*0.45, nd.y + s*0.3);
+        ctx.lineTo(nd.x - s*0.45, nd.y + s*0.3);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
       }
 
       ctx.shadowBlur = 0;

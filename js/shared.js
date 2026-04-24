@@ -460,6 +460,10 @@ function renderSiteMapFAB() {
       <a href="/performance.html">🔬 Research Lab</a>
       <a href="/blockchain.html">⛓️ Blockchain + Arkham</a>
       <div class="divider"></div>
+      <div class="label">Phase 2 Vision</div>
+      <a href="/voice.html">📞 SLH Voice — Smart IVR</a>
+      <a href="/swarm.html">🛰️ SLH Swarm — Device Mesh</a>
+      <div class="divider"></div>
       <div class="label">Learn</div>
       <a href="/academy/course-1-dynamic-yield.html">🎓 Course #1</a>
       <a href="/risk.html">⚠️ Risk Disclosure</a>
