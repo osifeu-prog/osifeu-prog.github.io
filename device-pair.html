@@ -136,8 +136,17 @@ document.getElementById('btn-send-code').addEventListener('click', async () => {
     }
     if (data.delivery === 'telegram') {
       setStatus('✉️ קוד נשלח לטלגרם שלך', 'ok');
+    } else if (data.delivery === 'sms') {
+      const providerName = {
+        twilio: 'Twilio',
+        inforu: 'Inforu',
+        sms019: '019 Mobile'
+      }[data.sms_provider] || data.sms_provider || 'SMS';
+      setStatus('📱 קוד נשלח ב-SMS (' + providerName + ')', 'ok');
     } else if (data._dev_code) {
       setStatus('ℹ️ SMS עדיין לא מחובר. הקוד מוצג לבדיקה (תוקף 5 דק\'): ' + data._dev_code, 'ok');
+    } else if (data.sms_error) {
+      setStatus('⚠️ SMS נכשל: ' + data.sms_error + '. צור קשר עם התמיכה.', 'err');
     } else {
       setStatus('📱 קוד נשלח', 'ok');
     }
