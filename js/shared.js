@@ -1591,3 +1591,22 @@ function saveCookieConsent(choice) {
   // Public API for manual reports
   window.slhReportBug = sendBugReport;
 })();
+
+// ── Auto-init (K-5 fix) ──────────────────────────────────────
+// Before: 121 HTML pages loaded shared.js but never called initShared() — nav/theme/
+// i18n/PWA/FAB all silently disabled. Now every page gets initShared({}) on DOMReady.
+// Pages wanting custom options can set window.__slhInitOptions = {...} BEFORE shared.js,
+// or set window.__slhAutoInitDisabled = true to opt out entirely (for custom flows).
+(function autoInitShared() {
+  if (window.__slhAutoInitDisabled) return;
+  const opts = window.__slhInitOptions || {};
+  const run = () => {
+    try { initShared(opts); }
+    catch (e) { console.error('[shared.js] auto-initShared failed:', e); }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
