@@ -211,7 +211,7 @@ let BOTS = [];  // populated by loadBotsFromAPI()
 function adminKey() {
   let k = sessionStorage.getItem('slh_admin_key') || localStorage.getItem('slh_admin_password') || '';
   if (!k) {
-    k = prompt('הזן מפתח אדמין (X-Admin-Key) — נשמר רק בdfdfn לסשן הזה') || '';
+    k = prompt('הזן מפתח אדמין (X-Admin-Key) — נשמר רק בדפדפן לסשן הזה') || '';
     if (k) sessionStorage.setItem('slh_admin_key', k);
   }
   return k;
