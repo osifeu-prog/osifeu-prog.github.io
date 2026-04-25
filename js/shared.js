@@ -454,6 +454,10 @@ function renderSiteMapFAB() {
       <a href="/network.html">🧠 Neural Network Map</a>
       <a href="/status.html">📊 System Status</a>
       <div class="divider"></div>
+      <div class="label">Operations</div>
+      <a href="/projects.html">📁 Projects & Agents Hub</a>
+      <a href="/ops-viewer.html">📄 Ops Docs Viewer</a>
+      <div class="divider"></div>
       <div class="label">Transparency</div>
       <a href="/performance.html">🔬 Research Lab</a>
       <a href="/blockchain.html">⛓️ Blockchain + Arkham</a>
