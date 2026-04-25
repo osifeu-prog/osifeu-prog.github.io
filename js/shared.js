@@ -670,92 +670,63 @@ function renderBottomNav(activePage) {
 function renderFooter() {
   const root = document.getElementById('footer-root');
   if (!root) return;
-
+  
   const year = new Date().getFullYear();
   root.innerHTML = `
-    <footer class="site-footer" style="margin-top:60px;padding:50px 20px 30px;background:var(--surface);border-top:1px solid var(--border)">
-      <div class="footer-sitemap" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;margin-bottom:30px">
-        <div class="footer-col">
-          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">🏠 ${t('footer_main', 'ראשי')}</h4>
+    <footer class="site-footer" style="margin-top:60px;padding:40px 20px 30px;background:var(--surface);border-top:1px solid var(--border)">
+      <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;margin-bottom:30px">
+        <!-- Logo + Tagline -->
+        <div style="flex:2;min-width:200px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center">⚡</div>
+            <span style="font-size:18px;font-weight:800">SLH Spark</span>
+          </div>
+          <p style="color:var(--text3);font-size:13px;line-height:1.5;max-width:260px">\${t('footer_tagline', 'Decentralized ecosystem for trading, staking, and community rewards')}</p>
+        </div>
+        
+        <!-- Products -->
+        <div style="flex:1;min-width:140px">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">\${t('footer_products', 'Products')}</h4>
           <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-            <li><a href="/" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_home', 'ראשי')}</a></li>
-            <li><a href="/trade.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_trade', 'מסחר')}</a></li>
-            <li><a href="/earn.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_earn', 'הרוויח')}</a></li>
-            <li><a href="/wallet.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_wallet', 'ארנק')}</a></li>
-            <li><a href="/dashboard.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('dashboard', 'לוח בקרה')}</a></li>
+            <li><a href="/wallet.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 \${t('nav_wallet', 'Wallet')}</a></li>
+            <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">⚡ \${t('nav_staking', 'Staking')}</a></li>
+            <li><a href="/bots.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤖 \${t('nav_bots', 'Trading Bots')}</a></li>
+            <li><a href="/earn.html" style="color:var(--text2);text-decoration:none;font-size:13px">💎 \${t('nav_earn', 'Earn')}</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">👥 ${t('footer_community', 'קהילה')}</h4>
+        
+        <!-- Community -->
+        <div style="flex:1;min-width:140px">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">\${t('footer_community', 'Community')}</h4>
           <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-            <li><a href="/community.html" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_community', 'פורום')}</a></li>
-            <li><a href="/community.html#marketplace" style="color:var(--text2);text-decoration:none;font-size:13px">🏪 ${t('nav_marketplace', 'חנות קהילתית')}</a></li>
-            <li><a href="/blog.html" style="color:var(--text2);text-decoration:none;font-size:13px">📰 ${t('nav_blog', 'בלוג')}</a></li>
-            <li><a href="/blog-legacy-code.html" style="color:var(--text2);text-decoration:none;font-size:13px">🧠 ${t('nav_blog_legacy', 'Legacy Code')}</a></li>
-            <li><a href="/invite.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎁 ${t('nav_invite', 'הזמן חברים')}</a></li>
-            <li><a href="/referral.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤝 ${t('nav_referral', 'הפניות')}</a></li>
+            <li><a href="/community.html" style="color:var(--text2);text-decoration:none;font-size:13px">💬 \${t('nav_community', 'Forum')}</a></li>
+            <li><a href="/blog.html" style="color:var(--text2);text-decoration:none;font-size:13px">📝 \${t('nav_blog', 'Blog')}</a></li>
+            <li><a href="/referral.html" style="color:var(--text2);text-decoration:none;font-size:13px">👥 \${t('nav_referral', 'Referrals')}</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">💎 ${t('footer_products', 'מוצרים')}</h4>
+        
+        <!-- Legal -->
+        <div style="flex:1;min-width:140px">
+          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">\${t('footer_legal', 'Legal')}</h4>
           <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-            <li><a href="/bots.html" style="color:var(--text2);text-decoration:none;font-size:13px">🤖 ${t('nav_bots', '20+ בוטים')}</a></li>
-            <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 ${t('nav_staking', 'Staking • Variable Yield (4-12%)')}</a></li>
-            <li><a href="/academy/course-1-dynamic-yield.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎓 ${t('nav_course_1', 'קורס #1 — Dynamic Yield')}</a></li>
-            <li><a href="/blockchain.html" style="color:var(--text2);text-decoration:none;font-size:13px">⛓️ ${t('nav_blockchain', "בלוקצ'יין")}</a></li>
-            <li><a href="/whitepaper.html" style="color:var(--text2);text-decoration:none;font-size:13px">📜 ${t('nav_whitepaper', 'ספר לבן')}</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">📚 ${t('footer_learn', 'למד')}</h4>
-          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-            <li><a href="/guides.html" style="color:var(--text2);text-decoration:none;font-size:13px">📖 ${t('nav_guides', 'מדריכים')}</a></li>
-            <li><a href="/wallet-guide.html" style="color:var(--text2);text-decoration:none;font-size:13px">💼 ${t('nav_wallet_guide', 'מדריך ארנק')}</a></li>
-            <li><a href="/roadmap.html" style="color:var(--text2);text-decoration:none;font-size:13px">🗺️ ${t('nav_roadmap', 'מפת דרכים')}</a></li>
-            <li><a href="/performance.html" style="color:var(--text2);text-decoration:none;font-size:13px">🔬 ${t('nav_performance', 'Research Lab')}</a></li>
-            <li><a href="/terms.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_terms', 'תנאי שימוש')}</a></li>
-            <li><a href="/privacy.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_privacy', 'פרטיות')}</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700">🔗 ${t('footer_connect', 'התחברות')}</h4>
-          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-            <li><a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> @SLH_AIR_bot</a></li>
-            <li><a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Community</a></li>
-            <li><a href="https://t.me/SLH_Academia_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Academia</a></li>
-            <li><a href="https://t.me/Osif83" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_support', 'תמיכה')}</a></li>
+            <li><a href="/terms.html" style="color:var(--text2);text-decoration:none;font-size:13px">\${t('nav_terms', 'Terms')}</a></li>
+            <li><a href="/privacy.html" style="color:var(--text2);text-decoration:none;font-size:13px">\${t('nav_privacy', 'Privacy')}</a></li>
+            <li><a href="/risk.html" style="color:var(--text2);text-decoration:none;font-size:13px">⚠️ \${t('nav_risk', 'Risk Disclosure')}</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid var(--border);text-align:center">
-        <div class="footer-brand" style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px">
-          <img src="/img/logo.svg" alt="SLH" class="footer-logo" style="width:32px;height:32px">
-          <span style="font-weight:800;font-size:16px;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">SLH Spark</span>
+      
+      <!-- Social + Copyright -->
+      <div style="text-align:center;padding-top:20px;border-top:1px solid var(--border);margin-top:10px">
+        <div style="display:flex;justify-content:center;gap:16px;margin-bottom:16px">
+          <a href="https://t.me/slh_alpa" target="_blank" style="color:var(--text2);font-size:18px"><i class="fab fa-telegram"></i></a>
+          <a href="https://twitter.com/slh_alpa" target="_blank" style="color:var(--text2);font-size:18px"><i class="fab fa-twitter"></i></a>
+          <a href="https://github.com/osifeu-prog" target="_blank" style="color:var(--text2);font-size:18px"><i class="fab fa-github"></i></a>
         </div>
-        <div class="footer-copy" style="font-size:12px;color:var(--text2)">
-          &copy; ${year} SLH Spark. <span data-i18n="footer_rights">${t('footer_rights', 'כל הזכויות שמורות')}</span>
-        </div>
-        <div class="footer-powered" data-i18n="footer_powered" style="font-size:11px;color:var(--text3);margin-top:4px">${t('footer_powered', 'מופעל על ידי SLH Spark · SPARK IND')}</div>
-        <div class="footer-legal-disclaimer" style="max-width:900px;margin:18px auto 0;padding:14px 18px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.2);border-radius:10px;font-size:11px;color:var(--text2);line-height:1.7;text-align:start">
-          <strong style="color:var(--gold,#ffd700)">⚠️ גילוי סיכון:</strong>
-          SLH Spark היא אקוסיסטם קריפטו בשלבים מוקדמים (Pre-launch).
-          <strong>Dynamic Yield</strong> הוא מנגנון חלוקת הכנסות פרו-רטה, <em>לא מוצר פיננסי מובטח</em>.
-          חלוקות עבר אינן מבטיחות חלוקות עתיד. APY הנגזר משתנה לפי ביצועי המערכת.
-          Circuit Breakers אוטומטיים יכולים לעצור חלוקות, להגביל משיכות, או להקפיא הפקדות להגנה על המערכת.
-          <strong>אין זה ייעוץ השקעות.</strong>
-          <a href="/risk.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">גילוי סיכון מלא</a> ·
-          <a href="/terms.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">תנאי שימוש</a> ·
-          <a href="/academy/course-1-dynamic-yield.html" style="color:var(--cyan,#06b6d4);text-decoration:underline">למד את המודל (קורס חינמי)</a>
-        </div>
+        <p style="color:var(--text3);font-size:12px">&copy; \${year} SLH Spark. \${t('footer_rights', 'All rights reserved.')}</p>
       </div>
-    </footer>`;
-
-  // Auto-inject footer-root if missing
-  if (!document.getElementById('footer-root-auto')) {
-    const autoFooter = document.createElement('div');
-    autoFooter.id = 'footer-root-auto';
-    // marker only — no-op
-  }
+    </footer>
+  \`;
 }
 
 // Auto-create footer-root on pages that don't have one
