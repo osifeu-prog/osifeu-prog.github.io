@@ -247,9 +247,14 @@
     }
   });
 
-  function generateCommand(bot, token) {
-    const escaped = token.replace(/'/g, "''"); // safe inside PS single quotes
-    const cmd = `# סיבוב טוקן ${bot.handle} — ${new Date().toLocaleString('he-IL')}
+  // SECURITY: the displayed command shows a placeholder ONLY.
+  // The real token enters the clipboard exclusively via navigator.clipboard.writeText
+  // in the Copy button handler — NOT via the visible <pre>. This prevents the user
+  // from accidentally selecting/copying the visible command (which would otherwise
+  // contain the token) and pasting it into a chat / log / screenshot.
+  function buildCommand(bot, tokenOrPlaceholder) {
+    const escaped = tokenOrPlaceholder.replace(/'/g, "''");
+    return `# סיבוב טוקן ${bot.handle} — ${new Date().toLocaleString('he-IL')}
 $tok='${escaped}'
 $envFile = 'D:\\SLH_ECOSYSTEM\\${bot.service === 'slh-claude-bot' ? 'slh-claude-bot' : ''}\\.env'
 if (-not (Test-Path $envFile)) { $envFile = 'D:\\SLH_ECOSYSTEM\\.env' }
@@ -261,20 +266,35 @@ Start-Sleep -Seconds 4
 $resp = curl.exe -s "https://api.telegram.org/bot$tok/getMe"
 if ($resp -match '"ok":true') { Write-Host "[OK] ${bot.handle} מחובר ל-Telegram" -ForegroundColor Green }
 else { Write-Host "[FAIL] $resp" -ForegroundColor Red }`;
-    cmdText.textContent = cmd;
   }
 
+  function generateCommand(bot, token) {
+    // What's displayed on screen has a redacted placeholder
+    cmdText.textContent = buildCommand(bot, '<TOKEN-HIDDEN-HIT-COPY>');
+    // The real token is stashed in a closure-private variable used ONLY by the
+    // Copy button. It does not exist in the DOM.
+    cmdText.dataset.realCmd = '__BLOCKED__';  // sentinel so casual select-and-copy doesn't grab it
+    pendingRealCommand = buildCommand(bot, token);
+  }
+  let pendingRealCommand = null;
+
   copyBtn.addEventListener('click', async () => {
+    if (!pendingRealCommand) {
+      setStatus(copyStatus, '⚠️ עדיין לא אומת טוקן.', 'err');
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(cmdText.textContent);
-      setStatus(copyStatus, '✓ הועתק. הדבק ב-PowerShell ולחץ Enter.', 'ok');
+      // The REAL command (with token) goes ONLY to the clipboard.
+      // It never enters the DOM. Manual select-and-copy from the page yields
+      // the redacted placeholder version, which is harmless if pasted in chat.
+      await navigator.clipboard.writeText(pendingRealCommand);
+      setStatus(copyStatus, '✓ הפקודה (כולל הטוקן האמיתי) הועתקה ללוח. הדבק ישירות ב-PowerShell. אל תדביק בצ׳אט.', 'ok');
     } catch (e) {
-      // Fallback: select text
-      const range = document.createRange();
-      range.selectNode(cmdText);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(range);
-      setStatus(copyStatus, '⚠️ העתקה אוטומטית נחסמה — בחר ידנית את הטקסט (Ctrl+C).', 'err');
+      setStatus(
+        copyStatus,
+        '❌ הדפדפן חסם clipboard API. השתמש בדפדפן אחר (Chrome/Edge על HTTPS) או הוסף את הדומיין ל-clipboard permission. הטוקן לא יוצג כאן בטקסט נראה — מטעמי אבטחה.',
+        'err'
+      );
     }
   });
 
