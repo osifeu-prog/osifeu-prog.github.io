@@ -1,7 +1,14 @@
 ﻿<!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Restore saved theme before paint to prevent FOUC
+    try {
+      var t = localStorage.getItem('slh_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SLH Spark Daily Blog — What We Shipped Today</title>
   <meta name="description" content="בלוג יומי של SLH Spark — עדכונים יומיים על תיקונים, פיצ'רים חדשים, ותוכניות עבודה.">
@@ -760,8 +767,6 @@
     </div>
   </div>
 
-  <div id="footer-root"></div>
-
   <script src="/js/translations.js?v=20260426a"></script>
   <script src="/js/shared.js?v=20260426a"></script>
   <script>
@@ -780,5 +785,6 @@
   <div id="bottomnav-root"></div>
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js?v=20260426a"></script>
+<script src="/js/web3-wallet.js?v=20260426a" defer></script>
 </body>
 </html>
