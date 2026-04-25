@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLH Spark â€” Control Center</title>
+    <title>SLH Spark — Control Center</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon-32.png">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -146,8 +146,8 @@
 <div class="cc-wrapper">
     <div class="cc-header">
         <h1><i class="fas fa-satellite-dish"></i> SLH Control Center</h1>
-        <p class="sub">Real-time ecosystem monitoring Â· Session history Â· Version control Â· Security audit</p>
-        <div class="cc-live"><span class="pulse"></span> LIVE Â· Auto-refresh 30s Â· <span id="cc-time"></span></div>
+        <p class="sub">Real-time ecosystem monitoring · Session history · Version control · Security audit</p>
+        <div class="cc-live"><span class="pulse"></span> LIVE · Auto-refresh 30s · <span id="cc-time"></span></div>
     </div>
 
     <!-- TABS -->
@@ -258,7 +258,7 @@
     <!-- ============ BOTS ============ -->
     <div class="cc-panel" id="panel-bots">
         <div class="cc-card">
-            <h2>Telegram Bots â€” 25 Services <span class="badge badge-ok" id="bots-badge">Loading...</span></h2>
+            <h2>Telegram Bots — 25 Services <span class="badge badge-ok" id="bots-badge">Loading...</span></h2>
             <div class="scroll-box" style="max-height:600px">
                 <table class="cc-table" id="bots-table">
                     <thead><tr><th>Bot</th><th>Container</th><th>Status</th><th>Category</th><th>Notes</th></tr></thead>
@@ -271,7 +271,7 @@
     <!-- ============ PAGES ============ -->
     <div class="cc-panel" id="panel-pages">
         <div class="cc-card">
-            <h2>Website Pages â€” 49 HTML <button class="cc-btn" onclick="checkAllPages()">Check All Live</button></h2>
+            <h2>Website Pages — 49 HTML <button class="cc-btn" onclick="checkAllPages()">Check All Live</button></h2>
             <div class="scroll-box" style="max-height:600px">
                 <table class="cc-table" id="pages-table">
                     <thead><tr><th>Page</th><th>Status</th><th>Nav</th><th>Theme</th><th>i18n</th><th>Analytics</th><th>AI</th></tr></thead>
@@ -297,9 +297,9 @@
             <h2>Security Audit <span class="badge badge-err" id="sec-badge">5 Issues</span></h2>
             <div id="security-list">
                 <div class="sec-item"><div class="sec-severity critical" style="background:rgba(0,255,65,.15);color:var(--accent)">FIXED</div><div><div class="sec-title" style="text-decoration:line-through">Admin passwords in public HTML</div><div class="sec-desc">Session 12: Removed ADMIN_PASSWORDS array, deleted admin-test.html bypass, multi-admin system with hashed passwords deployed</div></div></div>
-                <div class="sec-item"><div class="sec-severity critical">P0</div><div><div class="sec-title">Railway env vars missing</div><div class="sec-desc">JWT_SECRET is empty, ADMIN_API_KEYS using defaults â€” auth is broken</div></div></div>
+                <div class="sec-item"><div class="sec-severity critical">P0</div><div><div class="sec-title">Railway env vars missing</div><div class="sec-desc">JWT_SECRET is empty, ADMIN_API_KEYS using defaults — auth is broken</div></div></div>
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">31 bot tokens exposed</div><div class="sec-desc">All bot tokens were pasted in chat history. Need rotation via @BotFather</div></div></div>
-                <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">Unprotected API endpoints</div><div class="sec-desc">/api/tokenomics/burn, /api/tokenomics/reserves/add â€” no auth required for destructive operations</div></div></div>
+                <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">Unprotected API endpoints</div><div class="sec-desc">/api/tokenomics/burn, /api/tokenomics/reserves/add — no auth required for destructive operations</div></div></div>
                 <div class="sec-item"><div class="sec-severity medium">P2</div><div><div class="sec-title">Wallet address mismatch</div><div class="sec-desc">Two different addresses in code: 0xd061... (genesis) vs 0xD061... (MetaMask). Need confirmation which is correct</div></div></div>
                 <div class="sec-item"><div class="sec-severity high">P1</div><div><div class="sec-title">User data exposed without auth</div><div class="sec-desc">GET /api/user/{telegram_id} returns full profile + balances with NO authentication. Anyone with a Telegram ID can see balances.</div></div></div>
                 <div class="sec-item"><div class="sec-severity medium">P2</div><div><div class="sec-title">Swagger /docs publicly accessible</div><div class="sec-desc">Full OpenAPI spec with all 137 routes is browsable by anyone. Consider restricting in production.</div></div></div>
@@ -311,15 +311,15 @@
     <div class="cc-panel" id="panel-tasks">
         <div class="three-col">
             <div class="cc-card">
-                <h2 style="color:var(--red)">P0 â€” Critical</h2>
+                <h2 style="color:var(--red)">P0 — Critical</h2>
                 <div id="tasks-p0"></div>
             </div>
             <div class="cc-card">
-                <h2 style="color:var(--gold)">P1 â€” High Impact</h2>
+                <h2 style="color:var(--gold)">P1 — High Impact</h2>
                 <div id="tasks-p1"></div>
             </div>
             <div class="cc-card">
-                <h2 style="color:var(--cyan)">P2 â€” Improvements</h2>
+                <h2 style="color:var(--cyan)">P2 — Improvements</h2>
                 <div id="tasks-p2"></div>
             </div>
         </div>
@@ -363,7 +363,7 @@ async function loadKPIs() {
         const ms = Date.now() - t0;
         const d = await r.json();
         document.getElementById('k-api').textContent = d.status === 'ok' ? 'OK' : 'DOWN';
-        document.getElementById('k-api-sub').textContent = ms + 'ms Â· v' + d.version + ' Â· DB: ' + d.db;
+        document.getElementById('k-api-sub').textContent = ms + 'ms · v' + d.version + ' · DB: ' + d.db;
     } catch(e) {
         document.getElementById('k-api').textContent = 'DOWN';
         document.getElementById('k-api-sub').textContent = e.message;
@@ -416,7 +416,7 @@ async function loadActivityFeed() {
             d.forEach(e => {
                 items.push({
                     icon: 'api', fa: 'fa-bolt',
-                    text: e.action + (e.details ? ' â€” ' + JSON.stringify(e.details).substring(0,60) : ''),
+                    text: e.action + (e.details ? ' — ' + JSON.stringify(e.details).substring(0,60) : ''),
                     time: new Date(e.timestamp).toLocaleTimeString('he-IL', {hour:'2-digit',minute:'2-digit'})
                 });
             });
@@ -443,21 +443,21 @@ async function loadActivityFeed() {
 
 /* ===== SESSION HISTORY ===== */
 const SESSIONS = [
-    { date: '2026-04-14', title: 'Session 11 â€” Mega Build Day', tasks: 25, tags: ['Buy Page','P2P Live','Admin CRM','OG Images','Challenge Day 3','17 Broadcasts'],
+    { date: '2026-04-14', title: 'Session 11 — Mega Build Day', tasks: 25, tags: ['Buy Page','P2P Live','Admin CRM','OG Images','Challenge Day 3','17 Broadcasts'],
       body: 'Buy SLH page (6 payment methods), P2P marketplace LIVE, admin CRM with search/filter/credit, Finance Dashboard, Trust Network, 22 premium OG images, MetaMask explanation, community photos, Jubilee page in nav' },
-    { date: '2026-04-13', title: 'Session 10 â€” Guardian & Risk Engine', tasks: 19, tags: ['Guardian ZUZ','Multi-Staking','OG Images','Risk Engine','Liquidity'],
+    { date: '2026-04-13', title: 'Session 10 — Guardian & Risk Engine', tasks: 19, tags: ['Guardian ZUZ','Multi-Staking','OG Images','Risk Engine','Liquidity'],
       body: 'Guardian ZUZ system, multi-staking plans, 14 OG image configs, risk engine endpoints, admin delete post, overnight/launch logs' },
-    { date: '2026-04-12', title: 'Session 9 â€” Security & Upgrade Plan', tasks: 12, tags: ['Security Audit','Upgrade Plan','Drive Scan','Architecture'],
+    { date: '2026-04-12', title: 'Session 9 — Security & Upgrade Plan', tasks: 12, tags: ['Security Audit','Upgrade Plan','Drive Scan','Architecture'],
       body: 'Full security audit (SEC-1 to SEC-5), 11-phase upgrade plan, drive scan report, architecture docs, 42 pages inventoried' },
-    { date: '2026-04-11', title: 'Session 8 â€” Parallel Agent Workplan', tasks: 8, tags: ['Agent Framework','Task Board','Ops Report'],
+    { date: '2026-04-11', title: 'Session 8 — Parallel Agent Workplan', tasks: 8, tags: ['Agent Framework','Task Board','Ops Report'],
       body: 'Parallel agent workplan, ops report page, system health page, morning checklist, overnight report' },
-    { date: '2026-04-10', title: 'Session 7 â€” Cleanup & Stabilization', tasks: 10, tags: ['Cleanup','Stabilization','Token Rotation'],
+    { date: '2026-04-10', title: 'Session 7 — Cleanup & Stabilization', tasks: 10, tags: ['Cleanup','Stabilization','Token Rotation'],
       body: 'Major cleanup, system scan report, token rotation plan, cleanup report, stabilized all services' },
-    { date: '2026-04-09', title: 'Session 6 â€” Website V3 & Docker 22', tasks: 30, tags: ['Website V3','Docker 22','ExpertNet','NFTY Fix','Referral','Staking'],
+    { date: '2026-04-09', title: 'Session 6 — Website V3 & Docker 22', tasks: 30, tags: ['Website V3','Docker 22','ExpertNet','NFTY Fix','Referral','Staking'],
       body: 'Brought all 22 containers online, ExpertNet persistence fix, NFTY ctx injection fix, website V3 with 4 languages, dashboard, whitepaper, guides, 4 staking plans, 10-gen referral system' },
-    { date: '2026-04-06', title: 'Session 5 â€” OsifShop & ExpertNet Upgrade', tasks: 15, tags: ['OsifShop','ExpertNet','Barcode','12 Coins','Banking'],
+    { date: '2026-04-06', title: 'Session 5 — OsifShop & ExpertNet Upgrade', tasks: 15, tags: ['OsifShop','ExpertNet','Barcode','12 Coins','Banking'],
       body: 'OsifShop built from scratch (barcode scanner, inventory, Mini App), ExpertNet: 12 coins, /swap, /limit, /alert, /portfolio, banking module' },
-    { date: '2026-04-05', title: 'Session 4 â€” slh-nft.com Launch', tasks: 8, tags: ['Website Launch','GitHub Pages','CNAME','DNS'],
+    { date: '2026-04-05', title: 'Session 4 — slh-nft.com Launch', tasks: 8, tags: ['Website Launch','GitHub Pages','CNAME','DNS'],
       body: 'Created slh-nft.com on GitHub Pages, 3 website versions, CNAME + DNS setup on NameCheap, live price ticker' }
 ];
 
@@ -651,7 +651,7 @@ async function testAllEndpoints() {
             html += `<tr><td style="font-family:var(--mono);font-size:11px;direction:ltr;text-align:left">${p}</td><td style="font-size:10px">${methods}</td><td>${status}</td></tr>`;
         }
         html += '</tbody></table>';
-        html = `<div style="margin-bottom:12px;font-size:12px"><span style="color:var(--accent)">${ok} OK</span> Â· <span style="color:var(--red)">${fail} Failed</span> Â· <span style="color:var(--gold)">${skip} Skipped</span> Â· <strong>${paths.length} Total</strong></div>` + html;
+        html = `<div style="margin-bottom:12px;font-size:12px"><span style="color:var(--accent)">${ok} OK</span> · <span style="color:var(--red)">${fail} Failed</span> · <span style="color:var(--gold)">${skip} Skipped</span> · <strong>${paths.length} Total</strong></div>` + html;
         el.innerHTML = html;
     } catch(e) {
         el.innerHTML = '<div style="color:var(--red);padding:10px">Error: ' + e.message + '</div>';
@@ -711,5 +711,5 @@ loadGitHistory('website');
 setInterval(loadKPIs, 30000);
 </script>
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

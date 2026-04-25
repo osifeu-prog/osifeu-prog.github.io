@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>SLH — המכשיר שלי</title>
+  <title>SLH � ?????? ???</title>
   <link rel="stylesheet" href="miniapp.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
@@ -33,33 +33,33 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <h1>המכשיר שלי</h1>
-      <div class="user" id="user-greeting">—</div>
+      <h1>?????? ???</h1>
+      <div class="user" id="user-greeting">�</div>
     </header>
 
     <nav class="nav">
-      <a href="dashboard.html">סקירה</a>
-      <a href="wallet.html">ארנק</a>
-      <a href="device.html" class="active">מכשיר</a>
+      <a href="dashboard.html">?????</a>
+      <a href="wallet.html">????</a>
+      <a href="device.html" class="active">?????</a>
       <a href="swarm.html">Swarm</a>
     </nav>
 
     <section class="card">
-      <h2>מצב המכשיר</h2>
-      <div id="device-info"><div class="placeholder">טוען...</div></div>
+      <h2>??? ??????</h2>
+      <div id="device-info"><div class="placeholder">????...</div></div>
     </section>
 
     <section class="card">
-      <h2>שלח הודעה למסך</h2>
-      <textarea id="msg-text" placeholder="לדוגמה: SLH חי, 42 ZVK התקבלו"></textarea>
-      <button class="btn" id="send-btn" disabled>שלח</button>
+      <h2>??? ????? ????</h2>
+      <textarea id="msg-text" placeholder="??????: SLH ??, 42 ZVK ??????"></textarea>
+      <button class="btn" id="send-btn" disabled>???</button>
       <div class="result-line" id="send-result"></div>
     </section>
 
     <section class="card">
-      <h2>פעולות מהירות</h2>
-      <button class="btn secondary" id="refresh-btn" style="margin-bottom:8px">רענן יתרות למסך</button>
-      <button class="btn secondary" id="ping-btn">פינג למכשיר</button>
+      <h2>?????? ??????</h2>
+      <button class="btn secondary" id="refresh-btn" style="margin-bottom:8px">???? ????? ????</button>
+      <button class="btn secondary" id="ping-btn">???? ??????</button>
       <div class="result-line" id="action-result"></div>
     </section>
   </div>
@@ -79,7 +79,7 @@
 
       if (!slh.user) {
         infoEl.innerHTML =
-          '<div class="placeholder">פתח מתוך בוט כדי להיות מזוהה.</div>';
+          '<div class="placeholder">??? ???? ??? ??? ????? ?????.</div>';
         return;
       }
 
@@ -87,7 +87,7 @@
 
       try {
         const me = await slh.api("/api/user/" + slh.user.id);
-        if (!me || !me.id) throw new Error("לא מזוהה במערכת");
+        if (!me || !me.id) throw new Error("?? ????? ??????");
 
         const claim = await slh.api(
           "/api/device/claim/" + encodeURIComponent("by_user_" + me.id)
@@ -99,7 +99,7 @@
 
         if (!deviceId) {
           infoEl.innerHTML =
-            '<div class="placeholder">לא מזוהה מכשיר משויך. אם יש לך ESP32 — סרוק את ה-QR בפעם הראשונה.</div>';
+            '<div class="placeholder">?? ????? ????? ?????. ?? ?? ?? ESP32 � ???? ?? ?-QR ???? ???????.</div>';
           return;
         }
 
@@ -108,19 +108,19 @@
           : "--";
         const online = claim.online || claim.is_online;
         infoEl.innerHTML =
-          '<div class="row"><span class="label">מזהה</span><span class="value">' +
+          '<div class="row"><span class="label">????</span><span class="value">' +
             deviceId +
           '</span></div>' +
-          '<div class="row"><span class="label">סטטוס</span><span class="value">' +
+          '<div class="row"><span class="label">?????</span><span class="value">' +
             (online
-              ? '<span class="tag ok">חי</span>'
-              : '<span class="tag warn">לא פעיל</span>') +
+              ? '<span class="tag ok">??</span>'
+              : '<span class="tag warn">?? ????</span>') +
           '</span></div>' +
-          '<div class="row"><span class="label">נראה לאחרונה</span><span class="value">' +
+          '<div class="row"><span class="label">???? ???????</span><span class="value">' +
             lastSeen +
           '</span></div>' +
           (claim.firmware_version
-            ? '<div class="row"><span class="label">גרסה</span><span class="value">' +
+            ? '<div class="row"><span class="label">????</span><span class="value">' +
                 claim.firmware_version +
               "</span></div>"
             : "");
@@ -134,7 +134,7 @@
         resultEl.textContent = "";
         resultEl.className = "result-line";
         if (!deviceId) {
-          resultEl.textContent = "אין מכשיר משויך.";
+          resultEl.textContent = "??? ????? ?????.";
           resultEl.className = "result-line err";
           return;
         }
@@ -144,12 +144,12 @@
             { method: "POST", body: payload }
           );
           resultEl.textContent =
-            "פקודה נשלחה (#" +
+            "????? ????? (#" +
             (resp.command_id || "?") +
-            "). ההמתנה עד ה-heartbeat הבא.";
+            "). ?????? ?? ?-heartbeat ???.";
           resultEl.className = "result-line ok";
         } catch (e) {
-          resultEl.textContent = "שגיאה: " + e.message;
+          resultEl.textContent = "?????: " + e.message;
           resultEl.className = "result-line err";
         }
       }
@@ -157,7 +157,7 @@
       sendBtn.addEventListener("click", function () {
         const text = (msgEl.value || "").trim();
         if (!text) {
-          sendResult.textContent = "כתוב משהו לשליחה.";
+          sendResult.textContent = "???? ???? ??????.";
           sendResult.className = "result-line err";
           return;
         }
@@ -173,5 +173,5 @@
       });
     })();
   </script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

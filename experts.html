@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Experts — מומחי הקהילה | מצא יועץ ושתף ידע</title>
-<meta name="description" content="מצא מומחים בקהילת SLH לפי תחום ושפה. שתף ידע, קבל ייעוץ, צמח ביחד.">
+<title>SLH Experts � ????? ?????? | ??? ???? ???? ???</title>
+<meta name="description" content="??? ?????? ?????? SLH ??? ???? ????. ??? ???, ??? ?????, ??? ????.">
 <link rel="canonical" href="https://slh-nft.com/experts.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SLH Experts — קהילת מומחים">
+<meta property="og:title" content="SLH Experts � ????? ??????">
 <meta property="og:image" content="https://slh-nft.com/assets/og/community.png">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -67,27 +67,27 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <div id="ticker-root"></div>
 
 <div class="header">
-  <h1 class="title">🎓 קהילת המומחים</h1>
+  <h1 class="title">?? ????? ???????</h1>
   <p class="sub">
-    מצא יועץ או מומחה בכל תחום — קריפטו, אבטחה, השקעות, פיננסים, יזמות, פיתוח.
-    <strong>זהו מנגנון שיתופי</strong> — חברי הקהילה הם המומחים שמסייעים זה לזה.
+    ??? ???? ?? ????? ??? ???? � ??????, ?????, ??????, ???????, ?????, ?????.
+    <strong>??? ?????? ??????</strong> � ???? ?????? ?? ??????? ???????? ?? ???.
   </p>
   <a href="#register" class="cta" onclick="openRegister()">
-    <i class="fas fa-graduation-cap"></i> אני מומחה — הצטרף
+    <i class="fas fa-graduation-cap"></i> ??? ????? � ?????
   </a>
 </div>
 
 <div class="filters">
-  <input type="text" id="search" class="search" placeholder="🔍 חיפוש לפי שם / תחום / מילת מפתח...">
-  <button class="chip active" data-domain="all">הכל</button>
-  <button class="chip" data-domain="crypto">קריפטו</button>
-  <button class="chip" data-domain="security">אבטחה</button>
-  <button class="chip" data-domain="finance">פיננסים</button>
-  <button class="chip" data-domain="trading">מסחר</button>
-  <button class="chip" data-domain="tech">פיתוח</button>
-  <button class="chip" data-domain="marketing">שיווק</button>
-  <button class="chip" data-domain="legal">משפט</button>
-  <button class="chip" data-domain="halacha">הלכה</button>
+  <input type="text" id="search" class="search" placeholder="?? ????? ??? ?? / ???? / ???? ????...">
+  <button class="chip active" data-domain="all">???</button>
+  <button class="chip" data-domain="crypto">??????</button>
+  <button class="chip" data-domain="security">?????</button>
+  <button class="chip" data-domain="finance">???????</button>
+  <button class="chip" data-domain="trading">????</button>
+  <button class="chip" data-domain="tech">?????</button>
+  <button class="chip" data-domain="marketing">?????</button>
+  <button class="chip" data-domain="legal">????</button>
+  <button class="chip" data-domain="halacha">????</button>
 </div>
 
 <div id="experts-grid" class="experts-grid"></div>
@@ -95,55 +95,55 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <!-- Register Modal -->
 <div id="register-modal" class="modal-bg" onclick="if(event.target===this)closeRegister()">
   <div class="modal">
-    <h2>🎓 הצטרפות כמומחה</h2>
-    <label>שם מלא *</label>
-    <input type="text" id="reg-name" placeholder="ישראל ישראלי" required>
-    <label>שם משתמש בטלגרם</label>
+    <h2>?? ??????? ??????</h2>
+    <label>?? ??? *</label>
+    <input type="text" id="reg-name" placeholder="????? ??????" required>
+    <label>?? ????? ??????</label>
     <input type="text" id="reg-tg" placeholder="@username">
-    <label>טלפון</label>
+    <label>?????</label>
     <input type="tel" id="reg-phone" placeholder="050-XXXXXXX">
-    <label>אימייל</label>
+    <label>??????</label>
     <input type="email" id="reg-email" placeholder="you@example.com">
-    <label>תחומי מומחיות (לחץ למספר)</label>
+    <label>????? ??????? (??? ?????)</label>
     <div id="reg-domains" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-      <button type="button" class="chip" onclick="toggleDomain(this,'crypto')">קריפטו</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'security')">אבטחה</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'finance')">פיננסים</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'trading')">מסחר</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'tech')">פיתוח</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'marketing')">שיווק</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'legal')">משפט</button>
-      <button type="button" class="chip" onclick="toggleDomain(this,'halacha')">הלכה</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'crypto')">??????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'security')">?????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'finance')">???????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'trading')">????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'tech')">?????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'marketing')">?????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'legal')">????</button>
+      <button type="button" class="chip" onclick="toggleDomain(this,'halacha')">????</button>
     </div>
-    <label>תיאור קצר (50-200 תווים)</label>
-    <textarea id="reg-bio" placeholder="ספר על הניסיון והידע שלך..."></textarea>
+    <label>????? ??? (50-200 ?????)</label>
+    <textarea id="reg-bio" placeholder="??? ?? ??????? ????? ???..."></textarea>
 
     <!-- Proof-of-expertise section (required: at least one) -->
     <div style="margin-top:18px;padding:14px;background:rgba(0,255,65,.04);border:1px solid rgba(0,255,65,.2);border-radius:10px">
-      <div style="font-size:13px;font-weight:800;color:var(--accent,#00ff41);margin-bottom:4px">🔒 הוכחת מומחיות (חובה לפחות אחת)</div>
-      <div style="font-size:11px;color:var(--text2);margin-bottom:12px">כדי לוודא איכות הקהילה — אימות אדמין ידני. אישור תוך 24-48 שעות.</div>
+      <div style="font-size:13px;font-weight:800;color:var(--accent,#00ff41);margin-bottom:4px">?? ????? ??????? (???? ????? ???)</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:12px">??? ????? ????? ?????? � ????? ????? ????. ????? ??? 24-48 ????.</div>
 
       <label style="font-size:11px">LinkedIn URL</label>
       <input type="url" id="reg-linkedin" placeholder="https://linkedin.com/in/your-profile">
 
-      <label style="font-size:11px">אתר אישי / פורטפוליו</label>
+      <label style="font-size:11px">??? ???? / ?????????</label>
       <input type="url" id="reg-website" placeholder="https://yoursite.com">
 
-      <label style="font-size:11px">YouTube / סרטון הרצאה</label>
+      <label style="font-size:11px">YouTube / ????? ?????</label>
       <input type="url" id="reg-youtube" placeholder="https://youtube.com/watch?v=...">
 
-      <label style="font-size:11px">שנות ניסיון</label>
-      <input type="number" id="reg-years" placeholder="לדוגמה: 10" min="0" max="60">
+      <label style="font-size:11px">???? ??????</label>
+      <input type="number" id="reg-years" placeholder="??????: 10" min="0" max="60">
 
-      <label style="font-size:11px">תעודות / הסמכות (חופשי)</label>
-      <textarea id="reg-credentials" placeholder="לדוגמה: PhD בפסיכולוגיה קלינית · מנצח תזמורת סימפונית · 500+ סדנאות יוגה" style="min-height:60px"></textarea>
+      <label style="font-size:11px">?????? / ?????? (?????)</label>
+      <textarea id="reg-credentials" placeholder="??????: PhD ??????????? ?????? � ???? ?????? ???????? � 500+ ?????? ????" style="min-height:60px"></textarea>
     </div>
 
     <button class="cta" style="width:100%;margin-top:14px" onclick="submitRegister()">
-      <i class="fas fa-paper-plane"></i> שלח הרשמה לאימות
+      <i class="fas fa-paper-plane"></i> ??? ????? ??????
     </button>
     <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:10px">
-      🎁 בונוס 100 ZVK להרשמה · אימות תוך 24-48 שעות · תגמול נוסף אחרי אישור
+      ?? ????? 100 ZVK ?????? � ????? ??? 24-48 ???? � ????? ???? ???? ?????
     </div>
   </div>
 </div>
@@ -151,29 +151,29 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <!-- Consult Modal -->
 <div id="consult-modal" class="modal-bg" onclick="if(event.target===this)closeConsult()">
   <div class="modal">
-    <h2>💬 בקש ייעוץ</h2>
-    <p style="color:var(--text2);font-size:13px;margin-bottom:14px">המומחה <strong id="consult-expert-name"></strong> ייצור איתך קשר תוך 48 שעות.</p>
-    <label>שמך *</label>
+    <h2>?? ??? ?????</h2>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:14px">?????? <strong id="consult-expert-name"></strong> ????? ???? ??? ??? 48 ????.</p>
+    <label>??? *</label>
     <input type="text" id="consult-name" required>
-    <label>טלפון</label>
+    <label>?????</label>
     <input type="tel" id="consult-phone" placeholder="050-XXXXXXX">
-    <label>נושא הייעוץ *</label>
-    <textarea id="consult-topic" placeholder="ספר במילים בודדות מה אתה צריך..."></textarea>
-    <label>שפה מועדפת</label>
+    <label>???? ?????? *</label>
+    <textarea id="consult-topic" placeholder="??? ?????? ?????? ?? ??? ????..."></textarea>
+    <label>??? ??????</label>
     <select id="consult-lang">
-      <option value="he">עברית</option>
+      <option value="he">?????</option>
       <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="ar">العربية</option>
-      <option value="fr">Français</option>
+      <option value="ru">???????</option>
+      <option value="ar">???????</option>
+      <option value="fr">Fran�ais</option>
     </select>
     <button class="cta" style="width:100%" onclick="submitConsult()">
-      <i class="fas fa-paper-plane"></i> שלח בקשת ייעוץ
+      <i class="fas fa-paper-plane"></i> ??? ???? ?????
     </button>
   </div>
 </div>
 
-<div id="toast" class="toast">✅</div>
+<div id="toast" class="toast">?</div>
 
 <div id="topnav-root"></div>
 <script src="/js/shared.js?v=20260426a"></script>
@@ -218,7 +218,7 @@ function renderDomainChips(){
   const filtersContainer = document.querySelector('.filters');
   if(!filtersContainer || cachedDomains.length === 0) return;
   const existing = filtersContainer.querySelectorAll('.chip');
-  existing.forEach((c, i) => { if(i > 0) c.remove(); }); // keep first "הכל"
+  existing.forEach((c, i) => { if(i > 0) c.remove(); }); // keep first "???"
   cachedDomains.forEach(d => {
     const btn = document.createElement('button');
     btn.className = 'chip';
@@ -235,20 +235,20 @@ function renderDomainChips(){
 }
 
 function renderDomainButtons(){
-  // In register form — show all domains dynamically
+  // In register form � show all domains dynamically
   const regContainer = document.getElementById('reg-domains');
   if(!regContainer || cachedDomains.length === 0) return;
   regContainer.innerHTML = cachedDomains.map(d => `
     <button type="button" class="chip" onclick="toggleDomain(this,'${d.slug}')">${d.emoji || ''} ${d.name_he || d.slug}</button>
   `).join('') + `
-    <button type="button" class="chip" style="border-color:var(--green);color:var(--green)" onclick="proposeDomain()">+ הצע תחום חדש</button>
+    <button type="button" class="chip" style="border-color:var(--green);color:var(--green)" onclick="proposeDomain()">+ ??? ???? ???</button>
   `;
 }
 
 async function proposeDomain(){
-  const name = prompt('שם התחום בעברית:');
+  const name = prompt('?? ????? ??????:');
   if(!name) return;
-  const emoji = prompt('אימוג\'י (אחד):') || '🎯';
+  const emoji = prompt('?????\'? (???):') || '??';
   const slug = name.toLowerCase().replace(/[^\w]/g, '_').slice(0,20);
   try {
     const r = await fetch(`${API}/api/experts/domains/propose`, {
@@ -260,12 +260,12 @@ async function proposeDomain(){
     });
     const d = await r.json();
     if(d.ok){
-      showToast(`✅ התחום הוצע! דרוש 10 הצבעות בעד לאישור`);
+      showToast(`? ????? ????! ???? 10 ?????? ??? ??????`);
     } else {
-      alert(d.detail || 'נכשל');
+      alert(d.detail || '????');
     }
   } catch(e) {
-    alert('❌ ' + e.message);
+    alert('? ' + e.message);
   }
 }
 
@@ -294,9 +294,9 @@ function renderExperts(){
     grid.innerHTML = `
       <div class="empty-state">
         <div class="ico"><i class="fas fa-graduation-cap"></i></div>
-        <h3>עוד אין מומחים בקטגוריה זו</h3>
-        <p>היה הראשון להירשם!</p>
-        <a href="#" class="cta" onclick="openRegister();return false">הצטרף כמומחה ←</a>
+        <h3>??? ??? ?????? ???????? ??</h3>
+        <p>??? ?????? ??????!</p>
+        <a href="#" class="cta" onclick="openRegister();return false">????? ?????? ?</a>
       </div>
     `;
     return;
@@ -304,10 +304,10 @@ function renderExperts(){
 
   grid.innerHTML = list.map(e => {
     const initials = (e.display_name || '?').slice(0, 1);
-    const stars = '⭐'.repeat(Math.round(e.avg_rating || 0)) || '—';
+    const stars = '?'.repeat(Math.round(e.avg_rating || 0)) || '�';
     return `
       <div class="expert-card ${e.featured ? 'featured' : ''}">
-        ${e.featured ? '<span class="featured-badge">מומלץ</span>' : ''}
+        ${e.featured ? '<span class="featured-badge">?????</span>' : ''}
         <div class="expert-head">
           <div class="expert-avatar">${initials}</div>
           <div class="expert-info">
@@ -315,23 +315,23 @@ function renderExperts(){
             <div class="handle">${e.tg_username ? '@' + e.tg_username : ''}</div>
           </div>
         </div>
-        <div class="expert-bio">${e.bio || 'מומחה בקהילה'}</div>
+        <div class="expert-bio">${e.bio || '????? ??????'}</div>
         <div class="expert-domains">
           ${(e.domains || []).map(d => `<span class="domain-tag">${d}</span>`).join('')}
         </div>
         <div class="expert-stats">
-          <span>דירוג: <b>${stars}</b></span>
-          <span>ייעוצים: <b>${e.consultations_count || 0}</b></span>
+          <span>?????: <b>${stars}</b></span>
+          <span>???????: <b>${e.consultations_count || 0}</b></span>
         </div>
         <div class="expert-actions" style="grid-template-columns:1fr 1fr 1fr">
           <button class="consult-btn" onclick="openConsult(${e.id}, '${e.display_name.replace(/'/g, '')}')">
-            <i class="fas fa-comments"></i> ייעוץ
+            <i class="fas fa-comments"></i> ?????
           </button>
           <button class="review-btn" onclick="quickReview(${e.id})">
-            <i class="fas fa-star"></i> דרג
+            <i class="fas fa-star"></i> ???
           </button>
           <button onclick="viewReviews(${e.id}, '${e.display_name.replace(/'/g, '')}')" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;font-family:inherit">
-            <i class="fas fa-eye"></i> ביקורות
+            <i class="fas fa-eye"></i> ???????
           </button>
         </div>
       </div>
@@ -369,17 +369,17 @@ async function submitRegister(){
     const u = JSON.parse(localStorage.getItem('slh_user') || '{}');
     if (u.id) body.user_id = u.id;
   } catch(e) {}
-  if(!body.display_name){ alert('נא הזן שם'); return; }
-  if(body.domains.length === 0){ alert('נא בחר לפחות תחום אחד'); return; }
+  if(!body.display_name){ alert('?? ??? ??'); return; }
+  if(body.domains.length === 0){ alert('?? ??? ????? ???? ???'); return; }
   try {
     const r = await fetch(`${API}/api/experts/register`, {
       method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
     });
     const d = await r.json();
     closeRegister();
-    showToast('✅ נרשמת בהצלחה — נאמת ונפרסם תוך 48 שעות');
+    showToast('? ????? ?????? � ???? ?????? ??? 48 ????');
   } catch(e) {
-    alert('❌ ' + e.message);
+    alert('? ' + e.message);
   }
 }
 
@@ -391,16 +391,16 @@ async function submitConsult(){
     topic: document.getElementById('consult-topic').value.trim(),
     preferred_language: document.getElementById('consult-lang').value
   };
-  if(!body.requester_name || !body.topic){ alert('שם ונושא חובה'); return; }
+  if(!body.requester_name || !body.topic){ alert('?? ????? ????'); return; }
   try {
     const r = await fetch(`${API}/api/experts/consult`, {
       method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
     });
     const d = await r.json();
     closeConsult();
-    showToast('✅ הבקשה נשלחה — המומחה ייצור קשר תוך 48 שעות');
+    showToast('? ????? ????? � ?????? ????? ??? ??? 48 ????');
   } catch(e) {
-    alert('❌ ' + e.message);
+    alert('? ' + e.message);
   }
 }
 
@@ -412,31 +412,31 @@ async function viewReviews(expertId, name){
     let html = `
       <div style="background:rgba(5,8,16,.85);position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)" onclick="if(event.target===this)this.remove()">
         <div style="background:var(--bg2);border:1px solid var(--gold);border-radius:20px;padding:28px;max-width:580px;width:100%;max-height:85vh;overflow-y:auto">
-          <h2 style="color:var(--gold);margin:0 0 6px">⭐ ביקורות על ${name}</h2>
+          <h2 style="color:var(--gold);margin:0 0 6px">? ??????? ?? ${name}</h2>
           <div style="font-size:13px;color:var(--text2);margin-bottom:18px">
-            ${d.reviews_count} ביקורות · דירוג ממוצע: <b style="color:var(--gold)">${d.avg_rating.toFixed(1)}/5</b> ·
-            5⭐: ${d.five_stars} · 1⭐: ${d.one_stars}
+            ${d.reviews_count} ??????? � ????? ?????: <b style="color:var(--gold)">${d.avg_rating.toFixed(1)}/5</b> �
+            5?: ${d.five_stars} � 1?: ${d.one_stars}
           </div>
     `;
     if (reviews.length === 0) {
-      html += '<div style="text-align:center;padding:30px;color:var(--text2)">אין עדיין ביקורות. היה הראשון!</div>';
+      html += '<div style="text-align:center;padding:30px;color:var(--text2)">??? ????? ???????. ??? ??????!</div>';
     } else {
       reviews.forEach(rev => {
-        const stars = '⭐'.repeat(rev.rating);
+        const stars = '?'.repeat(rev.rating);
         html += `
           <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px">
             <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-              <div style="font-weight:800;color:var(--text)">${rev.reviewer_name || 'אנונימי'}</div>
+              <div style="font-weight:800;color:var(--text)">${rev.reviewer_name || '???????'}</div>
               <div style="font-size:13px">${stars}</div>
             </div>
-            ${rev.comment ? `<div style="font-size:13px;color:var(--text2);line-height:1.7">${rev.comment}</div>` : '<div style="font-size:12px;color:var(--text3);font-style:italic">ללא תגובה</div>'}
+            ${rev.comment ? `<div style="font-size:13px;color:var(--text2);line-height:1.7">${rev.comment}</div>` : '<div style="font-size:12px;color:var(--text3);font-style:italic">??? ?????</div>'}
             <div style="font-size:10px;color:var(--text3);margin-top:6px">${new Date(rev.created_at).toLocaleString('he-IL')}</div>
           </div>
         `;
       });
     }
     html += `
-          <button onclick="this.closest('[onclick]').remove()" style="margin-top:14px;width:100%;padding:12px;background:var(--gold);color:#000;border:none;border-radius:10px;font-weight:900;cursor:pointer;font-family:inherit">סגור</button>
+          <button onclick="this.closest('[onclick]').remove()" style="margin-top:14px;width:100%;padding:12px;background:var(--gold);color:#000;border:none;border-radius:10px;font-weight:900;cursor:pointer;font-family:inherit">????</button>
         </div>
       </div>
     `;
@@ -444,24 +444,24 @@ async function viewReviews(expertId, name){
     div.innerHTML = html;
     document.body.appendChild(div.firstElementChild);
   } catch(e) {
-    alert('שגיאה בטעינת ביקורות: ' + e.message);
+    alert('????? ?????? ???????: ' + e.message);
   }
 }
 
 async function quickReview(expertId){
-  const rating = prompt('דרג את המומחה (1-5):');
+  const rating = prompt('??? ?? ?????? (1-5):');
   if(!rating) return;
   const r = parseInt(rating);
-  if(isNaN(r) || r < 1 || r > 5){ alert('דירוג חייב להיות 1-5'); return; }
-  const comment = prompt('תגובה (אופציונלי):') || '';
+  if(isNaN(r) || r < 1 || r > 5){ alert('????? ???? ????? 1-5'); return; }
+  const comment = prompt('????? (?????????):') || '';
   try {
     await fetch(`${API}/api/experts/review`, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({ expert_id: expertId, rating: r, comment })
     });
-    showToast('✅ הדירוג נשלח');
+    showToast('? ?????? ????');
     loadExperts();
-  } catch(e) { alert('❌ ' + e.message); }
+  } catch(e) { alert('? ' + e.message); }
 }
 
 function showToast(msg){
@@ -479,15 +479,15 @@ loadExperts();
   rewardsInfo.style.cssText = 'max-width:1200px;margin:20px auto;padding:0 20px';
   rewardsInfo.innerHTML = `
     <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(0,232,135,.04));border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center">
-      <div style="font-size:11px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">💰 מנגנון תגמולים</div>
-      <div style="font-size:14px;color:var(--text);margin-bottom:10px">מומחים מקבלים ZVK על כל פעולה קהילתית</div>
+      <div style="font-size:11px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">?? ?????? ???????</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:10px">?????? ?????? ZVK ?? ?? ????? ???????</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:12px">
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">הצטרפות: <b style="color:var(--gold)">100 ZVK</b></span>
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">אימות: <b style="color:var(--gold)">500 ZVK</b></span>
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">ייעוץ ראשון: <b style="color:var(--gold)">+150 ZVK</b></span>
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">כל ייעוץ: <b style="color:var(--gold)">200 ZVK</b></span>
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">5 כוכבים: <b style="color:var(--gold)">25 ZVK</b></span>
-        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">הצבעה: <b style="color:var(--gold)">5 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">???????: <b style="color:var(--gold)">100 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">?????: <b style="color:var(--gold)">500 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">????? ?????: <b style="color:var(--gold)">+150 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">?? ?????: <b style="color:var(--gold)">200 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">5 ??????: <b style="color:var(--gold)">25 ZVK</b></span>
+        <span style="padding:4px 10px;background:var(--bg2);border-radius:8px">?????: <b style="color:var(--gold)">5 ZVK</b></span>
       </div>
     </div>
   `;
@@ -496,5 +496,5 @@ loadExperts();
 })();
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

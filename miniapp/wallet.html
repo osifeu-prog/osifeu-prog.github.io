@@ -1,42 +1,42 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>SLH — ארנק</title>
+  <title>SLH � ????</title>
   <link rel="stylesheet" href="miniapp.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
   <div class="app">
     <header class="topbar">
-      <h1>הארנק שלי</h1>
-      <div class="user" id="user-greeting">—</div>
+      <h1>????? ???</h1>
+      <div class="user" id="user-greeting">�</div>
     </header>
 
     <nav class="nav">
-      <a href="dashboard.html">סקירה</a>
-      <a href="wallet.html" class="active">ארנק</a>
-      <a href="device.html">מכשיר</a>
+      <a href="dashboard.html">?????</a>
+      <a href="wallet.html" class="active">????</a>
+      <a href="device.html">?????</a>
       <a href="swarm.html">Swarm</a>
     </nav>
 
     <section class="card">
-      <h2>יתרות</h2>
-      <div id="balances"><div class="placeholder">טוען...</div></div>
+      <h2>?????</h2>
+      <div id="balances"><div class="placeholder">????...</div></div>
     </section>
 
     <section class="card">
-      <h2>שווי כולל (₪)</h2>
+      <h2>???? ???? (?)</h2>
       <div class="kpi" id="totals">
-        <div><div class="label">שווי SLH</div><div class="value placeholder">--</div></div>
-        <div><div class="label">שווי כולל</div><div class="value placeholder">--</div></div>
+        <div><div class="label">???? SLH</div><div class="value placeholder">--</div></div>
+        <div><div class="label">???? ????</div><div class="value placeholder">--</div></div>
       </div>
     </section>
 
     <section class="card">
-      <h2>תנועות אחרונות</h2>
-      <div id="transactions"><div class="placeholder">טוען...</div></div>
+      <h2>?????? ???????</h2>
+      <div id="transactions"><div class="placeholder">????...</div></div>
     </section>
   </div>
 
@@ -50,7 +50,7 @@
 
       if (!slh.user) {
         const msg =
-          '<div class="placeholder">פתח את הארנק מתוך בוט @WEWORK_teamviwer_bot.</div>';
+          '<div class="placeholder">??? ?? ????? ???? ??? @WEWORK_teamviwer_bot.</div>';
         balancesEl.innerHTML = msg;
         txEl.innerHTML = msg;
         return;
@@ -59,7 +59,7 @@
       let slhUserId = null;
       try {
         const u = await slh.api("/api/user/" + slh.user.id);
-        if (!u || !u.id) throw new Error("לא מזוהה במערכת");
+        if (!u || !u.id) throw new Error("?? ????? ??????");
         slhUserId = u.id;
       } catch (e) {
         slh.renderErr(balancesEl, e);
@@ -75,16 +75,16 @@
         const b = bal.balances || bal || {};
         const p = (prices && (prices.prices || prices)) || {};
         balancesEl.innerHTML =
-          '<div class="token-row"><span class="sym">SLH</span><span class="name">Spark — פרימיום</span><span class="amount">' +
+          '<div class="token-row"><span class="sym">SLH</span><span class="name">Spark � ???????</span><span class="amount">' +
             slh.fmt(b.SLH, 4) +
           '</span></div>' +
-          '<div class="token-row"><span class="sym">MNH</span><span class="name">מנחה — יציב ל-₪</span><span class="amount">' +
+          '<div class="token-row"><span class="sym">MNH</span><span class="name">???? � ???? ?-?</span><span class="amount">' +
             slh.fmt(b.MNH, 2) +
           '</span></div>' +
-          '<div class="token-row"><span class="sym">ZVK</span><span class="name">פעילות — תגמול</span><span class="amount">' +
+          '<div class="token-row"><span class="sym">ZVK</span><span class="name">?????? � ?????</span><span class="amount">' +
             slh.fmt(b.ZVK, 2) +
           '</span></div>' +
-          '<div class="token-row"><span class="sym">REP</span><span class="name">מוניטין</span><span class="amount">' +
+          '<div class="token-row"><span class="sym">REP</span><span class="name">???????</span><span class="amount">' +
             slh.fmt(b.REP, 0) +
           '</span></div>';
 
@@ -94,12 +94,12 @@
           (Number(b.MNH) || 0) * 1 +
           (Number(b.ZVK) || 0) * (Number(p.ZVK) || 0);
         totalsEl.innerHTML =
-          '<div><div class="label">שווי SLH</div><div class="value">' +
+          '<div><div class="label">???? SLH</div><div class="value">' +
             slh.fmt(slhValue, 2) +
-          ' ₪</div></div>' +
-          '<div><div class="label">שווי כולל</div><div class="value">' +
+          ' ?</div></div>' +
+          '<div><div class="label">???? ????</div><div class="value">' +
             slh.fmt(total, 2) +
-          ' ₪</div></div>';
+          ' ?</div></div>';
       } catch (e) {
         slh.renderErr(balancesEl, e);
       }
@@ -109,7 +109,7 @@
         const tx = await slh.api("/api/wallet/" + slhUserId + "/transactions");
         const items = (tx && (tx.transactions || tx)) || [];
         if (!items.length) {
-          txEl.innerHTML = '<div class="placeholder">אין תנועות עדיין.</div>';
+          txEl.innerHTML = '<div class="placeholder">??? ?????? ?????.</div>';
         } else {
           txEl.innerHTML = items
             .slice(0, 12)
@@ -122,8 +122,8 @@
                 : "--";
               return (
                 '<div class="row"><span class="label">' +
-                (t.type || t.description || "תנועה") +
-                " · " +
+                (t.type || t.description || "?????") +
+                " � " +
                 when +
                 '</span><span class="value">' +
                 sign +
@@ -140,5 +140,5 @@
       }
     })();
   </script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Spark Ecosystem Guide — Complete Reference</title>
+<title>SLH Spark Ecosystem Guide � Complete Reference</title>
 <meta name="description" content="Complete SLH Spark ecosystem guide: all pages, API endpoints, bots, and workflows in one reference.">
 <link rel="canonical" href="https://slh-nft.com/ecosystem-guide.html">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="SLH Spark Ecosystem Guide — Complete Reference">
+<meta property="og:title" content="SLH Spark Ecosystem Guide � Complete Reference">
 <meta property="og:description" content="All pages, endpoints, bots, and workflows in one guide">
 <meta property="og:image" content="https://slh-nft.com/assets/og/guides.png">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="he_IL">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SLH Spark Ecosystem Guide — Complete Reference">
+<meta name="twitter:title" content="SLH Spark Ecosystem Guide � Complete Reference">
 <meta name="twitter:description" content="All pages, endpoints, bots, and workflows in one guide">
 <meta name="twitter:image" content="https://slh-nft.com/assets/og/guides.png">
 
@@ -211,48 +211,48 @@
 <div class="container">
     <div class="hero">
         <h1>SLH Ecosystem Guide</h1>
-        <p>המדריך המאוחד והמקיף לכל חלקי המערכת — עמודים, endpoints, בוטים, זרימות עבודה, והאופרציות</p>
+        <p>?????? ?????? ?????? ??? ???? ?????? � ??????, endpoints, ?????, ?????? ?????, ??????????</p>
     </div>
 
     <!-- TOC -->
     <aside class="toc">
-        <h3>תוכן עניינים</h3>
-        <a href="#overview">סקירה כללית</a>
-        <a href="#architecture">ארכיטקטורה</a>
-        <a href="#pages">עמודי האתר</a>
+        <h3>???? ???????</h3>
+        <a href="#overview">????? ?????</a>
+        <a href="#architecture">??????????</a>
+        <a href="#pages">????? ????</a>
         <a href="#api">API Endpoints</a>
-        <a href="#bots">בוטים</a>
+        <a href="#bots">?????</a>
         <a href="#tokenomics">Tokenomics</a>
         <a href="#institutional">Institutional</a>
         <a href="#launch">Genesis Launch</a>
-        <a href="#flows">זרימות עבודה</a>
+        <a href="#flows">?????? ?????</a>
         <a href="#env">Environment Vars</a>
         <a href="#troubleshoot">Troubleshooting</a>
-        <a href="#glossary">מילון מונחים</a>
+        <a href="#glossary">????? ??????</a>
     </aside>
 
     <!-- Main content -->
     <main class="content">
         <section id="overview">
-            <h2>סקירה כללית</h2>
+            <h2>????? ?????</h2>
             <p>
-                SLH Spark הוא <strong>אקוסיסטם דיגיטלי ישראלי</strong> המבוסס על 25+ בוטי טלגרם,
-                FastAPI backend על Railway, PostgreSQL + Redis, GitHub Pages frontend ב-slh-nft.com,
-                וטוקן SLH על BSC (BEP-20).
+                SLH Spark ??? <strong>???????? ??????? ??????</strong> ?????? ?? 25+ ???? ?????,
+                FastAPI backend ?? Railway, PostgreSQL + Redis, GitHub Pages frontend ?-slh-nft.com,
+                ????? SLH ?? BSC (BEP-20).
             </p>
-            <p>המערכת מוכנה לרמה מוסדית: audit log עם hash chain בלתי-שביר, CEX integrations (Bybit+Binance), AES-GCM encryption, ו-proof of reserves תשתיתי.</p>
+            <p>?????? ????? ???? ??????: audit log ?? hash chain ????-????, CEX integrations (Bybit+Binance), AES-GCM encryption, ?-proof of reserves ??????.</p>
 
             <div class="card">
-                <strong>🎯 יעד תפעולי:</strong> יצירת Revenue Streams אמיתיים מרובים (Academia, Marketplace, SaaS, CEX momentum trading) שיזינו את Revenue Share Pool של Dynamic Yield. לא הבטחה ליעד תשואה למשתמשים — חלוקה פרופורציונלית להכנסות אמיתיות. <a href="/academy/course-1-dynamic-yield.html">ללמוד את המודל</a>.
+                <strong>?? ??? ??????:</strong> ????? Revenue Streams ??????? ?????? (Academia, Marketplace, SaaS, CEX momentum trading) ?????? ?? Revenue Share Pool ?? Dynamic Yield. ?? ????? ???? ????? ???????? � ????? ????????????? ??????? ???????. <a href="/academy/course-1-dynamic-yield.html">????? ?? ?????</a>.
             </div>
         </section>
 
         <section id="architecture">
-            <h2>ארכיטקטורה</h2>
-            <h3>שכבות המערכת</h3>
+            <h2>??????????</h2>
+            <h3>????? ??????</h3>
             <table>
                 <thead>
-                    <tr><th>שכבה</th><th>טכנולוגיה</th><th>Location</th><th>Purpose</th></tr>
+                    <tr><th>????</th><th>?????????</th><th>Location</th><th>Purpose</th></tr>
                 </thead>
                 <tbody>
                     <tr><td>Frontend</td><td>Static HTML+JS</td><td>GitHub Pages (slh-nft.com)</td><td>Public website + dashboards</td></tr>
@@ -267,7 +267,7 @@
         </section>
 
         <section id="pages">
-            <h2>עמודי האתר (20+ pages)</h2>
+            <h2>????? ???? (20+ pages)</h2>
             <h3>Public</h3>
             <table>
                 <thead><tr><th>URL</th><th>Purpose</th><th>OG Image</th></tr></thead>
@@ -304,7 +304,7 @@
                     <tr><td><code><a class="internal" href="/dashboard.html">/dashboard.html</a></code></td><td>User dashboard (requires login)</td></tr>
                     <tr><td><code><a class="internal" href="/ops-report-20260411.html">/ops-report-20260411.html</a></code></td><td>Detailed execution report</td></tr>
                     <tr><td><code><a class="internal" href="/overnight-report.html">/overnight-report.html</a></code></td><td>Morning briefing</td></tr>
-                    <tr><td><code><a class="internal" href="/ecosystem-guide.html">/ecosystem-guide.html</a></code></td><td>This guide 📚</td></tr>
+                    <tr><td><code><a class="internal" href="/ecosystem-guide.html">/ecosystem-guide.html</a></code></td><td>This guide ??</td></tr>
                 </tbody>
             </table>
         </section>
@@ -313,99 +313,99 @@
             <h2>API Endpoints (60+ total)</h2>
             <p>Base URL: <code>https://slh-api-production.up.railway.app</code></p>
 
-            <h3>🩺 Health & Stats</h3>
+            <h3>?? Health & Stats</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/health</code> — basic health check</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/stats</code> — public stats (users, staked, deposits)</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/admin/dashboard</code> — aggregated admin stats</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/admin/activity?limit=15</code> — recent activity feed</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/health</code> � basic health check</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/stats</code> � public stats (users, staked, deposits)</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/admin/dashboard</code> � aggregated admin stats</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/admin/activity?limit=15</code> � recent activity feed</li>
             </ul>
 
-            <h3>🔐 Auth & Users</h3>
+            <h3>?? Auth & Users</h3>
             <ul>
-                <li><span class="badge badge-post">POST</span> <code>/api/auth/telegram</code> — Telegram Login Widget auth</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/user/ensure</code> — idempotent user creation (manual login)</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/auth/bot-sync</code> — bot syncs user to DB (with secret)</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/user/{telegram_id}</code> — user profile + balances</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/user/full/{telegram_id}</code> — everything in one call</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/auth/telegram</code> � Telegram Login Widget auth</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/user/ensure</code> � idempotent user creation (manual login)</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/auth/bot-sync</code> � bot syncs user to DB (with secret)</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/user/{telegram_id}</code> � user profile + balances</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/user/full/{telegram_id}</code> � everything in one call</li>
             </ul>
 
-            <h3>🏛 Institutional (Audit + CEX)</h3>
+            <h3>?? Institutional (Audit + CEX)</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/audit/verify-chain</code> — SHA-256 hash chain integrity</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/audit/verify-chain</code> � SHA-256 hash chain integrity</li>
                 <li><span class="badge badge-get">GET</span> <code>/api/audit/recent?limit=100&action_filter=...&user_id=...</code></li>
-                <li><span class="badge badge-post">POST</span> <code>/api/cex/add-key</code> — link CEX API key (encrypted AES-GCM)</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/cex/keys/{user_id}</code> — list user's CEX keys</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/cex/sync/{key_id}</code> — fetch balances from exchange</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/cex/portfolio/{user_id}</code> — consolidated portfolio</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/cex/add-key</code> � link CEX API key (encrypted AES-GCM)</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/cex/keys/{user_id}</code> � list user's CEX keys</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/cex/sync/{key_id}</code> � fetch balances from exchange</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/cex/portfolio/{user_id}</code> � consolidated portfolio</li>
                 <li><span class="badge badge-del">DEL</span> <code>/api/cex/keys/{key_id}?user_id=...</code></li>
             </ul>
 
-            <h3>💎 Tokenomics</h3>
+            <h3>?? Tokenomics</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/tokenomics/stats</code> — supply, burned, staked, reserves</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/internal-transfer</code> — FREE MNH/ZVK/SLH</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/burn</code> — record burn (admin)</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/reserves/add</code> — add backing reserves</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/tokenomics/stats</code> � supply, burned, staked, reserves</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/internal-transfer</code> � FREE MNH/ZVK/SLH</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/burn</code> � record burn (admin)</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/tokenomics/reserves/add</code> � add backing reserves</li>
             </ul>
 
-            <h3>📊 Strategy Engine</h3>
+            <h3>?? Strategy Engine</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/strategy/list</code> — 3 backtested strategies</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/strategy/{id}</code> — strategy details</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/strategy/backtest/{id}?months=12</code> — simulated returns</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/strategy/list</code> � 3 backtested strategies</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/strategy/{id}</code> � strategy details</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/strategy/backtest/{id}?months=12</code> � simulated returns</li>
             </ul>
 
-            <h3>🚀 Genesis Launch</h3>
+            <h3>?? Genesis Launch</h3>
             <ul>
-                <li><span class="badge badge-post">POST</span> <code>/api/launch/contribute</code> — record contribution</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/launch/verify/{id}?admin_key=...</code> — verify + issue rewards</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/launch/status</code> — live progress + contributors</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/launch/contribute</code> � record contribution</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/launch/verify/{id}?admin_key=...</code> � verify + issue rewards</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/launch/status</code> � live progress + contributors</li>
             </ul>
 
-            <h3>📣 Broadcast & Shares</h3>
+            <h3>?? Broadcast & Shares</h3>
             <ul>
-                <li><span class="badge badge-post">POST</span> <code>/api/broadcast/send</code> — send Telegram DM to all users</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/broadcast/history</code> — recent broadcasts</li>
-                <li><span class="badge badge-post">POST</span> <code>/api/shares/track</code> — log share event</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/shares/stats?days=30</code> — share analytics</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/broadcast/send</code> � send Telegram DM to all users</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/broadcast/history</code> � recent broadcasts</li>
+                <li><span class="badge badge-post">POST</span> <code>/api/shares/track</code> � log share event</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/shares/stats?days=30</code> � share analytics</li>
             </ul>
 
-            <h3>🎨 OG Images</h3>
+            <h3>?? OG Images</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/og/{slug}.png</code> — dynamic 1200×630 PNG for social shares</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/og/{slug}.png</code> � dynamic 1200�630 PNG for social shares</li>
                 <li>Slugs: index, network, dashboard, wallet, bots, trade, earn, community, blockchain, roadmap, admin, launch-event, dex-launch, daily-blog, guides, referral</li>
             </ul>
 
-            <h3>🌐 Network & Blockchain</h3>
+            <h3>?? Network & Blockchain</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/network/slh-holders?limit=100</code> — BSC holders (BitQuery/Etherscan)</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/network/slh-holders?limit=100</code> � BSC holders (BitQuery/Etherscan)</li>
                 <li><span class="badge badge-get">GET</span> <code>/api/external-wallets/{user_id}</code></li>
                 <li><span class="badge badge-post">POST</span> <code>/api/external-wallets/add</code></li>
             </ul>
 
-            <h3>🎁 Genesis 49 + Cashback</h3>
+            <h3>?? Genesis 49 + Cashback</h3>
             <ul>
-                <li><span class="badge badge-get">GET</span> <code>/api/beta/status</code> — coupon remaining</li>
-                <li><span class="badge badge-get">GET</span> <code>/api/cashback/{user_id}</code> — tier status</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/beta/status</code> � coupon remaining</li>
+                <li><span class="badge badge-get">GET</span> <code>/api/cashback/{user_id}</code> � tier status</li>
                 <li><span class="badge badge-post">POST</span> <code>/api/cashback/process/{user_id}</code></li>
             </ul>
         </section>
 
         <section id="bots">
-            <h2>בוטים (25 total)</h2>
+            <h2>????? (25 total)</h2>
             <h3>Financial</h3>
             <ul>
-                <li><span class="badge badge-live">LIVE</span> <code>@SLH_AIR_bot</code> — Main investment hub (staking, portfolio, 10-gen referrals)</li>
-                <li><span class="badge badge-live">LIVE</span> <code>@SLH_Wallet_bot</code> — Multi-currency wallet</li>
-                <li><span class="badge badge-live">LIVE</span> <code>@TON_MNH_bot</code> — ILS-pegged stablecoin</li>
-                <li><span class="badge badge-live">LIVE</span> <code>@SLH_Ledger_bot</code> — Transaction ledger</li>
+                <li><span class="badge badge-live">LIVE</span> <code>@SLH_AIR_bot</code> � Main investment hub (staking, portfolio, 10-gen referrals)</li>
+                <li><span class="badge badge-live">LIVE</span> <code>@SLH_Wallet_bot</code> � Multi-currency wallet</li>
+                <li><span class="badge badge-live">LIVE</span> <code>@TON_MNH_bot</code> � ILS-pegged stablecoin</li>
+                <li><span class="badge badge-live">LIVE</span> <code>@SLH_Ledger_bot</code> � Transaction ledger</li>
             </ul>
             <h3>Community & Education</h3>
             <ul>
-                <li><span class="badge badge-live">LIVE</span> <code>@NFTY_madness_bot</code> — Tamagotchi virtual pet</li>
-                <li><span class="badge badge-wip">BETA</span> <code>@SLH_Academia_bot</code> — Educational platform</li>
-                <li><span class="badge badge-wip">BETA</span> <code>@SLH_community_bot</code> — Community hub</li>
+                <li><span class="badge badge-live">LIVE</span> <code>@NFTY_madness_bot</code> � Tamagotchi virtual pet</li>
+                <li><span class="badge badge-wip">BETA</span> <code>@SLH_Academia_bot</code> � Educational platform</li>
+                <li><span class="badge badge-wip">BETA</span> <code>@SLH_community_bot</code> � Community hub</li>
             </ul>
             <p>See full list at <a class="internal" href="/bots.html">/bots.html</a></p>
         </section>
@@ -415,20 +415,20 @@
             <table>
                 <thead><tr><th>Token</th><th>Role</th><th>Value</th><th>Supply</th></tr></thead>
                 <tbody>
-                    <tr><td><strong>SLH</strong></td><td>Premium + Governance + Staking</td><td>₪444 internal, $0.61 DEX (planned)</td><td>111,186,328 (fixed)</td></tr>
-                    <tr><td><strong>MNH</strong></td><td>ILS-pegged stablecoin (free internal transfers)</td><td>1 ₪</td><td>Mint-on-demand</td></tr>
-                    <tr><td><strong>ZVK</strong></td><td>Activity rewards (games, referrals, cashback)</td><td>~₪4.4</td><td>100M+</td></tr>
-                    <tr><td><strong>ZUZ</strong></td><td>Anti-fraud "Mark of Cain" — negative rep for scammers (Guardian)</td><td>N/A</td><td>Assigned per report</td></tr>
+                    <tr><td><strong>SLH</strong></td><td>Premium + Governance + Staking</td><td>?444 internal, $0.61 DEX (planned)</td><td>111,186,328 (fixed)</td></tr>
+                    <tr><td><strong>MNH</strong></td><td>ILS-pegged stablecoin (free internal transfers)</td><td>1 ?</td><td>Mint-on-demand</td></tr>
+                    <tr><td><strong>ZVK</strong></td><td>Activity rewards (games, referrals, cashback)</td><td>~?4.4</td><td>100M+</td></tr>
+                    <tr><td><strong>ZUZ</strong></td><td>Anti-fraud "Mark of Cain" � negative rep for scammers (Guardian)</td><td>N/A</td><td>Assigned per report</td></tr>
                 </tbody>
             </table>
             <h3>Value Mechanisms</h3>
             <ul>
-                <li><strong>Buyback-and-burn</strong>: 50% of platform revenue → buy SLH → burn (deflationary)</li>
+                <li><strong>Buyback-and-burn</strong>: 50% of platform revenue ? buy SLH ? burn (deflationary)</li>
                 <li><strong>Staking lock-up</strong>: Users lock SLH for yield (supply shock)</li>
                 <li><strong>Utility demand</strong>: VIP features require SLH holdings</li>
                 <li><strong>Backing reserves</strong>: SLH backed by $X USDT in company wallet</li>
                 <li><strong>Liquidity mining</strong>: LP providers earn ZVK rewards</li>
-                <li><strong>Anti-fraud (ZUZ)</strong>: Guardian bot assigns ZUZ to scammers — 100 ZUZ = auto-ban across all groups, cross-group intelligence</li>
+                <li><strong>Anti-fraud (ZUZ)</strong>: Guardian bot assigns ZUZ to scammers � 100 ZUZ = auto-ban across all groups, cross-group intelligence</li>
             </ul>
         </section>
 
@@ -466,13 +466,13 @@
             <pre><code>1. User visits slh-nft.com
 2. Clicks "Try Dashboard"
 3. Dashboard: login via Telegram Widget OR manual ID entry
-4. Manual ID → POST /api/user/ensure (creates in web_users)
-5. If not registered → Registration panel (22.221 ILS or GENESIS49 coupon)
-6. Registered → Full dashboard access</code></pre>
+4. Manual ID ? POST /api/user/ensure (creates in web_users)
+5. If not registered ? Registration panel (22.221 ILS or GENESIS49 coupon)
+6. Registered ? Full dashboard access</code></pre>
 
             <h3>CEX Portfolio Connection</h3>
-            <pre><code>1. /wallet.html → "תיק CEX מלא"
-2. Click "🔑 חבר API Key חדש"
+            <pre><code>1. /wallet.html ? "??? CEX ???"
+2. Click "?? ??? API Key ???"
 3. Follow 11-step tutorial for Bybit (Read-Only!)
 4. POST /api/cex/add-key with encrypted secrets
 5. Auto-sync: POST /api/cex/sync/{key_id}
@@ -484,15 +484,15 @@
             <table>
                 <thead><tr><th>Variable</th><th>Required</th><th>Purpose</th></tr></thead>
                 <tbody>
-                    <tr><td><code>DATABASE_URL</code></td><td>✓</td><td>PostgreSQL connection</td></tr>
-                    <tr><td><code>REDIS_URL</code></td><td>✓</td><td>Redis connection</td></tr>
-                    <tr><td><code>ENCRYPTION_KEY</code></td><td>✓</td><td>Source for AES-GCM key (SHA-256 derived)</td></tr>
-                    <tr><td><code>JWT_SECRET</code></td><td>✓</td><td>JWT signing</td></tr>
-                    <tr><td><code>BOT_SYNC_SECRET</code></td><td>✓</td><td>Shared secret for bot→API sync</td></tr>
-                    <tr><td><code>ADMIN_BROADCAST_KEY</code></td><td>✓</td><td>Admin key for broadcasts + verifications</td></tr>
+                    <tr><td><code>DATABASE_URL</code></td><td>?</td><td>PostgreSQL connection</td></tr>
+                    <tr><td><code>REDIS_URL</code></td><td>?</td><td>Redis connection</td></tr>
+                    <tr><td><code>ENCRYPTION_KEY</code></td><td>?</td><td>Source for AES-GCM key (SHA-256 derived)</td></tr>
+                    <tr><td><code>JWT_SECRET</code></td><td>?</td><td>JWT signing</td></tr>
+                    <tr><td><code>BOT_SYNC_SECRET</code></td><td>?</td><td>Shared secret for bot?API sync</td></tr>
+                    <tr><td><code>ADMIN_BROADCAST_KEY</code></td><td>?</td><td>Admin key for broadcasts + verifications</td></tr>
                     <tr><td><code>SLH_AIR_TOKEN</code></td><td>for broadcasts</td><td>@SLH_AIR_bot token</td></tr>
                     <tr><td><code>BITQUERY_API_KEY</code></td><td>optional</td><td>BSC holders data</td></tr>
-                    <tr><td><code>CORS_ORIGINS</code></td><td>✓</td><td>slh-nft.com, localhost:*</td></tr>
+                    <tr><td><code>CORS_ORIGINS</code></td><td>?</td><td>slh-nft.com, localhost:*</td></tr>
                 </tbody>
             </table>
         </section>
@@ -501,34 +501,34 @@
             <h2>Troubleshooting</h2>
             <div class="card">
                 <strong>Admin shows "API offline" but endpoints work</strong><br>
-                → Hard reload (Ctrl+Shift+R). Check console for TDZ errors in admin.html.
+                ? Hard reload (Ctrl+Shift+R). Check console for TDZ errors in admin.html.
             </div>
             <div class="card">
                 <strong>User can't log in with Telegram ID</strong><br>
-                → Check <code>/api/user/ensure</code> is live. Users shouldn't disappear anymore (fixed in commit 99b00c0).
+                ? Check <code>/api/user/ensure</code> is live. Users shouldn't disappear anymore (fixed in commit 99b00c0).
             </div>
             <div class="card warn">
                 <strong>BSC holders endpoint returns "API key not configured"</strong><br>
-                → Set <code>BITQUERY_API_KEY</code> in Railway env (free tier at bitquery.io, 10k/month).
+                ? Set <code>BITQUERY_API_KEY</code> in Railway env (free tier at bitquery.io, 10k/month).
             </div>
             <div class="card">
                 <strong>Broadcasts fail: "BROADCAST_BOT_TOKEN not configured"</strong><br>
-                → Set <code>SLH_AIR_TOKEN</code> in Railway env (token from @SLH_AIR_bot).
+                ? Set <code>SLH_AIR_TOKEN</code> in Railway env (token from @SLH_AIR_bot).
             </div>
         </section>
 
         <section id="glossary">
-            <h2>מילון מונחים</h2>
+            <h2>????? ??????</h2>
             <ul>
-                <li><strong>Genesis 49</strong> — 49 המשתמשים הראשונים שקיבלו NFT + 10 ZVK חינם דרך קוד GENESIS49</li>
-                <li><strong>AMM</strong> — Automated Market Maker. PancakeSwap משתמש ב-x*y=k constant product.</li>
-                <li><strong>Slippage</strong> — הפרש בין המחיר הצפוי למחיר הביצוע בעסקה ב-DEX, גדל ככל שה-pool רדוד.</li>
-                <li><strong>LP</strong> — Liquidity Provider. מי שמפקיד את שני הטוקנים ב-pool ומקבל LP tokens בתמורה.</li>
-                <li><strong>Rug pull</strong> — כשיוצר ה-pool מושך את כל הנזילות ובורח. ה-Mudra Lock מונע את זה.</li>
-                <li><strong>TDZ</strong> — Temporal Dead Zone. באג JS שקרה ב-admin.html (תוקן).</li>
-                <li><strong>Hash chain</strong> — שרשרת SHA-256 בה כל רשומה מכילה hash של הקודמת, ובכך יוצרת יומן בלתי-שביר.</li>
-                <li><strong>KYC</strong> — Know Your Customer, תהליך אימות זהות של משתמשים.</li>
-                <li><strong>MPC</strong> — Multi-Party Computation. טכנולוגיית custody מתקדמת (Gnosis Safe, Fireblocks, Zengo).</li>
+                <li><strong>Genesis 49</strong> � 49 ???????? ???????? ?????? NFT + 10 ZVK ???? ??? ??? GENESIS49</li>
+                <li><strong>AMM</strong> � Automated Market Maker. PancakeSwap ????? ?-x*y=k constant product.</li>
+                <li><strong>Slippage</strong> � ???? ??? ????? ????? ????? ?????? ????? ?-DEX, ??? ??? ??-pool ????.</li>
+                <li><strong>LP</strong> � Liquidity Provider. ?? ?????? ?? ??? ??????? ?-pool ????? LP tokens ??????.</li>
+                <li><strong>Rug pull</strong> � ?????? ?-pool ???? ?? ?? ??????? ?????. ?-Mudra Lock ???? ?? ??.</li>
+                <li><strong>TDZ</strong> � Temporal Dead Zone. ??? JS ???? ?-admin.html (????).</li>
+                <li><strong>Hash chain</strong> � ????? SHA-256 ?? ?? ????? ????? hash ?? ??????, ???? ????? ???? ????-????.</li>
+                <li><strong>KYC</strong> � Know Your Customer, ????? ????? ???? ?? ???????.</li>
+                <li><strong>MPC</strong> � Multi-Party Computation. ?????????? custody ?????? (Gnosis Safe, Fireblocks, Zengo).</li>
             </ul>
         </section>
     </main>
@@ -540,20 +540,20 @@
 <script src="/js/translations.js?v=20260426a"></script>
 <script src="/js/shared.js?v=20260426a"></script>
 <script>initShared({ activePage: 'guides', showBottomNav: true });</script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">??</button>
 <div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">???? ?????</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">?? Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">?? Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">?? Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">? Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">?? Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">?? Sunset</button>
 </div>
 <script>
 (function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
 </script>
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js?v=20260426a"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

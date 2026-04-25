@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH · Mission Control</title>
+<title>SLH � Mission Control</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -133,12 +133,12 @@ body::before{content:'';position:fixed;inset:0;background:
 @media(max-width:600px){.slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
 </style>
 <div class="slh-beta-banner" id="slhBeta">
-  <span>🚧 <b>BETA</b></span>
-  <span style="opacity:.85">אם משהו לא עובד —</span>
-  <a href="/bug-report.html">🐛 דווח באג</a>
-  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">✕</button>
+  <span>?? <b>BETA</b></span>
+  <span style="opacity:.85">?? ???? ?? ???? �</span>
+  <a href="/bug-report.html">?? ???? ???</a>
+  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">?</button>
 </div>
-<a href="/bug-report.html" class="slh-bug-fab" title="דווח באג">🐛</a>
+<a href="/bug-report.html" class="slh-bug-fab" title="???? ???">??</a>
 <script>if(localStorage.getItem('slh_beta_dismissed')==='1'){var b=document.getElementById('slhBeta');if(b)b.remove();}</script>
 
 
@@ -147,9 +147,9 @@ body::before{content:'';position:fixed;inset:0;background:
   <!-- Header -->
   <header class="hdr">
     <div class="hdr-l">
-      <div class="logo">♥</div>
+      <div class="logo">?</div>
       <div>
-        <h1>SLH · Mission Control</h1>
+        <h1>SLH � Mission Control</h1>
         <div class="sub" id="timeStamp">--</div>
       </div>
     </div>
@@ -158,8 +158,8 @@ body::before{content:'';position:fixed;inset:0;background:
       <span class="chip ok" id="dbChip"><span class="dot"></span> DB</span>
       <span class="chip warn" id="railwayChip"><span class="dot"></span> Railway</span>
       <span class="chip off" id="gitChip"><span class="dot"></span> Git</span>
-      <button class="btn" onclick="loadAll()"><i class="fa fa-rotate" id="refreshIcon"></i> רענן</button>
-      <button class="btn sec" onclick="toggleAuto()" id="autoBtn"><i class="fa fa-clock"></i> <span id="autoTxt">אוטו·כבוי</span></button>
+      <button class="btn" onclick="loadAll()"><i class="fa fa-rotate" id="refreshIcon"></i> ????</button>
+      <button class="btn sec" onclick="toggleAuto()" id="autoBtn"><i class="fa fa-clock"></i> <span id="autoTxt">????�????</span></button>
     </div>
   </header>
 
@@ -167,21 +167,21 @@ body::before{content:'';position:fixed;inset:0;background:
   <div class="grid">
 
     <div class="card glow c4">
-      <h2><span><i class="fa fa-heart-pulse"></i>הלב</span>
-          <span class="act" onclick="loadHealth()">רענן</span></h2>
-      <div class="heart">♥</div>
+      <h2><span><i class="fa fa-heart-pulse"></i>???</span>
+          <span class="act" onclick="loadHealth()">????</span></h2>
+      <div class="heart">?</div>
       <div style="text-align:center">
         <div id="heartStatus" class="tag g">LIVE</div>
-        <div style="margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--text2)" id="heartLine">version 1.0.0 · db connected</div>
+        <div style="margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--text2)" id="heartLine">version 1.0.0 � db connected</div>
         <div style="margin-top:14px;font-size:11px;color:var(--text3);font-family:var(--mono)" id="heartUrl">slh-api-production.up.railway.app</div>
       </div>
     </div>
 
     <div class="card c8">
-      <h2><span><i class="fa fa-chart-line"></i>KPIs · נתונים חיים</span>
-          <span class="act" onclick="loadStats()">רענן</span></h2>
+      <h2><span><i class="fa fa-chart-line"></i>KPIs � ?????? ????</span>
+          <span class="act" onclick="loadStats()">????</span></h2>
       <div class="kpis" id="kpis">
-        <div class="kpi g"><div class="lbl">משתמשים</div><div class="val" id="kpiUsers">--</div><div class="sub">total registered</div></div>
+        <div class="kpi g"><div class="lbl">???????</div><div class="val" id="kpiUsers">--</div><div class="sub">total registered</div></div>
         <div class="kpi c"><div class="lbl">Premium</div><div class="val" id="kpiPremium">--</div><div class="sub">paid users</div></div>
         <div class="kpi y"><div class="lbl">Staked TON</div><div class="val" id="kpiStaked">--</div><div class="sub">locked</div></div>
         <div class="kpi p"><div class="lbl">Bots Live</div><div class="val" id="kpiBots">--</div><div class="sub">currently running</div></div>
@@ -192,12 +192,12 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <!-- Tokens -->
     <div class="card c6">
-      <h2><span><i class="fa fa-coins"></i>5 טוקנים</span><span class="act" onclick="alert('ממוקד על Token 1-4 בסדר עבודה')">פרטים</span></h2>
+      <h2><span><i class="fa fa-coins"></i>5 ??????</span><span class="act" onclick="alert('????? ?? Token 1-4 ???? ?????')">?????</span></h2>
       <table class="tbl">
-        <tr><th>טוקן</th><th>תפקיד</th><th>סטטוס</th><th>יעד</th></tr>
-        <tr><td><b>SLH</b> <span class="tag g">#1</span></td><td>Premium / Governance</td><td><span class="chip ok"><span class="dot"></span>Live BSC</span></td><td class="mono">₪444</td></tr>
-        <tr><td><b>MNH</b> <span class="tag c">#2</span></td><td>Stablecoin</td><td><span class="chip warn">Internal</span></td><td class="mono">₪1 peg</td></tr>
-        <tr><td><b>ZVK</b> <span class="tag y">#3</span></td><td>Activity Rewards</td><td><span class="chip warn">Internal</span></td><td class="mono">~₪4.4</td></tr>
+        <tr><th>????</th><th>?????</th><th>?????</th><th>???</th></tr>
+        <tr><td><b>SLH</b> <span class="tag g">#1</span></td><td>Premium / Governance</td><td><span class="chip ok"><span class="dot"></span>Live BSC</span></td><td class="mono">?444</td></tr>
+        <tr><td><b>MNH</b> <span class="tag c">#2</span></td><td>Stablecoin</td><td><span class="chip warn">Internal</span></td><td class="mono">?1 peg</td></tr>
+        <tr><td><b>ZVK</b> <span class="tag y">#3</span></td><td>Activity Rewards</td><td><span class="chip warn">Internal</span></td><td class="mono">~?4.4</td></tr>
         <tr><td><b>REP</b> <span class="tag p">#4</span></td><td>Reputation</td><td><span class="chip warn">Internal</span></td><td class="mono">0-1000+</td></tr>
         <tr><td><b>ZUZ</b> <span class="tag r">#5</span></td><td>Anti-Fraud</td><td><span class="chip warn">Internal</span></td><td class="mono">ban@100</td></tr>
       </table>
@@ -205,7 +205,7 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <!-- Progress -->
     <div class="card c6">
-      <h2><span><i class="fa fa-diagram-project"></i>כיסוי / התקדמות</span></h2>
+      <h2><span><i class="fa fa-diagram-project"></i>????? / ???????</span></h2>
       <div class="progrow"><div class="pl">AI Assistant</div><div class="pb"><div class="pf" style="width:100%"></div></div><div class="pv">100%</div></div>
       <div class="progrow"><div class="pl">Analytics</div><div class="pb"><div class="pf" style="width:100%"></div></div><div class="pv">100%</div></div>
       <div class="progrow"><div class="pl">Theme switcher</div><div class="pb"><div class="pf" style="width:42%"></div></div><div class="pv">42%</div></div>
@@ -213,78 +213,78 @@ body::before{content:'';position:fixed;inset:0;background:
       <div class="progrow"><div class="pl">Bots stabilized</div><div class="pb"><div class="pf" style="width:76%"></div></div><div class="pv">76%</div></div>
       <div class="progrow"><div class="pl">Secrets rotated</div><div class="pb"><div class="pf" style="width:0%"></div></div><div class="pv">0%</div></div>
       <div style="margin-top:12px;padding:8px 12px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:8px;font-size:11px;color:var(--gold)">
-        ⚠ 31 בוטים צריכים סיבוב טוקן — חובה דרך BotFather
+        ? 31 ????? ?????? ????? ???? � ???? ??? BotFather
       </div>
     </div>
 
     <!-- Blockers -->
     <div class="card c6">
-      <h2><span><i class="fa fa-triangle-exclamation"></i>חסמים על אוסיף</span>
-          <span class="act" onclick="window.location='/admin.html'">אדמין</span></h2>
-      <div class="li err"><div class="txt"><div class="t1">🔑 Rotate ADMIN_API_KEYS</div><div class="t2">Railway → Variables</div></div><span class="tag r">BLOCKED</span></div>
-      <div class="li err"><div class="txt"><div class="t1">🔕 SILENT_MODE=1</div><div class="t2">Railway → Variables (kill-switch)</div></div><span class="tag r">BLOCKED</span></div>
-      <div class="li warn"><div class="txt"><div class="t1">📱 Twilio API key</div><div class="t2">~/.claude/slh-secrets.json</div></div><span class="tag y">PENDING</span></div>
-      <div class="li warn"><div class="txt"><div class="t1">🤖 Rotate 31 bot tokens</div><div class="t2">@BotFather → /revoke</div></div><span class="tag y">PENDING</span></div>
-      <div class="li warn"><div class="txt"><div class="t1">⚡ Set BotFather commands</div><div class="t2">/setcommands per bot</div></div><span class="tag y">PENDING</span></div>
-      <div class="li warn"><div class="txt"><div class="t1">🐳 docker-compose regression</div><div class="t2">445→58 lines. decide: revert or keep</div></div><span class="tag y">REVIEW</span></div>
-      <div class="li warn"><div class="txt"><div class="t1">🧬 shared/bot_template.py regression</div><div class="t2">241→52 lines. has PowerShell-escape bug</div></div><span class="tag y">REVIEW</span></div>
+      <h2><span><i class="fa fa-triangle-exclamation"></i>????? ?? ?????</span>
+          <span class="act" onclick="window.location='/admin.html'">?????</span></h2>
+      <div class="li err"><div class="txt"><div class="t1">?? Rotate ADMIN_API_KEYS</div><div class="t2">Railway ? Variables</div></div><span class="tag r">BLOCKED</span></div>
+      <div class="li err"><div class="txt"><div class="t1">?? SILENT_MODE=1</div><div class="t2">Railway ? Variables (kill-switch)</div></div><span class="tag r">BLOCKED</span></div>
+      <div class="li warn"><div class="txt"><div class="t1">?? Twilio API key</div><div class="t2">~/.claude/slh-secrets.json</div></div><span class="tag y">PENDING</span></div>
+      <div class="li warn"><div class="txt"><div class="t1">?? Rotate 31 bot tokens</div><div class="t2">@BotFather ? /revoke</div></div><span class="tag y">PENDING</span></div>
+      <div class="li warn"><div class="txt"><div class="t1">? Set BotFather commands</div><div class="t2">/setcommands per bot</div></div><span class="tag y">PENDING</span></div>
+      <div class="li warn"><div class="txt"><div class="t1">?? docker-compose regression</div><div class="t2">445?58 lines. decide: revert or keep</div></div><span class="tag y">REVIEW</span></div>
+      <div class="li warn"><div class="txt"><div class="t1">?? shared/bot_template.py regression</div><div class="t2">241?52 lines. has PowerShell-escape bug</div></div><span class="tag y">REVIEW</span></div>
     </div>
 
     <!-- Agents -->
     <div class="card c6">
-      <h2><span><i class="fa fa-robot"></i>סוכנים</span></h2>
-      <div class="li ok"><div class="txt"><div class="t1">Claude Opus / Code (local CLI)</div><div class="t2">read_write · git · docker · API</div></div><span class="tag g">ACTIVE</span></div>
-      <div class="li"><div class="txt"><div class="t1">SLH Core Assistant (Telegram)</div><div class="t2">code-gen advisor · PS/Python/PlatformIO</div></div><span class="tag c">ADVISOR</span></div>
-      <div class="li ok"><div class="txt"><div class="t1">Osif Ungar (human)</div><div class="t2">BotFather · Railway UI · ESP32 · approvals</div></div><span class="tag g">OWNER</span></div>
+      <h2><span><i class="fa fa-robot"></i>??????</span></h2>
+      <div class="li ok"><div class="txt"><div class="t1">Claude Opus / Code (local CLI)</div><div class="t2">read_write � git � docker � API</div></div><span class="tag g">ACTIVE</span></div>
+      <div class="li"><div class="txt"><div class="t1">SLH Core Assistant (Telegram)</div><div class="t2">code-gen advisor � PS/Python/PlatformIO</div></div><span class="tag c">ADVISOR</span></div>
+      <div class="li ok"><div class="txt"><div class="t1">Osif Ungar (human)</div><div class="t2">BotFather � Railway UI � ESP32 � approvals</div></div><span class="tag g">OWNER</span></div>
       <div style="margin-top:8px;padding:8px;font-size:11px;color:var(--text2);background:var(--bg4);border-radius:6px;font-family:var(--mono)">
-        SSoT: ops/SESSION_STATUS.md · Registry: ops/AGENT_REGISTRY.json
+        SSoT: ops/SESSION_STATUS.md � Registry: ops/AGENT_REGISTRY.json
       </div>
     </div>
 
     <!-- Endpoints Monitor -->
     <div class="card c6">
-      <h2><span><i class="fa fa-plug"></i>Endpoints · בדיקות חיות</span>
-          <span class="act" onclick="loadEndpoints()">בדוק שוב</span></h2>
+      <h2><span><i class="fa fa-plug"></i>Endpoints � ?????? ????</span>
+          <span class="act" onclick="loadEndpoints()">???? ???</span></h2>
       <table class="tbl" id="endpointsTbl">
-        <tr><th>Endpoint</th><th>Method</th><th>Status</th><th>זמן</th></tr>
+        <tr><th>Endpoint</th><th>Method</th><th>Status</th><th>???</th></tr>
       </table>
     </div>
 
     <!-- Bots -->
     <div class="card c6">
-      <h2><span><i class="fa fa-microchip"></i>25 בוטים · Docker</span></h2>
+      <h2><span><i class="fa fa-microchip"></i>25 ????? � Docker</span></h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;font-size:11px" id="botsGrid">
         <!-- populated by JS -->
       </div>
       <div style="margin-top:10px;font-size:11px;color:var(--text2);font-family:var(--mono)">
-        <span class="tag g">●</span>=live <span class="tag r">●</span>=stopped <span class="tag y">●</span>=collision
+        <span class="tag g">?</span>=live <span class="tag r">?</span>=stopped <span class="tag y">?</span>=collision
       </div>
     </div>
 
     <!-- Scheduled Jobs ("Kernel Orders") -->
     <div class="card c12">
-      <h2><span><i class="fa fa-terminal"></i>Kernel Orders · פקודות חוזרות שמזינות את הלב</span></h2>
+      <h2><span><i class="fa fa-terminal"></i>Kernel Orders � ?????? ?????? ??????? ?? ???</span></h2>
       <table class="tbl">
-        <tr><th>#</th><th>תיאור</th><th>פקודה</th><th>מחזוריות</th><th>איפה רץ</th><th>אחרון</th></tr>
+        <tr><th>#</th><th>?????</th><th>?????</th><th>????????</th><th>???? ??</th><th>?????</th></tr>
         <tr><td>1</td><td>API health ping</td><td class="mono">GET /api/health</td><td>per-session start</td><td>Osif local</td><td class="mono" id="lastHealth">--</td></tr>
-        <tr><td>2</td><td>Git sync root↔api</td><td class="mono">cp api/main.py main.py</td><td>before push</td><td>Osif local</td><td class="mono">17.4 04:06</td></tr>
+        <tr><td>2</td><td>Git sync root?api</td><td class="mono">cp api/main.py main.py</td><td>before push</td><td>Osif local</td><td class="mono">17.4 04:06</td></tr>
         <tr><td>3</td><td>Railway auto-deploy</td><td class="mono">git push origin master</td><td>on commit</td><td>Railway CI</td><td class="mono">17.4 04:20</td></tr>
         <tr><td>4</td><td>GitHub Pages deploy</td><td class="mono">push website/ main</td><td>on commit</td><td>GH Pages CI</td><td class="mono">17.4 03:49</td></tr>
         <tr><td>5</td><td>Device verify expiry</td><td class="mono">_ensure_device_tables + 5min TTL</td><td>on first hit</td><td>FastAPI startup</td><td class="mono">17.4 auto</td></tr>
-        <tr><td>6</td><td>Bug Telegram alert</td><td class="mono">POST /api/bugs/report → TG admin</td><td>on event</td><td>Railway API</td><td class="mono">--</td></tr>
+        <tr><td>6</td><td>Bug Telegram alert</td><td class="mono">POST /api/bugs/report ? TG admin</td><td>on event</td><td>Railway API</td><td class="mono">--</td></tr>
         <tr><td>7</td><td>SILENT_MODE kill-switch</td><td class="mono">env SILENT_MODE=1</td><td>manual</td><td>Railway</td><td class="mono"><span class="tag r">NOT SET</span></td></tr>
         <tr><td>8</td><td>Rate-limit Telegram alerts</td><td class="mono">5/min per endpoint</td><td>continuous</td><td>Railway API</td><td class="mono"><span class="tag g">ACTIVE</span></td></tr>
         <tr><td>9</td><td>Overnight health log</td><td class="mono">ops/overnight-health-log.md</td><td>per night</td><td>Osif local</td><td class="mono">14.4</td></tr>
         <tr><td>10</td><td>Session handoff write</td><td class="mono">ops/SESSION_STATUS.md commit</td><td>end of session</td><td>any agent</td><td class="mono">17.4 morning</td></tr>
       </table>
       <div style="margin-top:10px;padding:10px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);border-radius:8px;font-size:11px;color:var(--cyan)">
-        💡 הוספת Cron אמיתי דורש Railway scheduled job או local Task Scheduler. כרגע רוב הפעולות הן event-driven ולא time-driven.
+        ?? ????? Cron ????? ???? Railway scheduled job ?? local Task Scheduler. ???? ??? ??????? ?? event-driven ??? time-driven.
       </div>
     </div>
 
     <!-- Docs -->
     <div class="card c6">
-      <h2><span><i class="fa fa-book-bookmark"></i>מסמכי-על</span></h2>
+      <h2><span><i class="fa fa-book-bookmark"></i>?????-??</span></h2>
       <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/SESSION_STATUS.md" target="_blank" class="li ok"><div class="txt"><div class="t1">SESSION_STATUS.md</div><div class="t2">Single Source of Truth</div></div><i class="fa fa-external-link-alt" style="color:var(--text2)"></i></a>
       <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/MORNING_REPORT_20260417.md" target="_blank" class="li"><div class="txt"><div class="t1">MORNING_REPORT_20260417</div><div class="t2">night session deliverables</div></div><i class="fa fa-external-link-alt" style="color:var(--text2)"></i></a>
       <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/REGRESSIONS_FLAG_20260417.md" target="_blank" class="li warn"><div class="txt"><div class="t1">REGRESSIONS_FLAG_20260417</div><div class="t2">2 files need your decision</div></div><i class="fa fa-external-link-alt" style="color:var(--text2)"></i></a>
@@ -295,18 +295,18 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <!-- Quick Actions -->
     <div class="card c6">
-      <h2><span><i class="fa fa-bolt"></i>פעולות מהירות</span></h2>
+      <h2><span><i class="fa fa-bolt"></i>?????? ??????</span></h2>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-        <a class="btn" href="/pay.html" target="_blank" style="background:linear-gradient(135deg,#00ff41,#00e5ff);color:#000">💳 תשלום</a>
-        <a class="btn" href="/sudoku.html" target="_blank">🧩 סודוקו</a>
-        <a class="btn" href="/dating.html" target="_blank" style="background:rgba(236,72,153,.1);color:#ec4899;border-color:rgba(236,72,153,.3)">💘 Dating</a>
-        <a class="btn" href="/learning-path.html" target="_blank">📚 Learning</a>
+        <a class="btn" href="/pay.html" target="_blank" style="background:linear-gradient(135deg,#00ff41,#00e5ff);color:#000">?? ?????</a>
+        <a class="btn" href="/sudoku.html" target="_blank">?? ??????</a>
+        <a class="btn" href="/dating.html" target="_blank" style="background:rgba(236,72,153,.1);color:#ec4899;border-color:rgba(236,72,153,.3)">?? Dating</a>
+        <a class="btn" href="/learning-path.html" target="_blank">?? Learning</a>
         <a class="btn" href="/admin.html" target="_blank"><i class="fa fa-user-shield"></i> Admin</a>
         <a class="btn" href="/admin-bugs.html" target="_blank"><i class="fa fa-bug"></i> Bug+AI</a>
         <a class="btn" href="/admin-tokens.html" target="_blank"><i class="fa fa-coins"></i> Tokens</a>
-        <a class="btn" href="/admin-experts.html" target="_blank">🎓 Experts</a>
+        <a class="btn" href="/admin-experts.html" target="_blank">?? Experts</a>
         <a class="btn sec" href="/agent-brief.html" target="_blank"><i class="fa fa-robot"></i> Agents</a>
-        <a class="btn sec" href="/prompts/" target="_blank">📋 Prompts</a>
+        <a class="btn sec" href="/prompts/" target="_blank">?? Prompts</a>
         <a class="btn sec" href="https://github.com/osifeu-prog/slh-api/commits/master" target="_blank"><i class="fa-brands fa-github"></i> API log</a>
         <a class="btn sec" href="https://t.me/slhniffty" target="_blank"><i class="fa-brands fa-telegram"></i> slhniffty</a>
       </div>
@@ -314,73 +314,73 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <!-- New Features Widget (Sudoku + Dating live metrics) -->
     <div class="card c12">
-      <h2><span><i class="fa fa-gamepad"></i>פיצ'רים חדשים · Live</span></h2>
+      <h2><span><i class="fa fa-gamepad"></i>???'??? ????? � Live</span></h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
         <div style="padding:16px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:12px">
-          <div style="font-size:22px;margin-bottom:4px">🧩 Sudoku</div>
-          <div id="sudokuStats" style="font-size:12px;color:var(--text2);line-height:1.8">טוען...</div>
-          <a href="/sudoku.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(168,85,247,.15);color:#a855f7;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Play →</a>
+          <div style="font-size:22px;margin-bottom:4px">?? Sudoku</div>
+          <div id="sudokuStats" style="font-size:12px;color:var(--text2);line-height:1.8">????...</div>
+          <a href="/sudoku.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(168,85,247,.15);color:#a855f7;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Play ?</a>
         </div>
         <div style="padding:16px;background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2);border-radius:12px">
-          <div style="font-size:22px;margin-bottom:4px">💘 Dating</div>
-          <div id="datingStats" style="font-size:12px;color:var(--text2);line-height:1.8">טוען...</div>
-          <a href="/dating.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(236,72,153,.15);color:#ec4899;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Dating →</a>
+          <div style="font-size:22px;margin-bottom:4px">?? Dating</div>
+          <div id="datingStats" style="font-size:12px;color:var(--text2);line-height:1.8">????...</div>
+          <a href="/dating.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(236,72,153,.15);color:#ec4899;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Dating ?</a>
         </div>
         <div style="padding:16px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px">
-          <div style="font-size:22px;margin-bottom:4px">🧠 AIC</div>
-          <div id="aicStats" style="font-size:12px;color:var(--text2);line-height:1.8">טוען...</div>
-          <a href="/admin-tokens.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(255,215,0,.15);color:#ffd700;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Manage →</a>
+          <div style="font-size:22px;margin-bottom:4px">?? AIC</div>
+          <div id="aicStats" style="font-size:12px;color:var(--text2);line-height:1.8">????...</div>
+          <a href="/admin-tokens.html" target="_blank" style="display:block;margin-top:8px;padding:6px 12px;background:rgba(255,215,0,.15);color:#ffd700;border-radius:6px;font-size:11px;text-align:center;font-weight:600">Manage ?</a>
         </div>
       </div>
     </div>
 
     <!-- Token Focus -->
     <div class="card glow c12">
-      <h2><span><i class="fa fa-bullseye"></i>פוקוס לילה הבא · טוקן 1-4</span></h2>
+      <h2><span><i class="fa fa-bullseye"></i>????? ???? ??? � ???? 1-4</span></h2>
       <div style="display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin-top:4px" id="tokenFocus">
         <div style="padding:14px;border:1px solid rgba(0,255,65,.25);border-radius:10px;background:rgba(0,255,65,.04)">
-          <div style="font-weight:800;color:var(--accent);margin-bottom:6px">#1 SLH · Premium</div>
+          <div style="font-weight:800;color:var(--accent);margin-bottom:6px">#1 SLH � Premium</div>
           <div style="font-size:11px;color:var(--text2);line-height:1.7">
-            • TON auto-verify endpoint<br>
-            • Premium approve backlog<br>
-            • PancakeSwap stats dashboard<br>
-            • Buyer-journey E2E test
+            � TON auto-verify endpoint<br>
+            � Premium approve backlog<br>
+            � PancakeSwap stats dashboard<br>
+            � Buyer-journey E2E test
           </div>
         </div>
         <div style="padding:14px;border:1px solid rgba(0,229,255,.25);border-radius:10px;background:rgba(0,229,255,.04)">
-          <div style="font-weight:800;color:var(--cyan);margin-bottom:6px">#2 MNH · Stable</div>
+          <div style="font-weight:800;color:var(--cyan);margin-bottom:6px">#2 MNH � Stable</div>
           <div style="font-size:11px;color:var(--text2);line-height:1.7">
-            • Peg dashboard<br>
-            • MNH↔ILS exchange UI<br>
-            • Internal ledger audit<br>
-            • Minting rules doc
+            � Peg dashboard<br>
+            � MNH?ILS exchange UI<br>
+            � Internal ledger audit<br>
+            � Minting rules doc
           </div>
         </div>
         <div style="padding:14px;border:1px solid rgba(255,215,0,.25);border-radius:10px;background:rgba(255,215,0,.04)">
-          <div style="font-weight:800;color:var(--gold);margin-bottom:6px">#3 ZVK · Rewards</div>
+          <div style="font-weight:800;color:var(--gold);margin-bottom:6px">#3 ZVK � Rewards</div>
           <div style="font-size:11px;color:var(--text2);line-height:1.7">
-            • Mass-gift verification<br>
-            • Referral reward auto-trigger<br>
-            • Daily rewards cron<br>
-            • Balance sync bug
+            � Mass-gift verification<br>
+            � Referral reward auto-trigger<br>
+            � Daily rewards cron<br>
+            � Balance sync bug
           </div>
         </div>
         <div style="padding:14px;border:1px solid rgba(168,85,247,.25);border-radius:10px;background:rgba(168,85,247,.04)">
-          <div style="font-weight:800;color:var(--purple);margin-bottom:6px">#4 REP · Reputation</div>
+          <div style="font-weight:800;color:var(--purple);margin-bottom:6px">#4 REP � Reputation</div>
           <div style="font-size:11px;color:var(--text2);line-height:1.7">
-            • Tier progression rules<br>
-            • Community voting API<br>
-            • REP leaderboard<br>
-            • Decay formula
+            � Tier progression rules<br>
+            � Community voting API<br>
+            � REP leaderboard<br>
+            � Decay formula
           </div>
         </div>
       </div>
       <div style="margin-top:14px;padding:12px;background:rgba(255,255,255,.02);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.6">
-        <b style="color:var(--text)">⚠ חשוב:</b> אני רץ רק כאשר Claude Code פתוח ויש תור פעיל. לא ארוץ 19 שעות אוטומטית בלי אחת מ-3 אופציות:
+        <b style="color:var(--text)">? ????:</b> ??? ?? ?? ???? Claude Code ???? ??? ??? ????. ?? ???? 19 ???? ???????? ??? ??? ?-3 ???????:
         <ol style="margin:8px 20px 0;padding:0">
-          <li>השארת ה-CLI פתוח + מצב auto-approve (נדרש למשימות ארוכות)</li>
-          <li>Scheduled Cron task (דרך CronCreate) לבדיקות חיוּת חוזרות</li>
-          <li>Railway scheduled job (דרוש Railway plan)</li>
+          <li>????? ?-CLI ???? + ??? auto-approve (???? ??????? ??????)</li>
+          <li>Scheduled Cron task (??? CronCreate) ??????? ????? ??????</li>
+          <li>Railway scheduled job (???? Railway plan)</li>
         </ol>
       </div>
     </div>
@@ -388,8 +388,8 @@ body::before{content:'';position:fixed;inset:0;background:
   </div>
 
   <footer class="foot">
-    SLH · Mission Control · אתה הלב · I serve the heart.<br>
-    <a href="/CLAUDE.md">CLAUDE.md</a> · <a href="https://github.com/osifeu-prog/slh-api">API Repo</a> · <a href="https://github.com/osifeu-prog/osifeu-prog.github.io">Web Repo</a>
+    SLH � Mission Control � ??? ??? � I serve the heart.<br>
+    <a href="/CLAUDE.md">CLAUDE.md</a> � <a href="https://github.com/osifeu-prog/slh-api">API Repo</a> � <a href="https://github.com/osifeu-prog/osifeu-prog.github.io">Web Repo</a>
   </footer>
 
 </div>
@@ -405,7 +405,7 @@ async function loadHealth(){
     const d = await r.json();
     document.getElementById('heartStatus').textContent = d.status==='ok' ? 'LIVE' : 'DEGRADED';
     document.getElementById('heartStatus').className = 'tag ' + (d.status==='ok'?'g':'y');
-    document.getElementById('heartLine').textContent = `version ${d.version} · db ${d.db}`;
+    document.getElementById('heartLine').textContent = `version ${d.version} � db ${d.db}`;
     document.getElementById('apiChip').className = 'chip ok';
     document.getElementById('apiChip').innerHTML = '<span class="dot"></span> API ' + d.version;
     document.getElementById('dbChip').className = 'chip ok';
@@ -447,7 +447,7 @@ const MONITORED = [
 
 async function loadEndpoints(){
   const tbl = document.getElementById('endpointsTbl');
-  tbl.innerHTML = '<tr><th>Endpoint</th><th>Method</th><th>Status</th><th>זמן</th></tr>';
+  tbl.innerHTML = '<tr><th>Endpoint</th><th>Method</th><th>Status</th><th>???</th></tr>';
   for(const e of MONITORED){
     const row = tbl.insertRow();
     const t0 = performance.now();
@@ -487,9 +487,9 @@ async function loadSudokuStats(){
     if(!r.ok) return;
     const d = await r.json();
     document.getElementById('sudokuStats').innerHTML =
-      '🎯 <b>'+(d.total_solved||0)+'</b> פתרונות · '+
-      '👥 <b>'+(d.unique_solvers||0)+'</b> פותרים · '+
-      '💰 <b>'+(d.total_aic_issued||0).toFixed(1)+'</b> AIC הונפקו';
+      '?? <b>'+(d.total_solved||0)+'</b> ??????? � '+
+      '?? <b>'+(d.unique_solvers||0)+'</b> ?????? � '+
+      '?? <b>'+(d.total_aic_issued||0).toFixed(1)+'</b> AIC ??????';
   }catch(e){}
 }
 async function loadDatingStats(){
@@ -498,9 +498,9 @@ async function loadDatingStats(){
     if(!r.ok) return;
     const d = await r.json();
     document.getElementById('datingStats').innerHTML =
-      '👤 <b>'+(d.active_profiles||0)+'</b> פרופילים · '+
-      '✓ <b>'+(d.verified_profiles||0)+'</b> מאומתים · '+
-      '💘 <b>'+(d.matches_this_week||0)+'</b> התאמות השבוע';
+      '?? <b>'+(d.active_profiles||0)+'</b> ???????? � '+
+      '? <b>'+(d.verified_profiles||0)+'</b> ??????? � '+
+      '?? <b>'+(d.matches_this_week||0)+'</b> ?????? ?????';
   }catch(e){}
 }
 async function loadAicStats(){
@@ -509,9 +509,9 @@ async function loadAicStats(){
     if(!r.ok) return;
     const d = await r.json();
     document.getElementById('aicStats').innerHTML =
-      '💎 supply: <b>'+(d.total_supply||0).toFixed(1)+'</b> · '+
-      '👛 <b>'+(d.wallets_count||0)+'</b> wallets · '+
-      '📈 earn 24h: <b>'+(d.earned_24h||0).toFixed(1)+'</b>';
+      '?? supply: <b>'+(d.total_supply||0).toFixed(1)+'</b> � '+
+      '?? <b>'+(d.wallets_count||0)+'</b> wallets � '+
+      '?? earn 24h: <b>'+(d.earned_24h||0).toFixed(1)+'</b>';
   }catch(e){}
 }
 
@@ -533,10 +533,10 @@ function toggleAuto(){
   const txt = document.getElementById('autoTxt');
   if(autoTimer){
     clearInterval(autoTimer); autoTimer=null;
-    txt.textContent='אוטו·כבוי'; btn.classList.add('sec');
+    txt.textContent='????�????'; btn.classList.add('sec');
   }else{
     autoTimer = setInterval(loadAll, 30000);
-    txt.textContent='אוטו·30ש'; btn.classList.remove('sec');
+    txt.textContent='????�30?'; btn.classList.remove('sec');
   }
 }
 
@@ -544,5 +544,5 @@ function toggleAuto(){
 loadAll();
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

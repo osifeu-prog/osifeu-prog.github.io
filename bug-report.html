@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>דווח על באג / תקלה — SLH</title>
+<title>???? ?? ??? / ???? � SLH</title>
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -40,64 +40,64 @@ textarea{resize:vertical;min-height:90px}
 
 <div class="container">
   <div class="header">
-    <h1>🐛 דווח על באג / תקלה</h1>
-    <p>עזור לנו לשפר! דיווחים מטופלים תוך 24 שעות.</p>
+    <h1>?? ???? ?? ??? / ????</h1>
+    <p>???? ??? ????! ??????? ??????? ??? 24 ????.</p>
   </div>
 
   <div class="tip">
-    💡 <strong>טיפ:</strong> אפשר גם פשוט לפתוח את ה-AI Assistant בפינה הימנית התחתונה ולכתוב "באג" — הוא יפתח את הטופס אוטומטית עם כל הפרטים.
+    ?? <strong>???:</strong> ???? ?? ???? ????? ?? ?-AI Assistant ????? ?????? ??????? ?????? "???" � ??? ???? ?? ????? ???????? ?? ?? ??????.
   </div>
 
   <div class="card">
-    <label>סוג הבעיה *</label>
+    <label>??? ????? *</label>
     <select id="category">
-      <option value="">בחר...</option>
-      <option value="visual">תצוגה / עיצוב</option>
-      <option value="functional">פונקציונליות לא עובדת</option>
-      <option value="payment">בעיה בתשלום</option>
-      <option value="login">בעיה בכניסה / סיסמה</option>
-      <option value="bot">בעיה בטלגרם בוט</option>
-      <option value="content">תוכן שגוי / חסר</option>
-      <option value="performance">איטיות</option>
-      <option value="security">חשד לבעיה אבטחה</option>
-      <option value="other">אחר</option>
+      <option value="">???...</option>
+      <option value="visual">????? / ?????</option>
+      <option value="functional">???????????? ?? ?????</option>
+      <option value="payment">???? ??????</option>
+      <option value="login">???? ?????? / ?????</option>
+      <option value="bot">???? ?????? ???</option>
+      <option value="content">???? ???? / ???</option>
+      <option value="performance">??????</option>
+      <option value="security">??? ????? ?????</option>
+      <option value="other">???</option>
     </select>
 
-    <label>חומרה</label>
+    <label>?????</label>
     <div class="severity-row" id="severity-buttons">
-      <button data-sev="low">נמוכה</button>
-      <button data-sev="medium" class="active medium">בינונית</button>
-      <button data-sev="high">גבוהה</button>
-      <button data-sev="critical">קריטית</button>
+      <button data-sev="low">?????</button>
+      <button data-sev="medium" class="active medium">???????</button>
+      <button data-sev="high">?????</button>
+      <button data-sev="critical">??????</button>
     </div>
 
-    <label>כותרת קצרה *</label>
-    <input type="text" id="title" placeholder="לדוגמה: כפתור 'התחל' לא עובד בדף הרכישה">
+    <label>????? ???? *</label>
+    <input type="text" id="title" placeholder="??????: ????? '????' ?? ???? ??? ??????">
 
-    <label>תיאור מפורט *</label>
-    <textarea id="description" placeholder="ספר מה קרה, מה ניסית לעשות, ומה היית מצפה שיקרה..."></textarea>
+    <label>????? ????? *</label>
+    <textarea id="description" placeholder="??? ?? ???, ?? ????? ?????, ??? ???? ???? ?????..."></textarea>
 
-    <label>שלבי שחזור (אופציונלי)</label>
-    <textarea id="steps" placeholder="1. נכנסתי ל-...&#10;2. לחצתי על...&#10;3. ואז קרה..."></textarea>
+    <label>???? ????? (?????????)</label>
+    <textarea id="steps" placeholder="1. ?????? ?-...&#10;2. ????? ??...&#10;3. ??? ???..."></textarea>
 
-    <label>שם (אופציונלי)</label>
-    <input type="text" id="reporter-name" placeholder="להשארת קרדיט">
+    <label>?? (?????????)</label>
+    <input type="text" id="reporter-name" placeholder="?????? ?????">
 
-    <label>אימייל / טלפון (אופציונלי, לחזרה)</label>
-    <input type="text" id="reporter-contact" placeholder="לעדכון על תיקון">
+    <label>?????? / ????? (?????????, ?????)</label>
+    <input type="text" id="reporter-contact" placeholder="?????? ?? ?????">
 
-    <label>איזה דף? (זה ייתפס אוטומטית)</label>
+    <label>???? ??? (?? ????? ????????)</label>
     <input type="text" id="page-url" readonly>
 
     <button class="btn-submit" onclick="submit()">
-      <i class="fas fa-paper-plane"></i> שלח דיווח
+      <i class="fas fa-paper-plane"></i> ??? ?????
     </button>
   </div>
 
   <div id="success" class="success">
-    ✅ הדיווח נקלט בהצלחה!<br>
+    ? ?????? ???? ??????!<br>
     <span class="id" id="success-id"></span><br>
-    <span style="font-weight:400;font-size:13px">תודה על העזרה לשיפור המערכת</span>
+    <span style="font-weight:400;font-size:13px">???? ?? ????? ?????? ??????</span>
   </div>
 </div>
 
@@ -135,8 +135,8 @@ async function submit(){
     reporter_email: document.getElementById('reporter-contact').value.trim(),
     page_url: document.getElementById('page-url').value
   };
-  if(!body.title || !body.description){ alert('כותרת ותיאור הם שדות חובה'); return; }
-  if(!body.category){ alert('בחר סוג בעיה'); return; }
+  if(!body.title || !body.description){ alert('????? ?????? ?? ???? ????'); return; }
+  if(!body.category){ alert('??? ??? ????'); return; }
   try {
     const r = await fetch(`${API}/api/bugs/report`, {
       method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
@@ -151,11 +151,11 @@ async function submit(){
     document.getElementById('steps').value = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch(e) {
-    alert('❌ שגיאה: ' + e.message);
+    alert('? ?????: ' + e.message);
   }
 }
 </script>
 
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

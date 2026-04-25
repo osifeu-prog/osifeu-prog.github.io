@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>תשלום בכרטיס אשראי — SLH Kosher Wallet ₪888</title>
-<meta name="description" content="תשלום מאובטח בכרטיס אשראי לרכישת הארנק הכשר במחיר השקה.">
+<title>????? ?????? ????? � SLH Kosher Wallet ?888</title>
+<meta name="description" content="????? ?????? ?????? ????? ?????? ????? ???? ????? ????.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -49,69 +49,69 @@ input:focus,select:focus{outline:none;border-color:var(--gold)}
 
 <div class="container">
   <div class="header">
-    <h1>💳 תשלום מאובטח</h1>
-    <p>Kosher Wallet · מכירה מוקדמת</p>
+    <h1>?? ????? ??????</h1>
+    <p>Kosher Wallet � ????? ??????</p>
   </div>
 
   <div class="trust-row">
     <span><i class="fas fa-lock"></i> SSL 256-bit</span>
     <span><i class="fas fa-shield-alt"></i> PCI DSS</span>
-    <span><i class="fas fa-undo"></i> החזר 14 יום</span>
-    <span><i class="fas fa-user-shield"></i> אימות CVV</span>
+    <span><i class="fas fa-undo"></i> ???? 14 ???</span>
+    <span><i class="fas fa-user-shield"></i> ????? CVV</span>
   </div>
 
   <div class="price-card">
-    <div class="product" id="product-name">🕊️ Kosher Wallet — ESP32 Pre-order</div>
-    <div class="amount" id="display-amount">₪888</div>
-    <div class="note">ל-100 הראשונים · כולל משלוח + 2 SLH מצביקה</div>
+    <div class="product" id="product-name">??? Kosher Wallet � ESP32 Pre-order</div>
+    <div class="amount" id="display-amount">?888</div>
+    <div class="note">?-100 ???????? � ???? ????? + 2 SLH ??????</div>
   </div>
 
   <div id="affiliate-note" class="affiliate-note">
-    🤝 <strong>דרך ברוקר:</strong> <span id="broker-name">—</span>
+    ?? <strong>??? ?????:</strong> <span id="broker-name">�</span>
   </div>
 
   <form id="payment-form" class="form-card" onsubmit="submitPayment(event)">
-    <label>שם מלא *</label>
-    <input type="text" id="buyer-name" required placeholder="השם כפי שמופיע בכרטיס">
+    <label>?? ??? *</label>
+    <input type="text" id="buyer-name" required placeholder="??? ??? ?????? ??????">
 
     <div class="row2">
       <div>
-        <label>טלפון *</label>
+        <label>????? *</label>
         <input type="tel" id="phone" required pattern="0[2-9]\d{7,8}" placeholder="0584203384">
       </div>
       <div>
-        <label>ת.ז. *</label>
-        <input type="text" id="id-number" required pattern="\d{5,9}" maxlength="9" placeholder="9 ספרות">
+        <label>?.?. *</label>
+        <input type="text" id="id-number" required pattern="\d{5,9}" maxlength="9" placeholder="9 ?????">
       </div>
     </div>
 
-    <label>אימייל (למשלוח חשבונית)</label>
+    <label>?????? (?????? ???????)</label>
     <input type="email" id="email" placeholder="you@example.com">
 
     <hr style="border:none;border-top:1px solid var(--border);margin:18px 0">
 
-    <label>פרטי כרטיס האשראי</label>
+    <label>???? ????? ??????</label>
 
     <!-- Visual card preview -->
     <div class="card-preview">
       <div class="chip"></div>
-      <div class="number" id="card-preview-number">•••• •••• •••• ••••</div>
+      <div class="number" id="card-preview-number">���� ���� ���� ����</div>
       <div class="footer">
-        <span><span id="card-preview-name">שם בעל הכרטיס</span></span>
-        <span>EXP <span id="card-preview-exp">••/••</span></span>
+        <span><span id="card-preview-name">?? ??? ??????</span></span>
+        <span>EXP <span id="card-preview-exp">��/��</span></span>
       </div>
     </div>
 
-    <label>מספר כרטיס (16 ספרות) *</label>
+    <label>???? ????? (16 ?????) *</label>
     <input type="text" id="card-full" required pattern="\d{13,19}" maxlength="19" placeholder="1234 5678 9012 3456" oninput="updateCardPreview()">
 
     <div class="row3">
       <div>
-        <label>שם בעל הכרטיס *</label>
+        <label>?? ??? ?????? *</label>
         <input type="text" id="card-holder" required placeholder="ISRAEL ISRAELI" oninput="updateCardPreview()">
       </div>
       <div>
-        <label>תוקף *</label>
+        <label>???? *</label>
         <input type="text" id="card-exp" required pattern="\d{2}/\d{2}" maxlength="5" placeholder="12/28" oninput="formatExp(this)">
       </div>
       <div>
@@ -120,24 +120,24 @@ input:focus,select:focus{outline:none;border-color:var(--gold)}
       </div>
     </div>
 
-    <label>מספר תשלומים</label>
+    <label>???? ???????</label>
     <select id="installments">
-      <option value="1">תשלום אחד — ₪888</option>
-      <option value="2">2 תשלומים — ₪444 × 2</option>
-      <option value="3">3 תשלומים — ₪296 × 3</option>
-      <option value="6">6 תשלומים — ₪148 × 6</option>
-      <option value="12">12 תשלומים — ₪74 × 12</option>
+      <option value="1">????? ??? � ?888</option>
+      <option value="2">2 ??????? � ?444 � 2</option>
+      <option value="3">3 ??????? � ?296 � 3</option>
+      <option value="6">6 ??????? � ?148 � 6</option>
+      <option value="12">12 ??????? � ?74 � 12</option>
     </select>
 
     <button type="submit" class="submit-btn" id="submit-btn">
-      <i class="fas fa-lock"></i> אשר תשלום ₪888
+      <i class="fas fa-lock"></i> ??? ????? ?888
     </button>
 
     <div id="alert-msg" class="alert"></div>
 
     <div class="sec-note">
-      🔒 פרטי הכרטיס שלך נשלחים מוצפנים · הם לא נשמרים במערכת שלנו — רק 4 ספרות אחרונות לצורך זיהוי.
-      אישור התשלום ניתן תוך 24 שעות על ידי צוות הכספים.
+      ?? ???? ?????? ??? ?????? ??????? � ?? ?? ?????? ?????? ???? � ?? 4 ????? ??????? ????? ?????.
+      ????? ?????? ???? ??? 24 ???? ?? ??? ???? ??????.
     </div>
   </form>
 </div>
@@ -151,14 +151,14 @@ const brokerId = urlParams.get('broker') || null;
 
 // Configure display based on product
 const PRODUCTS = {
-  kosher_wallet: {name:'🕊️ Kosher Wallet — ESP32 Pre-order', amount:888},
-  starter_pack: {name:'🛒 SLH Starter Pack', amount:22.221},
-  support_deal: {name:'💎 Support Deal (TRUST10)', amount:19.999}
+  kosher_wallet: {name:'??? Kosher Wallet � ESP32 Pre-order', amount:888},
+  starter_pack: {name:'?? SLH Starter Pack', amount:22.221},
+  support_deal: {name:'?? Support Deal (TRUST10)', amount:19.999}
 };
 const config = PRODUCTS[product] || PRODUCTS.kosher_wallet;
 document.getElementById('product-name').textContent = config.name;
-document.getElementById('display-amount').textContent = '₪' + config.amount;
-document.getElementById('submit-btn').innerHTML = `<i class="fas fa-lock"></i> אשר תשלום ₪${config.amount}`;
+document.getElementById('display-amount').textContent = '?' + config.amount;
+document.getElementById('submit-btn').innerHTML = `<i class="fas fa-lock"></i> ??? ????? ?${config.amount}`;
 
 // Show affiliate if present
 if(refCode || brokerId){
@@ -168,11 +168,11 @@ if(refCode || brokerId){
 
 function updateCardPreview(){
   const full = document.getElementById('card-full').value.replace(/\D/g,'');
-  const masked = full.length >= 4 ? '•••• •••• •••• ' + full.slice(-4) : '•••• •••• •••• ••••';
+  const masked = full.length >= 4 ? '���� ���� ���� ' + full.slice(-4) : '���� ���� ���� ����';
   document.getElementById('card-preview-number').textContent = masked;
-  const holder = document.getElementById('card-holder').value || 'שם בעל הכרטיס';
+  const holder = document.getElementById('card-holder').value || '?? ??? ??????';
   document.getElementById('card-preview-name').textContent = holder.toUpperCase();
-  const exp = document.getElementById('card-exp').value || '••/••';
+  const exp = document.getElementById('card-exp').value || '��/��';
   document.getElementById('card-preview-exp').textContent = exp;
 }
 
@@ -197,7 +197,7 @@ async function submitPayment(e){
   const btn = document.getElementById('submit-btn');
   const alertEl = document.getElementById('alert-msg');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> שולח...';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ????...';
 
   const cardFull = document.getElementById('card-full').value.replace(/\D/g,'');
   const body = {
@@ -225,16 +225,16 @@ async function submitPayment(e){
     const d = await r.json();
     if(r.ok){
       alertEl.className = 'alert success';
-      alertEl.innerHTML = `✅ <strong>התשלום נקלט (ID: ${d.payment_id}).</strong><br>תקבל אישור תוך 24 שעות במייל/SMS.<br>תודה על האמון!`;
-      btn.innerHTML = '✅ נשלח בהצלחה';
+      alertEl.innerHTML = `? <strong>?????? ???? (ID: ${d.payment_id}).</strong><br>???? ????? ??? 24 ???? ?????/SMS.<br>???? ?? ?????!`;
+      btn.innerHTML = '? ???? ??????';
     } else {
       throw new Error(d.detail || 'Payment failed');
     }
   } catch(err){
     alertEl.className = 'alert error';
-    alertEl.innerHTML = `❌ שגיאה: ${err.message}`;
+    alertEl.innerHTML = `? ?????: ${err.message}`;
     btn.disabled = false;
-    btn.innerHTML = `<i class="fas fa-lock"></i> אשר תשלום ₪${config.amount}`;
+    btn.innerHTML = `<i class="fas fa-lock"></i> ??? ????? ?${config.amount}`;
   }
 }
 
@@ -248,5 +248,5 @@ try {
 } catch(e){}
 </script>
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

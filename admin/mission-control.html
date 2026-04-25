@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -138,25 +138,25 @@
 
 <div id="auth-gate">
   <div class="auth-box">
-    <h2>🎯 Mission Control</h2>
-    <p style="color:var(--text2);font-size:12px;margin-bottom:16px">הזן מפתח אדמין (X-Admin-Key)</p>
+    <h2>?? Mission Control</h2>
+    <p style="color:var(--text2);font-size:12px;margin-bottom:16px">??? ???? ????? (X-Admin-Key)</p>
     <input type="password" id="auth-input" placeholder="slh_admin_..." autofocus>
-    <button onclick="doAuth()">כניסה</button>
+    <button onclick="doAuth()">?????</button>
     <p id="auth-err" style="color:var(--red);font-size:11px;margin-top:8px;display:none"></p>
   </div>
 </div>
 
 <div class="topbar">
-  <div class="brand"><span>ADMIN</span>🎯 Mission Control</div>
+  <div class="brand"><span>ADMIN</span>?? Mission Control</div>
   <div class="topbar-links">
-    <a href="/admin/control-center.html">🎛 Control</a>
-    <a href="/admin.html">← Admin Home</a>
-    <a href="/ops-dashboard.html">📡 Ops</a>
-    <a href="/chain-status.html">⛓ Chain</a>
-    <a href="/admin/reality.html">🔍 Reality</a>
-    <a href="/admin/tokens.html">🔑 Tokens</a>
-    <a href="https://railway.app/project/slh-api" target="_blank">🚂 Railway</a>
-    <a href="https://github.com/osifeu-prog/slh-api" target="_blank">🐙 GitHub</a>
+    <a href="/admin/control-center.html">?? Control</a>
+    <a href="/admin.html">? Admin Home</a>
+    <a href="/ops-dashboard.html">?? Ops</a>
+    <a href="/chain-status.html">? Chain</a>
+    <a href="/admin/reality.html">?? Reality</a>
+    <a href="/admin/tokens.html">?? Tokens</a>
+    <a href="https://railway.app/project/slh-api" target="_blank">?? Railway</a>
+    <a href="https://github.com/osifeu-prog/slh-api" target="_blank">?? GitHub</a>
     <a href="#" onclick="logout();return false" style="color:var(--red)">Logout</a>
   </div>
 </div>
@@ -189,18 +189,18 @@
   </section>
 
   <section class="stats-strip" id="stats-strip">
-    <div class="stat-pill p0" onclick="filterBy('priority','P0')"><div class="n" id="s-p0">--</div><div class="l">P0 פתוח</div></div>
-    <div class="stat-pill p1" onclick="filterBy('priority','P1')"><div class="n" id="s-p1">--</div><div class="l">P1 פתוח</div></div>
-    <div class="stat-pill p2" onclick="filterBy('priority','P2')"><div class="n" id="s-p2">--</div><div class="l">P2 פתוח</div></div>
-    <div class="stat-pill" onclick="filterBy('status','in_progress')"><div class="n" id="s-inprog">--</div><div class="l">בתהליך</div></div>
-    <div class="stat-pill blocked" onclick="filterBy('status','blocked')"><div class="n" id="s-blocked">--</div><div class="l">חסום</div></div>
-    <div class="stat-pill" onclick="filterBy('status','done')"><div class="n" id="s-done-today">--</div><div class="l">נסגר היום</div></div>
+    <div class="stat-pill p0" onclick="filterBy('priority','P0')"><div class="n" id="s-p0">--</div><div class="l">P0 ????</div></div>
+    <div class="stat-pill p1" onclick="filterBy('priority','P1')"><div class="n" id="s-p1">--</div><div class="l">P1 ????</div></div>
+    <div class="stat-pill p2" onclick="filterBy('priority','P2')"><div class="n" id="s-p2">--</div><div class="l">P2 ????</div></div>
+    <div class="stat-pill" onclick="filterBy('status','in_progress')"><div class="n" id="s-inprog">--</div><div class="l">??????</div></div>
+    <div class="stat-pill blocked" onclick="filterBy('status','blocked')"><div class="n" id="s-blocked">--</div><div class="l">????</div></div>
+    <div class="stat-pill" onclick="filterBy('status','done')"><div class="n" id="s-done-today">--</div><div class="l">???? ????</div></div>
   </section>
 
   <div class="filter-bar">
-    <button class="new-btn" onclick="openCreate()">+ משימה חדשה</button>
+    <button class="new-btn" onclick="openCreate()">+ ????? ????</button>
     <select id="f-status" onchange="loadTasks()">
-      <option value="">כל הסטטוסים (ללא done)</option>
+      <option value="">?? ???????? (??? done)</option>
       <option value="open">Open</option>
       <option value="in_progress">In Progress</option>
       <option value="blocked">Blocked</option>
@@ -208,13 +208,13 @@
       <option value="cancelled">Cancelled</option>
     </select>
     <select id="f-priority" onchange="loadTasks()">
-      <option value="">כל העדיפויות</option>
+      <option value="">?? ?????????</option>
       <option value="P0">P0</option>
       <option value="P1">P1</option>
       <option value="P2">P2</option>
     </select>
     <select id="f-category" onchange="loadTasks()">
-      <option value="">כל הקטגוריות</option>
+      <option value="">?? ?????????</option>
       <option value="infra">Infra</option>
       <option value="crm">CRM</option>
       <option value="community">Community</option>
@@ -224,29 +224,29 @@
       <option value="strategic">Strategic</option>
       <option value="security">Security</option>
     </select>
-    <input type="search" id="f-search" placeholder="חיפוש טקסט..." oninput="debouncedSearch()">
+    <input type="search" id="f-search" placeholder="????? ????..." oninput="debouncedSearch()">
     <select id="f-assignee" onchange="loadTasks()">
-      <option value="">כל המקבלים</option>
+      <option value="">?? ???????</option>
     </select>
   </div>
 
   <div class="layout">
     <div class="task-list" id="task-list">
-      <div class="empty">טוען משימות...</div>
+      <div class="empty">???? ??????...</div>
     </div>
 
     <aside class="side-col">
       <div class="side-card">
-        <h3>🛑 Blocked Items</h3>
-        <div id="blocked-list"><div style="color:var(--text2);font-size:11px">—</div></div>
+        <h3>?? Blocked Items</h3>
+        <div id="blocked-list"><div style="color:var(--text2);font-size:11px">�</div></div>
       </div>
       <div class="side-card">
-        <h3>👥 Team</h3>
-        <div id="team-list"><div style="color:var(--text2);font-size:11px">—</div></div>
+        <h3>?? Team</h3>
+        <div id="team-list"><div style="color:var(--text2);font-size:11px">�</div></div>
       </div>
       <div class="side-card">
-        <h3>📡 Recent Activity</h3>
-        <div id="activity-feed"><div style="color:var(--text2);font-size:11px">—</div></div>
+        <h3>?? Recent Activity</h3>
+        <div id="activity-feed"><div style="color:var(--text2);font-size:11px">�</div></div>
       </div>
     </aside>
   </div>
@@ -255,11 +255,11 @@
 
 <div class="modal-backdrop" id="task-modal">
   <div class="modal">
-    <h2 id="modal-title">משימה חדשה</h2>
+    <h2 id="modal-title">????? ????</h2>
     <input type="hidden" id="m-id">
-    <label>כותרת *</label>
+    <label>????? *</label>
     <input type="text" id="m-title" required>
-    <label>תיאור</label>
+    <label>?????</label>
     <textarea id="m-description"></textarea>
     <div class="row">
       <div>
@@ -292,13 +292,13 @@
         </select>
       </div>
       <div>
-        <label>Assignee (שם)</label>
+        <label>Assignee (??)</label>
         <input type="text" id="m-assignee" placeholder="Osif / Idan / Eliezer / ...">
       </div>
     </div>
     <div class="row">
       <div>
-        <label>Blocker (אם status=blocked)</label>
+        <label>Blocker (?? status=blocked)</label>
         <input type="text" id="m-blocker">
       </div>
       <div>
@@ -318,17 +318,17 @@
     </div>
 
     <div class="events-list" id="m-events" style="display:none">
-      <h4 style="color:var(--cyan);font-size:12px;margin-bottom:8px">📜 Event Log</h4>
+      <h4 style="color:var(--cyan);font-size:12px;margin-bottom:8px">?? Event Log</h4>
       <div id="m-events-body"></div>
-      <label>הוסף הערה</label>
+      <label>???? ????</label>
       <textarea id="m-comment" rows="2"></textarea>
       <button class="secondary" onclick="addComment()" style="margin-top:6px;padding:6px 12px;border-radius:3px">Add Comment</button>
     </div>
 
     <div class="actions">
-      <button class="danger" id="m-delete" onclick="deleteTask()" style="display:none">מחק</button>
-      <button class="secondary" onclick="closeModal()">ביטול</button>
-      <button class="primary" onclick="saveTask()">שמור</button>
+      <button class="danger" id="m-delete" onclick="deleteTask()" style="display:none">???</button>
+      <button class="secondary" onclick="closeModal()">?????</button>
+      <button class="primary" onclick="saveTask()">????</button>
     </div>
   </div>
 </div>
@@ -372,7 +372,7 @@ async function doAuth() {
     document.getElementById('auth-gate').style.display='none';
     refreshAll();
   } catch (e) {
-    document.getElementById('auth-err').textContent = 'מפתח לא תקין — ' + e.message;
+    document.getElementById('auth-err').textContent = '???? ?? ???? � ' + e.message;
     document.getElementById('auth-err').style.display='block';
   }
 }
@@ -440,12 +440,12 @@ async function loadOverview() {
     // Team list
     const team = document.getElementById('team-list');
     if (c.by_assignee.length === 0) {
-      team.innerHTML = '<div style="color:var(--text2);font-size:11px">אין משימות עם משויך</div>';
+      team.innerHTML = '<div style="color:var(--text2);font-size:11px">??? ?????? ?? ?????</div>';
     } else {
       team.innerHTML = c.by_assignee.map(a =>
         `<div class="team-row" onclick="filterByAssignee('${escape(a.name)}')">
            <span class="name">${escapeHtml(a.name)}</span>
-           <span class="count">${a.open} פתוח · ${a.done} סגור</span>
+           <span class="count">${a.open} ???? � ${a.done} ????</span>
          </div>`
       ).join('');
     }
@@ -453,19 +453,19 @@ async function loadOverview() {
     // Assignee filter dropdown
     const assigneeSelect = document.getElementById('f-assignee');
     const currentAssignee = assigneeSelect.value;
-    assigneeSelect.innerHTML = '<option value="">כל המקבלים</option>' +
+    assigneeSelect.innerHTML = '<option value="">?? ???????</option>' +
       c.by_assignee.map(a => `<option value="${escapeHtml(a.name)}">${escapeHtml(a.name)} (${a.open})</option>`).join('');
     assigneeSelect.value = currentAssignee;
 
     // Blocked list
     const blocked = document.getElementById('blocked-list');
     if (overviewCache.blocked.length === 0) {
-      blocked.innerHTML = '<div style="color:var(--text2);font-size:11px">אין משימות חסומות 🎉</div>';
+      blocked.innerHTML = '<div style="color:var(--text2);font-size:11px">??? ?????? ?????? ??</div>';
     } else {
       blocked.innerHTML = overviewCache.blocked.map(b =>
         `<div class="blocked-row">
            <div class="tt">${escapeHtml(b.title)}</div>
-           <div class="why">👤 ${escapeHtml(b.assignee||'(none)')} · 🛑 ${escapeHtml(b.blocker||'no reason given')}</div>
+           <div class="why">?? ${escapeHtml(b.assignee||'(none)')} � ?? ${escapeHtml(b.blocker||'no reason given')}</div>
          </div>`
       ).join('');
     }
@@ -473,7 +473,7 @@ async function loadOverview() {
     // Activity feed
     const feed = document.getElementById('activity-feed');
     if (overviewCache.recent_events.length === 0) {
-      feed.innerHTML = '<div style="color:var(--text2);font-size:11px">אין פעילות עדיין</div>';
+      feed.innerHTML = '<div style="color:var(--text2);font-size:11px">??? ?????? ?????</div>';
     } else {
       feed.innerHTML = overviewCache.recent_events.map(e =>
         `<div class="feed-row">
@@ -485,7 +485,7 @@ async function loadOverview() {
       ).join('');
     }
   } catch (e) {
-    toast('שגיאת טעינת overview: ' + e.message, true);
+    toast('????? ????? overview: ' + e.message, true);
   }
 }
 
@@ -509,20 +509,20 @@ async function loadTasks() {
     renderTasks();
   } catch (e) {
     document.getElementById('task-list').innerHTML =
-      `<div class="empty" style="color:var(--red)">שגיאה: ${escapeHtml(e.message)}</div>`;
+      `<div class="empty" style="color:var(--red)">?????: ${escapeHtml(e.message)}</div>`;
   }
 }
 
 function renderTasks() {
   const list = document.getElementById('task-list');
   if (tasksCache.length === 0) {
-    list.innerHTML = '<div class="empty">אין משימות שתואמות לפילטר</div>';
+    list.innerHTML = '<div class="empty">??? ?????? ??????? ??????</div>';
     return;
   }
   list.innerHTML = tasksCache.map(t => {
-    const blockerHtml = t.blocker ? `<span class="blocker">🛑 ${escapeHtml(t.blocker)}</span>` : '';
-    const assigneeHtml = t.assignee_name ? `<span class="assignee">👤 ${escapeHtml(t.assignee_name)}</span>` : '<span>👤 —</span>';
-    const dueHtml = t.due_date ? `<span>📅 ${t.due_date}</span>` : '';
+    const blockerHtml = t.blocker ? `<span class="blocker">?? ${escapeHtml(t.blocker)}</span>` : '';
+    const assigneeHtml = t.assignee_name ? `<span class="assignee">?? ${escapeHtml(t.assignee_name)}</span>` : '<span>?? �</span>';
+    const dueHtml = t.due_date ? `<span>?? ${t.due_date}</span>` : '';
     const sourceHtml = t.source ? `<span class="tag">${escapeHtml(t.source)}</span>` : '';
     const desc = t.description ? `<div style="color:var(--text2);font-size:11px;margin:6px 0">${escapeHtml((t.description||'').slice(0,180))}${t.description.length>180?'...':''}</div>` : '';
     return `
@@ -541,9 +541,9 @@ function renderTasks() {
           ${sourceHtml}
         </div>
         <div class="tc-actions" onclick="event.stopPropagation()">
-          ${t.status !== 'in_progress' ? `<button onclick="quickStatus(${t.id},'in_progress')">▶ Start</button>` : ''}
-          ${t.status !== 'blocked' ? `<button onclick="quickStatus(${t.id},'blocked')">🛑 Block</button>` : ''}
-          ${t.status !== 'done' ? `<button onclick="quickStatus(${t.id},'done')">✓ Done</button>` : ''}
+          ${t.status !== 'in_progress' ? `<button onclick="quickStatus(${t.id},'in_progress')">? Start</button>` : ''}
+          ${t.status !== 'blocked' ? `<button onclick="quickStatus(${t.id},'blocked')">?? Block</button>` : ''}
+          ${t.status !== 'done' ? `<button onclick="quickStatus(${t.id},'done')">? Done</button>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -553,23 +553,23 @@ async function quickStatus(id, status) {
   try {
     let blocker = null;
     if (status === 'blocked') {
-      blocker = prompt('סיבה לחסימה?');
+      blocker = prompt('???? ???????');
       if (blocker === null) return;
     }
     await api('/api/admin/tasks/'+id, {
       method: 'PATCH',
       body: JSON.stringify({status, blocker, actor_name: 'osif'})
     });
-    toast('עודכן ✓');
+    toast('????? ?');
     refreshAll();
-  } catch (e) { toast('שגיאה: '+e.message, true); }
+  } catch (e) { toast('?????: '+e.message, true); }
 }
 
 let editingId = null;
 
 function openCreate() {
   editingId = null;
-  document.getElementById('modal-title').textContent = 'משימה חדשה';
+  document.getElementById('modal-title').textContent = '????? ????';
   document.getElementById('m-id').value = '';
   document.getElementById('m-title').value = '';
   document.getElementById('m-description').value = '';
@@ -590,7 +590,7 @@ async function openEdit(id) {
   const t = tasksCache.find(x => x.id === id);
   if (!t) return;
   editingId = id;
-  document.getElementById('modal-title').textContent = '✏️ משימה #' + id;
+  document.getElementById('modal-title').textContent = '?? ????? #' + id;
   document.getElementById('m-id').value = id;
   document.getElementById('m-title').value = t.title || '';
   document.getElementById('m-description').value = t.description || '';
@@ -613,12 +613,12 @@ async function loadEvents(id) {
     const r = await api('/api/admin/tasks/'+id+'/events');
     const body = document.getElementById('m-events-body');
     if (r.events.length === 0) {
-      body.innerHTML = '<div style="color:var(--text2);font-size:11px">אין אירועים</div>';
+      body.innerHTML = '<div style="color:var(--text2);font-size:11px">??? ???????</div>';
       return;
     }
     body.innerHTML = r.events.map(e => {
       const p = e.payload ? JSON.stringify(e.payload) : '';
-      return `<div class="ev-row"><b>${e.event_type}</b> — ${escapeHtml(e.actor_name||'system')} · ${timeAgo(e.created_at)}${p?' · <code>'+escapeHtml(p.slice(0,100))+'</code>':''}</div>`;
+      return `<div class="ev-row"><b>${e.event_type}</b> � ${escapeHtml(e.actor_name||'system')} � ${timeAgo(e.created_at)}${p?' � <code>'+escapeHtml(p.slice(0,100))+'</code>':''}</div>`;
     }).join('');
   } catch {}
 }
@@ -633,8 +633,8 @@ async function addComment() {
     });
     document.getElementById('m-comment').value = '';
     loadEvents(editingId);
-    toast('הערה נוספה ✓');
-  } catch (e) { toast('שגיאה: '+e.message, true); }
+    toast('???? ????? ?');
+  } catch (e) { toast('?????: '+e.message, true); }
 }
 
 function closeModal() {
@@ -655,29 +655,29 @@ async function saveTask() {
     source: document.getElementById('m-source').value.trim() || null,
     actor_name: 'osif'
   };
-  if (!data.title) { toast('חסרה כותרת', true); return; }
+  if (!data.title) { toast('???? ?????', true); return; }
   try {
     if (editingId) {
       await api('/api/admin/tasks/'+editingId, {method:'PATCH', body: JSON.stringify(data)});
-      toast('נשמר ✓');
+      toast('???? ?');
     } else {
       await api('/api/admin/tasks', {method:'POST', body: JSON.stringify(data)});
-      toast('נוצר ✓');
+      toast('???? ?');
     }
     closeModal();
     refreshAll();
-  } catch (e) { toast('שגיאה: '+e.message, true); }
+  } catch (e) { toast('?????: '+e.message, true); }
 }
 
 async function deleteTask() {
   if (!editingId) return;
-  if (!confirm('למחוק משימה לצמיתות?')) return;
+  if (!confirm('????? ????? ????????')) return;
   try {
     await api('/api/admin/tasks/'+editingId+'?actor_name=osif', {method:'DELETE'});
-    toast('נמחק ✓');
+    toast('???? ?');
     closeModal();
     refreshAll();
-  } catch (e) { toast('שגיאה: '+e.message, true); }
+  } catch (e) { toast('?????: '+e.message, true); }
 }
 
 function filterBy(field, value) {
@@ -731,5 +731,5 @@ document.getElementById('task-modal').addEventListener('click', e => {
 });
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>דוח ביצוע — 11 אפריל 2026 | SLH Ecosystem</title>
-<meta name="description" content="דוח ביצוע מפורט של שדרוג המערכת ל-11 אפריל 2026 — שלב מוסדי, CEX integrations, באגים קריטיים שתוקנו.">
+<title>??? ????? � 11 ????? 2026 | SLH Ecosystem</title>
+<meta name="description" content="??? ????? ????? ?? ????? ?????? ?-11 ????? 2026 � ??? ?????, CEX integrations, ????? ??????? ??????.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -284,7 +284,7 @@
         padding-right: 6px;
     }
     .toc a::before {
-        content: '→';
+        content: '?';
         color: var(--accent);
     }
 
@@ -354,32 +354,32 @@
 <div id="topnav-root"></div>
 
 <section class="report-hero">
-    <div class="badge">דוח ביצוע מפורט</div>
-    <h1>SLH Ecosystem — שלב מוסדי</h1>
-    <div class="date">11 אפריל 2026 · 24 ניסן 5786</div>
+    <div class="badge">??? ????? ?????</div>
+    <h1>SLH Ecosystem � ??? ?????</h1>
+    <div class="date">11 ????? 2026 � 24 ???? 5786</div>
     <p class="subtitle">
-        שדרוג מקיף של המערכת לרמה מוסדית-רגולטורית. כל סעיף בתכנית שדיברנו עליו בוצע.
-        להלן רשימה מפורטת של כל מה שהושלם עם קישורים ישירים לבדיקה.
+        ????? ???? ?? ?????? ???? ??????-?????????. ?? ???? ?????? ??????? ???? ????.
+        ???? ????? ?????? ?? ?? ?? ?????? ?? ??????? ?????? ??????.
     </p>
 </section>
 
 <div class="toc">
-    <h3>📋 תוכן עניינים</h3>
+    <h3>?? ???? ???????</h3>
     <ul>
-        <li><a href="#critical-fixes">1. תיקונים קריטיים</a></li>
-        <li><a href="#institutional">2. שלב מוסדי</a></li>
-        <li><a href="#cex-integration">3. אינטגרציית CEX</a></li>
-        <li><a href="#content-updates">4. עדכוני תוכן</a></li>
-        <li><a href="#ux-improvements">5. שיפורי UX</a></li>
-        <li><a href="#data-cleanup">6. ניקוי נתונים</a></li>
-        <li><a href="#pending">7. ממתין להחלטות שלך</a></li>
-        <li><a href="#verify">8. איך לבדוק</a></li>
+        <li><a href="#critical-fixes">1. ??????? ???????</a></li>
+        <li><a href="#institutional">2. ??? ?????</a></li>
+        <li><a href="#cex-integration">3. ?????????? CEX</a></li>
+        <li><a href="#content-updates">4. ?????? ????</a></li>
+        <li><a href="#ux-improvements">5. ?????? UX</a></li>
+        <li><a href="#data-cleanup">6. ????? ??????</a></li>
+        <li><a href="#pending">7. ????? ??????? ???</a></li>
+        <li><a href="#verify">8. ??? ?????</a></li>
     </ul>
 </div>
 
 <!-- Stats Overview -->
 <section class="section">
-    <h2><span class="num">0</span> סיכום מספרי</h2>
+    <h2><span class="num">0</span> ????? ?????</h2>
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-label">Items Completed</div>
@@ -411,14 +411,14 @@
 
 <!-- 1. CRITICAL FIXES -->
 <section class="section" id="critical-fixes">
-    <h2><span class="num">1</span> תיקונים קריטיים</h2>
+    <h2><span class="num">1</span> ??????? ???????</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> משתמשים לא נעלמים יותר</h3>
+        <h3><span class="check">?</span> ??????? ?? ?????? ????</h3>
         <p>
-            באג קריטי: כשמשתמש התחבר עם Telegram ID ידני, הפונקציה <code>manualLoginWith()</code>
-            שמרה רק ב-localStorage ולא קראה ל-API. כתוצאה, משתמשים שהיית בטוח שהתחברו
-            לא הופיעו בשום מקום ב-DB.
+            ??? ?????: ??????? ????? ?? Telegram ID ????, ???????? <code>manualLoginWith()</code>
+            ???? ?? ?-localStorage ??? ???? ?-API. ??????, ??????? ????? ???? ???????
+            ?? ?????? ???? ???? ?-DB.
         </p>
         <div class="tech">
             <span class="tech-tag">NEW: /api/user/ensure</span>
@@ -426,30 +426,30 @@
             <span class="tech-tag gold">audit_log_write</span>
         </div>
         <a href="https://slh-api-production.up.railway.app/api/user/ensure" class="verify">
-            <code>POST /api/user/ensure → idempotent user creation</code>
+            <code>POST /api/user/ensure ? idempotent user creation</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Dashboard — הוסרו נתונים מזויפים</h3>
+        <h3><span class="check">?</span> Dashboard � ????? ?????? ???????</h3>
         <p>
-            התיק בדשבורד היה seed עם 5 נכסים דמה (BTC 0.05, ETH 0.5, SOL 5, SLH 10000, TON 100)
-            שהופיעו לכל משתמש חדש. כעת התיק מתחיל ריק ומציג רק נכסים שהמשתמש הוסיף ידנית.
-            גם הגרף הפרפורמנס לא מייצר עוד היסטוריה סינתטית.
+            ???? ??????? ??? seed ?? 5 ????? ??? (BTC 0.05, ETH 0.5, SOL 5, SLH 10000, TON 100)
+            ??????? ??? ????? ???. ??? ???? ????? ??? ????? ?? ????? ??????? ????? ?????.
+            ?? ???? ????????? ?? ????? ??? ???????? ???????.
         </p>
         <div class="tech">
             <span class="tech-tag">dashboard.html:2785</span>
             <span class="tech-tag blue">NO DEMO DATA</span>
         </div>
-        <a href="/dashboard.html" class="verify">פתח את הדשבורד לבדיקה</a>
+        <a href="/dashboard.html" class="verify">??? ?? ??????? ??????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Leaderboard — רק משתמשים אמיתיים</h3>
+        <h3><span class="check">?</span> Leaderboard � ?? ??????? ???????</h3>
         <p>
-            הלידרבורד הציג test IDs (100001, 100002, 100003, 200001, ואפילו group chat IDs שליליים).
-            נוסף סינון קפדני: רק <code>telegram_id >= 1000000</code> (משתמשי Telegram אמיתיים).
-            גם ה-admin dashboard count משתמש באותו סינון.
+            ????????? ???? test IDs (100001, 100002, 100003, 200001, ?????? group chat IDs ???????).
+            ???? ????? ?????: ?? <code>telegram_id >= 1000000</code> (?????? Telegram ???????).
+            ?? ?-admin dashboard count ????? ????? ?????.
         </p>
         <div class="tech">
             <span class="tech-tag">api/main.py:2676-2714</span>
@@ -460,14 +460,14 @@
 
 <!-- 2. INSTITUTIONAL -->
 <section class="section" id="institutional">
-    <h2><span class="num">2</span> שלב מוסדי</h2>
+    <h2><span class="num">2</span> ??? ?????</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> יומן ביקורת בלתי-שביר (SHA-256 Hash Chain)</h3>
+        <h3><span class="check">?</span> ???? ?????? ????-???? (SHA-256 Hash Chain)</h3>
         <p>
-            כל פעולה במערכת נכתבת לטבלה <code>institutional_audit</code> עם SHA-256 hash של התוכן
-            ו-prev_hash של הרשומה הקודמת — כלומר שום שינוי היסטורי לא אפשרי.
-            רגולטור יכול לקרוא ל-<code>GET /api/audit/verify-chain</code> ולאמת שהשרשרת שלמה.
+            ?? ????? ?????? ????? ????? <code>institutional_audit</code> ?? SHA-256 hash ?? ?????
+            ?-prev_hash ?? ?????? ?????? � ????? ??? ????? ??????? ?? ?????.
+            ??????? ???? ????? ?-<code>GET /api/audit/verify-chain</code> ????? ??????? ????.
         </p>
         <div class="tech">
             <span class="tech-tag">CREATE TABLE institutional_audit</span>
@@ -475,45 +475,45 @@
             <span class="tech-tag gold">REGULATOR-READY</span>
         </div>
         <a href="https://slh-api-production.up.railway.app/api/audit/verify-chain" class="verify">
-            <code>GET /api/audit/verify-chain — live endpoint</code>
+            <code>GET /api/audit/verify-chain � live endpoint</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> פאנל ניהולי מוסדי</h3>
+        <h3><span class="check">?</span> ???? ?????? ?????</h3>
         <p>
-            הוספתי ל-<code>/admin.html</code> 5 דפים חדשים בסרגל Institutional:
-            Overview (סטטוס שרשרת + 8 KPIs), Audit Log (verify + filtered search),
-            CEX Integrations (ניהול מפתחות), Portfolio (תצוגה מאוחדת), Compliance (checklist).
+            ?????? ?-<code>/admin.html</code> 5 ???? ????? ????? Institutional:
+            Overview (????? ????? + 8 KPIs), Audit Log (verify + filtered search),
+            CEX Integrations (????? ??????), Portfolio (????? ??????), Compliance (checklist).
         </p>
         <div class="tech">
-            <span class="tech-tag">admin.html → 488 lines added</span>
+            <span class="tech-tag">admin.html ? 488 lines added</span>
             <span class="tech-tag blue">5 new pages</span>
         </div>
-        <a href="/admin.html" class="verify">פתח את הפאנל (דרוש התחברות)</a>
+        <a href="/admin.html" class="verify">??? ?? ????? (???? ???????)</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Roadmap — אבני דרך מוסדיות</h3>
+        <h3><span class="check">?</span> Roadmap � ???? ??? ???????</h3>
         <p>
-            עדכנתי את <code>roadmap.html</code> עם 5 אבני דרך חדשות לשלב המוסדי:
+            ?????? ?? <code>roadmap.html</code> ?? 5 ???? ??? ????? ???? ??????:
             Audit Hash Chain, CEX Integration, Genesis 49, Admin Panel, Strategy Engine, KYC/Custody.
-            גם MNH / Multi-AI / Neural Map עודכנו כ-completed במקום in-progress.
+            ?? MNH / Multi-AI / Neural Map ?????? ?-completed ????? in-progress.
         </p>
-        <a href="/roadmap.html" class="verify">פתח את ה-Roadmap</a>
+        <a href="/roadmap.html" class="verify">??? ?? ?-Roadmap</a>
     </div>
 </section>
 
 <!-- 3. CEX INTEGRATION -->
 <section class="section" id="cex-integration">
-    <h2><span class="num">3</span> אינטגרציית CEX</h2>
+    <h2><span class="num">3</span> ?????????? CEX</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Bybit V5 UNIFIED — Read-Only API</h3>
+        <h3><span class="check">?</span> Bybit V5 UNIFIED � Read-Only API</h3>
         <p>
-            שילוב מלא עם Bybit V5 Wallet-Balance endpoint. חתימת HMAC-SHA256 עם headers
+            ????? ??? ?? Bybit V5 Wallet-Balance endpoint. ????? HMAC-SHA256 ?? headers
             <code>X-BAPI-API-KEY / X-BAPI-SIGN / X-BAPI-TIMESTAMP / X-BAPI-RECV-WINDOW</code>.
-            המפתחות מוצפנים ב-DB (XOR + env key — שדרוג ל-AES-GCM בעבודה).
+            ??????? ??????? ?-DB (XOR + env key � ????? ?-AES-GCM ??????).
         </p>
         <div class="tech">
             <span class="tech-tag">_bybit_sign</span>
@@ -523,11 +523,11 @@
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Binance V3 SPOT — Read-Only API</h3>
+        <h3><span class="check">?</span> Binance V3 SPOT � Read-Only API</h3>
         <p>
-            שילוב עם <code>/api/v3/account</code> עם query string signature
-            (timestamp + HMAC-SHA256). מקבל את כל הבלאנסים (free + locked)
-            ומצייר אותם במבנה אחיד עם Bybit.
+            ????? ?? <code>/api/v3/account</code> ?? query string signature
+            (timestamp + HMAC-SHA256). ???? ?? ?? ???????? (free + locked)
+            ?????? ???? ????? ???? ?? Bybit.
         </p>
         <div class="tech">
             <span class="tech-tag">_binance_sign</span>
@@ -536,140 +536,140 @@
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Wallet Page — תיק CEX מלא</h3>
+        <h3><span class="check">?</span> Wallet Page � ??? CEX ???</h3>
         <p>
-            ב-<code>/wallet.html</code> נוספה סקציה "תיק CEX מלא" שמציגה את <em>כל</em>
-            המטבעות שלך מ-Bybit/Binance (לא רק TON) עם שווי USD + ILS,
-            breakdown per exchange, וכפתורי sync/delete. כולל modal לחיבור API Key חדש.
+            ?-<code>/wallet.html</code> ????? ????? "??? CEX ???" ?????? ?? <em>??</em>
+            ??????? ??? ?-Bybit/Binance (?? ?? TON) ?? ???? USD + ILS,
+            breakdown per exchange, ??????? sync/delete. ???? modal ?????? API Key ???.
         </p>
         <div class="tech">
             <span class="tech-tag">loadCexPortfolio</span>
             <span class="tech-tag blue">saveCexKey</span>
             <span class="tech-tag gold">/api/cex/portfolio</span>
         </div>
-        <a href="/wallet.html" class="verify">פתח את עמוד הארנק</a>
+        <a href="/wallet.html" class="verify">??? ?? ???? ?????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Portfolio Consolidation</h3>
+        <h3><span class="check">?</span> Portfolio Consolidation</h3>
         <p>
-            <code>GET /api/cex/portfolio/{user_id}</code> מחזיר את כל ה-snapshots הטריים ביותר
-            מכל חשבונות ה-CEX של המשתמש, עם <code>total_usd</code> ו-<code>total_ils</code> (המרה אוטומטית).
+            <code>GET /api/cex/portfolio/{user_id}</code> ????? ?? ?? ?-snapshots ?????? ?????
+            ??? ??????? ?-CEX ?? ??????, ?? <code>total_usd</code> ?-<code>total_ils</code> (???? ????????).
         </p>
     </div>
 </section>
 
 <!-- 4. CONTENT UPDATES -->
 <section class="section" id="content-updates">
-    <h2><span class="num">4</span> עדכוני תוכן</h2>
+    <h2><span class="num">4</span> ?????? ????</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> כותרת ראשית</h3>
+        <h3><span class="check">?</span> ????? ?????</h3>
         <p>
-            הוחלף מ-"בית ההשקעות הדיגיטלי SLH" ל-"SLH — האקוסיסטם של העולם החדש"
-            ב-<code>index.html</code> ובכל 5 השפות ב-<code>translations.js</code>.
+            ????? ?-"??? ??????? ???????? SLH" ?-"SLH � ????????? ?? ????? ????"
+            ?-<code>index.html</code> ???? 5 ????? ?-<code>translations.js</code>.
         </p>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> תפריט — "להרוויח"</h3>
+        <h3><span class="check">?</span> ????? � "???????"</h3>
         <p>
-            <code>nav_earn</code> עודכן מ-"הרוויח" ל-"להרוויח" בעברית.
+            <code>nav_earn</code> ????? ?-"??????" ?-"???????" ??????.
         </p>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Daily Blog — 2 כניסות חדשות</h3>
+        <h3><span class="check">?</span> Daily Blog � 2 ?????? ?????</h3>
         <p>
-            הוספתי כניסה מפורטת ל-11/04/2026 (שלב מוסדי) ול-10/04/2026 (Genesis 49 + Token Rotation + ZVK Pivot).
-            כל כניסה עם sections: שוחרר, בעבודה, צפוי, פעולה ממך.
-            ה-streak counter עלה ל-Day 3.
+            ?????? ????? ?????? ?-11/04/2026 (??? ?????) ??-10/04/2026 (Genesis 49 + Token Rotation + ZVK Pivot).
+            ?? ????? ?? sections: ?????, ??????, ????, ????? ???.
+            ?-streak counter ??? ?-Day 3.
         </p>
-        <a href="/daily-blog.html" class="verify">פתח את הבלוג</a>
+        <a href="/daily-blog.html" class="verify">??? ?? ?????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Roadmap — 5 אבני דרך חדשות</h3>
+        <h3><span class="check">?</span> Roadmap � 5 ???? ??? ?????</h3>
         <p>
-            Phase 2 קיבל 5 תוספות: Audit Hash Chain, CEX Integration, Genesis 49 Cashback,
+            Phase 2 ???? 5 ??????: Audit Hash Chain, CEX Integration, Genesis 49 Cashback,
             Institutional Admin Panel, Strategy Engine, Sumsub+Fireblocks.
         </p>
-        <a href="/roadmap.html" class="verify">פתח את ה-Roadmap</a>
+        <a href="/roadmap.html" class="verify">??? ?? ?-Roadmap</a>
     </div>
 </section>
 
 <!-- 5. UX IMPROVEMENTS -->
 <section class="section" id="ux-improvements">
-    <h2><span class="num">5</span> שיפורי UX</h2>
+    <h2><span class="num">5</span> ?????? UX</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Network Page — Real Data + BSC Holders</h3>
+        <h3><span class="check">?</span> Network Page � Real Data + BSC Holders</h3>
         <p>
-            הוספתי banner "🔴 Live Data" עם מספר משתמשים אמיתי מה-API, כפתור "Load BSC Holders"
-            שמנסה לטעון את Top 100 מחזיקי SLH דרך BSCScan. גם נוסף "Ecosystem Architecture"
-            עם 6 שכבות (User → Bot → API → Data → CEX → On-Chain).
+            ?????? banner "?? Live Data" ?? ???? ??????? ????? ??-API, ????? "Load BSC Holders"
+            ????? ????? ?? Top 100 ?????? SLH ??? BSCScan. ?? ???? "Ecosystem Architecture"
+            ?? 6 ????? (User ? Bot ? API ? Data ? CEX ? On-Chain).
         </p>
-        <a href="/network.html" class="verify">פתח את Network</a>
+        <a href="/network.html" class="verify">??? ?? Network</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Community — תמיכה בקישורים + auto-linkify</h3>
+        <h3><span class="check">?</span> Community � ????? ???????? + auto-linkify</h3>
         <p>
-            בטופס פוסט חדש נוסף input אופציונלי ל-URL + כפתור "קישור" בסרגל הכלים.
-            הקישור נוסף לטקסט הפוסט ומוצג כ-<code>&lt;a&gt;</code> קליקבילי עם sanitization (escape + whitelist http/https).
-            גם URLs שכבר בטקסט מזוהים אוטומטית ונהפכים ל-links.
+            ????? ???? ??? ???? input ????????? ?-URL + ????? "?????" ????? ?????.
+            ?????? ???? ????? ????? ????? ?-<code>&lt;a&gt;</code> ???????? ?? sanitization (escape + whitelist http/https).
+            ?? URLs ???? ????? ?????? ???????? ??????? ?-links.
         </p>
         <div class="tech">
             <span class="tech-tag">linkifyText()</span>
             <span class="tech-tag blue">XSS-safe</span>
         </div>
-        <a href="/community.html" class="verify">פתח את הקהילה</a>
+        <a href="/community.html" class="verify">??? ?? ??????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Guides — Theme Switcher FAB</h3>
+        <h3><span class="check">?</span> Guides � Theme Switcher FAB</h3>
         <p>
-            הדף <code>guides.html</code> היה לוקו לצבעי טרמינל ירוק. נוסף FAB 🎨 בפינה
-            עם 7 ערכות צבע: Terminal (ברירת מחדל), Dark, Light, Crypto, Cyberpunk, Ocean, Sunset.
-            הבחירה נשמרת ב-localStorage.
+            ??? <code>guides.html</code> ??? ???? ????? ?????? ????. ???? FAB ?? ?????
+            ?? 7 ????? ???: Terminal (????? ????), Dark, Light, Crypto, Cyberpunk, Ocean, Sunset.
+            ?????? ????? ?-localStorage.
         </p>
-        <a href="/guides.html" class="verify">פתח את המדריכים</a>
+        <a href="/guides.html" class="verify">??? ?? ????????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Bots Page — BETA/WIP/SOON badges</h3>
+        <h3><span class="check">?</span> Bots Page � BETA/WIP/SOON badges</h3>
         <p>
-            לפני: כל בוט שלא היה LIVE הוצג כ-"COMING" (bug ב-<code>renderBotCard</code>).
-            אחרי: badges מובחנים — LIVE (ירוק), BETA (ציאן), WIP (אדום), SOON (זהב).
-            גם SLH Ledger קודם ל-LIVE.
+            ????: ?? ??? ??? ??? LIVE ???? ?-"COMING" (bug ?-<code>renderBotCard</code>).
+            ????: badges ??????? � LIVE (????), BETA (????), WIP (????), SOON (???).
+            ?? SLH Ledger ???? ?-LIVE.
         </p>
-        <a href="/bots.html" class="verify">פתח את עמוד הבוטים</a>
+        <a href="/bots.html" class="verify">??? ?? ???? ??????</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Cache-buster bump</h3>
+        <h3><span class="check">?</span> Cache-buster bump</h3>
         <p>
-            כל 20 ה-HTML files קיבלו <code>?v=20260425e</code> במקום <code>?v=20260425e</code>
-            — הדפדפן יטען מחדש את translations.js, shared.js, shared.css, ai-assistant.js.
+            ?? 20 ?-HTML files ????? <code>?v=20260425e</code> ????? <code>?v=20260425e</code>
+            � ?????? ???? ???? ?? translations.js, shared.js, shared.css, ai-assistant.js.
         </p>
     </div>
 </section>
 
 <!-- 6. DATA CLEANUP -->
 <section class="section" id="data-cleanup">
-    <h2><span class="num">6</span> ניקוי נתונים</h2>
+    <h2><span class="num">6</span> ????? ??????</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Admin Dashboard counts</h3>
+        <h3><span class="check">?</span> Admin Dashboard counts</h3>
         <p>
-            כל המטריקות בפאנל Admin (<code>total_users, premium, staked, deposits, pending, signups</code>)
-            מסננות כעת test IDs: רק משתמשים עם <code>telegram_id >= 1000000</code>.
-            התוצאה: המספרים מדויקים ומשקפים רק פעילות אמיתית.
+            ?? ???????? ????? Admin (<code>total_users, premium, staked, deposits, pending, signups</code>)
+            ?????? ??? test IDs: ?? ??????? ?? <code>telegram_id >= 1000000</code>.
+            ??????: ??????? ??????? ??????? ?? ?????? ??????.
         </p>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Leaderboard — סינון test users</h3>
+        <h3><span class="check">?</span> Leaderboard � ????? test users</h3>
         <p>
             Same filter applied to <code>/api/leaderboard</code> (xp, balance, staking, referrals).
         </p>
@@ -678,92 +678,92 @@
 
 <!-- 7. PENDING -->
 <section class="section" id="pending">
-    <h2><span class="num">7</span> ממתין להחלטות שלך</h2>
+    <h2><span class="num">7</span> ????? ??????? ???</h2>
 
     <div class="warning-card">
-        <h3>⚠️ PancakeSwap Pool — דורש החלטת pricing</h3>
+        <h3>?? PancakeSwap Pool � ???? ????? pricing</h3>
         <p>
-            יצירת Pool ל-SLH ב-PancakeSwap דורשת 2 החלטות: כמה SLH + כמה BNB להפקיד.
-            המחיר ההתחלתי יקבע את הערך על השוק הפתוח.
+            ????? Pool ?-SLH ?-PancakeSwap ????? 2 ??????: ??? SLH + ??? BNB ??????.
+            ????? ??????? ???? ?? ???? ?? ???? ?????.
         </p>
         <div class="next-step">
-            <strong>3 אפשרויות:</strong><br>
-            א) <strong>Fixed Price ₪444</strong>: דורש ~2,033 BNB (~$1.2M) עבור 10k SLH — לא ריאלי<br>
-            ב) <strong>Fair Launch</strong>: 100k SLH + 1 BNB → $0.006/SLH — הערך יירד משמעותית<br>
-            ג) <strong>Middle Ground</strong>: 50k SLH + 5 BNB → $0.06/SLH — פשרה הגיונית
+            <strong>3 ????????:</strong><br>
+            ?) <strong>Fixed Price ?444</strong>: ???? ~2,033 BNB (~$1.2M) ???? 10k SLH � ?? ?????<br>
+            ?) <strong>Fair Launch</strong>: 100k SLH + 1 BNB ? $0.006/SLH � ???? ???? ????????<br>
+            ?) <strong>Middle Ground</strong>: 50k SLH + 5 BNB ? $0.06/SLH � ???? ???????
         </div>
-        <p style="margin-top: 12px"><strong>אני צריך ממך:</strong> כמה BNB מוכן לנעול ב-pool? וכמה SLH? אחרי התשובה אני מכין את הקישור המדויק ל-PancakeSwap.</p>
+        <p style="margin-top: 12px"><strong>??? ???? ???:</strong> ??? BNB ???? ????? ?-pool? ???? SLH? ???? ?????? ??? ???? ?? ?????? ?????? ?-PancakeSwap.</p>
     </div>
 
     <div class="warning-card">
-        <h3>⚠️ BSCScan API Key — למחזיקי SLH אמיתיים</h3>
+        <h3>?? BSCScan API Key � ??????? SLH ???????</h3>
         <p>
-            עמוד Network כבר מוכן עם כפתור "Load BSC Holders", אבל ה-endpoint הציבורי של BSCScan
-            מוגבל מאוד. כדי לראות 176 holders אמיתיים, צריך API key חינמי מ-bscscan.com/apis.
+            ???? Network ??? ???? ?? ????? "Load BSC Holders", ??? ?-endpoint ??????? ?? BSCScan
+            ????? ????. ??? ????? 176 holders ???????, ???? API key ????? ?-bscscan.com/apis.
         </p>
         <div class="next-step">
-            <strong>פעולה:</strong> היכנס ל-<a href="https://bscscan.com/apis" target="_blank" style="color:var(--accent2)">bscscan.com/apis</a> → Register → Create API Key → שלח לי
-        </div>
-    </div>
-
-    <div class="warning-card">
-        <h3>⚠️ Sumsub KYC + Fireblocks Custody</h3>
-        <p>
-            ה-scaffolding ב-API מוכן, חסרים רק credentials. ללא זה אי אפשר לקבל אישור רשות ני"ע.
-        </p>
-        <div class="next-step">
-            <strong>פעולה:</strong> חוזה עם Sumsub + Fireblocks, קבלת API keys, שליחה אליי להחלפה ב-.env
+            <strong>?????:</strong> ????? ?-<a href="https://bscscan.com/apis" target="_blank" style="color:var(--accent2)">bscscan.com/apis</a> ? Register ? Create API Key ? ??? ??
         </div>
     </div>
 
     <div class="warning-card">
-        <h3>⚠️ AES-GCM Encryption</h3>
+        <h3>?? Sumsub KYC + Fireblocks Custody</h3>
         <p>
-            מפתחות ה-CEX כרגע מוצפנים עם XOR + environment key. עובד בפיתוח, לא מספיק ל-production institutional.
-            צריך לשדרג ל-AES-GCM עם KMS-backed key rotation לפני שמכניסים כספי מיליונים.
+            ?-scaffolding ?-API ????, ????? ?? credentials. ??? ?? ?? ???? ???? ????? ???? ??"?.
         </p>
         <div class="next-step">
-            <strong>אני אעשה:</strong> הטמעת <code>cryptography.hazmat.primitives.ciphers.aead.AESGCM</code> עם
-            <code>ENCRYPTION_KEY</code> env var שהוא 32 byte. דורש re-encryption של מפתחות קיימים (אם יש).
+            <strong>?????:</strong> ???? ?? Sumsub + Fireblocks, ???? API keys, ????? ???? ?????? ?-.env
+        </div>
+    </div>
+
+    <div class="warning-card">
+        <h3>?? AES-GCM Encryption</h3>
+        <p>
+            ?????? ?-CEX ???? ??????? ?? XOR + environment key. ???? ??????, ?? ????? ?-production institutional.
+            ???? ????? ?-AES-GCM ?? KMS-backed key rotation ???? ???????? ???? ????????.
+        </p>
+        <div class="next-step">
+            <strong>??? ????:</strong> ????? <code>cryptography.hazmat.primitives.ciphers.aead.AESGCM</code> ??
+            <code>ENCRYPTION_KEY</code> env var ???? 32 byte. ???? re-encryption ?? ?????? ?????? (?? ??).
         </div>
     </div>
 </section>
 
 <!-- 8. VERIFY -->
 <section class="section" id="verify">
-    <h2><span class="num">8</span> איך לבדוק — Live Endpoints</h2>
+    <h2><span class="num">8</span> ??? ????? � Live Endpoints</h2>
 
     <div class="item-card">
-        <h3>🔍 Audit Chain Verification</h3>
-        <p>לחץ על הקישור כדי לראות שהשרשרת תקינה:</p>
+        <h3>?? Audit Chain Verification</h3>
+        <p>??? ?? ?????? ??? ????? ??????? ?????:</p>
         <a href="https://slh-api-production.up.railway.app/api/audit/verify-chain" target="_blank" class="verify">
             <code>GET /api/audit/verify-chain</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3>🔍 Beta Status (Genesis 49)</h3>
+        <h3>?? Beta Status (Genesis 49)</h3>
         <a href="https://slh-api-production.up.railway.app/api/beta/status" target="_blank" class="verify">
             <code>GET /api/beta/status</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3>🔍 Admin Dashboard Stats</h3>
+        <h3>?? Admin Dashboard Stats</h3>
         <a href="https://slh-api-production.up.railway.app/api/admin/dashboard" target="_blank" class="verify">
             <code>GET /api/admin/dashboard</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3>🔍 CEX Portfolio (example: your user)</h3>
+        <h3>?? CEX Portfolio (example: your user)</h3>
         <a href="https://slh-api-production.up.railway.app/api/cex/portfolio/224223270" target="_blank" class="verify">
             <code>GET /api/cex/portfolio/224223270</code>
         </a>
     </div>
 
     <div class="item-card">
-        <h3>🔍 User Full Profile</h3>
+        <h3>?? User Full Profile</h3>
         <a href="https://slh-api-production.up.railway.app/api/user/full/224223270" target="_blank" class="verify">
             <code>GET /api/user/full/224223270</code>
         </a>
@@ -772,40 +772,40 @@
 
 <!-- CTA -->
 <section class="cta-footer">
-    <h2>🚀 המערכת מוכנה לבדיקה</h2>
+    <h2>?? ?????? ????? ??????</h2>
     <p>
-        כל הפיצ'רים שדיברנו עליהם הושלמו (פרט להחלטות שצריך ממך).<br>
-        בדוק את הדפים המרכזיים ותן לי לדעת אם משהו לא עובד כמצופה.
+        ?? ????'??? ??????? ????? ?????? (??? ??????? ????? ???).<br>
+        ???? ?? ????? ???????? ??? ?? ???? ?? ???? ?? ???? ??????.
     </p>
     <div class="cta-buttons">
-        <a href="/admin.html" class="btn-primary">🏛 פתח Admin Panel</a>
-        <a href="/system-health.html" class="btn-primary" style="background:var(--accent2)">🔬 System Health</a>
-        <a href="/dex-launch.html" class="btn-primary" style="background:var(--gold);color:#000">⚡ DEX Launch</a>
-        <a href="/dashboard.html" class="btn-outline">📊 Dashboard</a>
-        <a href="/wallet.html" class="btn-outline">💼 Wallet</a>
-        <a href="/daily-blog.html" class="btn-outline">📰 Daily Blog</a>
-        <a href="/roadmap.html" class="btn-outline">🗺 Roadmap</a>
+        <a href="/admin.html" class="btn-primary">?? ??? Admin Panel</a>
+        <a href="/system-health.html" class="btn-primary" style="background:var(--accent2)">?? System Health</a>
+        <a href="/dex-launch.html" class="btn-primary" style="background:var(--gold);color:#000">? DEX Launch</a>
+        <a href="/dashboard.html" class="btn-outline">?? Dashboard</a>
+        <a href="/wallet.html" class="btn-outline">?? Wallet</a>
+        <a href="/daily-blog.html" class="btn-outline">?? Daily Blog</a>
+        <a href="/roadmap.html" class="btn-outline">?? Roadmap</a>
     </div>
 </section>
 
 <!-- 9. NEW: Session 2 Additions -->
 <section class="section" id="session2">
-    <h2><span class="num">9</span> Session 2 — עדכוני המשך</h2>
+    <h2><span class="num">9</span> Session 2 � ?????? ????</h2>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> QR Codes + Test Amounts — Wallet Receive</h3>
+        <h3><span class="check">?</span> QR Codes + Test Amounts � Wallet Receive</h3>
         <p>
-            QR אמיתיים (200x200) עם URI schemes תקניים: <code>ton://transfer/{addr}</code> ו-<code>ethereum:{addr}@56</code>.
-            Deep links ל-Tonkeeper / Tonscan / MetaMask / BSCScan. מדריך מינימום סכומים בטוחים לבדיקה (0.05 TON, 0.001 BNB).
+            QR ??????? (200x200) ?? URI schemes ??????: <code>ton://transfer/{addr}</code> ?-<code>ethereum:{addr}@56</code>.
+            Deep links ?-Tonkeeper / Tonscan / MetaMask / BSCScan. ????? ??????? ?????? ?????? ?????? (0.05 TON, 0.001 BNB).
         </p>
-        <a href="/wallet.html" class="verify">פתח את Wallet → Receive</a>
+        <a href="/wallet.html" class="verify">??? ?? Wallet ? Receive</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> AES-GCM Encryption למפתחות CEX</h3>
+        <h3><span class="check">?</span> AES-GCM Encryption ??????? CEX</h3>
         <p>
-            החלפת ה-XOR הזמני ב-AES-GCM authenticated encryption. פורמט: <code>v2:nonce_hex:ciphertext_hex</code>.
-            32-byte key מ-<code>ENCRYPTION_KEY</code> env var דרך SHA-256. תאימות לאחור: v1 (XOR) עדיין פתיחה אם יש נתונים ישנים.
+            ????? ?-XOR ????? ?-AES-GCM authenticated encryption. ?????: <code>v2:nonce_hex:ciphertext_hex</code>.
+            32-byte key ?-<code>ENCRYPTION_KEY</code> env var ??? SHA-256. ?????? ?????: v1 (XOR) ????? ????? ?? ?? ?????? ?????.
         </p>
         <div class="tech">
             <span class="tech-tag">AESGCM from cryptography lib</span>
@@ -815,45 +815,45 @@
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Admin Panel — 7 ערכות צבעים</h3>
+        <h3><span class="check">?</span> Admin Panel � 7 ????? ?????</h3>
         <p>
-            FAB 🎨 בפינה עם Terminal / Dark / Light / Crypto / Cyberpunk / Ocean / Sunset. הבחירה נשמרת ב-localStorage.
-            מתגבר על ה-hardcoded green terminal theme דרך <code>[data-theme="..."]</code> CSS overrides.
+            FAB ?? ????? ?? Terminal / Dark / Light / Crypto / Cyberpunk / Ocean / Sunset. ?????? ????? ?-localStorage.
+            ????? ?? ?-hardcoded green terminal theme ??? <code>[data-theme="..."]</code> CSS overrides.
         </p>
-        <a href="/admin.html" class="verify">פתח Admin Panel (דרוש התחברות)</a>
+        <a href="/admin.html" class="verify">??? Admin Panel (???? ???????)</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> DEX Launch Page — PancakeSwap Pool Creator</h3>
+        <h3><span class="check">?</span> DEX Launch Page � PancakeSwap Pool Creator</h3>
         <p>
-            עמוד חדש עם מחשבון חכם לקביעת ערכי pool, 3 תרחישי השקה מומלצים (Micro/Seed/Growth),
-            8 שלבי ביצוע מדויקים עם deep links ל-PancakeSwap, ואזהרות בטיחות.
+            ???? ??? ?? ?????? ??? ?????? ???? pool, 3 ?????? ???? ??????? (Micro/Seed/Growth),
+            8 ???? ????? ??????? ?? deep links ?-PancakeSwap, ??????? ??????.
         </p>
         <div class="tech">
             <span class="tech-tag">Constant Product AMM math</span>
             <span class="tech-tag blue">Slippage calculator</span>
             <span class="tech-tag gold">LP lock recommendation</span>
         </div>
-        <a href="/dex-launch.html" class="verify">פתח DEX Launch Page</a>
+        <a href="/dex-launch.html" class="verify">??? DEX Launch Page</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> System Health Page — בדיקות חיות</h3>
+        <h3><span class="check">?</span> System Health Page � ?????? ????</h3>
         <p>
-            עמוד חדש שבודק בזמן אמת את כל רכיבי המערכת: 5 API endpoints, 4 institutional, 6 data,
-            3 integrations, 12 website pages. Auto-refresh כל 60 שניות. מציג פס סטטוס כללי +
-            מונים ירוק/צהוב/אדום.
+            ???? ??? ????? ???? ??? ?? ?? ????? ??????: 5 API endpoints, 4 institutional, 6 data,
+            3 integrations, 12 website pages. Auto-refresh ?? 60 ?????. ???? ?? ????? ???? +
+            ????? ????/????/????.
         </p>
-        <a href="/system-health.html" class="verify">פתח System Health</a>
+        <a href="/system-health.html" class="verify">??? System Health</a>
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Tokenomics API — MNH/ZVK/SLH Triple-Token</h3>
+        <h3><span class="check">?</span> Tokenomics API � MNH/ZVK/SLH Triple-Token</h3>
         <p>
-            4 endpoints חדשים: <code>/api/tokenomics/stats</code> (supply, burned, staked, reserves),
+            4 endpoints ?????: <code>/api/tokenomics/stats</code> (supply, burned, staked, reserves),
             <code>/api/tokenomics/internal-transfer</code> (FREE MNH transfers), <code>/api/tokenomics/burn</code>
             (record burns for supply accounting), <code>/api/tokenomics/reserves/add</code> (proof of reserves).
-            כל פעולה חתומה באודית trail.
+            ?? ????? ????? ?????? trail.
         </p>
         <div class="tech">
             <span class="tech-tag">3 new DB tables</span>
@@ -866,13 +866,13 @@
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> Strategy Engine — 3 Backtested Strategies</h3>
+        <h3><span class="check">?</span> Strategy Engine � 3 Backtested Strategies</h3>
         <p>
-            3 אסטרטגיות ready-to-go עם backtest simulation:
+            3 ????????? ready-to-go ?? backtest simulation:
             <strong>Grid BTC/USDT</strong> (25.4% annual, LOW risk, drawdown -8.2%),
             <strong>DCA + Weekly Rebalance</strong> (42.7%, MEDIUM, -22.5%),
             <strong>Multi-Asset Momentum</strong> (78.3%, HIGH, -34.1%).
-            Endpoint: <code>/api/strategy/list</code> ו-<code>/api/strategy/backtest/{id}?months=12</code>.
+            Endpoint: <code>/api/strategy/list</code> ?-<code>/api/strategy/backtest/{id}?months=12</code>.
         </p>
         <div class="tech">
             <span class="tech-tag">Target: Variable Yield annual</span>
@@ -884,11 +884,11 @@
     </div>
 
     <div class="item-card">
-        <h3><span class="check">✓</span> BSCScan / BSC Holders Endpoint</h3>
+        <h3><span class="check">?</span> BSCScan / BSC Holders Endpoint</h3>
         <p>
-            <code>/api/network/slh-holders</code> מוכן לקבלת נתוני מחזיקי SLH. הבעיה: Etherscan V2 free
-            לא תומך ב-BSC יותר. צריך להחליף ל-<strong>Moralis</strong> או <strong>Alchemy</strong> (שניהם חינם).
-            Endpoint מציג הודעת שגיאה ברורה עם הנחיות עד שהמפתח מוגדר ב-Railway env.
+            <code>/api/network/slh-holders</code> ???? ????? ????? ?????? SLH. ?????: Etherscan V2 free
+            ?? ???? ?-BSC ????. ???? ?????? ?-<strong>Moralis</strong> ?? <strong>Alchemy</strong> (????? ????).
+            Endpoint ???? ????? ????? ????? ?? ?????? ?? ?????? ????? ?-Railway env.
         </p>
         <div class="tech">
             <span class="tech-tag">5-min cache</span>
@@ -905,19 +905,19 @@
 <script>
     initShared({ activePage: 'ops-report', showBottomNav: true, showTicker: false });
 </script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">??</button>
 <div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">???? ?????</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">?? Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">?? Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">?? Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">? Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">?? Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">?? Sunset</button>
 </div>
 <script>
 (function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
 </script>
 <script src="/js/analytics.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

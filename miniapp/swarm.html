@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>SLH Swarm — רשת המכשירים שלי</title>
+<title>SLH Swarm � ??? ???????? ???</title>
 <link rel="stylesheet" href="miniapp.css" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
@@ -35,48 +35,48 @@
 <body>
 <div class="app">
   <header class="topbar">
-    <h1>🐝 רשת SLH Swarm</h1>
-    <div class="user" id="user-greeting">—</div>
+    <h1>?? ??? SLH Swarm</h1>
+    <div class="user" id="user-greeting">�</div>
   </header>
 
   <nav class="nav">
-    <a href="dashboard.html">סקירה</a>
-    <a href="wallet.html">ארנק</a>
-    <a href="device.html">מכשיר</a>
+    <a href="dashboard.html">?????</a>
+    <a href="wallet.html">????</a>
+    <a href="device.html">?????</a>
     <a href="swarm.html" class="active">Swarm</a>
   </nav>
 
   <section class="card">
-    <h2>סטטוס רשת</h2>
+    <h2>????? ???</h2>
     <div class="stats-row" id="stats">
-      <div class="stat-tile"><div class="n">—</div><div class="l">סה"כ</div></div>
-      <div class="stat-tile online"><div class="n">—</div><div class="l">online</div></div>
-      <div class="stat-tile"><div class="n">—</div><div class="l">events 24h</div></div>
-      <div class="stat-tile pending"><div class="n">—</div><div class="l">commands</div></div>
+      <div class="stat-tile"><div class="n">�</div><div class="l">??"?</div></div>
+      <div class="stat-tile online"><div class="n">�</div><div class="l">online</div></div>
+      <div class="stat-tile"><div class="n">�</div><div class="l">events 24h</div></div>
+      <div class="stat-tile pending"><div class="n">�</div><div class="l">commands</div></div>
     </div>
   </section>
 
   <section class="card">
-    <h2>המכשירים שלי</h2>
-    <div id="devices"><div class="placeholder">טוען...</div></div>
+    <h2>???????? ???</h2>
+    <div id="devices"><div class="placeholder">????...</div></div>
   </section>
 
   <section class="card" id="cmd-section" style="display:none">
-    <h2>שלח פקודה לכל הרשת</h2>
+    <h2>??? ????? ??? ????</h2>
     <div class="cmd-form">
-      <input type="text" id="cmd-input" placeholder='לדוגמה: ping / show "מזל טוב!" / refresh' />
-      <button id="cmd-send">שלח</button>
+      <input type="text" id="cmd-input" placeholder='??????: ping / show "??? ???!" / refresh' />
+      <button id="cmd-send">???</button>
     </div>
     <div class="result-line" id="cmd-result" style="font-size:12px;color:var(--tg-hint);margin-top:8px"></div>
   </section>
 
   <section class="card">
-    <h2>איך זה עובד</h2>
+    <h2>??? ?? ????</h2>
     <div style="font-size:13px;color:var(--tg-hint);line-height:1.6">
-      <strong style="color:var(--tg-fg)">ESP-NOW mesh</strong> — המכשירים מדברים ביניהם ברדיו 2.4GHz בלי ראוטר, עד 250m line-of-sight.<br>
-      <strong style="color:var(--tg-fg)">Phone Relay</strong> — אם מישהו בקרבת מקום מחזיק את האפליקציה פתוחה, הטלפון משמש relay לאינטרנט.<br>
-      <strong style="color:var(--tg-fg)">Self-healing</strong> — אם צומת נופל, השאר מסתדרים אוטומטית.<br>
-      <strong style="color:var(--tg-fg)">Off-grid ready</strong> — Phase 3 יוסיף LoRa לטווח 10km בלי שום תשתית.
+      <strong style="color:var(--tg-fg)">ESP-NOW mesh</strong> � ???????? ?????? ?????? ????? 2.4GHz ??? ?????, ?? 250m line-of-sight.<br>
+      <strong style="color:var(--tg-fg)">Phone Relay</strong> � ?? ????? ????? ???? ????? ?? ????????? ?????, ?????? ???? relay ????????.<br>
+      <strong style="color:var(--tg-fg)">Self-healing</strong> � ?? ???? ????, ???? ??????? ????????.<br>
+      <strong style="color:var(--tg-fg)">Off-grid ready</strong> � Phase 3 ????? LoRa ????? 10km ??? ??? ?????.
     </div>
   </section>
 </div>
@@ -93,17 +93,17 @@
   const cmdResult = document.getElementById('cmd-result');
 
   function timeAgo(iso) {
-    if (!iso) return '—';
+    if (!iso) return '�';
     const sec = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
-    if (sec < 60) return 'לפני ' + sec + ' שנ׳';
-    if (sec < 3600) return 'לפני ' + Math.floor(sec / 60) + ' דק׳';
-    if (sec < 86400) return 'לפני ' + Math.floor(sec / 3600) + ' ש׳';
-    return 'לפני ' + Math.floor(sec / 86400) + ' ימים';
+    if (sec < 60) return '???? ' + sec + ' ???';
+    if (sec < 3600) return '???? ' + Math.floor(sec / 60) + ' ???';
+    if (sec < 86400) return '???? ' + Math.floor(sec / 3600) + ' ??';
+    return '???? ' + Math.floor(sec / 86400) + ' ????';
   }
 
   function renderStats(s) {
     statsEl.innerHTML = `
-      <div class="stat-tile"><div class="n">${s.total_devices}</div><div class="l">סה"כ</div></div>
+      <div class="stat-tile"><div class="n">${s.total_devices}</div><div class="l">??"?</div></div>
       <div class="stat-tile online"><div class="n">${s.online}</div><div class="l">online</div></div>
       <div class="stat-tile"><div class="n">${s.events_24h}</div><div class="l">events 24h</div></div>
       <div class="stat-tile pending"><div class="n">${s.pending_commands}</div><div class="l">commands</div></div>
@@ -114,8 +114,8 @@
     if (!list || list.length === 0) {
       devicesEl.innerHTML = `
         <div class="empty-state">
-          <h3>אין עדיין מכשירים ברשת</h3>
-          <div>אחרי שתבעיר את ה-firmware עם תמיכת ESP-NOW, המכשיר יבצע <code>POST /api/swarm/devices/register</code> אוטומטית בעלייה ראשונה.</div>
+          <h3>??? ????? ??????? ????</h3>
+          <div>???? ?????? ?? ?-firmware ?? ????? ESP-NOW, ?????? ???? <code>POST /api/swarm/devices/register</code> ???????? ?????? ??????.</div>
         </div>`;
       cmdSection.style.display = 'none';
       return;
@@ -129,9 +129,9 @@
           <div class="dot ${online ? 'online' : 'offline'}"></div>
           <div class="info">
             <div class="id">${d.device_id}</div>
-            <div class="meta">${d.device_type || '—'} · ${timeAgo(d.last_heartbeat)} · RSSI ${d.last_rssi != null ? d.last_rssi + ' dBm' : '—'}</div>
+            <div class="meta">${d.device_type || '�'} � ${timeAgo(d.last_heartbeat)} � RSSI ${d.last_rssi != null ? d.last_rssi + ' dBm' : '�'}</div>
           </div>
-          <div class="battery ${batClass}">${battery != null ? battery + '%' : '—'}</div>
+          <div class="battery ${batClass}">${battery != null ? battery + '%' : '�'}</div>
         </div>
       `;
     }).join('');
@@ -154,13 +154,13 @@
   cmdBtn.addEventListener('click', async () => {
     const cmd = (cmdInput.value || '').trim();
     if (!cmd) return;
-    cmdResult.textContent = 'שולח...';
+    cmdResult.textContent = '????...';
     try {
       // For each device, queue the same command
       const devices = await slh.api('/api/swarm/devices?limit=20');
       const list = (devices.devices || []).filter(d => d.online);
       if (list.length === 0) {
-        cmdResult.textContent = 'אין מכשירים online כרגע — הפקודה לא נשלחה.';
+        cmdResult.textContent = '??? ??????? online ???? � ?????? ?? ?????.';
         return;
       }
       // Naive command parser: "show <text>" / "ping" / "refresh"
@@ -178,16 +178,16 @@
         })
       ));
       const ok = results.filter(r => r.status === 'fulfilled').length;
-      cmdResult.textContent = `נשלח ל-${ok}/${list.length} מכשירים. הפקודה תועבר בpolling הבא (15 שנ׳).`;
+      cmdResult.textContent = `???? ?-${ok}/${list.length} ???????. ?????? ????? ?polling ??? (15 ???).`;
       cmdInput.value = '';
     } catch (e) {
-      cmdResult.textContent = 'שגיאה: ' + e.message;
+      cmdResult.textContent = '?????: ' + e.message;
     }
   });
 
   refresh();
-  setInterval(refresh, 15000);  // 15s — same as ESP heartbeat cadence
+  setInterval(refresh, 15000);  // 15s � same as ESP heartbeat cadence
 })();
 </script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

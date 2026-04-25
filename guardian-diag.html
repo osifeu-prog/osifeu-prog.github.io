@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guardian Diagnostic Center — מרכז דיאגנוסטיקה מרחוק</title>
+<title>Guardian Diagnostic Center � ???? ??????????? ?????</title>
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -78,21 +78,21 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <body>
 
 <div id="login-gate" class="login-gate" style="display:none">
-  <h2>🛡️ Guardian Diagnostic Center</h2>
-  <p style="color:var(--text2);font-size:13px">דורש סיסמת אדמין · רק owner</p>
-  <input type="password" id="login-pwd" placeholder="סיסמת אדמין">
-  <button onclick="doLogin()">היכנס</button>
+  <h2>??? Guardian Diagnostic Center</h2>
+  <p style="color:var(--text2);font-size:13px">???? ????? ????? � ?? owner</p>
+  <input type="password" id="login-pwd" placeholder="????? ?????">
+  <button onclick="doLogin()">?????</button>
 </div>
 
 <div id="main" style="display:none">
   <div id="topnav-root"></div>
   <div class="header">
     <div>
-      <h1 class="title">🛡️ Guardian Diagnostic Center</h1>
-      <p class="sub">מרכז בקרה ל-@Grdian_bot · דיאגנוסטיקה מרחוק · WinRM Agentless</p>
+      <h1 class="title">??? Guardian Diagnostic Center</h1>
+      <p class="sub">???? ???? ?-@Grdian_bot � ??????????? ????? � WinRM Agentless</p>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> אדמין</a>
+      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> ?????</a>
       <a href="/bot-registry.html" class="btn"><i class="fas fa-robot"></i> Bot Registry</a>
       <a href="https://t.me/Grdian_bot" target="_blank" rel="noopener" class="btn primary"><i class="fab fa-telegram"></i> @Grdian_bot</a>
     </div>
@@ -100,40 +100,40 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 
   <div class="section">
     <div class="alert info">
-      <strong>💡 איך זה עובד?</strong> המערכת משתמשת ב-<strong>WinRM (Agentless Monitoring)</strong> — ללא התקנת סוכן על מחשב הלקוח.
-      הלקוח רק צריך להריץ פעם אחת <code>Enable-PSRemoting -Force</code> ב-PowerShell as Admin.
-      אחרי זה, <strong>@Grdian_bot</strong> יכול להריץ פקודות מרחוק עם אישור הלקוח.
+      <strong>?? ??? ?? ?????</strong> ?????? ?????? ?-<strong>WinRM (Agentless Monitoring)</strong> � ??? ????? ???? ?? ???? ?????.
+      ????? ?? ???? ????? ??? ??? <code>Enable-PSRemoting -Force</code> ?-PowerShell as Admin.
+      ???? ??, <strong>@Grdian_bot</strong> ???? ????? ?????? ????? ?? ????? ?????.
     </div>
 
     <div class="alert warning">
-      <strong>🛡️ Two-Factor Approval:</strong> כל פקודה משנה (לא רק קריאה) דורשת <strong>אישור כפול</strong>:
-      (1) האדמין שולח, (2) הלקוח מאשר ב-SMS / טלגרם. הכל מתועד ב-audit_log.
+      <strong>??? Two-Factor Approval:</strong> ?? ????? ???? (?? ?? ?????) ????? <strong>????? ????</strong>:
+      (1) ?????? ????, (2) ????? ???? ?-SMS / ?????. ??? ????? ?-audit_log.
     </div>
 
     <div class="kpis">
-      <div class="kpi"><div class="v" id="kpi-clients">0</div><div class="l">לקוחות מחוברים</div></div>
+      <div class="kpi"><div class="v" id="kpi-clients">0</div><div class="l">?????? ???????</div></div>
       <div class="kpi green"><div class="v" id="kpi-online">0</div><div class="l">Online</div></div>
-      <div class="kpi gold"><div class="v" id="kpi-pending">0</div><div class="l">ממתינים אישור</div></div>
-      <div class="kpi blue"><div class="v" id="kpi-runs">0</div><div class="l">פקודות היום</div></div>
-      <div class="kpi red"><div class="v" id="kpi-failed">0</div><div class="l">כשלונות</div></div>
+      <div class="kpi gold"><div class="v" id="kpi-pending">0</div><div class="l">??????? ?????</div></div>
+      <div class="kpi blue"><div class="v" id="kpi-runs">0</div><div class="l">?????? ????</div></div>
+      <div class="kpi red"><div class="v" id="kpi-failed">0</div><div class="l">???????</div></div>
     </div>
   </div>
 
   <div class="section">
     <div class="tabs">
-      <button class="tab active" data-tab="commands" onclick="switchTab('commands')">📋 פקודות זמינות</button>
-      <button class="tab" data-tab="run" onclick="switchTab('run')">▶️ הרצת פקודה</button>
-      <button class="tab" data-tab="setup" onclick="switchTab('setup')">⚙️ הגדרת לקוח</button>
-      <button class="tab" data-tab="history" onclick="switchTab('history')">📜 היסטוריה</button>
-      <button class="tab" data-tab="audit" onclick="switchTab('audit')">🔍 Audit Log</button>
+      <button class="tab active" data-tab="commands" onclick="switchTab('commands')">?? ?????? ??????</button>
+      <button class="tab" data-tab="run" onclick="switchTab('run')">?? ???? ?????</button>
+      <button class="tab" data-tab="setup" onclick="switchTab('setup')">?? ????? ????</button>
+      <button class="tab" data-tab="history" onclick="switchTab('history')">?? ????????</button>
+      <button class="tab" data-tab="audit" onclick="switchTab('audit')">?? Audit Log</button>
     </div>
 
     <!-- TAB: COMMANDS -->
     <div id="tab-commands">
       <div class="card">
-        <h2><i class="fas fa-list-check"></i> 19 פקודות PowerShell מוכנות</h2>
+        <h2><i class="fas fa-list-check"></i> 19 ?????? PowerShell ??????</h2>
         <p style="color:var(--text2);font-size:13px;margin:0 0 16px">
-          לחץ "📋 העתק" כדי להעתיק את הפקודה ולהדביק ב-Telegram (שיטה חצי-אוטומטית) או "▶️ הרץ" לשלוח דרך WinRM אוטומטי.
+          ??? "?? ????" ??? ?????? ?? ?????? ??????? ?-Telegram (???? ???-????????) ?? "?? ???" ????? ??? WinRM ???????.
         </p>
         <div id="commands-grid" class="diag-grid"></div>
       </div>
@@ -142,21 +142,21 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
     <!-- TAB: RUN -->
     <div id="tab-run" style="display:none">
       <div class="card">
-        <h2><i class="fas fa-play-circle"></i> הרצת פקודה ידנית</h2>
+        <h2><i class="fas fa-play-circle"></i> ???? ????? ?????</h2>
         <div class="client-form">
-          <input type="text" id="run-host" placeholder="IP/שם מחשב (לדוגמה: 192.168.1.50)">
-          <input type="text" id="run-user" placeholder="משתמש Windows">
+          <input type="text" id="run-host" placeholder="IP/?? ???? (??????: 192.168.1.50)">
+          <input type="text" id="run-user" placeholder="????? Windows">
           <select id="run-mode">
-            <option value="local">מקומי (PowerShell על השרת)</option>
-            <option value="winrm">WinRM (מרחוק)</option>
-            <option value="bot">דרך Telegram bot</option>
+            <option value="local">????? (PowerShell ?? ????)</option>
+            <option value="winrm">WinRM (?????)</option>
+            <option value="bot">??? Telegram bot</option>
           </select>
         </div>
-        <textarea id="run-cmd" placeholder="הקש פקודת PowerShell..." style="width:100%;min-height:120px;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--green);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;direction:ltr"></textarea>
+        <textarea id="run-cmd" placeholder="??? ????? PowerShell..." style="width:100%;min-height:120px;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--green);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;direction:ltr"></textarea>
         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn primary" onclick="runCommand()"><i class="fas fa-bolt"></i> הרץ פקודה</button>
-          <button class="btn green" onclick="copyCmd()"><i class="fas fa-copy"></i> העתק לבוט</button>
-          <button class="btn" onclick="document.getElementById('run-cmd').value=''">🗑️ נקה</button>
+          <button class="btn primary" onclick="runCommand()"><i class="fas fa-bolt"></i> ??? ?????</button>
+          <button class="btn green" onclick="copyCmd()"><i class="fas fa-copy"></i> ???? ????</button>
+          <button class="btn" onclick="document.getElementById('run-cmd').value=''">??? ???</button>
         </div>
         <div id="run-output" class="output-box" style="display:none"></div>
       </div>
@@ -165,35 +165,35 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
     <!-- TAB: SETUP -->
     <div id="tab-setup" style="display:none">
       <div class="card">
-        <h2><i class="fas fa-cog"></i> הגדרת לקוח חדש</h2>
+        <h2><i class="fas fa-cog"></i> ????? ???? ???</h2>
 
-        <h3 style="color:var(--text);font-size:15px;margin:18px 0 8px">שלב 1: הלקוח מריץ אצלו פעם אחת (PowerShell as Admin):</h3>
+        <h3 style="color:var(--text);font-size:15px;margin:18px 0 8px">??? 1: ????? ???? ???? ??? ??? (PowerShell as Admin):</h3>
         <pre style="background:#000;border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);direction:ltr;text-align:left">Enable-PSRemoting -Force
 Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
 Restart-Service WinRM
 winrm quickconfig -force
-Write-Host "✅ WinRM enabled successfully" -ForegroundColor Green</pre>
-        <button class="btn green" style="margin-top:8px" onclick="copySetup1()"><i class="fas fa-copy"></i> העתק סקריפט הגדרה</button>
+Write-Host "? WinRM enabled successfully" -ForegroundColor Green</pre>
+        <button class="btn green" style="margin-top:8px" onclick="copySetup1()"><i class="fas fa-copy"></i> ???? ?????? ?????</button>
 
-        <h3 style="color:var(--text);font-size:15px;margin:24px 0 8px">שלב 2: הלקוח שולח לבוט פרטי חיבור:</h3>
+        <h3 style="color:var(--text);font-size:15px;margin:24px 0 8px">??? 2: ????? ???? ???? ???? ?????:</h3>
         <pre style="background:#000;border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);direction:ltr;text-align:left">/register_pc
-שם: Avi's Laptop
-IP: 192.168.1.50  (או שם מחשב)
-משתמש Windows: Avi
-טלפון: 050-XXXXXXX (לאישורי SMS)</pre>
+??: Avi's Laptop
+IP: 192.168.1.50  (?? ?? ????)
+????? Windows: Avi
+?????: 050-XXXXXXX (??????? SMS)</pre>
 
-        <h3 style="color:var(--text);font-size:15px;margin:24px 0 8px">שלב 3: הבוט יכול להריץ פקודות (אחרי אישור):</h3>
-        <pre style="background:#000;border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);direction:ltr;text-align:left">/diag_full Avi's Laptop  →  בקשה נשלחת ללקוח לאישור
-                          →  לקוח מקבל ב-Telegram: "אדמין מבקש להריץ אבחון מלא, אישור?"
-                          →  לקוח לוחץ ✅ אישור
-                          →  התוצאות נשלחות חזרה לאדמין</pre>
+        <h3 style="color:var(--text);font-size:15px;margin:24px 0 8px">??? 3: ???? ???? ????? ?????? (???? ?????):</h3>
+        <pre style="background:#000;border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);direction:ltr;text-align:left">/diag_full Avi's Laptop  ?  ???? ????? ????? ??????
+                          ?  ???? ???? ?-Telegram: "????? ???? ????? ????? ???, ??????"
+                          ?  ???? ???? ? ?????
+                          ?  ??????? ?????? ???? ??????</pre>
 
         <div class="alert info" style="margin-top:20px">
-          <strong>📡 פתרונות חלופיים:</strong>
+          <strong>?? ??????? ???????:</strong>
           <ul style="margin:8px 0 0;padding-inline-start:20px">
-            <li><strong>Option C (Semi-auto):</strong> הבוט שולח לוקות PowerShell להעתקה ב-Telegram. הלקוח מעתיק לחלון PS, מריץ, שולח screenshot חזרה. (הכי בטוח, הכי איטי)</li>
-            <li><strong>Option B (Agent):</strong> הלקוח מתקין SLH_Agent.exe (לעתיד)</li>
-            <li><strong>Option A (WinRM):</strong> כפי שהוצג למעלה — ללא סוכן (מומלץ לרשת ביתית)</li>
+            <li><strong>Option C (Semi-auto):</strong> ???? ???? ????? PowerShell ?????? ?-Telegram. ????? ????? ????? PS, ????, ???? screenshot ????. (??? ????, ??? ????)</li>
+            <li><strong>Option B (Agent):</strong> ????? ????? SLH_Agent.exe (?????)</li>
+            <li><strong>Option A (WinRM):</strong> ??? ????? ????? � ??? ???? (????? ???? ?????)</li>
           </ul>
         </div>
       </div>
@@ -202,8 +202,8 @@ IP: 192.168.1.50  (או שם מחשב)
     <!-- TAB: HISTORY -->
     <div id="tab-history" style="display:none">
       <div class="card">
-        <h2><i class="fas fa-history"></i> היסטוריית פעולות</h2>
-        <button class="btn" onclick="loadHistory()"><i class="fas fa-sync"></i> רענן</button>
+        <h2><i class="fas fa-history"></i> ????????? ??????</h2>
+        <button class="btn" onclick="loadHistory()"><i class="fas fa-sync"></i> ????</button>
         <div id="history-list" style="margin-top:14px"></div>
       </div>
     </div>
@@ -212,7 +212,7 @@ IP: 192.168.1.50  (או שם מחשב)
     <div id="tab-audit" style="display:none">
       <div class="card">
         <h2><i class="fas fa-file-shield"></i> Audit Log</h2>
-        <p style="color:var(--text2);font-size:13px">כל פעולה נרשמת — מי ביקש, מתי, מה רץ, מה החזיר.</p>
+        <p style="color:var(--text2);font-size:13px">?? ????? ????? � ?? ????, ???, ?? ??, ?? ?????.</p>
         <div id="audit-log" style="margin-top:14px"></div>
       </div>
     </div>
@@ -225,37 +225,37 @@ IP: 192.168.1.50  (או שם מחשב)
     <p id="modal-desc" style="color:var(--text2);font-size:13px;margin-bottom:14px"></p>
     <pre id="modal-cmd"></pre>
     <div class="modal-actions">
-      <button class="btn green" onclick="copyModalCmd()"><i class="fas fa-copy"></i> העתק</button>
-      <button class="btn primary" onclick="runModalCmd()"><i class="fas fa-bolt"></i> הרץ ב-WinRM</button>
-      <button class="btn" onclick="closeModal()">סגור</button>
+      <button class="btn green" onclick="copyModalCmd()"><i class="fas fa-copy"></i> ????</button>
+      <button class="btn primary" onclick="runModalCmd()"><i class="fas fa-bolt"></i> ??? ?-WinRM</button>
+      <button class="btn" onclick="closeModal()">????</button>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast">✅ הועתק</div>
+<div id="toast" class="toast">? ?????</div>
 
 <script>
 /* === 19 PowerShell Diagnostic Commands === */
 const PS_COMMANDS = [
-  {id:'cpu',name:'🔥 30 תהליכים מובילים ב-CPU',desc:'מציג את התהליכים שצורכים הכי הרבה מעבד',risk:'safe',cmd:`Get-Process | Sort-Object CPU -Descending | Select-Object -First 30 ProcessName,Id,CPU,WS | Format-Table -AutoSize`},
-  {id:'memory',name:'💾 30 תהליכים מובילים בזיכרון',desc:'מציג את התהליכים שצורכים הכי הרבה RAM',risk:'safe',cmd:`Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 30 ProcessName,Id,@{N='Memory(MB)';E={[math]::Round($_.WorkingSet/1MB,2)}} | Format-Table -AutoSize`},
-  {id:'disk',name:'💽 שטח דיסק',desc:'מציג את שטח הפנוי בכל הדיסקים',risk:'safe',cmd:`Get-PSDrive -PSProvider FileSystem | Select-Object Name,@{N='Used(GB)';E={[math]::Round($_.Used/1GB,2)}},@{N='Free(GB)';E={[math]::Round($_.Free/1GB,2)}}`},
-  {id:'network',name:'🌐 חיבורי TCP פעילים',desc:'מציג את כל החיבורי הרשת הפעילים',risk:'safe',cmd:`Get-NetTCPConnection | Where-Object State -eq Established | Select-Object LocalAddress,LocalPort,RemoteAddress,RemotePort,OwningProcess | Format-Table -AutoSize`},
-  {id:'services',name:'⚙️ שירותים פעילים',desc:'מציג את כל שירותי Windows הפעילים',risk:'safe',cmd:`Get-Service | Where-Object Status -eq 'Running' | Select-Object Name,DisplayName | Sort-Object DisplayName`},
-  {id:'startup',name:'🚀 תוכנות עולות באתחול',desc:'מציג את כל התוכנות שעולות עם Windows',risk:'safe',cmd:`Get-CimInstance Win32_StartupCommand | Select-Object Name,Command,Location,User | Format-Table -AutoSize`},
-  {id:'defender',name:'🛡️ סטטוס Windows Defender',desc:'בודק את מצב האבטחה של Defender',risk:'safe',cmd:`Get-MpComputerStatus | Select-Object AntivirusEnabled,RealTimeProtectionEnabled,QuickScanEndTime,FullScanEndTime`},
-  {id:'threats',name:'⚠️ איומים זוהו',desc:'מציג איומים שזוהו על ידי Defender',risk:'safe',cmd:`Get-MpThreat | Select-Object ThreatName,SeverityID,InitialDetectionTime`},
-  {id:'eventlog',name:'📋 שגיאות מערכת אחרונות',desc:'50 שגיאות מערכת אחרונות',risk:'safe',cmd:`Get-WinEvent -LogName System -MaxEvents 50 | Where-Object LevelDisplayName -in 'Error','Critical' | Select-Object TimeCreated,LevelDisplayName,Id,Message | Format-Table -AutoSize`},
-  {id:'updates',name:'🔄 עדכוני Windows אחרונים',desc:'30 עדכונים אחרונים שהותקנו',risk:'safe',cmd:`Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 30 HotFixID,Description,InstalledOn`},
-  {id:'sysinfo',name:'💻 מידע מערכת מלא',desc:'OS, חומרה, זיכרון',risk:'safe',cmd:`Get-ComputerInfo | Select-Object CsName,WindowsVersion,WindowsBuildLabEx,CsTotalPhysicalMemory,CsManufacturer,CsModel`},
-  {id:'unsigned',name:'🚨 תהליכים ללא חתימה דיגיטלית',desc:'מסוכן! מזהה malware פוטנציאלי',risk:'warning',cmd:`Get-Process | ForEach-Object { if($_.Path){ try{$sig=(Get-AuthenticodeSignature $_.Path).Status; if($sig -ne 'Valid'){[PSCustomObject]@{Name=$_.Name;Path=$_.Path;Status=$sig}}}catch{}}} | Format-Table -AutoSize`},
-  {id:'recent_files',name:'📂 קבצים שונו ב-24 שעות (Desktop)',desc:'מציג קבצים שנכתבו לאחרונה',risk:'safe',cmd:`Get-ChildItem -Path "$env:USERPROFILE\\Desktop" -Recurse -ErrorAction SilentlyContinue | Where-Object LastWriteTime -gt (Get-Date).AddDays(-1) | Select-Object FullName,LastWriteTime,Length | Sort-Object LastWriteTime -Descending`},
-  {id:'large_files',name:'📦 קבצים גדולים בדיסק',desc:'50 קבצים הכי גדולים ב-Documents',risk:'safe',cmd:`Get-ChildItem -Path "$env:USERPROFILE\\Documents" -Recurse -ErrorAction SilentlyContinue | Sort-Object Length -Descending | Select-Object -First 50 FullName,@{N='Size(MB)';E={[math]::Round($_.Length/1MB,2)}}`},
-  {id:'firewall',name:'🔥 כללי Firewall פעילים',desc:'מציג את כל כללי הגנת האש',risk:'safe',cmd:`Get-NetFirewallRule | Where-Object Enabled -eq True | Select-Object DisplayName,Direction,Action,Profile | Format-Table -AutoSize`},
-  {id:'sfc',name:'🔧 בדיקת קבצי מערכת (SFC)',desc:'⚠️ ארוך! 5-15 דקות. סורק קבצי OS פגומים',risk:'warning',cmd:`sfc /scannow`},
-  {id:'dism',name:'🛠️ DISM Repair',desc:'⚠️ ארוך! מתקן את ה-image של Windows',risk:'warning',cmd:`DISM /Online /Cleanup-Image /ScanHealth`},
-  {id:'cleanmgr',name:'🧹 ניקוי דיסק',desc:'⚠️ מסכן! מוחק קבצים זמניים',risk:'danger',cmd:`cleanmgr /sagerun:1`},
-  {id:'restart_defender',name:'🔄 הפעלה מחדש של Defender',desc:'⚠️ מסוכן! משבית זמנית את האנטיוירוס',risk:'danger',cmd:`Restart-Service -Name WinDefend -Force; Get-Service WinDefend`}
+  {id:'cpu',name:'?? 30 ??????? ??????? ?-CPU',desc:'???? ?? ???????? ??????? ??? ???? ????',risk:'safe',cmd:`Get-Process | Sort-Object CPU -Descending | Select-Object -First 30 ProcessName,Id,CPU,WS | Format-Table -AutoSize`},
+  {id:'memory',name:'?? 30 ??????? ??????? ???????',desc:'???? ?? ???????? ??????? ??? ???? RAM',risk:'safe',cmd:`Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 30 ProcessName,Id,@{N='Memory(MB)';E={[math]::Round($_.WorkingSet/1MB,2)}} | Format-Table -AutoSize`},
+  {id:'disk',name:'?? ??? ????',desc:'???? ?? ??? ????? ??? ???????',risk:'safe',cmd:`Get-PSDrive -PSProvider FileSystem | Select-Object Name,@{N='Used(GB)';E={[math]::Round($_.Used/1GB,2)}},@{N='Free(GB)';E={[math]::Round($_.Free/1GB,2)}}`},
+  {id:'network',name:'?? ?????? TCP ??????',desc:'???? ?? ?? ??????? ???? ???????',risk:'safe',cmd:`Get-NetTCPConnection | Where-Object State -eq Established | Select-Object LocalAddress,LocalPort,RemoteAddress,RemotePort,OwningProcess | Format-Table -AutoSize`},
+  {id:'services',name:'?? ??????? ??????',desc:'???? ?? ?? ?????? Windows ???????',risk:'safe',cmd:`Get-Service | Where-Object Status -eq 'Running' | Select-Object Name,DisplayName | Sort-Object DisplayName`},
+  {id:'startup',name:'?? ?????? ????? ??????',desc:'???? ?? ?? ??????? ?????? ?? Windows',risk:'safe',cmd:`Get-CimInstance Win32_StartupCommand | Select-Object Name,Command,Location,User | Format-Table -AutoSize`},
+  {id:'defender',name:'??? ????? Windows Defender',desc:'???? ?? ??? ?????? ?? Defender',risk:'safe',cmd:`Get-MpComputerStatus | Select-Object AntivirusEnabled,RealTimeProtectionEnabled,QuickScanEndTime,FullScanEndTime`},
+  {id:'threats',name:'?? ?????? ????',desc:'???? ?????? ????? ?? ??? Defender',risk:'safe',cmd:`Get-MpThreat | Select-Object ThreatName,SeverityID,InitialDetectionTime`},
+  {id:'eventlog',name:'?? ?????? ????? ???????',desc:'50 ?????? ????? ???????',risk:'safe',cmd:`Get-WinEvent -LogName System -MaxEvents 50 | Where-Object LevelDisplayName -in 'Error','Critical' | Select-Object TimeCreated,LevelDisplayName,Id,Message | Format-Table -AutoSize`},
+  {id:'updates',name:'?? ?????? Windows ???????',desc:'30 ??????? ??????? ???????',risk:'safe',cmd:`Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 30 HotFixID,Description,InstalledOn`},
+  {id:'sysinfo',name:'?? ???? ????? ???',desc:'OS, ?????, ??????',risk:'safe',cmd:`Get-ComputerInfo | Select-Object CsName,WindowsVersion,WindowsBuildLabEx,CsTotalPhysicalMemory,CsManufacturer,CsModel`},
+  {id:'unsigned',name:'?? ??????? ??? ????? ????????',desc:'?????! ???? malware ?????????',risk:'warning',cmd:`Get-Process | ForEach-Object { if($_.Path){ try{$sig=(Get-AuthenticodeSignature $_.Path).Status; if($sig -ne 'Valid'){[PSCustomObject]@{Name=$_.Name;Path=$_.Path;Status=$sig}}}catch{}}} | Format-Table -AutoSize`},
+  {id:'recent_files',name:'?? ????? ???? ?-24 ???? (Desktop)',desc:'???? ????? ?????? ???????',risk:'safe',cmd:`Get-ChildItem -Path "$env:USERPROFILE\\Desktop" -Recurse -ErrorAction SilentlyContinue | Where-Object LastWriteTime -gt (Get-Date).AddDays(-1) | Select-Object FullName,LastWriteTime,Length | Sort-Object LastWriteTime -Descending`},
+  {id:'large_files',name:'?? ????? ?????? ?????',desc:'50 ????? ??? ?????? ?-Documents',risk:'safe',cmd:`Get-ChildItem -Path "$env:USERPROFILE\\Documents" -Recurse -ErrorAction SilentlyContinue | Sort-Object Length -Descending | Select-Object -First 50 FullName,@{N='Size(MB)';E={[math]::Round($_.Length/1MB,2)}}`},
+  {id:'firewall',name:'?? ???? Firewall ??????',desc:'???? ?? ?? ???? ???? ???',risk:'safe',cmd:`Get-NetFirewallRule | Where-Object Enabled -eq True | Select-Object DisplayName,Direction,Action,Profile | Format-Table -AutoSize`},
+  {id:'sfc',name:'?? ????? ???? ????? (SFC)',desc:'?? ????! 5-15 ????. ???? ???? OS ??????',risk:'warning',cmd:`sfc /scannow`},
+  {id:'dism',name:'??? DISM Repair',desc:'?? ????! ???? ?? ?-image ?? Windows',risk:'warning',cmd:`DISM /Online /Cleanup-Image /ScanHealth`},
+  {id:'cleanmgr',name:'?? ????? ????',desc:'?? ????! ???? ????? ??????',risk:'danger',cmd:`cleanmgr /sagerun:1`},
+  {id:'restart_defender',name:'?? ????? ???? ?? Defender',desc:'?? ?????! ????? ????? ?? ??????????',risk:'danger',cmd:`Restart-Service -Name WinDefend -Force; Get-Service WinDefend`}
 ];
 
 /* === Login === */
@@ -296,9 +296,9 @@ function renderCommands(){
       <div class="desc">${c.desc}</div>
       <code>${c.cmd.length > 80 ? c.cmd.slice(0,80) + '...' : c.cmd}</code>
       <div class="actions">
-        <button class="copy" onclick='showCmdModal("${c.id}")'>👁️ תצוגה</button>
-        <button class="copy" onclick='copyCommand("${c.id}")'>📋 העתק</button>
-        <button class="run" onclick='runByCommand("${c.id}")'>▶️ הרץ</button>
+        <button class="copy" onclick='showCmdModal("${c.id}")'>??? ?????</button>
+        <button class="copy" onclick='copyCommand("${c.id}")'>?? ????</button>
+        <button class="run" onclick='runByCommand("${c.id}")'>?? ???</button>
       </div>
     </div>
   `).join('');
@@ -315,29 +315,29 @@ function showCmdModal(id){
   document.getElementById('modal-bg').classList.add('open');
 }
 function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
-function copyModalCmd(){ navigator.clipboard.writeText(currentCmd.cmd).then(() => showToast('✅ הועתק לקליפבורד')); }
+function copyModalCmd(){ navigator.clipboard.writeText(currentCmd.cmd).then(() => showToast('? ????? ?????????')); }
 function runModalCmd(){ closeModal(); runByCommand(currentCmd.id); }
 
 function copyCommand(id){
   const cmd = PS_COMMANDS.find(c => c.id === id);
   if(!cmd) return;
-  navigator.clipboard.writeText(cmd.cmd).then(() => showToast('✅ הועתק'));
+  navigator.clipboard.writeText(cmd.cmd).then(() => showToast('? ?????'));
 }
 
 async function runByCommand(id){
   const cmd = PS_COMMANDS.find(c => c.id === id);
   if(!cmd) return;
-  if(cmd.risk === 'danger' && !confirm(`⚠️ פקודה זו עלולה לפגוע במערכת!\n\n${cmd.cmd}\n\nלהמשיך?`)) return;
+  if(cmd.risk === 'danger' && !confirm(`?? ????? ?? ????? ????? ??????!\n\n${cmd.cmd}\n\n???????`)) return;
   // Show what would happen
   document.getElementById('run-cmd').value = cmd.cmd;
   switchTab('run');
-  showToast('📋 הפקודה מוכנה ללשונית הרצה — בחר מצב והרץ');
+  showToast('?? ?????? ????? ??????? ???? � ??? ??? ????');
 }
 
 function copyCmd(){
   const cmd = document.getElementById('run-cmd').value;
   if(!cmd) return;
-  navigator.clipboard.writeText(cmd).then(() => showToast('✅ הועתק'));
+  navigator.clipboard.writeText(cmd).then(() => showToast('? ?????'));
 }
 
 async function runCommand(){
@@ -345,9 +345,9 @@ async function runCommand(){
   const mode = document.getElementById('run-mode').value;
   const host = document.getElementById('run-host').value;
   const out = document.getElementById('run-output');
-  if(!cmd){ alert('הקש פקודה'); return; }
+  if(!cmd){ alert('??? ?????'); return; }
   out.style.display = 'block';
-  out.textContent = '⏳ שולח לשרת...';
+  out.textContent = '? ???? ????...';
   try {
     const r = await fetch('https://slh-api-production.up.railway.app/api/admin/guardian/run', {
       method: 'POST',
@@ -357,7 +357,7 @@ async function runCommand(){
     const d = await r.json();
     out.textContent = d.output || JSON.stringify(d, null, 2);
   } catch(e) {
-    out.textContent = `❌ שגיאה: ${e.message}\n\n💡 הדף עדיין לא חובר ל-API guardian endpoint. ניתן להעתיק את הפקודה ידנית לבוט.`;
+    out.textContent = `? ?????: ${e.message}\n\n?? ??? ????? ?? ???? ?-API guardian endpoint. ???? ?????? ?? ?????? ????? ????.`;
   }
 }
 
@@ -366,8 +366,8 @@ function copySetup1(){
 Set-Item WSMan:\\localhost\\Client\\TrustedHosts -Value "*" -Force
 Restart-Service WinRM
 winrm quickconfig -force
-Write-Host "✅ WinRM enabled successfully" -ForegroundColor Green`;
-  navigator.clipboard.writeText(setup).then(() => showToast('✅ סקריפט הגדרה הועתק'));
+Write-Host "? WinRM enabled successfully" -ForegroundColor Green`;
+  navigator.clipboard.writeText(setup).then(() => showToast('? ?????? ????? ?????'));
 }
 
 async function loadStats(){
@@ -387,40 +387,40 @@ async function loadStats(){
 
 async function loadHistory(){
   const list = document.getElementById('history-list');
-  list.innerHTML = '<div style="color:var(--text2)">⏳ טוען...</div>';
+  list.innerHTML = '<div style="color:var(--text2)">? ????...</div>';
   try {
     const r = await fetch('https://slh-api-production.up.railway.app/api/admin/guardian/history?limit=50', {
       headers: { 'X-Admin-Key': localStorage.getItem('slh_admin_password') }
     });
     const d = await r.json();
     if(!d.history || d.history.length === 0){
-      list.innerHTML = '<div style="text-align:center;color:var(--text2);padding:30px">אין פעולות עדיין · התחל לבדוק עם פקודה ראשונה!</div>';
+      list.innerHTML = '<div style="text-align:center;color:var(--text2);padding:30px">??? ?????? ????? � ???? ????? ?? ????? ??????!</div>';
       return;
     }
     list.innerHTML = d.history.map(h => `
       <div class="history-item">
         <div>
-          <div style="font-weight:800">${h.cmd_name || h.cmd?.slice(0,40) || '—'}</div>
-          <div style="color:var(--text2);font-size:11px">${new Date(h.created_at).toLocaleString('he-IL')} · ${h.host || 'local'}</div>
+          <div style="font-weight:800">${h.cmd_name || h.cmd?.slice(0,40) || '�'}</div>
+          <div style="color:var(--text2);font-size:11px">${new Date(h.created_at).toLocaleString('he-IL')} � ${h.host || 'local'}</div>
         </div>
         <span class="status-badge ${h.status}">${h.status}</span>
       </div>
     `).join('');
   } catch(e) {
-    list.innerHTML = `<div style="color:var(--red)">❌ ${e.message}<br><br>💡 ה-API endpoint עדיין לא נוסף. הדף יעבוד אחרי deploy של ה-Guardian endpoints.</div>`;
+    list.innerHTML = `<div style="color:var(--red)">? ${e.message}<br><br>?? ?-API endpoint ????? ?? ????. ??? ????? ???? deploy ?? ?-Guardian endpoints.</div>`;
   }
 }
 
 async function loadAudit(){
   const log = document.getElementById('audit-log');
-  log.innerHTML = '<div style="color:var(--text2)">⏳ טוען...</div>';
+  log.innerHTML = '<div style="color:var(--text2)">? ????...</div>';
   try {
     const r = await fetch('https://slh-api-production.up.railway.app/api/admin/guardian/audit?limit=100', {
       headers: { 'X-Admin-Key': localStorage.getItem('slh_admin_password') }
     });
     const d = await r.json();
     if(!d.audit || d.audit.length === 0){
-      log.innerHTML = '<div style="text-align:center;color:var(--text2);padding:30px">אין רשומות audit · ההיסטוריה תוצג כאן.</div>';
+      log.innerHTML = '<div style="text-align:center;color:var(--text2);padding:30px">??? ?????? audit � ????????? ???? ???.</div>';
       return;
     }
     log.innerHTML = d.audit.map(a => `
@@ -430,12 +430,12 @@ async function loadAudit(){
           <span style="color:var(--text3);font-size:11px">${new Date(a.timestamp).toLocaleString('he-IL')}</span>
         </div>
         <div style="font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;direction:ltr;width:100%;background:rgba(0,0,0,.3);padding:6px;border-radius:6px;margin-top:6px">
-          ${a.details || a.command_executed?.slice(0,200) || '—'}
+          ${a.details || a.command_executed?.slice(0,200) || '�'}
         </div>
       </div>
     `).join('');
   } catch(e) {
-    log.innerHTML = `<div style="color:var(--red)">❌ ${e.message}</div>`;
+    log.innerHTML = `<div style="color:var(--red)">? ${e.message}</div>`;
   }
 }
 
@@ -449,5 +449,5 @@ checkAuth();
 </script>
 
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

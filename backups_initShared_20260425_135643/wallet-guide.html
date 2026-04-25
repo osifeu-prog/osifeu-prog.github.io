@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLH Spark Wallet Guide — Telegram Setup</title>
+    <meta name="description" content="Step-by-step guide to setting up your Telegram crypto wallet and receiving SLH Spark tokens.">
+    <link rel="canonical" href="https://slh-nft.com/wallet-guide.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://slh-nft.com/wallet-guide.html">
+    <meta property="og:title" content="SLH Spark Wallet Guide — Telegram Setup">
+    <meta property="og:description" content="Step-by-step guide: set up Telegram wallet and receive SLH tokens">
+    <meta property="og:image" content="https://slh-nft.com/assets/og/wallet.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="he_IL">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SLH Spark Wallet Guide — Telegram Setup">
+    <meta name="twitter:description" content="Step-by-step guide: set up Telegram wallet and receive SLH tokens">
+    <meta name="twitter:image" content="https://slh-nft.com/assets/og/wallet.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#050510">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/shared.css?v=20260421a">
+    <style>
+        .wg-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: calc(var(--topnav-h) + 32px) 24px 100px;
+        }
+
+        .wg-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text3);
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 24px;
+            transition: color var(--transition);
+        }
+        .wg-back:hover { color: var(--accent); }
+
+        .wg-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .wg-header h1 {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .wg-header h1 i {
+            color: var(--accent);
+            margin-left: 10px;
+        }
+        .wg-header .wg-subtitle {
+            font-size: 15px;
+            color: var(--text3);
+            line-height: 1.6;
+        }
+
+        /* ── Table of Contents ── */
+        .wg-toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .wg-toc h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .wg-toc a {
+            display: block;
+            color: var(--text2);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 0;
+            transition: all var(--transition);
+        }
+        .wg-toc a:hover {
+            color: var(--accent);
+            padding-right: 6px;
+        }
+
+        /* ── Section ── */
+        .wg-section {
+            margin-bottom: 48px;
+        }
+        .wg-section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .wg-section-title i {
+            color: var(--accent);
+            font-size: 22px;
+        }
+
+        /* ── Step Cards ── */
+        .wg-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            padding-right: 72px;
+            margin-bottom: 12px;
+            position: relative;
+            transition: border-color var(--transition);
+        }
+        .wg-step:hover {
+            border-color: var(--accent);
+        }
+        .wg-step-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(108, 92, 231, .12);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .wg-step-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .wg-step-desc {
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.7;
+        }
+        .wg-step-desc code {
+            background: rgba(108, 92, 231, .1);
+            padding: 2px 8px;
+            border-radius: var(--radius-xs);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+
+        /* ── Info / Warn / Tip Cards ── */
+        .wg-info {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        .wg-info p {
+            font-size: 14px;
+            color: var(--text2);
+            margin: 0;
+        }
+        .wg-info p + p {
+            margin-top: 8px;
+        }
+
+        .wg-warn {
+            background: rgba(255, 71, 87, .05);
+            border: 1px solid rgba(255, 71, 87, .25);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+        .wg-warn-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+        .wg-warn p {
+            font-size: 13px;
+            color: var(--text2);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .wg-tip {
+            background: rgba(0, 180, 216, .05);
+            border: 1px solid rgba(0, 180, 216, .25);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--cyan);
+            line-height: 1.7;
+        }
+        .wg-tip i { margin-left: 6px; }
+
+        /* ── Alt Wallet Cards ── */
+        .wg-alt-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 12px;
+        }
+        .wg-alt-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .wg-alt-card h4 i { color: var(--accent); }
+        .wg-alt-card ol {
+            padding-right: 20px;
+            margin: 0;
+        }
+        .wg-alt-card li {
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.8;
+        }
+        .wg-alt-card code {
+            background: rgba(108, 92, 231, .1);
+            padding: 2px 6px;
+            border-radius: var(--radius-xs);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        /* ── FAQ ── */
+        .wg-faq {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+        .wg-faq summary {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .wg-faq summary::before {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 11px;
+            color: var(--accent);
+            transition: transform var(--transition);
+        }
+        .wg-faq[open] summary::before {
+            transform: rotate(90deg);
+        }
+        html[dir="rtl"] .wg-faq[open] summary::before {
+            transform: rotate(-90deg);
+        }
+        .wg-faq p {
+            font-size: 14px;
+            color: var(--text2);
+            margin: 12px 0 0;
+            line-height: 1.7;
+        }
+
+        /* ── CTA ── */
+        .wg-cta {
+            text-align: center;
+            margin-top: 48px;
+            padding: 40px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .wg-cta h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .wg-cta .cta-sub {
+            font-size: 14px;
+            color: var(--text3);
+            margin-bottom: 24px;
+        }
+        .wg-cta-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .wg-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        .wg-cta-btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .wg-cta-btn.primary:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+        .wg-cta-btn.secondary {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .wg-cta-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .wg-step { padding-right: 20px; padding-top: 52px; }
+            .wg-step-badge { top: 12px; right: 12px; width: 32px; height: 32px; font-size: 14px; }
+            .wg-cta-btns { flex-direction: column; align-items: center; }
+            .wg-cta-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+<div id="topnav-root"></div>
+<div id="ticker-root"></div>
+
+<div class="wg-container">
+
+    <a href="/guides.html" class="wg-back"><i class="fas fa-arrow-right"></i> חזרה למדריכים</a>
+
+    <div class="wg-header">
+        <h1><i class="fas fa-wallet"></i> מדריך ארנק טלגרם</h1>
+        <p class="wg-subtitle">מדריך שלב-אחר-שלב להגדרת ארנק קריפטו בטלגרם ולקבלת טוקני SLH</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="wg-toc">
+        <h3><i class="fas fa-list"></i> תוכן עניינים</h3>
+        <a href="#what-is-wallet">1. מה זה ארנק קריפטו?</a>
+        <a href="#step1">2. שלב 1: פתחו את @wallet בטלגרם</a>
+        <a href="#step2">3. שלב 2: יצירת ארנק TON</a>
+        <a href="#step3">4. שלב 3: העתקת כתובת הארנק</a>
+        <a href="#step4">5. שלב 4: שליחת הכתובת לבוט SLH</a>
+        <a href="#step5">6. שלב 5: קבלת טוקני SLH</a>
+        <a href="#trust-wallet">7. אפשרות נוספת: Trust Wallet</a>
+        <a href="#metamask">8. אפשרות נוספת: MetaMask</a>
+        <a href="#security">9. טיפים לאבטחה</a>
+        <a href="#faq">10. שאלות נפוצות</a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 1. מה זה ארנק קריפטו? -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="what-is-wallet">
+        <h2 class="wg-section-title"><i class="fas fa-question-circle"></i> מה זה ארנק קריפטו?</h2>
+        <div class="wg-info">
+            <p>ארנק קריפטו הוא כלי דיגיטלי שמאפשר לכם לשמור, לשלוח ולקבל מטבעות קריפטוגרפיים. הארנק מכיל זוג מפתחות: מפתח ציבורי (כתובת הארנק שלכם, כמו מספר חשבון בנק) ומפתח פרטי (סיסמה סודית לגישה לכספים).</p>
+            <p>כדי לקבל טוקני SLH, לסחור בהם או להשתתף בסטייקינג, תצטרכו ארנק קריפטו. במדריך הזה נלמד אתכם איך להגדיר אחד בקלות דרך טלגרם.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 2. שלב 1: פתחו את @wallet בטלגרם -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="step1">
+        <h2 class="wg-section-title"><i class="fas fa-paper-plane"></i> שלב 1: פתחו את @wallet בטלגרם</h2>
+
+        <div class="wg-step">
+            <div class="wg-step-badge">1</div>
+            <div class="wg-step-title">פתחו את אפליקציית טלגרם</div>
+            <div class="wg-step-desc">ודאו שמותקנת אצלכם הגרסה העדכנית ביותר של טלגרם. אם אין לכם, הורידו מ-<a href="https://telegram.org" style="color:var(--accent)">telegram.org</a>.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">2</div>
+            <div class="wg-step-title">חפשו את @wallet</div>
+            <div class="wg-step-desc">בשורת החיפוש בטלגרם, הקלידו <code>@wallet</code> ובחרו את הבוט הרשמי של Telegram Wallet (עם סימן אימות כחול).</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">3</div>
+            <div class="wg-step-title">לחצו Start</div>
+            <div class="wg-step-desc">לחצו על כפתור <code>Start</code> בתחתית הצ'אט כדי להפעיל את ארנק טלגרם.</div>
+        </div>
+
+        <div class="wg-tip"><i class="fas fa-lightbulb"></i> ארנק טלגרם הוא ארנק מובנה בתוך האפליקציה - לא צריך להתקין שום דבר נוסף.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 3. שלב 2: יצירת ארנק TON -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="step2">
+        <h2 class="wg-section-title"><i class="fas fa-plus-circle"></i> שלב 2: יצירת ארנק TON</h2>
+
+        <div class="wg-step">
+            <div class="wg-step-badge">1</div>
+            <div class="wg-step-title">בחרו את רשת TON</div>
+            <div class="wg-step-desc">בתפריט הארנק, בחרו את המטבע <code>TON</code> (Toncoin). אם זו הפעם הראשונה, הארנק ייצור עבורכם כתובת חדשה באופן אוטומטי.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">2</div>
+            <div class="wg-step-title">אשרו את התנאים</div>
+            <div class="wg-step-desc">אשרו את תנאי השימוש של ארנק טלגרם. הארנק מאובטח ומנוהל ישירות בתוך טלגרם.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">3</div>
+            <div class="wg-step-title">הארנק מוכן</div>
+            <div class="wg-step-desc">ברגע שהארנק נוצר, תוכלו לראות את היתרה שלכם (0 TON בהתחלה) ואת אפשרויות השליחה והקבלה.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 4. שלב 3: העתקת כתובת הארנק -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="step3">
+        <h2 class="wg-section-title"><i class="fas fa-copy"></i> שלב 3: העתקת כתובת הארנק</h2>
+
+        <div class="wg-step">
+            <div class="wg-step-badge">1</div>
+            <div class="wg-step-title">לחצו על TON</div>
+            <div class="wg-step-desc">בתוך ארנק טלגרם, לחצו על המטבע <code>TON</code> כדי להיכנס לדף המטבע.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">2</div>
+            <div class="wg-step-title">לחצו על Receive (קבלה)</div>
+            <div class="wg-step-desc">לחצו על כפתור <code>Receive</code> כדי לראות את כתובת הארנק שלכם.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">3</div>
+            <div class="wg-step-title">העתיקו את הכתובת</div>
+            <div class="wg-step-desc">לחצו על כפתור <code>Copy</code> או לחצו על הכתובת עצמה כדי להעתיק אותה. הכתובת נראית בערך כך: <code>UQ...abc123</code>. שמרו אותה - תצטרכו אותה בשלב הבא.</div>
+        </div>
+
+        <div class="wg-tip"><i class="fas fa-lightbulb"></i> כתובת ארנק TON מתחילה תמיד ב-<code>UQ</code> או <code>EQ</code>. אם הכתובת נראית אחרת, ודאו שבחרתם ברשת TON.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 5. שלב 4: שליחת הכתובת לבוט SLH -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="step4">
+        <h2 class="wg-section-title"><i class="fas fa-robot"></i> שלב 4: שליחת הכתובת לבוט SLH</h2>
+
+        <div class="wg-step">
+            <div class="wg-step-badge">1</div>
+            <div class="wg-step-title">פתחו את @SLH_WALLET_bot</div>
+            <div class="wg-step-desc">חפשו את <code>@SLH_WALLET_bot</code> בטלגרם ולחצו <code>Start</code>. לחלופין, היכנסו ישירות דרך <a href="https://t.me/SLH_WALLET_bot" style="color:var(--accent)">t.me/SLH_WALLET_bot</a>.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">2</div>
+            <div class="wg-step-title">שלחו את כתובת הארנק</div>
+            <div class="wg-step-desc">הדביקו את כתובת הארנק שהעתקתם בשלב הקודם ושלחו אותה לבוט. הבוט יאשר שהכתובת נקלטה בהצלחה.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">3</div>
+            <div class="wg-step-title">אפשרות: הגדרה דרך הדאשבורד</div>
+            <div class="wg-step-desc">תוכלו גם להדביק את כתובת הארנק דרך <a href="/dashboard.html" style="color:var(--accent)">הדאשבורד באתר</a> &mdash; היכנסו לפרופיל שלכם ועדכנו את שדה כתובת הארנק.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 6. שלב 5: קבלת טוקני SLH -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="step5">
+        <h2 class="wg-section-title"><i class="fas fa-coins"></i> שלב 5: קבלת טוקני SLH</h2>
+
+        <div class="wg-info">
+            <p>טוקן SLH פועל על רשת BSC (BNB Smart Chain). כדי לראות את הטוקנים בארנק חיצוני, תצטרכו להוסיף את הטוקן ידנית.</p>
+        </div>
+
+        <div class="wg-step">
+            <div class="wg-step-badge">1</div>
+            <div class="wg-step-title">ודאו שהארנק שלכם תומך ב-BSC</div>
+            <div class="wg-step-desc">אם אתם משתמשים ב-Trust Wallet או MetaMask, ודאו שרשת BSC (BNB Smart Chain) מופעלת בארנק שלכם.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">2</div>
+            <div class="wg-step-title">הוסיפו את טוקן SLH כטוקן מותאם</div>
+            <div class="wg-step-desc">חפשו את האפשרות "Add Custom Token" בארנק שלכם. בחרו רשת <code>BSC</code> והדביקו את כתובת החוזה:<br><code>0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code></div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge">3</div>
+            <div class="wg-step-title">קבלו טוקנים</div>
+            <div class="wg-step-desc">לאחר ההגדרה, טוקני SLH שתרוויחו דרך הבוט, סטייקינג או רפרלים יופיעו אוטומטית בארנק שלכם.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 7. אפשרות נוספת: Trust Wallet -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="trust-wallet">
+        <h2 class="wg-section-title"><i class="fas fa-shield-halved"></i> אפשרות נוספת: Trust Wallet</h2>
+
+        <div class="wg-alt-card">
+            <h4><i class="fas fa-mobile-screen-button"></i> הגדרת Trust Wallet</h4>
+            <ol>
+                <li>הורידו את <strong>Trust Wallet</strong> מחנות האפליקציות (App Store / Google Play).</li>
+                <li>צרו ארנק חדש ושמרו את 12 מילות השחזור (Seed Phrase) במקום בטוח &mdash; <strong>לעולם אל תשתפו אותן!</strong></li>
+                <li>לחצו על סמל ההגדרות (גלגל שיניים) בפינה הימנית העליונה.</li>
+                <li>בחרו "Add Custom Token" ומלאו את הפרטים:
+                    <br>רשת: <code>BNB Smart Chain (BEP20)</code>
+                    <br>כתובת חוזה: <code>0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code>
+                    <br>שם: <code>SLH</code> &nbsp;|&nbsp; סמל: <code>SLH</code> &nbsp;|&nbsp; ספרות עשרוניות: <code>18</code>
+                </li>
+                <li>לחצו "Save". הטוקן SLH יופיע כעת ברשימת המטבעות שלכם.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 8. אפשרות נוספת: MetaMask -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="metamask">
+        <h2 class="wg-section-title"><i class="fab fa-ethereum"></i> אפשרות נוספת: MetaMask</h2>
+
+        <div class="wg-alt-card">
+            <h4><i class="fas fa-fox"></i> הגדרת MetaMask</h4>
+            <ol>
+                <li>התקינו את <strong>MetaMask</strong> כתוסף לדפדפן או כאפליקציה לנייד מ-<a href="https://metamask.io" style="color:var(--accent)">metamask.io</a>.</li>
+                <li>צרו ארנק חדש ושמרו את מילות השחזור במקום בטוח.</li>
+                <li>הוסיפו את רשת BSC ידנית:
+                    <br>שם רשת: <code>BNB Smart Chain</code>
+                    <br>RPC URL: <code>https://bsc-dataseed.binance.org/</code>
+                    <br>Chain ID: <code>56</code>
+                    <br>סמל: <code>BNB</code>
+                    <br>Block Explorer: <code>https://bscscan.com</code>
+                </li>
+                <li>עברו לרשת BSC ולחצו "Import Tokens" בתחתית.</li>
+                <li>הדביקו את כתובת החוזה: <code>0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code></li>
+                <li>MetaMask יזהה אוטומטית את שם הטוקן (SLH) והספרות. לחצו "Add Custom Token" ואז "Import Tokens".</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 9. טיפים לאבטחה -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="security">
+        <h2 class="wg-section-title"><i class="fas fa-lock"></i> טיפים לאבטחה</h2>
+
+        <div class="wg-warn">
+            <div class="wg-warn-title"><i class="fas fa-triangle-exclamation"></i> חשוב מאוד!</div>
+            <p>לעולם אל תשתפו את מילות השחזור (Seed Phrase) או המפתח הפרטי עם אף אחד. צוות SLH לעולם לא יבקש מכם פרטים אלה.</p>
+        </div>
+
+        <div class="wg-step">
+            <div class="wg-step-badge"><i class="fas fa-key" style="font-size:14px"></i></div>
+            <div class="wg-step-title">שמרו את מילות השחזור במקום בטוח</div>
+            <div class="wg-step-desc">רשמו את 12/24 מילות השחזור על נייר ושמרו במקום בטוח פיזית. לא במחשב, לא בצילום מסך, לא בענן.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge"><i class="fas fa-shield-halved" style="font-size:14px"></i></div>
+            <div class="wg-step-title">הפעילו אימות דו-שלבי (2FA)</div>
+            <div class="wg-step-desc">היכנסו להגדרות טלגרם &rarr; פרטיות ואבטחה &rarr; אימות דו-שלבי. הוסיפו סיסמה נוספת לחשבון הטלגרם שלכם.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge"><i class="fas fa-check-circle" style="font-size:14px"></i></div>
+            <div class="wg-step-title">השתמשו רק באפליקציות רשמיות</div>
+            <div class="wg-step-desc">הורידו ארנקים רק מהאתרים הרשמיים או מחנויות האפליקציות המוכרות. היזהרו מקישורים חשודים ומאתרי פישינג.</div>
+        </div>
+        <div class="wg-step">
+            <div class="wg-step-badge"><i class="fas fa-user-secret" style="font-size:14px"></i></div>
+            <div class="wg-step-title">אל תלחצו על קישורים חשודים</div>
+            <div class="wg-step-desc">אם מישהו שולח לכם קישור "לחידוש הארנק" או "לאישור חשבון" - זו הונאה. בוטים רשמיים של SLH לעולם לא ישלחו קישורים כאלה.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- 10. שאלות נפוצות -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-section" id="faq">
+        <h2 class="wg-section-title"><i class="fas fa-circle-question"></i> שאלות נפוצות</h2>
+
+        <details class="wg-faq">
+            <summary>מה אם איבדתי את כתובת הארנק?</summary>
+            <p>לא נורא! כתובת הארנק היא ציבורית ולא סודית. פשוט היכנסו מחדש לארנק טלגרם (@wallet), לחצו על TON &rarr; Receive, והעתיקו את הכתובת שוב. הכתובת לא משתנה.</p>
+        </details>
+
+        <details class="wg-faq">
+            <summary>כמה עולה להעביר טוקנים?</summary>
+            <p>העברות בתוך מערכת SLH (בין משתמשים דרך הבוט) הן ללא עמלה. העברות ברשת הבלוקצ'יין (TON או BSC) כרוכות בעמלת רשת קטנה (בדרך כלל פחות מ-$0.10).</p>
+        </details>
+
+        <details class="wg-faq">
+            <summary>האם זה בטוח?</summary>
+            <p>ארנק טלגרם מאובטח על ידי טלגרם עצמה. ארנקים חיצוניים כמו Trust Wallet ו-MetaMask הם ארנקים מוכרים ובטוחים. הסיכון העיקרי הוא תמיד מצד המשתמש - שמירה לא נכונה של מילות השחזור או לחיצה על קישורים מזויפים. עקבו אחרי טיפי האבטחה למעלה.</p>
+        </details>
+
+        <details class="wg-faq">
+            <summary>האם אפשר להשתמש בארנק אחר?</summary>
+            <p>כן. כל ארנק שתומך ברשת BSC (BNB Smart Chain) יכול להחזיק טוקני SLH. ארנק טלגרם מומלץ לנוחות, אבל Trust Wallet ו-MetaMask הם גם אפשרויות מצוינות.</p>
+        </details>
+
+        <details class="wg-faq">
+            <summary>איך אני יודע שקיבלתי טוקנים?</summary>
+            <p>תקבלו התראה בבוט SLH על כל פעולה. בנוסף, תוכלו לבדוק את היתרה שלכם דרך הדאשבורד או בארנק החיצוני שלכם (לאחר הוספת הטוקן המותאם).</p>
+        </details>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- CTA -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="wg-cta">
+        <h3>הגדרתם ארנק? מעולה!</h3>
+        <p class="cta-sub">עכשיו אתם מוכנים לקבל טוקני SLH, להשתתף בסטייקינג ולהרוויח.</p>
+        <div class="wg-cta-btns">
+            <a href="/dashboard.html" class="wg-cta-btn primary"><i class="fas fa-chart-line"></i> כניסה לדאשבורד</a>
+            <a href="https://t.me/SLH_AIR_bot" class="wg-cta-btn secondary" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> פתחו את בוט SLH</a>
+        </div>
+    </div>
+
+</div><!-- /.wg-container -->
+
+<div id="bottomnav-root"></div>
+<div id="footer-root"></div>
+
+<script src="/js/translations.js?v=20260421a"></script>
+<script src="/js/shared.js?v=20260424a"></script>
+<script>
+    initShared({ activePage: 'guides' });
+</script>
+<script src="/js/analytics.js"></script>
+<script src="/js/ai-assistant.js?v=20260421a"></script>
+</body>
+</html>

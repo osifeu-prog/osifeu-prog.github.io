@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Spark — Buy SLH Tokens | רכישת מטבעות SLH</title>
+<title>SLH Spark � Buy SLH Tokens | ????? ?????? SLH</title>
 <meta name="description" content="Buy SLH tokens securely. Credit card, crypto, or bank transfer. Genesis pricing available.">
 <link rel="canonical" href="https://slh-nft.com/buy.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Buy SLH Tokens — Genesis Pricing">
+<meta property="og:title" content="Buy SLH Tokens � Genesis Pricing">
 <meta property="og:description" content="Secure your position in SLH Spark. Credit card, crypto, bank transfer.">
 <meta property="og:image" content="https://slh-nft.com/assets/og/launch.png">
 <meta property="og:url" content="https://slh-nft.com/buy.html">
@@ -70,39 +70,39 @@
 <div id="ticker-root"></div>
 
 <div class="buy-hero">
-    <h1>💎 רכישת מטבעות SLH</h1>
-    <p class="sub">הבטח את מקומך באקוסיסטם של העולם החדש. Genesis pricing זמין לזמן מוגבל.</p>
+    <h1>?? ????? ?????? SLH</h1>
+    <p class="sub">???? ?? ????? ????????? ?? ????? ????. Genesis pricing ???? ???? ?????.</p>
 </div>
 
 <div class="section">
     <!-- Live Price -->
     <div class="price-card">
-        <div class="price" id="slh-price">₪444</div>
-        <div class="price-sub">SLH Spark Token · BSC (BEP-20)</div>
+        <div class="price" id="slh-price">?444</div>
+        <div class="price-sub">SLH Spark Token � BSC (BEP-20)</div>
         <div class="price-sub" id="slh-price-usd">~$122 USD</div>
         <div class="live-badge"><span class="pulse"></span> LIVE on PancakeSwap</div>
     </div>
 
     <!-- Volume Bonus -->
     <div style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,215,0,.06));border:1px solid rgba(168,85,247,.3);border-radius:16px;padding:20px;text-align:center;margin-bottom:24px">
-        <div style="font-size:20px;margin-bottom:4px">🎉</div>
+        <div style="font-size:20px;margin-bottom:4px">??</div>
         <div style="font-size:16px;font-weight:800;color:var(--purple,#a855f7)">Volume Bonus Program</div>
-        <div style="font-size:13px;color:var(--text2);margin-top:8px">רכישות מעל $100 מקבלות בונוס עד 10%! · Genesis Contributors מקבלים עד 30% בונוס</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:8px">?????? ??? $100 ?????? ????? ?? 10%! � Genesis Contributors ?????? ?? 30% ?????</div>
     </div>
 
     <!-- Buy Form -->
     <div class="buy-form">
-        <h2>💳 פרטי רכישה</h2>
+        <h2>?? ???? ?????</h2>
 
         <div class="form-row">
             <div class="form-group">
-                <label>סכום לרכישה</label>
+                <label>???? ??????</label>
                 <input type="number" id="buy-amount" value="100" min="10" placeholder="100" oninput="updateSummary()">
             </div>
             <div class="form-group">
-                <label>מטבע תשלום</label>
+                <label>???? ?????</label>
                 <select id="buy-currency" onchange="updateSummary()">
-                    <option value="ILS">ILS (₪)</option>
+                    <option value="ILS">ILS (?)</option>
                     <option value="USD">USD ($)</option>
                     <option value="BNB">BNB</option>
                     <option value="USDT">USDT</option>
@@ -110,20 +110,20 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>מטבע לקנייה</label>
+                <label>???? ??????</label>
                 <select id="buy-token" onchange="updateSummary();updateBuyLink()" style="width:100%;padding:14px 16px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:12px;font-size:15px">
-                    <option value="SLH">💎 SLH (Premium)</option>
-                    <option value="ZVK">⭐ ZVK (Rewards)</option>
-                    <option value="MNH">🪙 MNH (Stablecoin ₪1)</option>
+                    <option value="SLH">?? SLH (Premium)</option>
+                    <option value="ZVK">? ZVK (Rewards)</option>
+                    <option value="MNH">?? MNH (Stablecoin ?1)</option>
                 </select>
             </div>
         </div>
 
         <!-- Bonus Tiers -->
         <div style="padding:12px;background:rgba(0,232,135,.06);border:1px solid rgba(0,232,135,.2);border-radius:10px;margin-bottom:12px;font-size:12px;color:var(--text2)">
-            💎 <strong style="color:var(--accent)">בונוס!</strong> כל רכישת SLH מעניקה גם <strong>ZVK</strong> בונוס (10% מהסכום) + <strong>REP</strong> points!
+            ?? <strong style="color:var(--accent)">?????!</strong> ?? ????? SLH ?????? ?? <strong>ZVK</strong> ????? (10% ??????) + <strong>REP</strong> points!
         </div>
-        <div style="font-size:13px;color:var(--text2);margin-bottom:8px">🎁 בונוס לפי נפח:</div>
+        <div style="font-size:13px;color:var(--text2);margin-bottom:8px">?? ????? ??? ???:</div>
         <div class="bonus-tiers">
             <div class="bonus-tier" onclick="setAmount(100)"><div class="amount">$100</div><div class="bonus">+2%</div></div>
             <div class="bonus-tier" onclick="setAmount(500)"><div class="amount">$500</div><div class="bonus">+3%</div></div>
@@ -132,91 +132,91 @@
         </div>
 
         <!-- Payment Methods -->
-        <div style="font-size:13px;color:var(--text2);margin:16px 0 8px">💳 שיטת תשלום:</div>
+        <div style="font-size:13px;color:var(--text2);margin:16px 0 8px">?? ???? ?????:</div>
         <div class="payment-methods">
             <div class="pay-method selected" onclick="selectPayment(this,'pancakeswap')" style="cursor:pointer">
                 <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
-                <div class="icon">🥞</div>
+                <div class="icon">??</div>
                 <div class="name">PancakeSwap</div>
-                <div class="detail">Swap BNB → SLH ישירות</div>
+                <div class="detail">Swap BNB ? SLH ??????</div>
                 </a>
             </div>
             <div class="pay-method" onclick="window.location.href='/p2p.html'" style="cursor:pointer">
-                <div class="icon">🤝</div>
-                <div class="name">P2P (חינם!)</div>
-                <div class="detail">Bit · PayBox · MNH · TON</div>
+                <div class="icon">??</div>
+                <div class="name">P2P (????!)</div>
+                <div class="detail">Bit � PayBox � MNH � TON</div>
             </div>
             <div class="pay-method" onclick="window.location.href='/launch-event.html#send-bnb'" style="cursor:pointer">
-                <div class="icon">💎</div>
+                <div class="icon">??</div>
                 <div class="name">Genesis Deposit</div>
-                <div class="detail">BNB ישירות לארנק Genesis</div>
+                <div class="detail">BNB ?????? ????? Genesis</div>
             </div>
             <div class="pay-method" onclick="openTonPayModal()" style="cursor:pointer">
-                <div class="icon">💎</div>
+                <div class="icon">??</div>
                 <div class="name">TON Direct</div>
-                <div class="detail">Tonkeeper / Wallet · אימות אוטומטי ב-30ש</div>
+                <div class="detail">Tonkeeper / Wallet � ????? ??????? ?-30?</div>
             </div>
             <div class="pay-method" onclick="openBscPayModal()" style="cursor:pointer">
-                <div class="icon">🟡</div>
+                <div class="icon">??</div>
                 <div class="name">BNB Direct</div>
-                <div class="detail">MetaMask / Trust · BSC · אימות אוטומטי</div>
+                <div class="detail">MetaMask / Trust � BSC � ????? ???????</div>
             </div>
             <div class="pay-method" onclick="openBankTransferModal()" style="cursor:pointer">
-                <div class="icon">🏦</div>
-                <div class="name">העברה בנקאית</div>
-                <div class="detail">לצביקה קאופמן (מנכ"ל) · 8 שדות חובה</div>
+                <div class="icon">??</div>
+                <div class="name">????? ??????</div>
+                <div class="detail">?????? ?????? (???"?) � 8 ???? ????</div>
             </div>
             <div class="pay-method" onclick="window.open('https://t.me/SLH_AIR_bot?start=buy','_blank')" style="cursor:pointer">
-                <div class="icon">📱</div>
+                <div class="icon">??</div>
                 <div class="name">Telegram Bot</div>
-                <div class="detail">רכישה דרך @SLH_AIR_bot · /buy</div>
+                <div class="detail">????? ??? @SLH_AIR_bot � /buy</div>
             </div>
         </div>
 
         <!-- Summary -->
         <div class="summary-card">
-            <div class="summary-row"><span>סכום</span><span id="sum-amount">₪100</span></div>
-            <div class="summary-row"><span>בונוס</span><span id="sum-bonus" style="color:var(--gold)">+2%</span></div>
-            <div class="summary-row"><span>SLH שתקבל</span><span id="sum-slh" style="color:var(--accent)">~0.225 SLH</span></div>
-            <div class="summary-row"><span>שיטת תשלום</span><span id="sum-method">PancakeSwap</span></div>
+            <div class="summary-row"><span>????</span><span id="sum-amount">?100</span></div>
+            <div class="summary-row"><span>?????</span><span id="sum-bonus" style="color:var(--gold)">+2%</span></div>
+            <div class="summary-row"><span>SLH ?????</span><span id="sum-slh" style="color:var(--accent)">~0.225 SLH</span></div>
+            <div class="summary-row"><span>???? ?????</span><span id="sum-method">PancakeSwap</span></div>
         </div>
 
-        <a id="buy-link" href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" class="buy-btn" style="text-decoration:none;text-align:center;display:block">🚀 רכוש SLH עכשיו</a>
+        <a id="buy-link" href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" class="buy-btn" style="text-decoration:none;text-align:center;display:block">?? ???? SLH ?????</a>
         <div style="text-align:center;margin-top:8px">
-            <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="color:var(--text2);font-size:11px">לא נפתח? לחץ כאן ←</a>
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" rel="noopener" style="color:var(--text2);font-size:11px">?? ????? ??? ??? ?</a>
         </div>
         <div id="buy-result" style="margin-top:12px;font-size:13px;text-align:center"></div>
 
-        <!-- ═══ Auto-verify payment section ═══ -->
+        <!-- --- Auto-verify payment section --- -->
         <div style="margin-top:30px;padding:24px;background:linear-gradient(135deg,rgba(0,255,65,.06),rgba(0,229,255,.04));border:1px solid rgba(0,255,65,.3);border-radius:16px">
-            <h3 style="color:var(--accent,#00ff41);margin:0 0 10px;font-size:18px">⚡ כבר שילמת? אמת עכשיו — Premium תוך 30 שניות</h3>
+            <h3 style="color:var(--accent,#00ff41);margin:0 0 10px;font-size:18px">? ??? ?????? ??? ????? � Premium ??? 30 ?????</h3>
             <div style="color:var(--text2);font-size:13px;margin-bottom:18px">
-                הדבק את ה-TX hash שלך מהארנק (PancakeSwap, Tonkeeper, MetaMask) ונאמת אוטומטית על הבלוקצ'יין. לא מחכים 24 שעות.
+                ???? ?? ?-TX hash ??? ?????? (PancakeSwap, Tonkeeper, MetaMask) ????? ???????? ?? ??????'???. ?? ????? 24 ????.
             </div>
 
             <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-                <button onclick="setVerifyNet('bsc')" id="net-bsc" class="net-btn net-active">🟡 BNB / PancakeSwap</button>
-                <button onclick="setVerifyNet('ton')" id="net-ton" class="net-btn">💎 TON</button>
+                <button onclick="setVerifyNet('bsc')" id="net-bsc" class="net-btn net-active">?? BNB / PancakeSwap</button>
+                <button onclick="setVerifyNet('ton')" id="net-ton" class="net-btn">?? TON</button>
             </div>
 
-            <input type="text" id="verify-txhash" placeholder="TX hash (0x... או TON hash)"
+            <input type="text" id="verify-txhash" placeholder="TX hash (0x... ?? TON hash)"
                 style="width:100%;padding:14px;background:var(--bg,#0a0a0f);border:1px solid var(--border);color:var(--text);border-radius:10px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr;text-align:left">
 
-            <input type="number" id="verify-userid" placeholder="User ID שלך (Telegram ID)"
+            <input type="number" id="verify-userid" placeholder="User ID ??? (Telegram ID)"
                 style="width:100%;padding:14px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:10px;font-size:14px;margin-bottom:14px;direction:ltr;text-align:right">
 
             <button onclick="verifyPayment()" id="verify-btn"
                 style="width:100%;padding:14px;background:linear-gradient(135deg,#00ff41,#00e5ff);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">
-                🔐 אמת תשלום והפעל Premium
+                ?? ??? ????? ????? Premium
             </button>
 
             <div id="verify-result" style="margin-top:14px;font-size:13px;text-align:center;min-height:20px"></div>
 
             <div style="margin-top:14px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.7">
-                💡 <b>איך זה עובד:</b><br>
-                1. שילמת דרך PancakeSwap / Tonkeeper / ארנק אחר<br>
-                2. העתק את ה-TX hash (מהקבלה של הארנק)<br>
-                3. הדבק כאן + ה-User ID שלך → Premium מופעל מיד + קבלה דיגיטלית
+                ?? <b>??? ?? ????:</b><br>
+                1. ????? ??? PancakeSwap / Tonkeeper / ???? ???<br>
+                2. ???? ?? ?-TX hash (?????? ?? ?????)<br>
+                3. ???? ??? + ?-User ID ??? ? Premium ????? ??? + ???? ????????
             </div>
 
             <style>
@@ -230,50 +230,50 @@
 
     <!-- Trust Strip -->
     <div class="trust-strip">
-        <div class="trust-item"><i class="fas fa-lock" style="color:var(--accent)"></i> הצפנה בנקאית</div>
-        <div class="trust-item"><i class="fas fa-shield-alt" style="color:var(--accent)"></i> Smart Contract מאומת</div>
-        <div class="trust-item"><i class="fas fa-link" style="color:var(--accent)"></i> קוד פתוח</div>
+        <div class="trust-item"><i class="fas fa-lock" style="color:var(--accent)"></i> ????? ??????</div>
+        <div class="trust-item"><i class="fas fa-shield-alt" style="color:var(--accent)"></i> Smart Contract ?????</div>
+        <div class="trust-item"><i class="fas fa-link" style="color:var(--accent)"></i> ??? ????</div>
         <div class="trust-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i> PancakeSwap V2</div>
     </div>
 
     <!-- Security Note -->
     <div class="security-note">
-        <strong style="color:var(--accent)">🔐 אבטחה ושקיפות:</strong><br>
-        • כל העסקאות מאובטחות ומתועדות ב-SHA-256 audit chain<br>
-        • הטוקנים יועברו לארנק שלך לאחר אישור<br>
-        • מסחר P2P כולל escrow אוטומטי להגנה על שני הצדדים<br>
-        • <a href="/about.html" style="color:var(--accent)">ראה דף שקיפות מלא →</a>
+        <strong style="color:var(--accent)">?? ????? ???????:</strong><br>
+        � ?? ??????? ???????? ???????? ?-SHA-256 audit chain<br>
+        � ??????? ?????? ????? ??? ???? ?????<br>
+        � ???? P2P ???? escrow ??????? ????? ?? ??? ??????<br>
+        � <a href="/about.html" style="color:var(--accent)">??? ?? ?????? ??? ?</a>
     </div>
 
     <!-- FAQ -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px">
-        <h3 style="color:var(--text);margin-bottom:16px">❓ שאלות נפוצות</h3>
+        <h3 style="color:var(--text);margin-bottom:16px">? ????? ??????</h3>
         <div style="font-size:13px;color:var(--text2);line-height:2">
-            <strong style="color:var(--text)">מה המינימום לרכישה?</strong><br>
-            אין מינימום ב-PancakeSwap (אפילו $0.60). ב-P2P — לפי ההצעה.<br><br>
-            <strong style="color:var(--text)">איך מקבלים את הטוקנים?</strong><br>
-            PancakeSwap: מיידי לארנק MetaMask/Trust Wallet. P2P: escrow אוטומטי. Genesis: תוך 24 שעות.<br><br>
-            <strong style="color:var(--text)">מה ההבדל בין הדרכים?</strong><br>
-            PancakeSwap = מיידי, on-chain. P2P = ישירות מאנשים, חינם על MNH. Genesis = תרומה לפול + status מיוחד.
+            <strong style="color:var(--text)">?? ???????? ???????</strong><br>
+            ??? ??????? ?-PancakeSwap (????? $0.60). ?-P2P � ??? ?????.<br><br>
+            <strong style="color:var(--text)">??? ?????? ?? ????????</strong><br>
+            PancakeSwap: ????? ????? MetaMask/Trust Wallet. P2P: escrow ???????. Genesis: ??? 24 ????.<br><br>
+            <strong style="color:var(--text)">?? ????? ??? ???????</strong><br>
+            PancakeSwap = ?????, on-chain. P2P = ?????? ??????, ???? ?? MNH. Genesis = ????? ???? + status ?????.
         </div>
     </div>
 
     <!-- Related -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px">
         <a href="/liquidity.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
-            <div style="font-size:20px;margin-bottom:6px">💧</div>
+            <div style="font-size:20px;margin-bottom:6px">??</div>
             <div style="font-size:12px;font-weight:700;color:var(--text)">Add Liquidity</div>
         </a>
         <a href="/earn.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
-            <div style="font-size:20px;margin-bottom:6px">📈</div>
+            <div style="font-size:20px;margin-bottom:6px">??</div>
             <div style="font-size:12px;font-weight:700;color:var(--text)">Variable Yield (4-12%) Staking</div>
         </a>
         <a href="/p2p.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
-            <div style="font-size:20px;margin-bottom:6px">🤝</div>
+            <div style="font-size:20px;margin-bottom:6px">??</div>
             <div style="font-size:12px;font-weight:700;color:var(--text)">P2P Trading</div>
         </a>
         <a href="/about.html" style="display:block;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;text-align:center">
-            <div style="font-size:20px;margin-bottom:6px">🔍</div>
+            <div style="font-size:20px;margin-bottom:6px">??</div>
             <div style="font-size:12px;font-weight:700;color:var(--text)">About & Trust</div>
         </a>
     </div>
@@ -324,7 +324,7 @@ function updateSummary() {
     else if (amountUSD >= 100) bonusPct = 2;
 
     const slh = (amountUSD / SLH_PRICE_USD) * (1 + bonusPct / 100);
-    const symbols = {ILS: '₪', USD: '$', BNB: 'BNB ', USDT: 'USDT ', TON: 'TON '};
+    const symbols = {ILS: '?', USD: '$', BNB: 'BNB ', USDT: 'USDT ', TON: 'TON '};
     const methods = {pancakeswap: 'PancakeSwap', p2p: 'P2P', genesis: 'Genesis Deposit', bank: 'Bank Transfer'};
 
     document.getElementById('sum-amount').textContent = (symbols[curr] || '') + amount.toLocaleString();
@@ -355,7 +355,7 @@ function updateBuyLink() {
     if (token !== 'SLH' && selectedPayment === 'pancakeswap') {
         link.href = '/p2p.html';
         link.removeAttribute('target');
-        link.textContent = '🤝 רכוש ' + token + ' ב-P2P (מטבע פנימי)';
+        link.textContent = '?? ???? ' + token + ' ?-P2P (???? ?????)';
     } else {
         link.href = urls[selectedPayment] || urls.pancakeswap;
         if (selectedPayment === 'p2p' || selectedPayment === 'genesis') {
@@ -364,10 +364,10 @@ function updateBuyLink() {
             link.target = '_blank';
         }
         const labels = {
-            pancakeswap: '🥞 רכוש ' + token + ' ב-PancakeSwap',
-            p2p: '🤝 רכוש ' + token + ' ב-P2P',
-            genesis: '💎 הפקד לארנק Genesis',
-            bank: '🏦 צור קשר לרכישה'
+            pancakeswap: '?? ???? ' + token + ' ?-PancakeSwap',
+            p2p: '?? ???? ' + token + ' ?-P2P',
+            genesis: '?? ???? ????? Genesis',
+            bank: '?? ??? ??? ??????'
         };
         link.textContent = labels[selectedPayment] || labels.pancakeswap;
     }
@@ -377,24 +377,24 @@ function updateBuyLink() {
 function handleBuy() {
     const result = document.getElementById('buy-result');
     if (selectedPayment === 'pancakeswap') {
-        result.innerHTML = '<span style="color:var(--accent)">🥞 PancakeSwap נפתח...</span>';
+        result.innerHTML = '<span style="color:var(--accent)">?? PancakeSwap ????...</span>';
         const a = document.createElement('a');
         a.href = 'https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc';
         a.target = '_blank'; a.rel = 'noopener'; a.click();
-        setTimeout(() => { result.innerHTML = '<span style="color:var(--accent)">🥞 לא נפתח? <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="color:var(--gold);text-decoration:underline">לחץ כאן ←</a></span>'; }, 2000);
+        setTimeout(() => { result.innerHTML = '<span style="color:var(--accent)">?? ?? ????? <a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank" style="color:var(--gold);text-decoration:underline">??? ??? ?</a></span>'; }, 2000);
     } else if (selectedPayment === 'p2p') {
         window.location.href = '/p2p.html';
     } else if (selectedPayment === 'genesis') {
-        result.innerHTML = '<span style="color:var(--gold)">💎 Genesis Wallet:<br><code style="font-size:11px;background:var(--bg);padding:6px 10px;border-radius:6px;display:inline-block;margin-top:6px;direction:ltr">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</code><br>רשת: BSC (BEP-20) · דווח אח"כ ב-<a href="/launch-event.html" style="color:var(--accent)">Launch Event</a></span>';
+        result.innerHTML = '<span style="color:var(--gold)">?? Genesis Wallet:<br><code style="font-size:11px;background:var(--bg);padding:6px 10px;border-radius:6px;display:inline-block;margin-top:6px;direction:ltr">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</code><br>???: BSC (BEP-20) � ???? ??"? ?-<a href="/launch-event.html" style="color:var(--accent)">Launch Event</a></span>';
     } else {
-        result.innerHTML = '<span style="color:var(--cyan)">🏦 צור קשר: <a href="https://t.me/osifeu_prog" target="_blank" style="color:var(--accent)">@osifeu_prog</a></span>';
+        result.innerHTML = '<span style="color:var(--cyan)">?? ??? ???: <a href="https://t.me/osifeu_prog" target="_blank" style="color:var(--accent)">@osifeu_prog</a></span>';
     }
 }
 
 updateSummary();
 updateBuyLink();
 
-// ═══════ Auto-verify logic ═══════
+// ------- Auto-verify logic -------
 let verifyNet = 'bsc';
 function setVerifyNet(net){
     verifyNet = net;
@@ -418,16 +418,16 @@ async function verifyPayment(){
     const tx = document.getElementById('verify-txhash').value.trim();
     const uid = parseInt(document.getElementById('verify-userid').value, 10);
 
-    if (!tx) { result.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash</span>'; return; }
-    if (!uid) { result.innerHTML = '<span style="color:#ff4444">❌ חסר User ID</span>'; return; }
+    if (!tx) { result.innerHTML = '<span style="color:#ff4444">? ??? TX hash</span>'; return; }
+    if (!uid) { result.innerHTML = '<span style="color:#ff4444">? ??? User ID</span>'; return; }
     if (verifyNet === 'bsc' && (!tx.startsWith('0x') || tx.length !== 66)) {
-        result.innerHTML = '<span style="color:#ff4444">❌ BSC hash צריך להיות 0x + 64 תווים</span>';
+        result.innerHTML = '<span style="color:#ff4444">? BSC hash ???? ????? 0x + 64 ?????</span>';
         return;
     }
 
     btn.disabled = true;
-    btn.textContent = '⏳ מאמת על הבלוקצ\'יין...';
-    result.innerHTML = '<span style="color:var(--text2)">מחכה לתשובה מ-' + (verifyNet === 'ton' ? 'toncenter' : 'bscscan') + '...</span>';
+    btn.textContent = '? ???? ?? ??????\'???...';
+    result.innerHTML = '<span style="color:var(--text2)">???? ?????? ?-' + (verifyNet === 'ton' ? 'toncenter' : 'bscscan') + '...</span>';
 
     const endpoint = verifyNet === 'ton'
         ? 'https://slh-api-production.up.railway.app/api/payment/ton/auto-verify'
@@ -445,32 +445,32 @@ async function verifyPayment(){
         const amt = verifyNet === 'ton' ? `${d.amount_ton} TON` : `${d.amount_bnb} BNB`;
         const receiptHtml = d.receipt
             ? `<div style="margin-top:8px;padding:10px;background:rgba(0,255,65,.08);border-radius:8px;font-family:monospace;font-size:11px">
-                📄 קבלה דיגיטלית: <b>${d.receipt.receipt_number}</b><br>
+                ?? ???? ????????: <b>${d.receipt.receipt_number}</b><br>
                 <span style="color:var(--text2)">${new Date(d.receipt.issued_at).toLocaleString('he-IL')}</span>
               </div>`
             : '';
         const alreadyHtml = d.already_processed
-            ? '<div style="color:var(--gold);margin-top:6px">ℹ️ העסקה כבר עובדה — Premium פעיל מקודם</div>'
+            ? '<div style="color:var(--gold);margin-top:6px">?? ????? ??? ????? � Premium ???? ?????</div>'
             : '';
 
         result.innerHTML = `
             <div style="padding:16px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:10px">
-                <div style="font-size:18px;font-weight:900;color:#00ff41;margin-bottom:6px">✅ Premium הופעל!</div>
-                <div style="color:var(--text)">אומת על הבלוקצ'יין: <b>${amt}</b></div>
+                <div style="font-size:18px;font-weight:900;color:#00ff41;margin-bottom:6px">? Premium ?????!</div>
+                <div style="color:var(--text)">???? ?? ??????'???: <b>${amt}</b></div>
                 ${alreadyHtml}
                 ${receiptHtml}
                 <div style="margin-top:14px">
-                    <a href="/dashboard.html" style="display:inline-block;padding:10px 20px;background:#00ff41;color:#000;border-radius:8px;font-weight:700;text-decoration:none">🎛 עבור לדשבורד</a>
+                    <a href="/dashboard.html" style="display:inline-block;padding:10px 20px;background:#00ff41;color:#000;border-radius:8px;font-weight:700;text-decoration:none">?? ???? ???????</a>
                 </div>
             </div>
         `;
-        btn.textContent = '✅ הופעל בהצלחה';
+        btn.textContent = '? ????? ??????';
         btn.style.background = 'rgba(0,255,65,.2)';
         btn.disabled = true;
     } catch(err) {
-        result.innerHTML = `<div style="padding:12px;background:rgba(255,68,68,.1);border:1px solid #ff4444;border-radius:8px;color:#ff4444">❌ ${err.message}</div>`;
+        result.innerHTML = `<div style="padding:12px;background:rgba(255,68,68,.1);border:1px solid #ff4444;border-radius:8px;color:#ff4444">? ${err.message}</div>`;
         btn.disabled = false;
-        btn.textContent = '🔐 אמת תשלום והפעל Premium';
+        btn.textContent = '?? ??? ????? ????? Premium';
     }
 }
 </script>
@@ -479,22 +479,22 @@ async function verifyPayment(){
 <div id="ton-pay-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);overflow-y:auto">
 <div style="max-width:540px;margin:30px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(38,165,228,.3);border-radius:14px;direction:rtl">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <h2 style="color:#26a5e4;font-size:20px;margin:0">💎 תשלום ב-TON</h2>
+        <h2 style="color:#26a5e4;font-size:20px;margin:0">?? ????? ?-TON</h2>
         <button onclick="closeTonPayModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
     </div>
     <div style="background:rgba(38,165,228,.08);border:1px solid rgba(38,165,228,.25);padding:14px;border-radius:10px;margin-bottom:16px;font-size:13px;color:#e0e0f0;line-height:1.8">
-        <strong style="color:#26a5e4">שלב 1:</strong> שלח TON לכתובת הבאה:<br>
-        <div style="margin:10px 0;padding:12px;background:rgba(0,0,0,.4);border-radius:8px;font-family:monospace;font-size:12px;color:#00ff41;direction:ltr;text-align:center;word-break:break-all" id="ton-address-display">טוען...</div>
+        <strong style="color:#26a5e4">??? 1:</strong> ??? TON ?????? ????:<br>
+        <div style="margin:10px 0;padding:12px;background:rgba(0,0,0,.4);border-radius:8px;font-family:monospace;font-size:12px;color:#00ff41;direction:ltr;text-align:center;word-break:break-all" id="ton-address-display">????...</div>
         <div style="display:flex;gap:8px;margin-bottom:10px">
-            <button onclick="copyTonAddress()" style="flex:1;padding:10px;background:#26a5e4;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">📋 העתק כתובת</button>
-            <a id="ton-deeplink" href="#" target="_blank" style="flex:1;padding:10px;background:#00c832;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;text-align:center;text-decoration:none">💎 פתח Tonkeeper</a>
+            <button onclick="copyTonAddress()" style="flex:1;padding:10px;background:#26a5e4;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">?? ???? ?????</button>
+            <a id="ton-deeplink" href="#" target="_blank" style="flex:1;padding:10px;background:#00c832;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;text-align:center;text-decoration:none">?? ??? Tonkeeper</a>
         </div>
-        <strong style="color:#26a5e4">שלב 2:</strong> אחרי ששלחת, העתק את ה-TX hash מהארנק והדבק למטה<br>
-        <strong style="color:#26a5e4">שלב 3:</strong> לחץ "אמת" → אישור אוטומטי תוך 30 שניות
+        <strong style="color:#26a5e4">??? 2:</strong> ???? ?????, ???? ?? ?-TX hash ?????? ????? ????<br>
+        <strong style="color:#26a5e4">??? 3:</strong> ??? "???" ? ????? ??????? ??? 30 ?????
     </div>
-    <input type="text" id="ton-tx-hash" placeholder="TX hash (מהארנק)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr">
-    <input type="number" id="ton-user-id" placeholder="User ID שלך (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
-    <button onclick="verifyTonPayment()" id="ton-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#26a5e4,#00ff41);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">🔐 אמת והפעל Premium</button>
+    <input type="text" id="ton-tx-hash" placeholder="TX hash (??????)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr">
+    <input type="number" id="ton-user-id" placeholder="User ID ??? (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
+    <button onclick="verifyTonPayment()" id="ton-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#26a5e4,#00ff41);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">?? ??? ????? Premium</button>
     <div id="ton-verify-result" style="margin-top:12px;font-size:13px;text-align:center;min-height:20px"></div>
 </div>
 </div>
@@ -503,23 +503,23 @@ async function verifyPayment(){
 <div id="bsc-pay-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);overflow-y:auto">
 <div style="max-width:540px;margin:30px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(243,186,47,.3);border-radius:14px;direction:rtl">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <h2 style="color:#f3ba2f;font-size:20px;margin:0">🟡 תשלום ב-BNB (BSC)</h2>
+        <h2 style="color:#f3ba2f;font-size:20px;margin:0">?? ????? ?-BNB (BSC)</h2>
         <button onclick="closeBscPayModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
     </div>
     <div style="background:rgba(243,186,47,.08);border:1px solid rgba(243,186,47,.25);padding:14px;border-radius:10px;margin-bottom:16px;font-size:13px;color:#e0e0f0;line-height:1.8">
-        <strong style="color:#f3ba2f">שלב 1:</strong> שלח BNB לכתובת Genesis:<br>
+        <strong style="color:#f3ba2f">??? 1:</strong> ??? BNB ?????? Genesis:<br>
         <div style="margin:10px 0;padding:12px;background:rgba(0,0,0,.4);border-radius:8px;font-family:monospace;font-size:11px;color:#f3ba2f;direction:ltr;text-align:center;word-break:break-all">0xd061de73B06d5E91bfA46b35EfB7B08b16903da4</div>
         <div style="display:flex;gap:8px;margin-bottom:10px">
-            <button onclick="copyBscAddress()" style="flex:1;padding:10px;background:#f3ba2f;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">📋 העתק כתובת</button>
-            <button onclick="connectMetaMask()" style="flex:1;padding:10px;background:#ff9900;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">🦊 MetaMask</button>
+            <button onclick="copyBscAddress()" style="flex:1;padding:10px;background:#f3ba2f;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">?? ???? ?????</button>
+            <button onclick="connectMetaMask()" style="flex:1;padding:10px;background:#ff9900;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">?? MetaMask</button>
         </div>
-        <div style="font-size:11px;color:#ffd700;margin-bottom:4px">💡 מינימום: 0.05 BNB (~₪180)</div>
-        <strong style="color:#f3ba2f">שלב 2:</strong> העתק TX hash מ-MetaMask/Trust<br>
-        <strong style="color:#f3ba2f">שלב 3:</strong> אמת והפעל Premium ב-30ש
+        <div style="font-size:11px;color:#ffd700;margin-bottom:4px">?? ???????: 0.05 BNB (~?180)</div>
+        <strong style="color:#f3ba2f">??? 2:</strong> ???? TX hash ?-MetaMask/Trust<br>
+        <strong style="color:#f3ba2f">??? 3:</strong> ??? ????? Premium ?-30?
     </div>
     <input type="text" id="bsc-tx-hash" placeholder="TX hash (0x...)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-family:monospace;font-size:12px;margin-bottom:10px;direction:ltr">
-    <input type="number" id="bsc-user-id" placeholder="User ID שלך (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
-    <button onclick="verifyBscPayment()" id="bsc-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#f3ba2f,#ff9900);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">🔐 אמת והפעל Premium</button>
+    <input type="number" id="bsc-user-id" placeholder="User ID ??? (Telegram)" style="width:100%;padding:12px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:8px;font-size:13px;margin-bottom:12px;direction:ltr;text-align:right">
+    <button onclick="verifyBscPayment()" id="bsc-verify-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#f3ba2f,#ff9900);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer">?? ??? ????? Premium</button>
     <div id="bsc-verify-result" style="margin-top:12px;font-size:13px;text-align:center;min-height:20px"></div>
 </div>
 </div>
@@ -562,15 +562,15 @@ function closeBscPayModal() { document.getElementById('bsc-pay-modal').style.dis
 
 function copyTonAddress() {
     if (!loadedTonAddr) return;
-    navigator.clipboard.writeText(loadedTonAddr).then(() => alert('✅ כתובת TON הועתקה'));
+    navigator.clipboard.writeText(loadedTonAddr).then(() => alert('? ????? TON ??????'));
 }
 function copyBscAddress() {
-    navigator.clipboard.writeText(BSC_ADDR).then(() => alert('✅ כתובת BSC Genesis הועתקה'));
+    navigator.clipboard.writeText(BSC_ADDR).then(() => alert('? ????? BSC Genesis ??????'));
 }
 
 async function connectMetaMask() {
     if (!window.ethereum) {
-        alert('אין MetaMask מותקן. התקן מ-metamask.io או השתמש ב-Trust Wallet');
+        alert('??? MetaMask ?????. ???? ?-metamask.io ?? ????? ?-Trust Wallet');
         return;
     }
     try {
@@ -605,9 +605,9 @@ async function connectMetaMask() {
             }]
         });
         document.getElementById('bsc-tx-hash').value = txHash;
-        alert('✅ TX נשלח! עכשיו לחץ "אמת" למטה');
+        alert('? TX ????! ????? ??? "???" ????');
     } catch(e) {
-        alert('שגיאה: ' + (e.message || e.code));
+        alert('?????: ' + (e.message || e.code));
     }
 }
 
@@ -616,8 +616,8 @@ async function verifyTonPayment() {
     const res = document.getElementById('ton-verify-result');
     const tx = document.getElementById('ton-tx-hash').value.trim();
     const uid = parseInt(document.getElementById('ton-user-id').value, 10);
-    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash או User ID</span>'; return; }
-    btn.disabled = true; btn.textContent = '⏳ מאמת ב-toncenter...';
+    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">? ??? TX hash ?? User ID</span>'; return; }
+    btn.disabled = true; btn.textContent = '? ???? ?-toncenter...';
     try {
         const r = await fetch('https://slh-api-production.up.railway.app/api/payment/ton/auto-verify', {
             method: 'POST', headers: {'Content-Type':'application/json'},
@@ -625,11 +625,11 @@ async function verifyTonPayment() {
         });
         const d = await r.json();
         if (!r.ok) throw new Error(d.detail);
-        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">✅ אומת! ' + d.amount_ton + ' TON · Premium פעיל</div>';
-        btn.textContent = '✅ הופעל';
+        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">? ????! ' + d.amount_ton + ' TON � Premium ????</div>';
+        btn.textContent = '? ?????';
     } catch(e) {
-        res.innerHTML = '<div style="color:#ff4444;padding:10px">❌ ' + e.message + '</div>';
-        btn.disabled = false; btn.textContent = '🔐 אמת והפעל Premium';
+        res.innerHTML = '<div style="color:#ff4444;padding:10px">? ' + e.message + '</div>';
+        btn.disabled = false; btn.textContent = '?? ??? ????? Premium';
     }
 }
 
@@ -638,8 +638,8 @@ async function verifyBscPayment() {
     const res = document.getElementById('bsc-verify-result');
     const tx = document.getElementById('bsc-tx-hash').value.trim();
     const uid = parseInt(document.getElementById('bsc-user-id').value, 10);
-    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">❌ חסר TX hash או User ID</span>'; return; }
-    btn.disabled = true; btn.textContent = '⏳ מאמת ב-bscscan...';
+    if (!tx || !uid) { res.innerHTML = '<span style="color:#ff4444">? ??? TX hash ?? User ID</span>'; return; }
+    btn.disabled = true; btn.textContent = '? ???? ?-bscscan...';
     try {
         const r = await fetch('https://slh-api-production.up.railway.app/api/payment/bsc/auto-verify', {
             method: 'POST', headers: {'Content-Type':'application/json'},
@@ -647,11 +647,11 @@ async function verifyBscPayment() {
         });
         const d = await r.json();
         if (!r.ok) throw new Error(d.detail);
-        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">✅ אומת! ' + d.amount_bnb + ' BNB · Premium פעיל</div>';
-        btn.textContent = '✅ הופעל';
+        res.innerHTML = '<div style="padding:14px;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.3);border-radius:8px;color:#00ff41;font-weight:700">? ????! ' + d.amount_bnb + ' BNB � Premium ????</div>';
+        btn.textContent = '? ?????';
     } catch(e) {
-        res.innerHTML = '<div style="color:#ff4444;padding:10px">❌ ' + e.message + '</div>';
-        btn.disabled = false; btn.textContent = '🔐 אמת והפעל Premium';
+        res.innerHTML = '<div style="color:#ff4444;padding:10px">? ' + e.message + '</div>';
+        btn.disabled = false; btn.textContent = '?? ??? ????? Premium';
     }
 }
 
@@ -663,55 +663,55 @@ document.getElementById('bsc-pay-modal').addEventListener('click', e => { if (e.
 <div id="bank-transfer-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);overflow-y:auto">
 <div style="max-width:560px;margin:40px auto;padding:28px;background:var(--bg2,#0c1018);border:1px solid rgba(0,255,65,.2);border-radius:12px;direction:rtl">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-        <h2 style="color:var(--accent,#00ff41);font-size:20px;margin:0">🏦 העברה בנקאית</h2>
+        <h2 style="color:var(--accent,#00ff41);font-size:20px;margin:0">?? ????? ??????</h2>
         <button onclick="closeBankTransferModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
     </div>
     <div style="background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);padding:14px;border-radius:8px;margin-bottom:20px;font-size:12px;color:#ffd700">
-        <strong>שלב 1:</strong> העבר את הסכום לחשבון הבנק:<br>
+        <strong>??? 1:</strong> ???? ?? ????? ?????? ????:<br>
         <div style="margin:8px 0;padding:10px;background:rgba(0,0,0,.3);border-radius:6px;font-size:13px;color:#fff;line-height:1.8">
-            <strong>המוטב:</strong> קאופמן צביקה<br>
-            <strong>בנק:</strong> לאומי<br>
-            <strong>סניף:</strong> הרצליה (948)<br>
-            <strong>חשבון:</strong> 738009
+            <strong>?????:</strong> ?????? ?????<br>
+            <strong>???:</strong> ?????<br>
+            <strong>????:</strong> ?????? (948)<br>
+            <strong>?????:</strong> 738009
         </div>
-        <strong>שלב 2:</strong> מלא את הטופס הזה עם כל 8 הפרטים<br>
-        <strong>שלב 3:</strong> צביקה יאשר את ההעברה תוך 24 שעות
+        <strong>??? 2:</strong> ??? ?? ????? ??? ?? ?? 8 ??????<br>
+        <strong>??? 3:</strong> ????? ???? ?? ?????? ??? 24 ????
     </div>
     <form id="bank-transfer-form" onsubmit="submitBankTransfer(event)" style="display:flex;flex-direction:column;gap:14px">
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">1. שם הלקוח *</label>
-            <input type="text" id="bt-name" required placeholder="השם המלא כפי שמופיע בחשבון הבנק" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">1. ?? ????? *</label>
+            <input type="text" id="bt-name" required placeholder="??? ???? ??? ?????? ?????? ????" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">2. תאריך ביצוע ההעברה *</label>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">2. ????? ????? ?????? *</label>
             <input type="date" id="bt-date" required style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">3. תעודת זהות *</label>
-            <input type="text" id="bt-id" required pattern="\d{5,9}" maxlength="9" placeholder="9 ספרות" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">3. ????? ???? *</label>
+            <input type="text" id="bt-id" required pattern="\d{5,9}" maxlength="9" placeholder="9 ?????" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">4. פרטי חשבון הבנק שלך *</label>
-            <input type="text" id="bt-bank" required placeholder="שם בנק, סניף, מספר חשבון" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">4. ???? ????? ???? ??? *</label>
+            <input type="text" id="bt-bank" required placeholder="?? ???, ????, ???? ?????" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">5. סכום בשקלים *</label>
-            <input type="number" id="bt-amount" required min="1" max="1000000" step="0.01" placeholder="₪" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">5. ???? ?????? *</label>
+            <input type="number" id="bt-amount" required min="1" max="1000000" step="0.01" placeholder="?" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">6. מהות העסקה (מה רכשת?) *</label>
-            <input type="text" id="bt-desc" required placeholder="לדוגמה: רכישת 100 SLH, קורס השקעות..." style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">6. ???? ????? (?? ?????) *</label>
+            <input type="text" id="bt-desc" required placeholder="??????: ????? 100 SLH, ???? ??????..." style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">7. מספר טלפון *</label>
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">7. ???? ????? *</label>
             <input type="tel" id="bt-phone" required pattern="0[2-9]\d{7,8}" placeholder="0584203384" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
         </div>
         <div>
-            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">8. אסמכתא של העברה בנקאית *</label>
-            <input type="text" id="bt-ref" required placeholder="מספר אסמכתא מהבנק" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
+            <label style="font-size:11px;color:#8a8aa0;display:block;margin-bottom:4px">8. ?????? ?? ????? ?????? *</label>
+            <input type="text" id="bt-ref" required placeholder="???? ?????? ?????" style="width:100%;padding:10px;background:#141924;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:6px;font-size:13px;direction:ltr;text-align:right">
         </div>
         <div id="bt-result" style="font-size:12px;min-height:20px"></div>
-        <button type="submit" id="bt-submit-btn" style="padding:14px;background:#00ff41;color:#000;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">שלח בקשת העברה בנקאית</button>
+        <button type="submit" id="bt-submit-btn" style="padding:14px;background:#00ff41;color:#000;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">??? ???? ????? ??????</button>
     </form>
 </div>
 </div>
@@ -741,12 +741,12 @@ async function submitBankTransfer(e) {
         userId = u.id;
     } catch(e) {}
     if (!userId) {
-        result.innerHTML = '<span style="color:#ff0055">יש להתחבר קודם דרך טלגרם</span>';
+        result.innerHTML = '<span style="color:#ff0055">?? ?????? ???? ??? ?????</span>';
         return;
     }
 
     btn.disabled = true;
-    btn.textContent = 'שולח...';
+    btn.textContent = '????...';
     result.innerHTML = '';
 
     try {
@@ -768,18 +768,18 @@ async function submitBankTransfer(e) {
         });
         const d = await r.json();
         if (d.ok) {
-            result.innerHTML = '<span style="color:#00ff41">✅ ' + d.message + '</span>';
-            btn.textContent = 'נשלח בהצלחה!';
+            result.innerHTML = '<span style="color:#00ff41">? ' + d.message + '</span>';
+            btn.textContent = '???? ??????!';
             btn.style.background = '#39ff14';
         } else {
-            result.innerHTML = '<span style="color:#ff0055">❌ ' + (d.detail || JSON.stringify(d)) + '</span>';
+            result.innerHTML = '<span style="color:#ff0055">? ' + (d.detail || JSON.stringify(d)) + '</span>';
             btn.disabled = false;
-            btn.textContent = 'שלח בקשת העברה בנקאית';
+            btn.textContent = '??? ???? ????? ??????';
         }
     } catch(err) {
-        result.innerHTML = '<span style="color:#ff0055">❌ שגיאה: ' + err.message + '</span>';
+        result.innerHTML = '<span style="color:#ff0055">? ?????: ' + err.message + '</span>';
         btn.disabled = false;
-        btn.textContent = 'שלח בקשת העברה בנקאית';
+        btn.textContent = '??? ???? ????? ??????';
     }
 }
 // Close modal on outside click
@@ -787,5 +787,5 @@ document.getElementById('bank-transfer-modal').addEventListener('click', functio
     if (e.target === this) closeBankTransferModal();
 });
 </script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

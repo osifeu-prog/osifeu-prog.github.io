@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Investment Tracker — מעקב פקדון + ריבית דה ריבית</title>
-<meta name="description" content="מעקב חי על פקדונות עם חישוב ריבית דה ריבית אוטומטי.">
+<title>SLH Investment Tracker � ???? ????? + ????? ?? ?????</title>
+<meta name="description" content="???? ?? ?? ??????? ?? ????? ????? ?? ????? ???????.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -57,26 +57,26 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <body>
 
 <div id="login-gate" class="login-gate" style="display:none">
-  <h2>💰 Investment Tracker</h2>
-  <p style="color:var(--text2);font-size:13px;margin-bottom:16px">הזן User ID שלך כדי לראות את הפקדונות</p>
-  <input type="number" id="uid-input" placeholder="User ID (מספר טלגרם)">
-  <button onclick="login()">הצג הפקדות</button>
-  <p style="margin-top:14px;font-size:11px;color:var(--text3)">ה-User ID שלך מופיע ב-@SLH_community_bot בפקודה /whoami</p>
+  <h2>?? Investment Tracker</h2>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:16px">??? User ID ??? ??? ????? ?? ????????</p>
+  <input type="number" id="uid-input" placeholder="User ID (???? ?????)">
+  <button onclick="login()">??? ??????</button>
+  <p style="margin-top:14px;font-size:11px;color:var(--text3)">?-User ID ??? ????? ?-@SLH_community_bot ?????? /whoami</p>
 </div>
 
 <div id="main" style="display:none">
   <div class="container">
     <div class="header">
-      <h1>💰 מעקב פקדון</h1>
-      <p id="user-subtitle">טוען...</p>
+      <h1>?? ???? ?????</h1>
+      <p id="user-subtitle">????...</p>
     </div>
 
     <div id="deposits-container"></div>
 
     <div class="cta-row">
-      <a href="#" onclick="switchUser()" class="btn"><i class="fas fa-user"></i> החלף משתמש</a>
-      <button onclick="refreshAll()" class="btn primary"><i class="fas fa-sync"></i> רענן נתונים</button>
-      <a href="/promo-shekel.html" class="btn"><i class="fas fa-fire"></i> הוסף עוד</a>
+      <a href="#" onclick="switchUser()" class="btn"><i class="fas fa-user"></i> ???? ?????</a>
+      <button onclick="refreshAll()" class="btn primary"><i class="fas fa-sync"></i> ???? ??????</button>
+      <a href="/promo-shekel.html" class="btn"><i class="fas fa-fire"></i> ???? ???</a>
     </div>
 
     <div class="hebrew-date" id="hebrew-date"></div>
@@ -92,7 +92,7 @@ function login(){
     localStorage.setItem('slh_my_user_id', uid);
     checkAuth();
   } else {
-    alert('User ID חייב להיות מספר');
+    alert('User ID ???? ????? ????');
   }
 }
 
@@ -118,7 +118,7 @@ function checkAuth(){
 async function refreshAll(){
   const uid = new URLSearchParams(location.search).get('uid') || localStorage.getItem('slh_my_user_id');
   if(!uid) return;
-  document.getElementById('user-subtitle').textContent = `User #${uid} · עדכון אחרון: ${new Date().toLocaleTimeString('he-IL')}`;
+  document.getElementById('user-subtitle').textContent = `User #${uid} � ????? ?????: ${new Date().toLocaleTimeString('he-IL')}`;
 
   try {
     const r = await fetch(`${API}/api/deposits/user/${uid}`);
@@ -126,7 +126,7 @@ async function refreshAll(){
     render(d);
   } catch(e){
     document.getElementById('deposits-container').innerHTML =
-      `<div class="deposit-card" style="text-align:center"><p>שגיאה בטעינה: ${e.message}</p></div>`;
+      `<div class="deposit-card" style="text-align:center"><p>????? ??????: ${e.message}</p></div>`;
   }
 }
 
@@ -137,11 +137,11 @@ function render(d){
   if(deposits.length === 0){
     container.innerHTML = `
       <div class="deposit-card" style="text-align:center">
-        <div style="font-size:48px;margin-bottom:14px">📭</div>
-        <h3 style="margin:0 0 8px">אין עדיין פקדונות</h3>
-        <p style="color:var(--text2);margin:0 0 18px">פנה לברוקר שלך או למנהל לפתיחת פקדון ראשון</p>
+        <div style="font-size:48px;margin-bottom:14px">??</div>
+        <h3 style="margin:0 0 8px">??? ????? ???????</h3>
+        <p style="color:var(--text2);margin:0 0 18px">??? ?????? ??? ?? ????? ?????? ????? ?????</p>
         <a href="https://t.me/Grdian_bot" target="_blank" class="btn primary">
-          <i class="fab fa-telegram"></i> פנה לתמיכה
+          <i class="fab fa-telegram"></i> ??? ??????
         </a>
       </div>
     `;
@@ -154,17 +154,17 @@ function render(d){
     const color = dep.current_value >= dep.principal * 1.04 ? 'var(--green)' : 'var(--gold)';
     return `
       <div class="deposit-card">
-        ${isTest ? '<div class="test-badge">🧪 בדיקה</div>' : ''}
+        ${isTest ? '<div class="test-badge">?? ?????</div>' : ''}
 
         <div class="main-value">
-          <div class="lbl">ערך נוכחי (כולל ריבית)</div>
+          <div class="lbl">??? ????? (???? ?????)</div>
           <div class="amount" style="color:${color}">
             <span class="currency">$</span>${dep.current_value?.toLocaleString() || '0'}
           </div>
         </div>
 
         <div class="interest-box">
-          <div class="lbl">רווח מצטבר · ריבית דה ריבית</div>
+          <div class="lbl">???? ????? � ????? ?? ?????</div>
           <div class="amount">+$${(dep.interest_accrued || 0).toFixed(4)}</div>
         </div>
 
@@ -172,52 +172,52 @@ function render(d){
           <div class="progress-fill" style="width:${progress}%"></div>
         </div>
         <div style="text-align:center;font-size:12px;color:var(--text2);margin-top:-10px;margin-bottom:10px">
-          ${progress}% מתוך התקופה · נותרו ${Math.max(0, dep.term_months - dep.months_elapsed).toFixed(2)} חודשים
+          ${progress}% ???? ?????? � ????? ${Math.max(0, dep.term_months - dep.months_elapsed).toFixed(2)} ??????
         </div>
 
         <div class="stats-grid">
           <div class="stat">
             <div class="v">$${dep.principal}</div>
-            <div class="l">קרן</div>
+            <div class="l">???</div>
           </div>
           <div class="stat">
             <div class="v">${dep.monthly_rate_pct}%</div>
-            <div class="l">ריבית חודשית</div>
+            <div class="l">????? ??????</div>
           </div>
           <div class="stat">
-            <div class="v">${dep.term_months}ח'</div>
-            <div class="l">תקופה</div>
+            <div class="v">${dep.term_months}?'</div>
+            <div class="l">?????</div>
           </div>
           <div class="stat">
             <div class="v">${dep.compounding || 'monthly'}</div>
-            <div class="l">דריכה</div>
+            <div class="l">?????</div>
           </div>
           <div class="stat">
             <div class="v">${dep.slh_received || 0}</div>
-            <div class="l">SLH שהתקבל</div>
+            <div class="l">SLH ??????</div>
           </div>
           <div class="stat">
             <div class="v">${dep.days_elapsed?.toFixed(0) || 0}</div>
-            <div class="l">ימים עברו</div>
+            <div class="l">???? ????</div>
           </div>
         </div>
 
         <div class="info-section">
-          <h3>📊 פרטי הפקדון</h3>
-          <div class="info-row"><span class="lbl">מזהה פקדון:</span> <span class="val">#${dep.id}</span></div>
-          <div class="info-row"><span class="lbl">הופקד בתאריך:</span> <span class="val">${new Date(dep.deposited_at).toLocaleDateString('he-IL')}</span></div>
-          <div class="info-row"><span class="lbl">תאריך פדיון:</span> <span class="val">${dep.maturity_at ? new Date(dep.maturity_at).toLocaleDateString('he-IL') : '—'}</span></div>
-          <div class="info-row"><span class="lbl">סטטוס:</span> <span class="val">${dep.status}</span></div>
-          ${dep.notes ? `<div class="info-row"><span class="lbl">הערות:</span> <span class="val">${dep.notes}</span></div>` : ''}
+          <h3>?? ???? ??????</h3>
+          <div class="info-row"><span class="lbl">???? ?????:</span> <span class="val">#${dep.id}</span></div>
+          <div class="info-row"><span class="lbl">????? ??????:</span> <span class="val">${new Date(dep.deposited_at).toLocaleDateString('he-IL')}</span></div>
+          <div class="info-row"><span class="lbl">????? ?????:</span> <span class="val">${dep.maturity_at ? new Date(dep.maturity_at).toLocaleDateString('he-IL') : '�'}</span></div>
+          <div class="info-row"><span class="lbl">?????:</span> <span class="val">${dep.status}</span></div>
+          ${dep.notes ? `<div class="info-row"><span class="lbl">?????:</span> <span class="val">${dep.notes}</span></div>` : ''}
         </div>
 
         ${isTest && dep.months_elapsed >= 0.23 ? `
           <div class="reminder-note">
-            <strong>⏰ תזכורת:</strong> עברו 7+ ימים מאז הפקדון הראשוני.
-            הגיע הזמן להפקיד עוד $999 כדי להתחיל את הפקדון הראשי של 2 חודשים (ריבית 4% חודשי).
+            <strong>? ??????:</strong> ???? 7+ ???? ??? ?????? ???????.
+            ???? ???? ?????? ??? $999 ??? ?????? ?? ?????? ????? ?? 2 ?????? (????? 4% ?????).
             <br><br>
             <a href="https://t.me/Grdian_bot" target="_blank" class="btn primary" style="margin-top:10px">
-              <i class="fab fa-telegram"></i> פנה לאדמין
+              <i class="fab fa-telegram"></i> ??? ??????
             </a>
           </div>
         ` : ''}
@@ -231,7 +231,7 @@ function updateHebDate(){
     const now = new Date();
     const heb = new Intl.DateTimeFormat('he-IL-u-ca-hebrew',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
     const greg = new Intl.DateTimeFormat('he-IL',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
-    document.getElementById('hebrew-date').textContent = `📅 ${heb} · ${greg} · ${now.toLocaleTimeString('he-IL')}`;
+    document.getElementById('hebrew-date').textContent = `?? ${heb} � ${greg} � ${now.toLocaleTimeString('he-IL')}`;
   }catch(e){}
 }
 setInterval(updateHebDate, 1000);
@@ -240,5 +240,5 @@ updateHebDate();
 checkAuth();
 </script>
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

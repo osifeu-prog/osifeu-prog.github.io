@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH · Agent Brief — שילוח סוכנים לפרויקט</title>
+<title>SLH � Agent Brief � ????? ?????? ???????</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Shareable one-page brief for AI agents joining the SLH project. Copy the prompt, paste to agent, get work done.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
@@ -110,27 +110,27 @@ tr:hover td{background:rgba(0,255,65,.02)}
 @media(max-width:600px){.slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
 </style>
 <div class="slh-beta-banner" id="slhBeta">
-  <span>🚧 <b>BETA</b></span>
-  <span style="opacity:.85">אם משהו לא עובד —</span>
-  <a href="/bug-report.html">🐛 דווח באג</a>
-  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">✕</button>
+  <span>?? <b>BETA</b></span>
+  <span style="opacity:.85">?? ???? ?? ???? �</span>
+  <a href="/bug-report.html">?? ???? ???</a>
+  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">?</button>
 </div>
-<a href="/bug-report.html" class="slh-bug-fab" title="דווח באג">🐛</a>
+<a href="/bug-report.html" class="slh-bug-fab" title="???? ???">??</a>
 <script>if(localStorage.getItem('slh_beta_dismissed')==='1'){var b=document.getElementById('slhBeta');if(b)b.remove();}</script>
 
 
 <div class="wrap">
 
   <header class="hdr">
-    <div class="logo">🤖</div>
-    <h1>SLH · Agent Brief</h1>
-    <div class="sub">דף אחד. פרומפט מוכן. משימות פנויות. סוכן AI יכול להתחיל לעבוד בלי שאלות.</div>
-    <div class="version" id="versionTag">updated: <span id="updateTime">--</span> · API <span id="apiVersion">--</span></div>
+    <div class="logo">??</div>
+    <h1>SLH � Agent Brief</h1>
+    <div class="sub">?? ???. ?????? ????. ?????? ??????. ???? AI ???? ?????? ????? ??? ?????.</div>
+    <div class="version" id="versionTag">updated: <span id="updateTime">--</span> � API <span id="apiVersion">--</span></div>
   </header>
 
   <!-- Live KPIs -->
   <div class="sec">
-    <h2><i class="fa fa-satellite-dish"></i> מצב המערכת עכשיו</h2>
+    <h2><i class="fa fa-satellite-dish"></i> ??? ?????? ?????</h2>
     <div class="kpis" id="kpis">
       <div class="kpi"><div class="lbl">Users</div><div class="val" id="kUsers">--</div><div class="sub">registered</div></div>
       <div class="kpi"><div class="lbl">Premium</div><div class="val" id="kPremium">--</div><div class="sub">paid</div></div>
@@ -140,78 +140,78 @@ tr:hover td{background:rgba(0,255,65,.02)}
       <div class="kpi"><div class="lbl">API Health</div><div class="val" id="kHealth" style="font-size:16px;padding-top:6px">--</div><div class="sub">status</div></div>
     </div>
     <div class="note">
-      <i class="fa fa-info-circle"></i> הנתונים האלה מתעדכנים כל 30 שניות מה‑API הציבורי. הם החיים — לא צילום מסך ישן.
+      <i class="fa fa-info-circle"></i> ??????? ???? ???????? ?? 30 ????? ??-API ???????. ?? ????? � ?? ????? ??? ???.
     </div>
   </div>
 
   <!-- The One Prompt -->
   <div class="sec">
-    <h2><span class="num">1</span> הפרומפט · העתק והדבק לסוכן חדש</h2>
+    <h2><span class="num">1</span> ??????? � ???? ????? ????? ???</h2>
     <div style="color:var(--text2);font-size:13px;margin-bottom:8px">
-      הדבק את כל הטקסט הבא כהודעה ראשונה לכל סוכן AI חדש (ChatGPT, Claude, Gemini, DeepSeek, Copilot). הוא יקבל הכל שצריך כדי להתחיל.
+      ???? ?? ?? ????? ??? ?????? ?????? ??? ???? AI ??? (ChatGPT, Claude, Gemini, DeepSeek, Copilot). ??? ???? ??? ????? ??? ??????.
     </div>
     <div style="position:relative">
-      <button class="copy-btn" onclick="copyPrompt()" id="copyBtn"><i class="fa fa-copy"></i> העתק</button>
-      <div class="prompt-box" id="promptBox">אתה סוכן AI שמצטרף לפרויקט SLH Spark — מערכת השקעות מוסדית דיגיטלית בישראל של אוסיף קאופמן‑אונגר.
+      <button class="copy-btn" onclick="copyPrompt()" id="copyBtn"><i class="fa fa-copy"></i> ????</button>
+      <div class="prompt-box" id="promptBox">??? ???? AI ?????? ??????? SLH Spark � ????? ?????? ?????? ???????? ?????? ?? ????? ??????-?????.
 
-╔════════════════════════════════════════════════════════════════╗
-║  SLH ECOSYSTEM — ONBOARDING BRIEF                               ║
-║  Project: SLH Spark · Owner: Osif Ungar (TG 224223270)          ║
-║  Updated: 2026-04-17                                            ║
-╚════════════════════════════════════════════════════════════════╝
++----------------------------------------------------------------+
+�  SLH ECOSYSTEM � ONBOARDING BRIEF                               �
+�  Project: SLH Spark � Owner: Osif Ungar (TG 224223270)          �
+�  Updated: 2026-04-17                                            �
++----------------------------------------------------------------+
 
-🎯 המטרה העליונה עכשיו
-   לסגור עוד רכישות + להפעיל תשלום אוטומטי. כסף בעולם האמיתי, מהר.
+?? ????? ??????? ?????
+   ????? ??? ?????? + ?????? ????? ???????. ??? ????? ??????, ???.
 
-📐 הארכיטקטורה בקצרה
-   • API:     FastAPI on Railway — https://slh-api-production.up.railway.app
+?? ??????????? ?????
+   � API:     FastAPI on Railway � https://slh-api-production.up.railway.app
              225+ endpoints, ~10K lines in main.py (v1.0.0)
-             GitHub: osifeu-prog/slh-api (master → auto-deploy)
-   • Website: 79 HTML pages + 15 blog posts — https://slh-nft.com
-             GitHub: osifeu-prog/osifeu-prog.github.io (main → GH Pages)
-   • Bots:    25 Telegram bots in Docker Compose (aiogram 3.x)
-             @G4meb0t_bot_bot (dating) — NEW 2026-04-17 evening
+             GitHub: osifeu-prog/slh-api (master ? auto-deploy)
+   � Website: 79 HTML pages + 15 blog posts � https://slh-nft.com
+             GitHub: osifeu-prog/osifeu-prog.github.io (main ? GH Pages)
+   � Bots:    25 Telegram bots in Docker Compose (aiogram 3.x)
+             @G4meb0t_bot_bot (dating) � NEW 2026-04-17 evening
              ledger, nfty, device-registry + 19 more LIVE
-   • DB:      PostgreSQL 15 + Redis 7 on Railway
-   • Chain:   SLH on BSC (BEP-20, contract 0xACb0A094...8f022)
+   � DB:      PostgreSQL 15 + Redis 7 on Railway
+   � Chain:   SLH on BSC (BEP-20, contract 0xACb0A094...8f022)
              PancakeSwap V2 pool live
 
-💰 6 טוקנים
-   SLH — premium/governance (₪444 target)
-   MNH — stable (₪1 peg, internal)
-   ZVK — activity rewards (~₪4.4, internal)
-   REP — reputation (0-1000+)
-   ZUZ — anti-fraud (ban@100)
-   AIC — AI credits (~$0.001, NEW 2026-04-17)
+?? 6 ??????
+   SLH � premium/governance (?444 target)
+   MNH � stable (?1 peg, internal)
+   ZVK � activity rewards (~?4.4, internal)
+   REP � reputation (0-1000+)
+   ZUZ � anti-fraud (ban@100)
+   AIC � AI credits (~$0.001, NEW 2026-04-17)
 
-🚦 המצב עכשיו (live data — 30s refresh at top of page)
-   • 18+ users, 9+ premium, 10 TON staked (live from API)
-   • 0.082 BNB raised (Genesis)
-   • 6 tracks orchestrated at 67% avg (Payments 95%, Social 75%, AIC 80%)
-   • ledger-bot + nfty-bot + 20 more: LIVE
-   • /api/device/register: LIVE
-   • /api/payment/ton/auto-verify: LIVE (tolerance 0.00002 BNB, auto-verify from public RPC)
-   • /api/payment/bsc/auto-verify: LIVE
-   • /api/payment/external/record: LIVE (10 providers: Stripe/PayBox/Bit/PayPal/iCount/Cardcom/Meshulam/GrowClub/manual_bank/ton_direct/bsc_direct)
-   • /api/dating/* : 8 endpoints LIVE (Interest-overlap matching, 18+ gate)
-   • /api/sudoku/* : 8 endpoints LIVE (daily puzzle, AIC rewards)
-   • /api/ai/chat-metered: LIVE (AIC burn + 5 AIC welcome)
-   • /api/broadcast/* : 5 networks (TG+Discord+Twitter+LinkedIn+FB)
-   • /api/community/rss: LIVE (RSS 2.0 feed)
+?? ???? ????? (live data � 30s refresh at top of page)
+   � 18+ users, 9+ premium, 10 TON staked (live from API)
+   � 0.082 BNB raised (Genesis)
+   � 6 tracks orchestrated at 67% avg (Payments 95%, Social 75%, AIC 80%)
+   � ledger-bot + nfty-bot + 20 more: LIVE
+   � /api/device/register: LIVE
+   � /api/payment/ton/auto-verify: LIVE (tolerance 0.00002 BNB, auto-verify from public RPC)
+   � /api/payment/bsc/auto-verify: LIVE
+   � /api/payment/external/record: LIVE (10 providers: Stripe/PayBox/Bit/PayPal/iCount/Cardcom/Meshulam/GrowClub/manual_bank/ton_direct/bsc_direct)
+   � /api/dating/* : 8 endpoints LIVE (Interest-overlap matching, 18+ gate)
+   � /api/sudoku/* : 8 endpoints LIVE (daily puzzle, AIC rewards)
+   � /api/ai/chat-metered: LIVE (AIC burn + 5 AIC welcome)
+   � /api/broadcast/* : 5 networks (TG+Discord+Twitter+LinkedIn+FB)
+   � /api/community/rss: LIVE (RSS 2.0 feed)
 
-🔑 קבצים שחובה לקרוא לפני עבודה
+?? ????? ????? ????? ???? ?????
    1. https://github.com/osifeu-prog/slh-api/blob/master/CLAUDE.md
-      — הוראות עבודה + who-am-I + כללי מצב
+      � ?????? ????? + who-am-I + ???? ???
    2. https://github.com/osifeu-prog/slh-api/blob/master/ops/SESSION_STATUS.md
-      — Single Source of Truth: מה פתוח + מה חסום
+      � Single Source of Truth: ?? ???? + ?? ????
    3. https://github.com/osifeu-prog/slh-api/blob/master/ops/DECISIONS.md
-      — לוג החלטות; אל תדיין מחדש החלטות שכבר נסגרו
+      � ??? ??????; ?? ????? ???? ?????? ???? ?????
    4. https://github.com/osifeu-prog/slh-api/blob/master/ops/AGENT_REGISTRY.json
-      — מי אתה ומה מותר לך
+      � ?? ??? ??? ???? ??
    5. https://github.com/osifeu-prog/slh-api/blob/master/ops/SYNC_PROTOCOL.md
-      — איך מתאמים בין סוכנים
+      � ??? ?????? ??? ??????
 
-🎛 Dashboards (לחץ לראות)
+?? Dashboards (??? ?????)
    Mission Control: https://slh-nft.com/mission-control.html
    Ops Dashboard:   https://slh-nft.com/ops-dashboard.html
    Project Map:     https://slh-nft.com/project-map.html
@@ -219,51 +219,51 @@ tr:hover td{background:rgba(0,255,65,.02)}
    Admin:           https://slh-nft.com/admin.html
    Bug Dashboard:   https://slh-nft.com/admin-bugs.html
 
-🔒 מה אסור
-   ❌ אל תכתוב סיסמאות/טוקנים ב‑HTML (localStorage בלבד)
-   ❌ אל תשתמש ב‑_ensure_tables בפונקציות חדשות (הטבלאות נוצרות ב‑startup)
-   ❌ אל תמציא mock data — אם אין נתון, תגיד "אין"
-   ❌ אל תפרסם .env ל‑git
-   ❌ אל תשנה את main.py בלי לסנכרן ל‑api/main.py (Railway בונה מ‑root)
+?? ?? ????
+   ? ?? ????? ???????/?????? ?-HTML (localStorage ????)
+   ? ?? ????? ?-_ensure_tables ????????? ????? (??????? ?????? ?-startup)
+   ? ?? ????? mock data � ?? ??? ????, ???? "???"
+   ? ?? ????? .env ?-git
+   ? ?? ???? ?? main.py ??? ?????? ?-api/main.py (Railway ???? ?-root)
 
-✅ מה כן
-   ✅ כתוב UI בעברית, קוד וקומיטים באנגלית
-   ✅ קומיט לכל שינוי משמעותי (ניכר ב‑git log)
-   ✅ סנכרן main.py ו‑api/main.py (cp api/main.py main.py)
-   ✅ עדכן ops/SESSION_STATUS.md בסוף session
-   ✅ שאל את אוסיף לפני שינויי deployment / secrets rotation
+? ?? ??
+   ? ???? UI ??????, ??? ???????? ???????
+   ? ????? ??? ????? ??????? (???? ?-git log)
+   ? ????? main.py ?-api/main.py (cp api/main.py main.py)
+   ? ???? ops/SESSION_STATUS.md ???? session
+   ? ??? ?? ????? ???? ?????? deployment / secrets rotation
 
-📋 המשימות הפנויות עכשיו (לקוח מ‑Agent Brief; אתה רשאי לקחת אחת)
+?? ??????? ??????? ????? (???? ?-Agent Brief; ??? ???? ???? ???)
 
-   [#1] 🌱 EASY — BotFather commands setup (5 min)
-        לכל בוט: /setcommands → הדבק start/help/status/mylink/premium
-        בלוקר: אוסיף חייב לבצע ידנית (צריך BotFather access)
+   [#1] ?? EASY � BotFather commands setup (5 min)
+        ??? ???: /setcommands ? ???? start/help/status/mylink/premium
+        ?????: ????? ???? ???? ????? (???? BotFather access)
 
-   [#2] 🟡 MED — Re-deploy 6 stopped bots with bot_filters.py
-        shared/bot_filters.py מוכן. צריך להוסיף install_cross_bot_filters(dp, BOT_USERNAME)
-        לכל בוט בקוד ולבנות מחדש את ה‑Docker image.
+   [#2] ?? MED � Re-deploy 6 stopped bots with bot_filters.py
+        shared/bot_filters.py ????. ???? ?????? install_cross_bot_filters(dp, BOT_USERNAME)
+        ??? ??? ???? ?????? ???? ?? ?-Docker image.
         Est: 45 min.
 
-   [#3] 💰 REVENUE — Twilio SMS integration on /api/device/register
-        ברגע שיש Twilio API key, להוסיף fetch ל‑/Messages API
-        אחרי יצירת קוד. Est: 30 min (unblocked when key supplied).
+   [#3] ?? REVENUE � Twilio SMS integration on /api/device/register
+        ???? ??? Twilio API key, ?????? fetch ?-/Messages API
+        ???? ????? ???. Est: 30 min (unblocked when key supplied).
 
-   [#4] 🟡 MED — i18n on 27 remaining pages
+   [#4] ?? MED � i18n on 27 remaining pages
         Wrap Hebrew strings with data-i18n; translation keys to /js/translations.js.
         Est: ~60 min for a batch of 5 pages.
 
-   [#5] 🟢 EASY — Theme switcher on 25 remaining pages
+   [#5] ?? EASY � Theme switcher on 25 remaining pages
         Copy shared.js pattern from dashboard.html. Est: 60 min.
 
-   [#6] 💰 REVENUE — PancakeSwap TX tracker
+   [#6] ?? REVENUE � PancakeSwap TX tracker
         Consume BscScan events for the SLH/WBNB pair. Credit buyer accounts
         when SLH is received. Est: 90 min.
 
-   [#7] 🟣 HARD — TON Wallet deep-link button (wallet.html)
-        Add "Connect Tonkeeper" → opens ton://transfer deep-link with payload.
+   [#7] ?? HARD � TON Wallet deep-link button (wallet.html)
+        Add "Connect Tonkeeper" ? opens ton://transfer deep-link with payload.
         On return, call /api/payment/ton/auto-verify. Est: 60 min.
 
-🛠 אם אתה סוכן executor (יכול להריץ קוד)
+?? ?? ??? ???? executor (???? ????? ???)
    - Clone: git clone https://github.com/osifeu-prog/slh-api.git
    - Branch: feature/<kebab-case>
    - Commit messages: conventional style (feat/fix/docs/chore)
@@ -273,78 +273,78 @@ tr:hover td{background:rgba(0,255,65,.02)}
         * Files touched
         * Ask for Osif confirmation if anything touches auth/secrets/deploy
 
-🗣 אם אתה סוכן advisor (טקסט בלבד)
-   - החזר patches כ‑unified diff או python-file-in-fence
-   - אל תשנה לסמנטיקה של קבצים שאתה לא רואה
-   - אם חסר לך context — בקש ספציפית את הקובץ
+?? ?? ??? ???? advisor (???? ????)
+   - ???? patches ?-unified diff ?? python-file-in-fence
+   - ?? ???? ???????? ?? ????? ???? ?? ????
+   - ?? ??? ?? context � ??? ??????? ?? ?????
 
-📣 דיווח חזרה לאוסיף
-   ב‑end of session, כתוב ב‑Telegram ל‑@osifeu_prog:
-   "Agent <your name> סיים: <task>. <commit-hash or diff-size>.
-    בלוקרים חדשים: <יש/אין>. המלצה: <next>."
+?? ????? ???? ??????
+   ?-end of session, ???? ?-Telegram ?-@osifeu_prog:
+   "Agent <your name> ????: <task>. <commit-hash or diff-size>.
+    ??????? ?????: <??/???>. ?????: <next>."
 
-🔗 אחראים לתחומים
-   • Frontend UI/UX        → Claude Code
-   • Backend API           → Claude Code
-   • Bot handlers          → SLH Core Assistant (advisor)
-   • Deploy / Railway      → Osif Ungar (human)
-   • BotFather / tokens    → Osif Ungar (human)
-   • ESP32 flashing        → Osif Ungar (human)
+?? ?????? ???????
+   � Frontend UI/UX        ? Claude Code
+   � Backend API           ? Claude Code
+   � Bot handlers          ? SLH Core Assistant (advisor)
+   � Deploy / Railway      ? Osif Ungar (human)
+   � BotFather / tokens    ? Osif Ungar (human)
+   � ESP32 flashing        ? Osif Ungar (human)
 
-═══════════════════════════════════════════════════════════════
-תחילת העבודה: ענה "מוכן" + השם של המשימה שלקחת + est time.
-ואז התחל. אל תבקש רשות לקרוא קבצים פומביים.
-═══════════════════════════════════════════════════════════════</div>
+---------------------------------------------------------------
+????? ??????: ??? "????" + ??? ?? ?????? ????? + est time.
+??? ????. ?? ???? ???? ????? ????? ???????.
+---------------------------------------------------------------</div>
     </div>
     <div class="note warn">
-      <i class="fa fa-triangle-exclamation"></i> הפרומפט הזה גדל עם הפרויקט. אם אתה מעתיק אותו לסוכן, וודא שאתה עובד עם הגרסה מה‑GitHub: <a href="https://slh-nft.com/agent-brief.html">slh-nft.com/agent-brief.html</a>
+      <i class="fa fa-triangle-exclamation"></i> ??????? ??? ??? ?? ???????. ?? ??? ????? ???? ?????, ???? ???? ???? ?? ????? ??-GitHub: <a href="https://slh-nft.com/agent-brief.html">slh-nft.com/agent-brief.html</a>
     </div>
   </div>
 
   <!-- Available tasks -->
   <div class="sec">
-    <h2><span class="num">2</span> משימות פנויות (לחץ לפרטים)</h2>
+    <h2><span class="num">2</span> ?????? ?????? (??? ??????)</h2>
     <a class="task" href="https://github.com/osifeu-prog/slh-api/blob/master/ops/SESSION_STATUS.md" target="_blank">
       <div class="row1">
         <span class="num">#1</span>
-        <span class="title">BotFather commands — הגדרת /commands ל‑12 בוטים</span>
-        <span class="tag t-easy">EASY · 5m</span>
+        <span class="title">BotFather commands � ????? /commands ?-12 ?????</span>
+        <span class="tag t-easy">EASY � 5m</span>
       </div>
-      <div class="desc">כל בוט צריך רשימה של פקודות ב‑BotFather. דורש גישה ידנית של אוסיף.</div>
-      <div class="meta">Owner: Osif · Est: 5 min per bot · Prerequisite: BotFather access</div>
+      <div class="desc">?? ??? ???? ????? ?? ?????? ?-BotFather. ???? ???? ????? ?? ?????.</div>
+      <div class="meta">Owner: Osif � Est: 5 min per bot � Prerequisite: BotFather access</div>
     </a>
     <a class="task" href="https://github.com/osifeu-prog/slh-api/blob/master/shared/bot_filters.py" target="_blank">
       <div class="row1">
         <span class="num">#2</span>
         <span class="title">Re-deploy 6 stopped bots with cross-bot filter</span>
-        <span class="tag t-med">MED · 45m</span>
+        <span class="tag t-med">MED � 45m</span>
       </div>
-      <div class="desc">install_cross_bot_filters(dp, BOT_USERNAME) — מונע "פקודה לא מוכרת" כאשר בוט אחר מקבל הודעה.</div>
-      <div class="meta">Owner: Any agent + Osif · Est: 45 min · File: shared/bot_filters.py</div>
+      <div class="desc">install_cross_bot_filters(dp, BOT_USERNAME) � ???? "????? ?? ?????" ???? ??? ??? ???? ?????.</div>
+      <div class="meta">Owner: Any agent + Osif � Est: 45 min � File: shared/bot_filters.py</div>
     </a>
     <a class="task" href="https://github.com/osifeu-prog/slh-api/blob/master/api/routes/payments_auto.py" target="_blank">
       <div class="row1">
         <span class="num">#3</span>
         <span class="title">Twilio SMS integration</span>
-        <span class="tag t-revenue">REVENUE · 30m</span>
+        <span class="tag t-revenue">REVENUE � 30m</span>
       </div>
-      <div class="desc">על הטלפון לקבל SMS עם קוד אימות. כרגע fallback ל‑Telegram.</div>
-      <div class="meta">Owner: Any agent · Blocked-on: Osif (Twilio API key)</div>
+      <div class="desc">?? ?????? ???? SMS ?? ??? ?????. ???? fallback ?-Telegram.</div>
+      <div class="meta">Owner: Any agent � Blocked-on: Osif (Twilio API key)</div>
     </a>
     <a class="task" href="https://slh-nft.com/project-map.html" target="_blank">
       <div class="row1">
         <span class="num">#4</span>
-        <span class="title">i18n על 27 עמודים נוספים</span>
-        <span class="tag t-med">MED · 60m/batch</span>
+        <span class="title">i18n ?? 27 ?????? ??????</span>
+        <span class="tag t-med">MED � 60m/batch</span>
       </div>
       <div class="desc">Wrap Hebrew strings with data-i18n attributes. translations in /js/translations.js.</div>
-      <div class="meta">Owner: Any frontend agent · Est: 60 min per batch of 5 pages</div>
+      <div class="meta">Owner: Any frontend agent � Est: 60 min per batch of 5 pages</div>
     </a>
     <a class="task" href="https://slh-nft.com/project-map.html" target="_blank">
       <div class="row1">
         <span class="num">#5</span>
         <span class="title">Theme switcher on 25 pages</span>
-        <span class="tag t-easy">EASY · 60m</span>
+        <span class="tag t-easy">EASY � 60m</span>
       </div>
       <div class="desc">Copy shared.js pattern. No deps needed.</div>
       <div class="meta">Owner: Any frontend agent</div>
@@ -353,102 +353,102 @@ tr:hover td{background:rgba(0,255,65,.02)}
       <div class="row1">
         <span class="num">#6</span>
         <span class="title">PancakeSwap TX tracker</span>
-        <span class="tag t-revenue">REVENUE · 90m</span>
+        <span class="tag t-revenue">REVENUE � 90m</span>
       </div>
       <div class="desc">Consume BscScan events for SLH/WBNB pair. Credit buyer accounts automatically when SLH is received.</div>
-      <div class="meta">Owner: Any backend agent · Est: 90 min</div>
+      <div class="meta">Owner: Any backend agent � Est: 90 min</div>
     </a>
     <a class="task" href="https://tonkeeper.com/" target="_blank">
       <div class="row1">
         <span class="num">#7</span>
-        <span class="title">TON deep-link (Tonkeeper) על wallet.html</span>
-        <span class="tag t-hard">HARD · 60m</span>
+        <span class="title">TON deep-link (Tonkeeper) ?? wallet.html</span>
+        <span class="tag t-hard">HARD � 60m</span>
       </div>
-      <div class="desc">"Connect Tonkeeper" button → ton://transfer deep-link. On return, call /api/payment/ton/auto-verify.</div>
+      <div class="desc">"Connect Tonkeeper" button ? ton://transfer deep-link. On return, call /api/payment/ton/auto-verify.</div>
       <div class="meta">Owner: Any frontend agent</div>
     </a>
   </div>
 
   <!-- Endpoints -->
   <div class="sec">
-    <h2><span class="num">3</span> Payment API · עכשיו חי</h2>
+    <h2><span class="num">3</span> Payment API � ????? ??</h2>
     <div class="note">
-      נוסף היום — 17.4.2026 · בוט AI עם תשלום TON/BSC/Stripe/Bit/PayBox/PayPal/iCount/Cardcom/Meshulam/GrowClub.
+      ???? ???? � 17.4.2026 � ??? AI ?? ????? TON/BSC/Stripe/Bit/PayBox/PayPal/iCount/Cardcom/Meshulam/GrowClub.
     </div>
     <table>
-      <tr><th>Method</th><th>Path</th><th>מטרה</th></tr>
-      <tr><td class="mono">POST</td><td class="mono">/api/payment/ton/auto-verify</td><td>אמת TON TX אוטומטית → Premium</td></tr>
-      <tr><td class="mono">POST</td><td class="mono">/api/payment/bsc/auto-verify</td><td>אמת BNB TX ל‑Genesis → Premium</td></tr>
-      <tr><td class="mono">POST</td><td class="mono">/api/payment/external/record</td><td>רשום תשלום ממספק חיצוני (Stripe/Bit/PayBox/...)</td></tr>
-      <tr><td class="mono">GET</td><td class="mono">/api/payment/status/{user_id}</td><td>מצב Premium + deposits + receipts</td></tr>
-      <tr><td class="mono">GET</td><td class="mono">/api/payment/receipts/{user_id}</td><td>קבלות של המשתמש</td></tr>
-      <tr><td class="mono">GET</td><td class="mono">/api/payment/config</td><td>כתובות תשלום + סכומי מינימום + ספקים</td></tr>
-      <tr><td class="mono">GET</td><td class="mono">/api/payment/geography/summary</td><td>דשבורד אדמין: תשלומים לפי מדינה+מטבע</td></tr>
+      <tr><th>Method</th><th>Path</th><th>????</th></tr>
+      <tr><td class="mono">POST</td><td class="mono">/api/payment/ton/auto-verify</td><td>??? TON TX ???????? ? Premium</td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/api/payment/bsc/auto-verify</td><td>??? BNB TX ?-Genesis ? Premium</td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/api/payment/external/record</td><td>???? ????? ????? ?????? (Stripe/Bit/PayBox/...)</td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/api/payment/status/{user_id}</td><td>??? Premium + deposits + receipts</td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/api/payment/receipts/{user_id}</td><td>????? ?? ??????</td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/api/payment/config</td><td>?????? ????? + ????? ??????? + ?????</td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/api/payment/geography/summary</td><td>?????? ?????: ??????? ??? ?????+????</td></tr>
     </table>
   </div>
 
   <!-- Links -->
   <div class="sec">
-    <h2><span class="num">4</span> קישורים מהירים</h2>
+    <h2><span class="num">4</span> ??????? ??????</h2>
     <div class="links">
       <a href="https://github.com/osifeu-prog/slh-api"><div class="ico"><i class="fa-brands fa-github"></i></div><div class="lbl">slh-api</div><div class="desc">Backend repo</div></a>
       <a href="https://github.com/osifeu-prog/osifeu-prog.github.io"><div class="ico"><i class="fa-brands fa-github"></i></div><div class="lbl">website</div><div class="desc">Frontend repo</div></a>
-      <a href="https://slh-nft.com/mission-control.html"><div class="ico">🫀</div><div class="lbl">Mission Control</div><div class="desc">Live dashboard</div></a>
-      <a href="https://slh-nft.com/ops-dashboard.html"><div class="ico">📊</div><div class="lbl">Ops Dashboard</div><div class="desc">System status</div></a>
-      <a href="https://slh-nft.com/project-map.html"><div class="ico">🗺️</div><div class="lbl">Project Map</div><div class="desc">All 49 pages</div></a>
-      <a href="https://slh-nft.com/admin.html"><div class="ico">🛡️</div><div class="lbl">Admin Panel</div><div class="desc">19-page CRM</div></a>
-      <a href="https://slh-api-production.up.railway.app/docs"><div class="ico">📖</div><div class="lbl">OpenAPI Docs</div><div class="desc">Interactive</div></a>
+      <a href="https://slh-nft.com/mission-control.html"><div class="ico">??</div><div class="lbl">Mission Control</div><div class="desc">Live dashboard</div></a>
+      <a href="https://slh-nft.com/ops-dashboard.html"><div class="ico">??</div><div class="lbl">Ops Dashboard</div><div class="desc">System status</div></a>
+      <a href="https://slh-nft.com/project-map.html"><div class="ico">???</div><div class="lbl">Project Map</div><div class="desc">All 49 pages</div></a>
+      <a href="https://slh-nft.com/admin.html"><div class="ico">???</div><div class="lbl">Admin Panel</div><div class="desc">19-page CRM</div></a>
+      <a href="https://slh-api-production.up.railway.app/docs"><div class="ico">??</div><div class="lbl">OpenAPI Docs</div><div class="desc">Interactive</div></a>
       <a href="https://t.me/osifeu_prog"><div class="ico"><i class="fa-brands fa-telegram"></i></div><div class="lbl">Osif on Telegram</div><div class="desc">Direct line</div></a>
     </div>
   </div>
 
   <!-- Report template -->
   <div class="sec">
-    <h2><span class="num">5</span> תבנית דיווח חזרה</h2>
+    <h2><span class="num">5</span> ????? ????? ????</h2>
     <div style="color:var(--text2);font-size:13px;margin-bottom:12px">
-      סוכן שסיים משימה → מעתיק את התבנית הבאה → שולח לאוסיף ב‑Telegram:
+      ???? ????? ????? ? ????? ?? ?????? ???? ? ???? ?????? ?-Telegram:
     </div>
     <div style="position:relative">
-      <button class="copy-btn" onclick="copyReport()" id="reportBtn"><i class="fa fa-copy"></i> העתק</button>
-      <div class="prompt-box" id="reportBox">📋 Agent Report — SLH Ecosystem
+      <button class="copy-btn" onclick="copyReport()" id="reportBtn"><i class="fa fa-copy"></i> ????</button>
+      <div class="prompt-box" id="reportBox">?? Agent Report � SLH Ecosystem
 
-Agent:        [your name / model — e.g., "Claude Opus 4.7 via Claude Code"]
-Session:      [YYYY-MM-DD HH:MM → HH:MM]
+Agent:        [your name / model � e.g., "Claude Opus 4.7 via Claude Code"]
+Session:      [YYYY-MM-DD HH:MM ? HH:MM]
 Task taken:   [#X title from Agent Brief]
 
-✅ Completed
+? Completed
   - [specific thing 1, link to commit or file]
   - [specific thing 2]
 
-🚧 In progress
+?? In progress
   - [thing still cooking, % complete]
 
-🛑 Blockers
+?? Blockers
   - [anything that needs Osif / another agent]
 
-📊 Verification
+?? Verification
   - Tests run: [yes/no, which]
   - Live check: [curl result, page behavior]
   - Deployed: [commit hash, Railway/GH-Pages status]
 
-📝 Next recommended
+?? Next recommended
   - [what should happen next, and by whom]
 
-💰 Revenue impact (if any)
+?? Revenue impact (if any)
   - [paid flows affected, users impacted]</div>
     </div>
   </div>
 
   <!-- Share -->
   <div class="share">
-    <a href="https://t.me/share/url?url=https://slh-nft.com/agent-brief.html&text=SLH%20Agent%20Brief%20-%20שלח%20לסוכן%20AI%20חדש"><i class="fa-brands fa-telegram"></i> שלח ב‑Telegram</a>
+    <a href="https://t.me/share/url?url=https://slh-nft.com/agent-brief.html&text=SLH%20Agent%20Brief%20-%20???%20?????%20AI%20???"><i class="fa-brands fa-telegram"></i> ??? ?-Telegram</a>
     <a href="https://wa.me/?text=https://slh-nft.com/agent-brief.html"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
     <a href="mailto:?subject=SLH%20Agent%20Brief&body=https://slh-nft.com/agent-brief.html"><i class="fa fa-envelope"></i> Email</a>
-    <a href="#" onclick="navigator.clipboard.writeText(location.href);this.textContent='✅ הועתק';return false"><i class="fa fa-link"></i> העתק קישור</a>
+    <a href="#" onclick="navigator.clipboard.writeText(location.href);this.textContent='? ?????';return false"><i class="fa fa-link"></i> ???? ?????</a>
   </div>
 
   <footer class="foot">
-    SLH Agent Brief · one page · infinite agents · <a href="mission-control.html" style="color:var(--text2)">Mission Control</a> · <a href="ops-dashboard.html" style="color:var(--text2)">Ops Dashboard</a>
+    SLH Agent Brief � one page � infinite agents � <a href="mission-control.html" style="color:var(--text2)">Mission Control</a> � <a href="ops-dashboard.html" style="color:var(--text2)">Ops Dashboard</a>
   </footer>
 
 </div>
@@ -460,8 +460,8 @@ function copyPrompt(){
   const text = document.getElementById('promptBox').textContent;
   navigator.clipboard.writeText(text).then(()=>{
     const b = document.getElementById('copyBtn');
-    b.textContent = '✅ הועתק!'; b.classList.add('ok');
-    setTimeout(()=>{ b.innerHTML='<i class="fa fa-copy"></i> העתק'; b.classList.remove('ok'); }, 2500);
+    b.textContent = '? ?????!'; b.classList.add('ok');
+    setTimeout(()=>{ b.innerHTML='<i class="fa fa-copy"></i> ????'; b.classList.remove('ok'); }, 2500);
   });
 }
 
@@ -469,8 +469,8 @@ function copyReport(){
   const text = document.getElementById('reportBox').textContent;
   navigator.clipboard.writeText(text).then(()=>{
     const b = document.getElementById('reportBtn');
-    b.textContent = '✅ הועתק!'; b.classList.add('ok');
-    setTimeout(()=>{ b.innerHTML='<i class="fa fa-copy"></i> העתק'; b.classList.remove('ok'); }, 2500);
+    b.textContent = '? ?????!'; b.classList.add('ok');
+    setTimeout(()=>{ b.innerHTML='<i class="fa fa-copy"></i> ????'; b.classList.remove('ok'); }, 2500);
   });
 }
 
@@ -479,10 +479,10 @@ async function loadLive(){
   try{
     const h = await (await fetch(API+'/api/health',{cache:'no-store'})).json();
     document.getElementById('apiVersion').textContent = h.version;
-    document.getElementById('kHealth').textContent = h.status==='ok' ? '✅ OK' : '⚠';
+    document.getElementById('kHealth').textContent = h.status==='ok' ? '? OK' : '?';
     document.getElementById('kHealth').style.color = h.status==='ok' ? 'var(--accent)' : 'var(--gold)';
   }catch(e){
-    document.getElementById('kHealth').textContent = '❌ DOWN';
+    document.getElementById('kHealth').textContent = '? DOWN';
     document.getElementById('kHealth').style.color = 'var(--red)';
   }
   try{
@@ -502,5 +502,5 @@ loadLive();
 setInterval(loadLive, 30000);
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

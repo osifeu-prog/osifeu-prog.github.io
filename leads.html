@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>💰 Leads — SLH Spark</title>
+<title>?? Leads � SLH Spark</title>
 <link rel="stylesheet" href="/css/shared.css?v=20260425e">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -58,44 +58,44 @@ footer { text-align:center; padding:22px; color:var(--text3); font-size:12px; }
 
 <header>
   <div>
-    <h1>💰 Leads Dashboard</h1>
-    <div class="sub">ניהול 100% של נרשמי קמפיינים · סטטוס + הערות + קישורים ישירים</div>
+    <h1>?? Leads Dashboard</h1>
+    <div class="sub">????? 100% ?? ????? ???????? � ????? + ????? + ??????? ??????</div>
   </div>
   <div>
-    <span class="pill live" id="conn-pill">🟢 מחובר</span>
-    <button class="btn" onclick="logout()">🚪 יציאה</button>
+    <span class="pill live" id="conn-pill">?? ?????</span>
+    <button class="btn" onclick="logout()">?? ?????</button>
   </div>
 </header>
 
 <div id="login-screen" class="login-box" style="display:none">
-  <h2 style="margin:0 0 12px">🔐 Admin Login</h2>
-  <p class="sub" style="margin-bottom:16px">נדרש X-Admin-Key</p>
+  <h2 style="margin:0 0 12px">?? Admin Login</h2>
+  <p class="sub" style="margin-bottom:16px">???? X-Admin-Key</p>
   <input type="password" id="admin-key-input" placeholder="slh2026admin / other" autocomplete="off">
-  <button onclick="login()">כניסה</button>
-  <p style="font-size:11px; color:var(--text3); margin-top:12px">המפתח נשמר ב-localStorage · לא יוצא מהדפדפן</p>
+  <button onclick="login()">?????</button>
+  <p style="font-size:11px; color:var(--text3); margin-top:12px">????? ???? ?-localStorage � ?? ???? ???????</p>
 </div>
 
 <div id="main-screen" class="container" style="display:none">
 
   <div class="stats" id="stats-grid">
-    <div class="stat"><div class="label">סה״כ Leads</div><div class="value" id="stat-total">—</div></div>
-    <div class="stat"><div class="label">ממתינים</div><div class="value" id="stat-pending" style="color:var(--yellow)">—</div><div class="hint">עוד לא יצרת קשר</div></div>
-    <div class="stat"><div class="label">בטיפול</div><div class="value" id="stat-contacted" style="color:var(--cyan)">—</div><div class="hint">יצרת קשר, ממתין תגובה</div></div>
-    <div class="stat"><div class="label">נסגרו 🎉</div><div class="value" id="stat-closed" style="color:var(--green)">—</div><div class="hint">שילם / הצטרף</div></div>
-    <div class="stat"><div class="label">נאבדו</div><div class="value" id="stat-lost" style="color:var(--red)">—</div><div class="hint">לא מעוניין</div></div>
-    <div class="stat"><div class="label">סה״כ הכנסה</div><div class="value" id="stat-revenue">—</div><div class="hint">ILS (amount_paid)</div></div>
+    <div class="stat"><div class="label">???? Leads</div><div class="value" id="stat-total">�</div></div>
+    <div class="stat"><div class="label">???????</div><div class="value" id="stat-pending" style="color:var(--yellow)">�</div><div class="hint">??? ?? ???? ???</div></div>
+    <div class="stat"><div class="label">??????</div><div class="value" id="stat-contacted" style="color:var(--cyan)">�</div><div class="hint">???? ???, ????? ?????</div></div>
+    <div class="stat"><div class="label">????? ??</div><div class="value" id="stat-closed" style="color:var(--green)">�</div><div class="hint">???? / ?????</div></div>
+    <div class="stat"><div class="label">?????</div><div class="value" id="stat-lost" style="color:var(--red)">�</div><div class="hint">?? ???????</div></div>
+    <div class="stat"><div class="label">???? ?????</div><div class="value" id="stat-revenue">�</div><div class="hint">ILS (amount_paid)</div></div>
   </div>
 
   <div class="filters">
-    <select id="f-campaign" onchange="loadLeads()"><option value="">כל הקמפיינים</option></select>
+    <select id="f-campaign" onchange="loadLeads()"><option value="">?? ?????????</option></select>
     <select id="f-status" onchange="loadLeads()">
-      <option value="">כל הסטטוסים</option>
-      <option value="pending">ממתינים</option>
-      <option value="contacted">בטיפול</option>
-      <option value="closed">נסגרו</option>
-      <option value="lost">נאבדו</option>
+      <option value="">?? ????????</option>
+      <option value="pending">???????</option>
+      <option value="contacted">??????</option>
+      <option value="closed">?????</option>
+      <option value="lost">?????</option>
     </select>
-    <button class="btn" onclick="loadAll()">🔄 רענן</button>
+    <button class="btn" onclick="loadAll()">?? ????</button>
     <span class="muted" id="count-info" style="margin-inline-start:auto; font-size:12px;"></span>
   </div>
 
@@ -103,27 +103,27 @@ footer { text-align:center; padding:22px; color:var(--text3); font-size:12px; }
     <thead>
       <tr>
         <th>#</th>
-        <th>שם</th>
-        <th>טלפון</th>
-        <th>קמפיין</th>
-        <th>נתיב</th>
-        <th>סטטוס</th>
-        <th>שולם</th>
-        <th>תאריך</th>
-        <th>קוד שותף</th>
-        <th>הערות</th>
-        <th>פעולות</th>
+        <th>??</th>
+        <th>?????</th>
+        <th>??????</th>
+        <th>????</th>
+        <th>?????</th>
+        <th>????</th>
+        <th>?????</th>
+        <th>??? ????</th>
+        <th>?????</th>
+        <th>??????</th>
       </tr>
     </thead>
     <tbody id="leads-tbody">
-      <tr><td colspan="11" style="text-align:center; padding:40px; color:var(--text3)">טוען…</td></tr>
+      <tr><td colspan="11" style="text-align:center; padding:40px; color:var(--text3)">????�</td></tr>
     </tbody>
   </table>
 
 </div>
 
 <div id="toast"></div>
-<footer>SLH Spark · Leads Dashboard · admin-gated · ניהול ישיר</footer>
+<footer>SLH Spark � Leads Dashboard � admin-gated � ????? ????</footer>
 
 <script>
 const API_BASE = 'https://slh-api-production.up.railway.app';
@@ -145,7 +145,7 @@ function showToast(msg, ok=true){
 async function api(path, opts={}){
   const headers = { 'Content-Type':'application/json', 'X-Admin-Key': getAdminKey(), ...(opts.headers||{}) };
   const res = await fetch(API_BASE + path, {...opts, headers});
-  if (res.status === 401) { showToast('מפתח admin שגוי', false); showLogin(); throw new Error('401'); }
+  if (res.status === 401) { showToast('???? admin ????', false); showLogin(); throw new Error('401'); }
   if (!res.ok) { const t = await res.text(); throw new Error(`${res.status}: ${t.substring(0,100)}`); }
   return res.json();
 }
@@ -172,18 +172,18 @@ function logout(){ clearAdminKey(); showLogin(); }
 async function loadStats(){
   try {
     const d = await api('/api/admin/campaign/stats');
-    document.getElementById('stat-total').textContent = d.total ?? '—';
+    document.getElementById('stat-total').textContent = d.total ?? '�';
     let pending=0, contacted=0, closed=0, lost=0, revenue=0;
     (d.by_campaign||[]).forEach(c => { pending+=+c.pending||0; contacted+=+c.contacted||0; closed+=+c.closed||0; lost+=+c.lost||0; revenue+=+c.total_paid||0; });
     document.getElementById('stat-pending').textContent = pending;
     document.getElementById('stat-contacted').textContent = contacted;
     document.getElementById('stat-closed').textContent = closed;
     document.getElementById('stat-lost').textContent = lost;
-    document.getElementById('stat-revenue').textContent = '₪' + revenue.toLocaleString('he-IL');
+    document.getElementById('stat-revenue').textContent = '?' + revenue.toLocaleString('he-IL');
 
     const sel = document.getElementById('f-campaign');
     const current = sel.value;
-    sel.innerHTML = '<option value="">כל הקמפיינים</option>';
+    sel.innerHTML = '<option value="">?? ?????????</option>';
     (d.by_campaign||[]).forEach(c => {
       const o = document.createElement('option');
       o.value = c.campaign_id;
@@ -204,35 +204,35 @@ async function loadLeads(){
   try {
     const d = await api('/api/admin/campaign/list?' + qs);
     renderLeads(d.leads || []);
-    document.getElementById('count-info').textContent = `מציג ${d.leads.length} מתוך ${d.total}`;
+    document.getElementById('count-info').textContent = `???? ${d.leads.length} ???? ${d.total}`;
   } catch(e) { console.error(e); }
 }
 
 function renderLeads(leads){
   const tbody = document.getElementById('leads-tbody');
-  if (!leads.length) { tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding:40px; color:var(--text3)">אין leads בסינון הזה</td></tr>'; return; }
+  if (!leads.length) { tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding:40px; color:var(--text3)">??? leads ?????? ???</td></tr>'; return; }
   tbody.innerHTML = leads.map(L => {
     const dt = new Date(L.created_at).toLocaleString('he-IL', { dateStyle:'short', timeStyle:'short' });
-    const phoneLink = L.phone ? `<a href="tel:${L.phone}" class="tel-link">${L.phone}</a>` : '—';
+    const phoneLink = L.phone ? `<a href="tel:${L.phone}" class="tel-link">${L.phone}</a>` : '�';
     const waLink = L.phone ? ` <a href="https://wa.me/${L.phone.replace(/[^0-9]/g,'')}" target="_blank" class="tel-link" style="font-size:11px">WA</a>` : '';
     const statusCls = 'status-' + (L.status||'pending');
-    const statusLabel = {pending:'ממתין', contacted:'בטיפול', closed:'נסגר', lost:'נאבד'}[L.status] || L.status;
+    const statusLabel = {pending:'?????', contacted:'??????', closed:'????', lost:'????'}[L.status] || L.status;
     return `<tr>
       <td>${L.id}</td>
-      <td><b>${L.full_name||'—'}</b>${L.tg_username?`<br><span class="muted">@${L.tg_username}</span>`:''}</td>
+      <td><b>${L.full_name||'�'}</b>${L.tg_username?`<br><span class="muted">@${L.tg_username}</span>`:''}</td>
       <td>${phoneLink}${waLink}</td>
       <td><code style="font-size:11px">${L.campaign_id}</code></td>
       <td>${L.path_type}</td>
       <td><span class="status-badge ${statusCls}">${statusLabel}</span></td>
-      <td>${L.amount_paid>0 ? '₪'+(+L.amount_paid).toLocaleString('he-IL') : '—'}</td>
+      <td>${L.amount_paid>0 ? '?'+(+L.amount_paid).toLocaleString('he-IL') : '�'}</td>
       <td style="font-size:11px">${dt}</td>
-      <td><code style="font-size:10px">${L.affiliate_code||'—'}</code></td>
-      <td>${L.notes ? `<div class="note-box">${L.notes.replace(/</g,'&lt;')}</div>` : '<span class="muted">—</span>'}</td>
+      <td><code style="font-size:10px">${L.affiliate_code||'�'}</code></td>
+      <td>${L.notes ? `<div class="note-box">${L.notes.replace(/</g,'&lt;')}</div>` : '<span class="muted">�</span>'}</td>
       <td>
-        <button class="btn btn-contacted" onclick="setStatus(${L.id}, 'contacted')">✅ בטיפול</button>
-        <button class="btn btn-closed" onclick="closeLead(${L.id})">🎉 נסגר</button>
-        <button class="btn btn-lost" onclick="setStatus(${L.id}, 'lost')">❌ נאבד</button>
-        <button class="btn" onclick="addNote(${L.id})">📝 הערה</button>
+        <button class="btn btn-contacted" onclick="setStatus(${L.id}, 'contacted')">? ??????</button>
+        <button class="btn btn-closed" onclick="closeLead(${L.id})">?? ????</button>
+        <button class="btn btn-lost" onclick="setStatus(${L.id}, 'lost')">? ????</button>
+        <button class="btn" onclick="addNote(${L.id})">?? ????</button>
       </td>
     </tr>`;
   }).join('');
@@ -240,24 +240,24 @@ function renderLeads(leads){
 
 async function setStatus(id, status){
   try { await api('/api/admin/campaign/status', { method:'POST', body: JSON.stringify({lead_id:id, status}) });
-    showToast('סטטוס עודכן'); loadAll();
-  } catch(e) { showToast('שגיאה: '+e.message, false); }
+    showToast('????? ?????'); loadAll();
+  } catch(e) { showToast('?????: '+e.message, false); }
 }
 
 async function closeLead(id){
-  const amt = prompt('סכום תשלום שהתקבל (ILS):', '0');
+  const amt = prompt('???? ????? ?????? (ILS):', '0');
   if (amt === null) return;
   try { await api('/api/admin/campaign/status', { method:'POST', body: JSON.stringify({lead_id:id, status:'closed', amount_paid: parseFloat(amt)||0}) });
-    showToast('🎉 נסגר!'); loadAll();
-  } catch(e) { showToast('שגיאה: '+e.message, false); }
+    showToast('?? ????!'); loadAll();
+  } catch(e) { showToast('?????: '+e.message, false); }
 }
 
 async function addNote(id){
-  const note = prompt('הערה:');
+  const note = prompt('????:');
   if (!note) return;
   try { await api('/api/admin/campaign/note', { method:'POST', body: JSON.stringify({lead_id:id, note}) });
-    showToast('הערה נוספה'); loadAll();
-  } catch(e) { showToast('שגיאה: '+e.message, false); }
+    showToast('???? ?????'); loadAll();
+  } catch(e) { showToast('?????: '+e.message, false); }
 }
 
 async function loadAll(){ await Promise.all([loadStats(), loadLeads()]); }
@@ -266,5 +266,5 @@ if (getAdminKey()) { showMain(); loadAll(); } else { showLogin(); }
 setInterval(()=>{ if(getAdminKey() && document.getElementById('main-screen').style.display!=='none') loadAll(); }, 30000);
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

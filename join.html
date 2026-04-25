@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>הצטרף כמפתח ל-SLH — נבנה ביחד</title>
-<meta name="description" content="SLH Spark פותח את הקוד לכולם. הצטרף כמפתח, משפר פיצ׳ר שאהבת, מקבל ZVK תמורת תרומה.">
-<meta property="og:title" content="קוד פתוח. כלכלה קהילתית. תרומה=ZVK">
-<meta property="og:description" content="כל אחד יכול לשפר את SLH — בוטים, אתר, ESP32, ארנק, חנויות.">
+<title>????? ????? ?-SLH � ???? ????</title>
+<meta name="description" content="SLH Spark ???? ?? ???? ?????. ????? ?????, ???? ????? ?????, ???? ZVK ????? ?????.">
+<meta property="og:title" content="??? ????. ????? ???????. ?????=ZVK">
+<meta property="og:description" content="?? ??? ???? ???? ?? SLH � ?????, ???, ESP32, ????, ??????.">
 <meta property="og:image" content="https://slh-nft.com/assets/og-join.jpg">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@ h1{font-size:clamp(32px,5vw,48px);font-weight:900;margin:0 0 16px;background:lin
 .reward-label{font-size:12px;color:var(--text2);margin-top:4px}
 ul.clean{list-style:none;padding:0;margin:12px 0}
 ul.clean li{padding:6px 0;color:var(--text2);font-size:14px}
-ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
+ul.clean li::before{content:'? ';color:var(--green);font-weight:900}
 .foot{text-align:center;color:var(--text2);font-size:12px;margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
 </style>
 </head>
@@ -58,29 +58,29 @@ ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
 <div class="container">
 
   <div class="hero">
-    <div class="badge">🟢 OPEN SOURCE · ISRAELI · REWARDING</div>
-    <h1>רוצה לבנות איתנו?<br>קוד = ZVK = כסף אמיתי</h1>
-    <p class="sub">SLH Spark הוא אקוסיסטם קריפטו ישראלי עם 25 בוטים, 5 טוקנים ו-45 עמודי ווב — והכל פתוח. אם אתה מפתח, עיצובאי, QA, או סתם אוהב לשבור מערכות — יש פה משהו בשבילך.</p>
+    <div class="badge">?? OPEN SOURCE � ISRAELI � REWARDING</div>
+    <h1>???? ????? ??????<br>??? = ZVK = ??? ?????</h1>
+    <p class="sub">SLH Spark ??? ???????? ?????? ?????? ?? 25 ?????, 5 ?????? ?-45 ????? ??? � ???? ????. ?? ??? ????, ???????, QA, ?? ??? ???? ????? ?????? � ?? ?? ???? ??????.</p>
     <div class="cta-row">
       <a href="https://github.com/osifeu-prog/slh-api" class="btn btn-primary" target="_blank" rel="noopener">
         <i class="fab fa-github"></i> GitHub Repo
       </a>
       <a href="https://t.me/SLH_AIR_bot?start=contribute" class="btn btn-secondary" target="_blank" rel="noopener">
-        <i class="fab fa-telegram"></i> הצטרף לטלגרם
+        <i class="fab fa-telegram"></i> ????? ??????
       </a>
       <a href="#flow" class="btn btn-secondary">
-        <i class="fas fa-rocket"></i> מתחיל עכשיו
+        <i class="fas fa-rocket"></i> ????? ?????
       </a>
     </div>
 
     <!-- Telegram Login Widget -->
     <div id="tg-login-box" style="margin-top:28px;padding:18px;background:rgba(54,174,248,.06);border:1px solid rgba(54,174,248,.25);border-radius:14px;max-width:520px;margin-left:auto;margin-right:auto">
-      <div style="font-weight:800;font-size:14px;margin-bottom:8px;color:#36aef8"><i class="fab fa-telegram"></i> התחברות מהירה עם טלגרם</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">לחץ על הכפתור הרשמי של טלגרם למטה. אנחנו מקבלים רק את ה-ID, שם משתמש ותמונה. <b>לא סיסמה ולא מספר טלפון.</b></div>
+      <div style="font-weight:800;font-size:14px;margin-bottom:8px;color:#36aef8"><i class="fab fa-telegram"></i> ??????? ????? ?? ?????</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">??? ?? ?????? ????? ?? ????? ????. ????? ?????? ?? ?? ?-ID, ?? ????? ??????. <b>?? ????? ??? ???? ?????.</b></div>
       <div id="tg-login-widget" style="display:flex;justify-content:center;min-height:44px"></div>
-      <noscript><div style="color:#ff9999;font-size:12px">דרוש JavaScript. אפשרות חלופית: <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8">/start בבוט</a></div></noscript>
+      <noscript><div style="color:#ff9999;font-size:12px">???? JavaScript. ?????? ??????: <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8">/start ????</a></div></noscript>
       <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">
-        חלופה: פקודת <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8" target="_blank" rel="noopener"><code>/start</code> בבוט</a>
+        ?????: ????? <a href="https://t.me/SLH_AIR_bot?start=join" style="color:#36aef8" target="_blank" rel="noopener"><code>/start</code> ????</a>
       </div>
     </div>
     <script async src="https://telegram.org/js/telegram-widget.js?22"
@@ -91,7 +91,7 @@ ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
             data-request-access="write"></script>
     <script>
       function onTelegramAuth(user) {
-        if (!user || !user.id) { alert('לא התקבלו נתונים מטלגרם'); return; }
+        if (!user || !user.id) { alert('?? ?????? ?????? ??????'); return; }
         // Persist locally immediately so UX doesn't depend on API
         try {
           localStorage.setItem('slh_user', JSON.stringify({
@@ -128,120 +128,120 @@ ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
 
   <div class="grid">
     <div class="card">
-      <div class="icon">🤖</div>
-      <h3>בוטי טלגרם</h3>
-      <p>Python + aiogram 3.x · Docker · 25 בוטים לבחור מהם. תקן באג, הוסף פיצ׳ר, או בנה בוט חדש.</p>
+      <div class="icon">??</div>
+      <h3>???? ?????</h3>
+      <p>Python + aiogram 3.x � Docker � 25 ????? ????? ???. ??? ???, ???? ?????, ?? ??? ??? ???.</p>
     </div>
     <div class="card">
-      <div class="icon">🌐</div>
-      <h3>ווב + UI</h3>
-      <p>HTML/JS/CSS vanilla (אין פרוימוורק). i18n ב-4 שפות, theme system, 45 עמודים.</p>
+      <div class="icon">??</div>
+      <h3>??? + UI</h3>
+      <p>HTML/JS/CSS vanilla (??? ?????????). i18n ?-4 ????, theme system, 45 ??????.</p>
     </div>
     <div class="card">
-      <div class="icon">⚡</div>
+      <div class="icon">?</div>
       <h3>API + DB</h3>
-      <p>FastAPI · PostgreSQL 15 · Redis 7. 117 endpoints, חלק פתוחים לקהל וחלק אדמין.</p>
+      <p>FastAPI � PostgreSQL 15 � Redis 7. 117 endpoints, ??? ?????? ???? ???? ?????.</p>
     </div>
     <div class="card">
-      <div class="icon">📡</div>
+      <div class="icon">??</div>
       <h3>ESP32 / IoT</h3>
-      <p>PlatformIO + Arduino. חבר חומרה (חיישנים, ארנקים, שלטים) לרשת SLH.</p>
+      <p>PlatformIO + Arduino. ??? ????? (???????, ??????, ?????) ???? SLH.</p>
     </div>
     <div class="card">
-      <div class="icon">🔒</div>
+      <div class="icon">??</div>
       <h3>Smart Contracts</h3>
-      <p>SLH על BSC (BEP-20). PancakeSwap V2 pool. תרצה לעזור עם DeFi? בוא.</p>
+      <p>SLH ?? BSC (BEP-20). PancakeSwap V2 pool. ???? ????? ?? DeFi? ???.</p>
     </div>
     <div class="card">
-      <div class="icon">🧪</div>
-      <h3>QA / תיעוד</h3>
-      <p>לא כל תרומה חייבת להיות קוד. באג ריפורט טוב = 50 ZVK. תרגום עמוד = 200 ZVK.</p>
+      <div class="icon">??</div>
+      <h3>QA / ?????</h3>
+      <p>?? ?? ????? ????? ????? ???. ??? ?????? ??? = 50 ZVK. ????? ???? = 200 ZVK.</p>
     </div>
   </div>
 
-  <h2 class="section-title" id="flow">איך מתחילים? 4 שלבים</h2>
+  <h2 class="section-title" id="flow">??? ???????? 4 ?????</h2>
   <div class="steps">
     <div class="step">
-      <h4>רישום מהיר</h4>
-      <p>שלח לבוט <code>@SLH_AIR_bot</code> פקודת <code>/start</code>. תקבל מזהה משתמש, קישור לדאשבורד האישי, ו-1000 ZVK על הרשמה.</p>
+      <h4>????? ????</h4>
+      <p>??? ???? <code>@SLH_AIR_bot</code> ????? <code>/start</code>. ???? ???? ?????, ????? ???????? ?????, ?-1000 ZVK ?? ?????.</p>
     </div>
     <div class="step">
-      <h4>Fork את ה-repo</h4>
-      <p>לך ל-<code>github.com/osifeu-prog/slh-api</code> → Fork. Clone ללוקאל. קרא את <code>ops/AGENT_CONTEXT.md</code> להבין את המבנה.</p>
+      <h4>Fork ?? ?-repo</h4>
+      <p>?? ?-<code>github.com/osifeu-prog/slh-api</code> ? Fork. Clone ??????. ??? ?? <code>ops/AGENT_CONTEXT.md</code> ????? ?? ?????.</p>
     </div>
     <div class="step">
-      <h4>בחר משימה</h4>
-      <p>פתח <code>ops/TASK_BOARD.md</code> או תסתכל ב-GitHub Issues. יש משימות מסומנות <code>[good-first]</code>, <code>[frontend]</code>, <code>[bot]</code>, <code>[api]</code>.</p>
+      <h4>??? ?????</h4>
+      <p>??? <code>ops/TASK_BOARD.md</code> ?? ????? ?-GitHub Issues. ?? ?????? ??????? <code>[good-first]</code>, <code>[frontend]</code>, <code>[bot]</code>, <code>[api]</code>.</p>
     </div>
     <div class="step">
-      <h4>Pull Request → ZVK</h4>
-      <p>פותח PR, מתייג <code>@osifeu-prog</code>, מקבל code review. מוגל = נכנס ל-master, מקבל ZVK + קרדיט ב-bio שלך.</p>
+      <h4>Pull Request ? ZVK</h4>
+      <p>???? PR, ????? <code>@osifeu-prog</code>, ???? code review. ???? = ???? ?-master, ???? ZVK + ????? ?-bio ???.</p>
     </div>
   </div>
 
   <div class="reward">
-    <h3>💰 תגמולים (ZVK = ~₪4.4 לכל יחידה)</h3>
-    <p style="color:var(--text2);font-size:14px;margin:0">ZVK זה טוקן פנימי. אפשר להמיר ל-SLH (טוקן חיצוני) או לעמלות על עסקאות קהילה.</p>
+    <h3>?? ??????? (ZVK = ~?4.4 ??? ?????)</h3>
+    <p style="color:var(--text2);font-size:14px;margin:0">ZVK ?? ???? ?????. ???? ????? ?-SLH (???? ??????) ?? ?????? ?? ?????? ?????.</p>
     <div class="reward-grid">
       <div class="reward-item">
         <div class="reward-amount">1,000</div>
-        <div class="reward-label">הרשמה ראשונה</div>
+        <div class="reward-label">????? ??????</div>
       </div>
       <div class="reward-item">
         <div class="reward-amount">500</div>
-        <div class="reward-label">PR מוגל</div>
+        <div class="reward-label">PR ????</div>
       </div>
       <div class="reward-item">
         <div class="reward-amount">200</div>
-        <div class="reward-label">תרגום עמוד</div>
+        <div class="reward-label">????? ????</div>
       </div>
       <div class="reward-item">
         <div class="reward-amount">50</div>
-        <div class="reward-label">באג ריפורט איכותי</div>
+        <div class="reward-label">??? ?????? ??????</div>
       </div>
       <div class="reward-item">
         <div class="reward-amount">5,000</div>
-        <div class="reward-label">פיצ׳ר גדול</div>
+        <div class="reward-label">????? ????</div>
       </div>
       <div class="reward-item">
-        <div class="reward-amount">🏆</div>
-        <div class="reward-label">Genesis NFT לתורמי ליבה</div>
+        <div class="reward-amount">??</div>
+        <div class="reward-label">Genesis NFT ?????? ????</div>
       </div>
     </div>
   </div>
 
-  <h2 class="section-title">מה יש לך מה-יום הראשון</h2>
+  <h2 class="section-title">?? ?? ?? ??-??? ??????</h2>
   <ul class="clean" style="max-width:640px;margin:0 auto">
-    <li>גישה מלאה לקוד (Apache 2.0)</li>
-    <li>דאשבורד אישי בכתובת <code>/dashboard.html?uid=YOUR_ID</code></li>
-    <li>1000 ZVK התחלתי (שווה ~₪4,400)</li>
-    <li>עמלה של 20% על כל משתמש שהפנית</li>
-    <li>שיתוף רווחים ל-staking pool ב-SLH</li>
-    <li>חברות בקהילת ה-Telegram (25 בוטים + ערוצים)</li>
-    <li>קרדיט ב-<code>ops/CONTRIBUTORS.md</code> ועל העמוד הציבורי</li>
+    <li>???? ???? ???? (Apache 2.0)</li>
+    <li>??????? ???? ?????? <code>/dashboard.html?uid=YOUR_ID</code></li>
+    <li>1000 ZVK ?????? (???? ~?4,400)</li>
+    <li>???? ?? 20% ?? ?? ????? ??????</li>
+    <li>????? ?????? ?-staking pool ?-SLH</li>
+    <li>????? ?????? ?-Telegram (25 ????? + ??????)</li>
+    <li>????? ?-<code>ops/CONTRIBUTORS.md</code> ??? ????? ???????</li>
   </ul>
 
-  <h2 class="section-title">רוצה רק לקרוא? גם זה מעולה</h2>
+  <h2 class="section-title">???? ?? ?????? ?? ?? ?????</h2>
   <p style="text-align:center;color:var(--text2);max-width:640px;margin:0 auto 24px">
-    אל תרגיש חייב. חקור את הקוד. קרא את <code>ops/ARCHITECTURE.md</code>. נסה את הבוטים. שלח פידבק ב-<a href="/bug-report.html" style="color:var(--cyan)">bug-report</a>.
+    ?? ????? ????. ???? ?? ????. ??? ?? <code>ops/ARCHITECTURE.md</code>. ??? ?? ??????. ??? ????? ?-<a href="/bug-report.html" style="color:var(--cyan)">bug-report</a>.
   </p>
 
   <div class="cta-row" style="margin-top:40px">
     <a href="https://github.com/osifeu-prog/slh-api" class="btn btn-primary" target="_blank" rel="noopener">
-      <i class="fab fa-github"></i> התחל ב-GitHub
+      <i class="fab fa-github"></i> ???? ?-GitHub
     </a>
     <a href="/live.html" class="btn btn-secondary">
-      <i class="fas fa-chart-bar"></i> ראה את המערכת החיה
+      <i class="fas fa-chart-bar"></i> ??? ?? ?????? ????
     </a>
   </div>
 
   <div class="foot">
-    <p>SLH Spark · Built in Israel 🇮🇱 · Open Source Apache 2.0 · Powered by SPARK IND</p>
+    <p>SLH Spark � Built in Israel ???? � Open Source Apache 2.0 � Powered by SPARK IND</p>
     <p style="margin-top:8px">
-      <a href="/about.html" style="color:var(--text2);margin:0 8px">אודות</a>·
-      <a href="/roadmap.html" style="color:var(--text2);margin:0 8px">מפת דרכים</a>·
-      <a href="/bug-report.html" style="color:var(--text2);margin:0 8px">דיווח באג</a>·
-      <a href="mailto:osif.erez.ungar@gmail.com" style="color:var(--text2);margin:0 8px">אימייל</a>
+      <a href="/about.html" style="color:var(--text2);margin:0 8px">?????</a>�
+      <a href="/roadmap.html" style="color:var(--text2);margin:0 8px">??? ?????</a>�
+      <a href="/bug-report.html" style="color:var(--text2);margin:0 8px">????? ???</a>�
+      <a href="mailto:osif.erez.ungar@gmail.com" style="color:var(--text2);margin:0 8px">??????</a>
     </p>
   </div>
 
@@ -250,5 +250,5 @@ ul.clean li::before{content:'✓ ';color:var(--green);font-weight:900}
 <script src="/js/shared.js?v=20260425e"></script>
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

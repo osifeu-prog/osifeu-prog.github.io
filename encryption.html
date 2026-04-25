@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>הצפנות טקסט בעברית · תיקון עברית מעוותת · SLH Spark</title>
-<meta name="description" content="למה טקסט עברי מתעוות ב-email, דפדפנים ישנים, ומערכות legacy? איך לתקן hebrew text corruption, ואיך SLH בונה אבטחת מידע מקומית מאפס.">
-<meta name="keywords" content="עברית מעוותת, hebrew text fix, hebrew encoding, flip text, scramble text, UTF-8 עברית, Windows-1255, SLH Spark, cryptography hebrew">
+<title>?????? ???? ?????? � ????? ????? ?????? � SLH Spark</title>
+<meta name="description" content="??? ???? ???? ?????? ?-email, ??????? ?????, ??????? legacy? ??? ???? hebrew text corruption, ???? SLH ???? ????? ???? ?????? ????.">
+<meta name="keywords" content="????? ??????, hebrew text fix, hebrew encoding, flip text, scramble text, UTF-8 ?????, Windows-1255, SLH Spark, cryptography hebrew">
 <link rel="canonical" href="https://slh-nft.com/encryption.html">
-<meta property="og:title" content="הצפנות + עברית מעוותת — המדריך המלא">
-<meta property="og:description" content="למה עברית מתעוותת במערכות, איך לתקן, ואיך SLH בונה הצפנה מקומית.">
+<meta property="og:title" content="?????? + ????? ?????? � ?????? ????">
+<meta property="og:description" content="??? ????? ??????? ???????, ??? ????, ???? SLH ???? ????? ??????.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://slh-nft.com/encryption.html">
 <meta property="og:image" content="https://slh-nft.com/assets/og/encryption.png">
@@ -66,87 +66,87 @@ code{background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px;font-fam
 <div class="wrap">
 
 <section class="hero">
-  <h1 data-flip="הצפנות · עברית שעובדת">הצפנות · עברית שעובדת</h1>
-  <div class="scramble-display" id="scr">×≠‚̃'→שלום ×¢×•×œ×</div>
-  <p class="tagline">למה טקסט עברי מתעוות במערכות ישנות — ואיך SLH Spark בונה אבטחת מידע מקומית שמבינה עברית מהיסוד.</p>
+  <h1 data-flip="?????? � ????? ??????">?????? � ????? ??????</h1>
+  <div class="scramble-display" id="scr">�?�~'????? עול�</div>
+  <p class="tagline">??? ???? ???? ?????? ??????? ????? � ???? SLH Spark ???? ????? ???? ?????? ?????? ????? ??????.</p>
 </section>
 
 <section class="demo">
-  <h2>🎬 דמו חי · הדבק טקסט מעוות וראה איך אנחנו מתקנים</h2>
-  <p style="font-size:14px;color:#9ba0b5;margin-bottom:12px">שים טקסט עברי שהגיע מעוות מ-email ישן / legacy system / Windows-1255 → נהפוך אותו:</p>
-  <textarea id="in" placeholder="×©×œ×•× ×¢×•×œ× (example of mangled Hebrew)"></textarea>
+  <h2>?? ??? ?? � ???? ???? ????? ???? ??? ????? ??????</h2>
+  <p style="font-size:14px;color:#9ba0b5;margin-bottom:12px">??? ???? ???? ????? ????? ?-email ??? / legacy system / Windows-1255 ? ????? ????:</p>
+  <textarea id="in" placeholder="שלו� עול� (example of mangled Hebrew)"></textarea>
   <div class="btn-row">
-    <button onclick="demoFix()">🔧 נסה לתקן</button>
-    <button class="sec" onclick="demoScramble()">🎲 Scramble חי</button>
-    <button class="sec" onclick="demoLoad('×©×œ×•× ×¢×•×œ×')">📝 Load דוגמה</button>
+    <button onclick="demoFix()">?? ??? ????</button>
+    <button class="sec" onclick="demoScramble()">?? Scramble ??</button>
+    <button class="sec" onclick="demoLoad('שלו� עול�')">?? Load ?????</button>
   </div>
-  <div class="result" id="out">(תוצאה תופיע כאן)</div>
+  <div class="result" id="out">(????? ????? ???)</div>
 </section>
 
 <section>
-  <h2>למה זה קורה בכלל?</h2>
-  <p>כשאפליקציה ישנה שומרת טקסט עברי בקידוד <code>Windows-1255</code> או <code>ISO-8859-8</code>, אבל המשתמש מציג אותו ב-<code>UTF-8</code> — כל תו עברי מתפצל ל-2-3 תווים של Latin Extended. הנה מה שקורה למילה "שלום":</p>
+  <h2>??? ?? ???? ?????</h2>
+  <p>?????????? ???? ????? ???? ???? ?????? <code>Windows-1255</code> ?? <code>ISO-8859-8</code>, ??? ?????? ???? ???? ?-<code>UTF-8</code> � ?? ?? ???? ????? ?-2-3 ????? ?? Latin Extended. ??? ?? ????? ????? "????":</p>
 
   <table>
-  <thead><tr><th>שלב</th><th>Bytes (hex)</th><th>מה רואים</th></tr></thead>
+  <thead><tr><th>???</th><th>Bytes (hex)</th><th>?? ?????</th></tr></thead>
   <tbody>
-  <tr><td>1. המקור (שלום)</td><td><code>D7 A9 D7 9C D7 95 D7 9D</code></td><td>שלום</td></tr>
-  <tr><td>2. נשמר ב-Windows-1255</td><td><code>F9 EC E5 ED</code></td><td>שלום (בסדר)</td></tr>
-  <tr><td>3. נקרא כ-UTF-8 בטעות</td><td><code>C3 B9 C3 AC C3 A5 C3 AD</code></td><td><code>×©×œ×•×</code></td></tr>
-  <tr><td>4. לאחר "תיקון" חלקי</td><td><code>D7 A9 D7 9C...</code></td><td>שלום ✓</td></tr>
+  <tr><td>1. ????? (????)</td><td><code>D7 A9 D7 9C D7 95 D7 9D</code></td><td>????</td></tr>
+  <tr><td>2. ???? ?-Windows-1255</td><td><code>F9 EC E5 ED</code></td><td>???? (????)</td></tr>
+  <tr><td>3. ???? ?-UTF-8 ?????</td><td><code>C3 B9 C3 AC C3 A5 C3 AD</code></td><td><code>שלו�</code></td></tr>
+  <tr><td>4. ???? "?????" ????</td><td><code>D7 A9 D7 9C...</code></td><td>???? ?</td></tr>
   </tbody>
   </table>
 
-  <h2>5 סוגי התעוותות שרואים הכי הרבה</h2>
+  <h2>5 ???? ???????? ?????? ??? ????</h2>
   <ul>
-    <li><strong>UTF-8 → Windows-1255 שגוי:</strong> <code>שלום</code> → <code>×©×œ×•×</code></li>
-    <li><strong>ISO-8859-8 → UTF-8 שגוי:</strong> <code>שלום</code> → <code>ùìåí</code></li>
-    <li><strong>HTML entity encoding:</strong> <code>שלום</code> → <code>&amp;#1513;&amp;#1500;&amp;#1493;&amp;#1501;</code></li>
-    <li><strong>Logical vs Visual ordering:</strong> המילה נכתבת משמאל-לימין במקום מימין-לשמאל</li>
-    <li><strong>BOM markers:</strong> <code>ï»¿שלום</code> — תו BOM לא מטופל</li>
+    <li><strong>UTF-8 ? Windows-1255 ????:</strong> <code>????</code> ? <code>שלו�</code></li>
+    <li><strong>ISO-8859-8 ? UTF-8 ????:</strong> <code>????</code> ? <code>����</code></li>
+    <li><strong>HTML entity encoding:</strong> <code>????</code> ? <code>&amp;#1513;&amp;#1500;&amp;#1493;&amp;#1501;</code></li>
+    <li><strong>Logical vs Visual ordering:</strong> ????? ????? ?????-????? ????? ?????-?????</li>
+    <li><strong>BOM markers:</strong> <code>﻿????</code> � ?? BOM ?? ?????</li>
   </ul>
 
-  <h2>איך SLH Spark מטפלת בעברית מהיסוד</h2>
-  <p>בניגוד למערכות legacy, כל אחד מ-<strong>225+ ה-API endpoints</strong> שלנו משתמש ב-UTF-8 מהרגע הראשון:</p>
+  <h2>??? SLH Spark ????? ?????? ??????</h2>
+  <p>?????? ??????? legacy, ?? ??? ?-<strong>225+ ?-API endpoints</strong> ???? ????? ?-UTF-8 ????? ??????:</p>
 
   <ul>
-    <li><strong>DB:</strong> PostgreSQL 15 עם <code>ENCODING UTF8</code> + <code>LC_COLLATE 'he_IL.UTF-8'</code> — מיון נכון של אלף-בית</li>
-    <li><strong>API:</strong> FastAPI עם <code>ensure_ascii=False</code> בכל JSON response — עברית נשארת עברית</li>
-    <li><strong>Frontend:</strong> כל HTML עם <code>&lt;meta charset="UTF-8"&gt;</code> + <code>dir="rtl"</code> + <code>lang="he"</code></li>
-    <li><strong>Bots:</strong> aiogram 3.x עם Python 3.11 — UTF-8 native, בלי escape hacks</li>
+    <li><strong>DB:</strong> PostgreSQL 15 ?? <code>ENCODING UTF8</code> + <code>LC_COLLATE 'he_IL.UTF-8'</code> � ???? ???? ?? ???-???</li>
+    <li><strong>API:</strong> FastAPI ?? <code>ensure_ascii=False</code> ??? JSON response � ????? ????? ?????</li>
+    <li><strong>Frontend:</strong> ?? HTML ?? <code>&lt;meta charset="UTF-8"&gt;</code> + <code>dir="rtl"</code> + <code>lang="he"</code></li>
+    <li><strong>Bots:</strong> aiogram 3.x ?? Python 3.11 � UTF-8 native, ??? escape hacks</li>
   </ul>
 
-  <h3>למה זה חשוב למשקיעים?</h3>
-  <p>בפרויקט crypto ישראלי, אם הכתובית על כפתור "לחץ לתשלום" נראית <code>×œ×—×¥ ×œ×ª×©×œ×•×</code>, אנשים לא ילחצו. UX שבור = אמון שבור = כסף שלא זז. לכן אנחנו בנינו את הכל מחדש — לא "תרגמנו" מאנגלית.</p>
+  <h3>??? ?? ???? ?????????</h3>
+  <p>??????? crypto ??????, ?? ??????? ?? ????? "??? ??????" ????? <code>לחץ לתשלו�</code>, ????? ?? ?????. UX ???? = ???? ???? = ??? ??? ??. ??? ????? ????? ?? ??? ???? � ?? "??????" ???????.</p>
 
-  <h3>מה עם ההצפנה של הכסף עצמו?</h3>
-  <p>זה סיפור אחר לגמרי. SLH משתמש ב:</p>
+  <h3>?? ?? ?????? ?? ???? ?????</h3>
+  <p>?? ????? ??? ?????. SLH ????? ?:</p>
   <ul>
-    <li><strong>BSC (Binance Smart Chain):</strong> BEP-20 חוזה חתום, audit-ready</li>
-    <li><strong>TON Network:</strong> הצפנת secp256k1, integration עם <code>toncenter</code></li>
-    <li><strong>Internal tokens (AIC, ZVK, REP, ZUZ):</strong> append-only ledger עם hash chain</li>
+    <li><strong>BSC (Binance Smart Chain):</strong> BEP-20 ???? ????, audit-ready</li>
+    <li><strong>TON Network:</strong> ????? secp256k1, integration ?? <code>toncenter</code></li>
+    <li><strong>Internal tokens (AIC, ZVK, REP, ZUZ):</strong> append-only ledger ?? hash chain</li>
     <li><strong>Admin auth:</strong> JWT + X-Admin-Key dual-factor, <code>bcrypt</code> password hashing</li>
-    <li><strong>.env never in git:</strong> secrets רק ב-Railway variables</li>
+    <li><strong>.env never in git:</strong> secrets ?? ?-Railway variables</li>
   </ul>
 
-  <h2>כלים חיצוניים שעוזרים</h2>
-  <p>אם אתה רק רוצה לתקן טקסט עברי מעוות בלי להיכנס ל-SLH:</p>
+  <h2>???? ???????? ???????</h2>
+  <p>?? ??? ?? ???? ???? ???? ???? ????? ??? ?????? ?-SLH:</p>
   <ul>
-    <li><a href="https://www.pixiesoft.com/flip/" rel="nofollow">pixiesoft.com/flip</a> — השירות הוותיק (מ-1998). עובד, אבל UX ישן.</li>
-    <li><code>iconv -f WINDOWS-1255 -t UTF-8 file.txt</code> — Linux/Mac command line</li>
+    <li><a href="https://www.pixiesoft.com/flip/" rel="nofollow">pixiesoft.com/flip</a> � ?????? ?????? (?-1998). ????, ??? UX ???.</li>
+    <li><code>iconv -f WINDOWS-1255 -t UTF-8 file.txt</code> � Linux/Mac command line</li>
     <li>Python: <code>text.encode('latin-1').decode('utf-8', errors='ignore')</code></li>
   </ul>
 </section>
 
 <div class="cta-box">
-  <h3>בונה מערכת בעברית? הצטרף לקהילת SLH.</h3>
-  <p style="color:#cdd1e0">אנחנו מפתחים בעברית, לעברית. אם אתה מפתח, מומחה, או רק רוצה להשקיע — זה הבית.</p>
-  <a href="/getting-started.html?ref=encryption-seo" class="btn">🚀 התחל כאן (3 דקות)</a>
+  <h3>???? ????? ??????? ????? ?????? SLH.</h3>
+  <p style="color:#cdd1e0">????? ?????? ??????, ??????. ?? ??? ????, ?????, ?? ?? ???? ?????? � ?? ????.</p>
+  <a href="/getting-started.html?ref=encryption-seo" class="btn">?? ???? ??? (3 ????)</a>
 </div>
 
 <div class="foot">
-  <p>דף זה הוא חלק מאקוסיסטם SLH Spark · <a href="/blog/">בלוג</a> · <a href="/whitepaper.html">Whitepaper</a> · <a href="/about.html">אודות</a></p>
-  <p style="margin-top:10px;opacity:.7">© 2026 SLH Spark · <span data-scramble="slh-nft.com"></span></p>
+  <p>?? ?? ??? ??? ????????? SLH Spark � <a href="/blog/">????</a> � <a href="/whitepaper.html">Whitepaper</a> � <a href="/about.html">?????</a></p>
+  <p style="margin-top:10px;opacity:.7">� 2026 SLH Spark � <span data-scramble="slh-nft.com"></span></p>
 </div>
 
 </div>
@@ -154,7 +154,7 @@ code{background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px;font-fam
 <script>
 const MANGLED_MAP = {
   // Windows-1255 bytes interpreted as UTF-8
-  '×': 'א','¢': 'ע','œ': 'ל','€': 'ט','•': 'ו','ž': 'מ','™': 'י','º': 'צ','¨': 'ר','¡': 'ס','ˆ': 'ה','—': 'ח','‹': 'כ','£': 'ג','¥': 'פ','¦': 'ד','§': 'ב','¨': 'ר','©': 'ש','ª': 'ת','«': 'ק','¬': 'נ','ן': 'ן','ם': 'ם','ך': 'ך','ץ': 'ץ','ף': 'ף',
+  '�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','�': '?','?': '?','?': '?','?': '?','?': '?','?': '?',
 };
 
 function attemptFix(text) {
@@ -165,7 +165,7 @@ function attemptFix(text) {
     const bytes = new Uint8Array(text.split('').map(c => c.charCodeAt(0) & 0xFF));
     const dec = new TextDecoder('windows-1255', { fatal: false });
     const attempt = dec.decode(bytes);
-    if (attempt && /[א-ת]/.test(attempt)) return attempt;
+    if (attempt && /[?-?]/.test(attempt)) return attempt;
   } catch (e) {}
   // Strategy 2: character map fallback
   let out = '';
@@ -177,7 +177,7 @@ function attemptFix(text) {
 
 function demoFix() {
   const txt = document.getElementById('in').value;
-  if (!txt.trim()) { document.getElementById('out').textContent = '(הכנס טקסט למעלה)'; return; }
+  if (!txt.trim()) { document.getElementById('out').textContent = '(???? ???? ?????)'; return; }
   const fixed = attemptFix(txt);
   document.getElementById('out').textContent = fixed;
 }
@@ -188,7 +188,7 @@ function demoLoad(example) {
 
 function demoScramble() {
   const el = document.getElementById('scr');
-  const target = 'שלום · SLH · Spark System';
+  const target = '???? � SLH � Spark System';
   if (window.SLHFlip) {
     window.SLHFlip.scramble(el, target, { duration: 2200 });
   } else {
@@ -202,5 +202,5 @@ window.addEventListener('load', () => {
 });
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

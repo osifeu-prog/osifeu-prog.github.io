@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH · Ops Docs Viewer</title>
+<title>SLH � Ops Docs Viewer</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -247,10 +247,10 @@
 <div class="wrap">
 
   <header class="hdr">
-    <div class="logo">📄</div>
+    <div class="logo">??</div>
     <div>
       <h1>Ops Docs Viewer</h1>
-      <div class="sub">Markdown renderer · loads from GitHub raw · <span id="current-file">—</span></div>
+      <div class="sub">Markdown renderer � loads from GitHub raw � <span id="current-file">�</span></div>
     </div>
     <div class="hdr-actions">
       <a class="btn" href="/command-center.html"><i class="fas fa-arrow-right"></i> Command Center</a>
@@ -259,17 +259,17 @@
   </header>
 
   <nav class="doc-list">
-    <h3><i class="fas fa-folder-tree"></i> Quick Jump — Key Docs</h3>
+    <h3><i class="fas fa-folder-tree"></i> Quick Jump � Key Docs</h3>
     <ul id="doc-links">
-      <li><a href="?file=WHAT_TO_DO_NOW_OSIF.md" data-doc="WHAT_TO_DO_NOW_OSIF.md">⭐ מה לעשות עכשיו — פשוט וצעד-צעד</a></li>
-      <li><a href="?file=SESSION_CLOSURE_20260424_FINAL.md" data-doc="SESSION_CLOSURE_20260424_FINAL.md">📘 Session Closure 24.4 Final</a></li>
-      <li><a href="?file=SYSTEM_ALIGNMENT_20260424.md" data-doc="SYSTEM_ALIGNMENT_20260424.md">🧭 System Alignment 24.4</a></li>
-      <li><a href="?file=AGENT_COORDINATION_20260424.md" data-doc="AGENT_COORDINATION_20260424.md">🤝 Agent Coordination 24.4</a></li>
-      <li><a href="?file=COMMAND_CENTER_SETUP_20260424.md" data-doc="COMMAND_CENTER_SETUP_20260424.md">⚙️ Command Center Setup (PowerShell)</a></li>
-      <li><a href="?file=AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md" data-doc="AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md">🎯 Alignment Prompt: Guardian ESP Agent</a></li>
-      <li><a href="?file=VOICE_STACK_COMPETITIVE_20260424.md" data-doc="VOICE_STACK_COMPETITIVE_20260424.md">📞 Voice Competitive Analysis</a></li>
-      <li><a href="?file=SWARM_V1_BLUEPRINT_20260424.md" data-doc="SWARM_V1_BLUEPRINT_20260424.md">🛰️ Swarm v1 Blueprint</a></li>
-      <li><a href="?file=SESSION_HANDOFF_20260424_VOICE_SWARM.md" data-doc="SESSION_HANDOFF_20260424_VOICE_SWARM.md">📋 Voice+Swarm Handoff</a></li>
+      <li><a href="?file=WHAT_TO_DO_NOW_OSIF.md" data-doc="WHAT_TO_DO_NOW_OSIF.md">? ?? ????? ????? � ???? ????-???</a></li>
+      <li><a href="?file=SESSION_CLOSURE_20260424_FINAL.md" data-doc="SESSION_CLOSURE_20260424_FINAL.md">?? Session Closure 24.4 Final</a></li>
+      <li><a href="?file=SYSTEM_ALIGNMENT_20260424.md" data-doc="SYSTEM_ALIGNMENT_20260424.md">?? System Alignment 24.4</a></li>
+      <li><a href="?file=AGENT_COORDINATION_20260424.md" data-doc="AGENT_COORDINATION_20260424.md">?? Agent Coordination 24.4</a></li>
+      <li><a href="?file=COMMAND_CENTER_SETUP_20260424.md" data-doc="COMMAND_CENTER_SETUP_20260424.md">?? Command Center Setup (PowerShell)</a></li>
+      <li><a href="?file=AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md" data-doc="AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md">?? Alignment Prompt: Guardian ESP Agent</a></li>
+      <li><a href="?file=VOICE_STACK_COMPETITIVE_20260424.md" data-doc="VOICE_STACK_COMPETITIVE_20260424.md">?? Voice Competitive Analysis</a></li>
+      <li><a href="?file=SWARM_V1_BLUEPRINT_20260424.md" data-doc="SWARM_V1_BLUEPRINT_20260424.md">??? Swarm v1 Blueprint</a></li>
+      <li><a href="?file=SESSION_HANDOFF_20260424_VOICE_SWARM.md" data-doc="SESSION_HANDOFF_20260424_VOICE_SWARM.md">?? Voice+Swarm Handoff</a></li>
     </ul>
   </nav>
 
@@ -286,7 +286,7 @@
 <script>
 // Local ops folder (mirrored from slh-api repo on each commit)
 const RAW_BASE = '/ops/';
-// GitHub blob URL (kept as fallback "view on GitHub" button — repo may be private)
+// GitHub blob URL (kept as fallback "view on GitHub" button � repo may be private)
 const GH_BASE = 'https://github.com/osifeu-prog/slh-api/blob/master/ops/';
 
 function getQueryParam(name) {
@@ -345,12 +345,12 @@ async function loadDoc(filename) {
     contentEl.classList.remove('loading', 'error');
     contentEl.classList.add('md');
 
-    // Fix inline links that use relative paths — turn them into GitHub links
+    // Fix inline links that use relative paths � turn them into GitHub links
     contentEl.querySelectorAll('a[href]').forEach(a => {
       const href = a.getAttribute('href');
       if (!href || href.startsWith('#')) return;
       if (href.startsWith('http://') || href.startsWith('https://')) return;
-      // If it looks like a local ops/ path or relative .md — send to ops-viewer
+      // If it looks like a local ops/ path or relative .md � send to ops-viewer
       if (href.endsWith('.md') && !href.includes('://')) {
         const parts = href.split('/');
         const f = parts[parts.length - 1];
@@ -360,7 +360,7 @@ async function loadDoc(filename) {
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'auto' });
-    document.title = 'SLH · ' + filename;
+    document.title = 'SLH � ' + filename;
   } catch (err) {
     contentEl.classList.remove('loading');
     contentEl.classList.add('error');
@@ -387,5 +387,5 @@ window.addEventListener('popstate', () => {
 loadDoc(getQueryParam('file'));
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

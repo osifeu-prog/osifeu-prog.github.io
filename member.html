@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>SLH Spark Member Card</title>
     <meta name="description" content="SLH Spark Digital Identity Card - View member profile, tier, REP score and more.">
     <link rel="canonical" href="https://slh-nft.com/member.html">
-    <!-- Open Graph (static fallback — updated dynamically via JS) -->
+    <!-- Open Graph (static fallback � updated dynamically via JS) -->
     <meta property="og:type" content="profile">
     <meta property="og:url" id="og-url" content="https://slh-nft.com/member.html">
     <meta property="og:title" id="og-title" content="SLH Spark Member Card">
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/shared.css?v=20260425e">
     <style>
-        /* ── Page Layout ── */
+        /* -- Page Layout -- */
         .member-page {
             max-width: 680px;
             margin: 0 auto;
@@ -40,7 +40,7 @@
             gap: 40px;
         }
 
-        /* ── Loading State ── */
+        /* -- Loading State -- */
         .loading-state {
             display: flex;
             flex-direction: column;
@@ -62,7 +62,7 @@
             font-size: 14px;
         }
 
-        /* ── Error State ── */
+        /* -- Error State -- */
         .error-state {
             display: none;
             flex-direction: column;
@@ -107,7 +107,7 @@
             box-shadow: 0 8px 30px rgba(108,92,231,.4);
         }
 
-        /* ── Card Container (3D perspective) ── */
+        /* -- Card Container (3D perspective) -- */
         .card-scene {
             perspective: 1200px;
             width: 400px;
@@ -124,7 +124,7 @@
             100% { transform: rotateY(0deg) scale(1); opacity: 1; }
         }
 
-        /* ── The Visual Member Card ── */
+        /* -- The Visual Member Card -- */
         .member-card {
             width: 400px;
             max-width: 90vw;
@@ -364,7 +364,7 @@
         .tier-senior .card-footer-line  { background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
         .tier-elder .card-footer-line   { background: linear-gradient(90deg, #ffd32a, #ffa502); }
 
-        /* ── Stats Grid ── */
+        /* -- Stats Grid -- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -404,7 +404,7 @@
             letter-spacing: 1px;
         }
 
-        /* ── Share Section ── */
+        /* -- Share Section -- */
         .share-section {
             width: 100%;
             max-width: 500px;
@@ -447,7 +447,7 @@
         .share-btn.btn-copy      { background: var(--surface2); border: 1px solid var(--border); }
         .share-btn.btn-copy.copied { background: var(--green); border-color: var(--green); }
 
-        /* ── ASCII Art Section ── */
+        /* -- ASCII Art Section -- */
         .ascii-section {
             width: 100%;
             max-width: 500px;
@@ -522,7 +522,7 @@
             background: var(--accent);
         }
 
-        /* ── Gallery Link ── */
+        /* -- Gallery Link -- */
         .gallery-link {
             display: inline-flex;
             align-items: center;
@@ -541,7 +541,7 @@
             border-color: var(--accent);
         }
 
-        /* ── Responsive ── */
+        /* -- Responsive -- */
         @media (max-width: 520px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -761,7 +761,7 @@ function getShareUrl() {
     return 'https://slh-nft.com/member.html?id=' + (memberId || '');
 }
 
-/* ── QR Code (simple visual pattern) ── */
+/* -- QR Code (simple visual pattern) -- */
 function drawMiniQR(canvas, data) {
     const ctx = canvas.getContext('2d');
     const size = canvas.width;
@@ -802,7 +802,7 @@ function drawMiniQR(canvas, data) {
     }
 }
 
-/* ── Populate Card ── */
+/* -- Populate Card -- */
 function renderCard(data) {
     const tierKey = (data.tier || 'basic').toLowerCase();
     const tierCfg = TIER_CONFIG[tierKey] || TIER_CONFIG.basic;
@@ -880,7 +880,7 @@ function updateOGTags(data) {
     const tierKey = (data.tier || 'basic').toLowerCase();
     const tierCfg = TIER_CONFIG[tierKey] || TIER_CONFIG.basic;
 
-    const title = tierCfg.emoji + ' ' + name + ' | ' + nft + ' — SLH Spark Member';
+    const title = tierCfg.emoji + ' ' + name + ' | ' + nft + ' � SLH Spark Member';
     const desc = tierCfg.label + ' tier member with ' + (data.rep_score || data.rep || 0) + ' REP score';
     const url = getShareUrl();
     const img = MEMBER_API + '/api/member-card/image/' + memberId;
@@ -896,28 +896,28 @@ function updateOGTags(data) {
     setMeta('tw-image', img);
 
     // Page title
-    document.title = name + ' — SLH Spark Member Card';
+    document.title = name + ' � SLH Spark Member Card';
 }
 
-/* ── Share Functions ── */
+/* -- Share Functions -- */
 function shareTelegram() {
     const url = getShareUrl();
     const name = memberData ? (memberData.name || memberData.first_name || 'SLH Member') : 'SLH Member';
-    const text = name + ' — SLH Spark Member Card';
+    const text = name + ' � SLH Spark Member Card';
     window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank');
 }
 
 function shareTwitter() {
     const url = getShareUrl();
     const name = memberData ? (memberData.name || memberData.first_name || 'SLH Member') : 'SLH Member';
-    const text = name + ' — SLH Spark Member Card #SLH #Crypto #Web3';
+    const text = name + ' � SLH Spark Member Card #SLH #Crypto #Web3';
     window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank');
 }
 
 function shareWhatsApp() {
     const url = getShareUrl();
     const name = memberData ? (memberData.name || memberData.first_name || 'SLH Member') : 'SLH Member';
-    const msg = name + ' — SLH Spark Member Card\n' + url;
+    const msg = name + ' � SLH Spark Member Card\n' + url;
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
 
@@ -935,7 +935,7 @@ function copyShareLink() {
     });
 }
 
-/* ── ASCII Toggle ── */
+/* -- ASCII Toggle -- */
 function toggleAscii() {
     const toggle = document.getElementById('ascii-toggle');
     const body = document.getElementById('ascii-body');
@@ -953,7 +953,7 @@ function copyAscii() {
     });
 }
 
-/* ── Fetch & Init ── */
+/* -- Fetch & Init -- */
 async function loadMemberCard() {
     memberId = getMemberId();
 
@@ -977,7 +977,7 @@ async function loadMemberCard() {
             return;
         }
 
-        // API returns {ok: true, card: {...}} — extract the card object
+        // API returns {ok: true, card: {...}} � extract the card object
         const cardData = data.card || data;
         memberData = cardData;
 
@@ -1004,19 +1004,19 @@ document.addEventListener('DOMContentLoaded', loadMemberCard);
 </script>
 
 <script src="/js/analytics.js"></script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">??</button>
 <div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">???? ?????</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">?? Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">?? Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">?? Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">? Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">?? Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">?? Sunset</button>
 </div>
 <script>
 (function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
 </script>
 <script src="/js/ai-assistant.js?v=20260425e"></script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>

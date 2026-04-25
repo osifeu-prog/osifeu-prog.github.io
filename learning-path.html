@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH · מסלול למידה אישי · Daily Learning</title>
-<meta name="description" content="מסלול למידה יומי: בלוג → אתגר 21 יום → קהילה. תגמולים ב-ZVK על כל שלב.">
+<title>SLH � ????? ????? ???? � Daily Learning</title>
+<meta name="description" content="????? ????? ????: ???? ? ???? 21 ??? ? ?????. ??????? ?-ZVK ?? ?? ???.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -92,7 +92,7 @@ body::before{content:'';position:fixed;inset:0;background:
 .reward .amount{font-size:22px;font-weight:900;color:var(--gold);font-family:'Space Mono',monospace}
 .reward .label{font-size:11px;color:var(--text2);margin-top:4px}
 .reward.earned .amount{color:var(--accent)}
-.reward.earned::after{content:'✓';position:absolute;top:6px;left:6px;color:var(--accent);font-weight:900;font-size:14px}
+.reward.earned::after{content:'?';position:absolute;top:6px;left:6px;color:var(--accent);font-weight:900;font-size:14px}
 
 /* Nephew mode banner */
 .kids-banner{background:linear-gradient(135deg,rgba(236,72,153,.1),rgba(168,85,247,.08));border:1px solid rgba(236,72,153,.3);border-radius:14px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--rose)}
@@ -113,116 +113,116 @@ body::before{content:'';position:fixed;inset:0;background:
 @media(max-width:600px){.slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
 </style>
 <div class="slh-beta-banner" id="slhBeta">
-  <span>🚧 <b>BETA</b></span>
-  <span style="opacity:.85">אם משהו לא עובד —</span>
-  <a href="/bug-report.html">🐛 דווח באג</a>
-  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">✕</button>
+  <span>?? <b>BETA</b></span>
+  <span style="opacity:.85">?? ???? ?? ???? �</span>
+  <a href="/bug-report.html">?? ???? ???</a>
+  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">?</button>
 </div>
-<a href="/bug-report.html" class="slh-bug-fab" title="דווח באג">🐛</a>
+<a href="/bug-report.html" class="slh-bug-fab" title="???? ???">??</a>
 <script>if(localStorage.getItem('slh_beta_dismissed')==='1'){var b=document.getElementById('slhBeta');if(b)b.remove();}</script>
 
 
 <div class="wrap">
 
   <header class="hero">
-    <div class="ring"><div class="ring-inner">🌱</div></div>
-    <h1>מסלול למידה אישי</h1>
-    <p class="sub">21 יום. 3 מסלולים. יום אחד כל פעם. התקדמות אמיתית, תגמולים אמיתיים.</p>
+    <div class="ring"><div class="ring-inner">??</div></div>
+    <h1>????? ????? ????</h1>
+    <p class="sub">21 ???. 3 ???????. ??? ??? ?? ???. ??????? ??????, ??????? ???????.</p>
   </header>
 
   <div class="kids-banner" id="kidsBanner" style="display:none">
     <i class="fa fa-seedling" style="font-size:22px"></i>
     <div>
-      <b>מצב נעורים פעיל</b> — ללא תוכן בוגרים, ללא פרסום כסף. רק למידה, תגמולי ZVK, וקהילה.
+      <b>??? ?????? ????</b> � ??? ???? ??????, ??? ????? ???. ?? ?????, ?????? ZVK, ??????.
     </div>
   </div>
 
   <!-- Progress -->
   <div class="progress-card">
     <div class="progress-head">
-      <h2>🎯 ההתקדמות שלך</h2>
-      <div class="streak" id="streakBadge">🔥 streak: 0</div>
+      <h2>?? ???????? ???</h2>
+      <div class="streak" id="streakBadge">?? streak: 0</div>
     </div>
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill" style="width:0%"></div>
     </div>
-    <div class="progress-text" id="progressText">יום 0 מתוך 21 · טרם התחלת</div>
+    <div class="progress-text" id="progressText">??? 0 ???? 21 � ??? ?????</div>
     <div class="days-grid" id="daysGrid"></div>
   </div>
 
   <!-- Today's task -->
   <div class="today-card">
-    <div class="today-badge">היום</div>
-    <h2 id="todayTitle">📖 קרא פוסט בלוג אחד</h2>
-    <p id="todayDesc">התחל את היום עם 5 דקות קריאה על נושא חדש. כל פוסט = +5 ZVK. אחרי 3 פוסטים — פתח את אתגר 21 הימים.</p>
+    <div class="today-badge">????</div>
+    <h2 id="todayTitle">?? ??? ???? ???? ???</h2>
+    <p id="todayDesc">???? ?? ???? ?? 5 ???? ????? ?? ???? ???. ?? ???? = +5 ZVK. ???? 3 ?????? � ??? ?? ???? 21 ?????.</p>
     <div class="today-actions">
-      <a href="/daily-blog.html" class="act-btn primary" onclick="markTaskStarted('blog')"><i class="fa fa-book-open"></i> קרא פוסט היום</a>
-      <a href="/challenge.html" class="act-btn" onclick="markTaskStarted('challenge')"><i class="fa fa-yin-yang"></i> פתח אתגר 21</a>
-      <a href="/community.html" class="act-btn" onclick="markTaskStarted('community')"><i class="fa fa-users"></i> הצג קהילה</a>
+      <a href="/daily-blog.html" class="act-btn primary" onclick="markTaskStarted('blog')"><i class="fa fa-book-open"></i> ??? ???? ????</a>
+      <a href="/challenge.html" class="act-btn" onclick="markTaskStarted('challenge')"><i class="fa fa-yin-yang"></i> ??? ???? 21</a>
+      <a href="/community.html" class="act-btn" onclick="markTaskStarted('community')"><i class="fa fa-users"></i> ??? ?????</a>
     </div>
   </div>
 
   <!-- 3 paths -->
   <div class="paths">
     <a href="/daily-blog.html" class="path blog">
-      <span class="icon">📰</span>
-      <h3>בלוג יומי</h3>
-      <p>רעיונות מעמיקים מאוסיף — נוירולוגיה, מדיטציה, מוזיקה, פילוסופיה מעשית. פוסט ביום, כ-5 דקות קריאה.</p>
+      <span class="icon">??</span>
+      <h3>???? ????</h3>
+      <p>??????? ??????? ?????? � ??????????, ???????, ??????, ????????? ?????. ???? ????, ?-5 ???? ?????.</p>
       <div class="meta">
-        <span><i class="fa fa-clock"></i> ~5 דקות</span>
-        <span><i class="fa fa-gem" style="color:var(--gold)"></i> 5 ZVK/פוסט</span>
+        <span><i class="fa fa-clock"></i> ~5 ????</span>
+        <span><i class="fa fa-gem" style="color:var(--gold)"></i> 5 ZVK/????</span>
       </div>
-      <div class="cta">פתח את הבלוג →</div>
+      <div class="cta">??? ?? ????? ?</div>
     </a>
 
     <a href="/challenge.html" class="path challenge">
-      <span class="icon">🧘</span>
-      <h3>אתגר 21 יום</h3>
-      <p>יוגה, מדיטציה, CBT, תרגילי נשימה. משימה יומית קצרה + קהילה שמעודדת. תגמול גבוה לסיום.</p>
+      <span class="icon">??</span>
+      <h3>???? 21 ???</h3>
+      <p>????, ???????, CBT, ?????? ?????. ????? ????? ???? + ????? ???????. ????? ???? ?????.</p>
       <div class="meta">
-        <span><i class="fa fa-clock"></i> ~10 דקות/יום</span>
-        <span><i class="fa fa-trophy" style="color:var(--gold)"></i> 50 ZVK בסיום</span>
+        <span><i class="fa fa-clock"></i> ~10 ????/???</span>
+        <span><i class="fa fa-trophy" style="color:var(--gold)"></i> 50 ZVK ?????</span>
       </div>
-      <div class="cta">הצטרף לאתגר →</div>
+      <div class="cta">????? ????? ?</div>
     </a>
 
     <a href="/community.html" class="path community">
-      <span class="icon">💬</span>
-      <h3>פיד הקהילה</h3>
-      <p>שתף מחשבה, הגב לאחרים, הצטרף לדיונים. כל פעילות נחשבת. פוסטים משמעותיים מקבלים תגמול.</p>
+      <span class="icon">??</span>
+      <h3>??? ??????</h3>
+      <p>??? ?????, ??? ??????, ????? ???????. ?? ?????? ?????. ?????? ????????? ?????? ?????.</p>
       <div class="meta">
         <span><i class="fa fa-heart" style="color:var(--rose)"></i> reactions</span>
         <span><i class="fa fa-comment"></i> replies</span>
       </div>
-      <div class="cta">פתח פיד →</div>
+      <div class="cta">??? ??? ?</div>
     </a>
   </div>
 
   <!-- Rewards -->
   <div class="rewards-card">
-    <h3><i class="fa fa-gift" style="color:var(--gold)"></i> תגמולים לאורך המסלול</h3>
+    <h3><i class="fa fa-gift" style="color:var(--gold)"></i> ??????? ????? ??????</h3>
     <div class="rewards-list">
-      <div class="reward" id="reward-day1"><div class="amount">5</div><div class="label">יום 1 · פוסט ראשון</div></div>
-      <div class="reward" id="reward-day3"><div class="amount">20</div><div class="label">יום 3 · streak</div></div>
-      <div class="reward" id="reward-day7"><div class="amount">50</div><div class="label">שבוע ראשון</div></div>
-      <div class="reward" id="reward-day14"><div class="amount">100</div><div class="label">שבועיים</div></div>
-      <div class="reward" id="reward-day21"><div class="amount">250</div><div class="label">סיום מלא 🏆</div></div>
+      <div class="reward" id="reward-day1"><div class="amount">5</div><div class="label">??? 1 � ???? ?????</div></div>
+      <div class="reward" id="reward-day3"><div class="amount">20</div><div class="label">??? 3 � streak</div></div>
+      <div class="reward" id="reward-day7"><div class="amount">50</div><div class="label">???? ?????</div></div>
+      <div class="reward" id="reward-day14"><div class="amount">100</div><div class="label">???????</div></div>
+      <div class="reward" id="reward-day21"><div class="amount">250</div><div class="label">???? ??? ??</div></div>
     </div>
     <div style="margin-top:12px;font-size:11px;color:var(--text3);text-align:center;font-family:'Space Mono',monospace">
-      ZVK זה טוקן פנימי · בעתיד ניתן להמיר ל-SLH/MNH דרך P2P
+      ZVK ?? ???? ????? � ????? ???? ????? ?-SLH/MNH ??? P2P
     </div>
   </div>
 
   <!-- Links -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:20px">
-    <a href="/dashboard.html" class="act-btn"><i class="fa fa-gauge"></i> הדשבורד שלי</a>
-    <a href="/wallet.html" class="act-btn"><i class="fa fa-wallet"></i> ארנק ZVK</a>
-    <a href="/invite.html" class="act-btn"><i class="fa fa-user-plus"></i> הזמן חברים</a>
-    <a href="/join-guide.html" class="act-btn"><i class="fa fa-compass"></i> מדריך הצטרפות</a>
+    <a href="/dashboard.html" class="act-btn"><i class="fa fa-gauge"></i> ??????? ???</a>
+    <a href="/wallet.html" class="act-btn"><i class="fa fa-wallet"></i> ???? ZVK</a>
+    <a href="/invite.html" class="act-btn"><i class="fa fa-user-plus"></i> ???? ?????</a>
+    <a href="/join-guide.html" class="act-btn"><i class="fa fa-compass"></i> ????? ???????</a>
   </div>
 
   <div class="foot">
-    SLH Learning Path · <a href="/">בית</a> · <a href="/community.html">קהילה</a> · <a href="/dashboard.html">דשבורד</a>
+    SLH Learning Path � <a href="/">???</a> � <a href="/community.html">?????</a> � <a href="/dashboard.html">??????</a>
   </div>
 
 </div>
@@ -282,9 +282,9 @@ function renderProgress() {
 
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressText').textContent =
-    streak === 0 ? 'טרם התחלת — לחץ על משימה להתחיל'
-                 : `יום ${current} מתוך 21 · ${streak} משימות הושלמו (${pct}%)`;
-  document.getElementById('streakBadge').textContent = `🔥 streak: ${streak}`;
+    streak === 0 ? '??? ????? � ??? ?? ????? ??????'
+                 : `??? ${current} ???? 21 � ${streak} ?????? ?????? (${pct}%)`;
+  document.getElementById('streakBadge').textContent = `?? streak: ${streak}`;
   renderDaysGrid(p);
   renderRewards(p);
 
@@ -329,7 +329,7 @@ function openDay(day) {
   const p = getProgress();
   const current = daysSinceStart(p);
   if (day > current) {
-    alert(`יום ${day} עדיין נעול. סיים את היום הנוכחי (יום ${current}) קודם.`);
+    alert(`??? ${day} ????? ????. ???? ?? ???? ?????? (??? ${current}) ????.`);
     return;
   }
   // For now, day 1 = blog, day 2-21 = challenge
@@ -356,5 +356,5 @@ heartbeat();
 setInterval(heartbeat, 60000);
 </script>
 
-</body>
+<script>initShared();</script>`n`</body>
 </html>

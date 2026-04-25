@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Spark Partner Dashboard — Co-Founders</title>
+<title>SLH Spark Partner Dashboard � Co-Founders</title>
 <meta name="description" content="SLH Spark partner dashboard: track contributions, NFTs, SLH tokens, and co-founder status in real time.">
 <link rel="canonical" href="https://slh-nft.com/partner-dashboard.html">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="SLH Spark Partner Dashboard — Co-Founders">
+<meta property="og:title" content="SLH Spark Partner Dashboard � Co-Founders">
 <meta property="og:description" content="Track contributions, NFTs, SLH tokens, and co-founder status">
 <meta property="og:image" content="https://slh-nft.com/assets/og/default.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SLH Spark Partner Dashboard — Co-Founders">
+<meta name="twitter:title" content="SLH Spark Partner Dashboard � Co-Founders">
 <meta name="twitter:description" content="Track contributions, NFTs, SLH tokens, and co-founder status">
 <meta name="twitter:image" content="https://slh-nft.com/assets/og/default.png">
 
@@ -248,19 +248,19 @@
 <div id="topnav-root"></div>
 
 <section class="hero">
-    <h1>👑 Partner Dashboard</h1>
-    <p>מעקב אחרי התרומות, ה-NFT, וסטטוס Co-Founder של SLH Spark Genesis Launch</p>
+    <h1>?? Partner Dashboard</h1>
+    <p>???? ???? ???????, ?-NFT, ?????? Co-Founder ?? SLH Spark Genesis Launch</p>
 </section>
 
 <!-- Login Gate -->
 <div class="section">
     <div class="login-gate" id="login-gate">
-        <h2>🔍 מצא את החשבון שלך</h2>
-        <p style="color:var(--text2);font-size:13px;margin-bottom:12px">הכנס את השם או ה-handle שלך מההרשמה:</p>
+        <h2>?? ??? ?? ?????? ???</h2>
+        <p style="color:var(--text2);font-size:13px;margin-bottom:12px">???? ?? ??? ?? ?-handle ??? ???????:</p>
         <input type="text" id="search-name" placeholder="Tzvika, @tzvika_slh, etc." oninput="">
-        <button onclick="findPartner()">חפש</button>
+        <button onclick="findPartner()">???</button>
         <p style="color:var(--text2);font-size:11px;margin-top:12px">
-            או <a href="/launch-event.html" style="color:var(--accent2)">הירשם עכשיו כ-Genesis Contributor</a>
+            ?? <a href="/launch-event.html" style="color:var(--accent2)">????? ????? ?-Genesis Contributor</a>
         </p>
     </div>
 </div>
@@ -321,7 +321,7 @@
 
     <div class="section">
         <div class="activity">
-            <h3>🏆 All Genesis Contributors</h3>
+            <h3>?? All Genesis Contributors</h3>
             <div id="contributors-leaderboard"></div>
         </div>
     </div>
@@ -330,9 +330,9 @@
 <!-- Not found view -->
 <div class="section" id="not-found" style="display:none">
     <div class="empty">
-        <h3>🔍 לא מצאתי את החשבון שלך</h3>
-        <p>ייתכן שעדיין לא רשמת את התרומה שלך. הירשם עכשיו:</p>
-        <a href="/launch-event.html" class="btn">🚀 רישום Genesis Contributor</a>
+        <h3>?? ?? ????? ?? ?????? ???</h3>
+        <p>????? ?????? ?? ???? ?? ?????? ???. ????? ?????:</p>
+        <a href="/launch-event.html" class="btn">?? ????? Genesis Contributor</a>
     </div>
 </div>
 
@@ -348,7 +348,7 @@ const API = 'https://slh-api-production.up.railway.app';
 
 async function findPartner() {
     const query = document.getElementById('search-name').value.trim().toLowerCase();
-    if (!query) return alert('הכנס שם או handle');
+    if (!query) return alert('???? ?? ?? handle');
 
     try {
         const r = await fetch(API + '/api/launch/status', { cache: 'no-store' });
@@ -381,14 +381,14 @@ async function findPartner() {
         // Status
         const statusEl = document.getElementById('partner-status');
         if (match.status === 'verified') {
-            statusEl.innerHTML = '<span class="badge badge-verified">✓ VERIFIED</span>';
+            statusEl.innerHTML = '<span class="badge badge-verified">? VERIFIED</span>';
         } else {
-            statusEl.innerHTML = '<span class="badge badge-pending">⏳ PENDING VERIFICATION</span>';
+            statusEl.innerHTML = '<span class="badge badge-pending">? PENDING VERIFICATION</span>';
         }
 
         document.getElementById('stat-amount').textContent = match.amount_bnb.toFixed(4) + ' BNB';
         document.getElementById('stat-amount-usd').textContent = '$' + (match.amount_usd || 0).toFixed(2);
-        document.getElementById('stat-rewards').textContent = match.rewards_issued ? '✅' : '⏳';
+        document.getElementById('stat-rewards').textContent = match.rewards_issued ? '?' : '?';
         document.getElementById('stat-audit').textContent = '#' + match.id;
         document.getElementById('stat-rank').textContent = '#' + rank;
         document.getElementById('stat-rank-sub').textContent = 'out of ' + d.contributors.length + ' contributors';
@@ -398,19 +398,19 @@ async function findPartner() {
         document.getElementById('detail-tx').innerHTML = match.tx_hash ?
             `<a href="https://bscscan.com/tx/${match.tx_hash}" target="_blank" style="color:var(--accent2);font-family:monospace;font-size:10px">${match.tx_hash.slice(0,12)}...${match.tx_hash.slice(-8)}</a>` :
             '<span style="color:var(--text2)">not provided</span>';
-        document.getElementById('detail-wallet').textContent = '—';
+        document.getElementById('detail-wallet').textContent = '�';
 
         // Render leaderboard
         const lb = document.getElementById('contributors-leaderboard');
         lb.innerHTML = sorted.map((c, i) => `
             <div class="activity-item">
-                <span class="label">#${i+1} · ${escapeHtml(c.name)} ${c.handle ? '<span style="color:var(--text3);font-size:11px">' + escapeHtml(c.handle) + '</span>' : ''} <span class="badge badge-${c.status}">${c.status}</span></span>
+                <span class="label">#${i+1} � ${escapeHtml(c.name)} ${c.handle ? '<span style="color:var(--text3);font-size:11px">' + escapeHtml(c.handle) + '</span>' : ''} <span class="badge badge-${c.status}">${c.status}</span></span>
                 <span class="time">${c.amount_bnb.toFixed(4)} BNB</span>
             </div>
         `).join('');
 
     } catch(e) {
-        alert('שגיאה: ' + e.message);
+        alert('?????: ' + e.message);
     }
 }
 

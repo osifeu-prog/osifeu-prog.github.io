@@ -1,24 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SLH Spark Network Map — Live Visualization</title>
-  <meta name="description" content="Interactive neural network visualization of the SLH ecosystem — users, groups, bots, and topics mapped in real time.">
+  <title>SLH Spark Network Map � Live Visualization</title>
+  <meta name="description" content="Interactive neural network visualization of the SLH ecosystem � users, groups, bots, and topics mapped in real time.">
   <meta name="keywords" content="SLH, network, visualization, neural network, graph, ecosystem map">
   <meta name="author" content="SPARK IND">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://slh-nft.com/network.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SLH Ecosystem">
-  <meta property="og:title" content="SLH Network Map · Neural visualization of the ecosystem">
+  <meta property="og:title" content="SLH Network Map � Neural visualization of the ecosystem">
   <meta property="og:description" content="Interactive live network: users, bots, groups, topics, and on-chain SLH holders on BSC.">
   <meta property="og:image" content="https://slh-nft.com/assets/og/network.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://slh-nft.com/network.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SLH Network Map · Neural Visualization">
+  <meta name="twitter:title" content="SLH Network Map � Neural Visualization">
   <meta name="twitter:description" content="Interactive live network of the SLH ecosystem with on-chain data.">
   <meta name="twitter:image" content="https://slh-nft.com/assets/og/network.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/shared.css?v=20260425e">
   <style>
-    /* ── Network Page ────────────────────────── */
+    /* -- Network Page -------------------------- */
     .net-page{padding:calc(var(--topnav-h) + 20px) 20px 40px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
 
     /* Background effects */
@@ -145,25 +145,25 @@
   <section class="net-hero">
     <div class="badge-live" data-i18n="net_live_badge">Live Network</div>
     <h1 data-i18n="net_title">SLH Network Map</h1>
-    <p data-i18n="net_subtitle">מיפוי אינטראקטיבי של כל החיבורים במערכת — משתמשים, קבוצות, נושאים ובוטים ברשת SLH</p>
+    <p data-i18n="net_subtitle">????? ??????????? ?? ?? ???????? ?????? � ???????, ??????, ?????? ?????? ???? SLH</p>
   </section>
 
   <!-- REAL DATA Banner -->
   <section style="max-width:1200px;margin:0 auto 20px;padding:0 20px">
     <div style="background:linear-gradient(135deg,rgba(0,180,216,0.1),rgba(108,92,231,0.08));border:1px solid rgba(0,180,216,0.3);border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div>
-        <div style="font-size:11px;color:#00b4d8;text-transform:uppercase;letter-spacing:1px;font-weight:700">🔴 Live Data — SLH Ecosystem</div>
+        <div style="font-size:11px;color:#00b4d8;text-transform:uppercase;letter-spacing:1px;font-weight:700">?? Live Data � SLH Ecosystem</div>
         <div style="font-size:14px;color:#e8e8f0;margin-top:4px">
-          <strong id="live-real-users">--</strong> real users · <strong id="live-real-bots">25</strong> active bots ·
+          <strong id="live-real-users">--</strong> real users � <strong id="live-real-bots">25</strong> active bots �
           <strong id="live-real-holders">176</strong> SLH holders on BSC
         </div>
       </div>
       <div style="display:flex;gap:8px">
         <button onclick="loadOnChainHolders()" style="background:rgba(243,186,47,0.1);color:#f3ba2f;border:1px solid rgba(243,186,47,0.3);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700">
-          🏦 Load BSC Holders
+          ?? Load BSC Holders
         </button>
         <a href="/dashboard.html" style="background:rgba(0,255,135,0.1);color:#00e887;border:1px solid rgba(0,255,135,0.3);padding:8px 16px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700">
-          📊 Dashboard
+          ?? Dashboard
         </a>
       </div>
     </div>
@@ -192,29 +192,29 @@
   <!-- Filter Controls -->
   <div class="net-controls">
     <button class="filter-btn active" data-filter="all">
-      <i class="fas fa-globe"></i> <span data-i18n="net_filter_all">הכל</span>
+      <i class="fas fa-globe"></i> <span data-i18n="net_filter_all">???</span>
     </button>
     <button class="filter-btn active" data-filter="user">
-      <span class="dot circle" style="background:var(--cyan)"></span> <span data-i18n="net_filter_users">משתמשים</span>
+      <span class="dot circle" style="background:var(--cyan)"></span> <span data-i18n="net_filter_users">???????</span>
     </button>
     <button class="filter-btn active" data-filter="group">
-      <span class="dot sq" style="background:var(--accent)"></span> <span data-i18n="net_filter_groups">קבוצות</span>
+      <span class="dot sq" style="background:var(--accent)"></span> <span data-i18n="net_filter_groups">??????</span>
     </button>
     <button class="filter-btn active" data-filter="topic">
-      <span class="dot dia" style="background:var(--gold)"></span> <span data-i18n="net_filter_topics">נושאים</span>
+      <span class="dot dia" style="background:var(--gold)"></span> <span data-i18n="net_filter_topics">??????</span>
     </button>
     <button class="filter-btn active" data-filter="bot">
-      <span class="dot hex" style="background:var(--green)"></span> <span data-i18n="net_filter_bots">בוטים</span>
+      <span class="dot hex" style="background:var(--green)"></span> <span data-i18n="net_filter_bots">?????</span>
     </button>
-    <button class="filter-btn active" data-filter="voice" title="Phase 2 Vision — SLH Voice">
-      <span class="dot circle" style="background:#5ba3ff"></span> <span data-i18n="net_filter_voice">Voice 🚧</span>
+    <button class="filter-btn active" data-filter="voice" title="Phase 2 Vision � SLH Voice">
+      <span class="dot circle" style="background:#5ba3ff"></span> <span data-i18n="net_filter_voice">Voice ??</span>
     </button>
-    <button class="filter-btn active" data-filter="swarm" title="Phase 2 Vision — SLH Swarm">
-      <span class="dot hex" style="background:#a855f7"></span> <span data-i18n="net_filter_swarm">Swarm 🚧</span>
+    <button class="filter-btn active" data-filter="swarm" title="Phase 2 Vision � SLH Swarm">
+      <span class="dot hex" style="background:#a855f7"></span> <span data-i18n="net_filter_swarm">Swarm ??</span>
     </button>
     <div class="search-box">
       <i class="fas fa-search"></i>
-      <input type="text" id="node-search" placeholder="חפש צומת..." data-i18n-placeholder="net_search_placeholder">
+      <input type="text" id="node-search" placeholder="??? ????..." data-i18n-placeholder="net_search_placeholder">
     </div>
   </div>
 
@@ -224,21 +224,21 @@
       <canvas id="network-canvas"></canvas>
       <!-- Legend -->
       <div class="canvas-legend">
-        <div class="legend-item"><div class="legend-icon circle" style="background:#00b4d8"></div><span data-i18n="net_legend_users">משתמשים</span></div>
-        <div class="legend-item"><div class="legend-icon square" style="background:#6c5ce7"></div><span data-i18n="net_legend_groups">קבוצות</span></div>
-        <div class="legend-item"><div class="legend-icon diamond" style="background:#ffd32a"></div><span data-i18n="net_legend_topics">נושאים</span></div>
-        <div class="legend-item"><div class="legend-icon hexagon" style="background:#00cec9"></div><span data-i18n="net_legend_bots">בוטים</span></div>
-        <div class="legend-item"><div class="legend-icon circle" style="background:#5ba3ff"></div><span data-i18n="net_legend_voice">Voice (Phase 2) 🚧</span></div>
-        <div class="legend-item"><div class="legend-icon hexagon" style="background:#a855f7"></div><span data-i18n="net_legend_swarm">Swarm (Phase 2) 🚧</span></div>
+        <div class="legend-item"><div class="legend-icon circle" style="background:#00b4d8"></div><span data-i18n="net_legend_users">???????</span></div>
+        <div class="legend-item"><div class="legend-icon square" style="background:#6c5ce7"></div><span data-i18n="net_legend_groups">??????</span></div>
+        <div class="legend-item"><div class="legend-icon diamond" style="background:#ffd32a"></div><span data-i18n="net_legend_topics">??????</span></div>
+        <div class="legend-item"><div class="legend-icon hexagon" style="background:#00cec9"></div><span data-i18n="net_legend_bots">?????</span></div>
+        <div class="legend-item"><div class="legend-icon circle" style="background:#5ba3ff"></div><span data-i18n="net_legend_voice">Voice (Phase 2) ??</span></div>
+        <div class="legend-item"><div class="legend-icon hexagon" style="background:#a855f7"></div><span data-i18n="net_legend_swarm">Swarm (Phase 2) ??</span></div>
       </div>
     </div>
 
     <!-- Detail Panel -->
     <div class="detail-panel" id="detail-panel">
-      <h3><i class="fas fa-info-circle"></i> <span data-i18n="net_detail_title">פרטי צומת</span></h3>
+      <h3><i class="fas fa-info-circle"></i> <span data-i18n="net_detail_title">???? ????</span></h3>
       <div class="detail-empty" id="detail-empty">
         <i class="fas fa-mouse-pointer"></i>
-        <p data-i18n="net_detail_empty">לחצו על צומת ברשת כדי לראות פרטים</p>
+        <p data-i18n="net_detail_empty">???? ?? ???? ???? ??? ????? ?????</p>
       </div>
       <div id="detail-content" style="display:none"></div>
     </div>
@@ -246,14 +246,14 @@
 
   <!-- Top Nodes Table -->
   <section class="net-table-section">
-    <h3><i class="fas fa-trophy"></i> <span data-i18n="net_top_nodes">Top 10 — צמתים מחוברים</span></h3>
+    <h3><i class="fas fa-trophy"></i> <span data-i18n="net_top_nodes">Top 10 � ????? ???????</span></h3>
     <table class="net-table">
       <thead>
         <tr>
           <th>#</th>
-          <th data-i18n="net_th_name">שם</th>
-          <th data-i18n="net_th_type">סוג</th>
-          <th data-i18n="net_th_connections">חיבורים</th>
+          <th data-i18n="net_th_name">??</th>
+          <th data-i18n="net_th_type">???</th>
+          <th data-i18n="net_th_connections">???????</th>
         </tr>
       </thead>
       <tbody id="top-nodes-body"></tbody>
@@ -264,14 +264,14 @@
   <section class="net-table-section" style="margin-top:32px">
     <h3>
       <i class="fas fa-coins" style="color:#f3ba2f"></i>
-      SLH Holders — Binance Smart Chain
-      <span style="font-size:11px;color:#8a8aa0;margin-right:8px">(דרך BSCScan API)</span>
+      SLH Holders � Binance Smart Chain
+      <span style="font-size:11px;color:#8a8aa0;margin-right:8px">(??? BSCScan API)</span>
     </h3>
     <p style="color:#b0b0c0;font-size:13px;margin:-8px 0 14px">
-      שקיפות מלאה: רשימת מחזיקי SLH על הבלוקצ'יין. נתונים אמיתיים מ-BSCScan כשה-API key מוגדר.
+      ?????? ????: ????? ?????? SLH ?? ??????'???. ?????? ??????? ?-BSCScan ???-API key ?????.
     </p>
     <div id="holders-status" style="padding:14px;background:rgba(243,186,47,0.06);border:1px dashed rgba(243,186,47,0.3);border-radius:10px;font-size:12px;color:#f3ba2f;text-align:center;margin-bottom:14px">
-      ⏳ BSCScan API key לא הוגדר — לחץ "Load BSC Holders" למעלה כדי לנסות לטעון דרך ה-endpoint הציבורי
+      ? BSCScan API key ?? ????? � ??? "Load BSC Holders" ????? ??? ????? ????? ??? ?-endpoint ???????
     </div>
     <table class="net-table" id="holders-table" style="display:none">
       <thead>
@@ -291,61 +291,61 @@
   <section class="net-table-section" style="margin-top:32px">
     <h3><i class="fas fa-sitemap" style="color:#00cec9"></i> SLH Ecosystem Architecture</h3>
     <p style="color:#b0b0c0;font-size:13px;margin:-8px 0 14px">
-      איך הרכיבים מתחברים: משתמשים → בוטים → API → DB → CEX → On-Chain
+      ??? ??????? ???????: ??????? ? ????? ? API ? DB ? CEX ? On-Chain
     </p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
       <div style="padding:16px;background:rgba(0,180,216,0.06);border:1px solid rgba(0,180,216,0.2);border-radius:10px">
-        <div style="color:#00b4d8;font-weight:800;font-size:14px;margin-bottom:6px">👤 User Layer</div>
+        <div style="color:#00b4d8;font-weight:800;font-size:14px;margin-bottom:6px">?? User Layer</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • Telegram accounts<br>
-          • Website login (manual ID / Widget)<br>
-          • Dashboard + Wallet views<br>
-          • Community posts
+          � Telegram accounts<br>
+          � Website login (manual ID / Widget)<br>
+          � Dashboard + Wallet views<br>
+          � Community posts
         </div>
       </div>
       <div style="padding:16px;background:rgba(0,206,201,0.06);border:1px solid rgba(0,206,201,0.2);border-radius:10px">
-        <div style="color:#00cec9;font-weight:800;font-size:14px;margin-bottom:6px">🤖 Bot Layer (25)</div>
+        <div style="color:#00cec9;font-weight:800;font-size:14px;margin-bottom:6px">?? Bot Layer (25)</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • Spark (main investment)<br>
-          • Guardian (security)<br>
-          • Academia, BotShop, Wallet<br>
-          • +20 specialized bots
+          � Spark (main investment)<br>
+          � Guardian (security)<br>
+          � Academia, BotShop, Wallet<br>
+          � +20 specialized bots
         </div>
       </div>
       <div style="padding:16px;background:rgba(108,92,231,0.06);border:1px solid rgba(108,92,231,0.2);border-radius:10px">
-        <div style="color:#6c5ce7;font-weight:800;font-size:14px;margin-bottom:6px">🔌 API Layer</div>
+        <div style="color:#6c5ce7;font-weight:800;font-size:14px;margin-bottom:6px">?? API Layer</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • FastAPI on Railway<br>
-          • 60+ endpoints<br>
-          • JWT auth + HMAC signing<br>
-          • Audit log (SHA-256 chain)
+          � FastAPI on Railway<br>
+          � 60+ endpoints<br>
+          � JWT auth + HMAC signing<br>
+          � Audit log (SHA-256 chain)
         </div>
       </div>
       <div style="padding:16px;background:rgba(243,186,47,0.06);border:1px solid rgba(243,186,47,0.2);border-radius:10px">
-        <div style="color:#f3ba2f;font-weight:800;font-size:14px;margin-bottom:6px">💾 Data Layer</div>
+        <div style="color:#f3ba2f;font-weight:800;font-size:14px;margin-bottom:6px">?? Data Layer</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • PostgreSQL 15 (Railway)<br>
-          • Redis (cache + rate limit)<br>
-          • institutional_audit (hash chain)<br>
-          • cex_snapshots (portfolio history)
+          � PostgreSQL 15 (Railway)<br>
+          � Redis (cache + rate limit)<br>
+          � institutional_audit (hash chain)<br>
+          � cex_snapshots (portfolio history)
         </div>
       </div>
       <div style="padding:16px;background:rgba(0,255,135,0.06);border:1px solid rgba(0,255,135,0.2);border-radius:10px">
-        <div style="color:#00e887;font-weight:800;font-size:14px;margin-bottom:6px">🏦 CEX Layer</div>
+        <div style="color:#00e887;font-weight:800;font-size:14px;margin-bottom:6px">?? CEX Layer</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • Bybit V5 UNIFIED (read-only)<br>
-          • Binance V3 SPOT (read-only)<br>
-          • HMAC-signed requests<br>
-          • Encrypted key storage
+          � Bybit V5 UNIFIED (read-only)<br>
+          � Binance V3 SPOT (read-only)<br>
+          � HMAC-signed requests<br>
+          � Encrypted key storage
         </div>
       </div>
       <div style="padding:16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px">
-        <div style="color:#ef4444;font-weight:800;font-size:14px;margin-bottom:6px">⛓️ On-Chain Layer</div>
+        <div style="color:#ef4444;font-weight:800;font-size:14px;margin-bottom:6px">?? On-Chain Layer</div>
         <div style="font-size:12px;color:#b0b0c0;line-height:1.6">
-          • BSC — SLH token (111M supply)<br>
-          • TON — wallets + MNH stablecoin<br>
-          • Ethereum — future multichain<br>
-          • BSCScan holders list
+          � BSC � SLH token (111M supply)<br>
+          � TON � wallets + MNH stablecoin<br>
+          � Ethereum � future multichain<br>
+          � BSCScan holders list
         </div>
       </div>
     </div>
@@ -365,27 +365,27 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
 
 <script>
 (function(){
-  /* ══════════════════════════════════════════════
+  /* ----------------------------------------------
      DEMO DATA
-     ══════════════════════════════════════════════ */
+     ---------------------------------------------- */
   const NODE_COLORS = {
     user:  '#00b4d8',
     group: '#6c5ce7',
     topic: '#ffd32a',
     bot:   '#00cec9',
-    voice: '#5ba3ff',  /* Phase 2 — SLH Voice (IVR) */
-    swarm: '#a855f7'   /* Phase 2 — SLH Swarm (ESP32 devices) */
+    voice: '#5ba3ff',  /* Phase 2 � SLH Voice (IVR) */
+    swarm: '#a855f7'   /* Phase 2 � SLH Swarm (ESP32 devices) */
   };
   const NODE_SIZES = { user: 8, group: 14, topic: 12, bot: 13, voice: 11, swarm: 10 };
 
   const users = [
-    'יוסי','דנה','אבי','שרה','מוחמד','אנה','עומר','נועה','אילן','ליאור',
-    'מיכל','טל','רון','הדס','יעל','עדי','ניר','שי','גל','אורי',
-    'תמר','איתי','רותם','ליאת','אלון','מאיה','יובל','עינת','דור','קרן'
+    '????','???','???','???','?????','???','????','????','????','?????',
+    '????','??','???','???','???','???','???','??','??','????',
+    '???','????','????','????','????','????','????','????','???','???'
   ].map(n=>({id:'u_'+n,name:n,type:'user'}));
 
   const groups = [
-    {id:'g_crypto_il', name:'קריפטו ישראל', type:'group'},
+    {id:'g_crypto_il', name:'?????? ?????', type:'group'},
     {id:'g_slh_stakers', name:'SLH Stakers', type:'group'},
     {id:'g_ton_builders', name:'TON Builders', type:'group'},
     {id:'g_nft_community', name:'NFT Community', type:'group'},
@@ -414,7 +414,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     {id:'b_signal', name:'Signal', type:'bot'}
   ];
 
-  /* Phase 2 Vision — SLH Voice (IVR) subsystem */
+  /* Phase 2 Vision � SLH Voice (IVR) subsystem */
   const voiceNodes = [
     {id:'v_ivr',      name:'IVR Engine',       type:'voice', phase:'planned'},
     {id:'v_intent',   name:'AI Intent',        type:'voice', phase:'planned'},
@@ -423,7 +423,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     {id:'v_sip',      name:'SIP Trunk (3rd)',  type:'voice', phase:'planned'}
   ];
 
-  /* Phase 2/3 Vision — SLH Swarm (ESP32 mesh) subsystem */
+  /* Phase 2/3 Vision � SLH Swarm (ESP32 mesh) subsystem */
   const swarmNodes = [
     {id:'s_esp_mesh',  name:'ESP32 Mesh',       type:'swarm', phase:'planned'},
     {id:'s_relay',     name:'Phone Relay',      type:'swarm', phase:'planned'},
@@ -473,7 +473,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     if(a.id!==b.id) addConn(a.id,b.id);
   }
 
-  /* Voice subsystem — internal wiring */
+  /* Voice subsystem � internal wiring */
   addConn('v_ivr','v_intent');
   addConn('v_ivr','v_tts');
   addConn('v_ivr','v_sip');
@@ -483,7 +483,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   addConn('v_ivr','b_academia');
   addConn('v_intent','t_p2p');
 
-  /* Swarm subsystem — internal wiring */
+  /* Swarm subsystem � internal wiring */
   addConn('s_esp_mesh','s_relay');
   addConn('s_relay','s_anchor');
   addConn('s_kwallet','s_esp_mesh');
@@ -495,17 +495,17 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   addConn('s_relay','b_air');
   addConn('s_depin','t_blockchain');
 
-  /* ══════════════════════════════════════════════
+  /* ----------------------------------------------
      STATS
-     ══════════════════════════════════════════════ */
+     ---------------------------------------------- */
   document.getElementById('stat-nodes').textContent = allNodes.length;
   document.getElementById('stat-connections').textContent = connections.length;
   document.getElementById('stat-groups').textContent = groups.length;
   document.getElementById('stat-health').textContent = '97.3%';
 
-  /* ══════════════════════════════════════════════
-     REAL DATA — fetch live counts from API
-     ══════════════════════════════════════════════ */
+  /* ----------------------------------------------
+     REAL DATA � fetch live counts from API
+     ---------------------------------------------- */
   const SLH_API = 'https://slh-api-production.up.railway.app';
   const SLH_CONTRACT = '0xACb0A09414CEA1C879c67bB7A877E4e19480f022';
 
@@ -519,22 +519,22 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   }
   loadRealCounts();
 
-  /* ══════════════════════════════════════════════
-     BSCScan Holders — public endpoint (rate-limited)
-     ══════════════════════════════════════════════ */
+  /* ----------------------------------------------
+     BSCScan Holders � public endpoint (rate-limited)
+     ---------------------------------------------- */
   window.loadOnChainHolders = async function() {
     const statusEl = document.getElementById('holders-status');
     const tableEl = document.getElementById('holders-table');
     const bodyEl = document.getElementById('holders-body');
-    statusEl.textContent = '⏳ טוען מחזיקי SLH מ-BSC דרך ה-backend...';
+    statusEl.textContent = '? ???? ?????? SLH ?-BSC ??? ?-backend...';
     statusEl.style.color = '#00b4d8';
 
     try {
-      // Call our backend — which uses BSCSCAN_API_KEY env var securely (no CORS, no exposed key)
+      // Call our backend � which uses BSCSCAN_API_KEY env var securely (no CORS, no exposed key)
       const r = await fetch(SLH_API + '/api/network/slh-holders?limit=100');
       const data = await r.json();
       if (!data.ok) {
-        statusEl.innerHTML = `⚠️ <strong>${data.error || 'BSCScan API Key לא מוגדר ב-backend'}</strong><br><span style="color:#b0b0c0;font-size:11px">${data.hint || 'על המנהל להגדיר BSCSCAN_API_KEY ב-Railway → slh-api → Variables'}</span>`;
+        statusEl.innerHTML = `?? <strong>${data.error || 'BSCScan API Key ?? ????? ?-backend'}</strong><br><span style="color:#b0b0c0;font-size:11px">${data.hint || '?? ????? ?????? BSCSCAN_API_KEY ?-Railway ? slh-api ? Variables'}</span>`;
         statusEl.style.color = '#ef4444';
         return;
       }
@@ -547,27 +547,27 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
           <td style="font-family:monospace;font-size:11px;direction:ltr">${h.address.slice(0,8)}...${h.address.slice(-6)}</td>
           <td style="direction:ltr">${h.balance.toLocaleString('en-US',{maximumFractionDigits:2})}</td>
           <td>${h.percent}%</td>
-          <td><a href="${h.bscscan_url}" target="_blank" style="color:#00b4d8">🔗</a></td>
+          <td><a href="${h.bscscan_url}" target="_blank" style="color:#00b4d8">??</a></td>
         </tr>`).join('');
       tableEl.style.display = 'table';
-      statusEl.textContent = `✅ נטענו ${holders.length} מחזיקים — chain: ${data.chain}`;
+      statusEl.textContent = `? ????? ${holders.length} ??????? � chain: ${data.chain}`;
       statusEl.style.color = '#00e887';
     } catch(e) {
-      statusEl.innerHTML = `❌ שגיאה: ${e.message}`;
+      statusEl.innerHTML = `? ?????: ${e.message}`;
       statusEl.style.color = '#ef4444';
     }
   };
 
-  /* ══════════════════════════════════════════════
+  /* ----------------------------------------------
      TOP 10 TABLE
-     ══════════════════════════════════════════════ */
+     ---------------------------------------------- */
   const connCounts = {};
   allNodes.forEach(n=> connCounts[n.id]=0);
   connections.forEach(c=>{ connCounts[c.from]++; connCounts[c.to]++; });
 
   const sorted = [...allNodes].sort((a,b)=>connCounts[b.id]-connCounts[a.id]).slice(0,10);
   const tbody = document.getElementById('top-nodes-body');
-  const typeLabels = {user:'משתמש',group:'קבוצה',topic:'נושא',bot:'בוט',voice:'Voice (Phase 2)',swarm:'Swarm (Phase 2)'};
+  const typeLabels = {user:'?????',group:'?????',topic:'????',bot:'???',voice:'Voice (Phase 2)',swarm:'Swarm (Phase 2)'};
   sorted.forEach((n,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `<td class="rank">${i+1}</td>
@@ -577,9 +577,9 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     tbody.appendChild(tr);
   });
 
-  /* ══════════════════════════════════════════════
-     CANVAS — Force-Directed Graph
-     ══════════════════════════════════════════════ */
+  /* ----------------------------------------------
+     CANVAS � Force-Directed Graph
+     ---------------------------------------------- */
   const canvas = document.getElementById('network-canvas');
   const ctx = canvas.getContext('2d');
   let W, H, dpr;
@@ -634,7 +634,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   allNodes.forEach(n=> adj[n.id] = new Set());
   connections.forEach(c=>{ adj[c.from].add(c.to); adj[c.to].add(c.from); });
 
-  /* ── Physics step ── */
+  /* -- Physics step -- */
   function simulate(){
     const visibleNodes = allNodes.filter(n=> nodeMap[n.id].visible);
     const visibleSet = new Set(visibleNodes.map(n=>n.id));
@@ -692,7 +692,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     });
   }
 
-  /* ── Particles on connections ── */
+  /* -- Particles on connections -- */
   function spawnParticles(){
     if(frameCount % 3 !== 0) return;
     if(particles.length > 200) return;
@@ -723,7 +723,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     }
   }
 
-  /* ── Draw ── */
+  /* -- Draw -- */
   function draw(){
     ctx.clearRect(0,0,W,H);
     const visibleSet = new Set(allNodes.filter(n=> nodeMap[n.id].visible).map(n=>n.id));
@@ -835,7 +835,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
         ctx.closePath();
         ctx.fill();
       } else if(n.type === 'voice'){
-        /* Phase 2 — Circle with inner ring (phone icon metaphor) */
+        /* Phase 2 � Circle with inner ring (phone icon metaphor) */
         const s = size;
         ctx.beginPath();
         ctx.arc(nd.x, nd.y, s, 0, Math.PI*2);
@@ -850,7 +850,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
         ctx.stroke();
         ctx.restore();
       } else if(n.type === 'swarm'){
-        /* Phase 2 — Triangle (antenna/beacon metaphor) */
+        /* Phase 2 � Triangle (antenna/beacon metaphor) */
         const s = size * 1.1;
         ctx.beginPath();
         ctx.moveTo(nd.x, nd.y - s);
@@ -905,7 +905,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     }
   }
 
-  /* ── Animation Loop ── */
+  /* -- Animation Loop -- */
   function loop(){
     frameCount++;
     simulate();
@@ -916,9 +916,9 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
   }
   loop();
 
-  /* ══════════════════════════════════════════════
+  /* ----------------------------------------------
      INTERACTION
-     ══════════════════════════════════════════════ */
+     ---------------------------------------------- */
   function getNodeAt(mx,my){
     let closest = null, minDist = Infinity;
     allNodes.forEach(n=>{
@@ -1012,7 +1012,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
 
   canvas.addEventListener('touchend', ()=>{ dragId = null; });
 
-  /* ── Detail Panel ── */
+  /* -- Detail Panel -- */
   function showDetail(node){
     const panel = document.getElementById('detail-content');
     const empty = document.getElementById('detail-empty');
@@ -1026,11 +1026,11 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
       <div class="detail-name">${node.name}</div>
       <div class="detail-type"><span class="dot" style="background:${node.color};width:10px;height:10px;border-radius:${node.type==='user'?'50%':node.type==='group'?'2px':'50%'}"></span> ${typeLabels[node.type]}</div>
       <div class="detail-meta">
-        <div class="detail-meta-card"><div class="val" style="color:${node.color}">${conns.length}</div><div class="lbl">חיבורים</div></div>
-        <div class="detail-meta-card"><div class="val" style="color:var(--accent2)">#${sorted.findIndex(s=>s.id===node.id)+1 || '—'}</div><div class="lbl">דירוג</div></div>
+        <div class="detail-meta-card"><div class="val" style="color:${node.color}">${conns.length}</div><div class="lbl">???????</div></div>
+        <div class="detail-meta-card"><div class="val" style="color:var(--accent2)">#${sorted.findIndex(s=>s.id===node.id)+1 || '�'}</div><div class="lbl">?????</div></div>
       </div>
       <div class="detail-connections">
-        <h4>צמתים מחוברים (${conns.length})</h4>
+        <h4>????? ??????? (${conns.length})</h4>
         <ul class="conn-list">
           ${connNodes.map(cn=>`<li data-id="${cn.id}"><span class="cdot" style="background:${cn.color}"></span>${cn.name} <span style="color:var(--text3);margin-inline-start:auto;font-size:11px">${typeLabels[cn.type]}</span></li>`).join('')}
         </ul>
@@ -1053,9 +1053,9 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     document.getElementById('detail-empty').style.display = 'block';
   }
 
-  /* ══════════════════════════════════════════════
+  /* ----------------------------------------------
      FILTER CONTROLS
-     ══════════════════════════════════════════════ */
+     ---------------------------------------------- */
   const activeFilters = new Set(['user','group','topic','bot']);
 
   document.querySelectorAll('.filter-btn').forEach(btn=>{
@@ -1098,7 +1098,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     });
   });
 
-  /* ── Search ── */
+  /* -- Search -- */
   const searchInput = document.getElementById('node-search');
   searchInput.addEventListener('input',()=>{
     const q = searchInput.value.trim().toLowerCase();
@@ -1112,7 +1112,7 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
     });
   });
 
-  /* ── Cleanup on page leave ── */
+  /* -- Cleanup on page leave -- */
   document.addEventListener('visibilitychange',()=>{
     if(document.hidden && animId) cancelAnimationFrame(animId);
     else if(!document.hidden) loop();
@@ -1120,5 +1120,5 @@ initShared({ activePage: 'network', showBottomNav: true, showTicker: true });
 
 })();
 </script>
-</body>
+<script>initShared();</script>`n`</body>
 </html>
