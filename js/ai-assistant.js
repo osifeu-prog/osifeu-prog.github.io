@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Ecosystem — AI Chat Assistant Widget
  * Self-contained floating chat widget with dynamic CSS injection.
  * Usage: <script src="js/ai-assistant.js"></script>

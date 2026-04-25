@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Flip + Scramble v1.0
  * Two text animation primitives — declarative via data-attributes.
  *

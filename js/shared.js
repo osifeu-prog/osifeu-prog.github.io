@@ -1196,7 +1196,7 @@ function injectSLHFlipLib() {
   if (document.querySelector('script[src*="slh-flip.js"]')) return;
   if (window.SLHFlip) return;
   const s = document.createElement('script');
-  s.src = '/js/slh-flip.js?v=20260417';
+  s.src = '/js/slh-flip.js?v=20260425d';
   s.defer = true;
   document.head.appendChild(s);
 }

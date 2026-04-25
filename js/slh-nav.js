@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Unified Navigation v1.0
  * Injects a consistent navbar into any SLH page.
  * Depends on: slh-design-system.css + Font Awesome 6.

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Skeleton Loaders v1.0
  * Auto-replace elements marked with [data-skeleton] or [data-loading]
  * with shimmer placeholders until content loads.

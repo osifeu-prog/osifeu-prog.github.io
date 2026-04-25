@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Ecosystem — Translation System
  * 5 languages: Hebrew (he), English (en), Russian (ru), Arabic (ar), French (fr)
  */

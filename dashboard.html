@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260421a">
+    <link rel="stylesheet" href="/css/shared.css?v=20260425d">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <!-- Web3 / ethers.js v6 for MetaMask + Trust Wallet -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
@@ -866,7 +866,7 @@
                         <button class="form-btn" style="margin-top:16px">Stake Now</button>
                     </div>
                     <div class="stat-card" style="cursor:pointer" onclick="openStakeModal('annual')">
-                        <div style="font-size:36px;font-weight:700;color:var(--purple)">65%</div>
+                        <div style="font-size:36px;font-weight:700;color:var(--purple)">Variable</div>
                         <div style="font-size:15px;font-weight:600;color:var(--text-bright);margin:8px 0">Annual Plan</div>
                         <div style="font-size:12px;color:var(--text2);line-height:1.8">5.4% monthly return<br>Minimum: 25 TON<br>Lock: 365 days</div>
                         <button class="form-btn" style="margin-top:16px">Stake Now</button>
@@ -1988,7 +1988,7 @@ function loadFunnelRecommendation() {
             '500':   { name: 'תיק התחלתי',  monthly: '₪300–500',     yield: '8–15%' },
             '1000':  { name: 'תיק צמיחה',   monthly: '₪500–1,000',   yield: '15–25%' },
             '5000':  { name: 'תיק מתקדם',   monthly: '₪1,000–5,000', yield: '25–40%' },
-            '5000+': { name: 'תיק פרימיום',  monthly: '₪5,000+',      yield: '40–65%' }
+            '5000+': { name: 'תיק פרימיום',  monthly: '₪5,000+',      yield: '40–Variable' }
         };
         const periods = {
             '3m':   'עד 3 חודשים',
@@ -3275,14 +3275,14 @@ setTimeout(renderCustomTokens, 500);
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260421a"></script>
-<script src="/js/shared.js?v=20260424a"></script>
+<script src="/js/translations.js?v=20260425d"></script>
+<script src="/js/shared.js?v=20260425d"></script>
 <script>
     initShared({ activePage: 'dashboard', showBottomNav: true });
 </script>
-<script src="/js/web3.js?v=20260409d"></script>
+<script src="/js/web3.js?v=20260425d"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260421a"></script>
+<script src="/js/ai-assistant.js?v=20260425d"></script>
 <script>
 // Show Admin Panel button only for admins
 (function(){

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Ecosystem — Web3 Wallet Module
  * MetaMask/Trust Wallet (BSC) + TonConnect (TON)
  */

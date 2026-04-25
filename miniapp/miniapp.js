@@ -1,4 +1,4 @@
-/* SLH Mini App shared helpers.
+﻿/* SLH Mini App shared helpers.
  *
  * Every page boots with initMiniApp() which:
  *   1. Expands Telegram WebApp to full height

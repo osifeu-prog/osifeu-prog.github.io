@@ -1,4 +1,4 @@
-/* SLH Analytics Tracker — lightweight real-time analytics */
+﻿/* SLH Analytics Tracker — lightweight real-time analytics */
 (function () {
   'use strict';
   const API = 'https://slh-api-production.up.railway.app/api/analytics';

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SLH Spark — Telegram Login Widget helper
  *
  * Usage (drop-in):

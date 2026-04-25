@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="/css/shared.css?v=20260421a">
+<link rel="stylesheet" href="/css/shared.css?v=20260425d">
 
 <style>
     :root {
@@ -339,8 +339,8 @@
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260421a"></script>
-<script src="/js/shared.js?v=20260424a"></script>
+<script src="/js/translations.js?v=20260425d"></script>
+<script src="/js/shared.js?v=20260425d"></script>
 <script>
 initShared({ activePage: 'partner', showBottomNav: true });
 
@@ -424,28 +424,3 @@ function escapeHtml(s) {
 const params = new URLSearchParams(window.location.search);
 if (params.get('name')) {
     document.getElementById('search-name').value = params.get('name');
-    setTimeout(findPartner, 500);
-}
-
-// Enter key
-document.getElementById('search-name').addEventListener('keydown', e => {
-    if (e.key === 'Enter') findPartner();
-});
-</script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
-<div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
-</div>
-<script>
-(function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
-</script>
-<script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260413"></script>
-</body>
-</html>

@@ -1,4 +1,4 @@
-// SLH Web3 Integration — MetaMask / Trust Wallet / WalletConnect
+﻿// SLH Web3 Integration — MetaMask / Trust Wallet / WalletConnect
 // Requires ethers.js v6 loaded BEFORE this script
 // CDN: https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js
 
