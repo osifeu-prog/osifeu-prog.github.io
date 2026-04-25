@@ -100,6 +100,11 @@
   <label for="new-token">טוקן חדש מ-BotFather</label>
   <input type="password" id="new-token" placeholder="123456789:AAH..." autocomplete="off" spellcheck="false" />
 
+  <label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin:8px 0 14px; font-size:12px; text-transform:none; letter-spacing:0;">
+    <input type="checkbox" id="swap-mode" style="width:auto; margin:0; cursor:pointer;" />
+    <span style="color: var(--gold);">🔁 מצב החלפת בוט</span> — אני נותן טוקן של <b>בוט אחר</b> כדי שהשירות יעבור להשתמש בו במקום הבוט המקורי. שימושי כשהטוקן הישן דלף ולא רוצים לסבב פעם נוספת.
+  </label>
+
   <button class="btn" id="validate-btn">✓ אמת טוקן מול Telegram</button>
   <div class="status" id="validate-status"></div>
 </section>
@@ -221,18 +226,22 @@
       const bot = BOTS[parseInt(sel.value, 10)];
       const expectedHandle = bot.handle.replace(/^@/, '').toLowerCase();
       const actualHandle = (j.result.username || '').toLowerCase();
-      if (expectedHandle !== actualHandle) {
+      const swapMode = document.getElementById('swap-mode').checked;
+      if (expectedHandle !== actualHandle && !swapMode) {
         setStatus(
           validateStatus,
-          `⚠️ הטוקן תקף אבל הוא של @${j.result.username} ולא של ${bot.handle}. וודא שבחרת את הבוט הנכון מהתפריט.`,
+          `⚠️ הטוקן של @${j.result.username} ולא של ${bot.handle}. אם אתה מחליף בוט בכוונה — סמן "מצב החלפת בוט" ונסה שוב. אחרת בחר את הבוט הנכון.`,
           'err'
         );
         return;
       }
-      validated = { token, bot, info: j.result };
+      validated = { token, bot, info: j.result, swap: expectedHandle !== actualHandle };
+      const swapNote = validated.swap
+        ? ` 🔁 SWAP: השירות "${bot.service}" יעבור להשתמש ב-@${j.result.username} במקום ${bot.handle}.`
+        : '';
       setStatus(
         validateStatus,
-        `✓ אומת: @${j.result.username} (${j.result.first_name || ''}, id=${j.result.id})`,
+        `✓ אומת: @${j.result.username} (${j.result.first_name || ''}, id=${j.result.id}).${swapNote}`,
         'ok'
       );
       generateCommand(bot, token);

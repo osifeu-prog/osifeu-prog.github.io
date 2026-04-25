@@ -125,8 +125,20 @@
     <tbody id="tbody"></tbody>
   </table>
 
+  <div class="help" style="background:rgba(0,255,65,.05); border:1px solid var(--accent);">
+    <b style="color: var(--accent);">🔄 לסיבוב ישיר במערכת — בלי Notepad ובלי PowerShell ידני:</b>
+    <p style="margin-top:8px; font-size:13px; color: var(--text);">
+      → <a href="/admin/rotate-token.html" style="font-weight:700; font-size:14px;">פתח את דף סיבוב הטוקנים</a>
+    </p>
+    <p style="margin-top:6px; font-size:12px; color: var(--text2); line-height:1.6">
+      הדף מאמת את הטוקן ישירות מול Telegram, מייצר פקודת PowerShell מוכנה, וטוקן לא נכנס ל-DOM או נשמר.
+      תומך גם ב-<b style="color: var(--gold);">מצב החלפת בוט</b> — שימוש בטוקן של בוט אחר לאותו השירות,
+      כשלא רוצים להמשיך לסבב את הבוט המקורי (סיכון rate-limit ב-BotFather).
+    </p>
+  </div>
+
   <div class="help">
-    <b>📋 תהליך רוטציה (לכל בוט)</b>
+    <b>📋 תהליך רוטציה ידני (אם פתחת את הדף הסיבוב לא עובד)</b>
     <ol>
       <li>פתח <a href="https://t.me/BotFather" target="_blank">@BotFather</a> → <code>/mybots</code> → בחר את הבוט → <code>API Token</code> → <code>Revoke current token</code></li>
       <li>העתק את הטוקן החדש (לא להדביק בצ'אט — ישר ל-<code>.env</code>)</li>
@@ -135,7 +147,7 @@
       <li>וודא ב-<a href="https://t.me/BotFather" target="_blank">BotFather</a> שהבוט <code>/start</code> עדיין מגיב</li>
       <li>חזור לדף הזה, לחץ "סמן סובב" → הטיימסטמפ ישמור אצלך בדפדפן</li>
     </ol>
-    <b>⚠️ אסור:</b> להדביק טוקן בצ'אט AI, במסמך, ב-git. אם בטעות הדבקת → סובב מיד.
+    <b>⚠️ אסור:</b> להדביק טוקן בצ'אט AI, במסמך, ב-git. אם בטעות הדבקת → סובב מיד <b>או החלף בוט</b>.
   </div>
 
 </main>
