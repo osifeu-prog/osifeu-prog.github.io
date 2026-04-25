@@ -263,10 +263,15 @@
   // contain the token) and pasting it into a chat / log / screenshot.
   function buildCommand(bot, tokenOrPlaceholder) {
     const escaped = tokenOrPlaceholder.replace(/'/g, "''");
+    // slh-claude-bot has its own .env (separate scope). All other docker-compose
+    // services read from the project-root .env. Path is computed cleanly per-bot.
+    const envPath = bot.service === 'slh-claude-bot'
+      ? 'D:\\SLH_ECOSYSTEM\\slh-claude-bot\\.env'
+      : 'D:\\SLH_ECOSYSTEM\\.env';
     return `# סיבוב טוקן ${bot.handle} — ${new Date().toLocaleString('he-IL')}
 $tok='${escaped}'
-$envFile = 'D:\\SLH_ECOSYSTEM\\${bot.service === 'slh-claude-bot' ? 'slh-claude-bot' : ''}\\.env'
-if (-not (Test-Path $envFile)) { $envFile = 'D:\\SLH_ECOSYSTEM\\.env' }
+$envFile = '${envPath}'
+if (-not (Test-Path $envFile)) { Write-Host "[FAIL] env file not found: $envFile" -ForegroundColor Red; return }
 (Get-Content $envFile) -replace '^${bot.env}=.*', "${bot.env}=$tok" | Set-Content $envFile -NoNewline
 Write-Host "[OK] עודכן $envFile" -ForegroundColor Green
 cd D:\\SLH_ECOSYSTEM
