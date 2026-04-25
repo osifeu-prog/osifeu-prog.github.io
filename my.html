@@ -146,6 +146,17 @@
   </div>
 </section>
 
+<!-- SWARM -->
+<section>
+  <h2><span class="emoji">🐝</span> רשת Swarm <a href="/miniapp/swarm.html" style="font-size:13px;font-weight:400">פתח Mini App ←</a></h2>
+  <div class="cards c4" id="swarm-cards">
+    <div class="card"><div class="label">סה״כ במזרך</div><div class="value loading">—</div></div>
+    <div class="card"><div class="label">online (2 דק׳)</div><div class="value loading">—</div></div>
+    <div class="card"><div class="label">events 24h</div><div class="value loading">—</div></div>
+    <div class="card"><div class="label">commands ממתינות</div><div class="value loading">—</div></div>
+  </div>
+</section>
+
 <!-- RECENT EVENTS -->
 <section>
   <h2><span class="emoji">📡</span> פעילות אחרונה</h2>
@@ -176,6 +187,7 @@
       <a class="page-link" href="/miniapp/dashboard.html"><span class="emoji">📱</span> דשבורד אישי<span class="arrow">→</span></a>
       <a class="page-link" href="/miniapp/wallet.html"><span class="emoji">💼</span> ארנק<span class="arrow">→</span></a>
       <a class="page-link" href="/miniapp/device.html"><span class="emoji">📟</span> שליטה ב-ESP<span class="arrow">→</span></a>
+      <a class="page-link" href="/miniapp/swarm.html"><span class="emoji">🐝</span> רשת Swarm (4 מכשירים)<span class="arrow">→</span></a>
     </div>
   </div>
 
@@ -365,6 +377,24 @@
     `).join('');
   }
 
+  // ───── SWARM ─────
+  async function loadSwarm() {
+    const box = document.getElementById('swarm-cards');
+    try {
+      const s = await fetchJson('/api/swarm/stats');
+      box.innerHTML = ''
+        + card('סה״כ במזרך', s.total_devices, 'devices registered')
+        + card('online (2 דק׳)', s.online, s.online > 0 ? 'mesh active' : 'no heartbeats yet', s.online > 0 ? 'ok' : 'warn')
+        + card('events 24h', s.events_24h, 'mesh activity')
+        + card('commands ממתינות', s.pending_commands, 'queued for delivery');
+    } catch (e) {
+      box.innerHTML = card('סה״כ', '—', 'API error: ' + e.message)
+        + card('online', '—', '')
+        + card('events 24h', '—', '')
+        + card('commands', '—', '');
+    }
+  }
+
   // ───── STATS ─────
   async function loadStats() {
     const box = document.getElementById('stats-cards');
@@ -422,7 +452,7 @@
   // ───── REFRESH CYCLE ─────
   async function refreshAll() {
     try {
-      await Promise.all([ loadLive(), loadQueue(), loadStats(), loadEvents() ]);
+      await Promise.all([ loadLive(), loadQueue(), loadStats(), loadSwarm(), loadEvents() ]);
     } catch (e) {
       console.error('refreshAll error:', e);
     }
