@@ -452,11 +452,9 @@ function renderSiteMapFAB() {
     <div id="slh-map-menu">
       <div class="label">Navigate the Ecosystem</div>
       <a href="/network.html">🧠 Neural Network Map</a>
-      <a href="/project-map.html">🗺️ Full Project Map</a>
       <a href="/status.html">📊 System Status</a>
       <div class="divider"></div>
       <div class="label">Transparency</div>
-      <a href="/admin/reality.html">🎯 Reality Dashboard</a>
       <a href="/performance.html">🔬 Research Lab</a>
       <a href="/blockchain.html">⛓️ Blockchain + Arkham</a>
       <div class="divider"></div>
@@ -701,7 +699,6 @@ function renderFooter() {
             <li><a href="/staking.html" style="color:var(--text2);text-decoration:none;font-size:13px">💰 ${t('nav_staking', 'Staking · Revenue Share')}</a></li>
             <li><a href="/academy/course-1-dynamic-yield.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎓 ${t('nav_course_1', 'קורס #1 — Dynamic Yield')}</a></li>
             <li><a href="/blockchain.html" style="color:var(--text2);text-decoration:none;font-size:13px">⛓️ ${t('nav_blockchain', "בלוקצ'יין")}</a></li>
-            <li><a href="/analytics.html" style="color:var(--text2);text-decoration:none;font-size:13px">📊 ${t('nav_analytics', 'אנליטיקה')}</a></li>
             <li><a href="/whitepaper.html" style="color:var(--text2);text-decoration:none;font-size:13px">📜 ${t('nav_whitepaper', 'ספר לבן')}</a></li>
           </ul>
         </div>
@@ -712,7 +709,6 @@ function renderFooter() {
             <li><a href="/wallet-guide.html" style="color:var(--text2);text-decoration:none;font-size:13px">💼 ${t('nav_wallet_guide', 'מדריך ארנק')}</a></li>
             <li><a href="/roadmap.html" style="color:var(--text2);text-decoration:none;font-size:13px">🗺️ ${t('nav_roadmap', 'מפת דרכים')}</a></li>
             <li><a href="/performance.html" style="color:var(--text2);text-decoration:none;font-size:13px">🔬 ${t('nav_performance', 'Research Lab')}</a></li>
-            <li><a href="/admin/reality.html" style="color:var(--text2);text-decoration:none;font-size:13px">🎯 ${t('nav_reality', 'Reality Dashboard')}</a></li>
             <li><a href="/terms.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_terms', 'תנאי שימוש')}</a></li>
             <li><a href="/privacy.html" style="color:var(--text2);text-decoration:none;font-size:13px">${t('nav_privacy', 'פרטיות')}</a></li>
           </ul>
@@ -724,7 +720,6 @@ function renderFooter() {
             <li><a href="https://t.me/SLH_community_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Community</a></li>
             <li><a href="https://t.me/SLH_Academia_bot" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px"><i class="fab fa-telegram"></i> Academia</a></li>
             <li><a href="https://t.me/Osif83" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:13px">💬 ${t('nav_support', 'תמיכה')}</a></li>
-            <li><a href="/admin.html" style="color:var(--text2);text-decoration:none;font-size:13px">⚙️ ${t('nav_admin', 'אדמין')}</a></li>
           </ul>
         </div>
       </div>
