@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Device Inventory � SLH Spark Admin</title>
+<title>Device Inventory · SLH Spark Admin</title>
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/shared.css?v=20260426a">
@@ -58,39 +58,39 @@
 <body>
 
 <div class="wrap">
-  <h1>?? Device Inventory</h1>
-  <p class="sub">????? ?? ?? ?????? ?-ESP32 ?????? � ?????? ?? ???? ??? ?????.</p>
+  <h1>📟 Device Inventory</h1>
+  <p class="sub">קטלוג של כל מכשירי ה-ESP32 במערכת — מהמלאי עד פעיל אצל הלקוח.</p>
 
   <div class="auth-notice" id="auth-notice">
-    <strong>???? admin key.</strong> ??? F12 ? Console ?????:<br>
+    <strong>נדרש admin key.</strong> פתח F12 → Console והדבק:<br>
     <code>localStorage.setItem('slh_admin_password', '&lt;your admin key&gt;'); location.reload();</code>
   </div>
 
   <!-- Stats strip -->
   <div class="stats" id="stats">
-    <div class="stat"><div class="v" id="s-total">--</div><div class="l">??"? ???????</div></div>
-    <div class="stat"><div class="v" id="s-stock">--</div><div class="l">?????</div></div>
-    <div class="stat"><div class="v" id="s-sold">--</div><div class="l">????</div></div>
-    <div class="stat"><div class="v" id="s-shipped">--</div><div class="l">????</div></div>
-    <div class="stat"><div class="v" id="s-active">--</div><div class="l">????</div></div>
-    <div class="stat"><div class="v" id="s-revenue">--</div><div class="l">?????? (?)</div></div>
+    <div class="stat"><div class="v" id="s-total">--</div><div class="l">סה"כ מכשירים</div></div>
+    <div class="stat"><div class="v" id="s-stock">--</div><div class="l">במלאי</div></div>
+    <div class="stat"><div class="v" id="s-sold">--</div><div class="l">נמכר</div></div>
+    <div class="stat"><div class="v" id="s-shipped">--</div><div class="l">נשלח</div></div>
+    <div class="stat"><div class="v" id="s-active">--</div><div class="l">פעיל</div></div>
+    <div class="stat"><div class="v" id="s-revenue">--</div><div class="l">הכנסות (₪)</div></div>
   </div>
 
   <!-- Toolbar -->
   <div class="toolbar">
-    <button class="btn btn-primary" id="btn-add">+ ???? ?????</button>
+    <button class="btn btn-primary" id="btn-add">+ הוסף מכשיר</button>
     <select id="f-status">
-      <option value="">?? ????????</option>
-      <option value="in_stock">?????</option>
-      <option value="reserved">???????</option>
-      <option value="sold">????</option>
-      <option value="shipped">????</option>
-      <option value="active">????</option>
-      <option value="returned">?????</option>
-      <option value="dead">?? ????</option>
+      <option value="">כל הסטטוסים</option>
+      <option value="in_stock">במלאי</option>
+      <option value="reserved">משוריין</option>
+      <option value="sold">נמכר</option>
+      <option value="shipped">נשלח</option>
+      <option value="active">פעיל</option>
+      <option value="returned">הוחזר</option>
+      <option value="dead">לא פעיל</option>
     </select>
-    <input type="text" id="f-search" placeholder="?????: MAC / device_id / ?? / ?????">
-    <button class="btn btn-secondary" id="btn-refresh">? ????</button>
+    <input type="text" id="f-search" placeholder="חיפוש: MAC / device_id / שם / טלפון">
+    <button class="btn btn-secondary" id="btn-refresh">↻ רענן</button>
   </div>
 
   <!-- Table -->
@@ -102,14 +102,14 @@
         <th>Status</th>
         <th>Buyer</th>
         <th>Phone</th>
-        <th>Price ?</th>
+        <th>Price ₪</th>
         <th>Sold</th>
         <th>FW</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody id="tbody">
-      <tr><td class="empty" colspan="9">????...</td></tr>
+      <tr><td class="empty" colspan="9">טוען...</td></tr>
     </tbody>
   </table>
 </div>
@@ -117,20 +117,20 @@
 <!-- Add modal -->
 <div class="modal" id="modal-add">
   <div class="modal-box">
-    <h3>???? ????? ???</h3>
-    <div class="field"><label>MAC Address (12 ?????, e.g. AA:BB:CC:DD:EE:FF)</label><input type="text" id="m-mac" placeholder="AA:BB:CC:DD:EE:FF" required></div>
-    <div class="field"><label>Hardware revision (?????????)</label><input type="text" id="m-hwrev" placeholder="esp32-cyd-2024-rev2"></div>
-    <div class="field"><label>FW version (?????????)</label><input type="text" id="m-fw" placeholder="slh-v3"></div>
+    <h3>הוסף מכשיר חדש</h3>
+    <div class="field"><label>MAC Address (12 תווים, e.g. AA:BB:CC:DD:EE:FF)</label><input type="text" id="m-mac" placeholder="AA:BB:CC:DD:EE:FF" required></div>
+    <div class="field"><label>Hardware revision (אופציונלי)</label><input type="text" id="m-hwrev" placeholder="esp32-cyd-2024-rev2"></div>
+    <div class="field"><label>FW version (אופציונלי)</label><input type="text" id="m-fw" placeholder="slh-v3"></div>
     <div class="field"><label>Status</label>
       <select id="m-status">
         <option value="in_stock" selected>in_stock</option>
         <option value="reserved">reserved</option>
       </select>
     </div>
-    <div class="field"><label>Notes</label><textarea id="m-notes" rows="2" placeholder="?????????"></textarea></div>
+    <div class="field"><label>Notes</label><textarea id="m-notes" rows="2" placeholder="אופציונלי"></textarea></div>
     <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('modal-add')">?????</button>
-      <button class="btn btn-primary" id="btn-save-add">????</button>
+      <button class="btn btn-secondary" onclick="closeModal('modal-add')">ביטול</button>
+      <button class="btn btn-primary" id="btn-save-add">שמור</button>
     </div>
   </div>
 </div>
@@ -138,7 +138,7 @@
 <!-- Edit/Sell modal -->
 <div class="modal" id="modal-edit">
   <div class="modal-box">
-    <h3 id="modal-edit-title">????? ?????</h3>
+    <h3 id="modal-edit-title">עדכון מכשיר</h3>
     <input type="hidden" id="e-id">
     <div class="field"><label>Status</label>
       <select id="e-status">
@@ -154,11 +154,11 @@
     <div class="field"><label>Buyer name</label><input type="text" id="e-buyer-name"></div>
     <div class="field"><label>Buyer phone</label><input type="text" id="e-buyer-phone"></div>
     <div class="field"><label>Buyer Telegram ID</label><input type="number" id="e-buyer-uid"></div>
-    <div class="field"><label>Sale price (?)</label><input type="number" id="e-price" step="0.01"></div>
+    <div class="field"><label>Sale price (₪)</label><input type="number" id="e-price" step="0.01"></div>
     <div class="field"><label>Notes</label><textarea id="e-notes" rows="2"></textarea></div>
     <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('modal-edit')">?????</button>
-      <button class="btn btn-primary" id="btn-save-edit">????</button>
+      <button class="btn btn-secondary" onclick="closeModal('modal-edit')">ביטול</button>
+      <button class="btn btn-primary" id="btn-save-edit">שמור</button>
     </div>
   </div>
 </div>
@@ -197,7 +197,7 @@ async function apiCall(method, path, body) {
 }
 
 function fmtDate(iso) {
-  if (!iso) return '�';
+  if (!iso) return '—';
   return new Date(iso).toLocaleDateString('he-IL');
 }
 
@@ -213,7 +213,7 @@ async function loadStats() {
   document.getElementById('s-sold').textContent = (by.sold?.count || 0).toLocaleString('he-IL');
   document.getElementById('s-shipped').textContent = (by.shipped?.count || 0).toLocaleString('he-IL');
   document.getElementById('s-active').textContent = (by.active?.count || 0).toLocaleString('he-IL');
-  document.getElementById('s-revenue').textContent = '?' + (d.total_revenue_ils || 0).toLocaleString('he-IL', {maximumFractionDigits:2});
+  document.getElementById('s-revenue').textContent = '₪' + (d.total_revenue_ils || 0).toLocaleString('he-IL', {maximumFractionDigits:2});
 }
 
 async function loadTable() {
@@ -227,32 +227,32 @@ async function loadTable() {
   const tbody = document.getElementById('tbody');
   if (!d) return;
   if (d._status === 404) {
-    tbody.innerHTML = '<tr><td class="empty" colspan="9">Endpoint ?? ????. Railway redeploy?</td></tr>';
+    tbody.innerHTML = '<tr><td class="empty" colspan="9">Endpoint לא פרוס. Railway redeploy?</td></tr>';
     return;
   }
   const devices = d.devices || [];
   if (!devices.length) {
-    tbody.innerHTML = '<tr><td class="empty" colspan="9">??? ???????. ??? "+ ???? ?????".</td></tr>';
+    tbody.innerHTML = '<tr><td class="empty" colspan="9">אין מכשירים. לחץ "+ הוסף מכשיר".</td></tr>';
     return;
   }
   tbody.innerHTML = devices.map(d => `
     <tr>
       <td class="mac">${d.mac_address}</td>
-      <td>${d.device_id || '�'}</td>
+      <td>${d.device_id || '—'}</td>
       <td><span class="badge ${d.status}">${d.status}</span></td>
-      <td>${d.buyer_name || '�'}</td>
-      <td>${d.buyer_phone || '�'}</td>
-      <td>${d.sale_price_ils ? d.sale_price_ils.toLocaleString('he-IL') : '�'}</td>
+      <td>${d.buyer_name || '—'}</td>
+      <td>${d.buyer_phone || '—'}</td>
+      <td>${d.sale_price_ils ? d.sale_price_ils.toLocaleString('he-IL') : '—'}</td>
       <td>${fmtDate(d.sold_at)}</td>
-      <td>${d.fw_version || '�'}</td>
-      <td><button class="btn btn-secondary" onclick='editDevice(${JSON.stringify(d)})'>????</button></td>
+      <td>${d.fw_version || '—'}</td>
+      <td><button class="btn btn-secondary" onclick='editDevice(${JSON.stringify(d)})'>ערוך</button></td>
     </tr>
   `).join('');
 }
 
 function editDevice(d) {
   document.getElementById('e-id').value = d.id;
-  document.getElementById('modal-edit-title').textContent = '?????: ' + d.mac_address;
+  document.getElementById('modal-edit-title').textContent = 'עדכון: ' + d.mac_address;
   document.getElementById('e-status').value = d.status;
   document.getElementById('e-buyer-name').value = d.buyer_name || '';
   document.getElementById('e-buyer-phone').value = d.buyer_phone || '';
@@ -273,7 +273,7 @@ document.getElementById('f-search').addEventListener('input', () => {
 
 document.getElementById('btn-save-add').onclick = async () => {
   const mac = document.getElementById('m-mac').value.trim();
-  if (!mac) { alert('MAC ????'); return; }
+  if (!mac) { alert('MAC נדרש'); return; }
   const body = {
     mac_address: mac,
     status: document.getElementById('m-status').value,
@@ -290,7 +290,7 @@ document.getElementById('btn-save-add').onclick = async () => {
     document.getElementById('m-notes').value = '';
     loadStats(); loadTable();
   } else {
-    alert('?????: ' + JSON.stringify(r));
+    alert('שגיאה: ' + JSON.stringify(r));
   }
 };
 
@@ -315,12 +315,12 @@ document.getElementById('btn-save-edit').onclick = async () => {
     closeModal('modal-edit');
     loadStats(); loadTable();
   } else {
-    alert('?????: ' + JSON.stringify(r));
+    alert('שגיאה: ' + JSON.stringify(r));
   }
 };
 
 loadStats();
 loadTable();
 </script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

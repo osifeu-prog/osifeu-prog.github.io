@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Mass Gift � ????? ??????? ??? ????????</title>
+<title>SLH Mass Gift — מתנות מרוכזות לכל המשתמשים</title>
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -52,79 +52,79 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 <body>
 
 <div id="login-gate" class="login-gate" style="display:none">
-  <h2>?? Mass Gift � Admin Only</h2>
-  <input type="password" id="login-pwd" placeholder="????? ?????">
-  <button class="btn" style="width:100%;margin-top:12px" onclick="doLogin()">?????</button>
+  <h2>🔐 Mass Gift — Admin Only</h2>
+  <input type="password" id="login-pwd" placeholder="סיסמת אדמין">
+  <button class="btn" style="width:100%;margin-top:12px" onclick="doLogin()">היכנס</button>
 </div>
 
 <div id="main" style="display:none">
 <div id="topnav-root"></div>
 <div class="container">
-  <a href="/admin.html" class="back"><i class="fas fa-arrow-right"></i> ???? ??????</a>
+  <a href="/admin.html" class="back"><i class="fas fa-arrow-right"></i> חזרה לאדמין</a>
   <div class="header">
-    <h1>?? ????? ???????</h1>
-    <p>????? ?????? ??? ???????? ???? ???? � Dry-run ???? ????? � ????? ???</p>
+    <h1>🎁 מתנות מרוכזות</h1>
+    <p>שליחת טוקנים לכל המשתמשים ברצף יחיד · Dry-run לפני ביצוע · תיעוד מלא</p>
   </div>
 
   <div class="alert warning">
-    ?? ????? ?? ???? ?? <strong>?? ???????? ???????</strong> ??????. ????? ???????.
-    ???? ??? Dry-Run ????? ????? ??? ??????? ??????.
+    ⚠️ פעולה זו מזכה את <strong>כל המשתמשים הרשומים</strong> במערכת. השתמש באחריות.
+    תמיד הרץ Dry-Run תחילה לראות כמה משתמשים יושפעו.
   </div>
 
   <div class="card">
-    <h2>?? ??? ???? ????</h2>
+    <h2>🎁 שלח מתנה חדשה</h2>
     <div class="form-row">
       <div>
-        <label>????</label>
+        <label>טוקן</label>
         <select id="token">
-          <option value="ZVK">ZVK (?????? � 4.4?)</option>
-          <option value="MNH">MNH (???? � 1?)</option>
-          <option value="SLH">SLH (??????? � 444?)</option>
-          <option value="REP">REP (???? ???????)</option>
+          <option value="ZVK">ZVK (פעילות · 4.4₪)</option>
+          <option value="MNH">MNH (יציב · 1₪)</option>
+          <option value="SLH">SLH (פרימיום · 444₪)</option>
+          <option value="REP">REP (ציון מוניטין)</option>
         </select>
       </div>
       <div>
-        <label>???? ??? ?????</label>
+        <label>כמות לכל משתמש</label>
         <input type="number" id="amount" value="10" min="0.01" max="10000" step="0.01">
       </div>
     </div>
     <div class="form-row">
       <div>
-        <label>???? (???)</label>
+        <label>סיבה (לוג)</label>
         <select id="reason">
-          <option value="campaign_gift">???? / ??????</option>
-          <option value="welcome_bonus">???? ?????</option>
-          <option value="holiday_gift">???? ??</option>
-          <option value="apology">????? / ???????</option>
-          <option value="milestone">??? ???</option>
-          <option value="other">???</option>
+          <option value="campaign_gift">מבצע / קמפיין</option>
+          <option value="welcome_bonus">ברכת פתיחה</option>
+          <option value="holiday_gift">מתנת חג</option>
+          <option value="apology">פיצוי / התנצלות</option>
+          <option value="milestone">אבן דרך</option>
+          <option value="other">אחר</option>
         </select>
       </div>
       <div>
-        <label>?? ??????? ?????? ?-N ???? (?????????)</label>
-        <input type="number" id="active_days" placeholder="???? ??? ??? ????????" min="1">
+        <label>רק משתמשים פעילים ב-N ימים (אופציונלי)</label>
+        <input type="number" id="active_days" placeholder="השאר ריק לכל המשתמשים" min="1">
       </div>
     </div>
     <div class="form-row single">
       <div>
-        <label>???? ???? (?????????)</label>
-        <input type="text" id="note" placeholder="??????: ???? ???? ??????? shekel_april26">
+        <label>הערה ללוג (אופציונלי)</label>
+        <input type="text" id="note" placeholder="לדוגמה: מתנת השקה לקמפיין shekel_april26">
       </div>
     </div>
     <div class="btn-row">
       <button class="btn secondary" onclick="runMassGift(true)">
-        <i class="fas fa-eye"></i> Dry Run (????? ??????)
+        <i class="fas fa-eye"></i> Dry Run (תצוגה מקדימה)
       </button>
       <button class="btn danger" onclick="confirmExecute()">
-        <i class="fas fa-paper-plane"></i> ??? ????? ?????
+        <i class="fas fa-paper-plane"></i> בצע שליחה בפועל
       </button>
     </div>
     <div id="preview-box" class="preview-box"></div>
   </div>
 
   <div class="card">
-    <h2>?? ????????? ????? ???????</h2>
-    <button class="btn secondary" onclick="loadHistory()"><i class="fas fa-sync"></i> ??? ????????</button>
+    <h2>📜 היסטוריית מתנות אחרונות</h2>
+    <button class="btn secondary" onclick="loadHistory()"><i class="fas fa-sync"></i> טען היסטוריה</button>
     <div id="history" style="margin-top:16px"></div>
   </div>
 </div>
@@ -163,7 +163,7 @@ async function runMassGift(dryRun){
 
   const box = document.getElementById('preview-box');
   box.className = 'preview-box show';
-  box.innerHTML = '<div style="color:var(--text2)">? ???? ????...</div>';
+  box.innerHTML = '<div style="color:var(--text2)">⏳ שולח בקשה...</div>';
 
   try {
     const r = await fetch(`${API_BASE}/api/admin/mass-gift`, {
@@ -178,7 +178,7 @@ async function runMassGift(dryRun){
     if(!r.ok){ throw new Error(d.detail || 'API error'); }
     renderResult(d, dryRun);
   } catch(e) {
-    box.innerHTML = `<div style="color:var(--red)">? ?????: ${e.message}</div>`;
+    box.innerHTML = `<div style="color:var(--red)">❌ שגיאה: ${e.message}</div>`;
   }
 }
 
@@ -187,27 +187,27 @@ function renderResult(d, dryRun){
   if(dryRun){
     const p = d.preview || {};
     const sample = (p.users_sample || []).map(u =>
-      `<div>ID ${u.telegram_id} � @${u.username || '�'} � ${u.first_name || '�'}</div>`
+      `<div>ID ${u.telegram_id} · @${u.username || '—'} · ${u.first_name || '—'}</div>`
     ).join('');
     box.innerHTML = `
-      <h3>?? Dry Run � ????? ??????</h3>
-      <div class="kv"><span>???? ??????? ???????:</span> <b>${p.users_count}</b></div>
-      <div class="kv"><span>????:</span> <b>${p.token}</b></div>
-      <div class="kv"><span>???? ??? ?????:</span> <b>${p.amount_per_user}</b></div>
-      <div class="kv"><span>???? ????:</span> <b>${p.total_distribution}</b></div>
-      <div class="kv"><span>????:</span> <b>${p.reason}</b></div>
-      <div class="user-sample">${sample || '??? ??????? ??????'}</div>
+      <h3>🔍 Dry Run — תצוגה מקדימה</h3>
+      <div class="kv"><span>מספר משתמשים שיושפעו:</span> <b>${p.users_count}</b></div>
+      <div class="kv"><span>טוקן:</span> <b>${p.token}</b></div>
+      <div class="kv"><span>כמות לכל משתמש:</span> <b>${p.amount_per_user}</b></div>
+      <div class="kv"><span>סה״כ הפצה:</span> <b>${p.total_distribution}</b></div>
+      <div class="kv"><span>סיבה:</span> <b>${p.reason}</b></div>
+      <div class="user-sample">${sample || 'אין דוגמאות זמינות'}</div>
       <div style="margin-top:14px;padding:12px;background:rgba(255,215,0,.08);border-radius:10px;font-size:13px;color:var(--gold)">
-        ? ??? ???? ????? ??? ?? "??? ????? ?????" ?????.
+        ✅ הכל נראה תקין? לחץ על "בצע שליחה בפועל" למעלה.
       </div>
     `;
   } else {
     box.innerHTML = `
-      <h3>? ???? ??????!</h3>
-      <div class="kv"><span>????:</span> <b>${d.credited_count}</b></div>
-      <div class="kv"><span>?????:</span> <b style="color:var(--red)">${d.failed_count}</b></div>
-      <div class="kv"><span>???? ????:</span> <b>${d.total_amount_distributed} ${d.token}</b></div>
-      ${d.failures && d.failures.length ? `<div style="margin-top:12px;font-size:12px;color:var(--red)">???????: ${JSON.stringify(d.failures)}</div>` : ''}
+      <h3>✅ הופץ בהצלחה!</h3>
+      <div class="kv"><span>זוכו:</span> <b>${d.credited_count}</b></div>
+      <div class="kv"><span>נכשלו:</span> <b style="color:var(--red)">${d.failed_count}</b></div>
+      <div class="kv"><span>סה״כ הופץ:</span> <b>${d.total_amount_distributed} ${d.token}</b></div>
+      ${d.failures && d.failures.length ? `<div style="margin-top:12px;font-size:12px;color:var(--red)">כשלונות: ${JSON.stringify(d.failures)}</div>` : ''}
     `;
     loadHistory();
   }
@@ -216,33 +216,33 @@ function renderResult(d, dryRun){
 function confirmExecute(){
   const amount = document.getElementById('amount').value;
   const token = document.getElementById('token').value;
-  if(!confirm(`??? ??? ????? ?? ???? ${amount} ${token} ??? ????? ????. ?? ???? ????.`)) return;
+  if(!confirm(`האם אתה בטוח? זה יחלק ${amount} ${token} לכל משתמש רשום. לא ניתן לבטל.`)) return;
   runMassGift(false);
 }
 
 async function loadHistory(){
   const div = document.getElementById('history');
-  div.innerHTML = '<div style="color:var(--text2)">????...</div>';
+  div.innerHTML = '<div style="color:var(--text2)">טוען...</div>';
   try {
     const r = await fetch(`${API_BASE}/api/admin/mass-gift/history?limit=10`, {
       headers: { 'X-Admin-Key': getAdminKey() }
     });
     const d = await r.json();
     if(!d.history || d.history.length === 0){
-      div.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px">??? ???????? ?????</div>';
+      div.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px">אין היסטוריה עדיין</div>';
       return;
     }
     div.innerHTML = d.history.map(h => `
       <div class="history-item">
         <div>
-          <div class="token">${h.token} � ${h.total_amount}</div>
-          <div class="when">${new Date(h.when).toLocaleString('he-IL')} � ${h.users_credited} ???????</div>
+          <div class="token">${h.token} · ${h.total_amount}</div>
+          <div class="when">${new Date(h.when).toLocaleString('he-IL')} · ${h.users_credited} משתמשים</div>
         </div>
-        <div style="color:var(--text2);font-size:12px">${h.reason || '�'}</div>
+        <div style="color:var(--text2);font-size:12px">${h.reason || '—'}</div>
       </div>
     `).join('');
   } catch(e) {
-    div.innerHTML = `<div style="color:var(--red)">?????: ${e.message}</div>`;
+    div.innerHTML = `<div style="color:var(--red)">שגיאה: ${e.message}</div>`;
   }
 }
 
@@ -250,5 +250,5 @@ checkAuth();
 </script>
 
 <script src="/js/ai-assistant.js"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

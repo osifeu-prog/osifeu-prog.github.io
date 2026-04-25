@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>?? ????? � SLH Marketplace � ?? ?NFTs ????????</title>
-<meta name="description" content="?? ?NFTs ????????? ?????? ?-SLH Spark Marketplace. ?????, ?????, ???? � ??? ???? ????? ?????? ?????.">
+<title>🎨 גלריה · SLH Marketplace · כל הNFTs המאושרים</title>
+<meta name="description" content="כל הNFTs והשיעורים שאושרו ב-SLH Spark Marketplace. תמונה, סיפור, מחיר — הכל שקוף וניתן לקנייה ישירה.">
 <link rel="canonical" href="https://slh-nft.com/gallery.html">
-<meta property="og:title" content="?? SLH Gallery � NFTs & Courses">
-<meta property="og:description" content="?????? ???????? + ??????? ??????? ???????. ?? ???? ?????.">
+<meta property="og:title" content="🎨 SLH Gallery — NFTs & Courses">
+<meta property="og:description" content="אומנות דיגיטלית + שיעורים ממומחים ישראלים. כל פריט סיפור.">
 <meta property="og:url" content="https://slh-nft.com/gallery.html">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -74,48 +74,48 @@ a:hover{text-decoration:underline}
 <div class="wrap">
   <div class="hdr">
     <h1 data-scramble="SLH Gallery">SLH Gallery</h1>
-    <p>NFTs � ??????? � ??????? � ?????? ???????? ?? ????? SLH</p>
+    <p>NFTs · שיעורים · סיפורים · אומנות דיגיטלית של יוצרי SLH</p>
   </div>
 
   <div class="stats-bar">
-    <div class="stat"><div class="v" id="s-items">�</div><div class="l">??????</div></div>
-    <div class="stat"><div class="v" id="s-creators">�</div><div class="l">??????</div></div>
-    <div class="stat"><div class="v" id="s-sales">�</div><div class="l">??????</div></div>
-    <div class="stat"><div class="v" id="s-vol">�</div><div class="l">??? ????</div></div>
+    <div class="stat"><div class="v" id="s-items">—</div><div class="l">פריטים</div></div>
+    <div class="stat"><div class="v" id="s-creators">—</div><div class="l">יוצרים</div></div>
+    <div class="stat"><div class="v" id="s-sales">—</div><div class="l">מכירות</div></div>
+    <div class="stat"><div class="v" id="s-vol">—</div><div class="l">נפח כולל</div></div>
   </div>
 
   <div class="controls">
     <select id="f-category" onchange="applyFilters()">
-      <option value="">?? ?????????</option>
-      <option value="nft">?? NFT</option>
-      <option value="course">?? Course</option>
-      <option value="digital">?? Digital</option>
-      <option value="physical">?? Physical</option>
-      <option value="service">?? Service</option>
+      <option value="">כל הקטגוריות</option>
+      <option value="nft">🎨 NFT</option>
+      <option value="course">🎓 Course</option>
+      <option value="digital">💾 Digital</option>
+      <option value="physical">📦 Physical</option>
+      <option value="service">🛠 Service</option>
     </select>
     <select id="f-sort" onchange="applyFilters()">
-      <option value="new">??? ?????</option>
-      <option value="price-low">????: ???? ? ????</option>
-      <option value="price-high">????: ???? ? ????</option>
-      <option value="popular">??????? (views)</option>
+      <option value="new">חדש ביותר</option>
+      <option value="price-low">מחיר: נמוך → גבוה</option>
+      <option value="price-high">מחיר: גבוה → נמוך</option>
+      <option value="popular">פופולרי (views)</option>
     </select>
-    <input id="f-search" type="search" placeholder="?? ?????..." oninput="applyFilters()" style="flex:1;min-width:200px">
-    <button class="btn" onclick="location.href='/sell.html'">?? ???? ???</button>
+    <input id="f-search" type="search" placeholder="🔍 חיפוש..." oninput="applyFilters()" style="flex:1;min-width:200px">
+    <button class="btn" onclick="location.href='/sell.html'">🎨 מכור שלי</button>
   </div>
 
   <div id="grid" class="grid"></div>
   <div id="empty" class="empty" style="display:none">
-    <h2>????? ??? ??????</h2>
-    <p>??? ?????? � <a href="/sell.html">???? ?? ?-NFT ?????? ???</a></p>
+    <h2>עדיין אין פריטים</h2>
+    <p>היה הראשון — <a href="/sell.html">העלה את ה-NFT הראשון שלך</a></p>
   </div>
 
-  <button class="load-more" id="load-more" onclick="loadMore()" style="display:none">??? ???</button>
+  <button class="load-more" id="load-more" onclick="loadMore()" style="display:none">טען עוד</button>
 
   <div class="foot">
-    <p>?? ?? ???? ???? ?????? ????? � ????-???? ?-<a href="https://t.me/slhniffty">@slhniffty</a> ??????</p>
+    <p>🎨 כל פריט נבדק ומאושר ידנית · אוטו-פוסט ל-<a href="https://t.me/slhniffty">@slhniffty</a> בהתאמה</p>
     <p style="margin-top:10px">
-      <a href="/sell.html">????</a> �
-      <a href="/shop.html">????? ???</a> �
+      <a href="/sell.html">מכור</a> ·
+      <a href="/shop.html">החנות שלי</a> ·
       <a href="/alpha-progress.html">Progress</a>
     </p>
   </div>
@@ -123,7 +123,7 @@ a:hover{text-decoration:underline}
 
 <div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
   <div class="modal-body">
-    <button class="close" onclick="closeModal()">�</button>
+    <button class="close" onclick="closeModal()">×</button>
     <img id="m-img" src="" alt="">
     <div class="modal-content">
       <h2 id="m-title"></h2>
@@ -133,7 +133,7 @@ a:hover{text-decoration:underline}
       </div>
       <div class="full-story" id="m-story"></div>
       <div class="seller" id="m-seller" style="color:#5a6078;font-size:12px;margin-bottom:16px"></div>
-      <button class="buy-btn" id="m-buy" onclick="buyNow()">?? ??? ?????</button>
+      <button class="buy-btn" id="m-buy" onclick="buyNow()">💳 קנה עכשיו</button>
     </div>
   </div>
 </div>
@@ -149,7 +149,7 @@ async function loadGallery(reset = true) {
   if (reset) {
     OFFSET = 0;
     ALL_ITEMS = [];
-    document.getElementById('grid').innerHTML = '<div class="empty"><h2>????...</h2></div>';
+    document.getElementById('grid').innerHTML = '<div class="empty"><h2>טוען...</h2></div>';
   }
   try {
     const r = await fetch(`${API}/api/marketplace/items?limit=${LIMIT}&offset=${OFFSET}`);
@@ -160,7 +160,7 @@ async function loadGallery(reset = true) {
     render();
     document.getElementById('load-more').style.display = items.length === LIMIT ? 'block' : 'none';
   } catch (e) {
-    document.getElementById('grid').innerHTML = `<div class="empty"><h2>?????</h2><p>${e.message}</p></div>`;
+    document.getElementById('grid').innerHTML = `<div class="empty"><h2>שגיאה</h2><p>${e.message}</p></div>`;
   }
 }
 
@@ -172,7 +172,7 @@ async function loadStats() {
       if (d.total_items !== undefined) document.getElementById('s-items').textContent = d.total_items;
       if (d.total_sellers !== undefined) document.getElementById('s-creators').textContent = d.total_sellers;
       if (d.total_orders !== undefined) document.getElementById('s-sales').textContent = d.total_orders;
-      if (d.total_volume !== undefined) document.getElementById('s-vol').textContent = Math.round(d.total_volume) + '?';
+      if (d.total_volume !== undefined) document.getElementById('s-vol').textContent = Math.round(d.total_volume) + '₪';
     }
   } catch (e) {}
 }
@@ -211,8 +211,8 @@ function render() {
     const isCourse = (item.category || '') === 'course';
     const img = item.image_url
       ? `<img src="${item.image_url}" alt="${escapeHtml(item.title)}" loading="lazy">`
-      : (isCourse ? '??' : '??');
-    const catLabel = { nft: '?? NFT', course: '?? Course', digital: '?? Digital', physical: '?? Physical', service: '?? Service' }[item.category] || item.category;
+      : (isCourse ? '🎓' : '🎨');
+    const catLabel = { nft: '🎨 NFT', course: '🎓 Course', digital: '💾 Digital', physical: '📦 Physical', service: '🛠 Service' }[item.category] || item.category;
     return `<div class="card ${isCourse ? 'course' : ''}" onclick="openModal(${idx})">
       <div class="img">${img}</div>
       <div class="body">
@@ -222,7 +222,7 @@ function render() {
           <span class="cat">${catLabel}</span>
           <span class="price">${parseFloat(item.price).toFixed(2)} ${item.currency}</span>
         </div>
-        <div class="seller">?? <span>${item.seller_id}</span></div>
+        <div class="seller">👤 <span>${item.seller_id}</span></div>
       </div>
     </div>`;
   }).join('');
@@ -240,7 +240,7 @@ function openModal(idx) {
   document.getElementById('m-story').textContent = item.description || '';
   document.getElementById('m-cat').textContent = item.category;
   document.getElementById('m-price').textContent = `${parseFloat(item.price).toFixed(2)} ${item.currency}`;
-  document.getElementById('m-seller').innerHTML = `?? ????: <a href="/shop.html?user=${item.seller_id}">#${item.seller_id}</a> � ?? ${item.views || 0} ?????`;
+  document.getElementById('m-seller').innerHTML = `👤 יוצר: <a href="/shop.html?user=${item.seller_id}">#${item.seller_id}</a> · 👁 ${item.views || 0} צפיות`;
   document.getElementById('modal').classList.add('on');
 }
 
@@ -253,7 +253,7 @@ function buyNow() {
   if (!CURRENT_ITEM) return;
   const buyerId = localStorage.getItem('slh_tg_id');
   if (!buyerId) {
-    alert('??? ???? ?????? ????. ???? ?-getting-started...');
+    alert('אתה צריך להתחבר קודם. הולך ל-getting-started...');
     location.href = '/getting-started.html?next=gallery';
     return;
   }
@@ -281,5 +281,5 @@ function escapeHtml(s) {
 loadGallery();
 loadStats();
 </script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

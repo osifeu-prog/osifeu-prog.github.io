@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/shared.css?v=20260426a">
   <style>
-    /* -- Analytics Admin Theme ------------------ */
+    /* ── Analytics Admin Theme ────────────────── */
     .an-gate{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center}
     .an-gate.hidden{display:none}
     .an-login{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:48px 36px;text-align:center;max-width:380px;width:90%}
@@ -203,7 +203,7 @@
     let stats = null;
     const feedEvents = [];
 
-    /* -- Auth ----------------------------------- */
+    /* ── Auth ─────────────────────────────────── */
     const gate = document.getElementById('an-gate');
     const dash = document.getElementById('an-dash');
     const passInput = document.getElementById('an-pass');
@@ -224,7 +224,7 @@
       loadData();
     }
 
-    /* -- Data loading -------------------------- */
+    /* ── Data loading ────────────────────────── */
     let refreshTimer = null;
 
     async function loadData(){
@@ -252,7 +252,7 @@
     }
     function emptyStats(){ return {days:{},pages:{},referrers:{},langs:{},devices:{},clicks:{},visitors:{},heartbeats:{}}; }
 
-    /* -- Render --------------------------------- */
+    /* ── Render ───────────────────────────────── */
     function render(){
       if(!stats) return;
       renderKPI();
@@ -403,7 +403,7 @@
       }).join('') || '<tr><td colspan="2" style="color:var(--text3)">No data yet</td></tr>';
     }
 
-    /* -- Live Feed ------------------------------ */
+    /* ── Live Feed ────────────────────────────── */
     function updateFeed(){
       const feed = document.getElementById('live-feed');
       if(stats && stats._fromAPI){
@@ -430,7 +430,7 @@
     }
     setInterval(updateFeed, 5000);
 
-    /* -- Export CSV ----------------------------- */
+    /* ── Export CSV ───────────────────────────── */
     document.getElementById('btn-export').addEventListener('click', function(){
       const s = stats || readLocal();
       let csv = '';
@@ -474,15 +474,15 @@
       a.click();
     });
 
-    /* -- Refresh ------------------------------- */
+    /* ── Refresh ─────────────────────────────── */
     document.getElementById('btn-refresh').addEventListener('click', loadData);
 
-    /* -- Init shared --------------------------- */
+    /* ── Init shared ─────────────────────────── */
     document.addEventListener('DOMContentLoaded', function(){
       if(typeof initShared === 'function') initShared({ activePage: 'analytics' });
     });
   })();
   </script>
 <script src="/js/ai-assistant.js?v=20260426a"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

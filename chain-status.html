@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH � ????? ??????</title>
+<title>SLH · שרשרת המערכת</title>
 <link rel="stylesheet" href="/css/style.css">
 <style>
   body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #0b1020; color: #e9ecf2; padding: 20px; max-width: 1200px; margin: 0 auto; }
@@ -30,62 +30,62 @@
 </style>
 </head>
 <body>
-<h1>?? ????? SLH � ??? ??</h1>
-<p class="subtitle">device ? TG ? Guardian ? Ledger ? API � ????? ??????? ?? 15 ?????</p>
+<h1>🔗 שרשרת SLH — מצב חי</h1>
+<p class="subtitle">device → TG → Guardian → Ledger → API — רענון אוטומטי כל 15 שניות</p>
 
 <div class="chain" id="chain">
   <div class="node" id="node-api">
     <h3>Railway API <span class="dot" id="dot-api"></span></h3>
-    <div class="stat" id="stat-api">�</div>
+    <div class="stat" id="stat-api">—</div>
     <div class="caption">/api/health latency</div>
   </div>
   <div class="node" id="node-devices">
-    <h3>??????? <span class="dot" id="dot-devices"></span></h3>
-    <div class="stat" id="stat-devices">�</div>
-    <div class="caption">?????? ?-24 ???? ???????</div>
+    <h3>מכשירים <span class="dot" id="dot-devices"></span></h3>
+    <div class="stat" id="stat-devices">—</div>
+    <div class="caption">פעילים ב-24 שעות אחרונות</div>
   </div>
   <div class="node" id="node-guardian">
     <h3>Guardian <span class="dot" id="dot-guardian"></span></h3>
-    <div class="stat" id="stat-guardian">�</div>
-    <div class="caption">??????? ?????? + ??????</div>
+    <div class="stat" id="stat-guardian">—</div>
+    <div class="caption">דיווחים פעילים + חסומים</div>
   </div>
   <div class="node" id="node-ledger">
-    <h3>Ledger (???) <span class="dot" id="dot-ledger"></span></h3>
-    <div class="stat" id="stat-ledger">�</div>
-    <div class="caption">??"? SLH/MNH/ZVK ????</div>
+    <h3>Ledger (יום) <span class="dot" id="dot-ledger"></span></h3>
+    <div class="stat" id="stat-ledger">—</div>
+    <div class="caption">סה"כ SLH/MNH/ZVK שנעו</div>
   </div>
   <div class="node" id="node-staking">
     <h3>Staking <span class="dot" id="dot-staking"></span></h3>
-    <div class="stat" id="stat-staking">�</div>
-    <div class="caption">???? � TON + SLH ??????</div>
+    <div class="stat" id="stat-staking">—</div>
+    <div class="caption">פעיל · TON + SLH נעולים</div>
   </div>
 </div>
 
 <div class="panel">
-  <h2>?? ??????? � 10 ???????? ??? heartbeat</h2>
+  <h2>📟 מכשירים — 10 האחרונים לפי heartbeat</h2>
   <table>
     <thead><tr><th>device_id</th><th>user_id</th><th>fw</th><th>ssid</th><th>last_seen</th></tr></thead>
-    <tbody id="tbl-devices"><tr><td colspan="5" class="caption">????�</td></tr></tbody>
+    <tbody id="tbl-devices"><tr><td colspan="5" class="caption">טוען…</td></tr></tbody>
   </table>
 </div>
 
 <div class="panel">
-  <h2>?? Guardian � 10 ??????? ???????</h2>
+  <h2>🚨 Guardian — 10 דיווחים אחרונים</h2>
   <table>
-    <thead><tr><th>user_id</th><th>ZUZ</th><th>????</th><th>???????</th></tr></thead>
-    <tbody id="tbl-guardian"><tr><td colspan="4" class="caption">????�</td></tr></tbody>
+    <thead><tr><th>user_id</th><th>ZUZ</th><th>חסום</th><th>דיווחים</th></tr></thead>
+    <tbody id="tbl-guardian"><tr><td colspan="4" class="caption">טוען…</td></tr></tbody>
   </table>
 </div>
 
 <div class="panel">
-  <h2>?? Events � 20 ???????</h2>
+  <h2>📡 Events — 20 אחרונים</h2>
   <table>
-    <thead><tr><th>id</th><th>type</th><th>???</th><th>????</th></tr></thead>
-    <tbody id="tbl-events"><tr><td colspan="4" class="caption">????�</td></tr></tbody>
+    <thead><tr><th>id</th><th>type</th><th>מתי</th><th>תוכן</th></tr></thead>
+    <tbody id="tbl-events"><tr><td colspan="4" class="caption">טוען…</td></tr></tbody>
   </table>
 </div>
 
-<p class="refresh-hint" id="refresh-hint">�</p>
+<p class="refresh-hint" id="refresh-hint">—</p>
 
 <script>
 const API = "https://slh-api-production.up.railway.app";
@@ -112,7 +112,7 @@ function setDot(id, cls) {
 }
 
 function isoToShort(iso) {
-  if (!iso) return '�';
+  if (!iso) return '—';
   try {
     const d = new Date(iso);
     return d.toLocaleString('he-IL', {hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'});
@@ -138,36 +138,36 @@ async function refresh() {
 
     const tbody = document.getElementById('tbl-devices');
     tbody.innerHTML = ds.length === 0 ?
-      `<tr><td colspan="5" class="caption">??? ???????</td></tr>` :
+      `<tr><td colspan="5" class="caption">אין מכשירים</td></tr>` :
       ds.slice(0, 10).map(d => `
         <tr>
           <td style="font-family:monospace">${d.device_id}</td>
-          <td>${d.user_id ?? '�'}</td>
-          <td>${d.device_type || '�'}</td>
-          <td>${d.phone ? '?? ' + d.phone.slice(-4) : '�'}</td>
+          <td>${d.user_id ?? '—'}</td>
+          <td>${d.device_type || '—'}</td>
+          <td>${d.phone ? '📱 ' + d.phone.slice(-4) : '—'}</td>
           <td>${isoToShort(d.last_seen)}</td>
         </tr>`).join('');
   } else {
     setDot('dot-devices', 'err');
     document.getElementById('stat-devices').textContent = 'ERR';
     document.getElementById('tbl-devices').innerHTML =
-      `<tr><td colspan="5" class="err-text">${devices.status} � ???? admin key ?-localStorage</td></tr>`;
+      `<tr><td colspan="5" class="err-text">${devices.status} — צריך admin key ב-localStorage</td></tr>`;
   }
 
   // Guardian
   const bl = await fetchJSON(`${API}/api/guardian/blacklist?limit=10`);
   if (bl.ok && Array.isArray(bl.body)) {
     const active = bl.body.filter(u => u.ban_active).length;
-    document.getElementById('stat-guardian').textContent = `${bl.body.length} (${active} ??????)`;
+    document.getElementById('stat-guardian').textContent = `${bl.body.length} (${active} חסומים)`;
     setDot('dot-guardian', active > 0 ? 'warn' : 'ok');
     const tbody = document.getElementById('tbl-guardian');
     tbody.innerHTML = bl.body.length === 0 ?
-      `<tr><td colspan="4" class="caption">? ???</td></tr>` :
+      `<tr><td colspan="4" class="caption">✨ ריק</td></tr>` :
       bl.body.map(u => `
         <tr>
           <td>${u.user_id}</td>
           <td>${(u.zuz_score || 0).toFixed(0)}</td>
-          <td>${u.ban_active ? '??' : '??'}</td>
+          <td>${u.ban_active ? '🔒' : '⚠️'}</td>
           <td>${u.total_reports || 0}</td>
         </tr>`).join('');
   } else {
@@ -175,12 +175,12 @@ async function refresh() {
     document.getElementById('stat-guardian').textContent = 'ERR';
   }
 
-  // Ledger volume (today) � we'll estimate from /api/tokenomics/stats
+  // Ledger volume (today) — we'll estimate from /api/tokenomics/stats
   const stats = await fetchJSON(`${API}/api/tokenomics/stats`);
   if (stats.ok) {
     const t = stats.body;
     const today = (t.transfers_today || 0);
-    document.getElementById('stat-ledger').textContent = `${today} ?`;
+    document.getElementById('stat-ledger').textContent = `${today} ↔`;
     setDot('dot-ledger', today > 0 ? 'ok' : 'warn');
   } else {
     setDot('dot-ledger', 'err');
@@ -189,19 +189,19 @@ async function refresh() {
   // Staking
   const stake = await fetchJSON(`${API}/api/staking/plans`);
   if (stake.ok) {
-    const total = stake.body?.total_locked_ton || stake.body?.total_staked || '�';
+    const total = stake.body?.total_locked_ton || stake.body?.total_staked || '—';
     document.getElementById('stat-staking').textContent = `${total} TON`;
     setDot('dot-staking', 'ok');
   } else {
     setDot('dot-staking', 'err');
   }
 
-  // Events (admin) � reads from event_log via the new /api/admin/events endpoint
+  // Events (admin) — reads from event_log via the new /api/admin/events endpoint
   const events = await fetchJSON(`${API}/api/admin/events?limit=20`);
   if (events.ok && Array.isArray(events.body?.events)) {
     const tbody = document.getElementById('tbl-events');
     tbody.innerHTML = events.body.events.length === 0 ?
-      `<tr><td colspan="4" class="caption">??? events ????? � ???? ?????? payment / stake / device</td></tr>` :
+      `<tr><td colspan="4" class="caption">אין events עדיין — המתן להודעת payment / stake / device</td></tr>` :
       events.body.events.map(e => {
         const p = e.payload || {};
         const snippet = Object.entries(p).slice(0, 3).map(([k, v]) => `${k}=${String(v).slice(0, 40)}`).join(', ');
@@ -222,14 +222,14 @@ async function refresh() {
     }
   } else {
     document.getElementById('tbl-events').innerHTML =
-      `<tr><td colspan="4" class="err-text">${events.status} � ???? admin key ?-localStorage</td></tr>`;
+      `<tr><td colspan="4" class="err-text">${events.status} — צריך admin key ב-localStorage</td></tr>`;
   }
 
-  document.getElementById('refresh-hint').textContent = '?????: ' + new Date().toLocaleTimeString('he-IL');
+  document.getElementById('refresh-hint').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL');
 }
 
 refresh();
 setInterval(refresh, 15000);
 </script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

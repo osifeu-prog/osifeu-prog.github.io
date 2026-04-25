@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Broadcast Composer � Admin Only</title>
+<title>Broadcast Composer — Admin Only</title>
 <meta name="description" content="Send Telegram broadcasts to registered users">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="/favicon-32.png">
@@ -168,40 +168,40 @@
 <div id="ticker-root"></div>
 
 <div class="container">
-    <h1>?? Broadcast Composer</h1>
-    <p class="sub">??? ????? ????? ??? ???????? ??????? ??? @SLH_AIR_bot</p>
+    <h1>📣 Broadcast Composer</h1>
+    <p class="sub">שלח הודעת טלגרם לכל המשתמשים הרשומים דרך @SLH_AIR_bot</p>
 
     <!-- Templates -->
     <div class="panel">
-        <h2>?? Templates ??????</h2>
+        <h2>📋 Templates מוכנים</h2>
         <div class="templates">
             <div class="template-card" onclick="loadTemplate('genesis-launch')">
-                <h3>?? Genesis Launch</h3>
-                <p>?????? ????????? ?-Tzvika + ?????? � ????? ?????? ?-Ultra Micro Pool</p>
+                <h3>🚀 Genesis Launch</h3>
+                <p>ההודעה ההיסטורית ל-Tzvika + שותפים — הזמנה להשתתף ב-Ultra Micro Pool</p>
             </div>
             <div class="template-card" onclick="loadTemplate('system-update')">
-                <h3>?? System Update</h3>
-                <p>????? ????? ?? ????? ?????? / ???'? ???</p>
+                <h3>🛠 System Update</h3>
+                <p>הודעה כללית על עדכון במערכת / פיצ'ר חדש</p>
             </div>
             <div class="template-card" onclick="loadTemplate('genesis49-reminder')">
-                <h3>?? Genesis 49 Reminder</h3>
-                <p>?????? ???? ?????? ?? 46 ?????? ??????</p>
+                <h3>🎁 Genesis 49 Reminder</h3>
+                <p>תזכורת לגבי הקופון עם 46 מקומות נותרים</p>
             </div>
             <div class="template-card" onclick="loadTemplate('major-update')" style="border-color:rgba(0,232,135,0.4)">
-                <h3>?? Major Update (post-deploy)</h3>
-                <p>????? ????? ???? ????? � ???? Genesis, ?????, ????, ???? ??????</p>
+                <h3>🚀 Major Update (post-deploy)</h3>
+                <p>הודעה מקיפה אחרי שדרוג — כולל Genesis, אבטחה, ארנק, חזון הריפוי</p>
             </div>
             <div class="template-card" onclick="loadTemplate('custom')">
-                <h3>?? Custom</h3>
-                <p>???? ????</p>
+                <h3>✍️ Custom</h3>
+                <p>התחל מאפס</p>
             </div>
         </div>
     </div>
 
     <!-- Composer -->
     <div class="panel">
-        <h2>?? ????? ????</h2>
-        <label>???</label>
+        <h2>✉️ הודעה חדשה</h2>
+        <label>יעד</label>
         <select id="target">
             <option value="registered">Registered users only (4 users)</option>
             <option value="genesis49">Genesis 49 holders (3 users)</option>
@@ -209,41 +209,41 @@
             <option value="custom">Custom IDs</option>
         </select>
 
-        <label>???? ?????? (HTML formatting supported: &lt;b&gt;, &lt;i&gt;, &lt;a href&gt;)</label>
-        <textarea id="message" placeholder="????,&#10;&#10;?????? ???..."></textarea>
+        <label>תוכן ההודעה (HTML formatting supported: &lt;b&gt;, &lt;i&gt;, &lt;a href&gt;)</label>
+        <textarea id="message" placeholder="שלום,&#10;&#10;ההודעה כאן..."></textarea>
 
-        <label>Admin Key <span style="text-transform:none;color:var(--text2);font-weight:400">(?????? ?????? ?-Admin Panel)</span></label>
+        <label>Admin Key <span style="text-transform:none;color:var(--text2);font-weight:400">(הסיסמה שהגדרת ב-Admin Panel)</span></label>
         <input type="password" id="admin-key" placeholder="Admin password">
 
         <label style="display:flex;align-items:center;gap:8px;flex-direction:row">
             <input type="checkbox" id="dry-run" checked style="width:auto;margin:0">
-            <span style="text-transform:none;font-size:13px;color:var(--text)">Dry run � preview count without sending</span>
+            <span style="text-transform:none;font-size:13px;color:var(--text)">Dry run — preview count without sending</span>
         </label>
 
         <div style="background:rgba(0,232,135,0.06);border:1px solid var(--accent2);padding:14px;border-radius:10px;margin-top:16px;font-size:13px">
-            ?? <strong style="color:var(--accent2)">???? ???? ?? Dry Run</strong> � ?? ?? ???? ??? ?????? ????, ??? ????? ?????.
-            ?? ???? ?????? ??? ????, ??? "Send for Real".
+            💡 <strong style="color:var(--accent2)">התחל תמיד עם Dry Run</strong> — זה רק מציג כמה נמענים תהיו, בלי לשלוח בפועל.
+            רק אחרי שרואים שזה עובד, לחץ "Send for Real".
         </div>
         <div class="btn-group">
             <button class="btn btn-dry" onclick="send(true)" style="flex:2;background:linear-gradient(135deg,#ffd700,#f3ba2f);font-size:16px">
-                ?? Step 1 � Dry Run (Preview Only)
+                🧪 Step 1 — Dry Run (Preview Only)
             </button>
             <button class="btn btn-primary" onclick="send(false)" style="flex:1;opacity:0.6">
-                ?? Step 2 � Send for Real
+                📤 Step 2 — Send for Real
             </button>
-            <button class="btn btn-outline" onclick="loadHistory()">?? Refresh History</button>
+            <button class="btn btn-outline" onclick="loadHistory()">📜 Refresh History</button>
         </div>
 
         <div class="result" id="result"></div>
 
         <!-- Live preview -->
-        <label>Live Preview (??? ???? ??????)</label>
-        <div class="preview" id="preview">????? ???? ??? ???? ???...</div>
+        <label>Live Preview (איך יראה בטלגרם)</label>
+        <div class="preview" id="preview">הטקסט יוצג כאן בזמן אמת...</div>
     </div>
 
     <!-- History -->
     <div class="panel">
-        <h2>?? History</h2>
+        <h2>📜 History</h2>
         <div id="history"><em style="color:var(--text2)">Loading...</em></div>
     </div>
 
@@ -256,95 +256,95 @@
 const API = 'https://slh-api-production.up.railway.app';
 
 const TEMPLATES = {
-    'genesis-launch': `???? {{name}} ??
+    'genesis-launch': `שלום {{name}} 👑
 
-????? ???? ???????? � Genesis Launch ?? SLH Spark.
+הגענו לרגע ההיסטורי — Genesis Launch של SLH Spark.
 
-???? ?????? ?? ?????, ????? ?????? ????? ?? ????? ?????? ?-PancakeSwap. ??? ???? ????? ??? ?????? ?-Co-Founder.
+אחרי חודשים של בנייה, אנחנו עומדים להשיק את הטוקן הראשון ב-PancakeSwap. אני רוצה שתהיה חלק מההשקה כ-Co-Founder.
 
-?? ?? ????:
-� Genesis NFT ?????? (??-????)
-� 500 ZVK ???? ??????
-� Co-Founder credit ???? ????
-� ????? ?-audit log ????-???? (SHA-256)
+🎁 מה תקבל:
+• Genesis NFT ייחודי (חד-פעמי)
+• 500 ZVK מתנה ישירות
+• Co-Founder credit קבוע באתר
+• רישום ב-audit log בלתי-שביר (SHA-256)
 
-?? ?????: 0.05 BNB (~$30 ????)
+💰 השקעה: 0.05 BNB (~$30 בלבד)
 
-?? ??? ??????:
-1. ??? ?? MetaMask / Trust Wallet ? ???? ???? ?? BSC
-2. ??? 0.05 BNB ??????: 0xd061de73B06d5E91bfA46b35EfB7B08b16903da4
-3. ???? ?? ?-TX hash
-4. ???? ??????: https://slh-nft.com/launch-event.html
-5. ???? 24 ???? ?????? + ??? ?? ??????
+📋 איך מבצעים:
+1. פתח את MetaMask / Trust Wallet → וודא שאתה על BSC
+2. שלח 0.05 BNB לכתובת: 0xd061de73B06d5E91bfA46b35EfB7B08b16903da4
+3. העתק את ה-TX hash
+4. דווח בקישור: https://slh-nft.com/launch-event.html
+5. המתן 24 שעות לאימות + קבל את הפרסים
 
-?? ?????? ??????: https://slh-nft.com/partner-launch-invite.html?partner={{name}}
-?? ?????? ????????: https://slh-nft.com/partner-dashboard.html
+👉 ההזמנה האישית: https://slh-nft.com/partner-launch-invite.html?partner={{name}}
+👉 דשבורד הפרטנרים: https://slh-nft.com/partner-dashboard.html
 
-??? ???? ?????? ??? ??? 48 ????.
+אני זקוק לאישור שלך תוך 48 שעות.
 
-� Osif`,
+— Osif`,
 
-    'system-update': `????,
+    'system-update': `שלום,
 
-????? ???? ?????? SLH Spark:
+עדכון חשוב במערכת SLH Spark:
 
-[???? ??? ?? ???? ??????]
+[הכנס כאן את תוכן העדכון]
 
-? ?? ???
-? ?? ????
-? ?? ????
+✅ מה חדש
+✅ מה תוקן
+✅ מה צפוי
 
-?? ????? ???: https://slh-nft.com/ecosystem-guide.html
-?? Daily blog: https://slh-nft.com/daily-blog.html
+📚 מדריך מלא: https://slh-nft.com/ecosystem-guide.html
+📄 Daily blog: https://slh-nft.com/daily-blog.html
 
-� Team SLH`,
+— Team SLH`,
 
-    'genesis49-reminder': `???? ??
+    'genesis49-reminder': `שלום 🎁
 
-?? ?????? � ????? ??? 46 ?????? ???? 49 ?-Genesis 49 Coupon.
+רק תזכורת — נותרו עוד 46 מקומות מתוך 49 ב-Genesis 49 Coupon.
 
-?? ????? ????:
-� 10 ZVK ???? + NFT ??????
-� Whitelist ??? ?????? ???????
-� 100 ZVK ?????? ???? ????? Distribution
+מי שנרשם מקבל:
+• 10 ZVK מתנה + NFT ייחודי
+• Whitelist לכל ההשקות עתידיות
+• 100 ZVK נוספים אחרי תהליך Distribution
 
-?? ?????: https://slh-nft.com/dashboard.html#register
-??? ?? ??? GENESIS49 ???? ??????.
+🎯 רישום: https://slh-nft.com/dashboard.html#register
+הזן את קוד GENESIS49 אחרי ההרשמה.
 
-� Team SLH`,
+— Team SLH`,
 
-    'major-update': `?? ????? ???? ?-SLH Spark!
+    'major-update': `🚀 עדכון גדול ב-SLH Spark!
 
-????,
+שלום,
 
-?????? ????? ???? ?? ?? ?????? ?????. ??? ?? ???:
+ביצענו שדרוג מקיף של כל המערכת הלילה. הנה מה חדש:
 
-?? Genesis Launch � 100% ?????!
-2 Co-Founders (Tzvika + Eli) ???? 0.05 BNB ?-pool ?????? ???? ?-PancakeSwap.
+🎉 Genesis Launch — 100% הושלם!
+2 Co-Founders (Tzvika + Eli) תרמו 0.05 BNB ל-pool הראשון שלנו ב-PancakeSwap.
 
-?? ?????? ?????
-� ????? AES-GCM ??????? CEX
-� ????? admin ??? endpoint ????
-� ???? ?????? SHA-256 ?? hash chain ????-????
+🔒 שדרוגי אבטחה
+• הצפנת AES-GCM למפתחות CEX
+• אימות admin בכל endpoint רגיש
+• יומן ביקורת SHA-256 עם hash chain בלתי-שביר
 
-?? ???? ??????
-� QR codes ????? TON ?-BSC
-� ????? Bybit + Binance ?? ????? ???-???-???
-� ????? ?? ??????? ??? ????? ???
+💼 ארנק משודרג
+• QR codes לקבלת TON ו-BSC
+• חיבור Bybit + Binance עם מדריך שלב-אחר-שלב
+• תצוגת כל המטבעות שלך במקום אחד
 
-?? ???? ??????
-????? ??????? � SLH ????? ?? ?????, ?????, ?????.
-?????? ??????? ??????: https://slh-nft.com/for-therapists.html
+🌸 חזון הריפוי
+חזרנו לשורשים — SLH כמטבע של ריפוי, חינוך, וסיוע.
+מטפלים מוזמנים להצטרף: https://slh-nft.com/for-therapists.html
 
-?? ???? ?? ??????:
-� ??????: https://slh-nft.com/dashboard.html
-� ?????? ??????: https://slh-nft.com/system-health.html
-� ???? ??????: https://slh-nft.com/healing-vision.html
+📊 בדקו את המערכת:
+• דשבורד: https://slh-nft.com/dashboard.html
+• בריאות המערכת: https://slh-nft.com/system-health.html
+• חזון הריפוי: https://slh-nft.com/healing-vision.html
 
-?? ????? ?? 46 ?????? ?-Genesis 49 � ?????? ?????!
+🎁 עדיין יש 46 מקומות ב-Genesis 49 — הירשמו עכשיו!
 https://slh-nft.com/onboarding.html
 
-� Team SLH Spark ??`,
+— Team SLH Spark 🌸`,
 
     'custom': ''
 };
@@ -359,7 +359,7 @@ function updatePreview() {
     const text = document.getElementById('message').value;
     // Simple HTML preview (strip tags visually)
     const preview = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    document.getElementById('preview').textContent = text || '????? ???? ??? ???? ???...';
+    document.getElementById('preview').textContent = text || 'הטקסט יוצג כאן בזמן אמת...';
 }
 
 document.getElementById('message').addEventListener('input', updatePreview);
@@ -370,19 +370,19 @@ async function send(dryRun) {
     const adminKey = document.getElementById('admin-key').value.trim();
     const resultEl = document.getElementById('result');
 
-    if (!message) { alert('????? ????'); return; }
-    if (!adminKey) { alert('Admin key ????'); return; }
-    if (message.length < 5) { alert('????? ???? ???'); return; }
-    if (message.length > 4000) { alert('????? ????? ??? (??????? 4000 chars)'); return; }
+    if (!message) { alert('הודעה ריקה'); return; }
+    if (!adminKey) { alert('Admin key חובה'); return; }
+    if (message.length < 5) { alert('הודעה קצרה מדי'); return; }
+    if (message.length > 4000) { alert('הודעה ארוכה מדי (מקסימום 4000 chars)'); return; }
 
-    if (!dryRun && !confirm(`?? Ready to send to ALL ${target} users?\n\nMessage length: ${message.length} chars\n\nThis CANNOT be undone.`)) {
+    if (!dryRun && !confirm(`⚠️ Ready to send to ALL ${target} users?\n\nMessage length: ${message.length} chars\n\nThis CANNOT be undone.`)) {
         return;
     }
 
     resultEl.className = 'result';
     resultEl.style.display = 'block';
     resultEl.style.color = 'var(--text2)';
-    resultEl.innerHTML = '? Sending...';
+    resultEl.innerHTML = '⏳ Sending...';
 
     try {
         const r = await fetch(API + '/api/broadcast/send', {
@@ -398,18 +398,18 @@ async function send(dryRun) {
         const data = await r.json();
         if (data.ok && dryRun) {
             resultEl.className = 'result ok';
-            resultEl.innerHTML = `? Dry Run OK � Would send to <b>${data.total_recipients}</b> recipients<br>Sample IDs: ${JSON.stringify(data.sample_ids)}`;
+            resultEl.innerHTML = `✅ Dry Run OK — Would send to <b>${data.total_recipients}</b> recipients<br>Sample IDs: ${JSON.stringify(data.sample_ids)}`;
         } else if (data.ok) {
             resultEl.className = 'result ok';
-            resultEl.innerHTML = `? Sent to <b>${data.total_recipients}</b> users<br>Success: <b>${data.success}</b>, Failed: <b>${data.failed}</b><br>Broadcast ID: <code>${data.broadcast_id}</code>`;
+            resultEl.innerHTML = `✅ Sent to <b>${data.total_recipients}</b> users<br>Success: <b>${data.success}</b>, Failed: <b>${data.failed}</b><br>Broadcast ID: <code>${data.broadcast_id}</code>`;
             loadHistory();
         } else {
             resultEl.className = 'result err';
-            resultEl.innerHTML = `? ${data.error || data.detail || 'Failed'}${data.hint ? '<br><em>' + data.hint + '</em>' : ''}`;
+            resultEl.innerHTML = `❌ ${data.error || data.detail || 'Failed'}${data.hint ? '<br><em>' + data.hint + '</em>' : ''}`;
         }
     } catch(e) {
         resultEl.className = 'result err';
-        resultEl.textContent = '? ' + e.message;
+        resultEl.textContent = '❌ ' + e.message;
     }
 }
 
@@ -424,7 +424,7 @@ async function loadHistory() {
         }
         el.innerHTML = d.broadcasts.map(b => `
             <div class="history-item">
-                <div><b>#${b.id}</b> � ${b.target} � <span class="success">?${b.success}</span> / <span class="failed">?${b.failed}</span> / ${b.total} total</div>
+                <div><b>#${b.id}</b> · ${b.target} · <span class="success">✓${b.success}</span> / <span class="failed">✗${b.failed}</span> / ${b.total} total</div>
                 <div class="meta">${new Date(b.sent_at).toLocaleString('he-IL')}</div>
                 <div class="meta" style="margin-top:4px">${(b.preview || '').substring(0, 120)}${b.preview && b.preview.length > 120 ? '...' : ''}</div>
             </div>
@@ -442,15 +442,15 @@ async function loadHistory() {
 
 loadHistory();
 </script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">??</button>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
 <div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">???? ?????</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">?? Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">?? Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">?? Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">? Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">?? Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">?? Sunset</button>
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
 </div>
 <script>
 (function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();
@@ -459,5 +459,5 @@ loadHistory();
 <script>initShared({ activePage: 'tools' });</script>
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js?v=20260426a"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Broker Dashboard � ??? ???? ??????</title>
-<meta name="description" content="??? ???? ???????? � ???? ??????, ?????, ?????? ??????? ESP.">
+<title>SLH Broker Dashboard — לוח בקרה לברוקר</title>
+<meta name="description" content="לוח בקרה לברוקרים — מעקב הפניות, עמלות, הפקדות ורכישות ESP.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -47,11 +47,11 @@ table td{padding:10px;border-bottom:1px solid rgba(255,255,255,.04)}
 <body>
 
 <div id="login-gate" class="login-gate" style="display:none">
-  <h2>?? Broker Dashboard � Admin / Broker Only</h2>
-  <input type="text" id="broker-id-input" placeholder="Broker ID (?? admin password)">
-  <input type="password" id="login-pwd" placeholder="?????">
-  <button onclick="doLogin()">?????</button>
-  <p style="margin-top:14px;font-size:12px;color:var(--text2)">Brokers � ??? ?? ?-Broker ID ??? + ?????? ??????</p>
+  <h2>🤝 Broker Dashboard — Admin / Broker Only</h2>
+  <input type="text" id="broker-id-input" placeholder="Broker ID (או admin password)">
+  <input type="password" id="login-pwd" placeholder="סיסמה">
+  <button onclick="doLogin()">היכנס</button>
+  <p style="margin-top:14px;font-size:12px;color:var(--text2)">Brokers — הזן את ה-Broker ID שלך + הסיסמה שקיבלת</p>
 </div>
 
 <div id="main" style="display:none">
@@ -59,35 +59,35 @@ table td{padding:10px;border-bottom:1px solid rgba(255,255,255,.04)}
 
   <div class="header">
     <div>
-      <h1 class="title">?? Broker Dashboard</h1>
-      <div class="sub" id="broker-name">????...</div>
+      <h1 class="title">🤝 Broker Dashboard</h1>
+      <div class="sub" id="broker-name">טוען...</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> ?????</a>
-      <button class="btn" onclick="refreshAll()"><i class="fas fa-sync"></i> ????</button>
-      <button class="btn" onclick="exportData()"><i class="fas fa-download"></i> ????? CSV</button>
+      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> אדמין</a>
+      <button class="btn" onclick="refreshAll()"><i class="fas fa-sync"></i> רענן</button>
+      <button class="btn" onclick="exportData()"><i class="fas fa-download"></i> ייצוא CSV</button>
     </div>
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="v" id="kpi-referrals">0</div><div class="l">?????? ??????</div></div>
-    <div class="kpi gold"><div class="v" id="kpi-esp">0</div><div class="l">?????? ESP</div></div>
-    <div class="kpi blue"><div class="v" id="kpi-deposits">0</div><div class="l">??????</div></div>
-    <div class="kpi purple"><div class="v" id="kpi-commission">?0</div><div class="l">????? (???)</div></div>
-    <div class="kpi"><div class="v" id="kpi-zvk">0</div><div class="l">????? ZVK</div></div>
+    <div class="kpi"><div class="v" id="kpi-referrals">0</div><div class="l">הפניות פעילות</div></div>
+    <div class="kpi gold"><div class="v" id="kpi-esp">0</div><div class="l">הזמנות ESP</div></div>
+    <div class="kpi blue"><div class="v" id="kpi-deposits">0</div><div class="l">הפקדות</div></div>
+    <div class="kpi purple"><div class="v" id="kpi-commission">₪0</div><div class="l">עמלות (שקל)</div></div>
+    <div class="kpi"><div class="v" id="kpi-zvk">0</div><div class="l">עמלות ZVK</div></div>
   </div>
 
   <div class="section">
     <div class="card">
-      <h2>?? ?????? ESP (????? ??????)</h2>
-      <div id="esp-list">????...</div>
+      <h2>🎁 הזמנות ESP (מכירה מוקדמת)</h2>
+      <div id="esp-list">טוען...</div>
     </div>
   </div>
 
   <div class="section">
     <div class="card">
-      <h2>?? ?????? ??????? ???</h2>
-      <div id="deposits-list">????...</div>
+      <h2>💰 הפקדות הלקוחות שלך</h2>
+      <div id="deposits-list">טוען...</div>
     </div>
   </div>
 
@@ -135,33 +135,33 @@ async function refreshAll(){
     brokerData = await r.json();
     render(brokerData);
   } catch(e){
-    document.getElementById('broker-name').textContent = '?????: ' + e.message;
+    document.getElementById('broker-name').textContent = 'שגיאה: ' + e.message;
   }
 }
 
 function render(d){
   const b = d.broker || {};
   document.getElementById('broker-name').textContent =
-    `${b.display_name || '�'} � ${b.role || 'broker'} � ${b.commission_pct || 0}% ????`;
+    `${b.display_name || '—'} · ${b.role || 'broker'} · ${b.commission_pct || 0}% עמלה`;
 
   const sum = d.summary || {};
   document.getElementById('kpi-referrals').textContent = sum.total_referrals || 0;
   document.getElementById('kpi-esp').textContent = sum.total_esp_orders || 0;
   document.getElementById('kpi-deposits').textContent = sum.total_deposits || 0;
-  document.getElementById('kpi-commission').textContent = '?' + (sum.commissions_ils || 0).toLocaleString();
+  document.getElementById('kpi-commission').textContent = '₪' + (sum.commissions_ils || 0).toLocaleString();
   document.getElementById('kpi-zvk').textContent = (sum.commissions_zvk || 0).toLocaleString();
 
   // ESP orders table
   const espDiv = document.getElementById('esp-list');
   const esp = d.esp_preorders || [];
   if(esp.length === 0){
-    espDiv.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text2)">??? ??? ?????? ????</div>';
+    espDiv.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text2)">עוד אין הזמנות דרכך</div>';
   } else {
-    espDiv.innerHTML = `<table><thead><tr><th>ID</th><th>?? ????</th><th>????</th><th>?????</th><th>SLH ????</th><th>?????</th></tr></thead><tbody>${
+    espDiv.innerHTML = `<table><thead><tr><th>ID</th><th>שם קונה</th><th>סכום</th><th>סטטוס</th><th>SLH מתנה</th><th>תאריך</th></tr></thead><tbody>${
       esp.map(o => `<tr>
         <td>#${o.id}</td>
         <td>${o.buyer_name}</td>
-        <td>?${o.amount_paid_ils}</td>
+        <td>₪${o.amount_paid_ils}</td>
         <td><span class="status-badge status-${o.payment_status}">${o.payment_status}</span></td>
         <td>${o.slh_gift_granted || 0} SLH</td>
         <td>${new Date(o.created_at).toLocaleDateString('he-IL')}</td>
@@ -173,15 +173,15 @@ function render(d){
   const depDiv = document.getElementById('deposits-list');
   const dep = d.deposits || [];
   if(dep.length === 0){
-    depDiv.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text2)">??? ??? ?????? ????</div>';
+    depDiv.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text2)">עוד אין הפקדות דרכך</div>';
   } else {
-    depDiv.innerHTML = `<table><thead><tr><th>ID</th><th>?????</th><th>???? $</th><th>????? ??????</th><th>?????</th><th>????? ?????</th><th>?????</th></tr></thead><tbody>${
+    depDiv.innerHTML = `<table><thead><tr><th>ID</th><th>משתמש</th><th>סכום $</th><th>ריבית חודשית</th><th>תקופה</th><th>ריבית נצברת</th><th>סטטוס</th></tr></thead><tbody>${
       dep.map(o => `<tr>
         <td>#${o.id}</td>
         <td>${o.user_id}</td>
         <td>$${o.amount_usd}</td>
         <td>${o.monthly_rate_pct}%</td>
-        <td>${o.term_months}?'</td>
+        <td>${o.term_months}ח'</td>
         <td style="color:var(--green);font-weight:900">$${(o.total_interest_accrued || 0).toFixed(4)}</td>
         <td><span class="status-badge status-${o.status}">${o.status}</span></td>
       </tr>`).join('')
@@ -204,7 +204,7 @@ function updateHebDate(){
     const now = new Date();
     const heb = new Intl.DateTimeFormat('he-IL-u-ca-hebrew',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
     const greg = new Intl.DateTimeFormat('he-IL',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
-    document.getElementById('hebrew-date').textContent = `?? ${heb} � ${greg} � ${now.toLocaleTimeString('he-IL')}`;
+    document.getElementById('hebrew-date').textContent = `📅 ${heb} · ${greg} · ${now.toLocaleTimeString('he-IL')}`;
   }catch(e){}
 }
 setInterval(updateHebDate, 1000);
@@ -213,5 +213,5 @@ updateHebDate();
 checkAuth();
 </script>
 <script src="/js/ai-assistant.js"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

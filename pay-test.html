@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test Payment � SLH Spark</title>
-<meta name="description" content="Verify SLH payment flow � minimum transfer, no commitment.">
+<title>Test Payment · SLH Spark</title>
+<meta name="description" content="Verify SLH payment flow — minimum transfer, no commitment.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://slh-nft.com/pay-test.html">
 <link rel="icon" type="image/png" href="/favicon-32.png">
@@ -58,34 +58,34 @@
 <div class="wrap">
 
   <div class="hero">
-    <div class="eyebrow">? Test Flow � One-time</div>
-    <h1>????? ?????</h1>
-    <p class="sub">????? ???????? ?????? ?????? ?-flow. 30 ?????, ???? ?? premium access ??.</p>
+    <div class="eyebrow">⚡ Test Flow · One-time</div>
+    <h1>בדיקת מערכת</h1>
+    <p class="sub">העברה מינימלית לאימות תקינות ה-flow. 30 שניות, אחרי זה premium access חי.</p>
   </div>
 
   <!-- Price card -->
   <div class="price-card">
     <div class="amount-big" id="main-amount">0.01 TON</div>
-    <div class="amount-sub">?? 0.0005 BNB</div>
-    <div class="ils-equiv">� ?0.06 (?? ??????)</div>
+    <div class="amount-sub">או 0.0005 BNB</div>
+    <div class="ils-equiv">≈ ₪0.06 (שש אגורות)</div>
   </div>
 
   <!-- User ID -->
   <div class="uid-block">
-    <label for="uid-input">???? Telegram ??? (user_id):</label>
+    <label for="uid-input">מזהה Telegram שלך (user_id):</label>
     <input type="number" id="uid-input" placeholder="224223270" min="1000000">
-    <div class="hint">?? ???? ?? ?-ID? ??? <code>/start</code> ?-<a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> ???? ????? ??.</div>
+    <div class="hint">לא יודע את ה-ID? שלח <code>/start</code> ל-<a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> והוא יחזיר לך.</div>
   </div>
 
   <!-- Pay buttons -->
   <div class="pay-buttons">
     <button class="btn-pay btn-bnb" id="btn-bnb">
       <i class="fa-brands fa-ethereum" style="font-size:22px"></i>
-      ??? 0.0005 BNB ?? MetaMask
+      שלם 0.0005 BNB עם MetaMask
     </button>
     <button class="btn-pay btn-ton" id="btn-ton">
       <i class="fa-regular fa-paper-plane" style="font-size:20px"></i>
-      ??? 0.01 TON ?? Tonkeeper / Wallet
+      שלם 0.01 TON עם Tonkeeper / Wallet
     </button>
   </div>
 
@@ -94,19 +94,19 @@
 
   <!-- Steps explainer -->
   <div class="steps">
-    <h3>?? ???? ???? ??????</h3>
+    <h3>מה קורה אחרי שתלחץ?</h3>
     <ol>
-      <li>????? ??? ???? ?? ?????? ?????</li>
-      <li>??? ???? � ?????? ???? ?-blockchain</li>
-      <li>?????? ???? ???? ?????? ???????? (30 ?????)</li>
-      <li>?????? ??? ???? Premium Access ??</li>
-      <li>???? ???????? ????? ?-dashboard</li>
+      <li>הארנק שלך נפתח עם ההעברה מוכנה</li>
+      <li>אתה מאשר — התשלום נשלח ל-blockchain</li>
+      <li>המערכת שלנו מזהה ומאמתת אוטומטית (30 שניות)</li>
+      <li>המשתמש שלך מקבל Premium Access חי</li>
+      <li>קבלה דיגיטלית נשמרת ב-dashboard</li>
     </ol>
   </div>
 
   <div class="note">
-    ?? ?? ????? ?????? ?? mainnet � ??? ????? ??? ???????.<br>
-    ???? ????? ?????? ?? ?? SLH Spark (???? ????).
+    💙 זו בדיקה אמיתית על mainnet — כסף אמיתי אבל מינימלי.<br>
+    קבלה חוקית מונפקת על שם SLH Spark (עוסק פטור).
   </div>
 
 </div>
@@ -133,7 +133,7 @@
   function getUid() {
     const v = parseInt(document.getElementById('uid-input').value, 10);
     if (!v || v < 1000000) {
-      showStatus('error', '? ??? ???? Telegram ???? (???? ?? 9-10 ?????)');
+      showStatus('error', '❌ הזן מזהה Telegram תקין (מספר בן 9-10 ספרות)');
       return null;
     }
     return v;
@@ -146,7 +146,7 @@
   }
 
   async function verifyPayment(method, txHash, uid) {
-    showStatus('info', '? ???? ?-' + (method === 'ton' ? 'TON Center' : 'BscScan') + ' (?? 30 ?????)...<span class="tx">tx: ' + txHash + '</span>');
+    showStatus('info', '⏳ מאמת ב-' + (method === 'ton' ? 'TON Center' : 'BscScan') + ' (עד 30 שניות)...<span class="tx">tx: ' + txHash + '</span>');
     const endpoint = method === 'ton' ? '/api/payment/ton/auto-verify' : '/api/payment/bsc/auto-verify';
     const body = { user_id: uid, tx_hash: txHash, bot_name: 'ecosystem' };
     if (method === 'ton') body.expected_amount_ton = AMOUNT_TON;
@@ -160,17 +160,17 @@
       const d = await r.json();
       if (!r.ok) throw new Error(d.detail || 'Verification failed');
       const amt = method === 'ton' ? (d.amount_ton + ' TON') : (d.amount_bnb + ' BNB');
-      const receipt = d.receipt ? ('<br>????: ' + d.receipt.receipt_number) : '';
+      const receipt = d.receipt ? ('<br>קבלה: ' + d.receipt.receipt_number) : '';
       showStatus('success',
-        '? ????! ?????? ' + amt + receipt +
-        '<br><br>Premium Access ????? ?-user ' + uid + '.' +
+        '✅ אומת! התקבלו ' + amt + receipt +
+        '<br><br>Premium Access הוענק ל-user ' + uid + '.' +
         '<span class="tx">tx: ' + txHash + '</span>'
       );
       if (window.SLH_Analytics) {
         window.SLH_Analytics.trackEvent('pay_test_verified', { uid, method, tx: txHash, src: SRC, campaign: CAMPAIGN });
       }
     } catch (e) {
-      showStatus('error', '? ????? ????: ' + e.message + '<br>?????? ??? ?? ????? ??? ???-???? ?? ???. ??? 30 ????? ???? ???.<span class="tx">tx: ' + txHash + '</span>');
+      showStatus('error', '❌ אימות נכשל: ' + e.message + '<br>המכשיר קלט את העסקה אבל הצד-השני לא מצא. חכה 30 שניות ונסה שוב.<span class="tx">tx: ' + txHash + '</span>');
     }
   }
 
@@ -179,5 +179,5 @@
     const uid = getUid();
     if (!uid) return;
     if (!window.ethereum) {
-      showStatus('error', '? MetaMask ?? ?????. ???? ?-metamask.io ?? ????? ??????.');
+      showStatus('error', '❌ MetaMask לא מותקן. התקן מ-metamask.io או השתמש בטלפון.');
       return;

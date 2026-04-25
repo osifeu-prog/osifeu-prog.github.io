@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Live Stats � ???? ?????? ?????????</title>
+<title>SLH Live Stats — מעקב הכנסות וקמפיינים</title>
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -64,90 +64,90 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 <body>
 
 <div id="login-gate" class="login-gate" style="display:none">
-  <h2>?? Live Stats � Admin Only</h2>
-  <input type="password" id="login-pwd" placeholder="????? ?????">
-  <button onclick="doLogin()">?????</button>
+  <h2>📊 Live Stats — Admin Only</h2>
+  <input type="password" id="login-pwd" placeholder="סיסמת אדמין">
+  <button onclick="doLogin()">היכנס</button>
 </div>
 
 <div id="main" style="display:none">
   <div id="topnav-root"></div>
   <div class="header">
     <div>
-      <h1 class="title">?? Live Stats � ???? ??????</h1>
+      <h1 class="title">📊 Live Stats — מעקב הכנסות</h1>
       <div class="refresh-info">
         <span class="live-dot"></span>
-        <span>?????? ?? 30 ????? � ????? ?????: <span id="last-update">�</span></span>
+        <span>מתעדכן כל 30 שניות · עדכון אחרון: <span id="last-update">—</span></span>
       </div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> ?????</a>
+      <a href="/admin.html" class="btn"><i class="fas fa-arrow-right"></i> אדמין</a>
       <a href="/control-center.html" class="btn"><i class="fas fa-satellite-dish"></i> Control Center</a>
-      <button class="btn" onclick="loadAll()"><i class="fas fa-sync"></i> ???? ?????</button>
+      <button class="btn" onclick="loadAll()"><i class="fas fa-sync"></i> רענן עכשיו</button>
     </div>
   </div>
 
   <div class="action-bar section">
     <a href="https://slh-nft.com/promo-shekel.html" target="_blank" class="action-btn">
-      <i class="fas fa-fire"></i> ??? ?? ??????
+      <i class="fas fa-fire"></i> פתח דף קמפיין
     </a>
     <a href="/mass-gift.html" class="action-btn">
-      <i class="fas fa-gift"></i> ??? ???? ?????
+      <i class="fas fa-gift"></i> שלח מתנה לכולם
     </a>
     <a href="/bot-registry.html" class="action-btn secondary">
-      <i class="fas fa-robot"></i> ????? ?????
+      <i class="fas fa-robot"></i> רישום בוטים
     </a>
     <a href="/project-map.html" class="action-btn secondary">
-      <i class="fas fa-sitemap"></i> ??? ????
+      <i class="fas fa-sitemap"></i> מפת דפים
     </a>
   </div>
 
   <div class="kpis section">
     <div class="kpi big gold">
-      <div class="v" id="total-revenue">?0</div>
-      <div class="l">????? ?????</div>
+      <div class="v" id="total-revenue">₪0</div>
+      <div class="l">הכנסה כוללת</div>
     </div>
     <div class="kpi big">
       <div class="v" id="total-clicks">0</div>
-      <div class="l">?????? ???????</div>
+      <div class="l">לחיצות בקמפיין</div>
     </div>
     <div class="kpi big">
       <div class="v" id="total-regs">0</div>
-      <div class="l">??????</div>
+      <div class="l">הרשמות</div>
     </div>
     <div class="kpi big purple">
       <div class="v" id="conversion">0%</div>
-      <div class="l">????</div>
+      <div class="l">המרה</div>
     </div>
   </div>
 
   <div class="section">
     <div class="card">
-      <h2>?? ????? ??? ????</h2>
+      <h2>🛒 פירוט לפי נתיב</h2>
       <div id="paths-stats" class="path-stats"></div>
     </div>
   </div>
 
   <div class="section" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px">
     <div class="card">
-      <h2>?? ??? ???</h2>
+      <h2>🌍 לפי שפה</h2>
       <div id="lang-chart" class="lang-chart"></div>
     </div>
     <div class="card">
-      <h2>?? ?????? ???????</h2>
+      <h2>🏆 שותפים מובילים</h2>
       <div id="affiliates" class="aff-list"></div>
     </div>
   </div>
 
   <div class="section">
     <div class="card">
-      <h2>?? ?????? ????? ???????</h2>
+      <h2>🐛 דיווחי באגים אחרונים</h2>
       <div id="bugs"></div>
     </div>
   </div>
 
   <div class="section">
     <div class="card" style="border:2px dashed var(--border)">
-      <h2>?? ?????? ??????</h2>
+      <h2>💡 תובנות מהירות</h2>
       <div id="insights" style="font-size:13px;color:var(--text);line-height:1.9"></div>
     </div>
   </div>
@@ -155,20 +155,20 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
   <!-- EXPORT SECTION -->
   <div class="section">
     <div class="card">
-      <h2>?? ????? ?????</h2>
-      <p style="font-size:13px;color:var(--text2);margin:0 0 14px">???? ?? ?? ??????? ????? � ??????, ?????, ?????, ?? ?????.</p>
+      <h2>📤 ייצוא דוחות</h2>
+      <p style="font-size:13px;color:var(--text2);margin:0 0 14px">הורד את כל הנתונים לקובץ — לבדיקה, גיבוי, שיתוף, או ניתוח.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="action-btn" onclick="exportJSON()">
-          <i class="fas fa-file-code"></i> ????? JSON
+          <i class="fas fa-file-code"></i> ייצוא JSON
         </button>
         <button class="action-btn secondary" onclick="exportCSV()">
-          <i class="fas fa-file-csv"></i> ????? CSV (????)
+          <i class="fas fa-file-csv"></i> ייצוא CSV (טבלה)
         </button>
         <button class="action-btn secondary" onclick="exportTXT()">
-          <i class="fas fa-file-alt"></i> ????? TXT (??? ????)
+          <i class="fas fa-file-alt"></i> ייצוא TXT (דוח קריא)
         </button>
         <button class="action-btn secondary" onclick="window.print()">
-          <i class="fas fa-print"></i> ????? / PDF
+          <i class="fas fa-print"></i> הדפסה / PDF
         </button>
       </div>
       <div id="export-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
@@ -193,7 +193,7 @@ function hebrewDate() {
       weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
     }).format(now);
     const time = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    return `?? ${hebrew} � ${greg} � ${time}`;
+    return `📅 ${hebrew} · ${greg} · ${time}`;
   } catch(e) {
     return new Date().toLocaleString('he-IL');
   }
@@ -236,18 +236,18 @@ function download(filename, content, mime) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   const el = document.getElementById('export-status');
-  if(el) el.textContent = `? ????: ${filename} � ${new Date().toLocaleTimeString('he-IL')}`;
+  if(el) el.textContent = `✅ הורד: ${filename} · ${new Date().toLocaleTimeString('he-IL')}`;
 }
 
 async function exportJSON() {
-  document.getElementById('export-status').textContent = '? ????...';
+  document.getElementById('export-status').textContent = '⏳ טוען...';
   const data = await fetchAllData();
   const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0,19);
   download(`slh_report_${ts}.json`, JSON.stringify(data, null, 2), 'application/json');
 }
 
 async function exportCSV() {
-  document.getElementById('export-status').textContent = '? ????...';
+  document.getElementById('export-status').textContent = '⏳ טוען...';
   const data = await fetchAllData();
   const stats = data.campaign || {};
   const rows = [
@@ -278,44 +278,44 @@ async function exportCSV() {
 }
 
 async function exportTXT() {
-  document.getElementById('export-status').textContent = '? ????...';
+  document.getElementById('export-status').textContent = '⏳ טוען...';
   const data = await fetchAllData();
   const stats = data.campaign || {};
   const bugs = data.bugs || {};
   const lines = [
-    '-------------------------------------------',
-    '?? SLH Spark � ??? ??????',
-    '-------------------------------------------',
+    '═══════════════════════════════════════════',
+    '📊 SLH Spark — דוח קמפיין',
+    '═══════════════════════════════════════════',
     data.hebrew_date,
     '',
-    `?? Campaign: ${stats.campaign_id || '-'}`,
+    `🎯 Campaign: ${stats.campaign_id || '-'}`,
     '',
-    '??? ????????? ????? ???',
-    `?? ??"? ??????: ${stats.clicks?.total || 0}`,
-    `?? ??????: ${stats.registrations?.total || 0}`,
-    `?? ?????: ${stats.registrations?.paid || 0}`,
-    `?? ?????: ?${stats.registrations?.revenue || 0}`,
-    `?? ????? ????: ${((stats.conversion_rate || 0) * 100).toFixed(2)}%`,
+    '━━━ סטטיסטיקה כללית ━━━',
+    `📊 סה"כ לחיצות: ${stats.clicks?.total || 0}`,
+    `📝 הרשמות: ${stats.registrations?.total || 0}`,
+    `💰 שילמו: ${stats.registrations?.paid || 0}`,
+    `💵 הכנסה: ₪${stats.registrations?.revenue || 0}`,
+    `📈 שיעור המרה: ${((stats.conversion_rate || 0) * 100).toFixed(2)}%`,
     '',
-    '??? ?????? ??? ???? ???',
+    '━━━ לחיצות לפי נתיב ━━━',
     ...Object.entries(stats.clicks?.by_path || {}).map(([k,v]) => `  ${k}: ${v}`),
     '',
-    '??? ?????? ??? ??? ???',
+    '━━━ לחיצות לפי שפה ━━━',
     ...Object.entries(stats.clicks?.by_lang || {}).map(([k,v]) => `  ${k}: ${v}`),
     '',
-    '??? ?????? ??????? ???',
-    ...(stats.top_affiliates || []).map(a => `  ${a.name} (${a.code}): ${a.referrals} ?????? � ${a.zvk_earned} ZVK`),
+    '━━━ שותפים מובילים ━━━',
+    ...(stats.top_affiliates || []).map(a => `  ${a.name} (${a.code}): ${a.referrals} הפניות · ${a.zvk_earned} ZVK`),
     '',
-    '??? ????? ???',
-    `  ??"?: ${bugs.stats?.total || 0}`,
-    `  ?????: ${bugs.stats?.new || 0}`,
-    `  ??????: ${bugs.stats?.in_progress || 0}`,
-    `  ?????: ${bugs.stats?.resolved || 0}`,
-    `  ???????: ${bugs.stats?.critical || 0}`,
+    '━━━ באגים ━━━',
+    `  סה"כ: ${bugs.stats?.total || 0}`,
+    `  חדשים: ${bugs.stats?.new || 0}`,
+    `  בטיפול: ${bugs.stats?.in_progress || 0}`,
+    `  נפתרו: ${bugs.stats?.resolved || 0}`,
+    `  קריטיים: ${bugs.stats?.critical || 0}`,
     '',
-    '-------------------------------------------',
-    `????: ${data.exported_at}`,
-    'SLH Spark � slh-nft.com',
+    '═══════════════════════════════════════════',
+    `הופק: ${data.exported_at}`,
+    'SLH Spark · slh-nft.com',
   ];
   const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0,19);
   download(`slh_report_${ts}.txt`, lines.join('\n'), 'text/plain;charset=utf-8');
@@ -351,12 +351,12 @@ async function loadCampaign(){
     const d = await r.json();
     renderCampaign(d);
   } catch(e) {
-    document.getElementById('total-revenue').textContent = '?????';
+    document.getElementById('total-revenue').textContent = 'שגיאה';
   }
 }
 
 function renderCampaign(d){
-  document.getElementById('total-revenue').textContent = '?' + (d.registrations?.revenue || 0).toLocaleString();
+  document.getElementById('total-revenue').textContent = '₪' + (d.registrations?.revenue || 0).toLocaleString();
   document.getElementById('total-clicks').textContent = (d.clicks?.total || 0).toLocaleString();
   document.getElementById('total-regs').textContent = (d.registrations?.total || 0).toLocaleString();
   document.getElementById('conversion').textContent = ((d.conversion_rate || 0) * 100).toFixed(1) + '%';
@@ -364,7 +364,7 @@ function renderCampaign(d){
   // Paths
   const pathsDiv = document.getElementById('paths-stats');
   const paths = ['buyer', 'partner', 'genesis', 'community'];
-  const pathNames = { buyer:'?? ?????', partner:'?? ??????', genesis:'?? Genesis', community:'?? ?????' };
+  const pathNames = { buyer:'🛒 קונים', partner:'🤝 שותפים', genesis:'💎 Genesis', community:'🌱 קהילה' };
   pathsDiv.innerHTML = paths.map(p => {
     const stats = d.registrations?.by_path?.[p] || { count:0, paid:0, revenue:0 };
     const clicks = d.clicks?.by_path?.[p] || 0;
@@ -372,11 +372,11 @@ function renderCampaign(d){
       <div class="path-stat ${p}">
         <div class="name">${pathNames[p]}</div>
         <div class="nums">
-          <div><div class="num">${clicks}</div><div class="lbl">??????</div></div>
-          <div><div class="num">${stats.count}</div><div class="lbl">?????</div></div>
-          <div><div class="num">${stats.paid}</div><div class="lbl">?????</div></div>
+          <div><div class="num">${clicks}</div><div class="lbl">לחיצות</div></div>
+          <div><div class="num">${stats.count}</div><div class="lbl">נרשמו</div></div>
+          <div><div class="num">${stats.paid}</div><div class="lbl">שילמו</div></div>
         </div>
-        ${stats.revenue ? `<div style="font-size:14px;color:var(--gold);font-weight:900">?${stats.revenue.toLocaleString()}</div>` : ''}
+        ${stats.revenue ? `<div style="font-size:14px;color:var(--gold);font-weight:900">₪${stats.revenue.toLocaleString()}</div>` : ''}
       </div>
     `;
   }).join('');
@@ -384,7 +384,7 @@ function renderCampaign(d){
   // Languages
   const langChart = document.getElementById('lang-chart');
   const langs = d.clicks?.by_lang || {};
-  const langNames = { he:'?????', en:'EN', ru:'RU', ar:'AR', fr:'FR' };
+  const langNames = { he:'עברית', en:'EN', ru:'RU', ar:'AR', fr:'FR' };
   const total = Object.values(langs).reduce((a,b) => a+b, 0) || 1;
   const langKeys = ['he', 'en', 'ru', 'ar', 'fr'];
   langChart.innerHTML = langKeys.map(l => {
@@ -397,13 +397,13 @@ function renderCampaign(d){
   const affDiv = document.getElementById('affiliates');
   const affs = d.top_affiliates || [];
   if(affs.length === 0){
-    affDiv.innerHTML = '<div class="empty">????? ??? ?????? ??????</div>';
+    affDiv.innerHTML = '<div class="empty">עדיין אין שותפים פעילים</div>';
   } else {
     affDiv.innerHTML = affs.map(a => `
       <div class="aff-item">
         <div>
-          <div class="name">${a.name || '???????'}</div>
-          <div style="color:var(--text2);font-size:11px">${a.code} � ${a.referrals} ??????</div>
+          <div class="name">${a.name || 'אנונימי'}</div>
+          <div style="color:var(--text2);font-size:11px">${a.code} · ${a.referrals} הפניות</div>
         </div>
         <div class="stats">${a.zvk_earned} ZVK</div>
       </div>
@@ -422,30 +422,30 @@ function generateInsights(d){
   const revenue = d.registrations?.revenue || 0;
 
   if(clicks === 0){
-    insights.push('?? <strong>0 ??????</strong> � ??????? ???? ??? ??? ?? ????? ???????. <a href="/promo-shekel.html" style="color:var(--gold)">??? ?? ??????</a> ???? ?-Facebook/Telegram/WhatsApp.');
+    insights.push('🚨 <strong>0 לחיצות</strong> — הקמפיין פעיל אבל עוד לא פורסם בערוצים. <a href="/promo-shekel.html" style="color:var(--gold)">פתח דף קמפיין</a> ושתף ב-Facebook/Telegram/WhatsApp.');
   } else if(regs === 0 && clicks > 5) {
-    insights.push(`?? <strong>${clicks} ?????? ??? 0 ??????</strong> � ????? ????. ???? ??????? ??????? ?????? ?????? ????.`);
+    insights.push(`⚠️ <strong>${clicks} לחיצות אבל 0 הרשמות</strong> — בעיית המרה. בדוק שכפתורי הנתיבים עובדים ושהבוט מגיב.`);
   } else if(paid === 0 && regs > 3) {
-    insights.push(`?? <strong>${regs} ????? ??? 0 ?????</strong> � ????? ???? ?????. ???? ????? ?????? ????.`);
+    insights.push(`💸 <strong>${regs} נרשמו אבל 0 שילמו</strong> — בעיית המרת תשלום. בדוק שטופס התשלום עובד.`);
   }
 
   if(revenue > 0){
-    insights.push(`? <strong>????? ??????: ?${revenue.toLocaleString()}!</strong> ??? ???, ?-PMF ????.`);
+    insights.push(`✅ <strong>הכנסה אמיתית: ₪${revenue.toLocaleString()}!</strong> מזל טוב, ה-PMF עובד.`);
   }
 
   // Top language
   const langs = d.clicks?.by_lang || {};
   const topLang = Object.entries(langs).sort((a,b)=>b[1]-a[1])[0];
   if(topLang && topLang[1] > 5){
-    const langNames = { he:'?????', en:'??????', ru:'?????', ar:'?????', fr:'??????' };
-    insights.push(`?? <strong>??? ??????:</strong> ${langNames[topLang[0]] || topLang[0]} (${topLang[1]} ??????) � ???? ???? ????? ??.`);
+    const langNames = { he:'עברית', en:'אנגלית', ru:'רוסית', ar:'ערבית', fr:'צרפתית' };
+    insights.push(`🌍 <strong>שפה מובילה:</strong> ${langNames[topLang[0]] || topLang[0]} (${topLang[1]} לחיצות) — שווה למקד פרסום שם.`);
   }
 
   if(insights.length === 0){
-    insights.push('?? ???? ??? ?????? � ??? ????? ???? ??????? ?????.');
+    insights.push('📊 אסוף עוד נתונים — אין מספיק מידע לתובנות עדיין.');
   }
 
-  document.getElementById('insights').innerHTML = insights.map(i => `<div style="margin-bottom:10px">� ${i}</div>`).join('');
+  document.getElementById('insights').innerHTML = insights.map(i => `<div style="margin-bottom:10px">• ${i}</div>`).join('');
 }
 
 async function loadBugs(){
@@ -458,22 +458,22 @@ async function loadBugs(){
     const stats = d.stats || {};
     const div = document.getElementById('bugs');
     if(bugs.length === 0){
-      div.innerHTML = '<div class="empty">?? ??? ????? ?????? � ?????? ?????!</div>';
+      div.innerHTML = '<div class="empty">🎉 אין באגים פתוחים — המערכת תקינה!</div>';
       return;
     }
     div.innerHTML = `
       <div style="display:flex;gap:14px;font-size:12px;color:var(--text2);margin-bottom:14px">
-        <span>??"?: <b style="color:var(--text)">${stats.total || 0}</b></span>
-        <span>?????: <b style="color:var(--gold)">${stats.new || 0}</b></span>
-        <span>??????: <b style="color:var(--blue)">${stats.in_progress || 0}</b></span>
-        <span>?????: <b style="color:var(--green)">${stats.resolved || 0}</b></span>
-        <span>???????: <b style="color:var(--red)">${stats.critical || 0}</b></span>
+        <span>סה"כ: <b style="color:var(--text)">${stats.total || 0}</b></span>
+        <span>חדשים: <b style="color:var(--gold)">${stats.new || 0}</b></span>
+        <span>בטיפול: <b style="color:var(--blue)">${stats.in_progress || 0}</b></span>
+        <span>נפתרו: <b style="color:var(--green)">${stats.resolved || 0}</b></span>
+        <span>קריטיים: <b style="color:var(--red)">${stats.critical || 0}</b></span>
       </div>
       ${bugs.map(b => `
         <div class="aff-item">
           <div>
             <div class="name">${b.title}</div>
-            <div style="color:var(--text2);font-size:11px">${b.category || '�'} � ${b.severity}</div>
+            <div style="color:var(--text2);font-size:11px">${b.category || '—'} · ${b.severity}</div>
           </div>
           <div style="color:var(--${b.severity === 'critical' ? 'red' : (b.severity === 'high' ? 'orange' : 'gold')})">${b.status}</div>
         </div>
@@ -488,5 +488,5 @@ checkAuth();
 </script>
 
 <script src="/js/ai-assistant.js"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

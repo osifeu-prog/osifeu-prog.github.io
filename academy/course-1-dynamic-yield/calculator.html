@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dynamic Yield Calculator | Course #1</title>
-<meta name="description" content="?????? ??????????? ?-Dynamic Yield. ??? TVL, ??????, ?????? � ??? CR, P_t, APY_implied, ?-circuit breaker state ???? ???.">
+<meta name="description" content="מחשבון אינטראקטיבי ל-Dynamic Yield. הזן TVL, הכנסות, עלויות — ראה CR, P_t, APY_implied, ו-circuit breaker state בזמן אמת.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -92,33 +92,33 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
 <div class="wrapper">
   <div class="header">
     <h1><i class="fa-solid fa-calculator"></i> Dynamic Yield Calculator</h1>
-    <p>??? ?? ???????? ?? ?????? ??? � ??? ?-CR, P_t, APY, ??-Circuit Breakers ???? ???</p>
-    <a class="back" href="/academy/course-1-dynamic-yield.html">? ???? ?????</a>
+    <p>הזן את הפרמטרים של המערכת שלך — צפה ב-CR, P_t, APY, וב-Circuit Breakers בזמן אמת</p>
+    <a class="back" href="/academy/course-1-dynamic-yield.html">← חזרה לקורס</a>
   </div>
 
   <div class="grid">
     <aside class="panel">
-      <h2><i class="fa-solid fa-sliders"></i>???????</h2>
+      <h2><i class="fa-solid fa-sliders"></i>פרמטרים</h2>
 
       <div class="preset-row">
-        <button class="preset" data-preset="healthy">??? ????</button>
-        <button class="preset" data-preset="stressed">??? ????</button>
-        <button class="preset" data-preset="crisis">????</button>
-        <button class="preset" data-preset="recovery">????????</button>
+        <button class="preset" data-preset="healthy">מצב בריא</button>
+        <button class="preset" data-preset="stressed">מצב סטרס</button>
+        <button class="preset" data-preset="crisis">משבר</button>
+        <button class="preset" data-preset="recovery">התאוששות</button>
       </div>
 
       <div class="group">
         <div class="group-title">State</div>
         <div class="field">
-          <label>U � TVL <span class="val" id="U-val">$100,000</span></label>
+          <label>U — TVL <span class="val" id="U-val">$100,000</span></label>
           <input type="range" id="U" min="10000" max="5000000" step="5000" value="100000">
         </div>
         <div class="field">
-          <label>B � Buffer <span class="val" id="B-val">$25,000</span></label>
+          <label>B — Buffer <span class="val" id="B-val">$25,000</span></label>
           <input type="range" id="B" min="0" max="2000000" step="1000" value="25000">
         </div>
         <div class="field">
-          <label>L � Liquid assets <span class="val" id="L-val">$30,000</span></label>
+          <label>L — Liquid assets <span class="val" id="L-val">$30,000</span></label>
           <input type="range" id="L" min="0" max="2000000" step="1000" value="30000">
         </div>
       </div>
@@ -126,20 +126,20 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
       <div class="group">
         <div class="group-title">Flows (this period)</div>
         <div class="field">
-          <label>R � Revenue <span class="val" id="R-val">$12,000</span></label>
+          <label>R — Revenue <span class="val" id="R-val">$12,000</span></label>
           <input type="range" id="R" min="0" max="500000" step="500" value="12000">
-          <div class="help">????? ??????, ????? marketplace, SaaS</div>
+          <div class="help">מכירת קורסים, עמלות marketplace, SaaS</div>
         </div>
         <div class="field">
-          <label>C � Costs <span class="val" id="C-val">$4,000</span></label>
+          <label>C — Costs <span class="val" id="C-val">$4,000</span></label>
           <input type="range" id="C" min="0" max="100000" step="100" value="4000">
         </div>
         <div class="field">
-          <label>Ref � Referrals <span class="val" id="Ref-val">$1,500</span></label>
+          <label>Ref — Referrals <span class="val" id="Ref-val">$1,500</span></label>
           <input type="range" id="Ref" min="0" max="100000" step="100" value="1500">
         </div>
         <div class="field">
-          <label>W � Withdrawals (24h) <span class="val" id="W-val">$8,000</span></label>
+          <label>W — Withdrawals (24h) <span class="val" id="W-val">$8,000</span></label>
           <input type="range" id="W" min="0" max="1000000" step="500" value="8000">
         </div>
       </div>
@@ -147,18 +147,18 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
       <div class="group">
         <div class="group-title">Parameters</div>
         <div class="field">
-          <label>k � Distribution <span class="val" id="k-val">0.50</span></label>
+          <label>k — Distribution <span class="val" id="k-val">0.50</span></label>
           <input type="range" id="k" min="0" max="0.7" step="0.05" value="0.5">
-          <div class="help">??? ?-Net ?????? (max 0.7)</div>
+          <div class="help">חלק מ-Net שמתחלק (max 0.7)</div>
         </div>
       </div>
     </aside>
 
     <main class="output">
       <div class="verdict-card green" id="verdict">
-        <div class="emoji" id="verdict-emoji">?</div>
+        <div class="emoji" id="verdict-emoji">✓</div>
         <h3 id="verdict-title">Healthy</h3>
-        <p id="verdict-desc">?????? ????? ??? ???????????. Distribution ????.</p>
+        <p id="verdict-desc">המערכת עומדת בכל הקריטריונים. Distribution מלאה.</p>
       </div>
 
       <div class="metrics">
@@ -170,7 +170,7 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
         <div class="metric">
           <div class="lbl">Pool Distributed</div>
           <div class="val gold" id="m-pool">$3,250</div>
-          <div class="sub">k � Net</div>
+          <div class="sub">k × Net</div>
         </div>
         <div class="metric">
           <div class="lbl">Coverage Ratio</div>
@@ -180,17 +180,17 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
         <div class="metric">
           <div class="lbl">Implied APY</div>
           <div class="val gold" id="m-apy">39.0%</div>
-          <div class="sub">last period � 12</div>
+          <div class="sub">last period × 12</div>
         </div>
         <div class="metric">
           <div class="lbl">Buffer Ratio</div>
           <div class="val green" id="m-buf">25.0%</div>
-          <div class="sub">B / U (target = 30%)</div>
+          <div class="sub">B / U (target ≥ 30%)</div>
         </div>
         <div class="metric">
           <div class="lbl">Run Threshold</div>
           <div class="val green" id="m-run">30.0%</div>
-          <div class="sub">L / U (target = 30%)</div>
+          <div class="sub">L / U (target ≥ 30%)</div>
         </div>
       </div>
 
@@ -218,26 +218,26 @@ footer a{color:var(--cyan);text-decoration:none;margin:0 8px}
         </div>
         <div class="breaker-row" data-breaker="ORACLE_FREEZE">
           <span class="name">#5 Oracle Freeze</span>
-          <span class="reason">?? ???? ??????? � ???? oracle ??????</span>
+          <span class="reason">לא נכלל במחשבון — דורש oracle חיצוני</span>
           <span class="status ready">N/A</span>
         </div>
       </div>
 
       <div class="formula-box">
-        <h3><i class="fa-solid fa-function"></i> ????? ???-???-???</h3>
-        <div><span class="label">Net_t</span> = max(0, <span class="num" id="f-R">12000</span> - <span class="num" id="f-C">4000</span> - <span class="num" id="f-Ref">1500</span>) = <span class="num" id="f-net">6500</span></div>
-        <div><span class="label">P_t</span> = <span class="num" id="f-k">0.5</span> � <span class="num" id="f-net2">6500</span> = <span class="num" id="f-pool">3250</span></div>
+        <h3><i class="fa-solid fa-function"></i> חישוב שלב-אחר-שלב</h3>
+        <div><span class="label">Net_t</span> = max(0, <span class="num" id="f-R">12000</span> − <span class="num" id="f-C">4000</span> − <span class="num" id="f-Ref">1500</span>) = <span class="num" id="f-net">6500</span></div>
+        <div><span class="label">P_t</span> = <span class="num" id="f-k">0.5</span> × <span class="num" id="f-net2">6500</span> = <span class="num" id="f-pool">3250</span></div>
         <div><span class="label">CR_t</span> = (<span class="num" id="f-net3">6500</span> + <span class="num" id="f-B">25000</span>) / (<span class="num" id="f-pool2">3250</span> + <span class="num" id="f-W">8000</span>) = <span class="num" id="f-cr">2.80</span></div>
-        <div><span class="label">APY</span> = (<span class="num" id="f-pool3">3250</span> / <span class="num" id="f-U">100000</span>) � 12 = <span class="num" id="f-apy">39.0%</span></div>
+        <div><span class="label">APY</span> = (<span class="num" id="f-pool3">3250</span> / <span class="num" id="f-U">100000</span>) × 12 = <span class="num" id="f-apy">39.0%</span></div>
         <div><span class="label">Run</span> = <span class="num" id="f-L">30000</span> / <span class="num" id="f-U2">100000</span> = <span class="num" id="f-run">30.0%</span></div>
       </div>
     </main>
   </div>
 
   <footer>
-    <a href="/academy/course-1-dynamic-yield.html">???? ?????</a> �
-    <a href="/academy/course-1-dynamic-yield/module-3.md">???? ?????? 3</a> �
-    <a href="/academy/course-1-dynamic-yield/treasury_simulation.py">???? Python Simulator</a>
+    <a href="/academy/course-1-dynamic-yield.html">חזרה לקורס</a> ·
+    <a href="/academy/course-1-dynamic-yield/module-3.md">חזרה למודול 3</a> ·
+    <a href="/academy/course-1-dynamic-yield/treasury_simulation.py">הורד Python Simulator</a>
   </footer>
 </div>
 
@@ -281,7 +281,7 @@ function calculate() {
   // Update metrics
   document.getElementById('m-net').textContent = fmt(net);
   document.getElementById('m-pool').textContent = fmt(pool);
-  document.getElementById('m-cr').textContent = cr >= 100 ? '8' : cr.toFixed(2);
+  document.getElementById('m-cr').textContent = cr >= 100 ? '∞' : cr.toFixed(2);
   document.getElementById('m-apy').textContent = pct(apy);
   document.getElementById('m-buf').textContent = pct(bufRatio);
   document.getElementById('m-run').textContent = pct(runThreshold);
@@ -308,7 +308,7 @@ function calculate() {
   document.getElementById('f-B').textContent = Math.round(state.B).toLocaleString();
   document.getElementById('f-pool2').textContent = Math.round(pool).toLocaleString();
   document.getElementById('f-W').textContent = Math.round(state.W).toLocaleString();
-  document.getElementById('f-cr').textContent = cr >= 100 ? '8' : cr.toFixed(2);
+  document.getElementById('f-cr').textContent = cr >= 100 ? '∞' : cr.toFixed(2);
   document.getElementById('f-pool3').textContent = Math.round(pool).toLocaleString();
   document.getElementById('f-U').textContent = Math.round(state.U).toLocaleString();
   document.getElementById('f-apy').textContent = pct(apy);
@@ -350,24 +350,24 @@ function calculate() {
   verdict.className = 'verdict-card ';
   if (breakers.DEPOSIT_FREEZE.active) {
     verdict.className += 'red';
-    emoji.textContent = '??';
+    emoji.textContent = '🚨';
     title.textContent = 'Emergency Mode';
-    desc.textContent = 'CR < 0.5 � ?????? ????? ??????. ?? ?????? ??????.';
+    desc.textContent = 'CR < 0.5 — הפקדות חדשות קפואות. רק משיכות זמינות.';
   } else if (activeCount >= 2) {
     verdict.className += 'orange';
-    emoji.textContent = '??';
+    emoji.textContent = '⚠️';
     title.textContent = 'Stressed';
-    desc.textContent = `${activeCount} breakers ??????. ?????? ??????, ????? ?????.`;
+    desc.textContent = `${activeCount} breakers פעילים. החלוקה מופחתת, מערכת בהגנה.`;
   } else if (activeCount === 1) {
     verdict.className += 'yellow';
-    emoji.textContent = '?';
+    emoji.textContent = '⚡';
     title.textContent = 'Caution';
-    desc.textContent = 'Breaker ??? ????. ???? ??????? ?????.';
+    desc.textContent = 'Breaker אחד פעיל. צריך התערבות בקרוב.';
   } else {
     verdict.className += 'green';
-    emoji.textContent = '?';
+    emoji.textContent = '✓';
     title.textContent = 'Healthy';
-    desc.textContent = '?????? ????? ??? ???????????. Distribution ????.';
+    desc.textContent = 'המערכת עומדת בכל הקריטריונים. Distribution מלאה.';
   }
 }
 
@@ -394,5 +394,5 @@ document.querySelectorAll('.preset').forEach(btn => {
 
 calculate();
 </script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

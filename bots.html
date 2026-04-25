@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLH Spark Bots � 25+ Telegram Bot Ecosystem</title>
+    <title>SLH Spark Bots — 25+ Telegram Bot Ecosystem</title>
     <meta name="description" content="SLH Ecosystem - 20+ Telegram bots. Every bot is a business. Financial, SaaS, Community, Gaming, Security bots.">
     <link rel="canonical" href="https://slh-nft.com/bots.html">
     <!-- Open Graph -->
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/shared.css?v=20260426a">
     <style>
-        /* -- Hero -- */
+        /* ── Hero ── */
         .bots-hero {
             text-align: center;
             padding: 80px 24px 48px;
@@ -64,7 +64,7 @@
             color: var(--gold);
         }
 
-        /* -- Filter Tabs -- */
+        /* ── Filter Tabs ── */
         .filter-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -93,7 +93,7 @@
             color: #fff;
         }
 
-        /* -- Bot Grid -- */
+        /* ── Bot Grid ── */
         .bots-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -201,7 +201,7 @@
             transform: translateY(-1px);
         }
 
-        /* -- Coming Soon -- */
+        /* ── Coming Soon ── */
         .coming-soon-section {
             max-width: 1400px;
             margin: 60px auto 0;
@@ -267,8 +267,8 @@
 
     <!-- Hero -->
     <section class="bots-hero rv">
-        <h1 data-i18n="bots_hero_title">20+ Telegram Bots � Every Bot is a Business</h1>
-        <p data-i18n="bots_sub">The smart bot ecosystem of SLH � every bot is an independent economic system.</p>
+        <h1 data-i18n="bots_hero_title">20+ Telegram Bots — Every Bot is a Business</h1>
+        <p data-i18n="bots_sub">The smart bot ecosystem of SLH — every bot is an independent economic system.</p>
         <div class="bots-count">
             <i class="fas fa-robot"></i>
             <span id="bot-count">--</span> <span data-i18n="bots_active">Active Bots</span>
@@ -303,21 +303,21 @@
     <script src="/js/translations.js?v=20260426a"></script>
     <script src="/js/shared.js?v=20260426a"></script>
     <script>
-    /* -- Bot Data -- */
+    /* ── Bot Data ── */
     // Status values: LIVE (stable) / BETA (working but rough) / WIP (work in progress) / SOON (placeholder)
     const BOTS = [
         // === FINANCIAL ===
         { handle: '@SLH_AIR_bot', name: 'SLH Investment House', emoji: '\uD83C\uDFE6', desc: 'Main investment hub: deposits, yields, staking, portfolio management, multi-gen referrals. 4%-Variable Yield (4-12%).', status: 'LIVE', tags: ['financial', 'investment', 'staking'], category: 'financial' },
         { handle: '@SLH_Wallet_bot', name: 'SLH Wallet', emoji: '\uD83D\uDCB0', desc: 'Multi-currency wallet with TON, BSC, and internal SLH ledger. Send, receive, swap tokens.', status: 'LIVE', tags: ['financial', 'wallet', 'crypto'], category: 'financial' },
         { handle: '@SLH_Ledger_bot', name: 'SLH Ledger', emoji: '\uD83D\uDCD7', desc: 'Transaction ledger and accounting records. Hardware ESP32 integration planned for offline receipts.', status: 'LIVE', tags: ['financial', 'accounting', 'hardware'], category: 'financial' },
-        { handle: '@TON_MNH_bot', name: 'TON MNH Stablecoin', emoji: '\u2699\uFE0F', desc: 'MNH � ILS-pegged stablecoin on TON. 1:1 to shekel, instant transfers, no lockups.', status: 'LIVE', tags: ['financial', 'ton', 'stablecoin'], category: 'financial' },
+        { handle: '@TON_MNH_bot', name: 'TON MNH Stablecoin', emoji: '\u2699\uFE0F', desc: 'MNH — ILS-pegged stablecoin on TON. 1:1 to shekel, instant transfers, no lockups.', status: 'LIVE', tags: ['financial', 'ton', 'stablecoin'], category: 'financial' },
         { handle: '@SLH_ton_bot', name: 'SLH TON Gateway', emoji: '\uD83D\uDC8E', desc: 'Placeholder: Q2 2026 will bring native TON swaps, NFT minting, and dApp integrations.', status: 'SOON', tags: ['financial', 'ton', 'roadmap'], category: 'financial' },
 
         // === SaaS ===
-        { handle: '@OsifShop_bot', name: 'OsifShop � Inventory SaaS', emoji: '\uD83C\uDFEA', desc: 'Inventory management for small shops: products, barcode scan, orders, analytics. Course/album categories coming.', status: 'BETA', tags: ['saas', 'inventory', 'shop'], category: 'saas' },
-        { handle: '@MY_NFT_SHOP_bot', name: 'NFT Shop', emoji: '\uD83D\uDDBC\uFE0F', desc: 'NFT marketplace inside Telegram. Currently under restoration � full feature set returning this week.', status: 'WIP', tags: ['financial', 'nft', 'marketplace'], category: 'financial' },
+        { handle: '@OsifShop_bot', name: 'OsifShop — Inventory SaaS', emoji: '\uD83C\uDFEA', desc: 'Inventory management for small shops: products, barcode scan, orders, analytics. Course/album categories coming.', status: 'BETA', tags: ['saas', 'inventory', 'shop'], category: 'saas' },
+        { handle: '@MY_NFT_SHOP_bot', name: 'NFT Shop', emoji: '\uD83D\uDDBC\uFE0F', desc: 'NFT marketplace inside Telegram. Currently under restoration — full feature set returning this week.', status: 'WIP', tags: ['financial', 'nft', 'marketplace'], category: 'financial' },
         { handle: '@Buy_My_Shop_bot', name: 'Buy My Shop', emoji: '\uD83D\uDED2', desc: 'Shopify-style ecommerce marketplace for the SLH ecosystem. Restoration in progress.', status: 'WIP', tags: ['saas', 'marketplace', 'ecommerce'], category: 'saas' },
-        { handle: '@Osifs_Factory_bot', name: 'Osif Factory', emoji: '\uD83C\uDFED', desc: 'Bot factory � create custom Telegram bots with zero coding. Admin login currently requires Redis fix.', status: 'WIP', tags: ['saas', 'builder', 'automation'], category: 'saas' },
+        { handle: '@Osifs_Factory_bot', name: 'Osif Factory', emoji: '\uD83C\uDFED', desc: 'Bot factory — create custom Telegram bots with zero coding. Admin login currently requires Redis fix.', status: 'WIP', tags: ['saas', 'builder', 'automation'], category: 'saas' },
         { handle: '@My_crazy_panel_bot', name: 'Crazy Panel', emoji: '\uD83D\uDCCA', desc: 'Admin dashboard: analytics, user management, token management, control panel.', status: 'BETA', tags: ['saas', 'admin', 'dashboard'], category: 'saas' },
         { handle: '@NIFTI_Publisher_Bot', name: 'SLH Wellness', emoji: '\uD83E\uDDD8', desc: 'Wellness companion: mindfulness content, breathing exercises, CBT journaling, daily health tips.', status: 'BETA', tags: ['saas', 'wellness', 'health'], category: 'saas' },
 
@@ -343,10 +343,10 @@
         { name: 'Facebook Feed Sync', icon: '\uD83D\uDCD8', desc: 'Display your FB pages in dashboard' },
         { name: 'YouTube Feed Sync', icon: '\uD83D\uDCFA', desc: 'Display your YT channels in dashboard' },
         { name: 'Real-time Community Chat', icon: '\uD83D\uDCAC', desc: 'WebSocket live chat in community page' },
-        { name: 'Web3 Wallet Connect', icon: '\uD83D\uDD17', desc: 'MetaMask / Trust Wallet ? real balances' }
+        { name: 'Web3 Wallet Connect', icon: '\uD83D\uDD17', desc: 'MetaMask / Trust Wallet → real balances' }
     ];
 
-    /* -- Render Functions -- */
+    /* ── Render Functions ── */
     function renderBotCard(bot) {
         const statusMap = {
             'LIVE': '<span class="badge badge-green">LIVE</span>',
@@ -405,7 +405,7 @@
         grid.innerHTML = COMING_SOON.map(renderComingCard).join('');
     }
 
-    /* -- Filter Logic -- */
+    /* ── Filter Logic ── */
     document.getElementById('filter-tabs').addEventListener('click', (e) => {
         const tab = e.target.closest('.filter-tab');
         if (!tab) return;
@@ -414,12 +414,12 @@
         renderBots(tab.dataset.filter);
     });
 
-    /* -- Init -- */
+    /* ── Init ── */
     initShared({ activePage: 'bots' });
     renderBots();
     renderComingSoon();
     </script>
 <script src="/js/analytics.js"></script>
 <script src="/js/ai-assistant.js?v=20260426a"></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>

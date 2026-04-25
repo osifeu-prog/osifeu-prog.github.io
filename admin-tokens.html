@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Admin � ????? ?????? ?????? AI</title>
+<title>SLH Admin · ניהול טוקנים ומודלי AI</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@ body::before{content:'';position:fixed;inset:0;background:
 
 /* AIC panel */
 .aic-hero{background:linear-gradient(135deg,rgba(236,72,153,.08),rgba(168,85,247,.06));border:1px solid rgba(236,72,153,.25);border-radius:14px;padding:22px;position:relative;overflow:hidden}
-.aic-hero::after{content:'??';position:absolute;top:-20px;left:-20px;font-size:140px;opacity:.04;pointer-events:none}
+.aic-hero::after{content:'🧠';position:absolute;top:-20px;left:-20px;font-size:140px;opacity:.04;pointer-events:none}
 .aic-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
 .metric{padding:10px;background:rgba(0,0,0,.25);border-radius:8px}
 .metric .lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
@@ -109,12 +109,12 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 @media(max-width:600px){.slh-bug-fab{bottom:80px;width:46px;height:46px;font-size:20px}}
 </style>
 <div class="slh-beta-banner" id="slhBeta">
-  <span>?? <b>BETA</b></span>
-  <span style="opacity:.85">?? ???? ?? ???? �</span>
-  <a href="/bug-report.html">?? ???? ???</a>
-  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">?</button>
+  <span>🚧 <b>BETA</b></span>
+  <span style="opacity:.85">אם משהו לא עובד —</span>
+  <a href="/bug-report.html">🐛 דווח באג</a>
+  <button onclick="localStorage.setItem('slh_beta_dismissed','1');this.parentElement.remove()">✕</button>
 </div>
-<a href="/bug-report.html" class="slh-bug-fab" title="???? ???">??</a>
+<a href="/bug-report.html" class="slh-bug-fab" title="דווח באג">🐛</a>
 <script>if(localStorage.getItem('slh_beta_dismissed')==='1'){var b=document.getElementById('slhBeta');if(b)b.remove();}</script>
 
 
@@ -122,19 +122,19 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 
   <header class="hdr">
     <div>
-      <h1>?? SLH � Token Control Center</h1>
-      <div class="sub">6 tokens � AI economy � agent prompts � admin-only</div>
+      <h1>🏦 SLH · Token Control Center</h1>
+      <div class="sub">6 tokens · AI economy · agent prompts · admin-only</div>
     </div>
     <div class="row">
       <span class="chip ok" id="apiChip"><i class="fa fa-heartbeat"></i> API live</span>
       <span class="chip" style="background:var(--bg3);color:var(--text)" id="userChip">admin</span>
-      <button class="btn sec" onclick="refreshAll()"><i class="fa fa-rotate"></i> ????</button>
-      <button class="btn sec" onclick="logout()">?????</button>
+      <button class="btn sec" onclick="refreshAll()"><i class="fa fa-rotate"></i> רענן</button>
+      <button class="btn sec" onclick="logout()">יציאה</button>
     </div>
   </header>
 
   <div class="nav">
-    <a href="/admin.html"><i class="fa fa-arrow-right"></i> ???? ??????</a>
+    <a href="/admin.html"><i class="fa fa-arrow-right"></i> חזרה לאדמין</a>
     <a href="/mission-control.html"><i class="fa fa-gauge"></i> Mission Control</a>
     <a href="/agent-brief.html"><i class="fa fa-robot"></i> Agent Brief</a>
     <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/MASTER_EXECUTOR_AGENT_PROMPT.md" target="_blank"><i class="fa-brands fa-github"></i> Master Prompt</a>
@@ -145,29 +145,29 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 
     <!-- 6 tokens at a glance -->
     <div class="card c12">
-      <h2><i class="fa fa-coins"></i>6 ?????? ??????</h2>
+      <h2><i class="fa fa-coins"></i>6 טוקנים במערכת</h2>
       <div class="tokens-grid">
         <div class="tk slh">
           <div class="sym">SLH #1</div>
-          <div class="num">?444</div>
-          <div class="role">Premium / Governance � BSC BEP-20</div>
+          <div class="num">₪444</div>
+          <div class="role">Premium / Governance · BSC BEP-20</div>
           <div class="live">Live on PancakeSwap</div>
         </div>
         <div class="tk mnh">
           <div class="sym">MNH #2</div>
-          <div class="num">?1</div>
-          <div class="role">Stablecoin � peg to ILS</div>
+          <div class="num">₪1</div>
+          <div class="role">Stablecoin · peg to ILS</div>
           <div class="live">Internal only</div>
         </div>
         <div class="tk zvk">
           <div class="sym">ZVK #3</div>
-          <div class="num">~?4.4</div>
+          <div class="num">~₪4.4</div>
           <div class="role">Activity Rewards</div>
           <div class="live">Earned via engagement</div>
         </div>
         <div class="tk rep">
           <div class="sym">REP #4</div>
-          <div class="num">0�1000+</div>
+          <div class="num">0–1000+</div>
           <div class="role">Reputation Score</div>
           <div class="live">Trust metric</div>
         </div>
@@ -180,7 +180,7 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
         <div class="tk aic">
           <div class="sym">AIC #6 <span style="color:var(--rose);font-size:10px;margin-right:4px">NEW</span></div>
           <div class="num" id="aicSupply">--</div>
-          <div class="role">AI Credits � bridge to API costs</div>
+          <div class="role">AI Credits · bridge to API costs</div>
           <div class="live" id="aicWallets">-- wallets</div>
         </div>
       </div>
@@ -188,12 +188,12 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 
     <!-- AIC details -->
     <div class="card c8">
-      <h2><i class="fa fa-brain"></i>AIC � AI Credits � Live Metrics</h2>
+      <h2><i class="fa fa-brain"></i>AIC · AI Credits · Live Metrics</h2>
       <div class="aic-hero">
         <div style="font-size:15px;color:var(--text)">
-          ?? <b>AIC</b> = ???? ????? ????? ?????? ????? ? ???? API ?? AI ? ??? ????.
-          ?? ????? ?-ai-assistant / ??????? / ????? ???? AIC ??? API ?????.
-          ????? ?????? AIC ?-engagement (post/streak/referral/purchase/staking).
+          🧠 <b>AIC</b> = מטבע פנימי שמחבר פעילות משתמש → עלות API של AI → ערך חזרה.
+          כל שימוש ב‑ai-assistant / סיכומים / דוחות שורף AIC מול API אמיתי.
+          משתמש מרוויח AIC מ‑engagement (post/streak/referral/purchase/staking).
         </div>
         <div class="aic-metrics">
           <div class="metric"><div class="lbl">Total Supply</div><div class="val" id="mSupply">--</div></div>
@@ -204,7 +204,7 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
           <div class="metric"><div class="lbl">Reserve Ratio</div><div class="val" id="mRatio">--</div></div>
         </div>
         <div style="margin-top:14px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;font-size:11px;color:var(--text2);font-family:var(--mono)">
-          1 AIC � $0.001 of AI API cost � peg loose � decimals 4 � rules see <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/AIC_TOKEN_DESIGN.md" target="_blank" style="color:var(--cyan)">AIC_TOKEN_DESIGN.md</a>
+          1 AIC ≈ $0.001 of AI API cost · peg loose · decimals 4 · rules see <a href="https://github.com/osifeu-prog/slh-api/blob/master/ops/AIC_TOKEN_DESIGN.md" target="_blank" style="color:var(--cyan)">AIC_TOKEN_DESIGN.md</a>
         </div>
       </div>
     </div>
@@ -214,7 +214,7 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
       <h2><i class="fa fa-trophy"></i>Top AIC Holders</h2>
       <table id="topHolders">
         <thead><tr><th>User</th><th>Balance</th><th>Earned</th></tr></thead>
-        <tbody><tr><td colspan="3" style="color:var(--text2);padding:20px;text-align:center">????...</td></tr></tbody>
+        <tbody><tr><td colspan="3" style="color:var(--text2);padding:20px;text-align:center">טוען...</td></tr></tbody>
       </table>
     </div>
 
@@ -222,16 +222,16 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
     <div class="card c6">
       <h2><i class="fa fa-plus-circle"></i>Mint AIC (Admin)</h2>
       <div style="font-size:12px;color:var(--text2);margin-bottom:10px;background:rgba(255,215,0,.08);padding:10px;border-radius:8px;border-right:3px solid var(--gold)">
-        ?? <b>????:</b> ????? AIC ??? ??????. ?-user_id ??? Telegram ID (?????? 224223270 = Osif). ?-amount ??? ???? AIC (1 AIC � $0.001). ?-reserve USD ??? <b>?????????</b> � ?? ???? ???, ?? ?????? ???? ??????.
+        💡 <b>הסבר:</b> יצירת AIC חדש למשתמש. ה-user_id הוא Telegram ID (לדוגמה 224223270 = Osif). ה-amount הוא כמות AIC (1 AIC ≈ $0.001). ה-reserve USD הוא <b>אופציונלי</b> — אם נשאר ריק, לא מתווסף כלום לרזרבה.
       </div>
-      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">Telegram User ID (?? ????)</label>
+      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">Telegram User ID (מי יקבל)</label>
       <input class="ipt" id="mintUserId" placeholder="224223270" type="number">
-      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">???? AIC ?????? (?? 1000 AIC � 1 SLH)</label>
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">כמות AIC להנפיק (כל 1000 AIC ≈ 1 SLH)</label>
       <input class="ipt" id="mintAmount" placeholder="100" type="number" step="0.0001">
-      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">Reserve USD � ????????? (???? ??? ?? ?? ??????? ??? ?????? ?????)</label>
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">Reserve USD — אופציונלי (השאר ריק אם לא מוסיפים כסף לרזרבה עכשיו)</label>
       <input class="ipt" id="mintReserve" placeholder="0.10" type="number" step="0.01">
-      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">???? (????)</label>
-      <input class="ipt" id="mintNote" placeholder="seed funding � ???? � ?????">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">הערה (למה?)</label>
+      <input class="ipt" id="mintNote" placeholder="seed funding · מתנה · פיצוי">
       <button class="btn" onclick="mintAic()" style="margin-top:10px;width:100%"><i class="fa fa-coins"></i> Mint AIC</button>
       <div id="mintResult" class="status" style="display:none"></div>
     </div>
@@ -240,20 +240,20 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
     <div class="card c6">
       <h2><i class="fa fa-vault"></i>Reserve (USD backing)</h2>
       <div style="font-size:12px;color:var(--text2);margin-bottom:10px;background:rgba(0,229,255,.08);padding:10px;border-radius:8px;border-right:3px solid var(--cyan)">
-        ?? <b>????:</b> ?????? ??? <b>USD ?????</b> ??? ?-treasury ??? ????? ?? ?-AIC. ?? ?? 100 AIC ?????? ?-$0.10 ?????? ? ?? AIC ???? $0.001. <b>?????:</b> ??? ?????? ??????? ??? ?? � ?? ???? ???. ???? ????? ????? ?? ??????? ??????? ?? AIC.
+        🏦 <b>הסבר:</b> הרזרבה היא <b>USD אמיתי</b> שיש ל-treasury כדי לגבות את ה-AIC. אם יש 100 AIC במחזור ו-$0.10 ברזרבה → כל AIC שווה $0.001. <b>אזהרה:</b> הזן דולרים אמיתיים שיש לך — לא מספר סתם. הזנה שגויה מנפחת את השוויות המצוטטת של AIC.
       </div>
-      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">USD ?????? ?????? (?????? ???????)</label>
+      <label style="display:block;font-size:11px;color:var(--text2);margin-bottom:4px">USD שתוסיף לרזרבה (דולרים אמיתיים)</label>
       <input class="ipt" id="resAmount" placeholder="10.00" type="number" step="0.01">
-      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">????</label>
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">מקור</label>
       <select class="ipt" id="resSource">
-        <option value="stripe_purchase">Stripe purchase (????? ???? ??????)</option>
-        <option value="slh_swap">SLH swap (???? ?-SLH ?-AIC)</option>
-        <option value="admin_injection">Admin injection (????? ????? ??-treasury)</option>
+        <option value="stripe_purchase">Stripe purchase (משתמש שילם בכרטיס)</option>
+        <option value="slh_swap">SLH swap (המרה מ-SLH ל-AIC)</option>
+        <option value="admin_injection">Admin injection (הוספה ידנית מה-treasury)</option>
       </select>
-      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">????</label>
-      <input class="ipt" id="resNote" placeholder="????: ????? ??????? ?? 5 NFT ????">
+      <label style="display:block;font-size:11px;color:var(--text2);margin:8px 0 4px">הערה</label>
+      <input class="ipt" id="resNote" placeholder="למשל: הכנסה מהמכירה של 5 NFT היום">
       <button class="btn warn" onclick="addReserve()" style="margin-top:10px;width:100%"><i class="fa fa-plus"></i> Add to Reserve</button>
-      <div id="reserveList" style="margin-top:12px;font-size:11px;color:var(--text2);font-family:var(--mono)">????...</div>
+      <div id="reserveList" style="margin-top:12px;font-size:11px;color:var(--text2);font-family:var(--mono)">טוען...</div>
     </div>
 
     <!-- Lookup -->
@@ -272,12 +272,12 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
 
     <!-- Master Executor Prompt -->
     <div class="card c12">
-      <h2><i class="fa fa-code"></i>Master Executor Agent Prompt � ?????? ??? ???? AI</h2>
+      <h2><i class="fa fa-code"></i>Master Executor Agent Prompt · להעתיק לכל סוכן AI</h2>
       <div style="margin-bottom:10px;font-size:13px;color:var(--text2)">
-        ???? ?? ??????? ??? ?-<b>system prompt</b> ??? ???? AI ????? ?? SLH � Claude, ChatGPT, Gemini, Cursor, Copilot Agent. ????? ???? ?? ?? ????? ?? ??????? ??????.
+        הדבק את הפרומפט הזה כ‑<b>system prompt</b> לכל סוכן AI שעובד על SLH — Claude, ChatGPT, Gemini, Cursor, Copilot Agent. הסוכן מקבל את כל ההקשר של הפרויקט מיידית.
       </div>
-      <button class="copy-btn" onclick="copyPrompt()" id="copyBtn"><i class="fa fa-copy"></i> ???? ?????? ???</button>
-      <div class="prompt-box" id="promptBox">???? ?????? ?-GitHub...</div>
+      <button class="copy-btn" onclick="copyPrompt()" id="copyBtn"><i class="fa fa-copy"></i> העתק פרומפט מלא</button>
+      <div class="prompt-box" id="promptBox">טוען פרומפט מ-GitHub...</div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <a class="btn sec" href="/prompts/MASTER_EXECUTOR_AGENT_PROMPT.md" target="_blank"><i class="fa fa-file-lines"></i> Raw (public copy)</a>
         <a class="btn sec" href="/prompts/" target="_blank"><i class="fa fa-folder-open"></i> All 9 prompts</a>
@@ -291,10 +291,10 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
       <table>
         <thead><tr><th>Phase</th><th>Scope</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td><b>1 � MVP</b></td><td>DB + balance/tx endpoints + admin dashboard</td><td><span class="chip ok">? ?????</span></td></tr>
-          <tr><td><b>2 � Earn engine</b></td><td>???? earn ????????? (post/streak/referral/expert)</td><td><span class="chip warn">?? ??????</span></td></tr>
-          <tr><td><b>3 � AI Gateway</b></td><td>Wrap /api/ai/chat ?? AIC check+burn</td><td><span class="chip" style="background:var(--bg4);color:var(--text3)">? ???? ???</span></td></tr>
-          <tr><td><b>4 � Marketplace</b></td><td>Swap AIC ? SLH/MNH � AI-assisted services</td><td><span class="chip" style="background:var(--bg4);color:var(--text3)">? Q2</span></td></tr>
+          <tr><td><b>1 · MVP</b></td><td>DB + balance/tx endpoints + admin dashboard</td><td><span class="chip ok">✅ שוחרר</span></td></tr>
+          <tr><td><b>2 · Earn engine</b></td><td>כללי earn אוטומטיים (post/streak/referral/expert)</td><td><span class="chip warn">🟡 בתכנון</span></td></tr>
+          <tr><td><b>3 · AI Gateway</b></td><td>Wrap /api/ai/chat עם AIC check+burn</td><td><span class="chip" style="background:var(--bg4);color:var(--text3)">⏳ חודש הבא</span></td></tr>
+          <tr><td><b>4 · Marketplace</b></td><td>Swap AIC ↔ SLH/MNH · AI-assisted services</td><td><span class="chip" style="background:var(--bg4);color:var(--text3)">⏳ Q2</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -302,17 +302,17 @@ td.mono{font-family:var(--mono);color:var(--cyan);font-size:11px}
   </div>
 
   <div class="foot">
-    SLH Token Control Center � <a href="/admin.html" style="color:var(--text2)">Admin</a> � <a href="/mission-control.html" style="color:var(--text2)">Mission</a>
+    SLH Token Control Center · <a href="/admin.html" style="color:var(--text2)">Admin</a> · <a href="/mission-control.html" style="color:var(--text2)">Mission</a>
   </div>
 
 </div>
 
 <!-- Login gate -->
 <div id="loginGate" class="login-gate">
-  <h2 style="color:var(--text);margin-bottom:6px">?? Admin Login</h2>
-  <p style="color:var(--text2);font-size:13px">?? ?? ???????? ????. ??? ?? ?-Admin API Key ???.</p>
+  <h2 style="color:var(--text);margin-bottom:6px">🔐 Admin Login</h2>
+  <p style="color:var(--text2);font-size:13px">דף זה לאדמינים בלבד. הזן את ה‑Admin API Key שלך.</p>
   <input type="password" id="adminKey" placeholder="admin key">
-  <button onclick="login()">?????</button>
+  <button onclick="login()">התחבר</button>
   <div id="loginErr" style="color:var(--red);font-size:12px;margin-top:10px"></div>
 </div>
 
@@ -325,11 +325,11 @@ function getKey(){ return ADMIN_KEY; }
 
 async function login(){
   const k = document.getElementById('adminKey').value.trim();
-  if(!k){ document.getElementById('loginErr').textContent = '??? ????'; return; }
+  if(!k){ document.getElementById('loginErr').textContent = 'הזן מפתח'; return; }
   // Try a simple admin endpoint to verify
   const r = await fetch(API+'/api/admin/aic/reserve', { headers: {'X-Admin-Key': k} });
   if(r.status === 403){
-    document.getElementById('loginErr').textContent = '? ???? ????';
+    document.getElementById('loginErr').textContent = '❌ מפתח שגוי';
     return;
   }
   ADMIN_KEY = k;
@@ -361,7 +361,7 @@ async function loadStats(){
 
     const tbody = document.querySelector('#topHolders tbody');
     if(d.top_holders.length === 0){
-      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:20px">??? holders ?????</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:20px">אין holders עדיין</td></tr>';
     } else {
       tbody.innerHTML = d.top_holders.map(h =>
         `<tr><td class="mono">${h.user_id}</td><td class="mono">${h.balance.toFixed(2)}</td><td class="mono">${h.lifetime_earned.toFixed(2)}</td></tr>`
@@ -377,10 +377,10 @@ async function loadReserve(){
     const d = await r.json();
     const el = document.getElementById('reserveList');
     if(d.recent.length === 0){
-      el.innerHTML = '??? deposits ?????';
+      el.innerHTML = 'אין deposits עדיין';
     } else {
       el.innerHTML = '<div style="margin-bottom:6px">Total: <b style="color:var(--accent)">$'+d.total_usd.toFixed(2)+'</b></div>' +
-        d.recent.map(r => `<div>� $${r.usd_amount.toFixed(2)} � ${r.source} � ${new Date(r.recorded_at).toLocaleDateString('he-IL')}</div>`).join('');
+        d.recent.map(r => `<div>• $${r.usd_amount.toFixed(2)} · ${r.source} · ${new Date(r.recorded_at).toLocaleDateString('he-IL')}</div>`).join('');
     }
   }catch(e){}
 }
@@ -406,11 +406,11 @@ async function mintAic(){
   el.style.display = 'block';
   if(r.ok){
     el.style.color = 'var(--accent)';
-    el.innerHTML = `? Minted ${d.delta} AIC to user ${uid} � new balance: ${d.new_balance} � tx ${d.tx_id}`;
+    el.innerHTML = `✅ Minted ${d.delta} AIC to user ${uid} · new balance: ${d.new_balance} · tx ${d.tx_id}`;
     refreshAll();
   } else {
     el.style.color = 'var(--red)';
-    el.innerHTML = '? ' + (d.detail || r.status);
+    el.innerHTML = '❌ ' + (d.detail || r.status);
   }
 }
 
@@ -438,13 +438,13 @@ async function lookupUser(){
   const el = document.getElementById('lookupResult');
   el.style.display = 'block';
   if(!bal.has_wallet){
-    el.innerHTML = `<span style="color:var(--gold)">? User ${uid} ?? ???? ?-AIC (??? wallet ?????). ???? mint ??? ?????.</span>`;
+    el.innerHTML = `<span style="color:var(--gold)">⚠ User ${uid} לא קיים ב-AIC (אין wallet עדיין). לחצץ mint כדי ליצור.</span>`;
     document.getElementById('lookupTx').style.display = 'none';
     return;
   }
   el.innerHTML = `
-    <b>User ${uid}</b> � Balance: <span style="color:var(--accent)">${bal.balance} AIC</span> �
-    Lifetime earned: ${bal.lifetime_earned} � Lifetime spent: ${bal.lifetime_spent}
+    <b>User ${uid}</b> · Balance: <span style="color:var(--accent)">${bal.balance} AIC</span> ·
+    Lifetime earned: ${bal.lifetime_earned} · Lifetime spent: ${bal.lifetime_spent}
   `;
   const tbody = document.querySelector('#lookupTx tbody');
   document.getElementById('lookupTx').style.display = 'table';
@@ -454,7 +454,7 @@ async function lookupUser(){
       <td>${t.kind}</td>
       <td class="mono">${t.amount}</td>
       <td>${t.reason}</td>
-      <td>${t.provider || '�'}</td>
+      <td>${t.provider || '—'}</td>
     </tr>`
   ).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text3)">No transactions</td></tr>';
 }
@@ -466,7 +466,7 @@ async function loadPrompt(){
     const text = await r.text();
     document.getElementById('promptBox').textContent = text;
   }catch(e){
-    document.getElementById('promptBox').textContent = '????? ?????? ???????: ' + e.message + '\n\n??? ?? "Raw GitHub" ???? ??? ????? ?????.';
+    document.getElementById('promptBox').textContent = 'שגיאה בטעינת הפרומפט: ' + e.message + '\n\nלחץ על "Raw GitHub" למטה כדי לפתוח ידנית.';
   }
 }
 
@@ -474,8 +474,8 @@ function copyPrompt(){
   const text = document.getElementById('promptBox').textContent;
   navigator.clipboard.writeText(text).then(() => {
     const b = document.getElementById('copyBtn');
-    b.innerHTML = '? ?????!'; b.classList.add('ok');
-    setTimeout(() => { b.innerHTML = '<i class="fa fa-copy"></i> ???? ?????? ???'; b.classList.remove('ok'); }, 2500);
+    b.innerHTML = '✅ הועתק!'; b.classList.add('ok');
+    setTimeout(() => { b.innerHTML = '<i class="fa fa-copy"></i> העתק פרומפט מלא'; b.classList.remove('ok'); }, 2500);
   });
 }
 
@@ -493,5 +493,5 @@ if(ADMIN_KEY){
 }
 </script>
 
-<script>initShared();</script>`n`</body>
+</body>
 </html>

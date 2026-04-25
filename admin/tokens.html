@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -77,65 +77,65 @@
 <body>
 
 <div class="topbar">
-  <div class="brand"><span>ADMIN</span>?? Bot Tokens</div>
+  <div class="brand"><span>ADMIN</span>🔑 Bot Tokens</div>
   <div class="tb-right">
-    <a href="/admin/control-center.html">?? Control</a>
-    <a href="/admin/mission-control.html">?? Mission</a>
-    <a href="https://t.me/BotFather" target="_blank" style="color:var(--gold)">?? BotFather ?</a>
-    <a href="https://railway.com/project/slh-api" target="_blank" style="color:var(--cyan)">?? Railway ?</a>
+    <a href="/admin/control-center.html">🎛 Control</a>
+    <a href="/admin/mission-control.html">🎯 Mission</a>
+    <a href="https://t.me/BotFather" target="_blank" style="color:var(--gold)">🤖 BotFather ↗</a>
+    <a href="https://railway.com/project/slh-api" target="_blank" style="color:var(--cyan)">🚂 Railway ↗</a>
   </div>
 </div>
 
 <main>
 
   <div class="warning">
-    <b>?? ?? ????? ?????? ??? ????.</b> ??? ??? ??? <b>???? + checklist</b>. ??????? ???? ???? ?? ?-<code>.env</code> ????? (gitignored) ??-<code>Railway Variables</code>. ?????? ????? ??? ????? ?????? � BotFather ? Railway. ???? ??????, ??? "??? ????" ?????????? ???? ?-<code>localStorage</code> ?? ?????? ???.
+    <b>🔒 לא מאחסן טוקנים בצד לקוח.</b> הדף הזה הוא <b>מעקב + checklist</b>. הטוקנים עצמם חיים רק ב-<code>.env</code> מקומי (gitignored) וב-<code>Railway Variables</code>. רוטציה דורשת שני שלבים ידניים — BotFather → Railway. אחרי שסיימת, לחץ "סמן סובב" והטיימסטמפ נשמר ב-<code>localStorage</code> של הדפדפן הזה.
   </div>
 
   <div class="stats">
-    <div class="stat ok" id="s-ok"><div class="n">--</div><div class="l">? ????? ???????</div></div>
-    <div class="stat warn" id="s-warn"><div class="n">--</div><div class="l">?? >90 ???</div></div>
-    <div class="stat danger" id="s-stale"><div class="n">--</div><div class="l">?? >180 ???</div></div>
-    <div class="stat" id="s-unknown"><div class="n">--</div><div class="l">? ?? ?????</div></div>
-    <div class="stat" id="s-total"><div class="n">--</div><div class="l">??"? ?????</div></div>
+    <div class="stat ok" id="s-ok"><div class="n">--</div><div class="l">✅ מסובב לאחרונה</div></div>
+    <div class="stat warn" id="s-warn"><div class="n">--</div><div class="l">⚠️ >90 יום</div></div>
+    <div class="stat danger" id="s-stale"><div class="n">--</div><div class="l">🚨 >180 יום</div></div>
+    <div class="stat" id="s-unknown"><div class="n">--</div><div class="l">❓ לא מתועד</div></div>
+    <div class="stat" id="s-total"><div class="n">--</div><div class="l">סה"כ בוטים</div></div>
   </div>
 
   <div class="toolbar">
-    <button onclick="filterBy('all')" class="active" id="f-all">????</button>
-    <button onclick="filterBy('stale')" id="f-stale">?? ????</button>
-    <button onclick="filterBy('warn')" id="f-warn">?? ???</button>
-    <button onclick="filterBy('unknown')" id="f-unknown">? ?? ????</button>
-    <button onclick="filterBy('ok')" id="f-ok">? ???</button>
+    <button onclick="filterBy('all')" class="active" id="f-all">כולם</button>
+    <button onclick="filterBy('stale')" id="f-stale">🚨 דחוף</button>
+    <button onclick="filterBy('warn')" id="f-warn">⚠️ ישן</button>
+    <button onclick="filterBy('unknown')" id="f-unknown">❓ לא ידוע</button>
+    <button onclick="filterBy('ok')" id="f-ok">✅ טרי</button>
     <div class="spacer"></div>
-    <input type="search" id="search" placeholder="????? ??? ?? / env / handle..." oninput="render()">
-    <button onclick="exportCSV()">?? CSV Export</button>
+    <input type="search" id="search" placeholder="חיפוש לפי שם / env / handle..." oninput="render()">
+    <button onclick="exportCSV()">📥 CSV Export</button>
   </div>
 
   <table>
     <thead>
       <tr>
-        <th>???</th>
+        <th>בוט</th>
         <th>Handle</th>
         <th>Env Var</th>
-        <th>???? ???????</th>
-        <th>?????</th>
-        <th>??????</th>
+        <th>סובב לאחרונה</th>
+        <th>סטטוס</th>
+        <th>פעולות</th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
   </table>
 
   <div class="help">
-    <b>?? ????? ?????? (??? ???)</b>
+    <b>📋 תהליך רוטציה (לכל בוט)</b>
     <ol>
-      <li>??? <a href="https://t.me/BotFather" target="_blank">@BotFather</a> ? <code>/mybots</code> ? ??? ?? ???? ? <code>API Token</code> ? <code>Revoke current token</code></li>
-      <li>???? ?? ????? ???? (?? ?????? ??'?? � ??? ?-<code>.env</code>)</li>
-      <li>??? <a href="https://railway.com/project/slh-api" target="_blank">Railway</a> ? Variables ? ???? ?? <code>&lt;BOT&gt;_BOT_TOKEN</code> ???? ????</li>
-      <li>?? ???? ?? ?-docker ??????: ???? ?? <code>D:\SLH_ECOSYSTEM\.env</code> ??-<code>docker compose restart &lt;service&gt;</code></li>
-      <li>???? ?-<a href="https://t.me/BotFather" target="_blank">BotFather</a> ????? <code>/start</code> ????? ????</li>
-      <li>???? ??? ???, ??? "??? ????" ? ????????? ????? ???? ??????</li>
+      <li>פתח <a href="https://t.me/BotFather" target="_blank">@BotFather</a> → <code>/mybots</code> → בחר את הבוט → <code>API Token</code> → <code>Revoke current token</code></li>
+      <li>העתק את הטוקן החדש (לא להדביק בצ'אט — ישר ל-<code>.env</code>)</li>
+      <li>פתח <a href="https://railway.com/project/slh-api" target="_blank">Railway</a> → Variables → עדכן את <code>&lt;BOT&gt;_BOT_TOKEN</code> לערך החדש</li>
+      <li>אם הבוט רץ ב-docker מקומית: עדכן את <code>D:\SLH_ECOSYSTEM\.env</code> וה-<code>docker compose restart &lt;service&gt;</code></li>
+      <li>וודא ב-<a href="https://t.me/BotFather" target="_blank">BotFather</a> שהבוט <code>/start</code> עדיין מגיב</li>
+      <li>חזור לדף הזה, לחץ "סמן סובב" → הטיימסטמפ ישמור אצלך בדפדפן</li>
     </ol>
-    <b>?? ????:</b> ?????? ???? ??'?? AI, ?????, ?-git. ?? ????? ????? ? ???? ???.
+    <b>⚠️ אסור:</b> להדביק טוקן בצ'אט AI, במסמך, ב-git. אם בטעות הדבקת → סובב מיד.
   </div>
 
 </main>
@@ -144,7 +144,7 @@
 
 <script>
 // All known bots extracted from docker-compose.yml + memory.
-// Token values never leave the server � this page only tracks ROTATION METADATA.
+// Token values never leave the server — this page only tracks ROTATION METADATA.
 const BOTS = [
   { name: 'SLH Core Bot',        handle: '@SLH_Spark_bot',         env: 'CORE_BOT_TOKEN' },
   { name: 'Guardian',             handle: '@Grdian_bot',            env: 'GUARDIAN_BOT_TOKEN', note: 'rotated 2026-04-?? (per memory K-25)' },
@@ -158,7 +158,7 @@ const BOTS = [
   { name: 'Game Bot',             handle: '@SLH_Game_bot',          env: 'GAME_BOT_TOKEN', last: '2026-04-17' },
   { name: 'TON-MNH',              handle: '@TonMNH_bot',            env: 'TON_MNH_TOKEN' },
   { name: 'SLH TON',              handle: '@SLH_Ton_bot',           env: 'SLH_TON_TOKEN' },
-  { name: 'Ledger',               handle: '@SLH_Ledger_bot',        env: 'SLH_LEDGER_TOKEN', note: 'K-8 crash loop � see KNOWN_ISSUES' },
+  { name: 'Ledger',               handle: '@SLH_Ledger_bot',        env: 'SLH_LEDGER_TOKEN', note: 'K-8 crash loop — see KNOWN_ISSUES' },
   { name: 'Osif Shop',            handle: '@osif_shop_bot',         env: 'OSIF_SHOP_TOKEN' },
   { name: 'Nifti Publisher',      handle: '@Nifti_Publisher_bot',   env: 'NIFTI_PUBLISHER_TOKEN' },
   { name: 'Chance Pais',          handle: '@Chance_Pais_bot',       env: 'CHANCE_PAIS_TOKEN' },
@@ -169,14 +169,14 @@ const BOTS = [
   { name: 'Beynonibank',          handle: '@Beynonibank_bot',       env: 'BEYNONIBANK_TOKEN' },
   { name: 'Test',                 handle: '@SLH_Test_bot',          env: 'TEST_BOT_TOKEN' },
   { name: 'Academia',             handle: '@WEWORK_teamviwer_bot',  env: 'ACADEMIA_BOT_TOKEN' },
-  { name: 'ExpertNet',            handle: '@ExpertNet_bot',         env: 'EXPERTNET_BOT_TOKEN', note: 'K-25: shares ID 8530795944 with SLH_AIR_TOKEN � one is stale' },
-  { name: 'SLH Air',              handle: '@SLH_AIR_bot',           env: 'SLH_AIR_TOKEN', note: 'K-25: shares ID 8530795944 with EXPERTNET � one is stale' },
+  { name: 'ExpertNet',            handle: '@ExpertNet_bot',         env: 'EXPERTNET_BOT_TOKEN', note: 'K-25: shares ID 8530795944 with SLH_AIR_TOKEN — one is stale' },
+  { name: 'SLH Air',              handle: '@SLH_AIR_bot',           env: 'SLH_AIR_TOKEN', note: 'K-25: shares ID 8530795944 with EXPERTNET — one is stale' },
   { name: 'Match',                handle: '@SLH_Match_bot',         env: 'MATCH_BOT_TOKEN' },
   { name: 'Wellness',             handle: '@SLH_Wellness_bot',      env: 'WELLNESS_BOT_TOKEN' },
   { name: 'User Info',            handle: '@SLH_UserInfo_bot',      env: 'USERINFO_BOT_TOKEN' },
-  { name: 'Claude Executor',      handle: '@SLH_Claude_bot',        env: 'CLAUDE_BOT_TOKEN', note: 'ANTHROPIC_API_KEY empty � K-9' },
-  { name: 'G4me Bot',             handle: '@G4meb0t_bot',           env: 'G4ME_BOT_TOKEN',    note: 'DATING bot � separate group' },
-  { name: 'Macro (SLH.co.il)',    handle: '@SLH_macro_bot',         env: 'TELEGRAM_BOT_TOKEN', note: 'Separate project diligent-radiance � rotate there, NOT here' },
+  { name: 'Claude Executor',      handle: '@SLH_Claude_bot',        env: 'CLAUDE_BOT_TOKEN', note: 'ANTHROPIC_API_KEY empty — K-9' },
+  { name: 'G4me Bot',             handle: '@G4meb0t_bot',           env: 'G4ME_BOT_TOKEN',    note: 'DATING bot — separate group' },
+  { name: 'Macro (SLH.co.il)',    handle: '@SLH_macro_bot',         env: 'TELEGRAM_BOT_TOKEN', note: 'Separate project diligent-radiance — rotate there, NOT here' },
 ];
 
 const STORE_KEY = 'slh_bot_rotations_v1';
@@ -232,15 +232,15 @@ function render() {
     const hay = (bot.name + bot.handle + bot.env + (bot.note||'')).toLowerCase();
     if (search && !hay.includes(search)) return;
 
-    const daysLabel = s.days === null ? '�' : s.days + ' ???';
-    const lastLabel = s.last ? s.last : '�';
-    const badgeMap = {ok:'? ???', warn:'?? ???', stale:'?? ????', unknown:'? ?? ????'};
+    const daysLabel = s.days === null ? '—' : s.days + ' יום';
+    const lastLabel = s.last ? s.last : '—';
+    const badgeMap = {ok:'✅ טרי', warn:'⚠️ ישן', stale:'🚨 דחוף', unknown:'❓ לא ידוע'};
 
     rows.push(`
       <tr>
         <td>
           <div class="bot-name">${escapeHtml(bot.name)}</div>
-          ${bot.note ? `<div class="bot-handle" style="color:var(--gold)">?? ${escapeHtml(bot.note)}</div>` : ''}
+          ${bot.note ? `<div class="bot-handle" style="color:var(--gold)">📝 ${escapeHtml(bot.note)}</div>` : ''}
         </td>
         <td><a href="https://t.me/${bot.handle.replace('@','')}" target="_blank">${escapeHtml(bot.handle)}</a></td>
         <td><code>${escapeHtml(bot.env)}</code></td>
@@ -248,16 +248,16 @@ function render() {
         <td><span class="badge ${s.kind}">${badgeMap[s.kind]}</span></td>
         <td>
           <div class="row-actions">
-            <a href="https://t.me/BotFather" target="_blank">BotFather ?</a>
-            <a href="https://railway.com/project/slh-api" target="_blank">Railway ?</a>
-            <button onclick="markRotated('${bot.env}')">??? ????</button>
-            ${s.last ? `<button onclick="clearRotated('${bot.env}')" style="background:rgba(255,0,85,.15);color:var(--red)">�</button>` : ''}
+            <a href="https://t.me/BotFather" target="_blank">BotFather ↗</a>
+            <a href="https://railway.com/project/slh-api" target="_blank">Railway ↗</a>
+            <button onclick="markRotated('${bot.env}')">סמן סובב</button>
+            ${s.last ? `<button onclick="clearRotated('${bot.env}')" style="background:rgba(255,0,85,.15);color:var(--red)">×</button>` : ''}
           </div>
         </td>
       </tr>`);
   });
 
-  tbody.innerHTML = rows.join('') || `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text2)">??? ????? ??????? ??????</td></tr>`;
+  tbody.innerHTML = rows.join('') || `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text2)">אין בוטים שתואמים לפילטר</td></tr>`;
 
   document.getElementById('s-ok').querySelector('.n').textContent = stats.ok;
   document.getElementById('s-warn').querySelector('.n').textContent = stats.warn;
@@ -270,12 +270,12 @@ function markRotated(env) {
   const rot = loadRotations();
   rot[env] = new Date().toISOString().slice(0,10);
   saveRotations(rot);
-  toast('???? ????? ???? � ?? ???? ????? ?-Railway!');
+  toast('סומן כסובב היום — אל תשכח לעדכן ב-Railway!');
   render();
 }
 
 function clearRotated(env) {
-  if (!confirm('????? ?? ???????')) return;
+  if (!confirm('לנקות את התאריך?')) return;
   const rot = loadRotations();
   delete rot[env];
   saveRotations(rot);
@@ -298,7 +298,7 @@ function exportCSV() {
   a.download = 'slh_bot_tokens_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   URL.revokeObjectURL(url);
-  toast('CSV ????');
+  toast('CSV הורד');
 }
 
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
@@ -306,5 +306,5 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 render();
 </script>
 
-<script>initShared();</script>`n`</body>
+</body>
 </html>

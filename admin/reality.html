@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLH Reality Dashboard � The Honest One</title>
+<title>SLH Reality Dashboard — The Honest One</title>
 <meta name="description" content="Single source of truth admin. No phantom data.">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -85,7 +85,7 @@ a:hover{text-decoration:underline}
 
 <div class="wrap">
   <div class="header">
-    <h1><span class="badge">REALITY</span>SLH Admin � The Honest One</h1>
+    <h1><span class="badge">REALITY</span>SLH Admin — The Honest One</h1>
     <p>Single source of truth. No phantom data. Every number queried fresh from Railway Postgres.</p>
     <div class="refresh-row">
       <input type="password" id="bkey" placeholder="ADMIN_BROADCAST_KEY (stored in localStorage)" autocomplete="off">
@@ -95,8 +95,8 @@ a:hover{text-decoration:underline}
   </div>
 
   <div class="info-banner">
-    ?? <strong>??? ???????:</strong> ???? ?? ?-<code>ADMIN_BROADCAST_KEY</code> (??-.env). ?????? Refresh � ??? ?????? ??. ??????? ?????? ?-<code>/api/ops/reality</code>.
-    ?? ????? on-chain ?????? ???????? ?-<a href="https://intel.arkm.com" target="_blank">Arkham Intelligence</a> ?-BscScan/Tonviewer.
+    💡 <strong>איך משתמשים:</strong> הכנס את ה-<code>ADMIN_BROADCAST_KEY</code> (מה-.env). לוחצים Refresh — הכל מתעדכן חי. הנתונים נטענים מ-<code>/api/ops/reality</code>.
+    כל כתובת on-chain מקושרת אוטומטית ל-<a href="https://intel.arkm.com" target="_blank">Arkham Intelligence</a> ו-BscScan/Tonviewer.
   </div>
 
   <div id="error-box"></div>
@@ -113,37 +113,37 @@ a:hover{text-decoration:underline}
 
   <!-- SUMMARY -->
   <div class="section active" id="section-summary">
-    <h2>Reality Summary <span class="meta" id="summary-meta">�</span></h2>
+    <h2>Reality Summary <span class="meta" id="summary-meta">—</span></h2>
     <div class="summary-grid" id="summary-grid"></div>
   </div>
 
   <!-- USERS -->
   <div class="section" id="section-users">
-    <h2>Users � Founders / Community / Test <span class="meta" id="users-meta">�</span></h2>
+    <h2>Users — Founders / Community / Test <span class="meta" id="users-meta">—</span></h2>
     <div id="users-table"></div>
   </div>
 
   <!-- PAYMENTS -->
   <div class="section" id="section-payments">
-    <h2>Payments � Real Customer Revenue Only <span class="meta" id="payments-meta">�</span></h2>
+    <h2>Payments — Real Customer Revenue Only <span class="meta" id="payments-meta">—</span></h2>
     <div id="payments-table"></div>
   </div>
 
   <!-- LICENSES -->
   <div class="section" id="section-licenses">
-    <h2>Academy Licenses <span class="meta" id="licenses-meta">�</span></h2>
+    <h2>Academy Licenses <span class="meta" id="licenses-meta">—</span></h2>
     <div id="licenses-table"></div>
   </div>
 
   <!-- COURSES -->
   <div class="section" id="section-courses">
-    <h2>Academy Courses <span class="meta" id="courses-meta">�</span></h2>
+    <h2>Academy Courses <span class="meta" id="courses-meta">—</span></h2>
     <div id="courses-table"></div>
   </div>
 
   <!-- ON-CHAIN -->
   <div class="section" id="section-onchain">
-    <h2>On-Chain Activity + Arkham Links <span class="meta" id="onchain-meta">�</span></h2>
+    <h2>On-Chain Activity + Arkham Links <span class="meta" id="onchain-meta">—</span></h2>
     <div class="onchain-tools" id="onchain-tools"></div>
     <h3 style="margin:20px 0 10px;font-size:14px;color:var(--text2)">Deposits (DB)</h3>
     <div id="deposits-table"></div>
@@ -151,7 +151,7 @@ a:hover{text-decoration:underline}
 
   <!-- BROADCASTS -->
   <div class="section" id="section-broadcasts">
-    <h2>Recent Telegram Broadcasts <span class="meta" id="broadcasts-meta">�</span></h2>
+    <h2>Recent Telegram Broadcasts <span class="meta" id="broadcasts-meta">—</span></h2>
     <div id="broadcasts-table"></div>
   </div>
 </div>
@@ -214,7 +214,7 @@ async function refresh() {
 }
 
 function showError(msg) {
-  document.getElementById('error-box').innerHTML = `<div class="error">? ${msg}</div>`;
+  document.getElementById('error-box').innerHTML = `<div class="error">❌ ${msg}</div>`;
 }
 function clearError() { document.getElementById('error-box').innerHTML = ''; }
 
@@ -241,20 +241,20 @@ function renderSummary(s, at) {
     { lbl: 'Total Users', val: s.users.total, cls: '', sub: `${s.users.real} real, ${s.users.test_or_fake} test` },
     { lbl: 'Real Community', val: s.users.community, cls: 'green', sub: `${s.users.founders} founder accts excluded` },
     { lbl: 'Genesis 49 Members', val: s.users.genesis49, cls: 'gold', sub: 'NFT coupon holders' },
-    { lbl: 'Real Customer Payments', val: s.payments.real_customer_payments, cls: s.payments.real_customer_payments === 0 ? 'red' : 'green', sub: `?${s.payments.total_real_ils.toFixed(2)} lifetime` },
-    { lbl: 'Self-Test Payments', val: s.payments.founder_self_test, cls: 'orange', sub: `?${s.payments.total_self_test_ils.toFixed(2)} (Osif dogfood)` },
+    { lbl: 'Real Customer Payments', val: s.payments.real_customer_payments, cls: s.payments.real_customer_payments === 0 ? 'red' : 'green', sub: `₪${s.payments.total_real_ils.toFixed(2)} lifetime` },
+    { lbl: 'Self-Test Payments', val: s.payments.founder_self_test, cls: 'orange', sub: `₪${s.payments.total_self_test_ils.toFixed(2)} (Osif dogfood)` },
     { lbl: 'Licenses Issued', val: s.licenses.total, cls: '', sub: `${s.licenses.to_real_customers} to real customers` },
     { lbl: 'Active Courses', val: s.courses_active, cls: '', sub: '' },
     { lbl: 'On-Chain Deposits (DB)', val: s.deposits_onchain, cls: s.deposits_onchain === 0 ? 'red' : 'green', sub: 'Zero means API not indexing' },
     { lbl: 'Marketplace Items', val: s.marketplace_items || 0, cls: '', sub: `${s.marketplace_orders || 0} orders` },
-    { lbl: 'Active Stakes', val: s.active_stakes ?? '�', cls: '', sub: '' },
-    { lbl: 'Users w/ Referral', val: s.users_with_referral ?? '�', cls: '', sub: '' },
+    { lbl: 'Active Stakes', val: s.active_stakes ?? '—', cls: '', sub: '' },
+    { lbl: 'Users w/ Referral', val: s.users_with_referral ?? '—', cls: '', sub: '' },
   ];
 
   document.getElementById('summary-grid').innerHTML = cards.map(c => `
     <div class="stat-card">
       <div class="lbl">${c.lbl}</div>
-      <div class="val ${c.cls}">${c.val ?? '�'}</div>
+      <div class="val ${c.cls}">${c.val ?? '—'}</div>
       ${c.sub ? `<div class="sub">${c.sub}</div>` : ''}
     </div>
   `).join('');
@@ -270,13 +270,13 @@ function usersTable(rows, headerExtra='') {
       const addrs = [
         u.eth_wallet && `<a href="${arkhamLink(u.eth_wallet,'bsc')}" target="_blank" class="arkham">BSC</a>`,
         u.ton_wallet && `<a href="${tonViewerLink(u.ton_wallet)}" target="_blank" class="arkham">TON</a>`,
-      ].filter(Boolean).join('') || '�';
+      ].filter(Boolean).join('') || '—';
       return `<tr>
         <td><strong>${u.telegram_id}</strong></td>
         <td>${u.username ? '@'+u.username : ''} ${u.first_name || ''}</td>
         <td>${u.is_registered ? '<span class="chip chip-green">YES</span>' : '<span class="chip chip-gray">NO</span>'}</td>
-        <td>${u.beta_user ? `<span class="chip chip-gold">#${u.beta_nft_number || '?'}</span>` : '�'}</td>
-        <td>${u.last_login ? u.last_login.split('T')[0] : '�'}</td>
+        <td>${u.beta_user ? `<span class="chip chip-gold">#${u.beta_nft_number || '?'}</span>` : '—'}</td>
+        <td>${u.last_login ? u.last_login.split('T')[0] : '—'}</td>
         <td>${addrs}</td>
         <td><a href="https://t.me/user?id=${u.telegram_id}" target="_blank" class="arkham">TG</a></td>
       </tr>`;
@@ -285,13 +285,13 @@ function usersTable(rows, headerExtra='') {
 }
 
 function renderUsers(u) {
-  document.getElementById('users-meta').textContent = `Founders: ${u.founders.length} � Community: ${u.community.length} � Test/fake: ${u.test_or_fake.length}`;
+  document.getElementById('users-meta').textContent = `Founders: ${u.founders.length} · Community: ${u.community.length} · Test/fake: ${u.test_or_fake.length}`;
   const html = `
-    <h3 style="margin:16px 0 8px;font-size:14px;color:var(--cyan)">?? Founder Accounts (${u.founders.length})</h3>
+    <h3 style="margin:16px 0 8px;font-size:14px;color:var(--cyan)">👑 Founder Accounts (${u.founders.length})</h3>
     ${usersTable(u.founders)}
-    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--green)">?? Real Community Members (${u.community.length})</h3>
+    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--green)">👥 Real Community Members (${u.community.length})</h3>
     ${usersTable(u.community)}
-    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--text3)">?? Test / Fake IDs (${u.test_or_fake.length})</h3>
+    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--text3)">🧪 Test / Fake IDs (${u.test_or_fake.length})</h3>
     ${usersTable(u.test_or_fake)}
   `;
   document.getElementById('users-table').innerHTML = html;
@@ -305,16 +305,16 @@ function paymentsTable(rows) {
     </tr></thead>
     <tbody>${rows.map(p => {
       const meta = p.metadata || {};
-      const note = meta.self_test ? '?? self-test'
-        : meta.refund_status === 'pending_review' ? `?? ${meta.refund_status}`
-        : (meta.classification || '�');
+      const note = meta.self_test ? '🧪 self-test'
+        : meta.refund_status === 'pending_review' ? `⚠️ ${meta.refund_status}`
+        : (meta.classification || '—');
       return `<tr>
-        <td>${p.created_at ? p.created_at.split('T')[0] : '�'}</td>
+        <td>${p.created_at ? p.created_at.split('T')[0] : '—'}</td>
         <td>${p.user_id}</td>
         <td><strong>${parseFloat(p.amount).toFixed(2)} ${p.currency}</strong></td>
         <td><span class="chip chip-purple">${p.provider}</span></td>
-        <td title="${p.provider_tx_id}">${(p.provider_tx_id || '').substr(0, 28)}�</td>
-        <td>${p.plan_key || '�'}</td>
+        <td title="${p.provider_tx_id}">${(p.provider_tx_id || '').substr(0, 28)}…</td>
+        <td>${p.plan_key || '—'}</td>
         <td><span class="chip chip-${p.status === 'approved' ? 'green' : 'gray'}">${p.status}</span></td>
         <td style="font-size:10px">${note}</td>
       </tr>`;
@@ -323,11 +323,11 @@ function paymentsTable(rows) {
 }
 
 function renderPayments(p) {
-  document.getElementById('payments-meta').textContent = `Real: ${p.real_customer.length} � Self-test: ${p.founder_self_test.length}`;
+  document.getElementById('payments-meta').textContent = `Real: ${p.real_customer.length} · Self-test: ${p.founder_self_test.length}`;
   document.getElementById('payments-table').innerHTML = `
-    <h3 style="margin:16px 0 8px;font-size:14px;color:var(--green)">?? Real Customer Payments (${p.real_customer.length})</h3>
+    <h3 style="margin:16px 0 8px;font-size:14px;color:var(--green)">💰 Real Customer Payments (${p.real_customer.length})</h3>
     ${paymentsTable(p.real_customer)}
-    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--orange)">?? Founder Self-Tests (${p.founder_self_test.length})</h3>
+    <h3 style="margin:20px 0 8px;font-size:14px;color:var(--orange)">🧪 Founder Self-Tests (${p.founder_self_test.length})</h3>
     ${paymentsTable(p.founder_self_test)}
   `;
 }
@@ -346,9 +346,9 @@ function renderLicenses(lics) {
     <tbody>${lics.map(l => `<tr>
       <td>#${l.id}</td>
       <td>${l.user_id}</td>
-      <td><strong>${l.title_he || l.slug || '?'}</strong><br><small style="color:var(--text3)">${l.slug || ''} � ?${l.price_ils ?? '?'}</small></td>
-      <td style="font-size:10px">${l.payment_id || '�'}</td>
-      <td>${l.purchased_at ? l.purchased_at.split('T')[0] : '�'}</td>
+      <td><strong>${l.title_he || l.slug || '?'}</strong><br><small style="color:var(--text3)">${l.slug || ''} · ₪${l.price_ils ?? '?'}</small></td>
+      <td style="font-size:10px">${l.payment_id || '—'}</td>
+      <td>${l.purchased_at ? l.purchased_at.split('T')[0] : '—'}</td>
       <td><span class="chip chip-${l.status === 'active' ? 'green' : 'gray'}">${l.status}</span></td>
     </tr>`).join('')}</tbody>
   </table>`;
@@ -369,8 +369,8 @@ function renderCourses(cs) {
       <td>#${c.id}</td>
       <td><code style="font-size:10px">${c.slug}</code></td>
       <td>${c.title_he}</td>
-      <td>${c.price_ils ?? '�'}</td>
-      <td>${c.price_slh ?? '�'}</td>
+      <td>${c.price_ils ?? '—'}</td>
+      <td>${c.price_slh ?? '—'}</td>
       <td>${c.active ? '<span class="chip chip-green">YES</span>' : '<span class="chip chip-gray">NO</span>'}</td>
       <td><span class="chip chip-${c.approval_status === 'approved' ? 'green' : 'orange'}">${c.approval_status || 'pending'}</span></td>
       <td>${c.language || 'he'}</td>
@@ -385,18 +385,18 @@ function renderOnchain(deps) {
     <div class="onchain-card">
       <h4>${a.label}</h4>
       <div class="addr">${a.addr}</div>
-      <a href="${arkhamLink(a.addr, a.chain)}" target="_blank" class="arkham">?? Arkham</a>
+      <a href="${arkhamLink(a.addr, a.chain)}" target="_blank" class="arkham">🔎 Arkham</a>
       ${a.chain === 'bsc'
-        ? `<a href="${bscScanLink(a.addr)}" target="_blank" class="arkham">?? BscScan</a>`
-        : `<a href="${tonViewerLink(a.addr)}" target="_blank" class="arkham">?? TonViewer</a>`}
+        ? `<a href="${bscScanLink(a.addr)}" target="_blank" class="arkham">🔗 BscScan</a>`
+        : `<a href="${tonViewerLink(a.addr)}" target="_blank" class="arkham">🔗 TonViewer</a>`}
     </div>
   `).join('');
   document.getElementById('onchain-tools').innerHTML = tools;
 
-  document.getElementById('onchain-meta').textContent = `Core addresses: ${CORE_ADDRESSES.length} � Deposits: ${deps.length}`;
+  document.getElementById('onchain-meta').textContent = `Core addresses: ${CORE_ADDRESSES.length} · Deposits: ${deps.length}`;
 
   if (!deps.length) {
-    document.getElementById('deposits-table').innerHTML = `<div class="empty">No on-chain deposits indexed by API yet.<br><br>?? This doesn't mean no users deposited. It means the API isn't watching / recording deposits.<br>Check PancakeSwap directly via Arkham links above for real BSC activity.</div>`;
+    document.getElementById('deposits-table').innerHTML = `<div class="empty">No on-chain deposits indexed by API yet.<br><br>⚠️ This doesn't mean no users deposited. It means the API isn't watching / recording deposits.<br>Check PancakeSwap directly via Arkham links above for real BSC activity.</div>`;
     return;
   }
   const html = `<table>
@@ -409,9 +409,9 @@ function renderOnchain(deps) {
       <td><span class="chip chip-purple">${d.chain}</span></td>
       <td>${d.amount}</td>
       <td>${d.token}</td>
-      <td><a href="${d.chain === 'bsc' ? 'https://bscscan.com/tx/'+d.tx_hash : 'https://tonviewer.com/tx/'+d.tx_hash}" target="_blank">${d.tx_hash.substr(0, 10)}�</a></td>
+      <td><a href="${d.chain === 'bsc' ? 'https://bscscan.com/tx/'+d.tx_hash : 'https://tonviewer.com/tx/'+d.tx_hash}" target="_blank">${d.tx_hash.substr(0, 10)}…</a></td>
       <td><span class="chip chip-${d.status === 'confirmed' ? 'green' : 'orange'}">${d.status}</span></td>
-      <td>${d.confirmed_at ? d.confirmed_at.split('T')[0] : '�'}</td>
+      <td>${d.confirmed_at ? d.confirmed_at.split('T')[0] : '—'}</td>
     </tr>`).join('')}</tbody>
   </table>`;
   document.getElementById('deposits-table').innerHTML = html;
@@ -425,16 +425,16 @@ function renderBroadcasts(bs) {
   }
   const html = `<table>
     <thead><tr>
-      <th>ID</th><th>Sent</th><th>Target</th><th>Recipients</th><th>? Success</th><th>? Failed</th><th>Message</th>
+      <th>ID</th><th>Sent</th><th>Target</th><th>Recipients</th><th>✓ Success</th><th>✗ Failed</th><th>Message</th>
     </tr></thead>
     <tbody>${bs.map(b => `<tr>
       <td>#${b.id}</td>
-      <td>${b.sent_at ? b.sent_at.replace('T', ' ').split('.')[0] : '�'}</td>
+      <td>${b.sent_at ? b.sent_at.replace('T', ' ').split('.')[0] : '—'}</td>
       <td><span class="chip chip-purple">${b.target}</span></td>
       <td>${b.total_targets}</td>
       <td><span class="chip chip-green">${b.success_count || 0}</span></td>
       <td>${b.fail_count > 0 ? `<span class="chip chip-red">${b.fail_count}</span>` : '0'}</td>
-      <td style="font-size:11px;max-width:400px">${(b.message_preview || '').substr(0, 80)}�</td>
+      <td style="font-size:11px;max-width:400px">${(b.message_preview || '').substr(0, 80)}…</td>
     </tr>`).join('')}</tbody>
   </table>`;
   document.getElementById('broadcasts-table').innerHTML = html;
@@ -459,5 +459,5 @@ if (loadKey()) {
 <div id="footer-root"></div>
 <div id="bottomnav-root"></div>
 <script src="/js/shared.js?v=20260426a" defer></script>
-<script>initShared();</script>`n`</body>
+</body>
 </html>
