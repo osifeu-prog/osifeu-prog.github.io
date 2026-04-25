@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -181,61 +181,3 @@
     if (!window.ethereum) {
       showStatus('error', '❌ MetaMask לא מותקן. התקן מ-metamask.io או השתמש בטלפון.');
       return;
-    }
-    if (window.SLH_Analytics) {
-      window.SLH_Analytics.trackEvent('pay_test_click_bnb', { uid, src: SRC, campaign: CAMPAIGN });
-    }
-    showStatus('info', '⏳ פותח MetaMask...');
-    try {
-      const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      try {
-        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
-      } catch (e) {
-        if (e.code === 4902) {
-          await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [{
-            chainId: '0x38', chainName: 'BSC',
-            rpcUrls: ['https://bsc-dataseed.binance.org'],
-            nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 }
-          }]});
-        }
-      }
-      const valueWei = '0x' + BigInt(Math.round(AMOUNT_BNB * 1e18)).toString(16);
-      const txHash = await window.ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [{ from: accs[0], to: BSC_ADDR, value: valueWei }]
-      });
-      await verifyPayment('bnb', txHash, uid);
-    } catch (e) {
-      showStatus('error', '❌ שגיאה: ' + (e.message || e.code || 'unknown'));
-    }
-  });
-
-  // TON via deep-link
-  document.getElementById('btn-ton').addEventListener('click', () => {
-    const uid = getUid();
-    if (!uid) return;
-    if (window.SLH_Analytics) {
-      window.SLH_Analytics.trackEvent('pay_test_click_ton', { uid, src: SRC, campaign: CAMPAIGN });
-    }
-    const memo = 'SLH-TEST-' + uid;
-    const deeplink = 'ton://transfer/' + TON_ADDR + '?amount=' + Math.round(AMOUNT_TON * 1e9) + '&text=' + encodeURIComponent(memo);
-    showStatus('info',
-      '📱 נפתח Tonkeeper / ארנק TON עם הסכום מוכן.' +
-      '<br>אחרי שליחת העסקה, הדבק את ה-tx hash כאן:' +
-      '<br><br><input id="ton-tx-input" placeholder="tx hash..." style="width:100%;padding:8px;margin-top:6px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fff;box-sizing:border-box;direction:ltr;text-align:right"/>' +
-      '<br><button id="ton-verify-btn" style="margin-top:10px;padding:10px 16px;background:#00e887;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer">אמת תשלום</button>'
-    );
-    window.location.href = deeplink;
-    setTimeout(() => {
-      const btn = document.getElementById('ton-verify-btn');
-      if (btn) btn.addEventListener('click', () => {
-        const tx = document.getElementById('ton-tx-input').value.trim();
-        if (!tx) { showStatus('error', '❌ הדבק tx hash'); return; }
-        verifyPayment('ton', tx, uid);
-      });
-    }, 100);
-  });
-</script>
-
-</body>
-</html>
