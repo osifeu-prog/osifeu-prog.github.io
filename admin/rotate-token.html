@@ -153,8 +153,10 @@
 (function () {
   'use strict';
 
-  // List mirrors admin/tokens.html — env var names match local .env / docker-compose
-  const BOTS = [
+  // Bots are loaded from /api/admin/bots so adds/edits/deletes in tokens.html
+  // are reflected here automatically. Hardcoded list below is a fallback for
+  // when the API is unreachable (offline mode).
+  const FALLBACK_BOTS = [
     { name: 'SLH Claude (executor — this AI)', handle: '@SLH_Claude_bot', env: 'SLH_CLAUDE_BOT_TOKEN', service: 'slh-claude-bot', priority: 1 },
     { name: 'Academia / WEWORK',                handle: '@WEWORK_teamviwer_bot', env: 'ACADEMIA_BOT_TOKEN', service: 'slh-academia-bot' },
     { name: 'SLH Core Bot',                     handle: '@SLH_Spark_bot', env: 'CORE_BOT_TOKEN', service: 'slh-core-bot' },
@@ -181,13 +183,55 @@
     { name: 'Test',                             handle: '@SLH_Test_bot', env: 'TEST_BOT_TOKEN', service: 'slh-test-bot' },
   ];
 
+  let BOTS = FALLBACK_BOTS.slice();  // populated from API on load
   const sel = document.getElementById('bot-select');
-  BOTS.forEach((b, i) => {
-    const o = document.createElement('option');
-    o.value = i;
-    o.textContent = `${b.name}  ·  ${b.handle}`;
-    sel.appendChild(o);
-  });
+
+  function populateSelect() {
+    sel.innerHTML = '';
+    BOTS.forEach((b, i) => {
+      const o = document.createElement('option');
+      o.value = i;
+      o.textContent = `${b.name}  ·  ${b.handle}`;
+      sel.appendChild(o);
+    });
+  }
+
+  // Try to load fresh list from the catalog API. Requires admin key.
+  // If it fails (no key / 403 / offline), we keep the FALLBACK_BOTS list.
+  async function loadFromCatalog() {
+    const k = sessionStorage.getItem('slh_admin_key') || localStorage.getItem('slh_admin_password');
+    if (!k) {
+      // No key cached — silently use fallback. User can refresh tokens.html
+      // page first to set the key in sessionStorage.
+      populateSelect();
+      return;
+    }
+    try {
+      const r = await fetch('https://slh-api-production.up.railway.app/api/admin/bots', {
+        headers: { 'X-Admin-Key': k },
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      const apiBots = (j.bots || []).map(b => ({
+        id: b.id,
+        name: b.name + (b.status === 'swap-target' ? '  🔁' : ''),
+        handle: b.handle,
+        env: b.env_var,
+        service: b.service || ('slh-' + b.handle.replace('@','').toLowerCase().replace(/_bot$/,'').replace(/_/g,'-')),
+        priority: b.handle === '@SLH_Claude_bot' ? 1 : 99,
+      }));
+      if (apiBots.length > 0) {
+        // Sort: priority ascending, then by name
+        apiBots.sort((a, b) => (a.priority - b.priority) || a.name.localeCompare(b.name));
+        BOTS = apiBots;
+      }
+      populateSelect();
+    } catch (e) {
+      console.warn('[rotate] catalog API failed, using fallback list:', e.message);
+      populateSelect();
+    }
+  }
+  loadFromCatalog();
 
   const tokenInput = document.getElementById('new-token');
   const validateBtn = document.getElementById('validate-btn');
@@ -312,8 +356,9 @@ else { Write-Host "[FAIL] $resp" -ForegroundColor Red }`;
     }
   });
 
-  doneBtn.addEventListener('click', () => {
+  doneBtn.addEventListener('click', async () => {
     if (!validated) return;
+    // Always save to localStorage as a backup
     const log = JSON.parse(localStorage.getItem('slh_token_rotations') || '{}');
     log[validated.bot.env] = {
       handle: validated.bot.handle,
@@ -322,8 +367,37 @@ else { Write-Host "[FAIL] $resp" -ForegroundColor Red }`;
       bot_id: validated.info.id,
     };
     localStorage.setItem('slh_token_rotations', JSON.stringify(log));
+
+    // ALSO push to /api/admin/bots/{id}/mark-rotated so it persists in DB
+    // and tokens.html shows the timestamp on every device.
+    let dbStatus = '';
+    if (validated.bot.id) {
+      const k = sessionStorage.getItem('slh_admin_key') || localStorage.getItem('slh_admin_password');
+      if (k) {
+        try {
+          const r = await fetch(
+            `https://slh-api-production.up.railway.app/api/admin/bots/${validated.bot.id}/mark-rotated`,
+            {
+              method: 'POST',
+              headers: { 'X-Admin-Key': k, 'Content-Type': 'application/json' },
+              body: JSON.stringify({ bot_id: validated.info.id }),
+            }
+          );
+          dbStatus = r.ok ? ' + DB updated' : ' (DB failed: HTTP ' + r.status + ')';
+        } catch (e) {
+          dbStatus = ' (DB error: ' + e.message + ')';
+        }
+      } else {
+        dbStatus = ' (no admin key for DB sync)';
+      }
+    }
+
     cmdCard.style.display = 'none';
-    setStatus(verifyStatus, '✓ נרשם ב-localStorage. אתה יכול לסגור את הדף או לעבור לאימות סופי למטה.', 'ok');
+    setStatus(
+      verifyStatus,
+      '✓ נרשם ב-localStorage' + dbStatus + '. אתה יכול לסגור את הדף או לעבור לאימות סופי למטה.',
+      'ok'
+    );
     verifyCard.style.display = 'block';
   });
 

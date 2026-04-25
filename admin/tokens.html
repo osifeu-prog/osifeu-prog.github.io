@@ -45,6 +45,19 @@
     .toolbar button:hover,.toolbar button.active{border-color:var(--accent);color:var(--accent)}
     .toolbar .spacer{flex:1}
     .toolbar input{background:var(--bg);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:var(--radius);min-width:200px}
+    .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+    .modal-bg.show{display:flex}
+    .modal{background:var(--bg2);border:1px solid var(--accent);border-radius:8px;padding:24px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto}
+    .modal h3{margin-bottom:16px;color:var(--text-bright);font-size:16px}
+    .modal label{display:block;color:var(--text2);font-size:11px;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+    .modal input,.modal select,.modal textarea{width:100%;background:var(--bg);color:var(--text-bright);border:1px solid var(--border);padding:8px 10px;border-radius:4px;font-family:inherit;font-size:13px;margin-bottom:12px}
+    .modal-actions{display:flex;gap:8px;margin-top:8px}
+    .modal-actions button{flex:1;padding:9px;border-radius:4px;border:none;font-weight:600;cursor:pointer}
+    .modal-actions .save{background:var(--accent);color:#000}
+    .modal-actions .cancel{background:var(--bg3);color:var(--text)}
+    .modal-actions .danger{background:rgba(255,0,85,.15);color:var(--red);border:1px solid var(--red)}
+    .row-actions button.edit{background:rgba(0,229,255,.12);color:var(--cyan)}
+    .row-actions button.del{background:rgba(255,0,85,.12);color:var(--red)}
 
     table{width:100%;border-collapse:collapse;background:var(--bg2);border-radius:var(--radius);overflow:hidden}
     th{text-align:right;padding:12px 14px;background:var(--bg3);color:var(--text2);font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border)}
@@ -108,6 +121,8 @@
     <button onclick="filterBy('ok')" id="f-ok">✅ טרי</button>
     <div class="spacer"></div>
     <input type="search" id="search" placeholder="חיפוש לפי שם / env / handle..." oninput="render()">
+    <button onclick="openAddModal()" style="background:rgba(0,255,65,.15);color:var(--accent);border-color:var(--accent)">➕ הוסף בוט</button>
+    <button onclick="loadBotsFromAPI()" title="רענן מ-API">↻</button>
     <button onclick="exportCSV()">📥 CSV Export</button>
   </div>
 
@@ -152,46 +167,91 @@
 
 </main>
 
+<!-- Add Bot Modal -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3 id="modal-title">➕ הוסף בוט</h3>
+    <input type="hidden" id="m-id" />
+    <label>שם תצוגה (Hebrew/English ok)</label>
+    <input type="text" id="m-name" placeholder="לדוגמה: SLH Wallet" />
+    <label>Telegram handle</label>
+    <input type="text" id="m-handle" placeholder="@SLH_xxx_bot" />
+    <label>שם משתנה ב-.env</label>
+    <input type="text" id="m-env" placeholder="WALLET_BOT_TOKEN" style="font-family:'Space Mono',monospace" />
+    <label>שירות docker (אופציונלי)</label>
+    <input type="text" id="m-service" placeholder="slh-wallet" />
+    <label>סטטוס</label>
+    <select id="m-status">
+      <option value="active">active — פעיל</option>
+      <option value="paused">paused — מושהה</option>
+      <option value="swap-target">swap-target — שמור להחלפה</option>
+      <option value="deprecated">deprecated — לא בשימוש</option>
+    </select>
+    <label>הערות</label>
+    <textarea id="m-notes" rows="2" placeholder="הערה אופציונלית..."></textarea>
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeModal()">בטל</button>
+      <button class="danger" id="m-delete" onclick="deleteBot()" style="display:none">🗑 מחק</button>
+      <button class="save" id="m-save" onclick="saveBot()">שמור</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-// All known bots extracted from docker-compose.yml + memory.
-// Token values never leave the server — this page only tracks ROTATION METADATA.
-const BOTS = [
-  { name: 'SLH Core Bot',        handle: '@SLH_Spark_bot',         env: 'CORE_BOT_TOKEN' },
-  { name: 'Guardian',             handle: '@Grdian_bot',            env: 'GUARDIAN_BOT_TOKEN', note: 'rotated 2026-04-?? (per memory K-25)' },
-  { name: 'BotShop',              handle: '@SLH_BotShop_bot',       env: 'BOTSHOP_BOT_TOKEN' },
-  { name: 'Wallet',               handle: '@SLH_Wallet_bot',        env: 'WALLET_BOT_TOKEN' },
-  { name: 'Factory',              handle: '@SLH_Factory_bot',       env: 'FACTORY_BOT_TOKEN' },
-  { name: 'Fun / Game',           handle: '@SLH_Fun_bot',           env: 'FUN_BOT_TOKEN' },
-  { name: 'Admin',                handle: '@SLH_Admin_bot',         env: 'ADMIN_BOT_TOKEN' },
-  { name: 'Airdrop',              handle: '@SLH_Airdrop_bot',       env: 'AIRDROP_BOT_TOKEN' },
-  { name: 'Campaign',             handle: '@SLH_Campaign_bot',      env: 'CAMPAIGN_TOKEN' },
-  { name: 'Game Bot',             handle: '@SLH_Game_bot',          env: 'GAME_BOT_TOKEN', last: '2026-04-17' },
-  { name: 'TON-MNH',              handle: '@TonMNH_bot',            env: 'TON_MNH_TOKEN' },
-  { name: 'SLH TON',              handle: '@SLH_Ton_bot',           env: 'SLH_TON_TOKEN' },
-  { name: 'Ledger',               handle: '@SLH_Ledger_bot',        env: 'SLH_LEDGER_TOKEN', note: 'K-8 crash loop — see KNOWN_ISSUES' },
-  { name: 'Osif Shop',            handle: '@osif_shop_bot',         env: 'OSIF_SHOP_TOKEN' },
-  { name: 'Nifti Publisher',      handle: '@Nifti_Publisher_bot',   env: 'NIFTI_PUBLISHER_TOKEN' },
-  { name: 'Chance Pais',          handle: '@Chance_Pais_bot',       env: 'CHANCE_PAIS_TOKEN' },
-  { name: 'NFTY Madness',         handle: '@NFTY_Madness_bot',      env: 'NFTY_MADNESS_TOKEN' },
-  { name: 'TS Set',               handle: '@TS_Set_bot',            env: 'TS_SET_TOKEN' },
-  { name: 'Crazy Panel',          handle: '@Crazy_Panel_bot',       env: 'CRAZY_PANEL_TOKEN' },
-  { name: 'My NFT Shop',          handle: '@MyNFTShop_bot',         env: 'MY_NFT_SHOP_TOKEN' },
-  { name: 'Beynonibank',          handle: '@Beynonibank_bot',       env: 'BEYNONIBANK_TOKEN' },
-  { name: 'Test',                 handle: '@SLH_Test_bot',          env: 'TEST_BOT_TOKEN' },
-  { name: 'Academia',             handle: '@WEWORK_teamviwer_bot',  env: 'ACADEMIA_BOT_TOKEN' },
-  { name: 'ExpertNet',            handle: '@ExpertNet_bot',         env: 'EXPERTNET_BOT_TOKEN', note: 'K-25: shares ID 8530795944 with SLH_AIR_TOKEN — one is stale' },
-  { name: 'SLH Air',              handle: '@SLH_AIR_bot',           env: 'SLH_AIR_TOKEN', note: 'K-25: shares ID 8530795944 with EXPERTNET — one is stale' },
-  { name: 'Match',                handle: '@SLH_Match_bot',         env: 'MATCH_BOT_TOKEN' },
-  { name: 'Wellness',             handle: '@SLH_Wellness_bot',      env: 'WELLNESS_BOT_TOKEN' },
-  { name: 'User Info',            handle: '@SLH_UserInfo_bot',      env: 'USERINFO_BOT_TOKEN' },
-  { name: 'Claude Executor',      handle: '@SLH_Claude_bot',        env: 'CLAUDE_BOT_TOKEN', note: 'ANTHROPIC_API_KEY empty — K-9' },
-  { name: 'G4me Bot',             handle: '@G4meb0t_bot',           env: 'G4ME_BOT_TOKEN',    note: 'DATING bot — separate group' },
-  { name: 'Macro (SLH.co.il)',    handle: '@SLH_macro_bot',         env: 'TELEGRAM_BOT_TOKEN', note: 'Separate project diligent-radiance — rotate there, NOT here' },
-];
+// Bot catalog now lives in DB. Loaded from /api/admin/bots on page load.
+// Token values never leave the server. This page tracks metadata + rotation state.
 
+const API = 'https://slh-api-production.up.railway.app';
 const STORE_KEY = 'slh_bot_rotations_v1';
+
+let BOTS = [];  // populated by loadBotsFromAPI()
+
+function adminKey() {
+  let k = sessionStorage.getItem('slh_admin_key') || localStorage.getItem('slh_admin_password') || '';
+  if (!k) {
+    k = prompt('הזן מפתח אדמין (X-Admin-Key) — נשמר רק בdfdfn לסשן הזה') || '';
+    if (k) sessionStorage.setItem('slh_admin_key', k);
+  }
+  return k;
+}
+
+async function apiCall(method, path, body) {
+  const k = adminKey();
+  if (!k) throw new Error('admin key required');
+  const opts = {
+    method,
+    headers: { 'X-Admin-Key': k, 'Content-Type': 'application/json' },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(API + path, opts);
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
+  return j;
+}
+
+async function loadBotsFromAPI() {
+  try {
+    const j = await apiCall('GET', '/api/admin/bots');
+    BOTS = (j.bots || []).map(b => ({
+      id: b.id,
+      name: b.name,
+      handle: b.handle,
+      env: b.env_var,
+      service: b.service,
+      status: b.status,
+      note: b.notes,
+      last: b.last_rotated_at ? b.last_rotated_at.slice(0,10) : null,
+      telegram_bot_id: b.telegram_bot_id,
+    }));
+    render();
+  } catch (e) {
+    toast('שגיאה בטעינה: ' + e.message + ' (משתמש בfallback מקומי)');
+    BOTS = [];
+    render();
+  }
+}
 
 function loadRotations() {
   try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); }
@@ -262,8 +322,10 @@ function render() {
           <div class="row-actions">
             <a href="https://t.me/BotFather" target="_blank">BotFather ↗</a>
             <a href="https://railway.com/project/slh-api" target="_blank">Railway ↗</a>
+            <a href="/admin/rotate-token.html" target="_blank">🔄 סובב</a>
             <button onclick="markRotated('${bot.env}')">סמן סובב</button>
-            ${s.last ? `<button onclick="clearRotated('${bot.env}')" style="background:rgba(255,0,85,.15);color:var(--red)">×</button>` : ''}
+            ${bot.id ? `<button class="edit" onclick="openEditModal(${bot.id})">✏️</button>` : ''}
+            ${bot.id ? `<button class="del" onclick="(${JSON.stringify(bot)}, openEditModal(${bot.id}))">🗑</button>` : ''}
           </div>
         </td>
       </tr>`);
@@ -278,20 +340,115 @@ function render() {
   document.getElementById('s-total').querySelector('.n').textContent = stats.total;
 }
 
-function markRotated(env) {
-  const rot = loadRotations();
-  rot[env] = new Date().toISOString().slice(0,10);
-  saveRotations(rot);
-  toast('סומן כסובב היום — אל תשכח לעדכן ב-Railway!');
-  render();
+async function markRotated(env) {
+  // Find the bot by env var
+  const bot = BOTS.find(b => b.env === env);
+  if (!bot || !bot.id) {
+    // Fallback to localStorage if DB row doesn't exist
+    const rot = loadRotations();
+    rot[env] = new Date().toISOString().slice(0,10);
+    saveRotations(rot);
+    toast('סומן (local)');
+    render();
+    return;
+  }
+  try {
+    await apiCall('POST', `/api/admin/bots/${bot.id}/mark-rotated`, {});
+    toast('✓ נרשם ב-DB. אל תשכח לעדכן ב-Railway אם רלוונטי!');
+    await loadBotsFromAPI();
+  } catch (e) {
+    toast('שגיאה ב-DB, נשמר מקומית: ' + e.message);
+    const rot = loadRotations();
+    rot[env] = new Date().toISOString().slice(0,10);
+    saveRotations(rot);
+    render();
+  }
 }
 
-function clearRotated(env) {
+async function clearRotated(env) {
   if (!confirm('לנקות את התאריך?')) return;
   const rot = loadRotations();
   delete rot[env];
   saveRotations(rot);
+  // Clearing DB timestamp is intentionally not exposed (audit trail).
+  // To "un-rotate" in DB, edit the bot via the modal.
   render();
+}
+
+// ─── Add / Edit / Delete via modal ──────────────────────────────────────
+function openAddModal() {
+  document.getElementById('modal-title').textContent = '➕ הוסף בוט חדש';
+  document.getElementById('m-id').value = '';
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-handle').value = '';
+  document.getElementById('m-env').value = '';
+  document.getElementById('m-service').value = '';
+  document.getElementById('m-status').value = 'active';
+  document.getElementById('m-notes').value = '';
+  document.getElementById('m-delete').style.display = 'none';
+  document.getElementById('modal-bg').classList.add('show');
+}
+
+function openEditModal(id) {
+  const bot = BOTS.find(b => b.id === id);
+  if (!bot) return;
+  document.getElementById('modal-title').textContent = `✏️ עריכה: ${bot.name}`;
+  document.getElementById('m-id').value = bot.id;
+  document.getElementById('m-name').value = bot.name;
+  document.getElementById('m-handle').value = bot.handle;
+  document.getElementById('m-env').value = bot.env;
+  document.getElementById('m-service').value = bot.service || '';
+  document.getElementById('m-status').value = bot.status || 'active';
+  document.getElementById('m-notes').value = bot.note || '';
+  document.getElementById('m-delete').style.display = 'block';
+  document.getElementById('modal-bg').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('show');
+}
+
+async function saveBot() {
+  const id = document.getElementById('m-id').value;
+  const body = {
+    name: document.getElementById('m-name').value.trim(),
+    handle: document.getElementById('m-handle').value.trim(),
+    env_var: document.getElementById('m-env').value.trim(),
+    service: document.getElementById('m-service').value.trim() || null,
+    status: document.getElementById('m-status').value,
+    notes: document.getElementById('m-notes').value.trim() || null,
+  };
+  if (!body.name || !body.handle || !body.env_var) {
+    toast('שם / handle / env_var חובה'); return;
+  }
+  try {
+    if (id) {
+      await apiCall('PATCH', `/api/admin/bots/${id}`, body);
+      toast('✓ נשמר');
+    } else {
+      await apiCall('POST', '/api/admin/bots', body);
+      toast('✓ נוסף');
+    }
+    closeModal();
+    await loadBotsFromAPI();
+  } catch (e) {
+    toast('שגיאה: ' + e.message);
+  }
+}
+
+async function deleteBot() {
+  const id = document.getElementById('m-id').value;
+  const bot = BOTS.find(b => b.id === Number(id));
+  if (!bot) return;
+  if (!confirm(`למחוק את ${bot.name} מקטלוג?\n(לא נוגע ב-.env או ב-BotFather, רק מסיר מהרשימה)`)) return;
+  try {
+    await apiCall('DELETE', `/api/admin/bots/${id}`);
+    toast('✓ נמחק');
+    closeModal();
+    await loadBotsFromAPI();
+  } catch (e) {
+    toast('שגיאה: ' + e.message);
+  }
 }
 
 function exportCSV() {
@@ -313,9 +470,10 @@ function exportCSV() {
   toast('CSV הורד');
 }
 
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3500)}
 
-render();
+// Boot: load bots from API. Falls back to empty list with toast if API fails.
+loadBotsFromAPI();
 </script>
 
 </body>
