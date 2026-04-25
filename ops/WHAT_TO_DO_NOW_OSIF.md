@@ -1,178 +1,124 @@
-# מה לעשות עכשיו — 2026-04-25
-**Simple Hebrew checklist, step-by-step.**
+# מה לעשות עכשיו — 2026-04-25 (סופי)
 
-אני (Claude) סיימתי את כל מה שאפשר אוטומטית. יש 4 דברים שאני לא יכול לעשות בלי הידיים שלך.
-
-**כל המערכת מוכנה וחיה.** אחרי שתעשה את ה-4 דברים האלה, הבוט `@SLH_Claude_bot` יתחיל לעבוד ותוכל לשלוט על הכל מטלגרם.
+**עדכון חשוב:** הוצא צורך לשלם Anthropic. הבוט שלך עובד **חינם** דרך תשתית AI הקיימת (Groq/Gemini).
 
 ---
 
-## שלב 1 — Anthropic API Key (5 דקות) 🔑
+## ✅ מה עובד כבר עכשיו (production LIVE)
 
-**למה צריך:** בלי זה הבוט @SLH_Claude_bot לא יכול לעבוד. הוא צריך מפתח כדי לדבר עם Claude AI.
-
-### מה לעשות:
-
-1. לחץ כאן: **https://console.anthropic.com/**
-2. התחבר או צור חשבון (אם עדיין אין לך)
-3. בתפריט שמאל → **Settings** → **API Keys**
-4. לחץ **"Create Key"**
-5. תן שם: `SLH_Claude_Bot`
-6. לחץ **"Create"**
-7. **חשוב:** העתק את המפתח מיד! הוא מתחיל ב-`sk-ant-...` — אפשר לראות אותו רק פעם אחת.
-8. פתח את הקובץ הזה ב-Notepad:
-   ```
-   D:\SLH_ECOSYSTEM\slh-claude-bot\.env
-   ```
-9. מצא את השורה:
-   ```
-   ANTHROPIC_API_KEY=
-   ```
-10. הדבק את המפתח אחרי ה-`=`. התוצאה:
-    ```
-    ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxx...
-    ```
-11. שמור (Ctrl+S) וסגור.
-
-✅ **סיימת את שלב 1.**
+| רכיב | סטטוס | הוכחה |
+|---|---|---|
+| Website (slh-nft.com) | ✅ LIVE | 127 דפים, GitHub Pages |
+| API (Railway) | ✅ LIVE v1.1.0 | `/api/health` מחזיר ok |
+| Command Center | ✅ LIVE | [/command-center.html](https://slh-nft.com/command-center.html) |
+| Ops Viewer | ✅ LIVE | [/ops-viewer.html](https://slh-nft.com/ops-viewer.html) |
+| 8 ops docs פומביים | ✅ LIVE | תחת `/ops/` |
+| Voice + Swarm vision | ✅ LIVE | Phase 2 marked clearly |
+| Network map (61 nodes) | ✅ LIVE | + Voice/Swarm types |
+| Roadmap (39 items) | ✅ LIVE | Phase 3+4 בנוי |
+| Project Map (52 דפים) | ✅ LIVE | אינדקס מלא |
+| Admin clock fix | ✅ LIVE | תאריך+TZ+sync badge |
+| Bot fleet (25 bots) | ✅ הופעלו | Docker compose up |
+| @SLH_Claude_bot | ✅ LIVE | "connected as @SLH_Claude_bot" בלוגים |
+| **Free AI mode (Groq)** | ✅ LIVE | `/api/ai/chat` מחזיר תשובה |
+| Parallel agent aligned | ✅ DONE | sage נסגר, late registration ב-SYSTEM_ALIGNMENT |
 
 ---
 
-## שלב 2 — הפעל את Docker Desktop (2 דקות) 🐳
+## 🎯 מה אתה צריך לעשות עכשיו (3 דקות בלבד)
 
-**למה צריך:** ה-bot fleet רץ ב-Docker. בלי Docker אין בוטים.
+### 1️⃣ Docker auto-start (פעם אחת)
 
-### מה לעשות:
+כדי ש-Docker יעלה אוטומטית בכל התחלת מחשב:
 
-1. לחץ **Start** (כפתור Windows)
-2. הקלד **Docker Desktop**
-3. לחץ Enter
-4. חכה 60-90 שניות עד שהאייקון של Docker בשורת המשימות (ליד השעון) הופך למוצק לבן (לא מהבהב)
-5. אם קופץ לך חלון שמבקש לעדכן / לאשר רישיון — תלחץ **Accept / Update**
-6. בסוף — לחץ ימני על האייקון → **Dashboard** → וודא שכתוב "Engine running"
+1. אייקון Docker בשורת המשימות → **Settings** ⚙️
+2. **General** (תפריט שמאלי)
+3. ✅ סמן **"Start Docker Desktop when you sign in to your computer"**
+4. **Apply & Restart**
 
-✅ **סיימת את שלב 2.**
+### 2️⃣ בדוק את הבוט בטלגרם (30 שניות)
 
----
+פתח טלגרם → `@SLH_Claude_bot`
 
-## שלב 3 — הפעל את ה-bot fleet (1 דקה) 🤖
+שלח את כל הפקודות הבאות **אחת אחרי השנייה**:
 
-**למה צריך:** עכשיו כשיש Docker + Anthropic Key, נפעיל את הבוטים.
-
-### מה לעשות:
-
-1. לחץ **Start** → הקלד **PowerShell** → לחץ Enter
-2. העתק והדבק את הפקודה הזו (לחץ Enter אחרי):
-   ```powershell
-   cd D:\SLH_ECOSYSTEM
-   docker compose up -d postgres redis
-   ```
-3. חכה 15 שניות
-4. הדבק את זה:
-   ```powershell
-   docker compose up -d claude-bot guardian-bot
-   ```
-5. חכה 10 שניות
-6. הדבק את זה לבדוק:
-   ```powershell
-   docker ps --format "table {{.Names}}\t{{.Status}}"
-   ```
-
-אתה אמור לראות 4 שורות:
 ```
-slh-postgres      Up 30 seconds (healthy)
-slh-redis         Up 30 seconds (healthy)
-slh-claude-bot    Up 5 seconds
-slh-guardian-bot  Up 5 seconds
+/start
 ```
+*(אמור לענות בעברית עם רשימת פקודות)*
 
-### אם claude-bot נכבה מיד:
-```powershell
-docker logs slh-claude-bot --tail 20
 ```
-תדביק לי את הפלט ונתקן.
-
-✅ **סיימת את שלב 3.**
-
----
-
-## שלב 4 — בדיקת שהבוט עונה (30 שניות) 📱
-
-### מה לעשות:
-
-1. פתח טלגרם
-2. חפש: **@SLH_Claude_bot**
-3. לחץ **Start** או שלח: `/start`
-4. שלח הודעה: **"בדוק אילו בוטים רצים עכשיו"**
-5. חכה 10-30 שניות
-
-**אם הבוט עונה** = המערכת פועלת. השליטה עברה אליך מטלגרם. 🎉
-
-**אם לא עונה** = בדוק את הלוגים:
-```powershell
-docker logs slh-claude-bot --tail 30
+/ai_mode
 ```
-ותדביק לי את הפלט.
+*(אמור לענות `slh-multiprovider-free` ✅)*
 
-✅ **סיימת הכל.**
+```
+/ps
+```
+*(אמור להחזיר טבלת containers רצים)*
 
----
+```
+/bots
+```
+*(אמור להחזיר ספירה + סטטוס של כל ה-25 בוטים)*
 
-## שלבים עתידיים (לא דחופים, אבל מומלצים)
+```
+/health
+```
+*(אמור להחזיר API: חי ✓, DB: connected)*
 
-### שלב 5 — Railway Redeploy (30 שניות)
-**למה:** יש commits שלא הסתנכרנו עם Railway בגלל פריסה תקועה מ-21.4.
+ואז שיחה חופשית:
+```
+מה שלום המערכת? מה הכי דחוף לעשות?
+```
+*(אמור לענות דרך Groq Llama 3.3 — חינם)*
 
-1. לחץ: **https://railway.app/**
-2. כנס לפרויקט `slh-api`
-3. לחץ **Deployments** (בתפריט)
-4. לחץ **"Redeploy"** על הפריסה האחרונה
-5. חכה 2-3 דקות
-
-### שלב 6 — סיבוב טוקני בוטים (30 דקות)
-**למה:** 31 טוקנים נחשפו בהיסטוריית הצ'אט ודולפים. צריך לחדש.
-
-קרא את [COMMAND_CENTER_SETUP_20260424.md חלק ז](/ops-viewer.html?file=COMMAND_CENTER_SETUP_20260424.md) — שם יש הנחיות מלאות לכל 25 הבוטים.
-
-### שלב 7 — Alignment של סוכן Guardian ESP (אם עדיין פעיל)
-**למה:** היה לך סוכן מקביל שבנה מערכת preorder עם חפיפה לעבודה שלי.
-
-1. פתח: [/ops/AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md](/ops-viewer.html?file=AGENT_ALIGNMENT_PROMPT_GUARDIAN_ESP.md)
-2. העתק את הבלוק `Copy-paste block starts here ↓`
-3. הדבק לסוכן הזה (טלגרם / צ'אט)
-4. הוא יתאם או יעצור
+✅ **אם 6 מתוך 6 עבדו = המערכת מושלמת.**
 
 ---
 
-## בדיקה סופית — המערכת המלאה פועלת
+## 🛠 מה שמוגדר אוטונומי (לא צריך לגעת)
 
-אחרי שלבים 1-4, תוודא:
-
-- [ ] [https://slh-nft.com/command-center.html](https://slh-nft.com/command-center.html) — נפתח, 6 sections, 24 tiles
-- [ ] לחיצה על preset "Overview" → 5 חלונות נפתחים למסכים שונים
-- [ ] @SLH_Claude_bot בטלגרם → `/start` → עונה
-- [ ] שליחת פקודה → הבוט מריץ ועונה
-- [ ] `docker ps` → לפחות 4 containers רצים
-
-**אם כל אלו ✅ — המערכת מושלמת.**
+- ✅ Bot התחזוקה — `claude-bot` רץ מחדש אוטומטית עם `restart: unless-stopped`
+- ✅ Health checks — postgres + redis עם healthcheck פעיל
+- ✅ Cache-busting — כל ה-37 דפים מצביעים ל-`shared.js?v=20260424a`
+- ✅ Site-Map FAB — כפתור 🗺️ בכל 127 הדפים
+- ✅ Multi-monitor presets — Command Center עם 4 chips (Overview/Ops/Finance/Vision)
+- ✅ Sync badge — שעון admin משווה ל-Railway server time
 
 ---
 
-## מה אני סיימתי אוטונומי (סה"כ עד כה)
+## 📋 דברים שעדיין דורשים את הידיים שלך (לא דחוף)
 
-✅ Website: voice.html, swarm.html, command-center.html, ops-viewer.html — LIVE
-✅ Network/Roadmap/Project-map — מעודכנים
-✅ 8 ops docs פומביים עכשיו ב-/ops/ (viewable דרך ops-viewer)
-✅ תיקון באג שעון ב-admin.html (שעון מלא עם תאריך, TZ, ו-sync vs server)
-✅ כל ה-commits נדחפו ל-2 ה-git repos
-✅ Alignment prompt מוכן לסוכן המקביל
-
-**9 commits בסה"כ**, 5 דפים חדשים/מעודכנים, 8 ops docs.
-
-**הבלוקרים הנותרים דורשים רק את הידיים שלך. אחרי 8-10 דקות של עבודה — הכל יהיה LIVE.**
+| משימה | זמן | איך |
+|---|---|---|
+| Railway Redeploy | 30 שנ' | https://railway.app → slh-api → Deployments → Redeploy |
+| 31 token rotation | ~30 דק' | BotFather `/revoke` ל-25 בוטים — קרא: [/ops/COMMAND_CENTER_SETUP_20260424.md](https://slh-nft.com/ops-viewer.html?file=COMMAND_CENTER_SETUP_20260424.md) חלק ז |
+| Yaara WhatsApp follow-up | 5 דק' | בדוק אם ענתה. אם כן → קרא [CONTROL.md](https://slh-nft.com/ops-viewer.html?file=CONTROL.md) |
 
 ---
 
-**עדכן אותי אחרי שעשית את 4 השלבים הראשונים.** אם משהו לא עובד — תדביק לי את הפלט של הפקודה ונתקן.
+## 🎁 בונוס — מה הסוכן המקביל הוסיף
 
-*Claude Opus 4.7 · 2026-04-25*
+הסוכן ש-pivoted ל-Funnel+Control קרא את ה-alignment prompt וענה. הוסיף:
+
+- **[CONTROL.md](https://slh-nft.com/ops-viewer.html?file=CONTROL.md)** — single source of truth יומי
+- **[CUSTOMER_PROSPECTUS_DEMO.md](https://slh-nft.com/ops-viewer.html?file=CUSTOMER_PROSPECTUS_DEMO.md)** — תבנית הצעה למשקיעים (DEMO)
+- **[CUSTOMER_ONE_PLAYBOOK.md](https://slh-nft.com/ops-viewer.html?file=CUSTOMER_ONE_PLAYBOOK.md)** — playbook ל-first paying customer
+
+הוא גם **הודה בטעויות שלו** (יצר 6 דפים שלא היה צריך) — alignment protocol עובד.
+
+---
+
+## 🔗 קישורים חיוניים (שמור)
+
+- **Command Center:** https://slh-nft.com/command-center.html
+- **Ops Viewer:** https://slh-nft.com/ops-viewer.html
+- **CONTROL daily:** https://slh-nft.com/ops-viewer.html?file=CONTROL.md
+- **Bot:** https://t.me/SLH_Claude_bot
+
+---
+
+**הכל מוכן. המערכת LIVE. הבוט עונה חינם. הסוכנים מתואמים. עכשיו רק בדוק 6 פקודות בטלגרם.**
+
+*Claude Opus 4.7 · 2026-04-25 · Final*
