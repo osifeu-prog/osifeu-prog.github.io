@@ -127,6 +127,19 @@
   </div>
 </section>
 
+<!-- SECRETS STATUS STRIP (sanitized public summary, no admin key required) -->
+<section>
+  <h2><span class="emoji">🔐</span> מצב הסודות
+    <a href="/admin/security-hub.html" style="font-size:13px;font-weight:400">Security Hub ←</a>
+  </h2>
+  <div class="cards c4" id="secrets-cards">
+    <div class="card"><div class="label">מוגדרים</div><div class="value small loading">טוען…</div></div>
+    <div class="card"><div class="label">חסרים / ברירת מחדל</div><div class="value small loading">טוען…</div></div>
+    <div class="card"><div class="label">לסיבוב</div><div class="value small loading">טוען…</div></div>
+    <div class="card"><div class="label">התראות 24ש</div><div class="value small loading">טוען…</div></div>
+  </div>
+</section>
+
 <!-- YOUR QUEUE (BLOCKERS) -->
 <section>
   <h2><span class="emoji">🎯</span> התור שלך <span class="count" id="my-queue-count">—</span></h2>
@@ -425,6 +438,37 @@
       + card('events השבוע', evts, 'event_log');
   }
 
+  // ───── SECRETS STATUS (sanitized public beacon) ─────
+  async function loadSecrets() {
+    const box = document.getElementById('secrets-cards');
+    try {
+      const s = await fetchJson('/api/public/security/summary');
+      if (s.unavailable) {
+        box.innerHTML = ''
+          + card('מוגדרים', '—', 'vault not initialized', '')
+          + card('חסרים / ברירת מחדל', '—', '', '')
+          + card('לסיבוב', '—', '', '')
+          + card('התראות 24ש', '—', '', '');
+        return;
+      }
+      const okStatus = s.ok ? 'ok' : (s.any_broken ? 'err' : 'warn');
+      const brokenStatus = s.missing_or_default > 0 ? 'err' : 'ok';
+      const overdueStatus = s.overdue > 0 ? 'warn' : 'ok';
+      const alertsStatus = s.alerts_24h > 0 ? 'warn' : 'ok';
+      box.innerHTML = ''
+        + card('מוגדרים', s.configured + '/' + s.total, s.last_sweep_at ? 'sweep ' + timeAgo(s.last_sweep_at) : 'sweep מחכה', okStatus)
+        + card('חסרים / ברירת מחדל', s.missing_or_default, s.missing_or_default === 0 ? '✓ הכל בסדר' : 'דורש פעולה', brokenStatus)
+        + card('לסיבוב', s.overdue, s.overdue === 0 ? '✓ הכל מעודכן' : 'cadence overdue', overdueStatus)
+        + card('התראות 24ש', s.alerts_24h, s.alerts_24h === 0 ? '✓ שקט' : 'בדוק Vault', alertsStatus);
+    } catch (e) {
+      box.innerHTML = ''
+        + card('מוגדרים', '—', 'API: ' + e.message, 'err')
+        + card('חסרים / ברירת מחדל', '—', '', '')
+        + card('לסיבוב', '—', '', '')
+        + card('התראות 24ש', '—', '', '');
+    }
+  }
+
   // ───── EVENTS ─────
   async function loadEvents() {
     const el = document.getElementById('events-list');
@@ -455,7 +499,7 @@
   // ───── REFRESH CYCLE ─────
   async function refreshAll() {
     try {
-      await Promise.all([ loadLive(), loadQueue(), loadStats(), loadSwarm(), loadEvents() ]);
+      await Promise.all([ loadLive(), loadSecrets(), loadQueue(), loadStats(), loadSwarm(), loadEvents() ]);
     } catch (e) {
       console.error('refreshAll error:', e);
     }
