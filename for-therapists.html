@@ -302,8 +302,7 @@
 initShared({ activePage: 'therapists', showBottomNav: true });
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// TODO: migrate to dedicated POST /api/therapists/register once backend table exists (Phase 2)
-const REGISTER_URL = 'https://slh-api-production.up.railway.app/api/community/posts';
+const REGISTER_URL = 'https://slh-api-production.up.railway.app/api/therapists/register';
 
 async function submitTherapist() {
     const tr = (k, fallback) => (typeof t === 'function') ? t(k, fallback) : fallback;
@@ -331,15 +330,15 @@ async function submitTherapist() {
 
     const registration = {
         name,
-        profession: document.getElementById('profession').value,
-        experience: document.getElementById('experience').value,
-        handle: document.getElementById('handle').value.trim(),
         email,
-        phone: document.getElementById('phone').value.trim(),
-        specialties: document.getElementById('specialties').value.trim(),
-        hours: document.getElementById('hours').value,
-        submitted_at: new Date().toISOString(),
-        source: 'for-therapists-page'
+        phone: document.getElementById('phone').value.trim() || null,
+        profession: document.getElementById('profession').value,
+        experience_yrs: parseInt(document.getElementById('experience').value, 10) || 0,
+        handle: document.getElementById('handle').value.trim() || null,
+        specialties: document.getElementById('specialties').value.trim() || null,
+        hours_per_week: document.getElementById('hours').value,
+        source: 'for-therapists-page',
+        submitted_at: new Date().toISOString()
     };
 
     // Always persist locally first so registrations survive a network failure
@@ -357,18 +356,18 @@ async function submitTherapist() {
         const resp = await fetch(REGISTER_URL, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                username: 'Therapist:' + name,
-                text: `🩺 הרשמה חדשה לרשת המטפלים: ${name} | ${registration.profession} | ניסיון: ${registration.experience} שנים | ${registration.hours}/week | ${email}${registration.handle ? ' | ' + registration.handle : ''}`,
-                category: 'general',
-                telegram_id: null
-            })
+            body: JSON.stringify(registration)
         });
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const body = await resp.json();
 
         result.className = 'result ok';
-        result.textContent = tr('therapists_success',
+        let msg = tr('therapists_success',
             '✅ Registration received! An SLH Spark team representative will contact you within 48 hours. 🌸');
+        if (body.idempotent) {
+            msg = '✅ ' + msg + ' (#' + body.application_id + ')';
+        }
+        result.textContent = msg;
 
         document.getElementById('name').value = '';
         document.getElementById('email').value = '';
