@@ -77,7 +77,7 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260426a">
+    <link rel="stylesheet" href="/css/shared.css?v=20260426e">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <!-- Web3 / ethers.js v6 for MetaMask + Trust Wallet -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
@@ -619,10 +619,22 @@
 
                 <!-- ================================================================ -->
                 <!-- AI Spark — Telegram-native AI access via @SLH_Claude_bot -->
-                <!-- Live state lives in the bot (SQLite); this widget is a deep-link -->
-                <!-- promo. Tier display + upgrade flow happen inside the bot DM.    -->
+                <!-- Phase B: live tier+quota fetched from /api/ai_spark/credits.    -->
+                <!-- Bot SQLite is canonical; PG mirror updated on every change.    -->
                 <!-- ================================================================ -->
                 <div id="ai-spark-card" style="margin-bottom:20px;background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(14,165,233,.1));border:1px solid rgba(99,102,241,.4);border-radius:var(--radius);padding:20px 24px;direction:rtl">
+                    <!-- Live tier banner — populated by JS if user has a subscription record -->
+                    <div id="ai-spark-live-banner" style="display:none;background:rgba(99,102,241,.25);border:1px solid #6366f1;border-radius:8px;padding:12px 16px;margin-bottom:14px;text-align:right">
+                        <div style="font-size:11px;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px">החבילה שלך עכשיו</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:8px">
+                            <div style="font-size:18px;font-weight:700;color:var(--text-bright)" id="ai-spark-tier-name">—</div>
+                            <div style="font-size:13px;color:var(--text2)" id="ai-spark-quota-text">—</div>
+                        </div>
+                        <div style="background:var(--bg);border-radius:8px;height:8px;margin-top:8px;overflow:hidden">
+                            <div id="ai-spark-quota-bar" style="background:linear-gradient(90deg,#6366f1,#8b5cf6);height:100%;width:0%;transition:width .4s"></div>
+                        </div>
+                        <div style="font-size:10px;color:var(--text2);margin-top:6px" id="ai-spark-period">—</div>
+                    </div>
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px">
                         <div>
                             <div style="font-size:11px;color:#818cf8;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px">AI Spark</div>
@@ -666,6 +678,40 @@
                         <br>פרטים מלאים: <a href="/SIG_STATISTICAL_DEFENSE.md" style="color:#a5b4fc">SIG methodology</a>
                     </div>
                 </div>
+
+                <!-- AI Spark live tier fetcher — populates the banner above when user has a record -->
+                <script>
+                (function aiSparkLiveTier() {
+                    try {
+                        var u = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+                        if (!u || !u.id) return;
+                        var apiBase = 'https://slh-api-production.up.railway.app';
+                        fetch(apiBase + '/api/ai_spark/credits/' + encodeURIComponent(u.id))
+                            .then(function(r) { return r.ok ? r.json() : null; })
+                            .then(function(data) {
+                                if (!data || !data.exists) return;
+                                var banner = document.getElementById('ai-spark-live-banner');
+                                if (!banner) return;
+                                var tierMap = { free: 'Free', pro: 'Pro 💎', vip: 'VIP 👑', zvk: 'ZVK 🪙' };
+                                var tierName = tierMap[data.tier] || data.tier;
+                                document.getElementById('ai-spark-tier-name').textContent = tierName;
+                                document.getElementById('ai-spark-quota-text').textContent =
+                                    data.messages_used + ' / ' + data.quota_total + ' הודעות';
+                                var pct = data.quota_total > 0
+                                    ? Math.min(100, Math.round(data.messages_used / data.quota_total * 100))
+                                    : 0;
+                                document.getElementById('ai-spark-quota-bar').style.width = pct + '%';
+                                if (data.period_end) {
+                                    var endDate = new Date(data.period_end);
+                                    document.getElementById('ai-spark-period').textContent =
+                                        'חידוש: ' + endDate.toISOString().slice(0, 10);
+                                }
+                                banner.style.display = 'block';
+                            })
+                            .catch(function() { /* silent fail — bot DM still works */ });
+                    } catch(e) { /* silent */ }
+                })();
+                </script>
 
                 <!-- Balance Cards -->
                 <div class="stat-grid">
@@ -3378,14 +3424,14 @@ setTimeout(renderCustomTokens, 500);
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260426a"></script>
-<script src="/js/shared.js?v=20260426a"></script>
+<script src="/js/translations.js?v=20260426e"></script>
+<script src="/js/shared.js?v=20260426e"></script>
 <script>
     initShared({ activePage: 'dashboard', showBottomNav: true });
 </script>
-<script src="/js/web3.js?v=20260426a"></script>
+<script src="/js/web3.js?v=20260426e"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260426a"></script>
+<script src="/js/ai-assistant.js?v=20260426e"></script>
 <script>
 // Show Admin Panel button only for admins
 (function(){
