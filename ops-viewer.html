@@ -114,6 +114,22 @@
   }
   .doc-list a:hover { color: var(--accent); border-color: var(--accent); }
   .doc-list a.active { color: var(--accent); background: rgba(0,255,65,.08); border-color: rgba(0,255,65,.3); }
+  .doc-list .all-docs { margin-top: 14px; border-top: 1px solid var(--border2); padding-top: 12px; }
+  .doc-list .all-docs summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--cyan);
+    font-weight: 700;
+    padding: 6px 4px;
+    list-style: none;
+    user-select: none;
+  }
+  .doc-list .all-docs summary::-webkit-details-marker { display: none; }
+  .doc-list .all-docs summary::before { content: '▸ '; display: inline-block; transition: transform .15s; }
+  .doc-list .all-docs[open] summary::before { transform: rotate(90deg); }
+  .doc-list .all-docs summary:hover { color: var(--accent); }
+  .doc-list .all-docs ul { margin-top: 10px; }
+  .doc-list .muted { color: var(--text3); font-size: 12px; padding: 8px 12px; font-style: italic; }
 
   /* Content */
   .content {
@@ -259,7 +275,7 @@
   </header>
 
   <nav class="doc-list">
-    <h3><i class="fas fa-folder-tree"></i> Quick Jump — Key Docs</h3>
+    <h3><i class="fas fa-folder-tree"></i> Quick Jump — Featured</h3>
     <ul id="doc-links">
       <li><a href="?file=MASTER_FINAL_HANDOFF_20260425.md" data-doc="MASTER_FINAL_HANDOFF_20260425.md">🎯 MASTER FINAL HANDOFF — 25.4 (סופי)</a></li>
       <li><a href="?file=WHAT_TO_DO_NOW_OSIF.md" data-doc="WHAT_TO_DO_NOW_OSIF.md">⭐ מה לעשות עכשיו — פשוט וצעד-צעד</a></li>
@@ -272,6 +288,12 @@
       <li><a href="?file=SWARM_V1_BLUEPRINT_20260424.md" data-doc="SWARM_V1_BLUEPRINT_20260424.md">🛰️ Swarm v1 Blueprint</a></li>
       <li><a href="?file=SESSION_HANDOFF_20260424_VOICE_SWARM.md" data-doc="SESSION_HANDOFF_20260424_VOICE_SWARM.md">📋 Voice+Swarm Handoff</a></li>
     </ul>
+    <details class="all-docs">
+      <summary><i class="fas fa-list"></i> All ops/*.md (auto-discovered)</summary>
+      <ul id="doc-links-auto">
+        <li class="muted"><i class="fas fa-spinner fa-spin"></i> Loading…</li>
+      </ul>
+    </details>
   </nav>
 
   <article class="content loading md" id="content">
@@ -315,8 +337,8 @@ async function loadDoc(filename) {
   // Update GH link to point at current file
   ghLink.href = GH_BASE + filename;
 
-  // Mark active link
-  document.querySelectorAll('#doc-links a').forEach(a => {
+  // Mark active link (across both featured and auto-discovered lists)
+  document.querySelectorAll('#doc-links a[data-doc], #doc-links-auto a[data-doc]').forEach(a => {
     a.classList.toggle('active', a.dataset.doc === filename);
   });
 
@@ -359,6 +381,31 @@ async function loadDoc(filename) {
       }
     });
 
+    // Strip GFM bare-URL autolinks that mistook filenames/dates/Hebrew for domains
+    const FILE_EXT_TLDS = new Set([
+      'py','md','js','ts','jsx','tsx','css','scss','html','json','yaml','yml',
+      'toml','sh','ps1','bat','env','txt','log','sql','xml','lock','go','rs',
+      'java','rb','php'
+    ]);
+    contentEl.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      const text = (a.textContent || '').trim();
+      // Only act on auto-generated links (text matches href, with or without protocol)
+      const stripped = href.replace(/^https?:\/\//i, '');
+      if (text !== href && text !== stripped) return;
+      const m = href.match(/^https?:\/\/([^\/?#]+)/i);
+      if (!m) return;
+      const domain = m[1];
+      const tld = (domain.split('.').pop() || '').toLowerCase();
+      if (FILE_EXT_TLDS.has(tld) || /[^\x00-\x7F]/.test(domain)) {
+        a.replaceWith(document.createTextNode(text));
+        return;
+      }
+      if (href.startsWith('http://')) {
+        a.setAttribute('href', 'https://' + href.slice(7));
+      }
+    });
+
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.title = 'SLH · ' + filename;
@@ -384,8 +431,47 @@ window.addEventListener('popstate', () => {
   loadDoc(getQueryParam('file'));
 });
 
+// Auto-discover ops/*.md from the public website repo (slh-api repo is private)
+async function loadDocIndex() {
+  const ul = document.getElementById('doc-links-auto');
+  if (!ul) return;
+  try {
+    const r = await fetch(
+      'https://api.github.com/repos/osifeu-prog/osifeu-prog.github.io/contents/ops',
+      { headers: { 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const items = await r.json();
+    const featured = new Set(
+      [...document.querySelectorAll('#doc-links a[data-doc]')].map(a => a.dataset.doc)
+    );
+    const docs = items
+      .filter(i => i.type === 'file' && i.name.endsWith('.md'))
+      .filter(i => !featured.has(i.name))
+      .sort((a, b) => b.name.localeCompare(a.name));
+    if (docs.length === 0) {
+      ul.innerHTML = '<li class="muted"><i class="fas fa-info-circle"></i> No additional docs found</li>';
+      return;
+    }
+    ul.innerHTML = docs.map(i => {
+      const safe = i.name.replace(/"/g, '&quot;');
+      return '<li><a href="?file=' + encodeURIComponent(i.name) + '" data-doc="' + safe + '">📄 ' + safe + '</a></li>';
+    }).join('');
+    // Re-mark active link in case current file is in the auto-discovered set
+    const current = getQueryParam('file');
+    if (current) {
+      ul.querySelectorAll('a[data-doc]').forEach(a => {
+        if (a.dataset.doc === current) a.classList.add('active');
+      });
+    }
+  } catch (err) {
+    ul.innerHTML = '<li class="muted"><i class="fas fa-info-circle"></i> All-docs index unavailable (rate limit or offline)</li>';
+  }
+}
+
 // Initial load
 loadDoc(getQueryParam('file'));
+loadDocIndex();
 </script>
 
 </body>

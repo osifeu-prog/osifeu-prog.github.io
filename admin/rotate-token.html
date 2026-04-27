@@ -89,8 +89,21 @@
 </header>
 
 <div class="why">
-  <b>למה הדף הזה קיים:</b> סיבוב טוקן ישירות במערכת — בלי Notepad, בלי הדבקה בצ'אט, בלי שהטוקן עוזב את הדפדפן שלך. הדף מאמת את הטוקן ישירות מול שרתי Telegram, ואז מייצר פקודת PowerShell מוכנה להעתקה. הטוקן <b>אף פעם לא נשלח לשרת SLH</b> ולא נשמר ב-localStorage.
+  <b>למה הדף הזה קיים:</b> סיבוב טוקן ישירות במערכת. הדף מאמת את הטוקן מול שרתי Telegram, ואז מציע שני מצבים: <b>Pipeline אוטומטי</b> (דחיפה ל-Railway + redeploy + healthcheck + sync של setMyCommands — בלחיצה אחת) או <b>PowerShell מקומי</b> (הטוקן לא עוזב את הדפדפן — מקסימום אבטחה).
 </div>
+
+<section class="card" style="background:rgba(0,229,255,.04);border-color:var(--cyan)">
+  <h2 style="color:var(--cyan)">🛠 מצב סיבוב</h2>
+  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:6px 0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-bright)">
+    <input type="radio" name="rotate-mode" value="pipeline" checked style="width:auto;margin:0;cursor:pointer" />
+    <span><b style="color:var(--cyan)">⚡ Pipeline אוטומטי</b> — הטוקן עובר דרך השרת ל-Railway. redeploy + healthcheck + audit אוטומטיים. (ברירת מחדל)</span>
+  </label>
+  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:6px 0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-bright)">
+    <input type="radio" name="rotate-mode" value="local" style="width:auto;margin:0;cursor:pointer" />
+    <span><b style="color:var(--gold)">🛡 PowerShell מקומי</b> — הטוקן לא עוזב את הדפדפן. עליך להריץ פקודה ב-PowerShell. שירות Railway לא יתעדכן אוטומטית.</span>
+  </label>
+  <div id="tier-hint" style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:4px;font-size:12px;color:var(--text2);display:none"></div>
+</section>
 
 <section class="card">
   <h2>שלב 1 — בחירת בוט</h2>
@@ -107,6 +120,16 @@
 
   <button class="btn" id="validate-btn">✓ אמת טוקן מול Telegram</button>
   <div class="status" id="validate-status"></div>
+</section>
+
+<section class="card" id="pipeline-card" style="display:none;border-color:var(--cyan)">
+  <h2 style="color:var(--cyan)">⚡ שלב 2 — בצע סיבוב Pipeline</h2>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:14px;line-height:1.7">
+    הטוקן ייסע לשרת ב-HTTPS, יידחף ל-Railway, וה-redeploy יופעל. בסוף, healthcheck יוודא שהבוט מגיב + setMyCommands ייסונכרן ל-BotFather. הטוקן לא נשמר בשום מקום — רק 4 הספרות האחרונות נכנסות ל-audit log לזיהוי.
+  </p>
+  <button class="btn" id="pipeline-go-btn">🚀 בצע סיבוב מלא</button>
+  <pre class="cmd" id="pipeline-progress" style="display:none;margin-top:12px;max-height:300px;overflow-y:auto"></pre>
+  <div class="status" id="pipeline-status"></div>
 </section>
 
 <section class="card" id="cmd-card" style="display:none">
@@ -288,10 +311,19 @@
         `✓ אומת: @${j.result.username} (${j.result.first_name || ''}, id=${j.result.id}).${swapNote}`,
         'ok'
       );
-      generateCommand(bot, token);
-      cmdCard.style.display = 'block';
-      verifyCard.style.display = 'block';
-      window.scrollTo({ top: cmdCard.offsetTop - 20, behavior: 'smooth' });
+      const mode = (document.querySelector('input[name="rotate-mode"]:checked') || {}).value || 'pipeline';
+      if (mode === 'pipeline') {
+        document.getElementById('pipeline-card').style.display = 'block';
+        cmdCard.style.display = 'none';
+        verifyCard.style.display = 'none';
+        window.scrollTo({ top: document.getElementById('pipeline-card').offsetTop - 20, behavior: 'smooth' });
+      } else {
+        generateCommand(bot, token);
+        cmdCard.style.display = 'block';
+        verifyCard.style.display = 'block';
+        document.getElementById('pipeline-card').style.display = 'none';
+        window.scrollTo({ top: cmdCard.offsetTop - 20, behavior: 'smooth' });
+      }
     } catch (e) {
       setStatus(validateStatus, '❌ שגיאת רשת: ' + e.message, 'err');
     } finally {
@@ -421,8 +453,122 @@ else { Write-Host "[FAIL] $resp" -ForegroundColor Red }`;
     }
   });
 
+  // ─── Pipeline mode handler ─────────────────────────────────────────────
+  const pipelineBtn = document.getElementById('pipeline-go-btn');
+  const pipelineProgress = document.getElementById('pipeline-progress');
+  const pipelineStatus = document.getElementById('pipeline-status');
+  let _pipelineConfirmToken = null;
+
+  function appendPipeline(line) {
+    pipelineProgress.style.display = 'block';
+    pipelineProgress.textContent += line + '\n';
+    pipelineProgress.scrollTop = pipelineProgress.scrollHeight;
+  }
+
+  pipelineBtn.addEventListener('click', async () => {
+    if (!validated) {
+      setStatus(pipelineStatus, '❌ אמת טוקן קודם.', 'err');
+      return;
+    }
+    const k = sessionStorage.getItem('slh_admin_key') || localStorage.getItem('slh_admin_password');
+    if (!k) {
+      setStatus(pipelineStatus, '❌ אין X-Admin-Key במטמון. פתח /admin/tokens.html תחילה והזן מפתח.', 'err');
+      return;
+    }
+    pipelineBtn.disabled = true;
+    pipelineProgress.textContent = '';
+
+    const payload = {
+      env_var: validated.bot.env,
+      new_token: validated.token,
+      expect_handle: validated.bot.handle,
+      swap_mode: validated.swap,
+    };
+    if (_pipelineConfirmToken) payload.confirm_token = _pipelineConfirmToken;
+
+    appendPipeline(_pipelineConfirmToken ? '⏳ מאשר ומבצע...' : '⏳ שולח לשרת...');
+    let r, j;
+    try {
+      r = await fetch('https://slh-api-production.up.railway.app/api/admin/rotate-bot-token-pipeline', {
+        method: 'POST',
+        headers: { 'X-Admin-Key': k, 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      j = await r.json().catch(() => ({}));
+    } catch (e) {
+      appendPipeline('❌ שגיאת רשת: ' + e.message);
+      pipelineBtn.disabled = false;
+      return;
+    }
+    if (j.needs_confirm) {
+      _pipelineConfirmToken = j.confirm_token;
+      appendPipeline('🔐 ' + (j.message_he || 'Critical tier — לחץ שוב לאישור'));
+      pipelineBtn.disabled = false;
+      pipelineBtn.textContent = '✅ אשר וסובב';
+      pipelineBtn.style.background = 'var(--red)';
+      pipelineBtn.style.color = '#fff';
+      return;
+    }
+    if (!r.ok) {
+      appendPipeline('❌ HTTP ' + r.status + ': ' + (j.detail || JSON.stringify(j).slice(0,300)));
+      pipelineBtn.disabled = false;
+      return;
+    }
+    if (j.phase === 'healthcheck_failed') {
+      appendPipeline('🚨 Healthcheck נכשל. Variable + redeploy בוצעו אך הבוט לא מגיב.');
+      appendPipeline('   Deploy: ' + (j.deploy_id || '—'));
+      appendPipeline('   נדרשת התערבות ידנית.');
+      setStatus(pipelineStatus, '🚨 כשל healthcheck — בדוק Railway logs', 'err');
+      pipelineBtn.disabled = false;
+      pipelineBtn.textContent = 'סגור';
+      pipelineBtn.onclick = () => window.location.href = '/admin/tokens.html';
+      return;
+    }
+    if (j.ok) {
+      appendPipeline('✅ Variable עודכן ב-Railway');
+      appendPipeline('✅ Redeploy: ' + ((j.deploy_id || '').slice(0,16) || 'queued'));
+      appendPipeline('✅ Healthcheck (getMe): @' + (j.tg_username || '?'));
+      appendPipeline('✅ setMyCommands סונכרן ל-BotFather');
+      appendPipeline('✅ broadcast לאדמינים נשלח');
+      appendPipeline('✅ סיבוב הושלם! tier=' + j.tier + ' last4=…' + (j.last4 || ''));
+      setStatus(pipelineStatus, '✓ סיבוב Pipeline הסתיים בהצלחה.', 'ok');
+      // Update the catalog locally so user sees the green
+      try {
+        await fetch(`https://slh-api-production.up.railway.app/api/admin/bots/${validated.bot.id}/mark-rotated`, {
+          method: 'POST',
+          headers: { 'X-Admin-Key': k, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bot_id: j.tg_bot_id }),
+        });
+      } catch (e) {}
+      return;
+    }
+    appendPipeline('⚠️ תשובה לא צפויה: ' + JSON.stringify(j).slice(0, 300));
+    pipelineBtn.disabled = false;
+  });
+
+  // ─── Tier hint when bot is selected ────────────────────────────────────
+  function updateTierHint() {
+    const bot = BOTS[parseInt(sel.value, 10)];
+    if (!bot) return;
+    const hint = document.getElementById('tier-hint');
+    // We don't know tier on FALLBACK bots; only API-loaded bots carry it.
+    // Best-effort — if known, show. Otherwise hide.
+    if (bot.tier) {
+      const m = {critical:'🚨 Critical — ידרוש אישור 60 שניות (Pipeline בלבד)',
+                 high:'⚠️ High — ביצוע מיידי, broadcast לאדמינים',
+                 medium:'🔹 Medium — ביצוע מיידי + audit',
+                 low:'⚪ Low — ביצוע מיידי, audit מינימלי'}[bot.tier] || '';
+      hint.textContent = m;
+      hint.style.display = m ? 'block' : 'none';
+    } else {
+      hint.style.display = 'none';
+    }
+  }
+  sel.addEventListener('change', updateTierHint);
+
   // Default: SLH_Claude (the most-needed one right now)
   sel.value = '0';
+  updateTierHint();
   tokenInput.focus();
 })();
 </script>

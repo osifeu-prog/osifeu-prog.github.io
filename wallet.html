@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-theme="neural">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/shared.css?v=20260426a">
+    <link rel="stylesheet" href="/css/shared.css?v=20260426e">
+    <link rel="stylesheet" href="css/slh-neural.css?v=20260427a">
     <style>
         .wallet-container {
             max-width: 900px;
@@ -451,6 +452,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
 </head>
 <body>
+    <div class="neural-bg" aria-hidden="true"></div>
 
     <!-- Top Nav -->
     <div id="topnav-root"></div>
@@ -464,7 +466,7 @@
         <!-- Header -->
         <div class="wallet-header rv">
             <i class="fas fa-wallet"></i>
-            <h1 data-i18n="wallet_title">Wallet</h1>
+            <h1 class="neural-headline" data-i18n="wallet_title">Wallet</h1>
             <span id="api-status" class="api-status"></span>
         </div>
 
@@ -955,10 +957,10 @@
     <div id="bottomnav-root"></div>
 
     <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
-    <script src="/js/translations.js?v=20260426a"></script>
-    <script src="/js/shared.js?v=20260426a"></script>
-    <script src="/js/web3-wallet.js?v=20260426a"></script>
-    <script src="/js/web3.js?v=20260426a"></script>
+    <script src="/js/translations.js?v=20260426e"></script>
+    <script src="/js/shared.js?v=20260426e"></script>
+    <script src="/js/web3-wallet.js?v=20260426e"></script>
+    <script src="/js/web3.js?v=20260426e"></script>
     <script>
     /* ── Wallet Constants ── */
     const WALLET_API = 'https://slh-api-production.up.railway.app/api/wallet';
@@ -1541,8 +1543,8 @@
         console.log('[Wallet] Init complete, API:', apiOnline ? 'online' : 'offline');
     });
     </script>
-    <script src="/js/analytics.js?v=20260426a"></script>
-    <script src="/js/ai-assistant.js?v=20260426a"></script>
+    <script src="/js/analytics.js?v=20260426e"></script>
+    <script src="/js/ai-assistant.js?v=20260426e"></script>
 </body>
 </html>
 

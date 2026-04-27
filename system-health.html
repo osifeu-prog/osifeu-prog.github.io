@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>System Health — SLH Ecosystem Verification</title>
-<meta name="description" content="בדיקות חיות של כל רכיבי המערכת — API, DB, CEX, Blockchain, Bots, Audit Log">
+<title>System Health â€” SLH Ecosystem Verification</title>
+<meta name="description" content="×‘×“×™×§×•×ª ×—×™×•×ª ×©×œ ×›×œ ×¨×›×™×‘×™ ×”×ž×¢×¨×›×ª â€” API, DB, CEX, Blockchain, Bots, Audit Log">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/shared.css?v=20260421a">
+<link rel="stylesheet" href="/css/shared.css?v=20260426e">
 <style>
     :root {
         --bg: #0a0e1a;
@@ -219,15 +219,15 @@
 <div id="topnav-root"></div>
 
 <section class="hero">
-    <h1>🔬 System Health Verification</h1>
-    <p>בדיקות חיות של כל רכיבי המערכת — נעשות בזמן אמת, לא cached.</p>
+    <h1>ðŸ”¬ System Health Verification</h1>
+    <p>×‘×“×™×§×•×ª ×—×™×•×ª ×©×œ ×›×œ ×¨×›×™×‘×™ ×”×ž×¢×¨×›×ª â€” × ×¢×©×•×ª ×‘×–×ž×Ÿ ××ž×ª, ×œ× cached.</p>
 </section>
 
 <section class="overall-status">
     <div class="status-badge loading" id="overall-badge">
         <div class="status-left">
             <div class="label">Overall Status</div>
-            <div class="value" id="overall-text" style="color:var(--blue)">בודק...</div>
+            <div class="value" id="overall-text" style="color:var(--blue)">×‘×•×“×§...</div>
         </div>
         <div class="status-right">
             <div class="count">
@@ -248,44 +248,44 @@
 
 <div class="refresh-bar">
     <div class="last-check">Last check: <span id="last-check-time">--</span></div>
-    <button class="refresh-btn" onclick="runAllChecks()">🔄 Run All Checks</button>
+    <button class="refresh-btn" onclick="runAllChecks()">ðŸ”„ Run All Checks</button>
 </div>
 
 <!-- API Checks -->
 <section class="section">
-    <h2>🌐 API Health</h2>
+    <h2>ðŸŒ API Health</h2>
     <div class="checks-grid" id="api-checks"></div>
 </section>
 
 <!-- Institutional -->
 <section class="section">
-    <h2>🏛 Institutional / Compliance</h2>
+    <h2>ðŸ› Institutional / Compliance</h2>
     <div class="checks-grid" id="inst-checks"></div>
 </section>
 
 <!-- Data -->
 <section class="section">
-    <h2>💾 Data Layer</h2>
+    <h2>ðŸ’¾ Data Layer</h2>
     <div class="checks-grid" id="data-checks"></div>
 </section>
 
 <!-- Integrations -->
 <section class="section">
-    <h2>🔌 External Integrations</h2>
+    <h2>ðŸ”Œ External Integrations</h2>
     <div class="checks-grid" id="integ-checks"></div>
 </section>
 
 <!-- Pages -->
 <section class="section">
-    <h2>📄 Website Pages</h2>
+    <h2>ðŸ“„ Website Pages</h2>
     <div class="checks-grid" id="pages-checks"></div>
 </section>
 
 <div id="bottomnav-root"></div>
 <div id="footer-root"></div>
 
-<script src="/js/translations.js?v=20260421a"></script>
-<script src="/js/shared.js?v=20260424a"></script>
+<script src="/js/translations.js?v=20260426e"></script>
+<script src="/js/shared.js?v=20260426e"></script>
 <script>
     initShared({ activePage: 'health', showBottomNav: true });
 
@@ -346,7 +346,7 @@
             if (check.auth) headers['X-Admin-Key'] = HEALTH_ADMIN_KEY;
             const r = await fetch(check.url, { cache: 'no-store', headers });
             const ms = Date.now() - start;
-            if (!r.ok) return { status: 'fail', detail: 'HTTP ' + r.status + ' — ' + ms + 'ms' };
+            if (!r.ok) return { status: 'fail', detail: 'HTTP ' + r.status + ' â€” ' + ms + 'ms' };
 
             // For JSON endpoints, try parsing
             let data = null;
@@ -360,7 +360,7 @@
                 if (!check.check(data)) return { status: 'warn', detail: 'Endpoint up but data unexpected', ms };
             }
 
-            return { status: 'pass', detail: ms + 'ms · ' + (ct.split(';')[0] || 'OK'), data };
+            return { status: 'pass', detail: ms + 'ms Â· ' + (ct.split(';')[0] || 'OK'), data };
         } catch (e) {
             return { status: check.optional ? 'warn' : 'fail', detail: e.message };
         }
@@ -372,7 +372,7 @@
         const statusClass = result.status;
         card.className = 'check-card ' + statusClass;
 
-        const statusLabel = {pass:'✓ PASS', warn:'⚠ WARN', fail:'✗ FAIL', loading:'⏳ LOADING'}[statusClass];
+        const statusLabel = {pass:'âœ“ PASS', warn:'âš  WARN', fail:'âœ— FAIL', loading:'â³ LOADING'}[statusClass];
         const statusClassName = 'status-' + statusClass;
 
         card.innerHTML = `
@@ -396,7 +396,7 @@
             document.getElementById(id).innerHTML = '';
         });
 
-        document.getElementById('overall-text').textContent = 'בודק...';
+        document.getElementById('overall-text').textContent = '×‘×•×“×§...';
         document.getElementById('overall-text').style.color = 'var(--blue)';
         document.getElementById('overall-badge').className = 'status-badge loading';
 
@@ -425,15 +425,15 @@
         const text = document.getElementById('overall-text');
         if (stats.fail > 0) {
             badge.className = 'status-badge down';
-            text.textContent = '❌ DOWN — ' + stats.fail + ' failures';
+            text.textContent = 'âŒ DOWN â€” ' + stats.fail + ' failures';
             text.style.color = 'var(--red)';
         } else if (stats.warn > 0) {
             badge.className = 'status-badge degraded';
-            text.textContent = '⚠️ DEGRADED — ' + stats.warn + ' warnings';
+            text.textContent = 'âš ï¸ DEGRADED â€” ' + stats.warn + ' warnings';
             text.style.color = 'var(--yellow)';
         } else {
             badge.className = 'status-badge healthy';
-            text.textContent = '✅ ALL SYSTEMS HEALTHY';
+            text.textContent = 'âœ… ALL SYSTEMS HEALTHY';
             text.style.color = 'var(--green)';
         }
     }
@@ -443,15 +443,15 @@
     // Auto-refresh every 60 seconds
     setInterval(runAllChecks, 60000);
 </script>
-<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">🎨</button>
+<button id="theme-fab" onclick="document.getElementById('theme-panel').classList.toggle('open')" title="Theme">ðŸŽ¨</button>
 <div id="theme-panel">
-    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ערכת צבעים</div>
-    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">🟢 Default</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">🌙 Dark</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">☀️ Light</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">₿ Crypto</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">🌊 Ocean</button>
-    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">🌅 Sunset</button>
+    <div style="font-size:11px;color:var(--text2,#8a8aa0);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">×¢×¨×›×ª ×¦×‘×¢×™×</div>
+    <button onclick="document.documentElement.removeAttribute('data-theme');localStorage.setItem('slh_page_theme','default');document.getElementById('theme-panel').classList.remove('open')">ðŸŸ¢ Default</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('slh_page_theme','dark');document.getElementById('theme-panel').classList.remove('open')">ðŸŒ™ Dark</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('slh_page_theme','light');document.getElementById('theme-panel').classList.remove('open')">â˜€ï¸ Light</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','crypto');localStorage.setItem('slh_page_theme','crypto');document.getElementById('theme-panel').classList.remove('open')">â‚¿ Crypto</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','ocean');localStorage.setItem('slh_page_theme','ocean');document.getElementById('theme-panel').classList.remove('open')">ðŸŒŠ Ocean</button>
+    <button onclick="document.documentElement.setAttribute('data-theme','sunset');localStorage.setItem('slh_page_theme','sunset');document.getElementById('theme-panel').classList.remove('open')">ðŸŒ… Sunset</button>
 </div>
 <script>
 (function(){var t=localStorage.getItem('slh_page_theme');if(t&&t!=='default')document.documentElement.setAttribute('data-theme',t);document.addEventListener('click',function(e){var p=document.getElementById('theme-panel'),f=document.getElementById('theme-fab');if(p&&f&&!p.contains(e.target)&&!f.contains(e.target))p.classList.remove('open');});})();

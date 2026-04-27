@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="neural">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>גילוי נאות · SLH Ecosystem</title>
+  <meta name="description" content="גילוי נאות מלא של SLH Ecosystem - מודל הכנסות, שקיפות, ואחריות משפטית.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/shared.css?v=20260427d">
+  <link rel="stylesheet" href="css/slh-neural.css?v=20260427d">
+
+  <style>
+    body { font-family: 'Heebo', system-ui, sans-serif; color: var(--text); background: var(--bg); margin: 0; line-height: 1.7; }
+    .doc { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+    .doc h1 { font-size: 2.2rem; font-weight: 800; margin: 0 0 8px; }
+    .doc h2 { margin: 36px 0 14px; font-size: 1.4rem; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .doc h3 { margin: 24px 0 10px; font-size: 1.1rem; color: var(--accent); }
+    .doc p, .doc li { color: var(--text2); }
+    .doc strong, .doc b { color: var(--text); }
+    .doc .updated { color: var(--text3); font-size: .9rem; margin-bottom: 30px; }
+    .doc .alert {
+      background: linear-gradient(135deg, rgba(255,154,60,.1), rgba(255,94,135,.06));
+      border: 1px solid var(--orange); border-radius: 12px; padding: 18px 22px;
+      margin: 24px 0; display: flex; align-items: flex-start; gap: 12px;
+    }
+    .doc .alert i { color: var(--orange); font-size: 1.4rem; margin-top: 2px; }
+    .doc .ok-block {
+      background: linear-gradient(135deg, rgba(74,222,128,.08), rgba(94,214,255,.06));
+      border: 1px solid var(--green); border-radius: 12px; padding: 18px 22px; margin: 24px 0;
+    }
+    .doc .ok-block i { color: var(--green); }
+    .doc code { background: var(--bg2); padding: 2px 6px; border-radius: 4px; color: var(--accent); font-family: var(--font-mono); font-size: .92em; }
+    .doc table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .doc th { text-align: start; padding: 10px; border-bottom: 1px solid var(--border2); color: var(--text3); font-size: .85rem; text-transform: uppercase; }
+    .doc td { padding: 10px; border-bottom: 1px solid var(--border); }
+    .doc .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 30px 0; }
+    .doc .toc ol { margin: 0; padding-inline-start: 20px; }
+    .doc .toc a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="neural-bg" aria-hidden="true"></div>
+
+  <div class="doc">
+    <a href="/" style="color:var(--text2);text-decoration:none;font-size:.9rem;"><i class="fas fa-arrow-right"></i> חזרה</a>
+    <h1>גילוי נאות</h1>
+    <div class="updated">עדכון אחרון: 27 באפריל 2026 · גרסה 1.0</div>
+
+    <div class="alert">
+      <i class="fas fa-circle-info"></i>
+      <div>
+        מסמך זה מתאר את אופן הפעולה של SLH Ecosystem ומיועד לכל מי ששוקל להיות חלק מהמערכת -
+        כיוצר תוכן, רוכש קורסים, או שותף עסקי. <b>אנא קרא את כולו.</b>
+        מסמך זה אינו מהווה ייעוץ משפטי, מס, או השקעות.
+      </div>
+    </div>
+
+    <div class="toc">
+      <b>תוכן עניינים</b>
+      <ol>
+        <li><a href="#what">מה זה SLH Ecosystem</a></li>
+        <li><a href="#revenue">מודל ההכנסות</a></li>
+        <li><a href="#partners">שותפים עסקיים (Investors)</a></li>
+        <li><a href="#creators">יוצרי תוכן (Creators)</a></li>
+        <li><a href="#buyers">רוכשי תוכן (Buyers)</a></li>
+        <li><a href="#legal">סטטוס משפטי</a></li>
+        <li><a href="#risks">סיכונים</a></li>
+        <li><a href="#contact">יצירת קשר</a></li>
+      </ol>
+    </div>
+
+    <h2 id="what">1. מה זה SLH Ecosystem</h2>
+    <p>SLH Ecosystem היא פלטפורמה דיגיטלית המספקת:</p>
+    <ul>
+      <li><b>שוק תוכן (Content Marketplace):</b> מכירת קורסים, וידאו, תמונות, ו-NFT cards דיגיטליים</li>
+      <li><b>תשתית בלוקצ'יין:</b> SLH token (BEP-20) ב-BSC, מסחר ב-PancakeSwap</li>
+      <li><b>מערכת בוטים:</b> 25 בוטי Telegram למטרות שונות (קהילה, משחקים, גיימיפיקציה)</li>
+      <li><b>ESP32 Hardware:</b> מכשירים פיזיים לאיסוף נתונים מהעולם האמיתי</li>
+    </ul>
+    <p>הפלטפורמה פותחה על ידי <b>SPARK IND</b> (אוסיף קאופמן אונגר), עם משרדים בישראל.</p>
+
+    <h2 id="revenue">2. מודל ההכנסות</h2>
+    <p>הכנסות SLH מגיעות אך ורק ממקורות אמיתיים, מתועדים, ומדידים:</p>
+    <table>
+      <tr><th>מקור</th><th>תיאור</th><th>חלק SLH</th></tr>
+      <tr><td>Course sales</td><td>מכירת קורסים דיגיטליים</td><td>25%</td></tr>
+      <tr><td>Content marketplace</td><td>עמלה ממכירות של יוצרים אחרים</td><td>25%</td></tr>
+      <tr><td>SaaS / API</td><td>מנויים ל-API ושירותי AI</td><td>100%</td></tr>
+      <tr><td>Consulting</td><td>שירותי ייעוץ ופיתוח</td><td>100%</td></tr>
+      <tr><td>NFT cards</td><td>מכירת nft cards ייחודיים</td><td>משתנה</td></tr>
+    </table>
+
+    <div class="ok-block">
+      <h3 style="margin-top:0;"><i class="fas fa-check-circle"></i> מה SLH לא עושה</h3>
+      <ul style="margin:0;">
+        <li>לא מציעה השקעות בתשואה מובטחת</li>
+        <li>לא משלמת לאף משקיע מכספי משקיעים אחרים</li>
+        <li>לא מבטיחה רווחים מסחר בקריפטו</li>
+        <li>לא מנהלת כספי לקוחות (לא broker, לא custodian)</li>
+        <li>לא מספקת ייעוץ פיננסי או השקעות</li>
+      </ul>
+    </div>
+
+    <h2 id="partners">3. שותפים עסקיים (Investors)</h2>
+    <p>אדם שמעוניין להשקיע ב-SPARK IND (החברה שמפעילה את SLH) מקבל <b>חלק יחסי מהרווח הנקי של החברה</b>, לפי הנוסחה:</p>
+    <p style="background:var(--bg2);padding:16px;border-radius:10px;font-family:var(--font-mono);">
+      Net Profit = Revenue (ממקורות לעיל) − Expenses (תפעול, משכורות, תשתית)<br>
+      Distributable = Net Profit × Distribution % (default 50%, השאר נשאר בחברה לצמיחה)<br>
+      Your Payout = Distributable × (Your Capital / Total Capital)
+    </p>
+
+    <h3>חוקי ברזל</h3>
+    <ul>
+      <li><b>אם אין רווח נקי בתקופה - אין תשלום בתקופה.</b> בלי "להחזיק חבל" ובלי הבטחות.</li>
+      <li>תשלום מתבצע רק אחרי <b>אישור ידני</b> של מנהל הפלטפורמה (לא אוטומטי).</li>
+      <li>תשלום בפועל מתבצע <b>מחוץ למערכת</b> (העברה בנקאית או קריפטו), ומסומן כ-paid במערכת.</li>
+      <li>כל פעולה מתועדת ב-<code>investor_audit_log</code> עם actor + timestamp.</li>
+      <li>תשלומים <b>אך ורק</b> לאחר חתימת חוזה אישי וביצוע KYC מלא.</li>
+    </ul>
+
+    <div class="alert">
+      <i class="fas fa-scale-balanced"></i>
+      <div>
+        <b>חשוב:</b> שותפות מסוג זה נחשבת השקעה לפי חוק ניירות ערך הישראלי.
+        SPARK IND <b>אינה מציעה לציבור</b> השקעות. כל הצטרפות מחייבת:
+        (א) חתימת הסכם שותפות אישי, (ב) ביצוע KYC מלא, (ג) הסכמה מפורשת לתנאי המודל.
+        מספר השותפים מוגבל בהתאם לפטור הרלוונטי בחוק (פחות מ-35 משקיעים לא-מוסדיים, או רק משקיעים מוסדיים).
+      </div>
+    </div>
+
+    <h2 id="creators">4. יוצרי תוכן (Creators)</h2>
+    <p>כל אדם רשאי להציע מוצרים דיגיטליים לפלטפורמה: קורסים, וידאו, תמונות, מסמכים, ועוד.</p>
+    <ul>
+      <li><b>חלוקה ברירת מחדל:</b> 75% ליוצר, 25% לפלטפורמה (ניתן להתאים פרטנית).</li>
+      <li>הפלטפורמה מטפלת ב-checkout, גביית כספים, ומסירת התוכן הדיגיטלי.</li>
+      <li>היוצר אחראי על תוכן המוצר ועל זכויות יוצרים.</li>
+      <li>תשלומים ליוצרים מתבצעים אחת לחודש, בכפוף להגעה לסף מינימום (₪500).</li>
+      <li>היוצר אחראי על דיווח מס בעצמו (PSP / עוסק פטור / חברה).</li>
+    </ul>
+
+    <h2 id="buyers">5. רוכשי תוכן (Buyers)</h2>
+    <ul>
+      <li>כל הרכישות הן <b>מוצרים דיגיטליים סופיים</b> - אין החזר אחרי קבלת גישה.</li>
+      <li>גישה לתוכן ניתנת לכל החיים, אלא אם צוין אחרת בדף המוצר.</li>
+      <li>אסור להפיץ, להעביר, או למכור מחדש את התוכן ללא אישור היוצר.</li>
+      <li>תשלום באמצעות העברה בנקאית, PayPal, או קריפטו (BSC / TON).</li>
+      <li>במידת הצורך, ניתן לקבל חשבונית מס. פנה ל-<a href="https://t.me/osifeu_prog" style="color:var(--accent);">@osifeu_prog</a>.</li>
+    </ul>
+
+    <h2 id="legal">6. סטטוס משפטי</h2>
+    <p><b>SLH Ecosystem</b> מופעלת על ידי <b>SPARK IND</b>, עוסק/חברה רשומה בישראל.
+    הפעילות כפופה לחוקי ישראל, ובפרט:</p>
+    <ul>
+      <li><b>חוק ניירות ערך, 1968:</b> שותפויות עסקיות מוגבלות ל-35 משקיעים לא-מוסדיים, או רק משקיעים מוסדיים. הצעה ציבורית מחייבת תשקיף.</li>
+      <li><b>חוק העונשין (איסור הלבנת הון):</b> אנו מבצעים KYC על כל שותף עסקי לפני קבלת כספים.</li>
+      <li><b>חוק הגנת הצרכן:</b> מוצרים דיגיטליים אינם מזכים בהחזר לאחר קבלת גישה.</li>
+      <li><b>חוק זכויות יוצרים, 2007:</b> כל יוצר אחראי על זכויות התוכן שהוא מעלה.</li>
+      <li><b>פקודת מס הכנסה ומע"מ:</b> כל הצדדים אחראים לחובות המס שלהם.</li>
+    </ul>
+
+    <h2 id="risks">7. סיכונים</h2>
+    <ul>
+      <li><b>סיכון עסקי:</b> הפלטפורמה עשויה לא להצליח. אין הבטחה שיהיו רווחים.</li>
+      <li><b>סיכון טכנולוגי:</b> תקלות, פריצות, אובדן נתונים אפשריים. אנו פועלים להפחית סיכונים אלה אך לא מבטיחים 100%.</li>
+      <li><b>סיכון רגולטורי:</b> חוקים בישראל ובחו"ל עשויים להשתנות ולהשפיע על הפעילות.</li>
+      <li><b>סיכון בקריפטו:</b> ערך SLH token בשוק תנודתי. אינו מובטח.</li>
+      <li><b>סיכון נזילות:</b> כספים שהושקעו אינם זמינים מיידית - תקופת lockup לפי חוזה אישי.</li>
+    </ul>
+
+    <h2 id="contact">8. יצירת קשר</h2>
+    <p>שאלות, הבהרות, או דיווח על בעיה:</p>
+    <ul>
+      <li>Telegram: <a href="https://t.me/osifeu_prog" style="color:var(--accent);">@osifeu_prog</a></li>
+      <li>Email: invest@slh-nft.com</li>
+      <li>אתר: <a href="https://slh-nft.com" style="color:var(--accent);">slh-nft.com</a></li>
+    </ul>
+
+    <div class="alert">
+      <i class="fas fa-circle-exclamation"></i>
+      <div>
+        <b>אזהרה אחרונה:</b> מסמך זה הוא <b>גילוי נאות</b> ולא תחליף לייעוץ משפטי.
+        לפני קבלת החלטה כספית כלשהי, התייעץ עם עורך דין, רואה חשבון, או יועץ השקעות מורשה.
+        SPARK IND אינה אחראית להחלטות שהתקבלו על בסיס מסמך זה.
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--text3);margin-top:60px;font-size:.85rem;">
+      © 2026 SPARK IND · Built in Israel · גרסה 1.0
+    </p>
+  </div>
+</body>
+</html>

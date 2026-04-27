@@ -14,9 +14,8 @@ const SLH_PRICE_ILS = 444;
 
 const RTL_LANGS = ['he', 'ar'];
 const SUPPORTED_LANGS = ['he', 'en', 'ru', 'ar', 'fr'];
-const THEMES = ['neural', 'dark', 'terminal', 'crypto', 'cyberpunk', 'ocean', 'sunset', 'light'];
+const THEMES = ['dark', 'terminal', 'crypto', 'cyberpunk', 'ocean', 'sunset', 'light'];
 const THEME_META = {
-  neural:    { icon: 'fa-dna',           label: 'Neural',     color: '#5ed6ff' },
   dark:      { icon: 'fa-moon',          label: 'Dark',      color: '#6c5ce7' },
   terminal:  { icon: 'fa-terminal',      label: 'Terminal',   color: '#00ff41' },
   crypto:    { icon: 'fa-bitcoin-sign',  label: 'Crypto',     color: '#a855f7' },

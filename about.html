@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="he" dir="rtl" data-theme="dark">
+<html lang="he" dir="rtl" data-theme="neural">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,8 @@
 <link rel="icon" type="image/png" href="/favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="/css/shared.css?v=20260426a">
+<link rel="stylesheet" href="/css/shared.css?v=20260426e">
+<link rel="stylesheet" href="/css/slh-neural.css?v=20260427a">
 
 <style>
 /* עיצוב ייחודי לדף אודות – משתמש במשתנים מ-shared.css */
@@ -104,6 +105,8 @@
 </head>
 <body>
 
+<div class="neural-bg" aria-hidden="true"></div>
+
 <!-- ניווט עליון (ייבנה ע"י shared.js) -->
 <nav id="topnav-root"></nav>
 
@@ -113,7 +116,7 @@
     <i class="fas fa-shield-alt"></i>
     <span data-i18n="about_badge">שקיפות מלאה · קוד פתוח · צוות עצמאי</span>
   </div>
-  <h1 data-i18n="about_title_main">אודות SLH Spark</h1>
+  <h1 class="neural-headline" data-i18n="about_title_main">אודות SLH Spark</h1>
   <p class="lead" data-i18n="about_lead">אקוסיסטם קריפטו ישראלי בפיתוח עצמאי — הכל כאן אמיתי.</p>
   <p class="sub" data-i18n="about_sub">
     צוות קטן ומחויב — Osif Ungar (מייסד) + Kaufman (שותף) — בונים אקוסיסטם שלם:
@@ -441,9 +444,9 @@
   </div>
 </section>
 
-<script src="/js/shared.js?v=20260426a"></script>
+<script src="/js/shared.js?v=20260426e"></script>
 <script src="/js/analytics.js"></script>
-<script src="/js/ai-assistant.js?v=20260426a"></script>
+<script src="/js/ai-assistant.js?v=20260426e"></script>
 
 <script>
 // הוספת מפתחות תרגום חסרים ל-T (מבלי לשנות את הקובץ הפיזי)
