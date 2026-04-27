@@ -27,19 +27,24 @@ const THEME_META = {
 };
 
 const NAV_ITEMS = [
+  // Top 5 are shown in primary nav; rest go to "More" dropdown.
+  // 2026-04-27: investor-focus pivot — surface investors + about above sales pages.
   { key: 'home', href: '/', icon: 'fa-home' },
+  { key: 'investors', href: '/investors.html', icon: 'fa-handshake' },
+  { key: 'bots', href: '/bots.html', icon: 'fa-robot' },
+  { key: 'network', href: '/network.html', icon: 'fa-project-diagram' },
+  { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
+  // Sales/transactional pages — moved into "More" so investors aren't greeted by FOMO surfaces.
   { key: 'genesis', href: '/genesis.html', icon: 'fa-dna' },
   { key: 'trade', href: '/trade.html', icon: 'fa-chart-line' },
   { key: 'earn', href: '/earn.html', icon: 'fa-coins' },
   { key: 'wallet', href: '/wallet.html', icon: 'fa-wallet', auth: true },
-  { key: 'bots', href: '/bots.html', icon: 'fa-robot' },
   { key: 'referral', href: '/referral.html', icon: 'fa-users', auth: true },
   { key: 'community', href: '/community.html', icon: 'fa-comments' },
   { key: 'blog', href: '/blog.html', icon: 'fa-newspaper' },
   { key: 'guides', href: '/guides.html', icon: 'fa-book' },
   { key: 'wallet_guide', href: '/wallet-guide.html', icon: 'fa-graduation-cap' },
   { key: 'blockchain', href: '/blockchain.html', icon: 'fa-cubes' },
-  { key: 'network', href: '/network.html', icon: 'fa-project-diagram' },
   { key: 'roadmap', href: '/roadmap.html', icon: 'fa-road' },
   { key: 'liquidity', href: '/liquidity.html', icon: 'fa-tint' },
   { key: 'challenge', href: '/challenge.html', icon: 'fa-fire' },
@@ -47,7 +52,6 @@ const NAV_ITEMS = [
   { key: 'jubilee', href: '/jubilee.html', icon: 'fa-dove' },
   { key: 'kosher_wallet', href: '/kosher-wallet.html', icon: 'fa-shield-alt' },
   { key: 'p2p', href: '/p2p.html', icon: 'fa-exchange-alt' },
-  { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
   { key: 'control_center', href: '/control-center.html', icon: 'fa-satellite-dish', admin: true },
   { key: 'diagnostics', href: '/diagnostics.html', icon: 'fa-stethoscope', admin: true },
   { key: 'project_map', href: '/project-map.html', icon: 'fa-sitemap', admin: true },
