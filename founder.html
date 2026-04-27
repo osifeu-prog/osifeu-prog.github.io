@@ -115,24 +115,24 @@
   </div>
 </section>
 
-<!-- 2. INVESTOR STATE -->
+<!-- 2. IDO STATE -->
 <section>
-  <h2>מצב גיוס · Series A</h2>
+  <h2>גיוס · IDO Marshall Islands</h2>
   <div class="grid grid-2">
     <div class="tile">
-      <div class="tile-label">Cutoff</div>
+      <div class="tile-label">Launch Target</div>
       <div class="countdown">
         <div class="num" id="cutoff-days">—</div>
-        <div class="label">ימים עד 7 בנובמבר 2026<br>סבב SAFE + Token Warrant סגור</div>
+        <div class="label">ימים עד IDO Launch (יעד 11.5.26)<br>14-day build · Marshall Islands DAO LLC</div>
       </div>
     </div>
     <div class="tile">
-      <div class="tile-label">Pipeline</div>
-      <div class="tile-value">130 leads</div>
-      <div class="tile-sub">Eliezer's CSV · ממתין לייבוא ל-CRM</div>
+      <div class="tile-label">Caps · Token: SLH (BEP-20)</div>
+      <div class="tile-value">20–150 BNB</div>
+      <div class="tile-sub">Soft ~₪50K · Hard ~₪370K · יעד ₪500K · PinkSale.finance</div>
       <div style="margin-top:12px" class="links">
-        <a href="/investors.html">One-Pager</a>
-        <a href="/pitch.html">Pitch Deck</a>
+        <a href="/admin/ido-mission-control.html">IDO Mission Control</a>
+        <a href="/investors.html">Investor Materials</a>
       </div>
     </div>
   </div>
@@ -144,21 +144,21 @@
   <div class="grid grid-3">
     <div class="action-card">
       <span class="num">01</span>
-      <div class="title">סקירה ויזואלית של investors.html</div>
-      <div class="desc">פתח, גלול, ודא שהטקסטים נראים מקצועיים. בעיקר ה-disclaimer.</div>
-      <a class="cta" href="/investors.html" target="_blank">פתח →</a>
+      <div class="title">פתח Marshall Islands LLC</div>
+      <div class="desc">MIDAO 2022 Act · ~$1,500 setup · 7-10 days. קריטי — חוסם הכול.</div>
+      <a class="cta" href="https://midao.org" target="_blank">midao.org →</a>
     </div>
     <div class="action-card">
       <span class="num">02</span>
-      <div class="title">בדוק pitch.html ב-Print preview</div>
-      <div class="desc">Cmd+P / Ctrl+P — ודא שכל ה-18 שקפים עוברים כמו שצריך ל-PDF.</div>
-      <a class="cta" href="/pitch.html" target="_blank">פתח →</a>
+      <div class="title">הקם Gnosis Safe 2-of-3</div>
+      <div class="desc">multisig: Osif + Tzvika + recovery hardware. הכרחי ל-treasury.</div>
+      <a class="cta" href="https://app.safe.global" target="_blank">app.safe.global →</a>
     </div>
     <div class="action-card">
       <span class="num">03</span>
-      <div class="title">ייבא 130 leads ל-CRM</div>
-      <div class="desc">CSV של Eliezer → POST /api/crm/ambassador/import. ראה ops/STATUS.md.</div>
-      <a class="cta" href="/admin/mission-control.html" target="_blank">Mission Control →</a>
+      <div class="title">בחר audit firm</div>
+      <div class="desc">CertiK Lite ($3-5K) או SolidProof. 5-7 days. נדרש לפני PinkSale.</div>
+      <a class="cta" href="/admin/ido-mission-control.html" target="_blank">IDO Dashboard →</a>
     </div>
   </div>
 </section>
@@ -167,15 +167,16 @@
 <section>
   <h2>ניווט מהיר</h2>
   <div class="links">
+    <a href="/admin/ido-mission-control.html">★ IDO Mission Control</a>
     <a href="/admin.html">Admin Panel</a>
     <a href="/admin/mission-control.html">Mission Control</a>
     <a href="/control-center.html">Control Center</a>
     <a href="/ops-dashboard.html">Ops Dashboard</a>
     <a href="/admin/reality.html">Reality Check</a>
+    <a href="/blockchain.html">Blockchain (SLH on BSC)</a>
     <a href="/network.html">Neural Map</a>
-    <a href="/blockchain.html">Blockchain</a>
-    <a href="/voice.html">Voice (Phase 2)</a>
-    <a href="/swarm.html">Swarm (Phase 2)</a>
+    <a href="/investors.html">Investors One-Pager</a>
+    <a href="/pitch.html">Pitch Deck</a>
   </div>
 </section>
 
@@ -202,7 +203,7 @@
 <script>
 const API = 'https://slh-api-production.up.railway.app';
 const ESP_DEVICE_ID = 'esp32-14335C6C32C0';
-const CUTOFF = new Date('2026-11-07T23:59:59');
+const CUTOFF = new Date('2026-05-11T12:00:00');  // IDO launch target (14 days from approval 27.4)
 let adminKey = localStorage.getItem('slh_admin_key') || '';
 
 function saveKey() {
