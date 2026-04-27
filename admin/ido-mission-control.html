@@ -91,13 +91,16 @@ a:hover{text-decoration:underline}
 
   <div id="content" style="display:none">
     <div class="pre-launch-notice">
-      <strong>⏳ Pre-Launch · IDO לא חי עדיין.</strong>
-      המספרים למטה הם הפרמטרים המתוכננים, לא נתונים אמיתיים. הדשבורד יתחבר אוטומטית ל-<code>/api/ido/*</code> כש-FastAPI יפרש ל-Railway.
+      <strong>⏳ Pre-Launch · IDO contributions לא נפתחו עדיין.</strong>
+      ה-API חי (<code>/api/ido/*</code> 9 endpoints), DB schema נוצר, milestones pre-seeded.
+      הדשבורד מציג "0 BNB raised" כי אין עדיין תרומות — זה ה-truth, לא mock.
       <ul>
-        <li>חוסם 1: FastAPI deploy (<a href="../admin/mission-control.html">Mission Control</a>)</li>
-        <li>חוסם 2: Marshall Islands LLC application (~7-10 ימים)</li>
-        <li>חוסם 3: Smart contract audit (~5-7 ימים)</li>
-        <li>זמן מינימלי לעלייה אווירית: ~14-21 ימים</li>
+        <li>✅ FastAPI deployed, /api/ido/* live</li>
+        <li>✅ DB schema created (6 tables + 2 views)</li>
+        <li>✅ 8 milestones pre-seeded with target dates</li>
+        <li>⏳ MIDAO LLC application (~7-10 ימים, מחכה לחתימה שלך)</li>
+        <li>⏳ SolidProof audit ($2,500, מחכה לאישור)</li>
+        <li>⏳ Genesis Wallet → PinkSale 56.25M SLH transfer (Day 8 בלוח)</li>
       </ul>
     </div>
 
@@ -152,18 +155,44 @@ a:hover{text-decoration:underline}
     </div>
 
     <div class="section">
-      <h2>✅ Pre-Launch Checklist</h2>
+      <h2>✅ Pre-Launch Checklist <span class="meta" id="checklistProgress">— / 12</span></h2>
       <ul class="checklist" id="checklist">
+        <li><span class="ico done">✓</span><span class="txt">FastAPI deployed ל-Railway</span><span class="meta">slh-api v1.1.0 live</span></li>
+        <li><span class="ico done">✓</span><span class="txt">DB schema: 6 IDO tables + 2 views</span><span class="meta">init_ido_tables idempotent</span></li>
+        <li><span class="ico done">✓</span><span class="txt">9 IDO endpoints wired</span><span class="meta">/api/ido/* live</span></li>
+        <li><span class="ico done">✓</span><span class="txt">Public site updated (index + control)</span><span class="meta">slh-nft.com synced</span></li>
+        <li><span class="ico done">✓</span><span class="txt">11 spec docs + financial model</span><span class="meta">ops/IDO_LAUNCH_2026-04-27/</span></li>
         <li><span class="ico pending">○</span><span class="txt">Marshall Islands DAO LLC application</span><span class="meta">~7-10 ימים</span></li>
-        <li><span class="ico pending">○</span><span class="txt">Gnosis Safe 2-of-3 multisig setup</span><span class="meta">Osif + Tzvika + recovery key</span></li>
-        <li><span class="ico pending">○</span><span class="txt">Smart contract audit (CertiK Lite / SolidProof)</span><span class="meta">$3-5K · ~5-7 ימים</span></li>
         <li><span class="ico pending">○</span><span class="txt">6 שאלות לעו"ד נשלחו ונענו</span><span class="meta">ops/COMPANY_FORMATION_REALITY*</span></li>
-        <li><span class="ico blocked">!</span><span class="txt">FastAPI deploy ל-Railway</span><span class="meta">P0 חוסם /api/ido/*</span></li>
-        <li><span class="ico pending">○</span><span class="txt">DB schema: ido_transactions / ido_participants / ido_milestones</span><span class="meta">חוסם על FastAPI</span></li>
-        <li><span class="ico pending">○</span><span class="txt">Guardian integration: Sybil + scam DB + OFAC checks</span><span class="meta">לכל ארנק נכנס</span></li>
+        <li><span class="ico pending">○</span><span class="txt">Gnosis Safe 2-of-3 multisig setup</span><span class="meta">Osif + Tzvika + recovery key</span></li>
+        <li><span class="ico pending">○</span><span class="txt">Smart contract audit (SolidProof $2,500)</span><span class="meta">~5-7 ימים</span></li>
+        <li><span class="ico pending">○</span><span class="txt">Guardian integration: Sybil + OFAC + Chainabuse</span><span class="meta">לכל ארנק נכנס</span></li>
         <li><span class="ico pending">○</span><span class="txt">PinkSale launchpad config + LP lock setup</span><span class="meta">אחרי audit</span></li>
-        <li><span class="ico pending">○</span><span class="txt">@SLH_Claude_bot real-time alerts wiring</span><span class="meta">/api/broadcast/send קיים</span></li>
-        <li><span class="ico pending">○</span><span class="txt">Public landing /ido.html</span><span class="meta">אחרי הקמת ישות</span></li>
+        <li><span class="ico pending">○</span><span class="txt">@SLH_Claude_bot real-time alerts wiring</span><span class="meta">7 templates ready</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📡 Milestones <span class="meta" id="milestonesMeta">—</span></h2>
+      <ul class="checklist" id="milestonesList">
+        <li><span class="ico pending">○</span><span class="txt">טוען...</span><span class="meta">/api/ido/milestones</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>💸 Live Transactions <span class="meta" id="txMeta">—</span></h2>
+      <table>
+        <thead><tr><th>זמן</th><th>ארנק</th><th class="num">BNB</th><th>Status</th></tr></thead>
+        <tbody id="txBody">
+          <tr><td colspan="4" style="text-align:center;color:var(--text3);padding:20px">— אין תרומות עדיין · הדשבורד יציג כאן כל transaction חי —</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>🚨 Active Alerts <span class="meta" id="alertsMeta">—</span></h2>
+      <ul class="checklist" id="alertsList">
+        <li><span class="ico done">✓</span><span class="txt">אין alerts פעילים</span><span class="meta">המערכת חמושה ומאוזנת</span></li>
       </ul>
     </div>
 
@@ -212,7 +241,7 @@ function checkAuth(){
   if(pw && pw.length >= 6){
     document.getElementById('content').style.display = 'block';
     document.getElementById('gate').classList.remove('show');
-    loadIdoStats();
+    refreshAll();
   } else {
     document.getElementById('gate').classList.add('show');
   }
@@ -226,24 +255,131 @@ function unlock(){
   localStorage.setItem('slh_admin_password', pw);
   checkAuth();
 }
-async function loadIdoStats(){
-  // Try the future endpoint; gracefully degrade until it exists
+const API = 'https://slh-api-production.up.railway.app';
+const adminKey = () => localStorage.getItem('slh_admin_password') || '';
+const adminHeaders = () => ({'X-Admin-Key': adminKey()});
+
+async function loadIdoStatus(){
+  // Public endpoint — no auth needed
   try {
-    const r = await fetch('/api/ido/stats', {headers:{'X-Admin-Key': localStorage.getItem('slh_admin_password')||''}});
-    if(!r.ok) throw new Error('ido stats not available yet');
+    const r = await fetch(API + '/api/ido/status');
+    if(!r.ok) throw new Error('status ' + r.status);
     const d = await r.json();
-    const raised = parseFloat(d.bnb_raised||0);
+    const raised = parseFloat(d.total_raised_bnb || 0);
     const pct = Math.min(100, (raised / 215) * 100);
     document.getElementById('progressBar').style.width = pct + '%';
     document.getElementById('raisedDisplay').textContent =
-      `${raised.toFixed(2)} BNB raised · ${d.participants||0} משתתפים · ${d.days_active||0} ימים פעילים`;
-    document.getElementById('progressMeta').textContent = 'live · עודכן ' + new Date().toLocaleTimeString('he-IL');
+      `${raised.toFixed(2)} BNB raised · ${d.unique_participants || 0} משתתפים · ${d.confirmed_tx_count || 0} confirmed TXs`;
+    document.getElementById('progressMeta').textContent =
+      'live · ' + new Date().toLocaleTimeString('he-IL');
   } catch(e){
-    document.getElementById('progressMeta').textContent = '/api/ido/stats לא קיים עדיין';
-    document.getElementById('raisedDisplay').textContent = 'ממתין ל-FastAPI deploy ל-Railway';
+    document.getElementById('progressMeta').textContent = '/api/ido/status: ' + e.message;
+    document.getElementById('raisedDisplay').textContent = 'API offline או redeploy בתהליך';
   }
 }
+
+async function loadMilestones(){
+  try {
+    const r = await fetch(API + '/api/ido/milestones');
+    if(!r.ok) throw new Error('status ' + r.status);
+    const d = await r.json();
+    const ms = d.milestones || [];
+    const list = document.getElementById('milestonesList');
+    if(ms.length === 0){
+      list.innerHTML = '<li><span class="ico pending">○</span><span class="txt">אין milestones</span><span class="meta">—</span></li>';
+      return;
+    }
+    list.innerHTML = ms.map(m => {
+      const reached = m.reached_at;
+      const target = (m.details && m.details.target_date) ? m.details.target_date : '—';
+      const ico = reached ? 'done' : 'pending';
+      const sym = reached ? '✓' : '○';
+      const meta = reached ? new Date(reached).toLocaleDateString('he-IL') : 'target: ' + target;
+      const labelMap = {
+        llc_certified: 'Marshall Islands LLC certified',
+        audit_passed: 'Smart contract audit passed',
+        ido_started: 'IDO started',
+        soft_cap_reached: 'Soft cap reached (20 BNB)',
+        hard_cap_reached: 'Hard cap reached (150 BNB)',
+        ido_ended: 'IDO ended',
+        lp_locked: 'LP locked at PinkLock',
+        first_vesting_release: 'First vesting release (TGE 20%)',
+      };
+      const label = labelMap[m.milestone_type] || m.milestone_type;
+      return `<li><span class="ico ${ico}">${sym}</span><span class="txt">${label}</span><span class="meta">${meta}</span></li>`;
+    }).join('');
+    document.getElementById('milestonesMeta').textContent = ms.filter(m => m.reached_at).length + '/' + ms.length + ' reached';
+  } catch(e){
+    document.getElementById('milestonesMeta').textContent = 'error: ' + e.message;
+  }
+}
+
+async function loadTransactions(){
+  try {
+    const r = await fetch(API + '/api/ido/transactions?limit=10', {headers: adminHeaders()});
+    if(r.status === 403){
+      document.getElementById('txMeta').textContent = '🔒 admin key invalid';
+      return;
+    }
+    if(!r.ok) throw new Error('status ' + r.status);
+    const d = await r.json();
+    const txs = d.transactions || [];
+    const tbody = document.getElementById('txBody');
+    if(txs.length === 0){
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:20px">— אין תרומות עדיין · ' + (d.total || 0) + ' total —</td></tr>';
+    } else {
+      tbody.innerHTML = txs.map(t => {
+        const time = t.created_at ? new Date(t.created_at).toLocaleTimeString('he-IL') : '—';
+        const chipClass = t.status === 'confirmed' ? 'chip-green' : t.status === 'pending' ? 'chip-orange' : 'chip-gray';
+        return `<tr>
+          <td>${time}</td>
+          <td><code style="font-size:11px">${t.wallet_short || '—'}</code></td>
+          <td class="num">${parseFloat(t.amount_bnb || 0).toFixed(3)}</td>
+          <td><span class="chip ${chipClass}">${t.status}</span></td>
+        </tr>`;
+      }).join('');
+    }
+    document.getElementById('txMeta').textContent = (d.total || 0) + ' total · refresh ' + new Date().toLocaleTimeString('he-IL');
+  } catch(e){
+    document.getElementById('txMeta').textContent = 'error: ' + e.message;
+  }
+}
+
+async function loadAlerts(){
+  try {
+    const r = await fetch(API + '/api/ido/alerts?actioned=false&limit=20', {headers: adminHeaders()});
+    if(r.status === 403){
+      document.getElementById('alertsMeta').textContent = '🔒 admin key invalid';
+      return;
+    }
+    if(!r.ok) throw new Error('status ' + r.status);
+    const d = await r.json();
+    const alerts = d.alerts || [];
+    const list = document.getElementById('alertsList');
+    if(alerts.length === 0){
+      list.innerHTML = '<li><span class="ico done">✓</span><span class="txt">אין alerts פעילים</span><span class="meta">המערכת חמושה ומאוזנת</span></li>';
+    } else {
+      list.innerHTML = alerts.map(a => {
+        const ico = a.severity === 'critical' || a.severity === 'high' ? 'blocked' : 'pending';
+        const sym = a.severity === 'critical' ? '!' : '⚠';
+        return `<li><span class="ico ${ico}">${sym}</span><span class="txt">[${a.severity}] ${a.description || a.alert_type}</span><span class="meta">${a.wallet_short || ''}</span></li>`;
+      }).join('');
+    }
+    document.getElementById('alertsMeta').textContent = alerts.length + ' active';
+  } catch(e){
+    document.getElementById('alertsMeta').textContent = 'error: ' + e.message;
+  }
+}
+
+function refreshAll(){
+  loadIdoStatus();
+  loadMilestones();
+  loadTransactions();
+  loadAlerts();
+}
+
 checkAuth();
+setInterval(refreshAll, 30000);  // refresh every 30s
 </script>
 </body>
 </html>
