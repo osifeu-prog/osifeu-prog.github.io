@@ -236,26 +236,50 @@ a:hover{text-decoration:underline}
 </div>
 
 <script>
-function checkAuth(){
+const API = 'https://slh-api-production.up.railway.app';
+
+// Validates against /api/ido/dashboard-summary — only accepts keys that ADMIN_API_KEYS allows.
+async function validateAdminKey(key){
+  try {
+    const r = await fetch(API + '/api/ido/dashboard-summary', {headers: {'X-Admin-Key': key}});
+    return r.status === 200;
+  } catch(e){ return false; }
+}
+
+async function checkAuth(){
   const pw = localStorage.getItem('slh_admin_password');
-  if(pw && pw.length >= 6){
+  if(!pw || pw.length < 6){
+    document.getElementById('gate').classList.add('show');
+    return;
+  }
+  // Verify against API — if rotated, gate stays up with clear message
+  const valid = await validateAdminKey(pw);
+  if(valid){
     document.getElementById('content').style.display = 'block';
     document.getElementById('gate').classList.remove('show');
     refreshAll();
   } else {
     document.getElementById('gate').classList.add('show');
+    document.getElementById('gateMsg').textContent =
+      'הסיסמה השמורה אינה תקפה ב-Railway ADMIN_API_KEYS. הזן מפתח תקף.';
   }
 }
-function unlock(){
+async function unlock(){
   const pw = document.getElementById('pw').value.trim();
   if(pw.length < 6){
     document.getElementById('gateMsg').textContent = 'סיסמה חייבת להיות 6 תווים לפחות';
     return;
   }
-  localStorage.setItem('slh_admin_password', pw);
-  checkAuth();
+  document.getElementById('gateMsg').textContent = 'מאמת מול ה-API...';
+  const valid = await validateAdminKey(pw);
+  if(valid){
+    localStorage.setItem('slh_admin_password', pw);
+    checkAuth();
+  } else {
+    document.getElementById('gateMsg').textContent =
+      '❌ מפתח לא תקף. בדוק ב-Railway Variables → ADMIN_API_KEYS';
+  }
 }
-const API = 'https://slh-api-production.up.railway.app';
 const adminKey = () => localStorage.getItem('slh_admin_password') || '';
 const adminHeaders = () => ({'X-Admin-Key': adminKey()});
 
