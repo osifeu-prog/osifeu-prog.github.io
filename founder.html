@@ -249,7 +249,45 @@
   </div>
 </section>
 
-<!-- 5. SYSTEM SUMMARY -->
+<!-- 4.5. BRAIN HISTORY — last 24h trend -->
+<section>
+  <h2>היסטוריית החלטות · Brain Memory</h2>
+  <div class="grid grid-4" id="brain-stats">
+    <div class="tile"><div class="tile-label">Samples (24h)</div><div class="tile-value" id="bs-samples">—</div></div>
+    <div class="tile"><div class="tile-label">Avg score</div><div class="tile-value" id="bs-avg">—</div></div>
+    <div class="tile"><div class="tile-label">Healthy</div><div class="tile-value" id="bs-healthy">—</div></div>
+    <div class="tile"><div class="tile-label">Score range</div><div class="tile-value" id="bs-range">—</div></div>
+  </div>
+  <div id="brain-timeline" style="margin-top:14px; display:flex; gap:2px; height:36px; align-items:flex-end; background:rgba(0,0,0,.3); border-radius:6px; padding:4px"></div>
+  <div class="small-list" style="margin-top:8px">חבילות החלטה אחרונות. כל בלוק = snapshot. גובה = score, צבע = state.</div>
+</section>
+
+<!-- 5. TREASURY -->
+<section>
+  <h2>Treasury · SLH Safe (BSC)</h2>
+  <div class="grid grid-2">
+    <div class="tile">
+      <div class="tile-label">Gnosis Safe</div>
+      <div class="tile-value" style="font-family:monospace;font-size:13px">0x9DD8…BD09</div>
+      <div class="tile-sub">Threshold 1/1 · יש לשדרג ל-2/3 לפני IDO</div>
+      <div style="margin-top:10px" class="links">
+        <a href="https://app.safe.global/home?safe=bnb:0x9DD8aF7Ac0f601CD473422311b2942DAE9D0BD09" target="_blank">Safe App</a>
+        <a href="https://bscscan.com/address/0x9DD8aF7Ac0f601CD473422311b2942DAE9D0BD09" target="_blank">BscScan</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Activation Steps</div>
+      <div class="small-list" style="margin-top:6px">
+        <div>① Send 0.01-0.05 BNB to Safe (gas)</div>
+        <div>② First tx → auto-activates account</div>
+        <div>③ Add Tzvika as 2nd signer (later)</div>
+        <div>④ Connect to PinkSale (IDO config)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. SYSTEM SUMMARY -->
 <section>
   <h2>מצב מפורט</h2>
   <div class="small-list" id="detail">
@@ -364,11 +402,47 @@ async function refreshBrain() {
   }
 }
 
+async function refreshBrainHistory() {
+  try {
+    const r = await fetch(API + '/api/brain/history?hours=24', { cache: 'no-store' });
+    if (!r.ok) return;
+    const j = await r.json();
+    const stats = j.stats || {};
+    const snaps = j.snapshots || [];
+
+    document.getElementById('bs-samples').textContent = stats.samples || 0;
+    document.getElementById('bs-avg').textContent = stats.avg_score != null ? stats.avg_score : '—';
+    document.getElementById('bs-healthy').textContent = stats.healthy_pct != null ? (stats.healthy_pct + '%') : '—';
+    document.getElementById('bs-range').textContent = (stats.min_score != null && stats.max_score != null) ? (stats.min_score + '–' + stats.max_score) : '—';
+
+    const tl = document.getElementById('brain-timeline');
+    tl.innerHTML = '';
+    // Show oldest → newest, max 100 bars
+    const display = snaps.slice(0, 100).reverse();
+    display.forEach(s => {
+      const bar = document.createElement('div');
+      const h = Math.max(4, Math.round(s.health_score * 0.32)); // 100 → 32px max
+      bar.style.flex = '1';
+      bar.style.minWidth = '3px';
+      bar.style.height = h + 'px';
+      bar.style.borderRadius = '2px';
+      bar.style.background = s.system_state === 'HEALTHY' ? '#4ade80'
+                          : s.system_state === 'DEGRADED' ? '#ff9a3c'
+                          : '#ff5e87';
+      bar.title = `${s.snapshot_at} · ${s.system_state} · ${s.health_score}/100\n${s.summary || ''}`;
+      tl.appendChild(bar);
+    });
+  } catch (e) {
+    // silent — history is non-critical
+  }
+}
+
 async function refresh() {
   document.getElementById('updated-at').textContent = new Date().toLocaleTimeString('he-IL');
 
-  // Brain — runs first; everything else is reduntant detail
+  // Brain — runs first; everything else is redundant detail
   refreshBrain();
+  refreshBrainHistory();
 
   // Cutoff countdown
   const days = Math.ceil((CUTOFF - new Date()) / (1000*60*60*24));
