@@ -211,24 +211,8 @@
   <!-- Ambient neural background -->
   <div class="neural-bg" aria-hidden="true"></div>
 
-  <!-- Top navigation -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a href="/" class="topbar-brand">
-        <span class="brand-logo">SLH</span>
-        <span>Spark Ecosystem</span>
-      </a>
-      <nav class="topbar-nav">
-        <a href="#tokens" class="topbar-link">Tokens</a>
-        <a href="#tech" class="topbar-link">Tech</a>
-        <a href="#ido" class="topbar-link">IDO</a>
-        <a href="#roadmap" class="topbar-link">Roadmap</a>
-        <a href="https://t.me/SLH_AIR_bot" class="neural-btn neural-btn-primary" style="padding: 10px 20px; font-size: .9rem;">
-          <i class="fab fa-telegram"></i> Join
-        </a>
-      </nav>
-    </div>
-  </header>
+  <!-- Full site navigation (rendered by shared.js — gives access to ALL site pages) -->
+  <div id="topnav-root" data-page="home"></div>
 
   <!-- IDO ticker — auto-refreshes from /api/ido/status -->
   <div class="ido-ticker" id="idoTicker">
@@ -276,9 +260,9 @@
         </div>
       </div>
 
-      <!-- Token constellation visual -->
+      <!-- Token constellation — INTERACTIVE: click each node to see details + jump to its page -->
       <div class="hero-visual">
-        <div class="token-constellation" id="tokenConstellation" aria-label="Token ecosystem visualization">
+        <div class="token-constellation" id="tokenConstellation" aria-label="Token ecosystem — click any node">
           <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
             <defs>
               <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
@@ -294,25 +278,28 @@
             <line class="synapse-line" x1="200" y1="200" x2="67" y2="155" style="animation-delay:1.6s"/>
             <circle cx="200" cy="200" r="140" fill="none" stroke="var(--border2)" stroke-width="1" stroke-dasharray="2 6" opacity=".4"/>
           </svg>
-          <div class="center-node">
-            <div class="token-node" data-token="SLH" title="SLH — Premium Token">SLH</div>
-          </div>
-          <div style="position:absolute; top:7%; left:50%; transform:translateX(-50%);">
-            <div class="token-node" data-token="MNH" style="width:64px; height:64px; font-size:1rem;" title="MNH — Stable (1 ILS)">MNH</div>
-          </div>
-          <div style="position:absolute; top:32%; right:6%;">
-            <div class="token-node" data-token="ZVK" style="width:64px; height:64px; font-size:1rem;" title="ZVK — Activity rewards">ZVK</div>
-          </div>
-          <div style="position:absolute; bottom:7%; right:22%;">
-            <div class="token-node" data-token="REP" style="width:64px; height:64px; font-size:1rem;" title="REP — Reputation">REP</div>
-          </div>
-          <div style="position:absolute; bottom:7%; left:22%;">
-            <div class="token-node" data-token="ZUZ" style="width:64px; height:64px; font-size:1rem;" title="ZUZ — Anti-fraud guardian">ZUZ</div>
-          </div>
-          <div style="position:absolute; top:32%; left:6%;">
-            <div class="token-node" data-token="MNH" style="width:48px; height:48px; font-size:.85rem; opacity:.5;" title="Future expansion">+</div>
-          </div>
+          <a href="#tokens" class="center-node" data-token-link="SLH" title="SLH — Premium Token · click for details" style="cursor:pointer;text-decoration:none">
+            <div class="token-node" data-token="SLH">SLH</div>
+          </a>
+          <a href="#tokens" data-token-link="MNH" title="MNH — Stable Coin (1 ILS) · click for details" style="position:absolute; top:7%; left:50%; transform:translateX(-50%); cursor:pointer; text-decoration:none">
+            <div class="token-node" data-token="MNH" style="width:64px; height:64px; font-size:1rem;">MNH</div>
+          </a>
+          <a href="#tokens" data-token-link="ZVK" title="ZVK — Activity Rewards · click for details" style="position:absolute; top:32%; right:6%; cursor:pointer; text-decoration:none">
+            <div class="token-node" data-token="ZVK" style="width:64px; height:64px; font-size:1rem;">ZVK</div>
+          </a>
+          <a href="#tokens" data-token-link="REP" title="REP — Reputation · click for details" style="position:absolute; bottom:7%; right:22%; cursor:pointer; text-decoration:none">
+            <div class="token-node" data-token="REP" style="width:64px; height:64px; font-size:1rem;">REP</div>
+          </a>
+          <a href="#tokens" data-token-link="ZUZ" title="ZUZ — Anti-fraud Guardian · click for details" style="position:absolute; bottom:7%; left:22%; cursor:pointer; text-decoration:none">
+            <div class="token-node" data-token="ZUZ" style="width:64px; height:64px; font-size:1rem;">ZUZ</div>
+          </a>
+          <a href="/roadmap.html" title="Future tokens — see roadmap" style="position:absolute; top:32%; left:6%; cursor:pointer; text-decoration:none">
+            <div class="token-node" data-token="MNH" style="width:48px; height:48px; font-size:.85rem; opacity:.5;">+</div>
+          </a>
         </div>
+        <p style="text-align:center; color:var(--text3); font-size:.82rem; margin-top:14px;">
+          <i class="fas fa-hand-pointer" style="color:var(--accent);"></i>  לחץ על כל מטבע בנוירונים כדי לראות פרטים
+        </p>
       </div>
     </div>
   </section>
@@ -429,6 +416,162 @@
           </p>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ INTERACTIVE NETWORK MAP ═══════════════════ -->
+  <section class="neural-section" id="network">
+    <div class="neural-container">
+      <div class="section-header">
+        <span class="neural-eyebrow">Live System Map</span>
+        <h2>הרכיבים האמיתיים — לחץ כל אחד</h2>
+        <p>זאת לא אנימציה דקורטיבית. כל נוירון = רכיב חי במערכת. קליק → דף הרכיב + כל הקשרים שלו.</p>
+      </div>
+
+      <!-- Interactive node grid (clickable nodes that open the relevant page) -->
+      <div style="max-width:1100px; margin:0 auto;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:14px;">
+
+          <!-- Tokens -->
+          <a href="/tokens.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#ffe18a,var(--token-slh));color:#2a1f00;flex-shrink:0">
+              <i class="fas fa-coins"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">5 Tokens</div>
+              <div style="font-size:.82rem;color:var(--text3)">SLH · MNH · ZVK · REP · ZUZ</div>
+            </div>
+          </a>
+
+          <!-- Bots -->
+          <a href="/bots.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#a855f7,#06b6d4);color:#fff;flex-shrink:0">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">25 Telegram Bots</div>
+              <div style="font-size:.82rem;color:var(--text3)">Guardian · Wallet · Game · Academy · …</div>
+            </div>
+          </a>
+
+          <!-- API -->
+          <a href="/ecosystem-guide.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#5096dc,#7eb6e8);color:#fff;flex-shrink:0">
+              <i class="fas fa-server"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">230+ API Endpoints</div>
+              <div style="font-size:.82rem;color:var(--text3)">FastAPI · PostgreSQL · Redis</div>
+            </div>
+          </a>
+
+          <!-- Blockchain -->
+          <a href="/chain-status.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#f0b90b,#fcd34d);color:#1a1a00;flex-shrink:0">
+              <i class="fab fa-bitcoin"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">BSC Blockchain</div>
+              <div style="font-size:.82rem;color:var(--text3)">PancakeSwap V2 · BEP-20</div>
+            </div>
+          </a>
+
+          <!-- ESP32 -->
+          <a href="/admin/devices-catalog.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#10b981,#34d399);color:#fff;flex-shrink:0">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">ESP32 Hardware</div>
+              <div style="font-size:.82rem;color:var(--text3)">Kosher Wallet · device registry</div>
+            </div>
+          </a>
+
+          <!-- Guardian -->
+          <a href="/guardian-diag.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#ef4444,#f87171);color:#fff;flex-shrink:0">
+              <i class="fas fa-shield-virus"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Guardian System</div>
+              <div style="font-size:.82rem;color:var(--text3)">Anti-fraud · ZUZ marking · OFAC</div>
+            </div>
+          </a>
+
+          <!-- Academia -->
+          <a href="/learning-path.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#86efac,var(--token-zvk));color:#052e16;flex-shrink:0">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Academia</div>
+              <div style="font-size:.82rem;color:var(--text3)">Dynamic Yield Course #1</div>
+            </div>
+          </a>
+
+          <!-- Wallet -->
+          <a href="/wallet.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#a7e9ff,var(--token-rep));color:#003344;flex-shrink:0">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Wallet</div>
+              <div style="font-size:.82rem;color:var(--text3)">BSC + TON · multi-token</div>
+            </div>
+          </a>
+
+          <!-- Network Map -->
+          <a href="/network.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#b482f0,#d4a5ff);color:#fff;flex-shrink:0">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Neural Network Map</div>
+              <div style="font-size:.82rem;color:var(--text3)">61 nodes · 161 edges · all connections</div>
+            </div>
+          </a>
+
+          <!-- IDO -->
+          <a href="/ido.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text);border-color:rgba(255,209,102,.3)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);flex-shrink:0">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">IDO Pre-launch</div>
+              <div style="font-size:.82rem;color:var(--text3)">Marshall Islands DAO · ~14 days</div>
+            </div>
+          </a>
+
+          <!-- Earn -->
+          <a href="/earn.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#10b981,#34d399);color:#fff;flex-shrink:0">
+              <i class="fas fa-piggy-bank"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Earn / Staking</div>
+              <div style="font-size:.82rem;color:var(--text3)">Variable Yield 4-12%</div>
+            </div>
+          </a>
+
+          <!-- Project map -->
+          <a href="/project-map.html" class="neural-card" style="display:flex;align-items:center;gap:12px;padding:18px;text-decoration:none;color:var(--text)">
+            <div class="card-icon" style="width:44px;height:44px;background:linear-gradient(135deg,#9ca3af,#d1d5db);color:#111;flex-shrink:0">
+              <i class="fas fa-sitemap"></i>
+            </div>
+            <div>
+              <div style="font-weight:700">Site Map</div>
+              <div style="font-size:.82rem;color:var(--text3)">52 דפים · status indicators</div>
+            </div>
+          </a>
+
+        </div>
+
+        <p style="text-align:center; margin-top:32px; color:var(--text2); font-size:.95rem;">
+          רוצה ויזואליזציה גרפית מלאה של כל הקשרים? →
+          <a href="/network.html" style="color:var(--accent);">/network.html</a>
+          (61 nodes · 161 edges)
+        </p>
       </div>
     </div>
   </section>
@@ -638,27 +781,18 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ FOOTER ═══════════════════ -->
-  <footer>
-    <div class="footer-links">
-      <a href="/about.html">About</a>
-      <a href="/tokens.html">Tokens</a>
-      <a href="/wallet.html">Wallet</a>
-      <a href="/whitepaper.html">Whitepaper</a>
-      <a href="/disclosure.html">Risk Disclosure</a>
-      <a href="https://t.me/SLH_AIR_bot">Telegram</a>
-      <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022">BscScan</a>
-    </div>
-    <div>
-      © 2026 SLH Spark · SPARK IND · Built in Israel ·
-      <span class="live-indicator" style="margin-inline-start: 4px;">SYSTEM ONLINE</span>
-    </div>
-    <div class="legal">
+  <!-- IDO legal disclosure (always visible above full footer) -->
+  <section style="max-width:920px;margin:60px auto 0;padding:0 24px">
+    <div style="padding:18px 22px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02);font-size:.78rem;color:var(--text3);line-height:1.7;text-align:center">
       Operated by SLH Sovereign DAO LLC, Republic of the Marshall Islands (MIDAO #pending).
       Not available in OFAC-restricted jurisdictions. Not investment advice.
       Smart contracts on Binance Smart Chain · Audited by SolidProof · LP locked 365 days at PinkLock.
     </div>
-  </footer>
+  </section>
+
+  <!-- Bottom navigation + Full site footer (rendered by shared.js) -->
+  <div id="bottomnav-root"></div>
+  <div id="footer-root"></div>
 
   <!-- Live data fetcher (graceful degradation) -->
   <script>
@@ -696,5 +830,9 @@
       setInterval(refreshTicker, 60000);
     })();
   </script>
+
+  <!-- Shared site infrastructure: nav, footer, i18n, theme switcher -->
+  <script src="js/translations.js?v=20260428"></script>
+  <script src="js/shared.js?v=20260428"></script>
 </body>
 </html>
