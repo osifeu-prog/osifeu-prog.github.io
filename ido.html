@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="neural">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLH IDO — Anti-Fraud Token Sale | Marshall Islands DAO LLC</title>
+  <meta name="description" content="IDO סופי של SLH דרך Marshall Islands DAO LLC. Audited by SolidProof, LP locked 365 days, vesting 20% TGE. Soft cap 20 BNB, hard cap 150 BNB.">
+  <meta name="keywords" content="SLH IDO, PinkSale, Marshall Islands DAO, anti-fraud, BSC IDO, audited token sale, LP locked">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://slh-nft.com/ido.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SLH IDO — Anti-Fraud DeFi Token Sale">
+  <meta property="og:description" content="Marshall Islands DAO LLC · Audited · LP locked 365 days · Soft cap 20 BNB · Vesting 20% TGE">
+  <meta property="og:image" content="https://slh-nft.com/assets/og/default.png">
+  <meta property="og:url" content="https://slh-nft.com/ido.html">
+
+  <link rel="icon" href="/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/shared.css?v=20260427b">
+  <link rel="stylesheet" href="css/slh-neural.css?v=20260427b">
+
+  <style>
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      color: var(--text); background: var(--bg);
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+    }
+
+    /* ── Topbar ── */
+    .ido-topbar {
+      position: fixed; top: 0; inset-inline: 0; z-index: 50;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(3, 6, 15, .65);
+      border-bottom: 1px solid var(--border);
+    }
+    .ido-topbar-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+    }
+    .ido-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--text); text-decoration: none;
+    }
+    .ido-brand .brand-logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--bg); font-weight: 900; font-size: .9rem;
+      box-shadow: 0 0 20px rgba(255, 209, 102, .3);
+    }
+
+    /* ── Hero ── */
+    .ido-hero {
+      padding: 110px 24px 60px;
+      text-align: center;
+      position: relative;
+    }
+    .ido-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900;
+      margin: 0 0 10px; line-height: 1.1;
+      background: linear-gradient(135deg, var(--text), var(--accent));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .ido-hero .subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--text2);
+      max-width: 640px; margin: 0 auto 24px; line-height: 1.5;
+    }
+    .ido-eyebrow {
+      display: inline-block; padding: 6px 14px;
+      background: rgba(255, 209, 102, .1); color: var(--accent);
+      border-radius: 999px; font-size: .8rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    /* Live progress */
+    .live-progress {
+      max-width: 720px; margin: 32px auto 0;
+      padding: 24px 28px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border); border-radius: 16px;
+    }
+    .live-progress .row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .live-progress .raised {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.6rem;
+      font-weight: 700; color: var(--accent);
+    }
+    .live-progress .pct {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
+      color: var(--text2);
+    }
+    .live-progress .bar {
+      height: 12px; background: rgba(255, 255, 255, .04);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .live-progress .bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 1s ease-out; box-shadow: 0 0 12px var(--accent);
+      width: 0%;
+    }
+    .live-progress .meta {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      font-size: .88rem; color: var(--text3);
+    }
+
+    /* CTA */
+    .ido-cta-row {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    /* Three pillar trust */
+    .trust-pillars {
+      max-width: 1080px; margin: 80px auto 0;
+      padding: 0 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    }
+    @media (max-width: 760px) { .trust-pillars { grid-template-columns: 1fr; } }
+    .trust-pillar {
+      padding: 28px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border); border-radius: 14px;
+      text-align: center;
+    }
+    .trust-pillar .pill-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      margin: 0 auto 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .trust-pillar h3 {
+      margin: 0 0 6px; font-size: 1.2rem;
+    }
+    .trust-pillar p {
+      margin: 0 0 14px; color: var(--text2); font-size: .95rem; line-height: 1.5;
+    }
+    .trust-pillar a.proof {
+      font-size: .85rem; color: var(--accent); text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 209, 102, .35);
+    }
+    .trust-pillar a.proof:hover { border-bottom-color: var(--accent); }
+
+    /* Numbers panel */
+    .numbers-panel {
+      max-width: 1080px; margin: 80px auto 0;
+      padding: 0 24px;
+    }
+    .numbers-panel-inner {
+      background: rgba(255, 255, 255, .025);
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden;
+    }
+    .numbers-row {
+      display: grid; grid-template-columns: 200px 1fr auto;
+      align-items: center; gap: 14px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .numbers-row:last-child { border-bottom: none; }
+    .numbers-row .label {
+      font-size: .85rem; color: var(--text3);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .numbers-row .value {
+      font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+      color: var(--text); font-weight: 600;
+      word-break: break-all;
+    }
+    .numbers-row .verify {
+      font-size: .82rem; color: var(--accent); text-decoration: none;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .numbers-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    /* How it works */
+    .how-section {
+      max-width: 1080px; margin: 80px auto 0;
+      padding: 0 24px;
+    }
+    .how-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      margin-top: 36px;
+    }
+    @media (max-width: 720px) { .how-grid { grid-template-columns: 1fr; } }
+    .how-step {
+      padding: 28px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border); border-radius: 14px;
+      position: relative;
+    }
+    .how-step .step-num {
+      position: absolute; top: -16px; right: 20px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: var(--bg); font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .how-step h4 { margin: 6px 0 8px; font-size: 1.1rem; }
+    .how-step p { margin: 0; color: var(--text2); font-size: .92rem; line-height: 1.55; }
+
+    /* Risk disclosure (mandatory) */
+    .risk-section {
+      max-width: 880px; margin: 80px auto 0;
+      padding: 32px;
+      background: rgba(220, 38, 38, .05);
+      border: 1px solid rgba(220, 38, 38, .3); border-radius: 14px;
+    }
+    .risk-section h2 {
+      color: #ff6b6b; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .risk-section ol {
+      color: var(--text2); font-size: .94rem; line-height: 1.7;
+      padding-inline-start: 20px;
+    }
+    .risk-section ol li { margin-bottom: 8px; }
+    .risk-section .non-negotiable {
+      margin-top: 16px; padding: 12px 16px;
+      background: rgba(220, 38, 38, .08);
+      border-radius: 8px; font-size: .88rem; color: #ffaaaa;
+    }
+
+    /* FAQ */
+    .faq-section {
+      max-width: 880px; margin: 80px auto 0;
+      padding: 0 24px;
+    }
+    .faq-item {
+      background: rgba(255, 255, 255, .025);
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 10px; overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 18px 22px; cursor: pointer;
+      font-weight: 600; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+'; font-size: 1.4rem; color: var(--accent);
+      transition: transform .25s;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item .faq-body {
+      padding: 0 22px 18px; color: var(--text2);
+      font-size: .94rem; line-height: 1.6;
+    }
+
+    /* Footer */
+    .ido-footer {
+      margin-top: 100px;
+      padding: 40px 24px 30px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center; color: var(--text3); font-size: .88rem;
+    }
+    .ido-footer .legal {
+      max-width: 720px; margin: 14px auto 0;
+      font-size: .78rem; line-height: 1.7;
+    }
+    .ido-footer a { color: var(--text2); text-decoration: none; }
+    .ido-footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient neural background -->
+  <div class="neural-bg" aria-hidden="true"></div>
+
+  <!-- Topbar -->
+  <header class="ido-topbar">
+    <div class="ido-topbar-inner">
+      <a href="/" class="ido-brand">
+        <span class="brand-logo">SLH</span>
+        <span>IDO</span>
+      </a>
+      <nav style="display:flex; gap:14px; align-items:center;">
+        <a href="/" style="color: var(--text2); text-decoration: none; font-size: .9rem;">חזרה לאתר</a>
+        <a href="#buy" class="neural-btn neural-btn-gold" style="padding: 8px 16px; font-size: .9rem;">
+          <i class="fas fa-rocket"></i> Buy SLH
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="ido-hero">
+    <span class="ido-eyebrow">Marshall Islands DAO LLC · Audited · LP Locked 365 Days</span>
+    <h1>SLH IDO סופי</h1>
+    <p class="subtitle">
+      גיוס DeFi-native לטוקן SLH, עם anti-fraud בלב המנגנון.
+      ללא רגולטור ישראלי, ללא בנקים, ללא משקיעים פרטיים — רק smart contract שקוף ב-BSC.
+    </p>
+
+    <!-- Live progress -->
+    <div class="live-progress">
+      <div class="row">
+        <div>
+          <span style="font-size: .75rem; color: var(--text3); text-transform: uppercase; letter-spacing: .12em;">Total Raised</span>
+          <div class="raised" id="raisedBnb">— BNB</div>
+        </div>
+        <div class="pct" id="raisedPct">Pre-launch</div>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <div class="meta">
+        <span id="participants">— contributors</span>
+        <span id="capStatus">Soft cap: 20 BNB · Hard cap: 150 BNB</span>
+        <span id="timeLeft">~14 days to launch</span>
+      </div>
+    </div>
+
+    <div class="ido-cta-row">
+      <a href="#buy" id="buyCta" class="neural-btn neural-btn-gold" style="padding: 14px 30px; font-size: 1rem;">
+        <i class="fas fa-rocket"></i> Buy on PinkSale (Day 14+)
+      </a>
+      <a href="/whitepaper.html" class="neural-btn neural-btn-ghost" style="padding: 14px 30px; font-size: 1rem;">
+        <i class="fas fa-file-lines"></i> Whitepaper
+      </a>
+    </div>
+  </section>
+
+  <!-- Three-pillar trust band -->
+  <section class="trust-pillars">
+    <div class="trust-pillar">
+      <div class="pill-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2));">
+        <i class="fas fa-file-contract" style="color: var(--bg);"></i>
+      </div>
+      <h3>Audited</h3>
+      <p>Smart contract audited by SolidProof. דוח public מתפרסם ביום 12 בלוח הזמנים.</p>
+      <a href="#" class="proof" id="auditLink">דוח audit (Day 12)</a>
+    </div>
+
+    <div class="trust-pillar">
+      <div class="pill-icon" style="background: linear-gradient(135deg, #5096dc, #7eb6e8);">
+        <i class="fas fa-lock" style="color: white;"></i>
+      </div>
+      <h3>LP Locked 365 Days</h3>
+      <p>כל הנזילות נעולה ב-PinkLock לשנה שלמה. on-chain verifiable.</p>
+      <a href="#" class="proof" id="lockLink">PinkLock URL (Day 14)</a>
+    </div>
+
+    <div class="trust-pillar">
+      <div class="pill-icon" style="background: linear-gradient(135deg, #b482f0, #d4a5ff);">
+        <i class="fas fa-globe" style="color: white;"></i>
+      </div>
+      <h3>Marshall Islands DAO</h3>
+      <p>ישות חוקית מוכרת בינלאומית. Member-managed, פרטיות מלאה.</p>
+      <a href="#" class="proof" id="midaoLink">MIDAO Certificate (Day 8)</a>
+    </div>
+  </section>
+
+  <!-- Numbers panel -->
+  <section class="numbers-panel">
+    <h2 style="text-align:center; margin-bottom: 28px;">📊 מספרים מאומתים</h2>
+    <div class="numbers-panel-inner">
+      <div class="numbers-row">
+        <span class="label">Token Address</span>
+        <span class="value" id="tokenAddr">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</span>
+        <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" rel="noopener" class="verify">→ BscScan</a>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Soft Cap</span>
+        <span class="value">20 BNB · ~₪50,000</span>
+        <span class="verify">PinkSale param</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Hard Cap</span>
+        <span class="value">150 BNB · ~₪370,000</span>
+        <span class="verify">PinkSale param</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Token Price</span>
+        <span class="value">0.000004 BNB · ~₪0.05 / SLH</span>
+        <span class="verify">~25% discount vs market</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Listing Price</span>
+        <span class="value">0.000005 BNB · ~₪0.066 / SLH</span>
+        <span class="verify">matches Pancake</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Min / Max Buy</span>
+        <span class="value">0.05 / 5 BNB</span>
+        <span class="verify">per wallet</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">Vesting</span>
+        <span class="value">20% TGE + 20% × 4 חודשים</span>
+        <span class="verify">smart contract enforced</span>
+      </div>
+      <div class="numbers-row">
+        <span class="label">LP Lock</span>
+        <span class="value">365 ימים @ PinkLock</span>
+        <span class="verify">anti-rug</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-section">
+    <h2 style="text-align:center; margin-bottom: 8px;">איך זה עובד?</h2>
+    <p style="text-align: center; color: var(--text2); max-width: 640px; margin: 0 auto;">3 צעדים מהחלטה לקבלת SLH. המנגנון מבוצע ע"י PinkSale בקוד שעבר audit.</p>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <h4>Connect wallet</h4>
+        <p>חבר ארנק MetaMask או Trust Wallet ב-Binance Smart Chain (BSC). אם אין לך ארנק, התחל מ-<a href="https://metamask.io/" target="_blank" style="color: var(--accent);">metamask.io</a>.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <h4>Contribute BNB</h4>
+        <p>בעמוד PinkSale, שלח 0.05–5 BNB לקונטרקט ה-IDO. ב-30 הדקות הראשונות יש whitelist; אחר כך פתוח לכולם.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <h4>Receive SLH</h4>
+        <p>20% מהטוקנים ישוחררו מיד ב-TGE (Token Generation Event). שאר ה-80% משוחררים 20% בכל חודש למשך 4 חודשים.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk disclosure (MANDATORY) -->
+  <section class="risk-section" id="risk">
+    <h2>⚠️ Risk Disclosure</h2>
+    <p style="color: var(--text2); margin: 0 0 14px;">
+      PinkSale + audit + LP lock = הגנה חזקה, אבל סיכונים נשארים. אנחנו מחויבים לשקיפות מלאה:
+    </p>
+    <ol>
+      <li><strong>אין תשואות מובטחות.</strong> ערך הטוקן יכול לרדת לאפס. אף ישות לא מבטיחה מימוש או החזר.</li>
+      <li><strong>סיכון Smart contract.</strong> גם חוזים שעברו audit יכולים להכיל באגים לא ידועים.</li>
+      <li><strong>סיכון רגולטורי.</strong> במדינות מסוימות הטוקן עלול להיחשב נייר ערך, מה שיגביל גישה.</li>
+      <li><strong>תנודתיות.</strong> שווקי BNB וקריפטו תנודתיים מאוד.</li>
+      <li><strong>Vesting risk.</strong> 80% מהטוקנים נעולים ל-4 חודשים — לא נזיל.</li>
+      <li><strong>Soft cap risk.</strong> אם לא מתמלא תוך 30 ימים — refund אוטומטי דרך PinkSale.</li>
+      <li><strong>אין KYC ברמת הפרוטוקול.</strong> אבל כל ארנק נסרק מול רשימות OFAC ואיומי-ארנקים.</li>
+    </ol>
+    <div class="non-negotiable">
+      <strong>לא זמין במדינות סנקציות OFAC</strong> (USA, איראן, צפון קוריאה, סוריה, קובה, רוסיה-מסוימים).
+      גילוי הסיכון הזה הוא לא אופציונלי — הוא חלק חוקי מההצעה.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <h2 style="text-align:center; margin-bottom: 28px;">שאלות נפוצות</h2>
+
+    <details class="faq-item">
+      <summary>מה זה Marshall Islands DAO LLC?</summary>
+      <div class="faq-body">
+        ישות משפטית מוכרת בינלאומית בארץ האיים מרשל. מאפשרת DAO לפעול עם הכרה רשמית, ללא רגולציית ניירות ערך אגרסיבית, מס ברירת מחדל 0%, ופרטיות חבר. רישום סטנדרטי ב-MIDAO.com.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>למה דרך PinkSale?</summary>
+      <div class="faq-body">
+        PinkSale היא launchpad מוביל ב-BSC עם אלפי launches. החוזים שלהם עברו audit, יש להם anti-bot, refund אוטומטי, ו-LP lock בנוי. אנחנו לא מצפים ל-investors שיסמכו על קוד שלנו לבדו — אנחנו משתמשים בתשתית מאומתת.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>האם זה דורש KYC?</summary>
+      <div class="faq-body">
+        לא ברמת המשתמש. אבל ארנקים נסרקים אוטומטית מול רשימות OFAC, Chainabuse, ו-cluster analysis לסיבל-טסטינג. ארנקים מעורבים בהונאות ייחסמו אוטומטית.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>מה קורה אם soft cap לא נסגר?</summary>
+      <div class="faq-body">
+        אם פחות מ-20 BNB יגויסו ב-30 ימים, PinkSale מבצע refund אוטומטי לכל המשתתפים. אין פעולה נדרשת מצדך — הקונטרקט עושה זאת אוטומטית.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>האם אני יכול למכור מיד אחרי TGE?</summary>
+      <div class="faq-body">
+        רק 20% מהטוקנים שלך משוחררים ב-TGE — אותם אתה יכול למכור מיד. שאר ה-80% נעולים בחוזה ה-vesting ויפתחו 20% בכל חודש למשך 4 חודשים. זה מונע dump pressure ומגן על שווי הטוקן.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>איפה הכסף הולך?</summary>
+      <div class="faq-body">
+        50% מה-BNB שיגויסו הולכים ל-Liquidity Pool ב-PancakeSwap, נעולים 365 ימים. 50% הולכים ל-DAO Treasury (Gnosis Safe 2-of-3 multisig) למימון פיתוח, audits, infrastructure, ושכר. שקיפות מלאה — כל transfer מהtreasury מצריך 2 חתימות + audit log.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>מי בודק את הקוד?</summary>
+      <div class="faq-body">
+        SolidProof — חברת audit נחשבת המוכרת ע"י PinkSale. הדוח מתפרסם פומבית לפני go-live, בקישור ב-trust panel למעלה. בנוסף, הקהילה יכולה לעיין בקוד ב-BscScan (verified contract).
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>איך אני יודע שזה לא רגלי (rug pull)?</summary>
+      <div class="faq-body">
+        4 שכבות הגנה: (1) audit ע"י SolidProof, (2) LP locked 365 ימים ב-PinkLock — אי אפשר לסגור את הpool, (3) treasury ב-Gnosis Safe multisig — שום משיכה ללא 2 חתימות, (4) vesting אוטומטי בחוזה — הצוות לא יכול לדלג. הכל verifiable on-chain ב-BscScan.
+      </div>
+    </details>
+  </section>
+
+  <!-- Footer -->
+  <footer class="ido-footer">
+    <div style="margin-bottom: 12px;">
+      <a href="/">SLH Spark</a> ·
+      <a href="/whitepaper.html">Whitepaper</a> ·
+      <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank">BscScan</a> ·
+      <a href="https://t.me/SLH_AIR_bot">Telegram</a> ·
+      <a href="/disclosure.html">Risk Disclosure</a>
+    </div>
+    <div class="legal">
+      Operated by SLH Sovereign DAO LLC, Republic of the Marshall Islands (MIDAO #pending).
+      Not available in OFAC-restricted jurisdictions. Not investment advice.
+      Smart contracts on Binance Smart Chain · Audited by SolidProof · LP locked 365 days at PinkLock.
+      <br>
+      © 2026 SLH Spark · SPARK IND · Built in Israel
+    </div>
+  </footer>
+
+  <script>
+    const API = 'https://slh-api-production.up.railway.app';
+    const SOFT_CAP = 20;
+
+    async function refreshIDOStatus() {
+      try {
+        const r = await fetch(API + '/api/ido/status');
+        if (!r.ok) throw new Error('status ' + r.status);
+        const d = await r.json();
+        const total = parseFloat(d.total_raised_bnb || 0);
+        const pct = (total / SOFT_CAP) * 100;
+
+        document.getElementById('raisedBnb').textContent = total.toFixed(2) + ' BNB';
+        document.getElementById('raisedPct').textContent = d.soft_cap_met ? '✓ Soft cap met' : pct.toFixed(1) + '% of soft';
+        document.getElementById('barFill').style.width = Math.min(100, pct) + '%';
+        document.getElementById('participants').textContent = (d.unique_participants || 0) + ' contributors';
+
+        if (d.milestones && d.milestones.ido_started && d.milestones.ido_started.target) {
+          const target = d.milestones.ido_started.target.target_date;
+          if (target) {
+            const days = Math.ceil((new Date(target) - new Date()) / 86400000);
+            if (days > 0) {
+              document.getElementById('timeLeft').textContent = days + ' days to launch';
+              document.getElementById('buyCta').innerHTML = '<i class="fas fa-rocket"></i> Buy on PinkSale (Day ' + days + ')';
+            } else {
+              document.getElementById('timeLeft').textContent = 'IDO LIVE';
+              document.getElementById('buyCta').innerHTML = '<i class="fas fa-rocket"></i> Buy on PinkSale →';
+            }
+          }
+        }
+      } catch (e) {
+        // API offline — keep "Pre-launch" defaults
+        document.getElementById('raisedBnb').textContent = '0.00 BNB';
+        document.getElementById('participants').textContent = 'Pre-launch';
+      }
+    }
+    refreshIDOStatus();
+    setInterval(refreshIDOStatus, 30000);  // every 30s
+  </script>
+</body>
+</html>
