@@ -7,6 +7,8 @@ const T = {
   he: {
     // Navigation
     nav_home: 'ראשי',
+    nav_genesis: 'בראשית',
+    nav_diagnostics: 'אבחון',
     nav_trade: 'מסחר',
     nav_earn: 'להרוויח',
     nav_wallet: 'ארנק',
@@ -603,6 +605,8 @@ const T = {
   en: {
     // Navigation
     nav_home: 'Home',
+    nav_genesis: 'Genesis',
+    nav_diagnostics: 'Diagnostics',
     nav_trade: 'Trade',
     nav_earn: 'Earn',
     nav_wallet: 'Wallet',

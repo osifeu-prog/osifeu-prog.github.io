@@ -28,6 +28,7 @@ const THEME_META = {
 
 const NAV_ITEMS = [
   { key: 'home', href: '/', icon: 'fa-home' },
+  { key: 'genesis', href: '/genesis.html', icon: 'fa-dna' },
   { key: 'trade', href: '/trade.html', icon: 'fa-chart-line' },
   { key: 'earn', href: '/earn.html', icon: 'fa-coins' },
   { key: 'wallet', href: '/wallet.html', icon: 'fa-wallet', auth: true },
@@ -48,6 +49,7 @@ const NAV_ITEMS = [
   { key: 'p2p', href: '/p2p.html', icon: 'fa-exchange-alt' },
   { key: 'about', href: '/about.html', icon: 'fa-info-circle' },
   { key: 'control_center', href: '/control-center.html', icon: 'fa-satellite-dish', admin: true },
+  { key: 'diagnostics', href: '/diagnostics.html', icon: 'fa-stethoscope', admin: true },
   { key: 'project_map', href: '/project-map.html', icon: 'fa-sitemap', admin: true },
   { key: 'promo_shekel', href: '/promo-shekel.html', icon: 'fa-fire', admin: true },
   { key: 'mass_gift', href: '/mass-gift.html', icon: 'fa-gift', admin: true },
@@ -329,11 +331,11 @@ function setLang(lang) {
 let _themeCycleInterval = null;
 
 function getTheme() {
-  return localStorage.getItem('slh_theme') || 'dark';
+  return localStorage.getItem('slh_theme') || 'neural';
 }
 
 function setTheme(theme) {
-  if (!THEMES.includes(theme)) theme = 'dark';
+  if (!THEMES.includes(theme)) theme = 'neural';
   localStorage.setItem('slh_theme', theme);
   document.documentElement.setAttribute('data-theme', theme);
   document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -449,11 +451,17 @@ function renderSiteMapFAB() {
         #slh-map-menu{min-width:200px}
       }
     </style>
-    <div id="slh-map-fab" title="Site Map · Neural Network · Reality" onclick="document.getElementById('slh-map-menu').classList.toggle('open')">🗺️</div>
+    <div id="slh-map-fab" title="Site Map · Neural Network · Reality" onclick="document.getElementById('slh-map-menu').classList.toggle('open')">🧬</div>
     <div id="slh-map-menu">
-      <div class="label">Navigate the Ecosystem</div>
+      <div class="label">⚡ Living System</div>
+      <a href="/genesis.html">🧬 Genesis — DNA of the System</a>
+      <a href="/diagnostics.html">🩺 Neural Diagnostics</a>
       <a href="/network.html">🧠 Neural Network Map</a>
+      <div class="divider"></div>
+      <div class="label">Navigate the Ecosystem</div>
+      <a href="/project-map.html">🗺️ Full Project Map</a>
       <a href="/status.html">📊 System Status</a>
+      <a href="/admin/mission-control.html">🛰️ Mission Control</a>
       <div class="divider"></div>
       <div class="label">Operations</div>
       <a href="/projects.html">📁 Projects & Agents Hub</a>
@@ -1110,6 +1118,9 @@ function initShared(options = {}) {
   injectSLHVersionMeta();
   injectSLHFlipLib();
 
+  // Living-system layer: neural CSS + ambient bg + animated canvas
+  injectNeuralLayer();
+
   // PWA registration + install prompt
   registerSLHServiceWorker();
   setupPWAInstallPrompt();
@@ -1204,6 +1215,47 @@ function injectSLHFlipLib() {
   s.src = '/js/slh-flip.js?v=20260426a';
   s.defer = true;
   document.head.appendChild(s);
+}
+
+/* ===== NEURAL LAYER INJECTION =====
+ * Living-system visual identity for every page:
+ *  1. slh-neural.css design tokens (DNA + neural theme)
+ *  2. Ambient .neural-bg gradient div
+ *  3. Animated <canvas> via neural-canvas.js (neurons + DNA helix)
+ *
+ * Page can opt-out via <meta name="slh-neural" content="off">
+ */
+function injectNeuralLayer() {
+  if (document.querySelector('meta[name="slh-neural"][content="off"]')) return;
+
+  // 1. CSS — load slh-neural.css if not already linked
+  if (!document.querySelector('link[href*="slh-neural.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/css/slh-neural.css?v=20260427b';
+    document.head.appendChild(link);
+  }
+
+  // 2. Ambient background div — only if page didn't render its own
+  if (!document.querySelector('.neural-bg')) {
+    const bg = document.createElement('div');
+    bg.className = 'neural-bg';
+    bg.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(bg, document.body.firstChild);
+  }
+
+  // 3. Living canvas — load module then start
+  if (!window.NeuralCanvas) {
+    const s = document.createElement('script');
+    s.src = '/js/neural-canvas.js?v=20260427a';
+    s.defer = true;
+    s.onload = function () {
+      try { window.NeuralCanvas && window.NeuralCanvas.start(); } catch (e) {}
+    };
+    document.head.appendChild(s);
+  } else {
+    try { window.NeuralCanvas.start(); } catch (e) {}
+  }
 }
 
 /* ===== SLH INDEX WIDGET ===== */
