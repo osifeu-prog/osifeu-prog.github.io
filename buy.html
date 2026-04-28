@@ -71,10 +71,46 @@
 
 <div class="buy-hero">
     <h1>💎 רכישת מטבעות SLH</h1>
-    <p class="sub">הבטח את מקומך באקוסיסטם של העולם החדש. Genesis pricing זמין לזמן מוגבל.</p>
+    <p class="sub">הבטח את מקומך באקוסיסטם של העולם החדש. רכישה ב-PancakeSwap או דרך IDO רשמי (Marshall Islands DAO).</p>
 </div>
 
+<!-- Page routing: regular buy vs IDO -->
 <div class="section">
+    <div style="padding:22px 26px; background:rgba(94,214,255,.06); border:1px solid rgba(94,214,255,.25); border-radius:14px; margin-bottom:24px">
+        <h3 style="margin:0 0 10px; color:#5ed6ff; font-size:1.1rem; font-weight:700; display:flex; align-items:center; gap:8px">
+            <i class="fas fa-route"></i> מה הדף הזה? ההבדל מ-IDO
+        </h3>
+        <p style="margin:0 0 12px; color:var(--text2); font-size:.94rem; line-height:1.7">
+            <strong>הדף הזה (/buy):</strong> רכישה <strong>שוטפת</strong> של SLH דרך PancakeSwap, P2P, או העברה בנקאית. SLH כבר נסחר. מחיר השוק כרגע ~₪444.
+        </p>
+        <p style="margin:0 0 12px; color:var(--text2); font-size:.94rem; line-height:1.7">
+            <strong>דף ה-IDO (<a href="/ido.html" style="color:#5ed6ff">/ido.html</a>):</strong> השקה ראשונית של 110.75M טוקנים <strong>במחיר מופחת</strong> (~25% הנחה לעומת השוק) דרך PinkSale. נפתח ב-Day 14 בלוח הזמנים. גיוס דרך Marshall Islands DAO LLC, audited, LP locked 365 ימים.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <a href="/ido.html" style="padding:10px 18px; background:linear-gradient(135deg,#ffd700,#ffe18a); color:#1a1a00; border-radius:8px; font-weight:700; text-decoration:none; font-size:.92rem">
+                🚀 רוצה את ההנחה? → דף IDO
+            </a>
+            <a href="#buy-form" style="padding:10px 18px; background:rgba(255,255,255,.05); border:1px solid var(--border); color:var(--text); border-radius:8px; font-weight:600; text-decoration:none; font-size:.92rem">
+                💎 רכישה שוטפת עכשיו (כאן)
+            </a>
+        </div>
+    </div>
+
+    <!-- Pre-purchase checklist -->
+    <div style="padding:22px 26px; background:rgba(255,209,102,.06); border:1px solid rgba(255,209,102,.25); border-radius:14px; margin-bottom:24px">
+        <h3 style="margin:0 0 10px; color:var(--accent); font-size:1.1rem; font-weight:700; display:flex; align-items:center; gap:8px">
+            <i class="fas fa-clipboard-check"></i> צ'קליסט לפני הרכישה — 4 שניות
+        </h3>
+        <ul style="margin:0; padding-inline-start:22px; color:var(--text2); font-size:.92rem; line-height:1.85">
+            <li>✅ יש לי <strong>ארנק MetaMask / Trust Wallet</strong> מוכן (חדש? <a href="/ido.html#how-participate" style="color:var(--accent)">מדריך התקנה</a>)</li>
+            <li>✅ יש לי <strong>BNB ברשת BSC</strong> בארנק (לא ERC20! בודקים פעמיים)</li>
+            <li>✅ הסכום שאני משקיע — <strong>אני יכול להפסיד אותו</strong> (ערך SLH יכול לרדת)</li>
+            <li>✅ אני מבין שיש <strong>חבות מס בישראל</strong> במכירה ברווח (25% מס רווחי הון — <a href="/ido.html#tax" style="color:var(--accent)">פרטים</a>)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section" id="buy-form">
     <!-- Live Price -->
     <div class="price-card">
         <div class="price" id="slh-price">₪444</div>
@@ -228,6 +264,19 @@
 
     </div>
 
+    <!-- Critical network warning -->
+    <div style="margin:24px 0; padding:20px 24px; background:rgba(220,38,38,.08); border:1px solid rgba(220,38,38,.35); border-radius:14px">
+        <h3 style="margin:0 0 10px; color:#ff6b6b; font-size:1.05rem; font-weight:700; display:flex; align-items:center; gap:8px">
+            <i class="fas fa-triangle-exclamation"></i> אזהרת רשת — קריאה חובה לפני שליחת BNB
+        </h3>
+        <ul style="margin:0; padding-inline-start:22px; color:var(--text2); font-size:.92rem; line-height:1.75">
+            <li>SLH יושב על רשת <strong>BSC (BEP-20)</strong>. לא Ethereum. לא BEP-2.</li>
+            <li>אם תשלח BNB ברשת ERC20 במקום BEP20 — <strong>הכסף נעלם לנצח</strong>. אין refund. אין שחזור.</li>
+            <li>תמיד שלח <strong>0.01 BNB ניסיון ראשון</strong>. אם הגיע — שלח את השאר. אם לא — עצור.</li>
+            <li>בדוק בעיניים ש-4 התווים הראשונים והאחרונים של כתובת היעד תואמים למה שמופיע על המסך.</li>
+        </ul>
+    </div>
+
     <!-- Trust Strip -->
     <div class="trust-strip">
         <div class="trust-item"><i class="fas fa-lock" style="color:var(--accent)"></i> הצפנה בנקאית</div>
@@ -245,16 +294,188 @@
         • <a href="/about.html" style="color:var(--accent)">ראה דף שקיפות מלא →</a>
     </div>
 
-    <!-- FAQ -->
+    <!-- FAQ — expanded to 12 questions across 4 categories -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px">
-        <h3 style="color:var(--text);margin-bottom:16px">❓ שאלות נפוצות</h3>
-        <div style="font-size:13px;color:var(--text2);line-height:2">
-            <strong style="color:var(--text)">מה המינימום לרכישה?</strong><br>
-            אין מינימום ב-PancakeSwap (אפילו $0.60). ב-P2P — לפי ההצעה.<br><br>
-            <strong style="color:var(--text)">איך מקבלים את הטוקנים?</strong><br>
-            PancakeSwap: מיידי לארנק MetaMask/Trust Wallet. P2P: escrow אוטומטי. Genesis: תוך 24 שעות.<br><br>
-            <strong style="color:var(--text)">מה ההבדל בין הדרכים?</strong><br>
-            PancakeSwap = מיידי, on-chain. P2P = ישירות מאנשים, חינם על MNH. Genesis = תרומה לפול + status מיוחד.
+        <h3 style="color:var(--text);margin:0 0 6px">❓ שאלות נפוצות — מקיף</h3>
+        <p style="color:var(--text2); font-size:.88rem; margin:0 0 18px">12 השאלות שהכי הרבה ישראלים שואלים על רכישת SLH. שאלה לא כאן? <a href="https://t.me/SLH_AIR_bot" target="_blank" style="color:var(--accent)">@SLH_AIR_bot</a></p>
+
+        <div style="font-size:.85rem; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; font-weight:800; margin:8px 0">דרכי רכישה</div>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">מה ההבדל בין PancakeSwap, P2P, ו-IDO?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                <strong>PancakeSwap:</strong> רכישה מיידית של SLH במחיר השוק (~₪444). on-chain, אנונימי, עמלה 0.25%.<br>
+                <strong>P2P:</strong> רכישה ישירה מאנשים. אפשרי תשלום ב-Bit/PayBox/MNH/TON. עמלה נמוכה אבל איטי יותר.<br>
+                <strong>IDO (לפני go-live בלבד):</strong> מחיר מופחת ~25%, vesting של 4 חודשים. רק דרך <a href="/ido.html" style="color:var(--accent)">/ido.html</a> ב-PinkSale.
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">מה המינימום והמקסימום לרכישה?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                <strong>PancakeSwap:</strong> אין מינימום (אפילו $1). אין מקסימום, חוץ מהנזילות בפול.<br>
+                <strong>P2P:</strong> לפי ההצעה של המוכר.<br>
+                <strong>IDO (כשייפתח):</strong> מינימום 0.05 BNB (~₪125), מקסימום 5 BNB (~₪12,500) per wallet.
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">איך מקבלים את הטוקנים?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                <strong>PancakeSwap:</strong> מיידי לארנק MetaMask/Trust שלכם.<br>
+                <strong>P2P:</strong> escrow אוטומטי, משוחרר אחרי אישור.<br>
+                <strong>IDO:</strong> 20% מיד ב-TGE, 80% ב-vesting (20% כל חודש למשך 4 חודשים).
+            </div>
+        </details>
+
+        <div style="font-size:.85rem; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; font-weight:800; margin:18px 0 8px">בטיחות וסיכונים</div>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">מה אם אני שולח BNB ברשת לא נכונה?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                ב-90% מהמקרים — <strong>הכסף אבוד לנצח</strong>. רק אם אתם מומחי קריפטו תוכלו לנסות "bridge" אבל זה מסובך.<br>
+                <strong>הפתרון:</strong> תמיד שלקו 0.01 BNB ניסיון ראשון. רק אחרי שהגיע — שלחו את השאר. <strong>BEP20 ולא ERC20.</strong>
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">איך אני מזהה אתר/בוט מזויף?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                האתר הרשמי <em>היחיד</em>: <code>slh-nft.com</code>. כל וריאציה (slh-nft-airdrop.com, slh-presale.io וכו') = הונאה.<br>
+                ה-Telegram הרשמי: <strong>@SLH_AIR_bot</strong> ו-<strong>@osifeu_prog</strong>. כל "תמיכת SLH" אחרת ב-DM = scammer.<br>
+                <strong>אנחנו לעולם לא נשלח DM ראשון. לעולם לא נבקש seed phrase.</strong>
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">"Volume Bonus" — האם זה אמיתי?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                כן, אך <strong>לא ב-PancakeSwap</strong>. PancakeSwap זה swap טהור — אין שם בונוס. הבונוס רלוונטי רק ב-Genesis Deposits ובהשתתפות ב-IDO. הבונוס מתבטא ב-ZVK rewards שמתקבלים אחרי הרכישה (לא יותר SLH).
+            </div>
+        </details>
+
+        <div style="font-size:.85rem; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; font-weight:800; margin:18px 0 8px">מיסוי ו-KYC</div>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">חייב לדווח על קניית SLH?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                <strong>לא בקנייה.</strong> מס מוחל רק במכירה ברווח (25% מס רווחי הון למשקיע פרטי).<br>
+                אם אתם <em>כבר</em> מגישים דוח שנתי 1301 — חובה לכלול את הקריפטו בנספח 1322.<br>
+                פרטים מלאים: <a href="/ido.html#tax" style="color:var(--accent)">/ido.html#tax</a> ו-<a href="/disclosure.html#tax-israel" style="color:var(--accent)">/disclosure.html#tax-israel</a>.
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">יש KYC ברכישה?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                לא ברמת PancakeSwap או הרכישה הישירה. אבל הארנק שלך נסרק אוטומטית מול OFAC/Chainabuse.<br>
+                ה-KYC האמיתי שאתה כבר עברת: בבורסה הישראלית (Bit2C) שם המרת שקלים ל-BNB. רשות המסים יודעת שיש לך קריפטו.<br>
+                4 רמות KYC מפורשות: <a href="/disclosure.html#kyc-aml" style="color:var(--accent)">/disclosure.html#kyc-aml</a>
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">חוקי לי בישראל לקנות SLH?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                כן. אין חוק שאוסר על אזרחים ישראלים לקנות טוקנים זרים. רשות ניירות ערך עוסקת בהיצע <em>לציבור הישראלי</em> מצד מי שמציע, לא בקנייה אישית.<br>
+                <strong>אסור</strong> רק לתושבי OFAC: ארה"ב, איראן, צפון קוריאה, סוריה, קובה.
+            </div>
+        </details>
+
+        <div style="font-size:.85rem; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; font-weight:800; margin:18px 0 8px">תפעול</div>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">איך אני רואה את ה-SLH שלי בארנק?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                ב-MetaMask: "Import tokens" → הדבק <code style="font-size:.8em">0xACb0A09414CEA1C879c67bB7A877E4e19480f022</code> → ה-SLH יופיע אוטומטית.<br>
+                ב-BscScan: חפש את כתובת הארנק שלך → "Token Holdings" → SLH.
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px; margin-bottom:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">איך מוכרים SLH מאוחר יותר?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                PancakeSwap → connect wallet → swap → SLH ל-BNB. עמלה 0.25%.<br>
+                אז ממירים BNB לשקלים ב-Bit2C / Binance → מעבירים לבנק.<br>
+                אם מכרתם ברווח — חובת דיווח לרשות המסים.
+            </div>
+        </details>
+
+        <details style="padding:12px 16px; background:rgba(255,255,255,.03); border-radius:8px">
+            <summary style="cursor:pointer; font-weight:600; color:var(--text); font-size:.95rem">איך יוצרים קשר אם יש בעיה ברכישה?</summary>
+            <div style="margin-top:10px; color:var(--text2); font-size:.9rem; line-height:1.7">
+                <strong>Telegram (קהילה):</strong> <a href="https://t.me/SLH_AIR_bot" target="_blank" style="color:var(--accent)">@SLH_AIR_bot</a> — תוך 24 שעות תגובה.<br>
+                <strong>Telegram (מייסד):</strong> <a href="https://t.me/osifeu_prog" target="_blank" style="color:var(--accent)">@osifeu_prog</a> — לבעיות דחופות.<br>
+                <strong>Email:</strong> <a href="mailto:osif.erez.ungar@gmail.com" style="color:var(--accent)">osif.erez.ungar@gmail.com</a>
+            </div>
+        </details>
+
+        <p style="margin:18px 0 0; color:var(--text2); font-size:.85rem">
+            עוד 25 שאלות מקיפות → <a href="/ido.html#faq" style="color:var(--accent)">FAQ מלא בדף ה-IDO</a>
+        </p>
+    </div>
+
+    <!-- Scam warnings -->
+    <div style="background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.3); border-radius:14px; padding:22px 26px; margin-bottom:24px">
+        <h3 style="margin:0 0 14px; color:#fbbf24; font-size:1.05rem; font-weight:700; display:flex; align-items:center; gap:8px">
+            <i class="fas fa-shield-halved"></i> 4 סימני הונאה ספציפיים לרכישה — אל תיפלו
+        </h3>
+        <ul style="margin:0; padding:0; list-style:none">
+            <li style="padding:10px 12px; background:rgba(255,255,255,.03); border-radius:6px; margin-bottom:6px; font-size:.9rem; line-height:1.6; color:var(--text2)">
+                <strong style="color:#fbbf24">"שלח 0.1 BNB לכתובת X ותקבל 0.2 חזרה"</strong> — תמיד הונאה. PancakeSwap הרשמי לא דורש שליחה ידנית.
+            </li>
+            <li style="padding:10px 12px; background:rgba(255,255,255,.03); border-radius:6px; margin-bottom:6px; font-size:.9rem; line-height:1.6; color:var(--text2)">
+                <strong style="color:#fbbf24">DM "Osif" / "תמיכת SLH" שמציע "presale פרטי"</strong> — אנחנו לעולם לא שולחים DMs. אין presale פרטי.
+            </li>
+            <li style="padding:10px 12px; background:rgba(255,255,255,.03); border-radius:6px; margin-bottom:6px; font-size:.9rem; line-height:1.6; color:var(--text2)">
+                <strong style="color:#fbbf24">אתר "slh-presale.io" / "slh-nft-airdrop.com"</strong> — רק <code>slh-nft.com</code> רשמי.
+            </li>
+            <li style="padding:10px 12px; background:rgba(255,255,255,.03); border-radius:6px; font-size:.9rem; line-height:1.6; color:var(--text2)">
+                <strong style="color:#fbbf24">בקשה לשלוח seed phrase "לבדיקה"</strong> — זה כמו לבקש סיסמה לבנק. לעולם.
+            </li>
+        </ul>
+        <p style="margin:14px 0 0; color:var(--text2); font-size:.88rem">
+            רשימה מלאה של 8 דפוסים → <a href="/ido.html#scam" style="color:#fbbf24">דף ה-IDO</a>
+        </p>
+    </div>
+
+    <!-- Tax obligation reminder -->
+    <div style="background:rgba(80,150,220,.06); border:1px solid rgba(80,150,220,.25); border-radius:14px; padding:20px 24px; margin-bottom:24px">
+        <h3 style="margin:0 0 10px; color:#7eb6e8; font-size:1.05rem; font-weight:700; display:flex; align-items:center; gap:8px">
+            <i class="fas fa-coins"></i> תזכורת מס — קריאה חובה
+        </h3>
+        <p style="margin:0 0 8px; color:var(--text2); font-size:.92rem; line-height:1.7">
+            ברכישה <strong>אין מס</strong>. במכירה ברווח: <strong>25% מס רווחי הון</strong> למשקיע פרטי.
+        </p>
+        <p style="margin:0 0 8px; color:var(--text2); font-size:.92rem; line-height:1.7">
+            חובת דיווח: דוח שנתי 1301 לבעלי חשבונות קריפטו פעילים. עסקה > ₪50,000: טופס 5329 תוך 30 ימים.
+        </p>
+        <p style="margin:0; color:var(--text3); font-size:.85rem">
+            פרטים מלאים: <a href="/ido.html#tax" style="color:#7eb6e8">/ido.html#tax</a> · <a href="/disclosure.html#tax-israel" style="color:#7eb6e8">/disclosure.html#tax-israel</a>
+        </p>
+    </div>
+
+    <!-- Bilingual legal disclosure -->
+    <div style="margin-bottom:24px; padding:22px 26px; background:rgba(255,255,255,.025); border:1px solid var(--border); border-radius:12px">
+        <div style="text-align:right; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); font-size:.82rem; color:var(--text3); line-height:1.75">
+            <strong style="color:var(--text2)">⚖️ גילוי משפטי</strong><br>
+            רכישת SLH ב-PancakeSwap היא עסקה ב-Binance Smart Chain — לא דרך SPARK IND או דרך SLH Sovereign DAO LLC.
+            ה-IDO הרשמי (Marshall Islands DAO LLC, MIDAO #pending) מתבצע דרך <a href="/ido.html" style="color:var(--accent)">דף ה-IDO</a> בלבד.
+            <strong style="color:var(--text2)">השקעה ב-SLH טומנת בחובה סיכון אובדן הון מלא.</strong>
+            ערך הטוקן יכול לרדת לאפס. אין הבטחה לרווחים.
+            לא זמין לתושבי OFAC (USA, איראן, צפון קוריאה, סוריה, קובה).
+            חובת דיווח לרשות המסים על רווחים בעת מכירה (25% למשקיע פרטי).
+            התוכן באתר זה איננו מהווה ייעוץ השקעות, ייעוץ מס, או המלצה לרכישה.
+            <a href="/disclosure.html" style="color:var(--accent); font-weight:700">→ קרא את גילוי הסיכון המלא</a>
+        </div>
+        <div style="text-align:left; direction:ltr; font-size:.76rem; color:var(--text3); line-height:1.7">
+            <strong style="color:var(--text2)">⚖️ Legal disclosure (English)</strong><br>
+            Purchasing SLH on PancakeSwap is a transaction on Binance Smart Chain — not through SPARK IND or SLH Sovereign DAO LLC.
+            The official IDO (Marshall Islands DAO LLC, MIDAO #pending) takes place via <a href="/ido.html" style="color:var(--accent)">the IDO page</a> only.
+            <strong style="color:var(--text2)">Investment in SLH carries full risk of capital loss.</strong>
+            Token value may fall to zero. No guaranteed returns. Not available to OFAC residents (USA, Iran, North Korea, Syria, Cuba).
+            Israeli tax obligation: 25% capital gains tax on profitable sales (individual investor).
+            <a href="/disclosure.html" style="color:var(--accent)">Read full risk disclosure →</a>
         </div>
     </div>
 
