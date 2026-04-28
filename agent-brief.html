@@ -192,7 +192,7 @@ tr:hover td{background:rgba(0,255,65,.02)}
    • /api/device/register: LIVE
    • /api/payment/ton/auto-verify: LIVE (tolerance 0.00002 BNB, auto-verify from public RPC)
    • /api/payment/bsc/auto-verify: LIVE
-   • /api/payment/external/record: LIVE (10 providers: Stripe/PayBox/Bit/PayPal/iCount/Cardcom/Meshulam/GrowClub/manual_bank/ton_direct/bsc_direct)
+   • /api/payment/external/record: LIVE (active providers: ton_direct, bsc_direct, manual_bank — others reserved for future)
    • /api/dating/* : 8 endpoints LIVE (Interest-overlap matching, 18+ gate)
    • /api/sudoku/* : 8 endpoints LIVE (daily puzzle, AIC rewards)
    • /api/ai/chat-metered: LIVE (AIC burn + 5 AIC welcome)
@@ -373,13 +373,13 @@ tr:hover td{background:rgba(0,255,65,.02)}
   <div class="sec">
     <h2><span class="num">3</span> Payment API · עכשיו חי</h2>
     <div class="note">
-      נוסף היום — 17.4.2026 · בוט AI עם תשלום TON/BSC/Stripe/Bit/PayBox/PayPal/iCount/Cardcom/Meshulam/GrowClub.
+      נוסף היום — 17.4.2026 · בוט AI עם תשלום USDT-TON / TON / BSC. תשתית on-chain בלבד.
     </div>
     <table>
       <tr><th>Method</th><th>Path</th><th>מטרה</th></tr>
       <tr><td class="mono">POST</td><td class="mono">/api/payment/ton/auto-verify</td><td>אמת TON TX אוטומטית → Premium</td></tr>
       <tr><td class="mono">POST</td><td class="mono">/api/payment/bsc/auto-verify</td><td>אמת BNB TX ל‑Genesis → Premium</td></tr>
-      <tr><td class="mono">POST</td><td class="mono">/api/payment/external/record</td><td>רשום תשלום ממספק חיצוני (Stripe/Bit/PayBox/...)</td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/api/payment/external/record</td><td>רשום תשלום on-chain (ton_direct / bsc_direct)</td></tr>
       <tr><td class="mono">GET</td><td class="mono">/api/payment/status/{user_id}</td><td>מצב Premium + deposits + receipts</td></tr>
       <tr><td class="mono">GET</td><td class="mono">/api/payment/receipts/{user_id}</td><td>קבלות של המשתמש</td></tr>
       <tr><td class="mono">GET</td><td class="mono">/api/payment/config</td><td>כתובות תשלום + סכומי מינימום + ספקים</td></tr>
