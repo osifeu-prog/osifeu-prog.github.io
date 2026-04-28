@@ -186,24 +186,33 @@
 
 <!-- 2. IDO STATE -->
 <section>
-  <h2>גיוס · IDO Marshall Islands</h2>
-  <div class="grid grid-2">
+  <h2>גיוס · IDO <span id="ido-phase-badge" style="font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,154,60,.15);color:#ff9a3c;letter-spacing:1px">PRE-LAUNCH</span></h2>
+  <div class="grid grid-4">
     <div class="tile">
-      <div class="tile-label">Launch Target</div>
-      <div class="countdown">
-        <div class="num" id="cutoff-days">—</div>
-        <div class="label">ימים עד IDO Launch (יעד 11.5.26)<br>14-day build · Marshall Islands DAO LLC</div>
-      </div>
+      <div class="tile-label">ימים ל-Launch</div>
+      <div class="tile-value" id="ido-days">—</div>
+      <div class="tile-sub">יעד 11.5.26</div>
     </div>
     <div class="tile">
-      <div class="tile-label">Caps · Token: SLH (BEP-20)</div>
+      <div class="tile-label">Raised</div>
+      <div class="tile-value"><span id="ido-raised">0</span> BNB</div>
+      <div class="tile-sub" id="ido-raised-pct">0% של soft cap</div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Participants</div>
+      <div class="tile-value" id="ido-participants">0</div>
+      <div class="tile-sub" id="ido-tx-count">0 transactions</div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Caps</div>
       <div class="tile-value">20–150 BNB</div>
-      <div class="tile-sub">Soft ~₪50K · Hard ~₪370K · יעד ₪500K · PinkSale.finance</div>
-      <div style="margin-top:12px" class="links">
-        <a href="/admin/ido-mission-control.html">IDO Mission Control</a>
-        <a href="/investors.html">Investor Materials</a>
-      </div>
+      <div class="tile-sub">~₪50K → ₪370K · PinkSale</div>
     </div>
+  </div>
+  <div style="margin-top:14px" class="links">
+    <a href="/admin/ido-mission-control.html">★ IDO Mission Control</a>
+    <a href="/ido.html">Public IDO Page</a>
+    <a href="https://bscscan.com/address/0x9DD8aF7Ac0f601CD473422311b2942DAE9D0BD09" target="_blank">Treasury BscScan</a>
   </div>
 </section>
 
@@ -437,16 +446,35 @@ async function refreshBrainHistory() {
   }
 }
 
+async function refreshIDO() {
+  try {
+    const r = await fetch(API + '/api/ido/stats', { cache: 'no-store' });
+    if (!r.ok) return;
+    const j = await r.json();
+    document.getElementById('ido-days').textContent = j.days_to_launch != null ? j.days_to_launch : '—';
+    document.getElementById('ido-raised').textContent = (j.raised_bnb || 0).toFixed(2);
+    document.getElementById('ido-raised-pct').textContent = `${(j.soft_pct || 0).toFixed(1)}% של soft cap`;
+    document.getElementById('ido-participants').textContent = j.participants || 0;
+    document.getElementById('ido-tx-count').textContent = `${j.confirmed_tx || 0} transactions`;
+    const phase = (j.phase || 'pre-launch').toUpperCase();
+    const badge = document.getElementById('ido-phase-badge');
+    badge.textContent = phase;
+    if (phase === 'LIVE') {
+      badge.style.background = 'rgba(74,222,128,.15)';
+      badge.style.color = '#4ade80';
+    }
+  } catch (e) {
+    // silent
+  }
+}
+
 async function refresh() {
   document.getElementById('updated-at').textContent = new Date().toLocaleTimeString('he-IL');
 
   // Brain — runs first; everything else is redundant detail
   refreshBrain();
   refreshBrainHistory();
-
-  // Cutoff countdown
-  const days = Math.ceil((CUTOFF - new Date()) / (1000*60*60*24));
-  document.getElementById('cutoff-days').textContent = days;
+  refreshIDO();
 
   // 1. API health
   try {
