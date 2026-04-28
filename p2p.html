@@ -396,17 +396,19 @@
             position: relative;
         }
         .p2p-sell-form::after {
-            content: 'COMING SOON';
+            content: '🟢 LIVE';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-12deg);
-            font-size: 28px;
+            top: 12px;
+            inset-inline-end: 12px;
+            font-size: 11px;
             font-weight: 900;
-            color: var(--accent);
-            opacity: 0.2;
+            color: #00e887;
+            background: rgba(0,232,135,.1);
+            border: 1px solid #00e887;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 1px;
             pointer-events: none;
-            letter-spacing: 3px;
         }
         .p2p-sell-form h3 {
             font-size: 15px;
@@ -1134,10 +1136,10 @@
                             <div class="form-group">
                                 <label>שיטת תשלום</label>
                                 <select id="p2p-payment" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px">
-                                    <option>USDT-TON (יציב, צמוד לדולר)</option>
-                                    <option>MNH Transfer (חינם!)</option>
-                                    <option>TON Transfer</option>
-                                    <option>BNB on BSC</option>
+                                    <option value="USDT-TON">USDT-TON (יציב, צמוד לדולר)</option>
+                                    <option value="MNH">MNH Transfer (חינם!)</option>
+                                    <option value="TON">TON Transfer</option>
+                                    <option value="BNB">BNB on BSC</option>
                                 </select>
                             </div>
                         </div>
@@ -1147,9 +1149,13 @@
 
                     <!-- Note -->
                     <div class="p2p-note">
-                        <strong>P2P trading will be fee-free for MNH transfers within the SLH network.</strong><br>
-                        העברות MNH פנימיות ברשת SLH יהיו ללא עמלה &mdash; 0% fee.
-                        כל עסקה תעבור דרך escrow אוטומטי שמגן על שני הצדדים.
+                        <strong>P2P trading is LIVE — MNH transfers within the SLH network are fee-free (0%).</strong><br>
+                        העברות MNH פנימיות ברשת SLH ללא עמלה &mdash; 0% fee.
+                        כל עסקה עוברת דרך escrow אוטומטי שמגן על שני הצדדים.
+                        <br><br>
+                        <strong style="color:var(--accent)">⚠️ דרישה לפרסום הצעה:</strong>
+                        חייב להיות מחובר דרך <a href="https://t.me/SLH_AIR_bot" target="_blank" rel="noopener" style="color:var(--accent)">@SLH_AIR_bot</a>
+                        (לחץ /start ב-bot — ייצור לך user_id ויחבר את הדפדפן אוטומטית).
                     </div>
                 </div>
             </div>
@@ -1259,7 +1265,18 @@
 
     async function createP2POrder() {
         const user = getUser();
-        if (!user || !user.id) { alert('יש להתחבר קודם דרך @SLH_AIR_bot'); return; }
+        // user_id can come from localStorage (Telegram bot login) OR fall back to a
+        // page-prompted ID for first-time visitors who want to test the flow.
+        let sellerId = user?.id || user?.telegram_id;
+        if (!sellerId) {
+            const promptedId = prompt('יש להתחבר קודם דרך @SLH_AIR_bot.\n\nאם כבר נרשמת — הכנס Telegram ID שלך (מספר):');
+            if (!promptedId || isNaN(parseInt(promptedId))) {
+                alert('בטל. פתח את https://t.me/SLH_AIR_bot ולחץ /start');
+                return;
+            }
+            sellerId = parseInt(promptedId);
+        }
+
         const token = document.getElementById('p2p-token').value;
         const amount = parseFloat(document.getElementById('p2p-amount').value);
         const price = parseFloat(document.getElementById('p2p-price').value);
@@ -1267,32 +1284,41 @@
         const result = document.getElementById('p2p-create-result');
 
         if (!amount || !price) { result.textContent = 'מלא כמות ומחיר'; result.style.color = 'var(--red)'; return; }
+        if (amount <= 0 || price <= 0) { result.textContent = 'כמות ומחיר חייבים להיות חיוביים'; result.style.color = 'var(--red)'; return; }
 
         result.textContent = 'שולח...'; result.style.color = 'var(--accent)';
         try {
-            const r = await fetch(P2P_API + '/api/p2p/v2/create-order', {
+            // Use v1 endpoint (public, no JWT required). v2 requires bearer token.
+            const r = await fetch(P2P_API + '/api/p2p/create-order', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    user_id: user.id || user.telegram_id,
-                    side: 'sell',
+                    seller_id: sellerId,
                     token: token,
                     amount: amount,
-                    price_ils: price,
+                    price_per_unit: price,
+                    currency: 'ILS',
                     payment_method: payment
                 })
             });
             const d = await r.json();
-            if (d.id || d.ok) {
-                result.textContent = '✅ הצעה פורסמה! מספר: #' + (d.id || d.order_id);
+            if (d.ok && d.order) {
+                result.innerHTML = `✅ הצעה פורסמה! מספר: <strong>#${d.order.id}</strong> · ${d.order.amount} ${d.order.token} @ ${d.order.price_per_unit} ${d.order.currency}`;
                 result.style.color = 'var(--accent)';
+                document.getElementById('p2p-amount').value = '';
+                document.getElementById('p2p-price').value = '';
                 loadP2POrders();
+            } else if (d.detail) {
+                // FastAPI validation errors come as array
+                const msg = Array.isArray(d.detail) ? d.detail.map(e => e.msg + ' (' + e.loc.join('.') + ')').join(' · ') : d.detail;
+                result.textContent = '❌ ' + msg;
+                result.style.color = 'var(--red)';
             } else {
-                result.textContent = '❌ ' + (d.detail || d.error || JSON.stringify(d));
+                result.textContent = '❌ ' + JSON.stringify(d);
                 result.style.color = 'var(--red)';
             }
         } catch(e) {
-            result.textContent = '❌ ' + e.message; result.style.color = 'var(--red)';
+            result.textContent = '❌ תקלת רשת: ' + e.message; result.style.color = 'var(--red)';
         }
     }
 
