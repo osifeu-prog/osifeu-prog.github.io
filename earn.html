@@ -1449,14 +1449,9 @@
       return `<th${cls} data-i18n="${p.nameKey}">${t(p.nameKey)}</th>`;
     }).join('');
     const rows = [
-      { labelKey: 'earn_apy', labelFallback: 'Annual Yield', vals: plans.map(p => p.annualRate + '%') },
-      { labelKey: 'earn_per_month', labelFallback: 'Monthly Rate', vals: plans.map(p => p.monthlyRate + '%') },
+      { labelKey: 'earn_pool_weight', labelFallback: 'Pool Weight', vals: plans.map(p => p.weight + '\u00d7') },
       { labelKey: 'earn_min', labelFallback: 'Minimum Deposit', vals: plans.map(p => p.minDeposit + ' TON') },
-      { labelKey: 'earn_lock', labelFallback: 'Lock Period', vals: plans.map(p => p.lockDays + ' ' + (t('earn_days') || 'days')) },
-      { labelKey: 'earn_compare_10ton', labelFallback: 'Profit on 10 TON', vals: plans.map(p => {
-        const months = p.lockDays / 30;
-        return (10 * (p.monthlyRate / 100) * months).toFixed(1) + ' TON';
-      })}
+      { labelKey: 'earn_lock', labelFallback: 'Lock Period', vals: plans.map(p => p.lockDays + ' ' + (t('earn_days') || 'days')) }
     ];
     const rowsHtml = rows.map(r => {
       const cells = r.vals.map((v, i) => {
