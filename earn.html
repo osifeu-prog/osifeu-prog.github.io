@@ -1280,8 +1280,7 @@
       nameKey: 'earn_monthly',
       icon: 'fa-calendar-day',
       iconClass: 'monthly',
-      monthlyRate: 4,
-      annualRate: 48,
+      weight: 1.0,
       minDeposit: 1,
       lockDays: 30,
       popular: false
@@ -1291,8 +1290,7 @@
       nameKey: 'earn_quarterly',
       icon: 'fa-calendar-week',
       iconClass: 'quarterly',
-      monthlyRate: 4.5,
-      annualRate: 55,
+      weight: 1.15,
       minDeposit: 5,
       lockDays: 90,
       popular: false
@@ -1302,8 +1300,7 @@
       nameKey: 'earn_semi',
       icon: 'fa-calendar-alt',
       iconClass: 'semi',
-      monthlyRate: 5,
-      annualRate: 60,
+      weight: 1.3,
       minDeposit: 10,
       lockDays: 180,
       popular: true
@@ -1313,8 +1310,7 @@
       nameKey: 'earn_annual',
       icon: 'fa-calendar-check',
       iconClass: 'annual',
-      monthlyRate: 5.4,
-      annualRate: 65,
+      weight: 1.5,
       minDeposit: 25,
       lockDays: 365,
       popular: false
@@ -1421,12 +1417,12 @@
         </div>
         <div class="plan-name" data-i18n="${p.nameKey}">${t(p.nameKey)}</div>
         <div class="plan-apy">
-          ${p.monthlyRate}% <small data-i18n="earn_per_month">${t('earn_per_month') || '/ month'}</small>
+          Pool Share
         </div>
         <div class="plan-details">
           <div class="plan-detail">
-            <span class="label" data-i18n="earn_apy">${t('earn_apy')}</span>
-            <span class="value">${p.annualRate}%</span>
+            <span class="label">Pool weight</span>
+            <span class="value">${p.weight}&times;</span>
           </div>
           <div class="plan-detail">
             <span class="label" data-i18n="earn_min">${t('earn_min')}</span>
@@ -1665,8 +1661,7 @@
         nameKey: p.nameKey || `earn_${p.id}`,
         icon: p.icon || 'fa-coins',
         iconClass: p.iconClass || p.id || 'monthly',
-        monthlyRate: p.monthlyRate || p.rate,
-        annualRate: p.annualRate || p.apy,
+        weight: p.weight || 1.0,
         minDeposit: p.minDeposit || p.min,
         lockDays: p.lockDays || p.lock,
         popular: p.popular || false
