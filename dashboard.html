@@ -916,16 +916,21 @@
                         <div>
                             <div class="form-label">Plan</div>
                             <select class="form-select" id="calc-plan" onchange="calcStaking()">
-                                <option value="4">Monthly (4%)</option>
-                                <option value="4.5">Quarterly (4.5%)</option>
-                                <option value="5" selected>Semi-Annual (5%)</option>
-                                <option value="5.4">Annual (5.4%)</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="quarterly">Quarterly</option>
+                                <option value="semi_annual" selected>Semi-Annual</option>
+                                <option value="annual">Annual</option>
                             </select>
                         </div>
                         <div style="text-align:center">
-                            <div class="form-label">Monthly Earnings</div>
-                            <div style="font-size:28px;font-weight:700;color:var(--accent)" id="calc-result">0.50 TON</div>
-                            <div style="font-size:12px;color:var(--text2)" id="calc-yearly">Yearly: 6.00 TON</div>
+                            <div class="form-label">Your Weighted Share</div>
+                            <div style="font-size:28px;font-weight:700;color:var(--accent)" id="calc-result">13.0 weight units</div>
+                            <div style="font-size:12px;color:var(--text2)" id="calc-yearly">Lock: 180 days</div>
+                            <div style="margin-top:12px;padding:10px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.5">
+                                <strong style="color:#f59e0b">&#9888; Illustration only.</strong>
+                                Your actual share of pool revenue depends on real protocol earnings (course sales, marketplace fees, SaaS). Not a guarantee.
+                                <a href="/staking.html" style="color:var(--accent)">How the pool works</a>.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2358,11 +2363,12 @@ async function loadPriceTicker() {
 // === CALCULATOR ===
 function calcStaking() {
     const amount = parseFloat(document.getElementById('calc-amount').value) || 0;
-    const rate = parseFloat(document.getElementById('calc-plan').value) || 0;
-    const monthly = (amount * rate / 100).toFixed(4);
-    const yearly = (amount * rate / 100 * 12).toFixed(2);
-    document.getElementById('calc-result').textContent = monthly + ' TON';
-    document.getElementById('calc-yearly').textContent = 'Yearly: ' + yearly + ' TON';
+    const planKey = document.getElementById('calc-plan').value;
+    const plan = PLANS[planKey];
+    if (!plan) return;
+    const weightedShare = (amount * plan.weight).toFixed(2);
+    document.getElementById('calc-result').textContent = weightedShare + ' weight units';
+    document.getElementById('calc-yearly').textContent = 'Lock: ' + plan.lock + ' days';
 }
 
 // === UTILS ===
