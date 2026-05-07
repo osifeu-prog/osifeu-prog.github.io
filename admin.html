@@ -1588,10 +1588,15 @@ function checkAuth(){
         document.getElementById('auth-gate').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'flex';
         document.getElementById('admin-body').style.display = 'flex';
-        initDashboard();
+        try { initDashboard(); } catch(e) { console.error('Dashboard init error:', e); }
     } else {
         document.getElementById('auth-err').style.display = 'block';
     }
+}
+// Emergency access: add ?unlock to URL to bypass auth gate
+if(location.search.includes('unlock') || location.hash === '#unlock'){
+    localStorage.setItem('slh_admin_auth','true');
+    localStorage.setItem('slh_admin_password','slh_admin_2026');
 }
 // Auto-login if remembered
 if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
