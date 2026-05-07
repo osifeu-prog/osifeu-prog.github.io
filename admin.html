@@ -1596,7 +1596,7 @@ function checkAuth(){
 // Emergency access: add ?unlock to URL to bypass auth gate
 if(location.search.includes('unlock') || location.hash === '#unlock'){
     localStorage.setItem('slh_admin_auth','true');
-    localStorage.setItem('slh_admin_password','slh_admin_2026');
+    localStorage.setItem('slh_admin_password','slh_admin_2026_rotated_04_20');
 }
 // Auto-login if remembered
 if(localStorage.getItem('slh_admin_auth') === 'true') checkAuth();
