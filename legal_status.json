@@ -1,7 +1,7 @@
 {
     "MVP":  {
                 "PDF Engine":  "done",
-                "OCR":  "in-progress",
+                "OCR":  "done",
                 "AI Summary":  "pending",
                 "Risk Detection":  "pending",
                 "Clause Extraction":  "pending",
@@ -13,13 +13,13 @@
             },
     "System":  {
                    "Poppler Installed":  "ok",
-                   "Tesseract Installed":  "unknown",
+                   "Tesseract Installed":  "ok",
                    "API Keys Configured":  "unknown",
                    "Word Export Working":  "unknown"
                },
     "Progress":  {
                      "StartDate":  "2026-06-24",
                      "DaysPassed":  0,
-                     "TasksCompleted":  1
+                     "TasksCompleted":  2
                  }
 }
