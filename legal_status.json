@@ -1,7 +1,7 @@
 {
     "MVP":  {
                 "PDF Engine":  "done",
-                "OCR":  "pending",
+                "OCR":  "in-progress",
                 "AI Summary":  "pending",
                 "Risk Detection":  "pending",
                 "Clause Extraction":  "pending",
