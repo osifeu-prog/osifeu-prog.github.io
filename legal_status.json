@@ -14,8 +14,8 @@
     "System":  {
                    "Poppler Installed":  "ok",
                    "Tesseract Installed":  "ok",
-                   "API Keys Configured":  "unknown",
-                   "Word Export Working":  "unknown"
+                   "API Keys Configured":  "ok",
+                   "Word Export Working":  "ok"
                },
     "Progress":  {
                      "StartDate":  "2026-06-24",
