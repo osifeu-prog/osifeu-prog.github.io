@@ -2,8 +2,8 @@
     "MVP":  {
                 "PDF Engine":  "done",
                 "OCR":  "done",
-                "AI Summary":  "pending",
-                "Risk Detection":  "pending",
+                "AI Summary":  "done",
+                "Risk Detection":  "done",
                 "Clause Extraction":  "pending",
                 "Report Generator":  "pending",
                 "Share System":  "pending",
@@ -20,6 +20,6 @@
     "Progress":  {
                      "StartDate":  "2026-06-24",
                      "DaysPassed":  0,
-                     "TasksCompleted":  2
+                     "TasksCompleted":  4
                  }
 }
