@@ -809,7 +809,7 @@
                 <h3>🔗 Quick Links</h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
                     <a href="/ops-dashboard.html" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📡 Ops Dashboard</a>
-                    <a href="https://slh-api-production.up.railway.app/docs" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📖 API Swagger Docs</a>
+                    <a href="http://localhost:5000/docs" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">📖 API Swagger Docs</a>
                     <a href="https://github.com/osifeu-prog/slh-api" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (API)</a>
                     <a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🐙 GitHub (Site)</a>
                     <a href="https://bscscan.com/token/0xACb0A09414CEA1C879c67bB7A877E4e19480f022" target="_blank" style="display:block;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;text-align:center">🔗 BSCScan Token</a>
@@ -1240,8 +1240,8 @@
                 <table class="admin-table">
                     <thead><tr><th>Service</th><th>URL</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
-                        <tr><td>Railway API</td><td><a href="https://slh-api-production.up.railway.app/api/health" target="_blank">slh-api-production.up.railway.app</a></td><td>Backend</td><td id="ext-railway">--</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">Swagger</a></td></tr>
-                        <tr><td>API Docs</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">/docs</a></td><td>Docs</td><td>--</td><td><a href="https://slh-api-production.up.railway.app/docs" target="_blank">Open</a></td></tr>
+                        <tr><td>Railway API</td><td><a href="http://localhost:5000/api/health" target="_blank">slh-api-production.up.railway.app</a></td><td>Backend</td><td id="ext-railway">--</td><td><a href="http://localhost:5000/docs" target="_blank">Swagger</a></td></tr>
+                        <tr><td>API Docs</td><td><a href="http://localhost:5000/docs" target="_blank">/docs</a></td><td>Docs</td><td>--</td><td><a href="http://localhost:5000/docs" target="_blank">Open</a></td></tr>
                         <tr><td>GitHub (API)</td><td><a href="https://github.com/osifeu-prog/slh-api" target="_blank">osifeu-prog/slh-api</a></td><td>Repo</td><td>--</td><td><a href="https://github.com/osifeu-prog/slh-api" target="_blank">Open</a></td></tr>
                         <tr><td>GitHub (Site)</td><td><a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank">osifeu-prog.github.io</a></td><td>Repo</td><td>--</td><td><a href="https://github.com/osifeu-prog/osifeu-prog.github.io" target="_blank">Open</a></td></tr>
                         <tr><td>PancakeSwap Pool</td><td><a href="https://pancakeswap.finance/info/v2/pairs/0xacea26b6e132cd45f2b8a4754170d4d0d3b8bbee?chain=bsc" target="_blank">SLH/WBNB Pool</a></td><td>DEX</td><td>--</td><td><a href="https://pancakeswap.finance/swap?outputCurrency=0xACb0A09414CEA1C879c67bB7A877E4e19480f022&chain=bsc" target="_blank">Swap</a></td></tr>
@@ -1573,7 +1573,7 @@
 
 <script>
 // ── API Config (MUST be before auto-login trigger to avoid TDZ error) ──
-const SLH_API = 'https://slh-api-production.up.railway.app';
+const SLH_API = 'http://localhost:5000';
 
 // ── Auth ─────────────────────────────────────────────────────────
 // Password validated server-side via X-Admin-Key header
@@ -1700,7 +1700,7 @@ let _serverTimeOffsetMs = null;  // populated from /api/health, if available
 async function _calibrateClock() {
     try {
         const t0 = Date.now();
-        const r = await fetch('https://slh-api-production.up.railway.app/api/health', {cache: 'no-store'});
+        const r = await fetch('http://localhost:5000/api/health', {cache: 'no-store'});
         const t1 = Date.now();
         const serverDate = r.headers.get('date');
         if (serverDate) {
