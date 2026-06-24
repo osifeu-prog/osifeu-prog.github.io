@@ -4,8 +4,8 @@
                 "OCR":  "done",
                 "AI Summary":  "done",
                 "Risk Detection":  "done",
-                "Clause Extraction":  "pending",
-                "Report Generator":  "pending",
+                "Clause Extraction":  "done",
+                "Report Generator":  "done",
                 "Share System":  "pending",
                 "Contact Buttons":  "pending",
                 "Landing Page":  "pending",
@@ -20,6 +20,6 @@
     "Progress":  {
                      "StartDate":  "2026-06-24",
                      "DaysPassed":  0,
-                     "TasksCompleted":  4
+                     "TasksCompleted":  6
                  }
 }
