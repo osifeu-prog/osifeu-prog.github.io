@@ -1,0 +1,25 @@
+﻿{
+    "MVP":  {
+                "PDF Engine":  "in-progress",
+                "OCR":  "pending",
+                "AI Summary":  "pending",
+                "Risk Detection":  "pending",
+                "Clause Extraction":  "pending",
+                "Report Generator":  "pending",
+                "Share System":  "pending",
+                "Contact Buttons":  "pending",
+                "Landing Page":  "pending",
+                "User Feedback":  "pending"
+            },
+    "System":  {
+                   "Poppler Installed":  "ok",
+                   "Tesseract Installed":  "unknown",
+                   "API Keys Configured":  "unknown",
+                   "Word Export Working":  "unknown"
+               },
+    "Progress":  {
+                     "StartDate":  "2026-06-24",
+                     "DaysPassed":  0,
+                     "TasksCompleted":  0
+                 }
+}
