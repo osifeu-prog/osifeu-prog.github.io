@@ -1798,7 +1798,7 @@ function getActivityIcon(type) {
 }
 
 function timeAgo(dateStr) {
-    if (!dateStr) return '--';
+    if (!dateStr) return '0';
     const diff = Date.now() - new Date(dateStr).getTime();
     const mins = Math.floor(diff / 60000);
     if (mins < 1) return 'just now';
@@ -1844,7 +1844,7 @@ async function loadKPIs(){
     // === Overview KPIs (real data priority) ===
     const totalVisitors = an?.total_events || an?.unique_visitors || localAnalytics.length || 0;
     const todayVisitors = an?.today_views || todayLocal.length || 0;
-    document.getElementById('kpi-visitors').textContent = totalVisitors || '--';
+    document.getElementById('kpi-visitors').textContent = totalVisitors || '0';
     document.getElementById('kpi-visitors-delta').textContent = todayVisitors ? ('↑ ' + todayVisitors + ' today') : '';
 
     const totalUsers = d?.total_users || s?.total_users || 0;
@@ -1854,38 +1854,38 @@ async function loadKPIs(){
     const todaySignups = d?.today_signups || 0;
     const totalReferrals = d?.total_referrals || 0;
 
-    document.getElementById('kpi-bot-users').textContent = totalUsers || '--';
+    document.getElementById('kpi-bot-users').textContent = totalUsers || '0';
     document.getElementById('kpi-bot-delta').textContent = d ? ('↑ ' + todaySignups + ' new today') : (s ? '↑ live' : ''↑ live'');
 
     const totalRevenue = 1234; // placeholder
-    document.getElementById('kpi-revenue').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
+    document.getElementById('kpi-revenue').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '0';
     document.getElementById('kpi-rev-delta').textContent = d ? '↑ live data' : '';
 
-    document.getElementById('kpi-vip').textContent = premiumUsers || '--';
+    document.getElementById('kpi-vip').textContent = premiumUsers || '0';
     document.getElementById('kpi-vip-delta').textContent = '';
     document.getElementById('kpi-containers').textContent = '28';
     document.getElementById('kpi-bots').textContent = '25';
-    document.getElementById('kpi-referrals').textContent = totalReferrals || '--';
+    document.getElementById('kpi-referrals').textContent = totalReferrals || '0';
     document.getElementById('kpi-pending').textContent = apiOk ? '0' : 'API down';
 
     // === Analytics page KPIs ===
-    document.getElementById('an-pageviews').textContent = an?.today_views || todayLocal.length || '--';
-    document.getElementById('an-unique').textContent = an?.unique_visitors || '--';
+    document.getElementById('an-pageviews').textContent = an?.today_views || todayLocal.length || '0';
+    document.getElementById('an-unique').textContent = an?.unique_visitors || '0';
     const localMobile = localAnalytics.filter(e => /Mobile|Android|iPhone/i.test(e.ua || ''));
-    document.getElementById('an-session').textContent = '--';
-    document.getElementById('an-mobile').textContent = localAnalytics.length ? Math.round(localMobile.length/localAnalytics.length*100) + '%' : '--';
+    document.getElementById('an-session').textContent = '0';
+    document.getElementById('an-mobile').textContent = localAnalytics.length ? Math.round(localMobile.length/localAnalytics.length*100) + '%' : '0';
 
     // === Users page ===
-    document.getElementById('usr-total').textContent = totalUsers || '--';
-    document.getElementById('usr-premium').textContent = premiumUsers || '--';
-    document.getElementById('usr-today').textContent = todaySignups || '--';
+    document.getElementById('usr-total').textContent = totalUsers || '0';
+    document.getElementById('usr-premium').textContent = premiumUsers || '0';
+    document.getElementById('usr-today').textContent = todaySignups || '0';
     document.getElementById('usr-pending').textContent = d?.pending_approvals || '0';
 
     // === Revenue page ===
-    document.getElementById('rev-total').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
-    document.getElementById('rev-month').textContent = d?.deposits_this_month != null ? '₪' + Number(d.deposits_this_month).toLocaleString() : '--';
-    document.getElementById('rev-avg').textContent = totalUsers ? '₪' + Math.round(totalRevenue / totalUsers).toLocaleString() : '--';
-    document.getElementById('rev-commissions').textContent = d?.commissions_total != null ? '₪' + Number(d.commissions_total).toLocaleString() : '--';
+    document.getElementById('rev-total').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '0';
+    document.getElementById('rev-month').textContent = d?.deposits_this_month != null ? '₪' + Number(d.deposits_this_month).toLocaleString() : '0';
+    document.getElementById('rev-avg').textContent = totalUsers ? '₪' + Math.round(totalRevenue / totalUsers).toLocaleString() : '0';
+    document.getElementById('rev-commissions').textContent = d?.commissions_total != null ? '₪' + Number(d.commissions_total).toLocaleString() : '0';
 }
 
 function loadCharts(){
@@ -2116,7 +2116,7 @@ async function loadInstitutionalOverview(){
         const betaRes = await fetch(SLH_API + '/api/beta/status');
         const beta = await betaRes.json();
         const el = document.getElementById('inst-genesis');
-        if (el) el.textContent = beta.total_remaining ?? '--';
+        if (el) el.textContent = beta.total_remaining ?? '0';
     } catch(e) {}
 
     // CEX keys count + portfolio — defer (needs user_id)
@@ -2168,7 +2168,7 @@ async function loadAuditEntries(){
             const riskColor = e.risk_score > 70 ? 'var(--red)' : e.risk_score > 40 ? 'var(--gold)' : 'var(--accent)';
             return `<tr>
                 <td>${e.id}</td>
-                <td style="font-size:10px">${e.timestamp ? new Date(e.timestamp).toLocaleString('he-IL') : '--'}</td>
+                <td style="font-size:10px">${e.timestamp ? new Date(e.timestamp).toLocaleString('he-IL') : '0'}</td>
                 <td><code style="font-size:10px">${e.action || '-'}</code></td>
                 <td>${e.actor_type}${e.actor_user_id ? '/' + e.actor_user_id : ''}</td>
                 <td style="font-size:10px">${e.resource_type || '-'}${e.resource_id ? ':' + e.resource_id : ''}</td>
@@ -2439,11 +2439,11 @@ async function loadAllUsers(){
         d.users.forEach(u => {
             const tr = document.createElement('tr');
             const bal = u.balances || {};
-            const login = u.last_login ? new Date(u.last_login).toLocaleString('he-IL') : '--';
+            const login = u.last_login ? new Date(u.last_login).toLocaleString('he-IL') : '0';
             tr.innerHTML = `
                 <td><code>${u.telegram_id}</code></td>
-                <td>${u.username || '--'}</td>
-                <td>${u.display_name || u.first_name || '--'}</td>
+                <td>${u.username || '0'}</td>
+                <td>${u.display_name || u.first_name || '0'}</td>
                 <td style="color:var(--gold)">${(bal.SLH||0).toLocaleString()}</td>
                 <td style="color:var(--cyan)">${(bal.ZVK||0).toLocaleString()}</td>
                 <td style="color:var(--accent)">${(bal.MNH||0).toLocaleString()}</td>
@@ -2807,8 +2807,8 @@ async function loadFinanceDashboard(){
     try{
         var r3=await fetch(SLH_API+"/api/tokenomics/stats");
         var ts=await r3.json();
-        if(ts.total_supply) document.getElementById("fin-slh-db").textContent = ts.total_supply.SLH || '--';
-        if(ts.total_supply) document.getElementById("fin-zvk").textContent = ts.total_supply.ZVK || '--';
+        if(ts.total_supply) document.getElementById("fin-slh-db").textContent = ts.total_supply.SLH || '0';
+        if(ts.total_supply) document.getElementById("fin-zvk").textContent = ts.total_supply.ZVK || '0';
     }catch(e){}
 }
 async function loadTrustEntities(){
@@ -2864,10 +2864,10 @@ function renderCrmTable(users){
         var isPrem = u.is_premium || u.payment_status === 'approved';
         var statusBadge = isPrem ? '<span class="badge live">Premium</span>' : '<span class="badge warn">Free</span>';
         if(u.payment_status === 'pending') statusBadge = '<span class="badge error">Pending</span>';
-        var joined = u.created_at ? new Date(u.created_at).toLocaleDateString('he-IL') : '--';
+        var joined = u.created_at ? new Date(u.created_at).toLocaleDateString('he-IL') : '0';
         return '<tr>'+
             '<td><code style="font-size:10px">'+u.telegram_id+'</code></td>'+
-            '<td>'+(u.username ? '@'+u.username : '--')+'</td>'+
+            '<td>'+(u.username ? '@'+u.username : '0')+'</td>'+
             '<td>'+(u.first_name||'')+(u.last_name?' '+u.last_name:'')+'</td>'+
             '<td style="font-family:var(--mono);font-size:11px">'+(b.SLH||0)+'</td>'+
             '<td style="font-family:var(--mono);font-size:11px">'+(b.ZVK||0)+'</td>'+
@@ -3121,7 +3121,7 @@ async function checkThreatScore(){
                 Verified: ${d.verified_reports || 0}<br>
                 <span style="color:var(--accent);font-weight:700">Combined Score: ${d.combined_threat_score || 0}/100</span><br>
                 Flagged: ${d.is_flagged ? '🚩 YES - ' + d.flag_reason : '✅ No'}<br>
-                Last Updated: ${d.updated_at || '--'}
+                Last Updated: ${d.updated_at || '0'}
             `;
             res.style.display = 'block';
         } else {
@@ -3259,7 +3259,7 @@ async function loadThreatReports(){
                 <tr>
                     <td>${report.id}</td>
                     <td>${report.reporter_user_id}</td>
-                    <td>${report.target_phone || report.target_wallet || '--'}</td>
+                    <td>${report.target_phone || report.target_wallet || '0'}</td>
                     <td>${report.fraud_type}</td>
                     <td>${report.severity}/10</td>
                     <td><span class="badge ${report.status === 'confirmed' ? 'live' : report.status === 'submitted' ? 'pending' : 'error'}">${report.status}</span></td>
@@ -3547,7 +3547,7 @@ async function refreshWellnessData() {
             document.getElementById('wellness-schedule-count').textContent = schedD.schedules.length + ' schedules';
 
             const html = schedD.schedules.map(s => {
-                const nextRun = s.next_run ? new Date(s.next_run).toLocaleString('he-IL') : '--';
+                const nextRun = s.next_run ? new Date(s.next_run).toLocaleString('he-IL') : '0';
                 const taskCount = s.task_ids ? JSON.parse(s.task_ids).length : 0;
                 return '<tr><td>' + s.name + '</td><td>' + s.type + '</td><td>' + nextRun + '</td><td>' + taskCount + ' tasks</td><td><span class="badge ' + (s.enabled ? 'live' : 'pending') + '">' + (s.enabled ? 'Active' : 'Disabled') + '</span></td></tr>';
             }).join('');
