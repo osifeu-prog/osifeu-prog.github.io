@@ -134,15 +134,15 @@
                       "Title":  "Windows Agent — Task Scheduler",
                       "Status":  "done",
                       "Created":  "2026-06-24T22:36:38.3176268+03:00",
-                      "Updated":  "2026-06-24T22:40:06.9073598+03:00"
+                      "Updated":  "2026-06-24T22:56:03.7386654+03:00"
                   },
                   {
                       "Id":  18,
                       "Category":  "Integration",
                       "Title":  "Termux Agent — /dashboard command",
-                      "Status":  "pending",
+                      "Status":  "done",
                       "Created":  "2026-06-24T22:36:38.3645842+03:00",
-                      "Updated":  "2026-06-24T22:36:38.3645842+03:00"
+                      "Updated":  "2026-06-24T22:56:03.8867837+03:00"
                   },
                   {
                       "Id":  19,
@@ -150,12 +150,12 @@
                       "Title":  "Verification checklist",
                       "Status":  "done",
                       "Created":  "2026-06-24T22:36:38.7007233+03:00",
-                      "Updated":  "2026-06-24T22:40:07.0586495+03:00"
+                      "Updated":  "2026-06-24T22:56:03.9121408+03:00"
                   }
               ],
     "Progress":  {
                      "DaysPassed":  0,
                      "StartDate":  "2026-06-24",
-                     "TasksCompleted":  17
+                     "TasksCompleted":  18
                  }
 }
