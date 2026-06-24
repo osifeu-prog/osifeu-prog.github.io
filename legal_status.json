@@ -116,9 +116,9 @@
                       "Id":  15,
                       "Category":  "Next Phase",
                       "Title":  "Build Dashboard",
-                      "Status":  "in-progress",
+                      "Status":  "done",
                       "Created":  "2026-06-24T22:09:40.1623835+03:00",
-                      "Updated":  "2026-06-24T22:09:42.2789595+03:00"
+                      "Updated":  "2026-06-25T00:06:07.6440549+03:00"
                   },
                   {
                       "Id":  16,
@@ -154,8 +154,8 @@
                   }
               ],
     "Progress":  {
-                     "DaysPassed":  0,
+                     "DaysPassed":  1,
                      "StartDate":  "2026-06-24",
-                     "TasksCompleted":  18
+                     "TasksCompleted":  19
                  }
 }
