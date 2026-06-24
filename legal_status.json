@@ -132,9 +132,9 @@
                       "Id":  17,
                       "Category":  "Integration",
                       "Title":  "Windows Agent — Task Scheduler",
-                      "Status":  "pending",
+                      "Status":  "done",
                       "Created":  "2026-06-24T22:36:38.3176268+03:00",
-                      "Updated":  "2026-06-24T22:36:38.3176268+03:00"
+                      "Updated":  "2026-06-24T22:40:06.9073598+03:00"
                   },
                   {
                       "Id":  18,
@@ -148,14 +148,14 @@
                       "Id":  19,
                       "Category":  "Integration",
                       "Title":  "Verification checklist",
-                      "Status":  "pending",
+                      "Status":  "done",
                       "Created":  "2026-06-24T22:36:38.7007233+03:00",
-                      "Updated":  "2026-06-24T22:36:38.7007233+03:00"
+                      "Updated":  "2026-06-24T22:40:07.0586495+03:00"
                   }
               ],
     "Progress":  {
                      "DaysPassed":  0,
                      "StartDate":  "2026-06-24",
-                     "TasksCompleted":  15
+                     "TasksCompleted":  17
                  }
 }
