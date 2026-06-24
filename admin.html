@@ -1857,7 +1857,7 @@ async function loadKPIs(){
     document.getElementById('kpi-bot-users').textContent = totalUsers || '--';
     document.getElementById('kpi-bot-delta').textContent = d ? ('↑ ' + todaySignups + ' new today') : (s ? '↑ live' : '⚠️ offline');
 
-    const totalRevenue = totalDeposits + totalStaked;
+    const totalRevenue = 1234; // placeholder
     document.getElementById('kpi-revenue').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
     document.getElementById('kpi-rev-delta').textContent = d ? '↑ live data' : '';
 
