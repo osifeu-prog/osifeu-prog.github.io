@@ -1,25 +1,129 @@
 {
-    "MVP":  {
-                "PDF Engine":  "done",
-                "OCR":  "done",
-                "AI Summary":  "done",
-                "Risk Detection":  "done",
-                "Clause Extraction":  "done",
-                "Report Generator":  "done",
-                "Share System":  "done",
-                "Contact Buttons":  "done",
-                "Landing Page":  "done",
-                "User Feedback":  "done"
-            },
-    "System":  {
-                   "Poppler Installed":  "ok",
-                   "Tesseract Installed":  "ok",
-                   "API Keys Configured":  "ok",
-                   "Word Export Working":  "ok"
-               },
+    "Tasks":  [
+                  {
+                      "Id":  1,
+                      "Category":  "MVP",
+                      "Title":  "PDF Engine",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5942165+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5942165+03:00"
+                  },
+                  {
+                      "Id":  2,
+                      "Category":  "MVP",
+                      "Title":  "OCR",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5942165+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5942165+03:00"
+                  },
+                  {
+                      "Id":  3,
+                      "Category":  "MVP",
+                      "Title":  "AI Summary",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  4,
+                      "Category":  "MVP",
+                      "Title":  "Risk Detection",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  5,
+                      "Category":  "MVP",
+                      "Title":  "Clause Extraction",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  6,
+                      "Category":  "MVP",
+                      "Title":  "Report Generator",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  7,
+                      "Category":  "MVP",
+                      "Title":  "Share System",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  8,
+                      "Category":  "MVP",
+                      "Title":  "Contact Buttons",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
+                  },
+                  {
+                      "Id":  9,
+                      "Category":  "MVP",
+                      "Title":  "Landing Page",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5962123+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5962123+03:00"
+                  },
+                  {
+                      "Id":  10,
+                      "Category":  "MVP",
+                      "Title":  "User Feedback",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.5962123+03:00",
+                      "Updated":  "2026-06-24T22:09:28.5962123+03:00"
+                  },
+                  {
+                      "Id":  11,
+                      "Category":  "System",
+                      "Title":  "Poppler Installed",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
+                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
+                  },
+                  {
+                      "Id":  12,
+                      "Category":  "System",
+                      "Title":  "Tesseract Installed",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
+                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
+                  },
+                  {
+                      "Id":  13,
+                      "Category":  "System",
+                      "Title":  "API Keys Configured",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
+                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
+                  },
+                  {
+                      "Id":  14,
+                      "Category":  "System",
+                      "Title":  "Word Export Working",
+                      "Status":  "done",
+                      "Created":  "2026-06-24T22:09:28.7560733+03:00",
+                      "Updated":  "2026-06-24T22:09:28.7560733+03:00"
+                  },
+                  {
+                      "Id":  15,
+                      "Category":  "Next Phase",
+                      "Title":  "Build Dashboard",
+                      "Status":  "in-progress",
+                      "Created":  "2026-06-24T22:09:40.1623835+03:00",
+                      "Updated":  "2026-06-24T22:09:42.2789595+03:00"
+                  }
+              ],
     "Progress":  {
-                     "StartDate":  "2026-06-24",
                      "DaysPassed":  0,
-                     "TasksCompleted":  10
+                     "StartDate":  "2026-06-24",
+                     "TasksCompleted":  14
                  }
 }
