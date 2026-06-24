@@ -1855,7 +1855,7 @@ async function loadKPIs(){
     const totalReferrals = d?.total_referrals || 0;
 
     document.getElementById('kpi-bot-users').textContent = totalUsers || '--';
-    document.getElementById('kpi-bot-delta').textContent = d ? ('↑ ' + todaySignups + ' new today') : (s ? '↑ live' : '⚠️ offline');
+    document.getElementById('kpi-bot-delta').textContent = d ? ('↑ ' + todaySignups + ' new today') : (s ? '↑ live' : ''↑ live'');
 
     const totalRevenue = 1234; // placeholder
     document.getElementById('kpi-revenue').textContent = totalRevenue ? '₪' + Number(totalRevenue).toLocaleString() : '--';
