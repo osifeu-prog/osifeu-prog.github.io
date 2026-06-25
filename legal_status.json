@@ -1,161 +1,42 @@
 {
-    "Tasks":  [
-                  {
-                      "Id":  1,
-                      "Category":  "MVP",
-                      "Title":  "PDF Engine",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5942165+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5942165+03:00"
-                  },
-                  {
-                      "Id":  2,
-                      "Category":  "MVP",
-                      "Title":  "OCR",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5942165+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5942165+03:00"
-                  },
-                  {
-                      "Id":  3,
-                      "Category":  "MVP",
-                      "Title":  "AI Summary",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  4,
-                      "Category":  "MVP",
-                      "Title":  "Risk Detection",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  5,
-                      "Category":  "MVP",
-                      "Title":  "Clause Extraction",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  6,
-                      "Category":  "MVP",
-                      "Title":  "Report Generator",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  7,
-                      "Category":  "MVP",
-                      "Title":  "Share System",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  8,
-                      "Category":  "MVP",
-                      "Title":  "Contact Buttons",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5952158+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5952158+03:00"
-                  },
-                  {
-                      "Id":  9,
-                      "Category":  "MVP",
-                      "Title":  "Landing Page",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5962123+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5962123+03:00"
-                  },
-                  {
-                      "Id":  10,
-                      "Category":  "MVP",
-                      "Title":  "User Feedback",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.5962123+03:00",
-                      "Updated":  "2026-06-24T22:09:28.5962123+03:00"
-                  },
-                  {
-                      "Id":  11,
-                      "Category":  "System",
-                      "Title":  "Poppler Installed",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
-                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
-                  },
-                  {
-                      "Id":  12,
-                      "Category":  "System",
-                      "Title":  "Tesseract Installed",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
-                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
-                  },
-                  {
-                      "Id":  13,
-                      "Category":  "System",
-                      "Title":  "API Keys Configured",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.7550745+03:00",
-                      "Updated":  "2026-06-24T22:09:28.7550745+03:00"
-                  },
-                  {
-                      "Id":  14,
-                      "Category":  "System",
-                      "Title":  "Word Export Working",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:28.7560733+03:00",
-                      "Updated":  "2026-06-24T22:09:28.7560733+03:00"
-                  },
-                  {
-                      "Id":  15,
-                      "Category":  "Next Phase",
-                      "Title":  "Build Dashboard",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:09:40.1623835+03:00",
-                      "Updated":  "2026-06-25T00:06:07.6440549+03:00"
-                  },
-                  {
-                      "Id":  16,
-                      "Category":  "Integration",
-                      "Title":  "SLH Sync Script",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:36:38.2727171+03:00",
-                      "Updated":  "2026-06-24T22:36:38.2727171+03:00"
-                  },
-                  {
-                      "Id":  17,
-                      "Category":  "Integration",
-                      "Title":  "Windows Agent — Task Scheduler",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:36:38.3176268+03:00",
-                      "Updated":  "2026-06-24T22:56:03.7386654+03:00"
-                  },
-                  {
-                      "Id":  18,
-                      "Category":  "Integration",
-                      "Title":  "Termux Agent — /dashboard command",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:36:38.3645842+03:00",
-                      "Updated":  "2026-06-24T22:56:03.8867837+03:00"
-                  },
-                  {
-                      "Id":  19,
-                      "Category":  "Integration",
-                      "Title":  "Verification checklist",
-                      "Status":  "done",
-                      "Created":  "2026-06-24T22:36:38.7007233+03:00",
-                      "Updated":  "2026-06-24T22:56:03.9121408+03:00"
-                  }
-              ],
-    "Progress":  {
-                     "DaysPassed":  1,
-                     "StartDate":  "2026-06-24",
-                     "TasksCompleted":  19
-                 }
+  "Project": "SLH_OS",
+  "Created": "2026-06-25",
+  "Tasks": [],
+  "Archived": [
+    {
+      "Title": "Deploy bot to Railway cloud (24/7)",
+      "Category": "Infrastructure",
+      "Status": "done",
+      "Priority": "critical",
+      "Updated": "2026-06-25T21:49:25.939929"
+    },
+    {
+      "Title": "Connect GitHub to Railway for auto-deploy",
+      "Category": "Infrastructure",
+      "Status": "done",
+      "Priority": "high",
+      "Updated": "2026-06-25T21:49:28.945063"
+    },
+    {
+      "Title": "Send client package to lawyer friend",
+      "Category": "Marketing",
+      "Status": "done",
+      "Priority": "high",
+      "Updated": "2026-06-25T21:49:31.948230"
+    },
+    {
+      "Title": "Test bot commands after cloud deployment",
+      "Category": "Testing",
+      "Status": "done",
+      "Priority": "high",
+      "Updated": "2026-06-25T21:49:34.952476"
+    },
+    {
+      "Title": "Create SLH Local Agent (Termux → GitHub sync)",
+      "Category": "DevOps",
+      "Status": "done",
+      "Priority": "medium",
+      "Updated": "2026-06-25T21:49:37.959196"
+    }
+  ]
 }

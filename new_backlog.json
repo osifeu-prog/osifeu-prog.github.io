@@ -1,0 +1,36 @@
+{
+  "Project": "SLH_OS",
+  "Created": "2026-06-25",
+  "Tasks": [
+    {
+      "Title": "Implement /status",
+      "Category": "Bot",
+      "Status": "todo",
+      "Priority": "high"
+    },
+    {
+      "Title": "Implement /dashboard",
+      "Category": "Bot",
+      "Status": "todo",
+      "Priority": "high"
+    },
+    {
+      "Title": "Fix /agents Markdown crash",
+      "Category": "Bot",
+      "Status": "todo",
+      "Priority": "critical"
+    },
+    {
+      "Title": "Add bot logging",
+      "Category": "System",
+      "Status": "todo",
+      "Priority": "high"
+    },
+    {
+      "Title": "Create agent heartbeat system",
+      "Category": "Agents",
+      "Status": "todo",
+      "Priority": "medium"
+    }
+  ]
+}
