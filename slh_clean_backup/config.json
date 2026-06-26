@@ -1,0 +1,7 @@
+{
+  "BOT_TOKEN": "8737037440:AAEpMiWVEo4eMuXNAdDcI5_t2l79uFjrky8",
+  "SUPER_ADMIN": 8789977826,
+  "SITE_DIR": "/data/data/com.termux/files/home/site",
+  "DB_FILE": "/data/data/com.termux/files/home/slh_clean/db.json",
+  "VERSION": "1.0-CLEAN"
+}
