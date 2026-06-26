@@ -1,0 +1,116 @@
+{
+  "PROJECT": "SLH_REVENUE_SYSTEM",
+  "GOAL": "₪10,000/day recurring revenue",
+  "VERSION": "1.0-LOCKED",
+  "CREATED": "2026-06-26T10:00:00Z",
+  "STATUS": "PRODUCTION",
+  
+  "REVENUE_MODEL": {
+    "type": "COMMISSION_ON_INVESTMENT_MANAGEMENT",
+    "description": "Partner manages investor portfolios, SLH takes commission",
+    "metrics": {
+      "assets_under_management": "₪500,000",
+      "commission_rate": "0.02",
+      "daily_revenue_target": "₪10,000",
+      "required_aum": "₪500,000",
+      "current_aum": "₪0",
+      "gap": "₪500,000"
+    }
+  },
+  
+  "CRITICAL_REQUIREMENTS": [
+    "Bot must SURVIVE restart (24/7 uptime)",
+    "Revenue tracking MUST persist across reboots",
+    "All data committed to Git (source of truth)",
+    "Daily report sent to partner email",
+    "No data loss on power failure"
+  ],
+  
+  "INFRASTRUCTURE": {
+    "termux_bot": {
+      "status": "running",
+      "pid": 17486,
+      "command": "python3 ~/bot.py > ~/bot.log 2>&1 &",
+      "persistence": "systemd/cron (TBD)"
+    },
+    "github": {
+      "repo": "osifeu-prog/osifeu-prog.github.io",
+      "master_file": "MASTER.json",
+      "sync_frequency": "hourly"
+    },
+    "railway": {
+      "status": "ready_for_deployment",
+      "procfile": "web: python3 bot.py",
+      "env_vars": ["BOT_TOKEN"]
+    }
+  },
+  
+  "PARTNER_INFO": {
+    "name": "TBD",
+    "telegram_id": "TBD",
+    "role": "Investment portfolio manager",
+    "employees": 700,
+    "assets_managed": "₪500,000+",
+    "contact": "TBD@email.com"
+  },
+  
+  "TASKS_TODAY": [
+    {
+      "id": "T001",
+      "title": "Make MASTER.json the source of truth",
+      "owner": "Osif",
+      "status": "IN_PROGRESS",
+      "critical": true
+    },
+    {
+      "id": "T002", 
+      "title": "Bot survives restart without data loss",
+      "owner": "Claude (Infrastructure)",
+      "status": "PENDING",
+      "critical": true
+    },
+    {
+      "id": "T003",
+      "title": "Deploy to Railway (24/7 uptime)",
+      "owner": "Osif",
+      "status": "READY",
+      "critical": true
+    },
+    {
+      "id": "T004",
+      "title": "Connect partner to dashboard",
+      "owner": "Osif",
+      "status": "PENDING",
+      "critical": true
+    },
+    {
+      "id": "T005",
+      "title": "Auto-generate daily revenue report",
+      "owner": "Claude (Bot Integration)",
+      "status": "PENDING",
+      "critical": true
+    }
+  ],
+  
+  "PERMANENT_COMMANDS": {
+    "/revenue": "Show daily revenue + target + gap",
+    "/partner_status": "Show partner's portfolio AUM",
+    "/sync": "Force Git sync (pull + push MASTER.json)",
+    "/restart_safe": "Restart bot without losing state",
+    "/daily_report": "Email report to partner"
+  },
+  
+  "BACKUP_STRATEGY": {
+    "local": "Git commits every hour",
+    "cloud": "Railway (automatic)",
+    "email": "Daily digest to partner + you"
+  },
+  
+  "NEVER_DELETE": [
+    "MASTER.json (source of truth)",
+    ".git folder (version history)",
+    "bot.log (audit trail)",
+    "revenue_history.json (metrics)",
+    "partner_contract.json (legal)"
+  ]
+}
