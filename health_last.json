@@ -1,0 +1,73 @@
+{
+    "Timestamp":  "2026-06-25T21:51:03.5520927+03:00",
+    "Metrics":  {
+                    "PdfReadMs":  2044
+                },
+    "Results":  [
+                    {
+                        "Name":  "LegalAssistantPro.ps1",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.1967666+03:00"
+                    },
+                    {
+                        "Name":  "LegalAssistantPro.exe",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3117458+03:00"
+                    },
+                    {
+                        "Name":  "project_status folder",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3117458+03:00"
+                    },
+                    {
+                        "Name":  "tasks.json",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3117458+03:00"
+                    },
+                    {
+                        "Name":  "System.Windows.Forms",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3117458+03:00"
+                    },
+                    {
+                        "Name":  "System.Drawing",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3117458+03:00"
+                    },
+                    {
+                        "Name":  "Microsoft.VisualBasic",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3223347+03:00"
+                    },
+                    {
+                        "Name":  "pdftotext.exe",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3223347+03:00"
+                    },
+                    {
+                        "Name":  "tesseract.exe",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:50:56.3223347+03:00"
+                    },
+                    {
+                        "Name":  "Word COM",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:51:01.4945873+03:00"
+                    },
+                    {
+                        "Name":  "At least 1 API key",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:51:01.4975895+03:00"
+                    },
+                    {
+                        "Name":  "PDF read test",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:51:03.5470921+03:00"
+                    },
+                    {
+                        "Name":  "Report creation",
+                        "Success":  true,
+                        "Timestamp":  "2026-06-25T21:51:03.5510939+03:00"
+                    }
+                ]
+}
