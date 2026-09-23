@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -1660,9 +1660,10 @@
 
     async function apiPost(path, body) {
         try {
+            const initData = (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) || '';
             const r = await fetch(API + path, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json', 'X-Telegram-Init-Data': initData},
                 body: JSON.stringify(body)
             });
             if (!r.ok) {
